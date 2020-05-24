@@ -1,0 +1,15 @@
+.navbar-item a
+{
+    font-size: 14px;
+    color: grey;
+}
+
+.navbar-item .button
+{
+    color: white;
+}
+
+.title
+{
+    font-size: 35px;
+}

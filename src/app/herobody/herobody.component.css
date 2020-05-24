@@ -1,0 +1,36 @@
+.hero-body
+{
+    background-image: url("../../assets/img/atelier.jpg");
+}
+
+.container
+{
+    background: rgba(30,30,30,0.5);
+    padding: 30px
+}
+
+.box
+{
+    background: rgba(0,0,0,0);
+    color: white;
+}
+
+.title
+{
+    font-size: 50px;
+}
+
+.subtitle
+{
+    font-size: 30px;
+}
+
+.title, .subtitle, p
+{
+    color: white;
+}
+
+p
+{
+    font-size: 22px;
+}
