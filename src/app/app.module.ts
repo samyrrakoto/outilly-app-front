@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/menu.component';
-import { HeroComponent } from './hero/hero.component';
-import { HeroheadComponent } from './herohead/herohead.component';
-import { HerobodyComponent } from './herobody/herobody.component';
-import { NoticeComponent } from './notice/notice.component';
-import { ProductsComponent } from './products/products.component';
+import { MenuComponent } from './header/hero/herohead/menu/menu.component';
+import { HeroComponent } from './header/hero/hero.component';
+import { HeroheadComponent } from './header/hero/herohead/herohead.component';
+import { HerobodyComponent } from './header/hero/herobody/herobody.component';
+import { NoticeComponent } from './header/notice/notice.component';
+import { ProductsComponent } from './content/homepage/products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
