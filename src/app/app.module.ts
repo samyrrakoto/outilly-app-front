@@ -10,11 +10,11 @@ import { HerobodyComponent } from './header/hero/herobody/herobody.component';
 import { NoticeComponent } from './header/notice/notice.component';
 import { ProductsComponent } from './content/homepage/products/products.component';
 import { FooterComponent } from './footer/footer.component';
-import { SearchComponent } from './content/homepage/search/search.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { HomepageComponent } from './content/homepage/homepage.component';
+import { SearchComponent } from './search/search.component';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 @NgModule({
   declarations: [
@@ -26,10 +26,7 @@ import { HomepageComponent } from './content/homepage/homepage.component';
     NoticeComponent,
     ProductsComponent,
     FooterComponent,
-    SearchComponent,
-    HeaderComponent,
-    ContentComponent,
-    HomepageComponent
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -39,4 +36,9 @@ import { HomepageComponent } from './content/homepage/homepage.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    library.addIconPacks(fas, far, fab);
+  }
+}
