@@ -1,11 +1,12 @@
 .hero-body
 {
-    background-image: url("../../assets/img/atelier.jpg");
+    background-image: url("../../assets/img/atelier75.jpg");
+    margin-bottom: 50px;
 }
 
 .container
 {
-    background: rgba(30,30,30,0.5);
+    background: rgba(30,30,30,0.75);
     padding: 30px
 }
 
@@ -25,9 +26,14 @@
     font-size: 30px;
 }
 
-.title, .subtitle, p
+.title, .subtitle, p, a
 {
     color: white;
+}
+
+#brandName
+{
+    color:#E35557;
 }
 
 p

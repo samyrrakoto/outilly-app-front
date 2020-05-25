@@ -1,3 +1,8 @@
+.navbar
+{
+    margin-bottom: 20px;
+}
+
 .navbar-item a
 {
     font-size: 14px;
@@ -12,4 +17,9 @@
 .title
 {
     font-size: 35px;
+}
+
+#brandName
+{
+    color:#E35557;
 }

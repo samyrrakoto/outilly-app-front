@@ -10,6 +10,8 @@ import { HerobodyComponent } from './herobody/herobody.component';
 import { NoticeComponent } from './notice/notice.component';
 import { ProductsComponent } from './products/products.component';
 import { FooterComponent } from './footer/footer.component';
+import { SearchComponent } from './search/search.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { FooterComponent } from './footer/footer.component';
     HerobodyComponent,
     NoticeComponent,
     ProductsComponent,
-    FooterComponent
+    FooterComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
