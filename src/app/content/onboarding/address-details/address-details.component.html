@@ -1,0 +1,28 @@
+<h2 class="subtitle">Adresse</h2>
+
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">Pays</label>
+        <input class="input" type="text" [ngModel]="addressDetails?.country" #lastName>
+    </div>
+
+    <div class="field">
+        <label class="label">Adresse</label>
+        <input class="input" type="text" [ngModel]="addressDetails?.street" #lastName>
+    </div>
+
+    <div class="field">
+        <label class="label">Code postal</label>
+        <input class="input" type="text" [ngModel]="addressDetails?.zipCode" #lastName>
+    </div>
+</div>
+
+<div class="field is-grouped">
+    <p class="control">
+        <input class="button is-dark" type="button" value="Etape précédente" routerLink="../personaldetails">
+    </p>
+
+    <p class="control">
+        <input class="button is-dark" type="button" value="C'est fini !" (click)="submit()" routerLink="../validation">
+    </p>
+</div>
