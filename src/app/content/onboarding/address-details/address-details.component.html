@@ -3,17 +3,17 @@
 <div class="content has-text-left">
     <div class="field">
         <label class="label">Pays</label>
-        <input class="input" type="text" [ngModel]="addressDetails?.country" #lastName>
+        <input class="input" type="text" [(ngModel)]="addressDetails.country" #lastName>
     </div>
 
     <div class="field">
-        <label class="label">Adresse</label>
-        <input class="input" type="text" [ngModel]="addressDetails?.street" #lastName>
+        <label class="label">Voie</label>
+        <input class="input" type="text" [(ngModel)]="addressDetails.street" #lastName>
     </div>
 
     <div class="field">
         <label class="label">Code postal</label>
-        <input class="input" type="text" [ngModel]="addressDetails?.zipCode" #lastName>
+        <input class="input" type="text" [(ngModel)]="addressDetails.zipCode" #lastName>
     </div>
 </div>
 

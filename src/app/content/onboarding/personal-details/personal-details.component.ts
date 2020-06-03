@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { PersonalDetails } from '../../../models/personal-details';
-import { OnboardingComponent } from '../onboarding.component';
 
 @Component({
   selector: 'app-personal-details',

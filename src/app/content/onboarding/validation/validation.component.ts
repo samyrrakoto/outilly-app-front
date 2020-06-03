@@ -10,7 +10,6 @@ export class ValidationComponent implements OnInit {
 
   constructor(public formDataService : FormDataService)
   {
-    this.formDataService.personalDetails.firstName;
   }
 
   ngOnInit(): void {

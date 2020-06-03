@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressDetails } from '../../../models/address-details';
 import { FormDataService } from '../../../services/form-data.service';
-import { OnboardingComponent } from '../onboarding.component';
 
 @Component({
   selector: 'app-address-details',
