@@ -13,5 +13,6 @@ export class LastNameComponent extends PersonalDetailsComponent {
   constructor(public formDataService : FormDataService, public router : Router)
   {
     super(formDataService, router);
+    this.personalDetails = formDataService.personalDetails;
   }
 }

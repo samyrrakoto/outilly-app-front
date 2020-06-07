@@ -14,7 +14,6 @@ export class AddressDetailsComponent implements OnInit {
 
   constructor(public formDataService : FormDataService, public router : Router)
   {
-    this.addressDetails = formDataService.addressDetails;
   }
 
   ngOnInit()

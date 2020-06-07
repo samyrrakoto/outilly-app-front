@@ -3,11 +3,11 @@
         <label class="label">7. Pays</label>
         <div class="control has-icons-left">
             <div class="select is-hovered">
-                <select>
-                    <option selected>France</option>
-                    <option>Belgique</option>
-                    <option>Suisse</option>
-                    <option>Luxembourg</option>
+                <select [(ngModel)]="addressDetails.country">
+                    <option value="france" selected>France</option>
+                    <option value="belgium">Belgique</option>
+                    <option value="switzerland">Suisse</option>
+                    <option value="luxemburg">Luxembourg</option>
                 </select>
             </div>
 

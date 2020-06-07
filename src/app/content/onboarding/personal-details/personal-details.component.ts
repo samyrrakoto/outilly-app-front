@@ -14,7 +14,6 @@ export class PersonalDetailsComponent implements OnInit {
 
   constructor(public formDataService : FormDataService, public router : Router)
   {
-    this.personalDetails = formDataService.personalDetails;
   }
 
   ngOnInit(): void {

@@ -13,5 +13,6 @@ export class StatusComponent extends PersonalDetailsComponent {
   constructor(public formDataService : FormDataService, public router : Router)
   {
     super(formDataService, router);
+    this.personalDetails = formDataService.personalDetails;
   }
 }

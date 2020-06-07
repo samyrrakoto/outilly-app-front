@@ -22,6 +22,7 @@ import { OnboardingComponent } from './content/onboarding/onboarding.component';
 import { PersonalDetailsComponent } from './content/onboarding/personal-details/personal-details.component';
 import { AddressDetailsComponent } from './content/onboarding/address-details/address-details.component';
 import { ValidationComponent } from './content/onboarding/validation/validation.component';
+import { PseudoComponent } from './content/onboarding/personal-details/pseudo/pseudo.component';
 import { FirstNameComponent } from './content/onboarding/personal-details/first-name/first-name.component';
 import { LastNameComponent } from './content/onboarding/personal-details/last-name/last-name.component';
 import { EmailComponent } from './content/onboarding/personal-details/email/email.component';
@@ -50,6 +51,7 @@ import { StreetComponent } from './content/onboarding/address-details/street/str
     PersonalDetailsComponent,
     AddressDetailsComponent,
     ValidationComponent,
+    PseudoComponent,
     FirstNameComponent,
     LastNameComponent,
     EmailComponent,

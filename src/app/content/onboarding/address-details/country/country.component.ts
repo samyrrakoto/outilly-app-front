@@ -13,5 +13,6 @@ export class CountryComponent extends AddressDetailsComponent {
   constructor(public formDataService : FormDataService, public router : Router)
   {
     super(formDataService, router);
+    this.addressDetails = formDataService.addressDetails;
   }
 }

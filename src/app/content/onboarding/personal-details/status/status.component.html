@@ -4,11 +4,11 @@
 
         <div class="control">
             <label class="radio">
-            <input type="radio" name="status">
+            <input [(ngModel)]="personalDetails.status" value="individual" type="radio" name="status">
             Particulier
             </label>
             <label class="radio">
-            <input type="radio" name="status">
+            <input [(ngModel)]="personalDetails.status" value="professional" type="radio" name="status">
             Professionnel
             </label>
         </div>
