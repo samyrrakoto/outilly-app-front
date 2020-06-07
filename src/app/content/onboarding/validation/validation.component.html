@@ -1,9 +1,15 @@
-<h1 class="subtitle">
-    C'est déjà fini {{ this.formDataService.personalDetails.pseudo }} ! ;)
-    <br>
-    Alors comme ça vous êtes un(e) {{ this.formDataService.personalDetails.gender}} ?
-    <br>
-    Et puis vous êtes un(e) {{ this.formDataService.personalDetails.status}} ?
-    <br>
-    Oh et vous habitez en {{ this.formDataService.addressDetails.country }} !
-</h1>
+<h1 class="subtitle">Vos données :</h1>
+
+Nom d'utilisateur : {{ this.formDataService.user.username }} <br>
+E-mail : {{ this.formDataService.user.userProfile.email }} <br>
+Prénom : {{ this.formDataService.user.userProfile.firstName }} <br>
+Nom : {{ this.formDataService.user.userProfile.lastName }} <br>
+Sexe : {{ this.formDataService.user.userProfile.gender }} <br>
+Statut : {{ this.formDataService.user.userProfile.type }} <br>
+<br>
+Pays : {{ this.formDataService.user.userProfile.address.country }} <br>
+Code postal : {{ this.formDataService.user.userProfile.address.zipcode }} <br>
+Ville : {{ this.formDataService.user.userProfile.address.city }} <br>
+Voie : {{ this.formDataService.user.userProfile.address.line1 }} <br>
+
+<button (click)="console()">Structure de l'objet</button>

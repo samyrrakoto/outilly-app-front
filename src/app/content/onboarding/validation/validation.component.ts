@@ -14,4 +14,10 @@ export class ValidationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  console()
+  {
+    let data = JSON.stringify(this.formDataService);
+    console.log(data);
+  }
 }

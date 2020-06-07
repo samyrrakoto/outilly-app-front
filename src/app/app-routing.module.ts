@@ -14,6 +14,7 @@ import { StatusComponent } from './content/onboarding/personal-details/status/st
 import { CountryComponent } from './content/onboarding/address-details/country/country.component';
 import { ZipcodeComponent } from './content/onboarding/address-details/zipcode/zipcode.component';
 import { CityComponent } from './content/onboarding/address-details/city/city.component';
+import { StreetComponent } from './content/onboarding/address-details/street/street.component';
 
 const routes: Routes = [
   {
@@ -29,61 +30,47 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path:"", redirectTo: 'personaldetails', pathMatch: 'full'
+        path:"", redirectTo: 'pseudo', pathMatch: 'full'
       },
       {
-        path:"personaldetails",
-        component: PersonalDetailsComponent,
-        children: [
-          {
-            path:"", redirectTo: 'pseudo', pathMatch: 'full'
-          },
-          {
-            path:"pseudo",
-            component: PseudoComponent
-          },
-          {
-            path:"email",
-            component: EmailComponent
-          },
-          {
-            path:"firstname",
-            component: FirstNameComponent
-          },
-          {
-            path:"lastname",
-            component: LastNameComponent
-          },
-          {
-            path:"gender",
-            component: GenderComponent
-          },
-          {
-            path:"status",
-            component: StatusComponent
-          }
-        ]
+        path:"pseudo",
+        component: PseudoComponent
       },
       {
-        path:"addressdetails",
-        component: AddressDetailsComponent,
-        children: [
-          {
-            path:"", redirectTo:"country", pathMatch:"full"
-          },
-          {
-            path:"country",
-            component: CountryComponent
-          },
-          {
-            path:"zipcode",
-            component: ZipcodeComponent
-          },
-          {
-            path:"city",
-            component: CityComponent
-          }
-        ]
+        path:"email",
+        component: EmailComponent
+      },
+      {
+        path:"firstname",
+        component: FirstNameComponent
+      },
+      {
+        path:"lastname",
+        component: LastNameComponent
+      },
+      {
+        path:"gender",
+        component: GenderComponent
+      },
+      {
+        path:"status",
+        component: StatusComponent
+      },
+      {
+        path:"country",
+        component: CountryComponent
+      },
+      {
+        path:"zipcode",
+        component: ZipcodeComponent
+      },
+      {
+        path:"city",
+        component: CityComponent
+      },
+      {
+        path:"street",
+        component: StreetComponent
       },
       {
         path:"validation",

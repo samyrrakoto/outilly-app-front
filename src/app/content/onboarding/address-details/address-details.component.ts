@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { AddressDetails } from '../../../models/address-details';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-address-details',
@@ -9,17 +9,17 @@ import { AddressDetails } from '../../../models/address-details';
   styleUrls: ['./address-details.component.css']
 })
 export class AddressDetailsComponent implements OnInit {
-  addressDetails : AddressDetails;
+  address: Address;
   readonly root = "onboarding/addressdetails/";
 
-  constructor(public formDataService : FormDataService, public router : Router)
+  constructor(public formDataService: FormDataService, public router: Router)
   {
   }
 
   ngOnInit()
   {}
 
-  goTo(route : string)
+  goTo(route: string)
   {
     let path = this.root + route;
     this.router.navigateByUrl(path);
@@ -33,10 +33,5 @@ export class AddressDetailsComponent implements OnInit {
   nextPart()
   {
     this.router.navigateByUrl("onboarding/validation");
-  }
-
-  submit()
-  {
-    this.formDataService.postData();
   }
 }

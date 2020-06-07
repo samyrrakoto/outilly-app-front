@@ -4,11 +4,11 @@
 
         <div class="control">
             <label class="radio">
-            <input [(ngModel)]="personalDetails.status" value="individual" type="radio" name="status">
+            <input [(ngModel)]="user.userProfile.type" value="individual" type="radio" name="status">
             Particulier
             </label>
             <label class="radio">
-            <input [(ngModel)]="personalDetails.status" value="professional" type="radio" name="status">
+            <input [(ngModel)]="user.userProfile.type" value="professional" type="radio" name="status">
             Professionnel
             </label>
         </div>
@@ -20,6 +20,6 @@
         <input class="button is-dark" value="Précédent" type="button" (click)="goTo('gender')"/>
     </p>
     <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="nextPart()"/>
+        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('country')"/>
     </p>
 </div>

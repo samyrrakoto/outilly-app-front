@@ -32,6 +32,7 @@ import { CountryComponent } from './content/onboarding/address-details/country/c
 import { ZipcodeComponent } from './content/onboarding/address-details/zipcode/zipcode.component';
 import { CityComponent } from './content/onboarding/address-details/city/city.component';
 import { StreetComponent } from './content/onboarding/address-details/street/street.component';
+import { UserComponent } from './content/onboarding/user/user.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { StreetComponent } from './content/onboarding/address-details/street/str
     ZipcodeComponent,
     CityComponent,
     StreetComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

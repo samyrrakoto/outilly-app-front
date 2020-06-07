@@ -3,7 +3,7 @@
         <label class="label">7. Pays</label>
         <div class="control has-icons-left">
             <div class="select is-hovered">
-                <select [(ngModel)]="addressDetails.country">
+                <select [(ngModel)]="user.userProfile.address.country">
                     <option value="france" selected>France</option>
                     <option value="belgium">Belgique</option>
                     <option value="switzerland">Suisse</option>
@@ -20,7 +20,7 @@
 
 <div class="field is-grouped">
     <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="previousPart()"/>
+        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('status')"/>
     </p>
     <p class="control">
         <input class="button is-dark" value="Suivant" type="button" (click)="goTo('zipcode')"/>

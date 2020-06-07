@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
-import { PersonalDetailsComponent } from '../personal-details.component';
 import { Router } from '@angular/router';
+import { UserComponent } from '../../user/user.component';
 
 @Component({
   selector: 'app-last-name',
   templateUrl: './last-name.component.html',
   styleUrls: ['./last-name.component.css']
 })
-export class LastNameComponent extends PersonalDetailsComponent {
+export class LastNameComponent extends UserComponent {
   
   constructor(public formDataService : FormDataService, public router : Router)
   {
     super(formDataService, router);
-    this.personalDetails = formDataService.personalDetails;
+    this.user = formDataService.user;
   }
 }

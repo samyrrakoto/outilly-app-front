@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
-import { PersonalDetails } from '../models/personal-details';
-import { AddressDetails } from '../models/address-details';
+import { Address } from '../models/address';
+import { User } from '../models/user';
+import { UserProfile } from '../models/user-profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormDataService {
-  personalDetails : PersonalDetails;
-  addressDetails : AddressDetails;
+  user: User;
 
   constructor() {
-    this.personalDetails = new PersonalDetails();
-    this.addressDetails = new AddressDetails();
-  }
-
-  postData(){
-    let newCombinedObject = {
-      personalDetails : this.personalDetails, 
-      addressDetails : this.addressDetails
-    }
+    this.user = new User();
   }
 }

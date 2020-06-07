@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { PersonalDetails } from '../../../models/personal-details';
+import { UserProfile } from '../../../models/user-profile';
 
 @Component({
   selector: 'app-personal-details',
@@ -9,7 +9,7 @@ import { PersonalDetails } from '../../../models/personal-details';
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-  personalDetails : PersonalDetails;
+  userProfile : UserProfile;
   readonly root = "onboarding/personaldetails/";
 
   constructor(public formDataService : FormDataService, public router : Router)
