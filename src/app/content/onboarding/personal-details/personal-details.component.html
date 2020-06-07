@@ -1,15 +1,3 @@
 <h2 class="subtitle">Détails personnels</h2>
 
-<div class="content has-text-left">
-    <div class="field">
-        <label class="label">Prénom</label>
-        <input class="input" type="text" [ngModel]="personalDetails?.firstName" #firstName>
-    </div>
-
-    <div class="field">
-        <label class="label">Nom</label>
-        <input class="input" type="text" [ngModel]="personalDetails?.lastName" #lastName>
-    </div>
-</div>
-
-<input class="button is-dark" value="Etape suivante" routerLink="../addressdetails" type="button">
+<router-outlet></router-outlet>

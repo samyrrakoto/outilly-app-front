@@ -1,0 +1,15 @@
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">3. Prénom</label>
+        <input class="input" type="text" placeholder="(ex : Jean-Célestin)" (ngModel)="personalDetails.firstName" #email>
+    </div>
+</div>
+
+<div class="field is-grouped">
+    <p class="control">
+        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('email')"/>
+    </p>
+    <p class="control">
+        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('lastname')"/>
+    </p>
+</div>

@@ -1,0 +1,11 @@
+.input
+{
+    border: solid 0px;
+    border-radius: 0;
+    color: grey;
+}
+
+.input:focus
+{
+    border-bottom: solid 2px grey;
+}

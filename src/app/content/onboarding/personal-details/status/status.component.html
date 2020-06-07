@@ -1,0 +1,25 @@
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">6. Statut</label>
+
+        <div class="control">
+            <label class="radio">
+            <input type="radio" name="status">
+            Particulier
+            </label>
+            <label class="radio">
+            <input type="radio" name="status">
+            Professionnel
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="field is-grouped">
+    <p class="control">
+        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('gender')"/>
+    </p>
+    <p class="control">
+        <input class="button is-dark" value="Suivant" type="button" (click)="nextPart()"/>
+    </p>
+</div>

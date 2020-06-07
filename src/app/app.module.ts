@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './header/hero/herohead/menu/menu.component';
 import { HeaderComponent } from './header/header.component'
 import { HeroComponent } from './header/hero/hero.component';
@@ -22,6 +22,15 @@ import { OnboardingComponent } from './content/onboarding/onboarding.component';
 import { PersonalDetailsComponent } from './content/onboarding/personal-details/personal-details.component';
 import { AddressDetailsComponent } from './content/onboarding/address-details/address-details.component';
 import { ValidationComponent } from './content/onboarding/validation/validation.component';
+import { FirstNameComponent } from './content/onboarding/personal-details/first-name/first-name.component';
+import { LastNameComponent } from './content/onboarding/personal-details/last-name/last-name.component';
+import { EmailComponent } from './content/onboarding/personal-details/email/email.component';
+import { GenderComponent } from './content/onboarding/personal-details/gender/gender.component';
+import { StatusComponent } from './content/onboarding/personal-details/status/status.component';
+import { CountryComponent } from './content/onboarding/address-details/country/country.component';
+import { ZipcodeComponent } from './content/onboarding/address-details/zipcode/zipcode.component';
+import { CityComponent } from './content/onboarding/address-details/city/city.component';
+import { StreetComponent } from './content/onboarding/address-details/street/street.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +49,21 @@ import { ValidationComponent } from './content/onboarding/validation/validation.
     OnboardingComponent,
     PersonalDetailsComponent,
     AddressDetailsComponent,
-    ValidationComponent
+    ValidationComponent,
+    FirstNameComponent,
+    LastNameComponent,
+    EmailComponent,
+    GenderComponent,
+    StatusComponent,
+    CountryComponent,
+    ZipcodeComponent,
+    CityComponent,
+    StreetComponent,
   ],
   imports: [
-    FormsModule,
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
+    AppRoutingModule,    
     FontAwesomeModule
   ],
   providers: [],

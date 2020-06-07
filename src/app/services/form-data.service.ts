@@ -17,9 +17,7 @@ export class FormDataService {
   postData(){
     let newCombinedObject = {
       personalDetails : this.personalDetails, 
-      country : this.addressDetails.country,
-      street : this.addressDetails.street,
-      zipcode : this.addressDetails.zipCode
+      addressDetails : this.addressDetails
     }
   }
 }

@@ -1,0 +1,15 @@
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">9. Ville</label>
+        <input class="input" type="text" placeholder="(ex : Gif-sur-Yvette)" (ngModel)="addressDetails.city" #city>
+    </div>
+</div>
+
+<div class="field is-grouped">
+    <p class="control">
+        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('zipcode')"/>
+    </p>
+    <p class="control">
+        <input class="button is-dark" value="Suivant" type="button" (click)="nextPart()"/>
+    </p>
+</div>

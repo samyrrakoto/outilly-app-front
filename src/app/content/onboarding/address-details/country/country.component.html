@@ -1,0 +1,28 @@
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">7. Pays</label>
+        <div class="control has-icons-left">
+            <div class="select is-hovered">
+                <select>
+                    <option selected>France</option>
+                    <option>Belgique</option>
+                    <option>Suisse</option>
+                    <option>Luxembourg</option>
+                </select>
+            </div>
+
+            <div class="icon is-small is-left">
+                <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="field is-grouped">
+    <p class="control">
+        <input class="button is-dark" value="Précédent" type="button" (click)="previousPart()"/>
+    </p>
+    <p class="control">
+        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('zipcode')"/>
+    </p>
+</div>
