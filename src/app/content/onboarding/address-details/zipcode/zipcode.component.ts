@@ -14,5 +14,8 @@ export class ZipcodeComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 8;
+    this.previousPath = "7/country";
+    this.nextPath = "9/city";
   }
 }

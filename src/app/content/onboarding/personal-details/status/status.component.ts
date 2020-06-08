@@ -14,5 +14,8 @@ export class StatusComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 6;
+    this.previousPath = "5/gender";
+    this.nextPath = "7/country";
   }
 }

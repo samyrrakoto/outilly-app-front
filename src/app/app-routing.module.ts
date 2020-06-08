@@ -30,46 +30,46 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path:"", redirectTo: 'pseudo', pathMatch: 'full'
+        path:"", redirectTo: '1/username', pathMatch: 'full'
       },
       {
-        path:"pseudo",
+        path:"1/username",
         component: PseudoComponent
       },
       {
-        path:"email",
+        path:"2/email",
         component: EmailComponent
       },
       {
-        path:"firstname",
+        path:"3/firstname",
         component: FirstNameComponent
       },
       {
-        path:"lastname",
+        path:"4/lastname",
         component: LastNameComponent
       },
       {
-        path:"gender",
+        path:"5/gender",
         component: GenderComponent
       },
       {
-        path:"status",
+        path:"6/status",
         component: StatusComponent
       },
       {
-        path:"country",
+        path:"7/country",
         component: CountryComponent
       },
       {
-        path:"zipcode",
+        path:"8/zipcode",
         component: ZipcodeComponent
       },
       {
-        path:"city",
+        path:"9/city",
         component: CityComponent
       },
       {
-        path:"street",
+        path:"10/street",
         component: StreetComponent
       },
       {

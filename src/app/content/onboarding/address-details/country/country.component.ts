@@ -14,5 +14,8 @@ export class CountryComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 7;
+    this.previousPath = "6/status";
+    this.nextPath = "8/zipcode";
   }
 }

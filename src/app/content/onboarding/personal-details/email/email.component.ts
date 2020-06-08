@@ -14,5 +14,8 @@ export class EmailComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 2;
+    this.previousPath = "1/username";
+    this.nextPath = "3/firstname";
   }
 }

@@ -15,5 +15,8 @@ export class StreetComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 10;
+    this.previousPath = "9/city";
+    this.nextPath = "validation";
   }
 }

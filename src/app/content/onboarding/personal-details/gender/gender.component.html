@@ -1,6 +1,6 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">5. Sexe</label>
+        <label class="label">{{ step }}. Sexe</label>
     
         <div class="control">
             <label class="radio">
@@ -17,9 +17,9 @@
 
 <div class="field is-grouped">
     <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('lastname')"/>
+        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
     </p>
     <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('status')"/>
+        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
     </p>
 </div>

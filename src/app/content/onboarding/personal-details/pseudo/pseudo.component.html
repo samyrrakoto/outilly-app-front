@@ -1,11 +1,15 @@
 <div class="content has-text-left">
     
     <div class="field">
-        <label class="label">1. Pseudo</label>
-        <input class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" required>        
+        <label class="label">{{ step }}. Nom d'utilisateur</label>
+        <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="5">        
     </div>
 </div>
 
+<div *ngIf="name.errors.minlength">
+    Le nom doit contenir au moins 4 caractères. ;)
+</div>
+
 <p class="control">
-    <input class="button is-dark" value="Suivant" type="button" (click)="goTo('email')"/>
+    <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
 </p>

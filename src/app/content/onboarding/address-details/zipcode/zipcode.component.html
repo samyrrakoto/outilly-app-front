@@ -1,15 +1,15 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">8. Code postal</label>
+        <label class="label">{{ step }}. Code postal</label>
         <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode">
     </div>
 </div>
 
 <div class="field is-grouped">
     <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('country')"/>
+        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
     </p>
     <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('city')"/>
+        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
     </p>
 </div>

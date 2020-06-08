@@ -1,6 +1,6 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">7. Pays</label>
+        <label class="label">{{ step }}. Pays</label>
         <div class="control has-icons-left">
             <div class="select is-hovered">
                 <select [(ngModel)]="user.userProfile.address.country">
@@ -20,9 +20,9 @@
 
 <div class="field is-grouped">
     <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="goTo('status')"/>
+        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
     </p>
     <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="goTo('zipcode')"/>
+        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
     </p>
 </div>

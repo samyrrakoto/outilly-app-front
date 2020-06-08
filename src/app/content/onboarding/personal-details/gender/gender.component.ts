@@ -14,5 +14,8 @@ export class GenderComponent extends UserComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
+    this.step = 5;
+    this.previousPath = "4/lastname";
+    this.nextPath = "6/status";
   }
 }
