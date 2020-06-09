@@ -11,6 +11,7 @@ import { User } from '../../models/user';
 export class OnboardingComponent implements OnInit {
   user: User;
   step: number;
+  currentPath: string;
   previousPath: string;
   nextPath: string;
   filled: boolean;
@@ -20,6 +21,7 @@ export class OnboardingComponent implements OnInit {
   {
     this.user = new User();
     this.step = 0;
+    this.currentPath = "";
     this.previousPath = "";
     this.nextPath = "";
     this.filled = false;

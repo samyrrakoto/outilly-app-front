@@ -20,5 +20,6 @@ export class ValidationComponent extends OnboardingComponent {
   submit(): void {
     let data = JSON.stringify(this.formDataService);
     console.log(data);
+    this.goTo("confirmation");
   }
 }

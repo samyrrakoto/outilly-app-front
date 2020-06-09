@@ -13,6 +13,14 @@ import { CountryComponent } from './content/onboarding/address-details/country/c
 import { ZipcodeComponent } from './content/onboarding/address-details/zipcode/zipcode.component';
 import { CityComponent } from './content/onboarding/address-details/city/city.component';
 import { StreetComponent } from './content/onboarding/address-details/street/street.component';
+import { PhoneNumberComponent } from './content/onboarding/phone-number/phone-number.component';
+import { PasswordComponent } from './content/onboarding/password/password.component';
+import { PasswordconfirmationComponent } from './content/onboarding/passwordconfirmation/passwordconfirmation.component';
+import { BirthdateComponent } from './content/onboarding/birthdate/birthdate.component';
+import { EmailOptinComponent } from './content/onboarding/email-optin/email-optin.component';
+import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
+import { SiretComponent } from './content/onboarding/siret/siret.component';
+import { TvaComponent } from './content/onboarding/tva/tva.component';
 
 const routes: Routes = [
   {
@@ -52,27 +60,59 @@ const routes: Routes = [
       },
       {
         path:"6/status",
-        component: StatusComponent
+        component: StatusComponent,
       },
       {
-        path:"7/country",
+        path:"6/status/siret",
+        component: SiretComponent
+      },
+      {
+        path:"6/status/tva",
+        component: TvaComponent
+      },
+      {
+        path:"7/birthdate",
+        component: BirthdateComponent
+      },
+      {
+        path:"8/country",
         component: CountryComponent
       },
       {
-        path:"8/zipcode",
+        path:"9/zipcode",
         component: ZipcodeComponent
       },
       {
-        path:"9/city",
+        path:"10/city",
         component: CityComponent
       },
       {
-        path:"10/street",
+        path:"11/street",
         component: StreetComponent
+      },
+      {
+        path:"12/phonenumber",
+        component: PhoneNumberComponent
+      },
+      {
+        path:"13/password",
+        component: PasswordComponent
+      },
+      {
+        path:"14/passwordconfirmation",
+        component: PasswordconfirmationComponent
+      },
+      {
+        path:"15/emailoptin",
+        component: EmailOptinComponent
       },
       {
         path:"validation",
         component: ValidationComponent
+      },
+      {
+        path:"confirmation",
+        component: ConfirmationComponent
       }
     ]
   }

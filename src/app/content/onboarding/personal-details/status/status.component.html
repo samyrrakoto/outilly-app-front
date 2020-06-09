@@ -1,6 +1,6 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Statut</label>
+        <label class="label">*{{ step }}. Quel est votre statut ?</label>
 
         <div class="control has-icons-left">
             <div class="select is-hovered">
@@ -19,4 +19,6 @@
 
 <app-navigation
 [localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+[localPreviousPath]=previousPath
+[localCurrentPath]=currentPath
+[localType]=name.value ></app-navigation>

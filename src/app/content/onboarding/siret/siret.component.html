@@ -1,8 +1,7 @@
 <div class="content has-text-left">
-    
     <div class="field">
-        <label class="label">*{{ step }}-> Créez un identifiant de connexion</label>
-        <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">        
+        <label class="label">*{{ step }}. Quel est votre numéro SIRET ?</label>
+        <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.company.siret" #name="ngModel" required minlength="14" maxlength="14">
     </div>
 </div>
 
@@ -12,7 +11,7 @@
     </div>
 
     <div *ngIf="name.errors.minlength">
-        Le nom d'utilisateur doit contenir au moins 4 caractères !
+        Le numéro de SIRET comporte 14 chiffres !
     </div>
 </div>
 

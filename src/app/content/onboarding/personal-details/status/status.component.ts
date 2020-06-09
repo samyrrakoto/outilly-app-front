@@ -15,7 +15,8 @@ export class StatusComponent extends OnboardingComponent {
     super(formDataService, router);
     this.user = formDataService.user;
     this.step = 6;
+    this.currentPath = "6/status";
     this.previousPath = "5/gender";
-    this.nextPath = "7/country";
+    this.nextPath = "7/birthdate";
   }
 }

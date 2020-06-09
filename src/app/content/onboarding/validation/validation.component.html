@@ -99,6 +99,23 @@
 
     <tr>
         <td>
+            Date de naissance
+        </td>
+        <td>
+            <div class="control has-icons-left">
+                <div class="field">
+                    <input class="input" type="date" [(ngModel)]="user.userProfile.birthdate">
+                </div>
+    
+                <div class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
             Pays
         </td>
         <td>
@@ -154,6 +171,20 @@
         <td>
             <p class="control has-icons-left">
                 <input class="input" value="{{ this.formDataService.user.userProfile.address.line1 }}" [(ngModel)]="user.userProfile.address.line1">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            Numéro de téléphone
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.phone1 }}" [(ngModel)]="user.userProfile.phone1">
                 <span class="icon is-small is-left">
                     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
                 </span>

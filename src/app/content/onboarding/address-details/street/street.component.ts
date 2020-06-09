@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { AddressDetailsComponent } from '../address-details.component';
 import { OnboardingComponent } from '../../onboarding.component';
 
 @Component({
@@ -15,8 +14,8 @@ export class StreetComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 10;
-    this.previousPath = "9/city";
-    this.nextPath = "validation";
+    this.step = 11;
+    this.previousPath = "10/city";
+    this.nextPath = "12/phonenumber";
   }
 }

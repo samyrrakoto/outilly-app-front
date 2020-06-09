@@ -1,0 +1,19 @@
+<div class="content has-text-left">
+    <div class="field">
+        <label class="label">*{{ step }}. Quel est votre date de naissance ?</label>
+
+        <div class="control has-icons-left">
+            <div class="field">
+                <input class="input" type="date" [(ngModel)]="user.userProfile.birthdate">
+            </div>
+
+            <div class="icon is-small is-left">
+                <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

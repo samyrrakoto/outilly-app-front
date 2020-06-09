@@ -1,4 +1,5 @@
 import { Address } from './address';
+import { Company } from './company';
 
 export class UserProfile {
     firstName: string;
@@ -10,6 +11,7 @@ export class UserProfile {
     gender: string;
     birthdate: Date;
     type: string;
+    company: Company;
     address: Address;
 
     constructor()
@@ -23,6 +25,7 @@ export class UserProfile {
         this.gender = "";
         this.birthdate = null;
         this.type= "";
+        this.company = new Company();
         this.address = new Address();
     }
 }

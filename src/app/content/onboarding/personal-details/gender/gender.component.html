@@ -1,12 +1,13 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Sexe</label>
+        <label class="label">*{{ step }}. Quel est votre genre ?</label>
     
         <div class="control has-icons-left">
             <div class="select is-hovered">
                 <select [(ngModel)]="user.userProfile.gender" #name="ngModel" required>
                     <option value="female">Femme</option>
                     <option value="male">Homme</option>
+                    <option value="other">Autre</option>
                 </select>
             </div>
 

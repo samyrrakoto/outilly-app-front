@@ -33,6 +33,14 @@ import { ZipcodeComponent } from './content/onboarding/address-details/zipcode/z
 import { CityComponent } from './content/onboarding/address-details/city/city.component';
 import { StreetComponent } from './content/onboarding/address-details/street/street.component';
 import { NavigationComponent } from './content/onboarding/navigation/navigation.component';
+import { PhoneNumberComponent } from './content/onboarding/phone-number/phone-number.component';
+import { PasswordComponent } from './content/onboarding/password/password.component';
+import { PasswordconfirmationComponent } from './content/onboarding/passwordconfirmation/passwordconfirmation.component';
+import { BirthdateComponent } from './content/onboarding/birthdate/birthdate.component';
+import { EmailOptinComponent } from './content/onboarding/email-optin/email-optin.component';
+import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
+import { SiretComponent } from './content/onboarding/siret/siret.component';
+import { TvaComponent } from './content/onboarding/tva/tva.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +71,14 @@ import { NavigationComponent } from './content/onboarding/navigation/navigation.
     CityComponent,
     StreetComponent,
     NavigationComponent,
+    PhoneNumberComponent,
+    PasswordComponent,
+    PasswordconfirmationComponent,
+    BirthdateComponent,
+    EmailOptinComponent,
+    ConfirmationComponent,
+    SiretComponent,
+    TvaComponent,
   ],
   imports: [
     BrowserModule,

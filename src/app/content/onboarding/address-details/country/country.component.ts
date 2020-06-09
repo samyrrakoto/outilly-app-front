@@ -14,8 +14,8 @@ export class CountryComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 7;
-    this.previousPath = "6/status";
-    this.nextPath = "8/zipcode";
+    this.step = 8;
+    this.previousPath = "7/birthdate";
+    this.nextPath = "9/zipcode";
   }
 }

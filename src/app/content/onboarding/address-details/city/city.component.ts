@@ -14,8 +14,8 @@ export class CityComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 9;
-    this.previousPath = "8/zipcode";
-    this.nextPath = "10/street";
+    this.step = 10;
+    this.previousPath = "9/zipcode";
+    this.nextPath = "11/street";
   }
 }

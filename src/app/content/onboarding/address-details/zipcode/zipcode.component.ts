@@ -14,8 +14,8 @@ export class ZipcodeComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 8;
-    this.previousPath = "7/country";
-    this.nextPath = "9/city";
+    this.step = 9;
+    this.previousPath = "8/country";
+    this.nextPath = "10/city";
   }
 }
