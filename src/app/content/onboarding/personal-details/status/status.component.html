@@ -1,25 +1,22 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">{{ step }}. Statut</label>
+        <label class="label">*{{ step }}. Statut</label>
 
-        <div class="control">
-            <label class="radio">
-            <input [(ngModel)]="user.userProfile.type" value="individual" type="radio" name="status">
-            Particulier
-            </label>
-            <label class="radio">
-            <input [(ngModel)]="user.userProfile.type" value="professional" type="radio" name="status">
-            Professionnel
-            </label>
+        <div class="control has-icons-left">
+            <div class="select is-hovered">
+                <select [(ngModel)]="user.userProfile.type" #name="ngModel" required>
+                    <option value="individual" selected>Particulier</option>
+                    <option value="professional">Professionnel</option>
+                </select>
+            </div>
+
+            <div class="icon is-small is-left">
+                <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="field is-grouped">
-    <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
-    </p>
-    <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
-    </p>
-</div>
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

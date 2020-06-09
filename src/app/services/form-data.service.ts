@@ -6,8 +6,10 @@ import { User } from '../models/user';
 })
 export class FormDataService {
   user: User;
+  filled: boolean;
 
   constructor() {
     this.user = new User();
+    this.filled = false;
   }
 }

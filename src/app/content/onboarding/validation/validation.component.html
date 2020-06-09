@@ -1,55 +1,165 @@
-<h1 class="subtitle">Récapitulatif :</h1>
+<h1 class="title">Récapitulatif</h1>
 
 <table class="table">
     <tr>
-        <td>Nom d'utilisateur :</td>
-        <td>{{ this.formDataService.user.username }}</td>
+        <td>
+            Nom d'utilisateur
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.username }}" [(ngModel)]="user.username">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>E-mail :</td>
-        <td>{{ this.formDataService.user.userProfile.email }}</td>
+        <td>
+            E-mail
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.email }}" [(ngModel)]="user.userProfile.email">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>Prénom :</td>
-        <td>{{ this.formDataService.user.userProfile.firstName }}</td>
+        <td>
+            Prénom
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.firstName }}" [(ngModel)]="user.userProfile.firstName">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>Nom :</td>
-        <td>{{ this.formDataService.user.userProfile.lastName }}</td>
+        <td>
+            Nom
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.lastName }}" [(ngModel)]="user.userProfile.lastName">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>Sexe :</td>
-        <td>{{ this.formDataService.user.userProfile.gender }}</td>
+        <td>
+            Sexe
+        </td>
+        <td>
+            <div class="control has-icons-left">
+                <div class="select is-hovered">
+                    <select [(ngModel)]="user.userProfile.gender" #name="ngModel" required>
+                        <option value="female">Femme</option>
+                        <option value="male">Homme</option>
+                    </select>
+                </div>
+
+                <div class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </div>
+            </div>
+        </td>
     </tr>
 
     <tr>
-        <td>Status :</td>
-        <td>{{ this.formDataService.user.userProfile.type }}</td>
+        <td>
+            Statut
+        </td>
+        <td>
+            <div class="control has-icons-left">
+                <div class="select is-hovered">
+                    <select [(ngModel)]="user.userProfile.type" #name="ngModel" required>
+                        <option value="individual">Particulier</option>
+                        <option value="professional">Professionnel</option>
+                    </select>
+                </div>
+
+                <div class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </div>
+            </div>
+        </td>
     </tr>
 
     <tr>
-        <td>Pays :</td>
-        <td>{{ this.formDataService.user.userProfile.address.country }}</td>
+        <td>
+            Pays
+        </td>
+        <td>
+            <div class="control has-icons-left">
+                <div class="select is-hovered">
+                    <select [(ngModel)]="user.userProfile.address.country" #name="ngModel" required>
+                        <option value="france" selected>France</option>
+                        <option value="belgium">Belgique</option>
+                        <option value="switzerland">Suisse</option>
+                        <option value="luxemburg">Luxembourg</option>
+                    </select>
+                </div>
+
+                <div class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </div>
+            </div>
+        </td>
     </tr>
 
     <tr>
-        <td>Code postal :</td>
-        <td>{{ this.formDataService.user.userProfile.address.zipcode }}</td>
+        <td>
+            Code postal
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.address.zipcode }}" [(ngModel)]="user.userProfile.address.zipcode">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>Ville :</td>
-        <td>{{ this.formDataService.user.userProfile.address.city }}</td>
+        <td>
+            Ville
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.address.city }}" [(ngModel)]="user.userProfile.address.city">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 
     <tr>
-        <td>Voie :</td>
-        <td>{{ this.formDataService.user.userProfile.address.line1 }}</td>
+        <td>
+            Voie
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.address.line1 }}" [(ngModel)]="user.userProfile.address.line1">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
     </tr>
 </table>
 
-<button class="button" (click)="submit()">On valide !</button>
+<button class="button is-success" (click)="submit()">On valide !</button>

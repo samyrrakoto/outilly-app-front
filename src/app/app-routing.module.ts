@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './content/homepage/homepage.component';
 import { OnboardingComponent } from './content/onboarding/onboarding.component';
-import { AddressDetailsComponent } from './content/onboarding/address-details/address-details.component';
-import { PersonalDetailsComponent } from './content/onboarding/personal-details/personal-details.component';
 import { ValidationComponent } from './content/onboarding/validation/validation.component'
 import { PseudoComponent } from './content/onboarding/personal-details/pseudo/pseudo.component';
 import { EmailComponent } from './content/onboarding/personal-details/email/email.component';

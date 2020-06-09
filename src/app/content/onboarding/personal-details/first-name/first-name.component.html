@@ -1,15 +1,20 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">{{ step }}. Prénom</label>
-        <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #email>
+        <label class="label">*{{ step }}. Prénom</label>
+        <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
     </div>
 </div>
 
-<div class="field is-grouped">
-    <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
-    </p>
-    <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
-    </p>
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+
+    <div *ngIf="name.errors.minlength">
+        Le prénom doit contenir au moins 2 lettres.
+    </div>
 </div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

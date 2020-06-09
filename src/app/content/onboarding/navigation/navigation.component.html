@@ -1,0 +1,23 @@
+<div class="columns is-centered has-text-centered">
+    <div *ngIf="localPreviousPath" class="column">
+        <p class="control">
+            <button class="button is-light is-small has-icons-left" type="button" (click)="previous()">
+                
+                <div class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
+                </div>
+            </button>
+        </p>
+    </div>
+
+    <div class="column">
+        <p class="control">
+            <button class="button is-light is-small has-icons-right" type="button" (click)="next()">
+                
+                <div class="icon is-small is-right">
+                    <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+                </div>
+            </button>
+        </p>
+    </div>
+</div>

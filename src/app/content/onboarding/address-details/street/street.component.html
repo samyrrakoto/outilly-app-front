@@ -1,15 +1,16 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">{{ step }}. Voie</label>
-        <input class="input" type="text" placeholder="(ex : 123 rue des acacias)" [(ngModel)]="user.userProfile.address.line1">
+        <label class="label">*{{ step }}. Voie</label>
+        <input class="input" type="text" placeholder="(ex : 123 rue des acacias)" [(ngModel)]="user.userProfile.address.line1" #name="ngModel" required>
     </div>
 </div>
 
-<div class="field is-grouped">
-    <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
-    </p>
-    <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
-    </p>
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
 </div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

@@ -1,15 +1,20 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">{{ step }}. Code postal</label>
-        <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode">
+        <label class="label">*{{ step }}. Code postal</label>
+        <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode" #name="ngModel" required minlength=5 maxlength=5>
     </div>
 </div>
 
-<div class="field is-grouped">
-    <p class="control">
-        <input class="button is-dark" value="Précédent" type="button" (click)="previous()"/>
-    </p>
-    <p class="control">
-        <input class="button is-dark" value="Suivant" type="button" (click)="next()"/>
-    </p>
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+
+    <div *ngIf="name.errors.minlength">
+        Un code postal est composé de 5 chiffres !
+    </div>
 </div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

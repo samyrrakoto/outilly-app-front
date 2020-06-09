@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { UserComponent } from '../../user/user.component';
+import { OnboardingComponent } from '../../onboarding.component';
 
 @Component({
   selector: 'app-gender',
   templateUrl: './gender.component.html',
   styleUrls: ['./gender.component.css']
 })
-export class GenderComponent extends UserComponent {
+export class GenderComponent extends OnboardingComponent {
 
   constructor(public formDataService : FormDataService, public router : Router)
   {
