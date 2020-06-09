@@ -97,6 +97,34 @@
         </td>
     </tr>
 
+    <tr *ngIf="formDataService.user.userProfile.type == 'professional'">
+        <td>
+            SIRET
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.company.siret }}" [(ngModel)]="user.userProfile.lastName">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
+    </tr>
+
+    <tr *ngIf="formDataService.user.userProfile.type == 'professional'">
+        <td>
+            TVA
+        </td>
+        <td>
+            <p class="control has-icons-left">
+                <input class="input" value="{{ this.formDataService.user.userProfile.company.tvanumber }}" [(ngModel)]="user.userProfile.lastName">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                </span>
+            </p>
+        </td>
+    </tr>
+
     <tr>
         <td>
             Date de naissance

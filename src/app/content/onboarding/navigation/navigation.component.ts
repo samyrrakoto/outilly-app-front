@@ -27,9 +27,8 @@ export class NavigationComponent extends OnboardingComponent {
   next(): void {
     let path = this.root + this.localNextPath;
 
-    if (this.localCurrentPath == "6/status" && this.localType == "professional") {
+    if (this.localCurrentPath == "6/status" && this.localType == "professional")
       path = this.root + "6/status/siret";
-    }
     this.router.navigateByUrl(path);
   }
 
