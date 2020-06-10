@@ -10,6 +10,5 @@ export class FormDataService {
 
   constructor() {
     this.user = new User();
-    this.filled = false;
   }
 }

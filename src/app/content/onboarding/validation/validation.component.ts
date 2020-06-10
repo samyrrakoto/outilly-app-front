@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../onboarding.component';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -22,7 +21,6 @@ export class ValidationComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.formDataService.filled = true;
   }
 
   postData(data) {
@@ -34,6 +32,7 @@ export class ValidationComponent extends OnboardingComponent {
 
   submit(): void {
     let data = JSON.stringify(this.formDataService);
+    console.log(data);
     this.postData(data);
     this.goTo("confirmation");
   }

@@ -149,11 +149,11 @@
         <td>
             <div class="control has-icons-left">
                 <div class="select is-hovered">
-                    <select [(ngModel)]="user.userProfile.address.country" #name="ngModel" required>
-                        <option value="france" selected>France</option>
-                        <option value="belgium">Belgique</option>
-                        <option value="switzerland">Suisse</option>
-                        <option value="luxemburg">Luxembourg</option>
+                    <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>
+                        <option value="FR" selected>France</option>
+                        <option value="BE">Belgique</option>
+                        <option value="CH">Suisse</option>
+                        <option value="LU">Luxembourg</option>
                     </select>
                 </div>
 
