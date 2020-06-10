@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../onboarding.component';
 @Component({
   selector: 'app-password',
   templateUrl: './password.component.html',
-  styleUrls: ['./password.component.css']
+  styleUrls: ['../../onboarding.component.css', './password.component.css']
 })
 export class PasswordComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class PasswordComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 13;
+    this.stepNb = 13;
+    this.stepName = "Créez un mot de passe sécurisé";
     this.previousPath = "12/phonenumber";
     this.nextPath = "14/passwordconfirmation";
   }

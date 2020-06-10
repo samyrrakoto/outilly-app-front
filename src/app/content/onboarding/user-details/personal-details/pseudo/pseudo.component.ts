@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-pseudo',
   templateUrl: './pseudo.component.html',
-  styleUrls: ['./pseudo.component.css']
+  styleUrls: ['../../../onboarding.component.css', './pseudo.component.css']
 })
 export class PseudoComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class PseudoComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 1;
+    this.stepNb = 1;
+    this.stepName = "Créez un identifiant de connexion";
     this.previousPath = "";
     this.nextPath = "2/email";
   }

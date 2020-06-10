@@ -10,21 +10,25 @@ import { User } from '../../models/user';
 })
 export class OnboardingComponent implements OnInit {
   user: User;
-  step: number;
+  stepNb: number;
+  stepName: string;
+  placeholderText: string;
   currentPath: string;
   previousPath: string;
   nextPath: string;
-  filled: boolean;
+  isMandatory: boolean;
   readonly root = "onboarding/";
 
-  constructor(public formDataService : FormDataService, public router : Router)
+  constructor(public formDataService: FormDataService, public router: Router)
   {
     this.user = new User();
-    this.step = 0;
+    this.stepNb = 0;
+    this.stepName = "";
+    this.placeholderText = "";
     this.currentPath = "";
     this.previousPath = "";
     this.nextPath = "";
-    this.filled = false;
+    this.isMandatory = true;
   }
 
   ngOnInit(): void {

@@ -1,6 +1,9 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Quel est votre pays ?</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+        
         <div class="control has-icons-left">
             <div class="select is-hovered">
                 <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>

@@ -1,6 +1,10 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Quel est votre numéro de téléphone ?</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName
+        [isMandatory]=isMandatory></app-step-label>
+        
         <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
     </div>
 </div>

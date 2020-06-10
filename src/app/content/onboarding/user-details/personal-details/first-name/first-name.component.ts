@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-first-name',
   templateUrl: './first-name.component.html',
-  styleUrls: ['./first-name.component.css']
+  styleUrls: ['../../../onboarding.component.css', './first-name.component.css']
 })
 export class FirstNameComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class FirstNameComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 3;
+    this.stepNb = 3;
+    this.stepName = "Quel est votre prénom ?";
     this.previousPath = "2/email";
     this.nextPath = "4/lastname";
   }

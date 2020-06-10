@@ -1,6 +1,9 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Quel est votre code postal ?</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+        
         <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode" #name="ngModel" required minlength=5 maxlength=5>
     </div>
 </div>

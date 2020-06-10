@@ -1,224 +1,326 @@
-<h1 class="title">Récapitulatif</h1>
+<div class="content">
+    <h1 class="title">Récapitulatif</h1>
 
-<table class="table">
-    <tr>
-        <td>
-            Nom d'utilisateur
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.username }}" [(ngModel)]="user.username">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+    <table class="table">
 
-    <tr>
-        <td>
-            E-mail
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.email }}" [(ngModel)]="user.userProfile.email">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+        <!-- Username -->
+        <tr>
+            <td>
+                Nom d'utilisateur
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.username }}" [(ngModel)]="user.username" #pseudo="ngModel" required minlength="4">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Prénom
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.firstName }}" [(ngModel)]="user.userProfile.firstName">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+        <tr *ngIf="pseudo.invalid && (pseudo.dirty || pseudo.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="pseudo.errors.required">
+                    Le champ est requis !
+                </p>
+            
+                <p *ngIf="pseudo.errors.minlength">
+                    Le nom d'utilisateur doit contenir au moins 4 caractères !
+                </p>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Nom
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.lastName }}" [(ngModel)]="user.userProfile.lastName">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+        <!-- Email -->
+        <tr>
+            <td>
+                E-mail
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.email }}" [(ngModel)]="user.userProfile.email" #email="ngModel" required>
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Sexe
-        </td>
-        <td>
-            <div class="control has-icons-left">
-                <div class="select is-hovered">
-                    <select [(ngModel)]="user.userProfile.gender" #name="ngModel" required>
-                        <option value="female">Femme</option>
-                        <option value="male">Homme</option>
-                    </select>
+        <tr *ngIf="email.invalid && (email.dirty || email.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="email.errors.required">
+                    Le champ est requis !
+                </p>
+            </td>
+        </tr>
+
+        <!-- First name -->
+        <tr>
+            <td>
+                Prénom
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.firstName }}" [(ngModel)]="user.userProfile.firstName" #firstName="ngModel" required>
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
+
+        <tr *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="firstName.errors.required">
+                    Le champ est requis !
+                </p>
+            </td>
+        </tr>
+        
+        <!-- Last name -->
+        <tr>
+            <td>
+                Nom
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.lastName }}" [(ngModel)]="user.userProfile.lastName" #lastName="ngModel" required>
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
+
+        <tr *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="lastName.errors.required">
+                    Le champ est requis !
+                </p>
+            </td>
+        </tr>
+
+        <!-- Gender -->
+        <tr>
+            <td>
+                Genre
+            </td>
+            <td>
+                <div class="control has-icons-left">
+                    <div class="select is-hovered">
+                        <select [(ngModel)]="user.userProfile.gender" #gender="ngModel" required>
+                            <option value="female">Femme</option>
+                            <option value="male">Homme</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </div>
                 </div>
+            </td>
+        </tr>
 
-                <div class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+        <tr *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="gender.errors.required">
+                    Le champ est requis !
+                </p>
+            </td>
+        </tr>
+
+        <!-- Status -->
+        <tr>
+            <td>
+                Statut
+            </td>
+            <td>
+                <div class="control has-icons-left">
+                    <div class="select is-hovered">
+                        <select [(ngModel)]="user.userProfile.type" #status="ngModel" required>
+                            <option value="individual">Particulier</option>
+                            <option value="professional">Professionnel</option>
+                        </select>
+                    </div>
+
+                    <div class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Statut
-        </td>
-        <td>
-            <div class="control has-icons-left">
-                <div class="select is-hovered">
-                    <select [(ngModel)]="user.userProfile.type" #name="ngModel" required>
-                        <option value="individual">Particulier</option>
-                        <option value="professional">Professionnel</option>
-                    </select>
+        <tr *ngIf="status.invalid && (status.dirty || status.touched)" class="has-text-danger">
+            <td></td>
+            <td>
+                <p *ngIf="status.errors.required">
+                    Le champ est requis !
+                </p>
+            </td>
+        </tr>
+
+        <!-- SIRET -->
+        <div class="columns is-full is-centered" *ngIf="formDataService.user.userProfile.type == 'professional'">
+            <tr>
+                <td>
+                    SIRET
+                </td>
+                <td>
+                    <p class="control has-icons-left">
+                        <input class="input" value="{{ this.formDataService.user.userProfile.company.siret }}" [(ngModel)]="user.userProfile.company.siret" #siret="ngModel" required minlength="14" maxlength="14">
+                        <span class="icon is-small is-left">
+                            <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                        </span>
+                    </p>
+                </td>
+            </tr>
+
+            <tr *ngIf="siret.invalid && (siret.dirty || siret.touched)" class="has-text-danger">
+                <td></td>
+                <td>
+                    <p *ngIf="siret.errors.required">
+                        Le champ est requis !
+                    </p>
+
+                    <p *ngIf="siret.errors.minlength">
+                        Un numéro SIRET comporte 14 chiffres !
+                    </p>
+                </td>
+            </tr>
+        </div>
+
+        <!-- TVA -->
+        <div *ngIf="formDataService.user.userProfile.type == 'professional'">
+            <tr>
+                <td>
+                    TVA
+                </td>
+                <td>
+                    <p class="control has-icons-left">
+                        <input class="input" value="{{ this.formDataService.user.userProfile.company.tvanumber }}" [(ngModel)]="user.userProfile.company.tvanumber" #tva="ngModel" required>
+                        <span class="icon is-small is-left">
+                            <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                        </span>
+                    </p>
+                </td>
+            </tr>
+
+            <tr *ngIf="tva.invalid && (tva.dirty || tva.touched)" class="has-text-danger">
+                <td></td>
+                <td>
+                    <p *ngIf="tva.errors.required">
+                        Le champ est requis !
+                    </p>
+                </td>
+            </tr>
+        </div>
+
+        <!-- Birthdate -->
+        <tr>
+            <td>
+                Date de naissance
+            </td>
+            <td>
+                <div class="control has-icons-left">
+                    <div class="field">
+                        <input class="input" type="date" [(ngModel)]="user.userProfile.birthdate">
+                    </div>
+        
+                    <div class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </div>
                 </div>
+            </td>
+        </tr>
 
-                <div class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+        <!-- Country -->
+        <tr>
+            <td>
+                Pays
+            </td>
+            <td>
+                <div class="control has-icons-left">
+                    <div class="select is-hovered">
+                        <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>
+                            <option value="FR" selected>France</option>
+                            <option value="BE">Belgique</option>
+                            <option value="CH">Suisse</option>
+                            <option value="LU">Luxembourg</option>
+                        </select>
+                    </div>
+
+                    <div class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
+            </td>
+        </tr>
 
-    <tr *ngIf="formDataService.user.userProfile.type == 'professional'">
-        <td>
-            SIRET
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.company.siret }}" [(ngModel)]="user.userProfile.lastName">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+        <!-- Zipcode -->
+        <tr>
+            <td>
+                Code postal
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.address.zipcode }}" [(ngModel)]="user.userProfile.address.zipcode">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
 
-    <tr *ngIf="formDataService.user.userProfile.type == 'professional'">
-        <td>
-            TVA
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.company.tvanumber }}" [(ngModel)]="user.userProfile.lastName">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
+        <!-- City -->
+        <tr>
+            <td>
+                Ville
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.address.city }}" [(ngModel)]="user.userProfile.address.city">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Date de naissance
-        </td>
-        <td>
-            <div class="control has-icons-left">
-                <div class="field">
-                    <input class="input" type="date" [(ngModel)]="user.userProfile.birthdate">
-                </div>
-    
-                <div class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </div>
-            </div>
-        </td>
-    </tr>
+        <!-- Street -->
+        <tr>
+            <td>
+                Voie
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.address.line1 }}" [(ngModel)]="user.userProfile.address.line1">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
 
-    <tr>
-        <td>
-            Pays
-        </td>
-        <td>
-            <div class="control has-icons-left">
-                <div class="select is-hovered">
-                    <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>
-                        <option value="FR" selected>France</option>
-                        <option value="BE">Belgique</option>
-                        <option value="CH">Suisse</option>
-                        <option value="LU">Luxembourg</option>
-                    </select>
-                </div>
+        <!-- Phone number -->
+        <tr>
+            <td>
+                Numéro de téléphone
+            </td>
+            <td>
+                <p class="control has-icons-left">
+                    <input class="input" value="{{ this.formDataService.user.userProfile.phone1 }}" [(ngModel)]="user.userProfile.phone1">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                    </span>
+                </p>
+            </td>
+        </tr>
+    </table>
 
-                <div class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </div>
-            </div>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            Code postal
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.address.zipcode }}" [(ngModel)]="user.userProfile.address.zipcode">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            Ville
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.address.city }}" [(ngModel)]="user.userProfile.address.city">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            Voie
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.address.line1 }}" [(ngModel)]="user.userProfile.address.line1">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            Numéro de téléphone
-        </td>
-        <td>
-            <p class="control has-icons-left">
-                <input class="input" value="{{ this.formDataService.user.userProfile.phone1 }}" [(ngModel)]="user.userProfile.phone1">
-                <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-                </span>
-            </p>
-        </td>
-    </tr>
-</table>
-
-<button class="button is-success" (click)="submit()">On valide !</button>
+    <button class="button is-success" (click)="submit()">On valide !</button>
+</div>

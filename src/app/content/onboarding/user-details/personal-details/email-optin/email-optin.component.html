@@ -1,6 +1,10 @@
 <div class="content has-text-left">
     <div class="control">
-        <label class="label">Souhaitez-vous recevoir notre newsletter ?</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName
+        [isMandatory]=isMandatory></app-step-label>
+        
         <label class="radio">
             <input type="radio" [(ngModel)]="user.userProfile.emailOptin" value="yes" #name="ngModel">
             Oui

@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-birthdate',
   templateUrl: './birthdate.component.html',
-  styleUrls: ['./birthdate.component.css']
+  styleUrls: ['../../../onboarding.component.css', './birthdate.component.css']
 })
 export class BirthdateComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class BirthdateComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 7;
+    this.stepNb = 7;
+    this.stepName = "Quelle est votre date de naissance ?";
     this.previousPath = "6/status";
     this.nextPath = "8/country";
   }

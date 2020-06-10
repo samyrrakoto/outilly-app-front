@@ -1,21 +1,21 @@
-<div class="columns is-centered has-text-centered">
-    <div *ngIf="localPreviousPath" class="column">
-        <p class="control">
+<div class="level">
+    <div class="level-left">
+        <p *ngIf="localPreviousPath" class="control">
             <button class="button is-light is-small has-icons-left" type="button" (click)="previous()">
                 
                 <div class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
+                    <fa-icon [icon]="['fas', 'long-arrow-alt-left']"></fa-icon>
                 </div>
             </button>
         </p>
     </div>
 
-    <div class="column">
+    <div class="level-right">
         <p class="control">
             <button class="button is-light is-small has-icons-right" type="button" (click)="next()">
                 
                 <div class="icon is-small is-right">
-                    <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+                    <fa-icon [icon]="['fas', 'long-arrow-alt-right']"></fa-icon>
                 </div>
             </button>
         </p>

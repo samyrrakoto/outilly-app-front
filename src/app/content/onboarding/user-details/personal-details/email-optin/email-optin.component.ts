@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-email-optin',
   templateUrl: './email-optin.component.html',
-  styleUrls: ['./email-optin.component.css']
+  styleUrls: ['../../../onboarding.component.css', './email-optin.component.css']
 })
 export class EmailOptinComponent extends OnboardingComponent {
   
@@ -14,7 +14,9 @@ export class EmailOptinComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 15;
+    this.stepNb = 15;
+    this.stepName = "Souhaitez-vous recevoir notre newsletter ?";
+    this.isMandatory = false;
     this.previousPath = "14/passwordconfirmation";
     this.nextPath = "validation";
   }

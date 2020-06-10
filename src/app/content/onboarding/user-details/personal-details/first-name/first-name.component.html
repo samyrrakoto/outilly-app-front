@@ -1,6 +1,8 @@
 <div class="content has-text-left">
     <div class="field">
-        <label class="label">*{{ step }}. Quel est votre prénom ?</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
         <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
     </div>
 </div>

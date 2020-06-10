@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.css']
+  styleUrls: ['../../../onboarding.component.css', './status.component.css']
 })
 export class StatusComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class StatusComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 6;
+    this.stepNb = 6;
+    this.stepName = "Quel est votre statut ?";
     this.currentPath = "6/status";
     this.previousPath = "5/gender";
     this.nextPath = "7/birthdate";

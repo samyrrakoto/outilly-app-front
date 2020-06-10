@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-zipcode',
   templateUrl: './zipcode.component.html',
-  styleUrls: ['./zipcode.component.css']
+  styleUrls: ['../../../onboarding.component.css', './zipcode.component.css']
 })
 export class ZipcodeComponent extends OnboardingComponent {
   
@@ -14,7 +14,8 @@ export class ZipcodeComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 9;
+    this.stepNb = 9;
+    this.stepName = "Quel est votre code postal ?";
     this.previousPath = "8/country";
     this.nextPath = "10/city";
   }

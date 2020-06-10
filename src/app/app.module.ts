@@ -40,6 +40,7 @@ import { EmailOptinComponent } from './content/onboarding/user-details/personal-
 import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
 import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
 import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
+import { StepLabelComponent } from './content/onboarding/step-label/step-label.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { TvaComponent } from './content/onboarding/user-details/company-details/
     ConfirmationComponent,
     SiretComponent,
     TvaComponent,
+    StepLabelComponent,
   ],
   imports: [
     HttpClientModule,

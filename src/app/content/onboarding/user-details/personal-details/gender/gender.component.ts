@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-gender',
   templateUrl: './gender.component.html',
-  styleUrls: ['./gender.component.css']
+  styleUrls: ['../../../onboarding.component.css', './gender.component.css']
 })
 export class GenderComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class GenderComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 5;
+    this.stepNb = 5;
+    this.stepName = "Quel est votre genre ?";
     this.previousPath = "4/lastname";
     this.nextPath = "6/status";
   }

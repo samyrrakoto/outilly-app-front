@@ -1,7 +1,10 @@
 <div class="content has-text-left">
     
     <div class="field">
-        <label class="label">*{{ step }}-> Créez un identifiant de connexion</label>
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+        
         <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">        
     </div>
 </div>

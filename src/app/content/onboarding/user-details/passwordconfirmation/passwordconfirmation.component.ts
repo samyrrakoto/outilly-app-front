@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../onboarding.component';
 @Component({
   selector: 'app-passwordconfirmation',
   templateUrl: './passwordconfirmation.component.html',
-  styleUrls: ['./passwordconfirmation.component.css']
+  styleUrls: ['../../onboarding.component.css', './passwordconfirmation.component.css']
 })
 export class PasswordconfirmationComponent extends OnboardingComponent {
   password2: string;
@@ -15,7 +15,8 @@ export class PasswordconfirmationComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 14;
+    this.stepNb = 14;
+    this.stepName = "Confirmez votre mot de passe";
     this.previousPath = "13/password";
     this.nextPath = "15/emailoptin";
     this.password2 = "";

@@ -6,7 +6,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
-  styleUrls: ['./country.component.css']
+  styleUrls: ['../../../onboarding.component.css', './country.component.css']
 })
 export class CountryComponent extends OnboardingComponent {
 
@@ -14,7 +14,8 @@ export class CountryComponent extends OnboardingComponent {
   {
     super(formDataService, router);
     this.user = formDataService.user;
-    this.step = 8;
+    this.stepNb = 8;
+    this.stepName = "Quel est votre pays ?";
     this.previousPath = "7/birthdate";
     this.nextPath = "9/zipcode";
   }

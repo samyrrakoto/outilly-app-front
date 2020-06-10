@@ -1,11 +1,26 @@
-.input
-{
-    border: solid 0px;
+.input, .input:focus, .input:enabled {
+    border: none;
     border-radius: 0;
-    color: grey;
+    background-color: white;
+    color: #727272;
+    border-left: solid 2px #727272;
 }
 
-.input:focus
+.columns {
+    margin-top: 100px;
+}
+
+.label {
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+.asterisque {
+    font-weight: bold;
+    color: #E35557;
+}
+
+.brandName
 {
-    border-bottom: solid 2px grey;
+    color:#E35557;
 }
