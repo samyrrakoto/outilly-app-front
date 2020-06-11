@@ -17,8 +17,7 @@ export class ValidationComponent extends OnboardingComponent {
     )
   };
 
-  constructor(public formDataService: FormDataService, public router: Router, public http: HttpClient)
-  {
+  constructor(public formDataService: FormDataService, public router: Router, public http: HttpClient) {
     super(formDataService, router);
     this.user = formDataService.user;
   }

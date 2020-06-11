@@ -10,8 +10,7 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class BirthdateComponent extends OnboardingComponent {
 
-  constructor(public formDataService : FormDataService, public router : Router)
-  {
+  constructor(public formDataService: FormDataService, public router: Router) {
     super(formDataService, router);
     this.user = formDataService.user;
     this.stepNb = 7;

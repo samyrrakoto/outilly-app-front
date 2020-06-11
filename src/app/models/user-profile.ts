@@ -14,8 +14,7 @@ export class UserProfile {
     company: Company;
     address: Address;
 
-    constructor()
-    {
+    constructor() {
         this.firstName = "";
         this.lastName = "";
         this.email = "";

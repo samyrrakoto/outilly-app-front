@@ -9,9 +9,8 @@ import { OnboardingComponent } from '../../../onboarding.component';
   styleUrls: ['../../../onboarding.component.css', './last-name.component.css']
 })
 export class LastNameComponent extends OnboardingComponent {
-  
-  constructor(public formDataService : FormDataService, public router : Router)
-  {
+
+  constructor(public formDataService: FormDataService, public router: Router) {
     super(formDataService, router);
     this.user = formDataService.user;
     this.stepNb = 4;

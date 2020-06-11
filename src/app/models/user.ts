@@ -5,8 +5,7 @@ export class User {
     password: string;
     userProfile: UserProfile;
 
-    constructor()
-    {
+    constructor() {
         this.username = "";
         this.password = "";
         this.userProfile = new UserProfile();

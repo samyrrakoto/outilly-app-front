@@ -10,8 +10,7 @@ import { StatusComponent } from '../../personal-details/status/status.component'
 })
 export class SiretComponent extends StatusComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router)
-  {
+  constructor(public formDataService: FormDataService, public router: Router) {
     super(formDataService, router);
     this.user = formDataService.user;
     this.stepName = "Quel est votre numéro SIRET ?";

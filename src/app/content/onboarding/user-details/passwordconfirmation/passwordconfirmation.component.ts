@@ -11,8 +11,7 @@ import { OnboardingComponent } from '../../onboarding.component';
 export class PasswordconfirmationComponent extends OnboardingComponent {
   password2: string;
 
-  constructor(public formDataService : FormDataService, public router : Router)
-  {
+  constructor(public formDataService: FormDataService, public router: Router) {
     super(formDataService, router);
     this.user = formDataService.user;
     this.stepNb = 14;
