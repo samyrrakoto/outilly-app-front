@@ -1,0 +1,26 @@
+<div class="content has-text-left">
+    <div class="field">
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+
+        <div class="control has-icons-left">
+            <div class="select is-hovered">
+                <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>
+                    <option value="FR" selected>France</option>
+                    <option value="BE">Belgique</option>
+                    <option value="CH">Suisse</option>
+                    <option value="LU">Luxembourg</option>
+                </select>
+            </div>
+
+            <div class="icon is-small is-left">
+                <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

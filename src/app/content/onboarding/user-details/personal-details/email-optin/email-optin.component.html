@@ -1,0 +1,27 @@
+<div class="content has-text-left">
+    <div class="control">
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName
+        [isMandatory]=isMandatory></app-step-label>
+
+        <label class="radio">
+            <input type="radio" [(ngModel)]="user.userProfile.emailOptin" value="yes" #name="ngModel">
+            Oui
+        </label>
+        <label class="radio">
+            <input type="radio" [(ngModel)]="user.userProfile.emailOptin" value="no" #name="ngModel">
+            Non
+        </label>
+    </div>
+</div>
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

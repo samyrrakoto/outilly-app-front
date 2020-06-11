@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './header/hero/herohead/menu/menu.component';
 import { HeaderComponent } from './header/header.component'
 import { HeroComponent } from './header/hero/hero.component';
@@ -10,6 +11,7 @@ import { HeroheadComponent } from './header/hero/herohead/herohead.component';
 import { HerobodyComponent } from './header/hero/herobody/herobody.component';
 import { HomepageComponent } from './content/homepage/homepage.component'
 import { NoticeComponent } from './header/notice/notice.component';
+import { ContentComponent } from './content/content.component';
 import { ProductsComponent } from './content/homepage/products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './content/homepage/search/search.component';
@@ -17,11 +19,34 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import { OnboardingComponent } from './content/onboarding/onboarding.component';
+import { ValidationComponent } from './content/onboarding/validation/validation.component';
+import { PseudoComponent } from './content/onboarding/user-details/personal-details/pseudo/pseudo.component';
+import { FirstNameComponent } from './content/onboarding/user-details/personal-details/first-name/first-name.component';
+import { LastNameComponent } from './content/onboarding/user-details/personal-details/last-name/last-name.component';
+import { EmailComponent } from './content/onboarding/user-details/personal-details/email/email.component';
+import { GenderComponent } from './content/onboarding/user-details/personal-details/gender/gender.component';
+import { StatusComponent } from './content/onboarding/user-details/personal-details/status/status.component';
+import { CountryComponent } from './content/onboarding/user-details/address-details/country/country.component';
+import { ZipcodeComponent } from './content/onboarding/user-details/address-details/zipcode/zipcode.component';
+import { CityComponent } from './content/onboarding/user-details/address-details/city/city.component';
+import { StreetComponent } from './content/onboarding/user-details/address-details/street/street.component';
+import { NavigationComponent } from './content/onboarding/navigation/navigation.component';
+import { PhoneNumberComponent } from './content/onboarding/user-details/personal-details/phone-number/phone-number.component';
+import { PasswordComponent } from './content/onboarding/user-details/password/password.component';
+import { PasswordconfirmationComponent } from './content/onboarding/user-details/passwordconfirmation/passwordconfirmation.component';
+import { BirthdateComponent } from './content/onboarding/user-details/personal-details/birthdate/birthdate.component';
+import { EmailOptinComponent } from './content/onboarding/user-details/personal-details/email-optin/email-optin.component';
+import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
+import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
+import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
+import { StepLabelComponent } from './content/onboarding/step-label/step-label.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
+    ContentComponent,
     HeaderComponent,
     HeroComponent,
     HeroheadComponent,
@@ -30,11 +55,35 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
     NoticeComponent,
     ProductsComponent,
     FooterComponent,
-    SearchComponent
+    SearchComponent,
+    OnboardingComponent,
+    ValidationComponent,
+    PseudoComponent,
+    FirstNameComponent,
+    LastNameComponent,
+    EmailComponent,
+    GenderComponent,
+    StatusComponent,
+    CountryComponent,
+    ZipcodeComponent,
+    CityComponent,
+    StreetComponent,
+    NavigationComponent,
+    PhoneNumberComponent,
+    PasswordComponent,
+    PasswordconfirmationComponent,
+    BirthdateComponent,
+    EmailOptinComponent,
+    ConfirmationComponent,
+    SiretComponent,
+    TvaComponent,
+    StepLabelComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
+    AppRoutingModule,    
     FontAwesomeModule
   ],
   providers: [],

@@ -1,0 +1,23 @@
+<div class="content has-text-left">
+    <div class="field">
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+
+        <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.company.siret" #name="ngModel" required minlength="14" maxlength="14">
+    </div>
+</div>
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+
+    <div *ngIf="name.errors.minlength">
+        Le numéro de SIRET comporte 14 chiffres !
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

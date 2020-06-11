@@ -1,0 +1,23 @@
+<div class="content has-text-left">
+    <div class="field">
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName></app-step-label>
+
+        <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">
+    </div>
+</div>
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+
+    <div *ngIf="name.errors.minlength">
+        Le nom d'utilisateur doit contenir au moins 4 caractères !
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>

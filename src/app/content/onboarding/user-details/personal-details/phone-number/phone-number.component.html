@@ -1,0 +1,24 @@
+<div class="content has-text-left">
+    <div class="field">
+        <app-step-label
+        [stepNb]=stepNb
+        [stepName]=stepName
+        [isMandatory]=isMandatory></app-step-label>
+
+        <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
+    </div>
+</div>
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+    <div *ngIf="name.errors.required">
+        Le champ est requis !
+    </div>
+
+    <div *ngIf="name.errors.minlength">
+        Le numéro de téléphone est trop court !
+    </div>
+</div>
+
+<app-navigation
+[localNextPath]=nextPath
+[localPreviousPath]=previousPath></app-navigation>
