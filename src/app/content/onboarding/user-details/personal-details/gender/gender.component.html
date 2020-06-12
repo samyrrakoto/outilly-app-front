@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
     <div *ngIf="name.errors.required">
         Le champ est requis !
     </div>
