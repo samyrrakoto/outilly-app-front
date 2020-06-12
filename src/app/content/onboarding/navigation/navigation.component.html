@@ -1,7 +1,7 @@
 <div class="level">
     <div class="level-left">
         <p *ngIf="localPreviousPath" class="control">
-            <button class="button is-light is-small has-icons-left" type="button" (click)="previous()">
+            <button class="button nav-arrow is-small has-icons-left" type="button" (click)="previous()">
 
                 <div class="icon is-small is-left">
                     <fa-icon [icon]="['fas', 'long-arrow-alt-left']"></fa-icon>
@@ -12,7 +12,7 @@
 
     <div class="level-right">
         <p class="control">
-            <button class="button is-light is-small has-icons-right" type="button" (click)="next()">
+            <button class="button nav-arrow is-small has-icons-right" type="button" (click)="next()">
 
                 <div class="icon is-small is-right">
                     <fa-icon [icon]="['fas', 'long-arrow-alt-right']"></fa-icon>
