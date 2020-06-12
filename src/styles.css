@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --KTKP-RED: #E35557;
+    --KTKP-BLUE: #F9F9FE;
+    --KTKP-GREEN: #7DD2B3;
+}
+
+.brandName
+{
+    color: var(--KTKP-RED);
+}
+
+.is-green {
+    background-color: var(--KTKP-GREEN);
+}
