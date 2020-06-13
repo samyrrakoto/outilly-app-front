@@ -4,7 +4,12 @@
         [stepNb]=stepNb
         [stepName]=stepName></app-step-label>
 
-        <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode" #name="ngModel" required minlength=5 maxlength=5>
+        <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="(ex : 94230)" [(ngModel)]="user.userProfile.address.zipcode" #name="ngModel" required minlength=5 maxlength=5>
+            <span class="icon is-left">
+                <fa-icon [icon]="['fas', 'globe-europe']"></fa-icon>
+            </span>
+        </p>
     </div>
 </div>
 

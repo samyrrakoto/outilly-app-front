@@ -4,7 +4,12 @@
         [stepNb]=stepNb
         [stepName]=stepName></app-step-label>
 
-        <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">
+        <p class="control has-icons-left">
+            <input id="name" name="name" class="input" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">
+            <span class="icon is-left">
+                <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>
+            </span>
+        </p>
     </div>
 </div>
 

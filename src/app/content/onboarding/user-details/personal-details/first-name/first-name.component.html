@@ -3,7 +3,13 @@
         <app-step-label
         [stepNb]=stepNb
         [stepName]=stepName></app-step-label>
-        <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
+
+        <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
+            <span class="icon is-left">
+                <fa-icon [icon]="['fas', 'id-card']"></fa-icon>
+            </span>
+        </p>
     </div>
 </div>
 
