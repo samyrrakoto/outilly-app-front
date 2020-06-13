@@ -15,7 +15,7 @@ export class PseudoComponent extends OnboardingComponent {
     this.user = formDataService.user;
     this.stepNb = 1;
     this.stepName = "Créez un identifiant de connexion";
-    this.previousPath = "";
+    this.previousPath = "1/username";
     this.nextPath = "2/email";
   }
 }

@@ -6,7 +6,7 @@
         [isMandatory]=isMandatory></app-step-label>
 
         <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
+            <input class="input" type="text" placeholder="" (keyup)="onKey($event)" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'mobile-alt']"></fa-icon>
             </span>

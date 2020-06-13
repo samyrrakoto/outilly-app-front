@@ -5,7 +5,7 @@
         [stepName]=stepName></app-step-label>
 
         <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="(ex : 123 rue des acacias)" [(ngModel)]="user.userProfile.address.line1" #name="ngModel" required>
+            <input class="input" type="text" placeholder="(ex : 123 rue des acacias)" (keyup)="onKey($event)" [(ngModel)]="user.userProfile.address.line1" #name="ngModel" required>
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'globe-europe']"></fa-icon>
             </span>

@@ -48,5 +48,14 @@ export class OnboardingComponent implements OnInit {
     let path = this.root + route;
     this.router.navigateByUrl(path);
   }
+
+  onKey(event: any) {
+    if (event.key == "Enter") {
+      this.next();
+    }
+    else if (event.key == "Backspace") {
+      this.previous();
+    }
+  }
 }
 
