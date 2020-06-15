@@ -50,10 +50,11 @@ export class OnboardingComponent implements OnInit {
   }
 
   onKey(event: any) {
+    console.log(event.key);
     if (event.key == "Enter") {
       this.next();
     }
-    else if (event.key == "Backspace") {
+    else if (event.key == "Backspace" && event.key == "Shift") {
       this.previous();
     }
   }
