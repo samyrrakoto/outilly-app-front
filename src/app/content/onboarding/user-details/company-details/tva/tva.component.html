@@ -4,7 +4,7 @@
         [stepNb]=stepNb
         [stepName]=stepName></app-step-label>
 
-        <input class="input" type="text" placeholder="" (keyup)="onKey($event)" [(ngModel)]="user.userProfile.company.tvanumber" #name="ngModel" required>
+        <input class="input" type="text" placeholder="" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.company.tvanumber" #name="ngModel" required>
     </div>
 </div>
 
