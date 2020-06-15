@@ -5,7 +5,7 @@
         [stepName]=stepName></app-step-label>
 
         <p class="control has-icons-left">
-            <input id="name" name="name" class="input" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4">
+            <input id="name" name="name" class="input" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" type="text" placeholder="(ex : DarkSasukedu78)" [(ngModel)]="user.username" #name="ngModel" required minlength="4" autofocus>
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>
             </span>
