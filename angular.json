@@ -25,6 +25,7 @@
             ],
             "styles": [
               "node_modules/bulma/css/bulma.min.css",
+              "src/css/mystyles.css",
               "src/styles.css"
             ],
             "scripts": []

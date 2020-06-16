@@ -1,3 +1,5 @@
+@import "./css/mystyles.css";
+
 :root {
     --KTKP-RED: #E35557;
     --KTKP-BLUE: #F9F9FE;
@@ -12,11 +14,6 @@
 .brandName
 {
     color: var(--KTKP-RED);
-}
-
-.green {
-    background-color: var(--KTKP-GREEN);
-    color: white;
 }
 
 a:link, a:visited {
