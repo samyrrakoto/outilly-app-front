@@ -6,11 +6,11 @@
 
         <div class="control has-icons-left">
             <div class="field">
-                <input class="input" type="date" [(ngModel)]="user.userProfile.birthdate">
+                <input class="input" type="date" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.birthdate">
             </div>
 
             <div class="icon is-small is-left">
-                <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                <fa-icon [icon]="['fas', 'birthday-cake']"></fa-icon>
             </div>
         </div>
     </div>

@@ -5,11 +5,16 @@
         [stepName]=stepName
         [isMandatory]=isMandatory></app-step-label>
 
-        <input class="input" type="text" placeholder="" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
+        <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
+            <span class="icon is-left">
+                <fa-icon [icon]="['fas', 'mobile-alt']"></fa-icon>
+            </span>
+        </p>
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
     <div *ngIf="name.errors.required">
         Le champ est requis !
     </div>

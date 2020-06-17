@@ -1,12 +1,26 @@
 .hero-body
 {
-    background-image: url("../../../../assets/img/background/atelier75.jpg");
+    background-image: url("../../../../assets/img/background/latelier-darkened.jpg");
+    background-position: center;
     margin-bottom: 50px;
+    padding-bottom: 200px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#personal-space .level-right {
+    background-color: var(--KTKP_GREY);
+    font-size: 12px;
+}
+
+#personal-level {
+    padding: 10px;
+    width: 300px;
 }
 
 .container
 {
-    background: rgba(30,30,30,0.75);
     padding: 30px
 }
 

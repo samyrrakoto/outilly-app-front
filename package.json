@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "css-build": "node-sass --omit-source-map-url src/assets/sass/bulma-custom.scss src/assets/css/bulma-custom.css",
+    "css-watch": "npm run css-build -- --watch"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "angular-fontawesome": "^1.0.0",
     "bulma": "^0.8.2",
+    "node-sass": "^4.14.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

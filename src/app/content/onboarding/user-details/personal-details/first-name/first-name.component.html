@@ -3,11 +3,17 @@
         <app-step-label
         [stepNb]=stepNb
         [stepName]=stepName></app-step-label>
-        <input class="input" type="text" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
+
+        <p class="control has-icons-left">
+            <input class="input" type="text" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" placeholder="(ex : Jean-Célestin)" [(ngModel)]="user.userProfile.firstName" #name="ngModel" required minlength=2>
+            <span class="icon is-left">
+                <fa-icon [icon]="['fas', 'id-card']"></fa-icon>
+            </span>
+        </p>
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="box has-background-danger has-text-white">
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
     <div *ngIf="name.errors.required">
         Le champ est requis !
     </div>

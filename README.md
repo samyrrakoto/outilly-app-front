@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Running SASS build for creating CSS file for Bulma
+
+Run `sudo npm run css-build` into `app-front` folder to build CSS file `bulma-custom.css` in `src/assets/css/` from SASS file `bulma-custom.scss` `src/assets/sass/`

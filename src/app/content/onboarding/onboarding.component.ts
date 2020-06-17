@@ -48,5 +48,13 @@ export class OnboardingComponent implements OnInit {
     let path = this.root + route;
     this.router.navigateByUrl(path);
   }
+
+  onKeyNext(event: any) {
+    this.next();
+  }
+
+  onKeyPrevious(event: any) {
+    this.previous();
+  }
 }
 

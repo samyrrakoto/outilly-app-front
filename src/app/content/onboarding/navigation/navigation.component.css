@@ -1,0 +1,8 @@
+.nav-arrow {
+    color: var(--GREY-LIGHT);
+    border: none;
+}
+
+.nav-arrow:hover {
+    color: var(--KTKP-RED);
+}

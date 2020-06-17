@@ -1,7 +1,14 @@
 .box
 {
-    background-color: rgb(235, 231, 252);
+    background-color: var(--KTKP-BLUE);
+    color: var(--KTKP-BLUE-DARKER);
     font-size: 12px;
     padding: 5px;
     margin-bottom: 20px;
+    box-shadow: none;
+}
+
+a:link, a:visited {
+    text-decoration: underline;
+    color: var(--KTKP-BLUE-DARKER);
 }

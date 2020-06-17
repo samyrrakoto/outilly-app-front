@@ -1,15 +1,23 @@
 <div id="searchBox" class="columns is-centered has-text-centered">
-    <div class="column is-one-third">
-        <h1 class="title">Trouvez du matériel sur Ekip<span id="brandName">r</span></h1>
+    <div id="searchHeader"class="column is-half">
+        <h1 class="title">Trouvez du matériel sur Ekip<span class="brandName">r</span></h1>
 
         <form class="form">
             <div class="field">
                 <p class="control has-icons-left">
+                    <span class="icon is-left">
+                        <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                    </span>
                     <input class="input" placeholder="Que recherchez-vous ?">
                 </p>
             </div>
         </form>
 
+    </div>
+</div>
+
+<div class="columns is-centered has-text-centered">
+    <div class="column is-two-thirds">
         <div class="columns">
             <div class="column">
                 <!-- Catégories -->
@@ -22,18 +30,18 @@
 
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                          <a href="#" class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                             Jardin
-                          </a>
-                          <a class="dropdown-item">
+                            </a>
+                            <a class="dropdown-item">
                             Bricolage
-                          </a>
-                          <a href="#" class="dropdown-item">
+                            </a>
+                            <a href="#" class="dropdown-item">
                             Mécanique
-                          </a>
-                          <a href="#" class="dropdown-item">
+                            </a>
+                            <a href="#" class="dropdown-item">
                             Autre
-                          </a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -45,7 +53,6 @@
                     <div class="dropdown-trigger">
                         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
                             <span>Localisation</span>
-                            <fa-icon [icon]="['fas', 'coffee']"></fa-icon>
                         </button>
                     </div>
 
@@ -87,6 +94,10 @@
             <div class="column">
                 <button class="button is-danger">Rechercher</button>
             </div>
+
         </div>
     </div>
+
+
+
 </div>

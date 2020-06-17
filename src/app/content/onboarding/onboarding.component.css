@@ -20,7 +20,10 @@
     color: #E35557;
 }
 
-.brandName
-{
-    color:#E35557;
+.error {
+    color: #E35557;
+}
+
+.select, select {
+    width: 100%;
 }

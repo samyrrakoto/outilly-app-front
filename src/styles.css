@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/css/bulma-custom.css";
+
+:root {
+    --KTKP-RED: #E35557;
+    --KTKP-BLUE: #F9F9FE;
+    --KTKP-BLUE-DARKER: #3A4984;
+    --KTKP-GREEN: #7DD2B3;
+    --KTKP-YELLOW: #F6A933;
+    --KTKP_GREY: #F5F5F5;
+
+    --GREY-LIGHT: #DBDBDB;
+}
+
+.brandName
+{
+    color: var(--KTKP-RED);
+}
+
+a:link, a:visited {
+    color: black;
+}
