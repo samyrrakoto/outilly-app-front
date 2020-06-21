@@ -6,7 +6,7 @@
 
         <div class="control has-icons-left">
             <div class="select is-hovered">
-                <select [(ngModel)]="user.userProfile.address.country.isocode" #name="ngModel" required>
+                <select [(ngModel)]="user.userProfile.address.country.isocode">
                     <option value="FR" selected>France</option>
                     <option value="BE">Belgique</option>
                     <option value="CH">Suisse</option>
@@ -21,6 +21,8 @@
     </div>
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
+</div>
+
+<app-navigation></app-navigation>

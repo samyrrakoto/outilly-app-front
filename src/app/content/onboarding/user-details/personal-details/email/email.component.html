@@ -5,7 +5,7 @@
         [stepName]=stepName></app-step-label>
 
         <p class="control has-icons-left">
-        <input class="input" type="email" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" placeholder="(ex : marc.dutroux@gmailaucul.com)" required [(ngModel)]="user.userProfile.email" #name="ngModel" autofocus>
+        <input class="input" type="email" (keydown)="onKey($event)" placeholder="{{ this.placeholder }}" [(ngModel)]="user.userProfile.email">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
             </span>
@@ -13,12 +13,8 @@
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
-    <div *ngIf="name.errors.required">
-        Le champ est requis !
-    </div>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+<app-navigation></app-navigation>

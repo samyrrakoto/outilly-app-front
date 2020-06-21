@@ -3,6 +3,7 @@ import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../onboarding.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-validation',
@@ -17,8 +18,8 @@ export class ValidationComponent extends OnboardingComponent {
     )
   };
 
-  constructor(public formDataService: FormDataService, public router: Router, public http: HttpClient) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public http: HttpClient) {
+    super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
   }
 

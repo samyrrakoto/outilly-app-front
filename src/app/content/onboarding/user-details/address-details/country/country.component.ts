@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-country',
@@ -10,12 +11,14 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class CountryComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "country";
     this.stepNb = 8;
     this.stepName = "Quel est votre pays ?";
-    this.previousPath = "7/birthdate";
-    this.nextPath = "9/zipcode";
+    this.formDataService.path.previous = "7/birthdate";
+    this.formDataService.path.next = "9/zipcode";
   }
 }

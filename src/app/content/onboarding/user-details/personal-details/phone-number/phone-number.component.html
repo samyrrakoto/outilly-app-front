@@ -6,7 +6,7 @@
         [isMandatory]=isMandatory></app-step-label>
 
         <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.phone1" #name="ngModel" required minlength="10" maxlength="15">
+            <input class="input" type="text" placeholder="{{ this.placeholder }}" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.phone1">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'mobile-alt']"></fa-icon>
             </span>
@@ -14,16 +14,8 @@
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
-    <div *ngIf="name.errors.required">
-        Le champ est requis !
-    </div>
-
-    <div *ngIf="name.errors.minlength">
-        Le numéro de téléphone est trop court !
-    </div>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+<app-navigation></app-navigation>

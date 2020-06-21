@@ -6,22 +6,18 @@
         [isMandatory]=isMandatory></app-step-label>
 
         <label class="radio">
-            <input type="radio" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.emailOptin" value="yes" #name="ngModel">
+            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value="yes">
             Oui
         </label>
         <label class="radio">
-            <input type="radio" (keydown.enter)="onKeyNext($event)" (keydown.shift.arrowright)="onKeyNext($event)" (keydown.shift.arrowleft)="onKeyPrevious($event)" [(ngModel)]="user.userProfile.emailOptin" value="no" #name="ngModel">
+            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value="no">
             Non
         </label>
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
-    <div *ngIf="name.errors.required">
-        Le champ est requis !
-    </div>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+<app-navigation></app-navigation>

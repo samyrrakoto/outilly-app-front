@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-passwordconfirmation',
@@ -9,15 +10,15 @@ import { OnboardingComponent } from '../../onboarding.component';
   styleUrls: ['../../onboarding.component.css', './passwordconfirmation.component.css']
 })
 export class PasswordconfirmationComponent extends OnboardingComponent {
-  password2: string;
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "pwdConfirmation";
     this.stepNb = 14;
     this.stepName = "Confirmez votre mot de passe";
-    this.previousPath = "13/password";
-    this.nextPath = "15/emailoptin";
-    this.password2 = "";
+    this.formDataService.path.previous = "13/password";
+    this.formDataService.path.next = "15/emailoptin";
   }
 }

@@ -6,7 +6,7 @@
 
         <div class="control has-icons-left has-icons-right">
             <div class="select is-hovered">
-                <select [(ngModel)]="user.userProfile.gender" #name="ngModel" required>
+                <select [(ngModel)]="user.userProfile.gender">
                     <option value="female">Femme</option>
                     <option value="male">Homme</option>
                     <option value="other">Autre</option>
@@ -20,12 +20,8 @@
     </div>
 </div>
 
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="content error has-text-left">
-    <div *ngIf="name.errors.required">
-        Le champ est requis !
-    </div>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath></app-navigation>
+<app-navigation></app-navigation>

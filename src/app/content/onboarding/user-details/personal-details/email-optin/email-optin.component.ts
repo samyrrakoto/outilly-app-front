@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-email-optin',
@@ -10,13 +11,15 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class EmailOptinComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "emailOptin";
     this.stepNb = 15;
     this.stepName = "Souhaitez-vous recevoir notre newsletter ?";
     this.isMandatory = false;
-    this.previousPath = "14/passwordconfirmation";
-    this.nextPath = "validation";
+    this.formDataService.path.previous = "14/passwordconfirmation";
+    this.formDataService.path.next = "validation";
   }
 }
