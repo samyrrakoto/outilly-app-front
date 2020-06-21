@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-email',
@@ -10,12 +11,15 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class EmailComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "email";
     this.user = formDataService.user;
     this.stepNb = 2;
     this.stepName = "Quelle est votre adresse e-mail ?";
-    this.previousPath = "1/username";
-    this.nextPath = "3/firstname";
+    this.formDataService.path.previous = "1/username";
+    this.formDataService.path.next = "3/firstname";
+    this.placeholder = "(ex : jeanmarc78@aol.fr )";
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-street',
@@ -10,12 +11,15 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class StreetComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "street";
     this.stepNb = 11;
     this.stepName = "Quelle est votre adresse postale ?";
-    this.previousPath = "10/city";
-    this.nextPath = "12/phonenumber";
+    this.formDataService.path.previous = "10/city";
+    this.formDataService.path.next = "12/phonenumber";
+    this.placeholder = "(ex : 123 bis rue des acacias)";
   }
 }

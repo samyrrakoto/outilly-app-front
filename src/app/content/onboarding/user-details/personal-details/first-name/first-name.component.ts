@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-first-name',
@@ -10,12 +11,15 @@ import { OnboardingComponent } from '../../../onboarding.component';
 })
 export class FirstNameComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router) {
-    super(formDataService, router);
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+    super(formDataService, router, formValidatorService);
+    this.errorMessages = formValidatorService.errorMessages;
+    this.formDataService.fieldName = "firstName";
     this.user = formDataService.user;
     this.stepNb = 3;
     this.stepName = "Quel est votre prénom ?";
-    this.previousPath = "2/email";
-    this.nextPath = "4/lastname";
+    this.formDataService.path.previous = "2/email";
+    this.formDataService.path.next = "4/lastname";
+    this.placeholder = "(ex : Jean Marc)";
   }
 }

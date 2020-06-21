@@ -6,7 +6,7 @@
 
         <div class="control has-icons-left">
             <div class="select is-hovered">
-                <select [(ngModel)]="user.userProfile.type" #name="ngModel" required>
+                <select [(ngModel)]="user.userProfile.type">
                     <option value="individual" selected>Particulier</option>
                     <option value="professional">Professionnel</option>
                 </select>
@@ -19,8 +19,8 @@
     </div>
 </div>
 
-<app-navigation
-[localNextPath]=nextPath
-[localPreviousPath]=previousPath
-[localCurrentPath]=currentPath
-[localType]=name.value ></app-navigation>
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+    {{ error }}
+</div>
+
+<app-navigation></app-navigation>
