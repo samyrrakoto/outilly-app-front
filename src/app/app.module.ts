@@ -77,13 +77,13 @@ import { StepLabelComponent } from './content/onboarding/step-label/step-label.c
     ConfirmationComponent,
     SiretComponent,
     TvaComponent,
-    StepLabelComponent,
+    StepLabelComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    AppRoutingModule,    
+    AppRoutingModule,
     FontAwesomeModule
   ],
   providers: [],

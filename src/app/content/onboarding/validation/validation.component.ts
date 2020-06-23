@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../onboarding.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { RequestService } from 'src/app/services/request.service';
+import { User } from 'src/app/models/user';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-validation',
@@ -11,29 +13,30 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['./validation.component.css']
 })
 export class ValidationComponent extends OnboardingComponent {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-        }
-    )
-  };
 
-  constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public http: HttpClient) {
+  constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
   }
 
-  postData(data) {
-    this.http
-        .post<any>("http://ktkp.api/user/create", data, this.httpOptions)
-        .subscribe(response => {
-          console.log(response)});
+  checkResponse(response: HttpResponse<User>) {
+    let status201: boolean = response.status == 201;
+    let matchingUsername: boolean = response.body.username == this.formDataService.user.username;
+    let existingId: boolean = response.body.id != 0;
+    let isOk: boolean = status201 && matchingUsername && existingId;
+
+    if (isOk)
+      this.goTo("confirmation");
+    else
+      console.log("ERROR");
   }
 
   submit(): void {
     let data = JSON.stringify(this.formDataService);
-    console.log(data);
-    this.postData(data);
-    this.goTo("confirmation");
+    let response = this.request.createUser(data);
+
+    response.subscribe((res: HttpResponse<User>) => {
+      this.checkResponse(res);
+    });
   }
 }
