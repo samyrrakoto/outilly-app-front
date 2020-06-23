@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormDataService } from './form-data.service';
+import { RequestService } from './request.service';
+import { User } from '../models/user';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +10,9 @@ import { FormDataService } from './form-data.service';
 export class FormValidatorService {
   errorMessages: Array<string>;
   isValid: boolean;
+  iexist : boolean;
 
-  constructor() {
+  constructor(public request: RequestService) {
     this.errorMessages = [];
   }
 
@@ -57,11 +61,11 @@ export class FormValidatorService {
   /*
   ----- Username constraints
   */
-  isTooShort(username: string): boolean {
+  isTooShort(username: string, minLength: number = 4): boolean {
     let message = "Le nom d'utilisateur doit faire au moins 4 caractères !";
     let index = this.errorMessages.indexOf(message);
 
-    if (username.length < 4) {
+    if (username.length < minLength) {
       if (this.errorMessages.indexOf(message) == -1)
         this.errorMessages.push(message);
       return true;
@@ -70,10 +74,43 @@ export class FormValidatorService {
     return false;
   }
 
-  userNameVerify(username: string): boolean {
-    if (this.isEmpty(username))
-      return false;
-    if (this.isTooShort(username))
+  //TODO : finish implementation of user existence checking
+  checkUsernameExists(response: HttpResponse<any>): boolean {
+    let hasExists: boolean = response.body.exists === true;
+    let message: string = "Cet utilisateur existe déjà !";
+    let index = this.errorMessages.indexOf(message);
+    if (hasExists === true) {
+    let index = this.errorMessages.indexOf(message);
+      this.errorMessages.push(message);
+      return true;
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
+  isUsernameExists(userData: FormDataService): boolean {
+    let data = JSON.stringify(
+      {
+        "entity": "user",
+        "field" : "username",
+        "value" : userData.user.username
+      }
+    );
+    let response = this.request.checkUsernameExistsCall(data);
+    let userNameExists : boolean;
+    response.subscribe((res: HttpResponse<any>) => {
+      userNameExists = this.checkUsernameExists(res);
+    });
+    return userNameExists;
+  }
+
+  userNameVerify(data: FormDataService): boolean {
+    let username: string = data.user.username;
+    let empty: boolean = this.isEmpty(username);
+    let tooShort: boolean = this.isTooShort(username);
+    let usernameExists: boolean = this.isUsernameExists(data);
+
+    if (empty || tooShort)
       return false;
     return true;
   }
@@ -81,7 +118,9 @@ export class FormValidatorService {
   /*
   ----- Email constraints
   */
-  emailVerify(email: string): boolean {
+  emailVerify(data: FormDataService): boolean {
+    let email: string = data.user.userProfile.email;
+
     if (this.isEmpty(email))
       return false;
     return true;
@@ -90,7 +129,9 @@ export class FormValidatorService {
   /*
   ----- Email Optin constraints
   */
-  emailOptinVerify(emailOptin: boolean): boolean {
+  emailOptinVerify(data: FormDataService): boolean {
+    let emailOptin: boolean = data.user.userProfile.emailOptin;
+
     if (this.isEmptyBool(emailOptin))
       return false;
     return true;
@@ -100,7 +141,9 @@ export class FormValidatorService {
   ----- Firstname constraints
   */
 
-  firstNameVerify(firstName: string): boolean {
+  firstNameVerify(data: FormDataService): boolean {
+    let firstName: string = data.user.userProfile.firstName;
+
     if (this.isEmpty(firstName))
       return false;
     return true;
@@ -110,7 +153,9 @@ export class FormValidatorService {
   ----- Lastname constraints
   */
 
-  lastNameVerify(lastName: string): boolean {
+  lastNameVerify(data: FormDataService): boolean {
+    let lastName: string = data.user.userProfile.lastName;
+
     if (this.isEmpty(lastName))
       return false;
     return true;
@@ -119,7 +164,9 @@ export class FormValidatorService {
   /*
   ----- Gender constraints
   */
-  genderVerify(gender: string): boolean {
+  genderVerify(data: FormDataService): boolean {
+    let gender:string = data.user.userProfile.gender;
+
     if (this.isEmpty(gender))
       return false;
     return true;
@@ -128,7 +175,9 @@ export class FormValidatorService {
   /*
   ----- Status constraints
   */
-  statusVerify(status: string): boolean {
+  statusVerify(data: FormDataService): boolean {
+    let status: string = data.user.userProfile.type;
+
     if (this.isEmpty(status))
       return false;
     return true;
@@ -137,7 +186,9 @@ export class FormValidatorService {
   /*
   ----- Birthdate constraints
   */
-  birthdateVerify(birthdate: Date): boolean {
+  birthdateVerify(data: FormDataService): boolean {
+    let birthdate: Date = data.user.userProfile.birthdate;
+
     if (this.isEmptyDate(birthdate))
       return false;
     return true;
@@ -146,7 +197,9 @@ export class FormValidatorService {
   /*
   ----- Country constraints
   */
-  countryVerify(country: string): boolean {
+  countryVerify(data: FormDataService): boolean {
+    let country: string = data.user.userProfile.address.country.isocode;
+
     if (this.isEmpty(country))
       return false;
     return true;
@@ -155,7 +208,9 @@ export class FormValidatorService {
   /*
   ----- Zipcode constraints
   */
-  zipcodeVerify(zipcode: string): boolean {
+  zipcodeVerify(data: FormDataService): boolean {
+    let zipcode: string = data.user.userProfile.address.zipcode;
+
     if (this.isEmpty(zipcode))
       return false;
     return true;
@@ -164,7 +219,9 @@ export class FormValidatorService {
   /*
   ----- City constraints
   */
-  cityVerify(city: string): boolean {
+  cityVerify(data: FormDataService): boolean {
+    let city: string = data.user.userProfile.address.city;
+
     if (this.isEmpty(city))
       return false;
     return true;
@@ -173,7 +230,9 @@ export class FormValidatorService {
   /*
   ----- Street constraints
   */
-  streetVerify(street: string): boolean {
+  streetVerify(data: FormDataService): boolean {
+    let street: string = data.user.userProfile.address.line1;
+
     if (this.isEmpty(street))
       return false;
     return true;
@@ -182,7 +241,9 @@ export class FormValidatorService {
   /*
   ----- Phone number constraints
   */
-  phoneNumberVerify(phoneNumber: string): boolean {
+  phoneNumberVerify(data: FormDataService): boolean {
+    let phoneNumber: string = data.user.userProfile.phone1;
+
     if (this.isEmpty(phoneNumber))
       return false;
     return true;
@@ -191,7 +252,10 @@ export class FormValidatorService {
   /*
   ----- Password constraints
   */
-  pwdVerify(pwd: string): boolean {
+
+  pwdVerify(data: FormDataService): boolean {
+    let pwd = data.user.password;
+
     if (this.isEmpty(pwd))
       return false;
     return true;
@@ -214,7 +278,10 @@ export class FormValidatorService {
     return false;
   }
 
-  pwdConfirmationVerify(pwd: string, pwdConfirmation: string): boolean {
+  pwdConfirmationVerify(data: FormDataService): boolean {
+    let pwd: string = data.user.password;
+    let pwdConfirmation: string = data.user.passwordConfirmation;
+
     if (this.isPwdConfirmationDifferent(pwd, pwdConfirmation))
       return false;
     return true;
@@ -223,7 +290,9 @@ export class FormValidatorService {
   /*
   ----- Siret constraints
   */
-  siretVerify(siret: string): boolean {
+  siretVerify(data: FormDataService): boolean {
+    let siret: string = data.user.userProfile.company.siret;
+
     if (this.isEmpty(siret))
       return false;
     return true;
@@ -232,7 +301,9 @@ export class FormValidatorService {
   /*
   ----- TVA constraints
   */
-  tvaVerify(tva: string): boolean {
+  tvaVerify(data: FormDataService): boolean {
+    let tva: string = data.user.userProfile.company.tvanumber;
+
     if (this.isEmpty(tva))
       return false;
     return true;
@@ -244,39 +315,39 @@ export class FormValidatorService {
   verify(data: FormDataService): boolean {
     switch (data.fieldName) {
       case "userName":
-        return this.userNameVerify(data.user.username);
+        return this.userNameVerify(data);
       case "email":
-        return this.emailVerify(data.user.userProfile.email);
+        return this.emailVerify(data);
       case "emailOptin":
-        return this.emailOptinVerify(data.user.userProfile.emailOptin);
+        return this.emailOptinVerify(data);
       case "firstName":
-        return this.firstNameVerify(data.user.userProfile.firstName);
+        return this.firstNameVerify(data);
       case "lastName":
-        return this.lastNameVerify(data.user.userProfile.lastName);
+        return this.lastNameVerify(data);
       case "gender":
-        return this.genderVerify(data.user.userProfile.gender);
+        return this.genderVerify(data);
       case "status":
-        return this.statusVerify(data.user.userProfile.type);
+        return this.statusVerify(data);
       case "birthdate":
-        return this.birthdateVerify(data.user.userProfile.birthdate);
+        return this.birthdateVerify(data);
       case "country":
-        return this.countryVerify(data.user.userProfile.address.country.isocode);
+        return this.countryVerify(data);
       case "zipcode":
-        return this.zipcodeVerify(data.user.userProfile.address.zipcode);
+        return this.zipcodeVerify(data);
       case "city":
-        return this.cityVerify(data.user.userProfile.address.city);
+        return this.cityVerify(data);
       case "street":
-        return this.streetVerify(data.user.userProfile.address.line1);
+        return this.streetVerify(data);
       case "phoneNumber":
-        return this.phoneNumberVerify(data.user.userProfile.phone1);
+        return this.phoneNumberVerify(data);
       case "pwd":
-        return this.pwdVerify(data.user.password);
+        return this.pwdVerify(data);
       case "pwdConfirmation":
-        return this.pwdConfirmationVerify(data.user.password, data.user.passwordConfirmation);
+        return this.pwdConfirmationVerify(data);
       case "siret":
-        return this.siretVerify(data.user.userProfile.company.siret);
+        return this.siretVerify(data);
       case "tva":
-        return this.tvaVerify(data.user.userProfile.company.tvanumber);
+        return this.tvaVerify(data);
     }
   }
 }

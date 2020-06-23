@@ -3,6 +3,7 @@ import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-pseudo',
@@ -11,7 +12,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 })
 export class PseudoComponent extends OnboardingComponent {
 
-  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.errorMessages;
     this.formDataService.fieldName = "userName";

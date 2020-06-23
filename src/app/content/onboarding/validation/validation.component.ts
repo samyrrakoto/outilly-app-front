@@ -5,7 +5,6 @@ import { OnboardingComponent } from '../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { RequestService } from 'src/app/services/request.service';
 import { User } from 'src/app/models/user';
-import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -21,9 +20,15 @@ export class ValidationComponent extends OnboardingComponent {
   }
 
   checkResponse(response: HttpResponse<User>) {
-    let statusOk: boolean = response.status == 201;
+    let status201: boolean = response.status == 201;
     let matchingUsername: boolean = response.body.username == this.formDataService.user.username;
     let existingId: boolean = response.body.id != 0;
+    let isOk: boolean = status201 && matchingUsername && existingId;
+
+    if (isOk)
+      this.goTo("confirmation");
+    else
+      console.log("ERROR");
   }
 
   submit(): void {
@@ -33,6 +38,5 @@ export class ValidationComponent extends OnboardingComponent {
     response.subscribe((res: HttpResponse<User>) => {
       this.checkResponse(res);
     });
-    this.goTo("confirmation");
   }
 }

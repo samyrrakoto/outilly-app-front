@@ -18,17 +18,17 @@ export class RequestService {
     this.uri = new Uri();
   }
 
-  postData(data: any, ressource: string, param: string): Observable<HttpResponse<User>> {
+  postData(data: any, ressource: string, param: string): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, param);
 
     return this.http.post<any>(this.uri.path, data, this.httpOptions);
   }
 
-  createUser(data: any): Observable<HttpResponse<User>> {
+  createUser(data: any): Observable<HttpResponse<any>> {
     return this.postData(data, this.uri.USER, this.uri.CREATE);
   }
 
-  checkUsernameExists(data: any): Observable<HttpResponse<User>> {
+  checkUsernameExistsCall(data: any): Observable<HttpResponse<any>> {
     return this.postData(data, this.uri.CHECK, this.uri.EXISTS);
   }
 }
