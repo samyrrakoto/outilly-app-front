@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormDataService } from './form-data.service';
 import { RequestService } from './request.service';
-import { User } from '../models/user';
 import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
@@ -11,6 +10,10 @@ export class FormValidatorService {
   errorMessages: Array<string>;
   isValid: boolean;
   iexist : boolean;
+  readonly ALPHA: string = "abcdefghijklmnopqrstuvwxyz-";
+  readonly NUM: string = "0123456789";
+  readonly ALPHANUM: string = this.ALPHA + this.NUM + " ";
+  readonly REQUIRED = "Ce champ est requis !";
 
   constructor(public request: RequestService) {
     this.errorMessages = [];
@@ -19,9 +22,10 @@ export class FormValidatorService {
   /*
   ----- General constraints
   */
+
   isEmpty(field: string): boolean {
-    let message = "Ce champ est requis !";
-    let index = this.errorMessages.indexOf(message);
+    let message: string = this.REQUIRED;
+    let index: number = this.errorMessages.indexOf(message);
 
     if (field == "") {
       if (this.errorMessages.indexOf(message) == -1)
@@ -33,8 +37,8 @@ export class FormValidatorService {
   }
 
   isEmptyDate(date: Date): boolean {
-    let message = "Ce champ est requis !";
-    let index = this.errorMessages.indexOf(message);
+    let message: string = this.REQUIRED;
+    let index: number = this.errorMessages.indexOf(message);
 
     if (date == null) {
       if (this.errorMessages.indexOf(message) == -1)
@@ -46,7 +50,7 @@ export class FormValidatorService {
   }
 
   isEmptyBool(bool: boolean): boolean {
-    let message = "Ce champ est requis !";
+    let message = this.REQUIRED;
     let index = this.errorMessages.indexOf(message);
 
     if (bool == undefined) {
@@ -58,14 +62,80 @@ export class FormValidatorService {
     return false;
   }
 
-  /*
-  ----- Username constraints
-  */
-  isTooShort(username: string, minLength: number = 4): boolean {
-    let message = "Le nom d'utilisateur doit faire au moins 4 caractères !";
-    let index = this.errorMessages.indexOf(message);
+  isNotNum(fieldValue: string) {
+    let message: string = "Le champ doit contenir uniquement des chiffres !";
+    let index: number = this.errorMessages.indexOf(message);
+    let alphabet: string = this.NUM;
+    let isInAlphabet: boolean = false;
 
-    if (username.length < minLength) {
+    for (let char of fieldValue) {
+      isInAlphabet = false;
+
+      for (let symbol of alphabet) {
+        if (char == symbol)
+          isInAlphabet = true;
+      }
+      if (isInAlphabet == false) {
+        if (this.errorMessages.indexOf(message) == -1)
+          this.errorMessages.push(message);
+        return true;
+      }
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
+  isNotAlpha(field: string) {
+    let message: string = "Le champ doit contenir uniquement des lettres ou des tirets !";
+    let index: number = this.errorMessages.indexOf(message);
+    let alphabet: string = this.ALPHA;
+    let isInAlphabet: boolean = false;
+
+    for (let char of field) {
+      isInAlphabet = false;
+
+      for (let symbol of alphabet) {
+        if (char.toLowerCase() == symbol)
+          isInAlphabet = true;
+      }
+      if (isInAlphabet == false) {
+        if (this.errorMessages.indexOf(message) == -1)
+          this.errorMessages.push(message);
+        return true;
+      }
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
+  isNotAlphaNum(field: string) {
+    let message: string = "Le champ ne doit pas contenir de caractères spéciaux !";
+    let index: number = this.errorMessages.indexOf(message);
+    let alphabet: string = this.ALPHANUM;
+    let isInAlphabet: boolean = false;
+
+    for (let char of field) {
+      isInAlphabet = false;
+
+      for (let symbol of alphabet) {
+        if (char.toLowerCase() == symbol)
+          isInAlphabet = true;
+      }
+      if (isInAlphabet == false) {
+        if (this.errorMessages.indexOf(message) == -1)
+          this.errorMessages.push(message);
+        return true;
+      }
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
+  isTooShort(field: string, minLength: number = 4): boolean {
+    let message: string = "Le champ doit faire au moins " + minLength + " caractères !";
+    let index: number = this.errorMessages.indexOf(message);
+
+    if (field.length < minLength) {
       if (this.errorMessages.indexOf(message) == -1)
         this.errorMessages.push(message);
       return true;
@@ -73,6 +143,35 @@ export class FormValidatorService {
     this.errorMessages.splice(index);
     return false;
   }
+
+  wrongLength(field: string, length: number = 10) {
+    let message: string = "Le champ doit faire " + length + " caractères !";
+    let index: number = this.errorMessages.indexOf(message);
+
+    if (field.length != length) {
+      if (this.errorMessages.indexOf(message) == -1)
+        this.errorMessages.push(message);
+      return true;
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
+  hasNotArobase(field: string): boolean {
+    let message: string = "L'adresse mail doit contenir un @";
+
+    for (let char of field) {
+      if (char == "@")
+        return false;
+    }
+    if (this.errorMessages.indexOf(message) == -1)
+      this.errorMessages.push(message);
+    return true;
+  }
+
+  /*
+  ----- Username constraints
+  */
 
   //TODO : finish implementation of user existence checking
   checkUsernameExists(response: HttpResponse<any>): boolean {
@@ -88,6 +187,7 @@ export class FormValidatorService {
     return false;
   }
 
+  //TODO : finish implementation of user existence checking
   isUsernameExists(userData: FormDataService): boolean {
     let data = JSON.stringify(
       {
@@ -108,7 +208,6 @@ export class FormValidatorService {
     let username: string = data.user.username;
     let empty: boolean = this.isEmpty(username);
     let tooShort: boolean = this.isTooShort(username);
-    let usernameExists: boolean = this.isUsernameExists(data);
 
     if (empty || tooShort)
       return false;
@@ -118,10 +217,13 @@ export class FormValidatorService {
   /*
   ----- Email constraints
   */
+
   emailVerify(data: FormDataService): boolean {
     let email: string = data.user.userProfile.email;
+    let empty: boolean = this.isEmpty(email);
+    let hasNotArobase: boolean = this.hasNotArobase(email);
 
-    if (this.isEmpty(email))
+    if (empty || hasNotArobase)
       return false;
     return true;
   }
@@ -129,10 +231,12 @@ export class FormValidatorService {
   /*
   ----- Email Optin constraints
   */
+
   emailOptinVerify(data: FormDataService): boolean {
     let emailOptin: boolean = data.user.userProfile.emailOptin;
+    let empty: boolean = this.isEmptyBool(emailOptin);
 
-    if (this.isEmptyBool(emailOptin))
+    if (empty)
       return false;
     return true;
   }
@@ -143,8 +247,10 @@ export class FormValidatorService {
 
   firstNameVerify(data: FormDataService): boolean {
     let firstName: string = data.user.userProfile.firstName;
+    let empty: boolean = this.isEmpty(firstName);
+    let notAlpha: boolean = this.isNotAlpha(firstName);
 
-    if (this.isEmpty(firstName))
+    if (empty || notAlpha)
       return false;
     return true;
   }
@@ -155,8 +261,10 @@ export class FormValidatorService {
 
   lastNameVerify(data: FormDataService): boolean {
     let lastName: string = data.user.userProfile.lastName;
+    let empty: boolean = this.isEmpty(lastName);
+    let notNum: boolean = this.isNotAlpha(lastName);
 
-    if (this.isEmpty(lastName))
+    if (empty || notNum)
       return false;
     return true;
   }
@@ -164,10 +272,12 @@ export class FormValidatorService {
   /*
   ----- Gender constraints
   */
+
   genderVerify(data: FormDataService): boolean {
     let gender:string = data.user.userProfile.gender;
+    let empty: boolean = this.isEmpty(gender);
 
-    if (this.isEmpty(gender))
+    if (empty)
       return false;
     return true;
   }
@@ -175,10 +285,12 @@ export class FormValidatorService {
   /*
   ----- Status constraints
   */
+
   statusVerify(data: FormDataService): boolean {
     let status: string = data.user.userProfile.type;
+    let empty: boolean = this.isEmpty(status);
 
-    if (this.isEmpty(status))
+    if (empty)
       return false;
     return true;
   }
@@ -186,10 +298,12 @@ export class FormValidatorService {
   /*
   ----- Birthdate constraints
   */
+
   birthdateVerify(data: FormDataService): boolean {
     let birthdate: Date = data.user.userProfile.birthdate;
+    let empty: boolean = this.isEmptyDate(birthdate);
 
-    if (this.isEmptyDate(birthdate))
+    if (empty)
       return false;
     return true;
   }
@@ -197,10 +311,12 @@ export class FormValidatorService {
   /*
   ----- Country constraints
   */
+
   countryVerify(data: FormDataService): boolean {
     let country: string = data.user.userProfile.address.country.isocode;
+    let empty: boolean = this.isEmpty(country);
 
-    if (this.isEmpty(country))
+    if (empty)
       return false;
     return true;
   }
@@ -208,10 +324,27 @@ export class FormValidatorService {
   /*
   ----- Zipcode constraints
   */
+
   zipcodeVerify(data: FormDataService): boolean {
     let zipcode: string = data.user.userProfile.address.zipcode;
+    let empty: boolean = this.isEmpty(zipcode);
+    let notNum: boolean = this.isNotNum(zipcode);
+    let length: number;
 
-    if (this.isEmpty(zipcode))
+    switch (data.user.userProfile.address.country.isocode) {
+      case "FR":
+        length = 5;
+        break;
+      case "BE":
+      case "LU":
+      case "CH":
+        length = 4;
+        break;
+    }
+
+    let wrongLength: boolean = this.wrongLength(zipcode, length);
+
+    if (empty || notNum || wrongLength)
       return false;
     return true;
   }
@@ -219,10 +352,13 @@ export class FormValidatorService {
   /*
   ----- City constraints
   */
+
   cityVerify(data: FormDataService): boolean {
     let city: string = data.user.userProfile.address.city;
+    let empty: boolean = this.isEmpty(city);
+    let notAlpha: boolean = this.isNotAlpha(city);
 
-    if (this.isEmpty(city))
+    if (empty || notAlpha)
       return false;
     return true;
   }
@@ -230,10 +366,13 @@ export class FormValidatorService {
   /*
   ----- Street constraints
   */
+
   streetVerify(data: FormDataService): boolean {
     let street: string = data.user.userProfile.address.line1;
+    let empty: boolean = this.isEmpty(street);
+    let notAlphaNum: boolean = this.isNotAlphaNum(street);
 
-    if (this.isEmpty(street))
+    if (empty || notAlphaNum)
       return false;
     return true;
   }
@@ -241,10 +380,12 @@ export class FormValidatorService {
   /*
   ----- Phone number constraints
   */
+
   phoneNumberVerify(data: FormDataService): boolean {
     let phoneNumber: string = data.user.userProfile.phone1;
+    let notNum: boolean = this.isNotNum(phoneNumber);
 
-    if (this.isEmpty(phoneNumber))
+    if (notNum)
       return false;
     return true;
   }
@@ -254,9 +395,11 @@ export class FormValidatorService {
   */
 
   pwdVerify(data: FormDataService): boolean {
-    let pwd = data.user.password;
+    let pwd: string = data.user.password;
+    let empty: boolean = this.isEmpty(pwd);
+    let tooShort: boolean = this.isTooShort(pwd, 6);
 
-    if (this.isEmpty(pwd))
+    if (empty || tooShort)
       return false;
     return true;
   }
@@ -266,8 +409,8 @@ export class FormValidatorService {
   */
 
   isPwdConfirmationDifferent(pwd: string, pwdConfirmation: string): boolean {
-    let message = "Les mots de passe sont différents !";
-    let index = this.errorMessages.indexOf(message);
+    let message: string = "Les mots de passe sont différents !";
+    let index: number = this.errorMessages.indexOf(message);
 
     if (pwd != pwdConfirmation) {
       if (this.errorMessages.indexOf(message) == -1)
@@ -281,8 +424,9 @@ export class FormValidatorService {
   pwdConfirmationVerify(data: FormDataService): boolean {
     let pwd: string = data.user.password;
     let pwdConfirmation: string = data.user.passwordConfirmation;
+    let different: boolean = this.isPwdConfirmationDifferent(pwd, pwdConfirmation);
 
-    if (this.isPwdConfirmationDifferent(pwd, pwdConfirmation))
+    if (different)
       return false;
     return true;
   }
@@ -290,10 +434,14 @@ export class FormValidatorService {
   /*
   ----- Siret constraints
   */
+
   siretVerify(data: FormDataService): boolean {
     let siret: string = data.user.userProfile.company.siret;
+    let empty: boolean = this.isEmpty(siret);
+    let wrongLength: boolean = this.wrongLength(siret, 14);
+    let notNum: boolean = this.isNotNum(siret);
 
-    if (this.isEmpty(siret))
+    if (empty || notNum || wrongLength)
       return false;
     return true;
   }
@@ -301,10 +449,13 @@ export class FormValidatorService {
   /*
   ----- TVA constraints
   */
+
   tvaVerify(data: FormDataService): boolean {
     let tva: string = data.user.userProfile.company.tvanumber;
+    let empty: boolean = this.isEmpty(tva);
+    let notNum: boolean = this.isNotNum(tva);
 
-    if (this.isEmpty(tva))
+    if (empty || notNum)
       return false;
     return true;
   }
@@ -312,6 +463,7 @@ export class FormValidatorService {
   /*
   ----- Constraints manager called by the form
   */
+
   verify(data: FormDataService): boolean {
     switch (data.fieldName) {
       case "userName":
