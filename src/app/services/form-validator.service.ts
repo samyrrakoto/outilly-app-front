@@ -23,37 +23,16 @@ export class FormValidatorService {
   ----- General constraints
   */
 
-  isEmpty(field: string): boolean {
+  isEmpty(field: any): boolean {
     let message: string = this.REQUIRED;
     let index: number = this.errorMessages.indexOf(message);
+    let nullValue: any;
 
-    if (field == "") {
-      if (this.errorMessages.indexOf(message) == -1)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
+    // Depending on the type we set a null value
+    if (typeof(field) == "string") nullValue = "";
+    else if (field instanceof Date) nullValue = null;
 
-  isEmptyDate(date: Date): boolean {
-    let message: string = this.REQUIRED;
-    let index: number = this.errorMessages.indexOf(message);
-
-    if (date == null) {
-      if (this.errorMessages.indexOf(message) == -1)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isEmptyBool(bool: boolean): boolean {
-    let message = this.REQUIRED;
-    let index = this.errorMessages.indexOf(message);
-
-    if (bool == undefined) {
+    if (field == nullValue) {
       if (this.errorMessages.indexOf(message) == -1)
         this.errorMessages.push(message);
       return true;
@@ -234,7 +213,7 @@ export class FormValidatorService {
 
   emailOptinVerify(data: FormDataService): boolean {
     let emailOptin: boolean = data.user.userProfile.emailOptin;
-    let empty: boolean = this.isEmptyBool(emailOptin);
+    let empty: boolean = this.isEmpty(emailOptin);
 
     if (empty)
       return false;
@@ -301,7 +280,7 @@ export class FormValidatorService {
 
   birthdateVerify(data: FormDataService): boolean {
     let birthdate: Date = data.user.userProfile.birthdate;
-    let empty: boolean = this.isEmptyDate(birthdate);
+    let empty: boolean = this.isEmpty(birthdate);
 
     if (empty)
       return false;
@@ -465,41 +444,6 @@ export class FormValidatorService {
   */
 
   verify(data: FormDataService): boolean {
-    switch (data.fieldName) {
-      case "userName":
-        return this.userNameVerify(data);
-      case "email":
-        return this.emailVerify(data);
-      case "emailOptin":
-        return this.emailOptinVerify(data);
-      case "firstName":
-        return this.firstNameVerify(data);
-      case "lastName":
-        return this.lastNameVerify(data);
-      case "gender":
-        return this.genderVerify(data);
-      case "status":
-        return this.statusVerify(data);
-      case "birthdate":
-        return this.birthdateVerify(data);
-      case "country":
-        return this.countryVerify(data);
-      case "zipcode":
-        return this.zipcodeVerify(data);
-      case "city":
-        return this.cityVerify(data);
-      case "street":
-        return this.streetVerify(data);
-      case "phoneNumber":
-        return this.phoneNumberVerify(data);
-      case "pwd":
-        return this.pwdVerify(data);
-      case "pwdConfirmation":
-        return this.pwdConfirmationVerify(data);
-      case "siret":
-        return this.siretVerify(data);
-      case "tva":
-        return this.tvaVerify(data);
-    }
+    return this[data.fieldName + "Verify"](data);
   }
 }
