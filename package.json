@@ -28,6 +28,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "angular-fontawesome": "^1.0.0",
     "bulma": "^0.8.2",
+    "bulma-accordion": "^2.0.1",
+    "bulma-carousel": "^4.0.4",
     "node-sass": "^4.14.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

@@ -23,12 +23,19 @@ export class FormValidatorService {
   ----- General constraints
   */
 
-  isEmpty(field: string): boolean {
+  isEmpty(field: any): boolean {
     let message: string = this.REQUIRED;
     let index: number = this.errorMessages.indexOf(message);
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
+    let emptyErrors: boolean = this.errorMessages.length == 0;
+    let nullValue: any;
 
-    if (field == "") {
-      if (this.errorMessages.indexOf(message) == -1)
+    // Depending on the type we set a null value
+    if (typeof(field) == "string") nullValue = "";
+    else if (field instanceof Date) nullValue = null;
+
+    if (field == nullValue) {
+      if (messageUnexists && emptyErrors)
         this.errorMessages.push(message);
       return true;
     }
@@ -36,39 +43,14 @@ export class FormValidatorService {
     return false;
   }
 
-  isEmptyDate(date: Date): boolean {
-    let message: string = this.REQUIRED;
-    let index: number = this.errorMessages.indexOf(message);
-
-    if (date == null) {
-      if (this.errorMessages.indexOf(message) == -1)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isEmptyBool(bool: boolean): boolean {
-    let message = this.REQUIRED;
-    let index = this.errorMessages.indexOf(message);
-
-    if (bool == undefined) {
-      if (this.errorMessages.indexOf(message) == -1)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isNotNum(fieldValue: string) {
+  isNotNum(field: string) {
     let message: string = "Le champ doit contenir uniquement des chiffres !";
     let index: number = this.errorMessages.indexOf(message);
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
     let alphabet: string = this.NUM;
     let isInAlphabet: boolean = false;
 
-    for (let char of fieldValue) {
+    for (let char of field) {
       isInAlphabet = false;
 
       for (let symbol of alphabet) {
@@ -76,30 +58,7 @@ export class FormValidatorService {
           isInAlphabet = true;
       }
       if (isInAlphabet == false) {
-        if (this.errorMessages.indexOf(message) == -1)
-          this.errorMessages.push(message);
-        return true;
-      }
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isNotAlpha(field: string) {
-    let message: string = "Le champ doit contenir uniquement des lettres ou des tirets !";
-    let index: number = this.errorMessages.indexOf(message);
-    let alphabet: string = this.ALPHA;
-    let isInAlphabet: boolean = false;
-
-    for (let char of field) {
-      isInAlphabet = false;
-
-      for (let symbol of alphabet) {
-        if (char.toLowerCase() == symbol)
-          isInAlphabet = true;
-      }
-      if (isInAlphabet == false) {
-        if (this.errorMessages.indexOf(message) == -1)
+        if (messageUnexists && field.length > 0)
           this.errorMessages.push(message);
         return true;
       }
@@ -122,7 +81,7 @@ export class FormValidatorService {
           isInAlphabet = true;
       }
       if (isInAlphabet == false) {
-        if (this.errorMessages.indexOf(message) == -1)
+        if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
           this.errorMessages.push(message);
         return true;
       }
@@ -136,7 +95,7 @@ export class FormValidatorService {
     let index: number = this.errorMessages.indexOf(message);
 
     if (field.length < minLength) {
-      if (this.errorMessages.indexOf(message) == -1)
+      if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
         this.errorMessages.push(message);
       return true;
     }
@@ -149,7 +108,7 @@ export class FormValidatorService {
     let index: number = this.errorMessages.indexOf(message);
 
     if (field.length != length) {
-      if (this.errorMessages.indexOf(message) == -1)
+      if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
         this.errorMessages.push(message);
       return true;
     }
@@ -157,16 +116,48 @@ export class FormValidatorService {
     return false;
   }
 
-  hasNotArobase(field: string): boolean {
-    let message: string = "L'adresse mail doit contenir un @";
+  isMailConform(field: string): boolean {
+    let regex: RegExp = /^[a-z0-9-._]+@[a-z-]+\.[a-z]+$/;
+    let message: string = "L'adresse n'est pas conforme";
 
-    for (let char of field) {
-      if (char == "@")
-        return false;
-    }
-    if (this.errorMessages.indexOf(message) == -1)
+    if (field.match(regex))
+      return true;
+    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
       this.errorMessages.push(message);
-    return true;
+    return false;
+  }
+
+  isNameConform(field: string): boolean {
+    let regex: RegExp = /^[a-zA-Z-éèâ' ]+$/;
+    let message: string = "Le nom n'est pas conforme";
+
+    if (field.match(regex))
+      return true;
+    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
+      this.errorMessages.push(message);
+    return false;
+  }
+
+  isCityConform(field: string): boolean {
+    let regex: RegExp = /^[a-zA-Z-' ]+$/;
+    let message: string = "Le nom n'est pas conforme";
+
+    if (field.match(regex))
+      return true;
+    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
+      this.errorMessages.push(message);
+    return false;
+  }
+
+  isStreetConform(field: string): boolean {
+    let regex: RegExp = /^[1-9][0-9]{0,3}[ ](bis |ter )?(rue|avenue|av|boulevard|bd|villa|passage)[ ][a-zA-Z]+$/;
+    let message: string = "L'adresse n'est pas conforme";
+
+    if (field.match(regex))
+      return true;
+    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
+      this.errorMessages.push(message);
+    return false;
   }
 
   /*
@@ -179,7 +170,6 @@ export class FormValidatorService {
     let message: string = "Cet utilisateur existe déjà !";
     let index = this.errorMessages.indexOf(message);
     if (hasExists === true) {
-    let index = this.errorMessages.indexOf(message);
       this.errorMessages.push(message);
       return true;
     }
@@ -221,9 +211,9 @@ export class FormValidatorService {
   emailVerify(data: FormDataService): boolean {
     let email: string = data.user.userProfile.email;
     let empty: boolean = this.isEmpty(email);
-    let hasNotArobase: boolean = this.hasNotArobase(email);
+    let mailConform: boolean = this.isMailConform(email);
 
-    if (empty || hasNotArobase)
+    if (empty || mailConform == false)
       return false;
     return true;
   }
@@ -234,7 +224,7 @@ export class FormValidatorService {
 
   emailOptinVerify(data: FormDataService): boolean {
     let emailOptin: boolean = data.user.userProfile.emailOptin;
-    let empty: boolean = this.isEmptyBool(emailOptin);
+    let empty: boolean = this.isEmpty(emailOptin);
 
     if (empty)
       return false;
@@ -248,9 +238,9 @@ export class FormValidatorService {
   firstNameVerify(data: FormDataService): boolean {
     let firstName: string = data.user.userProfile.firstName;
     let empty: boolean = this.isEmpty(firstName);
-    let notAlpha: boolean = this.isNotAlpha(firstName);
+    let nameConform: boolean = this.isNameConform(firstName);
 
-    if (empty || notAlpha)
+    if (empty || nameConform == false)
       return false;
     return true;
   }
@@ -262,9 +252,9 @@ export class FormValidatorService {
   lastNameVerify(data: FormDataService): boolean {
     let lastName: string = data.user.userProfile.lastName;
     let empty: boolean = this.isEmpty(lastName);
-    let notNum: boolean = this.isNotAlpha(lastName);
+    let nameConform: boolean = this.isNameConform(lastName);
 
-    if (empty || notNum)
+    if (empty || nameConform == false)
       return false;
     return true;
   }
@@ -301,7 +291,7 @@ export class FormValidatorService {
 
   birthdateVerify(data: FormDataService): boolean {
     let birthdate: Date = data.user.userProfile.birthdate;
-    let empty: boolean = this.isEmptyDate(birthdate);
+    let empty: boolean = this.isEmpty(birthdate);
 
     if (empty)
       return false;
@@ -356,9 +346,9 @@ export class FormValidatorService {
   cityVerify(data: FormDataService): boolean {
     let city: string = data.user.userProfile.address.city;
     let empty: boolean = this.isEmpty(city);
-    let notAlpha: boolean = this.isNotAlpha(city);
+    let cityConform: boolean = this.isCityConform(city);
 
-    if (empty || notAlpha)
+    if (empty || cityConform == false)
       return false;
     return true;
   }
@@ -370,9 +360,9 @@ export class FormValidatorService {
   streetVerify(data: FormDataService): boolean {
     let street: string = data.user.userProfile.address.line1;
     let empty: boolean = this.isEmpty(street);
-    let notAlphaNum: boolean = this.isNotAlphaNum(street);
+    let streetConform: boolean = this.isStreetConform(street);
 
-    if (empty || notAlphaNum)
+    if (empty)
       return false;
     return true;
   }
@@ -465,41 +455,6 @@ export class FormValidatorService {
   */
 
   verify(data: FormDataService): boolean {
-    switch (data.fieldName) {
-      case "userName":
-        return this.userNameVerify(data);
-      case "email":
-        return this.emailVerify(data);
-      case "emailOptin":
-        return this.emailOptinVerify(data);
-      case "firstName":
-        return this.firstNameVerify(data);
-      case "lastName":
-        return this.lastNameVerify(data);
-      case "gender":
-        return this.genderVerify(data);
-      case "status":
-        return this.statusVerify(data);
-      case "birthdate":
-        return this.birthdateVerify(data);
-      case "country":
-        return this.countryVerify(data);
-      case "zipcode":
-        return this.zipcodeVerify(data);
-      case "city":
-        return this.cityVerify(data);
-      case "street":
-        return this.streetVerify(data);
-      case "phoneNumber":
-        return this.phoneNumberVerify(data);
-      case "pwd":
-        return this.pwdVerify(data);
-      case "pwdConfirmation":
-        return this.pwdConfirmationVerify(data);
-      case "siret":
-        return this.siretVerify(data);
-      case "tva":
-        return this.tvaVerify(data);
-    }
+    return this[data.fieldName + "Verify"](data);
   }
 }
