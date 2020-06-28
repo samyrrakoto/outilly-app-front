@@ -21,6 +21,7 @@ import { EmailOptinComponent } from './content/onboarding/user-details/personal-
 import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
 import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
 import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
+import { ProductInformationComponent } from './content/product-information/product-information.component';
 
 const routes: Routes = [
   {
@@ -115,6 +116,10 @@ const routes: Routes = [
         component: ConfirmationComponent
       }
     ]
+  },
+  {
+    path:"product",
+    component: ProductInformationComponent
   }
 ];
 

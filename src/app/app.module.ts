@@ -41,6 +41,7 @@ import { ConfirmationComponent } from './content/onboarding/confirmation/confirm
 import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
 import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
 import { StepLabelComponent } from './content/onboarding/step-label/step-label.component';
+import { ProductInformationComponent } from './content/product-information/product-information.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { StepLabelComponent } from './content/onboarding/step-label/step-label.c
     ConfirmationComponent,
     SiretComponent,
     TvaComponent,
-    StepLabelComponent
+    StepLabelComponent,
+    ProductInformationComponent
   ],
   imports: [
     HttpClientModule,
