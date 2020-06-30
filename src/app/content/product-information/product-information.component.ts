@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-information',
@@ -6,10 +7,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent implements OnInit {
+  product: Product;
+  descriptionFlag: boolean;
+  active: string;
+  previewActive: string;
 
-  constructor() { }
+  constructor() {
+    this.product = new Product();
+    this.descriptionFlag = false;
+    this.active = "";
+    this.previewActive = "";
+  }
 
   ngOnInit(): void {
   }
 
+  displayDescription() {
+    this.descriptionFlag ? this.descriptionFlag = false : this.descriptionFlag = true;
+  }
+
+  openKnowMore() {
+    this.active = "is-active";
+  }
+
+  closeKnowMore() {
+    this.active = "";
+  }
+
+  openPreview() {
+    this.previewActive = "is-active";
+  }
+
+  closePreview() {
+    this.previewActive = "";
+  }
 }
