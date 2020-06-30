@@ -1,0 +1,105 @@
+<h1 class="title is-1 has-text-weight-bold">Cric Hydraulique KT TOOLS 3T à vendre en l'état</h1>
+<h2 class="subtitle is-6">Marques : <span class="has-text-danger has-text-weight-bold">FACOM KS TOOLS GARANT SAM OUTILLAGE</span></h2>
+
+<!-- General information -->
+<div class="box">
+    <h2 class="subtitle is-5 has-text-weight-bold has-text-centered">Informations générales</h2>
+
+    <div class="columns">
+
+        <!-- description -->
+        <div class="column">
+            <h2 class="subtitle has-text-weight-bold">Description</h2>
+
+            <div class="content is-size-6">
+                <span *ngIf="!descriptionFlag">{{ product.shortDescription }}</span>
+                <span *ngIf="descriptionFlag">{{ product.fullDescription }}</span>
+            </div>
+
+            <div class="content has-text-centered">
+                <button class="button is-danger is-outlined" (click)="displayDescription()">
+                    <span *ngIf="!descriptionFlag">Lire la suite</span>
+                    <span *ngIf="descriptionFlag">Raccourcir</span>
+                </button>
+
+                <button class="button is-info is-outlined" (click)="openModal('readMore')">Read more</button>
+            </div>
+        </div>
+
+        <!-- vertical separation between the two parts -->
+        <div class="is-divider-vertical"></div>
+
+        <!-- technical information -->
+        <div class="column has-text-centered">
+            <div class="content is-centered">
+                <table class="table">
+                    <tr>
+                        <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat du produit :</td>
+                        <td>Bon <a class="has-text-danger" (click)="openModal('knowMore')">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
+                    </tr>
+                    <tr>
+                        <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids total :</td>
+                        <td>45kg</td>
+                    </tr>
+                    <tr>
+                        <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation :</td>
+                        <td>Nîmes <span class="has-text-weight-bold">(43)</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <figure class="image is-256x256">
+                <a><img src="../../../../assets/img/product/maps-preview.png" (click)="openModal('localisation')"></a>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<!-- [Modal] Read more -->
+<div class="modal {{ readMore }}">
+    <div class="modal-background" (click)="closeModal('readMore')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h2 class="subtitle has-text-weight-bold">Description</h2>
+
+            <div class="content">
+                {{ product.fullDescription }}
+            </div>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal('readMore')"></button>
+</div>
+
+<!-- [Modal] Know more about products state -->
+<div class="modal {{ knowMore }}">
+    <div class="modal-background" (click)="closeModal('knowMore')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h2 class="subtitle">Nous différencions 5 états de produits :</h2>
+
+            <div class="content">
+            <ol type="1">
+                <li>Comme neuf</li>
+                <li>Bon</li>
+                <li>Correct</li>
+                <li>Mauvais</li>
+                <li>Très mauvais</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal('knowMore')"></button>
+</div>
+
+<!-- [Modal] Google maps localisation -->
+<div class="modal {{ localisation }}">
+    <div class="modal-background" (click)="closeModal('localisation')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <figure class="image">
+                <img src="../../../assets/img/product/maps-preview.png">
+            </figure>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal('localisation')"></button>
+</div>

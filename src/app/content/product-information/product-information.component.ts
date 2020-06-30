@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
+import { Vendor } from 'src/app/models/vendor';
 
 @Component({
   selector: 'app-product-information',
@@ -7,16 +8,24 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent implements OnInit {
+  vendor: Vendor;
   product: Product;
   descriptionFlag: boolean;
-  active: string;
-  previewActive: string;
+  knowMore: string;
+  readMore: string;
+  localisation: string;
+  vendorProducts: string;
+  pictures: Array<string>;
 
   constructor() {
+    this.vendor = new Vendor();
     this.product = new Product();
     this.descriptionFlag = false;
-    this.active = "";
-    this.previewActive = "";
+    this.knowMore = "";
+    this.readMore = "";
+    this.localisation = "";
+    this.vendorProducts = "";
+    this.pictures = ["a", "b", "c"];
   }
 
   ngOnInit(): void {
@@ -26,19 +35,11 @@ export class ProductInformationComponent implements OnInit {
     this.descriptionFlag ? this.descriptionFlag = false : this.descriptionFlag = true;
   }
 
-  openKnowMore() {
-    this.active = "is-active";
+  openModal(modal: string): void {
+    this[modal] = "is-active";
   }
 
-  closeKnowMore() {
-    this.active = "";
-  }
-
-  openPreview() {
-    this.previewActive = "is-active";
-  }
-
-  closePreview() {
-    this.previewActive = "";
+  closeModal(modal: string): void {
+    this[modal] = "";
   }
 }

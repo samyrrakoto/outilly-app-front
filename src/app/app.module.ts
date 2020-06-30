@@ -42,6 +42,14 @@ import { SiretComponent } from './content/onboarding/user-details/company-detail
 import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
 import { StepLabelComponent } from './content/onboarding/step-label/step-label.component';
 import { ProductInformationComponent } from './content/product-information/product-information.component';
+import { GeneralInformationComponent } from './content/product-information/general-information/general-information.component';
+import { SideInformationComponent } from './content/product-information/side-information/side-information.component';
+import { AuthorInformationComponent } from './content/product-information/side-information/author-information/author-information.component';
+import { Buyingcall2actionComponent } from './content/product-information/side-information/buyingcall2action/buyingcall2action.component';
+import { Sellingcall2actionComponent } from './content/product-information/side-information/sellingcall2action/sellingcall2action.component';
+import { PaymentinformationComponent } from './content/product-information/side-information/paymentinformation/paymentinformation.component';
+import { QuestiontovendorComponent } from './content/product-information/side-information/questiontovendor/questiontovendor.component';
+import { ProductModalComponent } from './content/product-information/product-modal/product-modal.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +87,15 @@ import { ProductInformationComponent } from './content/product-information/produ
     SiretComponent,
     TvaComponent,
     StepLabelComponent,
-    ProductInformationComponent
+    ProductInformationComponent,
+    GeneralInformationComponent,
+    SideInformationComponent,
+    AuthorInformationComponent,
+    Buyingcall2actionComponent,
+    Sellingcall2actionComponent,
+    PaymentinformationComponent,
+    QuestiontovendorComponent,
+    ProductModalComponent
   ],
   imports: [
     HttpClientModule,
