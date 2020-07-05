@@ -35,7 +35,6 @@ export class ProductInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
-    console.log(this.sale.id);
   }
 
   private load() {
@@ -43,7 +42,6 @@ export class ProductInformationComponent implements OnInit {
 
     response.subscribe((res: HttpResponse<any>) => {
       console.log(res.id);
-      this.sale.id = res.id;
     });
   }
 
