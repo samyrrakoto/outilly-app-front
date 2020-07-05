@@ -1,3 +1,5 @@
+<media-gallery></media-gallery>
+
 <h1 class="title is-1 has-text-weight-bold">Cric Hydraulique KT TOOLS 3T à vendre en l'état</h1>
 <h2 class="subtitle is-6">Marques : <span class="has-text-danger has-text-weight-bold">FACOM KS TOOLS GARANT SAM OUTILLAGE</span></h2>
 
@@ -13,7 +15,7 @@
 
             <div class="content is-size-6">
                 <span *ngIf="!descriptionFlag">{{ product.shortDescription }}</span>
-                <span *ngIf="descriptionFlag">{{ product.fullDescription }}</span>
+                <span *ngIf="descriptionFlag">{{ product.description }}</span>
             </div>
 
             <div class="content has-text-centered">
@@ -63,7 +65,7 @@
             <h2 class="subtitle has-text-weight-bold">Description</h2>
 
             <div class="content">
-                {{ product.fullDescription }}
+                {{ product.description }}
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductInformationComponent } from '../product-information.component';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'general-information',
@@ -8,8 +9,8 @@ import { ProductInformationComponent } from '../product-information.component';
 })
 export class GeneralInformationComponent extends ProductInformationComponent implements OnInit {
 
-  constructor() {
-    super();
+  constructor(request: RequestService) {
+    super(request);
   }
 
   ngOnInit(): void {
