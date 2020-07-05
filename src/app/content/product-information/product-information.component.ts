@@ -34,14 +34,15 @@ export class ProductInformationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load();
+    this.getProductById();
   }
 
-  private load() {
-    let response = this.request.getData(this.request.uri.SALE, "1");
+  private getProductById() {
+    let response = this.request.getData(this.request.uri.SALE, "2");
 
-    response.subscribe((res: HttpResponse<any>) => {
-      console.log(res.id);
+    response.subscribe((res) => {
+      this.sale = res;
+      console.log(this.sale);
     });
   }
 

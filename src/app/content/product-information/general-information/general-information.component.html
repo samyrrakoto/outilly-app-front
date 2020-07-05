@@ -1,7 +1,7 @@
-<media-gallery></media-gallery>
+<media-gallery [sale]="sale"></media-gallery>
 
 <h1 class="title is-1 has-text-weight-bold">{{ this.sale.product.name }}</h1>
-<h2 class="subtitle is-6">Marques : <span *ngFor="let brand of this.sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand }} </span></h2>
+<h2 class="subtitle is-6">Marques : <span *ngFor="let brand of this.sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand.name }} </span></h2>
 
 <!-- General information -->
 <div class="box">
@@ -14,7 +14,7 @@
             <h2 class="subtitle has-text-weight-bold">Description</h2>
 
             <div class="content is-size-6">
-                <span *ngIf="!descriptionFlag">{{ this.sale.product.shortDescription }}</span>
+                <span *ngIf="!descriptionFlag">{{ this.sale.product.description }}</span>
                 <span *ngIf="descriptionFlag">{{ this.sale.product.description }}</span>
             </div>
 
@@ -37,7 +37,7 @@
                 <table class="table">
                     <tr>
                         <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat du produit :</td>
-                        <td>{{ this.sale.quality }} <a class="has-text-danger" (click)="openModal('knowMore')">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
+                        <td>{{ this.sale.product.quality }} <a class="has-text-danger" (click)="openModal('knowMore')">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
                     </tr>
                     <tr>
                         <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids total : </td>

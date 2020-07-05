@@ -1,14 +1,8 @@
 <div class="columns">
     <div class="column">
         <div class="top-container">
-            <div class="content">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </div>
-            <div class="content">
-                <img src="../../../../../assets/img/product/tool2.jpg">
-            </div>
-            <div class="content">
-                <img src="../../../../../assets/img/product/tool3.jpg">
+            <div class="content" *ngFor="let media of this.sale.product.productMedias">
+                <img src="{{ media.path }}">
             </div>
         </div>
     </div>
