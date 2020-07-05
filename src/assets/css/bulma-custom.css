@@ -190,7 +190,7 @@ pre {
   font-family: monospace; }
 
 body {
-  color: #757763;
+  color: black;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5; }
@@ -243,7 +243,7 @@ fieldset {
 pre {
   -webkit-overflow-scrolling: touch;
   background-color: whitesmoke;
-  color: #757763;
+  color: black;
   font-size: 0.875em;
   overflow-x: auto;
   padding: 1.25rem 1.5rem;
@@ -869,7 +869,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
   .button.is-text {
     background-color: transparent;
     border-color: transparent;
-    color: #757763;
+    color: black;
     text-decoration: underline; }
     .button.is-text:hover, .button.is-text.is-hovered, .button.is-text:focus, .button.is-text.is-focused {
       background-color: whitesmoke;
@@ -1774,7 +1774,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
     font-size: 0.75rem; }
 
 .subtitle {
-  color: #757763;
+  color: black;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25; }
@@ -2357,7 +2357,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 
 .file-cta {
   background-color: whitesmoke;
-  color: #757763; }
+  color: black; }
 
 .file-name {
   border-color: #dbdbdb;
@@ -2558,7 +2558,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
   .control.has-icons-left .input:focus ~ .icon,
   .control.has-icons-left .select:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon,
   .control.has-icons-right .select:focus ~ .icon {
-    color: #757763; }
+    color: black; }
   .control.has-icons-left .input.is-small ~ .icon,
   .control.has-icons-left .select.is-small ~ .icon, .control.has-icons-right .input.is-small ~ .icon,
   .control.has-icons-right .select.is-small ~ .icon {
@@ -3100,7 +3100,7 @@ body.has-navbar-fixed-bottom {
   overflow-y: hidden; }
 
 .navbar-burger {
-  color: #757763;
+  color: black;
   cursor: pointer;
   display: block;
   height: 3.25rem;
@@ -3138,7 +3138,7 @@ body.has-navbar-fixed-bottom {
 
 .navbar-item,
 .navbar-link {
-  color: #757763;
+  color: black;
   display: block;
   line-height: 1.5;
   padding: 0.5rem 0.75rem;
