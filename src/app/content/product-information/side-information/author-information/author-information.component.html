@@ -1,0 +1,55 @@
+<h2 class="subtitle is-5 has-text-weight-bold">A propos du vendeur</h2>
+
+<article class="media">
+    <div class="media-left">
+        <p class="image is-128x128">
+            <img src="../../../../../assets/img/product/dorcel-store.png">
+        </p>
+    </div>
+
+    <div class="media-content">
+        <h2 class="subtitle is-6 has-text-weight-bold">Marc Dorcel Store</h2>
+
+        <div class="content">
+            X articles mis en vente.<br>
+            <a class="has-text-danger" (click)="openModal('vendorProducts')">Voir les X articles à vendre</a>
+        </div>
+    </div>
+</article>
+
+<article class="media">
+    <div class="media-left">
+        <fa-icon [icon]="['fas', 'hourglass-half']"></fa-icon>
+    </div>
+
+    <div class="media-content">
+        <div class="content">
+            En achetant chez ce vendeur professionnel, le produit est garanti <span class="has-text-weight-bold">4 mois</span>.
+        </div>
+    </div>
+</article>
+
+<!-- [Modal] Vendor's other products -->
+<div class="modal {{ vendorProducts }}">
+    <div class="modal-background" (click)="closeModal('vendorProducts')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h2 class="subtitle has-text-weight-bold">Autres produits du vendeur</h2>
+
+            <article class="media" *ngFor="let picture of pictures">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        <img src="../../../../../assets/img/product/tool1.jpg">
+                    </p>
+                </figure>
+
+                <div class="media-content">
+                    <div class="content">
+                        Clé à molette FACOM
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal('vendorProducts')"></button>
+</div>
