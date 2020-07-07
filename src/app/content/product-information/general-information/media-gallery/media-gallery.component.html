@@ -4,15 +4,15 @@
         <!-- Top pictures -->
         <div class="top-container">
             <div class="content">
-                <img src="{{ sale.product.productMedias[0].path }}" (click)="openImage(sale.product.productMedias[0].path)">
+                <img src="{{ sale.product.productMedias[0].path }}" (click)="openGalleryImage(0)">
             </div>
 
             <div class="content">
-                <img src="{{ sale.product.productMedias[1].path }}" (click)="openImage(sale.product.productMedias[1].path)">
+                <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryImage(1)">
             </div>
 
             <div class="content">
-                <img src="{{ sale.product.productMedias[2].path }}" (click)="openImage(sale.product.productMedias[2].path)">
+                <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryImage(2)">
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="column is-2 has-text-centered is-hidden-mobile">
         <div id="side-preview">
             <figure *ngFor="let media of sale.product.productMedias; index as i" class="image">
-                <img *ngIf="i > 2" src="{{ media.path }}" (click)="openImage(media.path)">
+                <img *ngIf="i > 2" src="{{ media.path }}" (click)="openGalleryImage(i)">
             </figure>
         </div>
     </div>
@@ -34,6 +34,19 @@
                 <figure class="image">
                     <img src="{{ imgPath }}">
                 </figure>
+                <div class="columns is-vcentered">
+                    <div class="column">
+                        <button class="button is-large" (click)="previousImage()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <h2 class="subtitle">Photo n°{{ imgIndex + 1 }}</h2>
+                    </div>
+
+                    <div class="column has-text-right">
+                        <button class="button is-large" (click)="nextImage()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+                    </div>
+                </div>
             </div>
         </div>
         <button class="modal-close is-large" aria-label="close" (click)="closeImage()"></button>

@@ -22,6 +22,7 @@ export class ProductInformationComponent implements OnInit {
   localisation: string;
   imgModal: string;
   imgPath: string;
+  imgIndex: number;
   pictures: Array<string>;
   @Input() sale: Sale;
   inputProperties: Array<string>;
@@ -36,13 +37,15 @@ export class ProductInformationComponent implements OnInit {
     this.readMore = "";
     this.localisation = "";
     this.imgModal = "";
+    this.imgPath = "";
+    this.imgIndex = 0;
     this.pictures = ["a", "a", "a"];
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-   });
+    });
     this.getProductById(this.id.toString());
   }
 
@@ -72,7 +75,33 @@ export class ProductInformationComponent implements OnInit {
     this.imgModal = "is-active";
   }
 
+  openGalleryImage(imgIndex: number): void {
+    this.imgIndex = imgIndex;
+    this.imgPath = this.sale.product.productMedias[imgIndex].path;
+    this.imgModal = "is-active";
+  }
+
   closeImage(): void {
     this.imgModal = "";
+  }
+
+  previousImage(): void {
+    let lastIndex = this.sale.product.productMedias.length - 1;
+
+    if (this.imgIndex == 0)
+      this.imgIndex = lastIndex;
+    else
+      this.imgIndex -= 1;
+    this.imgPath = this.sale.product.productMedias[this.imgIndex].path;
+  }
+
+  nextImage(): void {
+    let lastIndex = this.sale.product.productMedias.length - 1;
+
+    if (this.imgIndex == lastIndex)
+      this.imgIndex = 0;
+    else
+      this.imgIndex += 1;
+    this.imgPath = this.sale.product.productMedias[this.imgIndex].path;
   }
 }
