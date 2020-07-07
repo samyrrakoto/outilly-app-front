@@ -1,36 +1,24 @@
-<div class="columns">
+<div id="media-gallery" class="columns">
     <div class="column">
         <div class="top-container">
-            <div class="content" *ngFor="let media of this.sale.product.productMedias">
-                <img src="{{ media.path }}">
+            <div class="content">
+                <img src="{{ this.sale.product.productMedias[0].path }}">
+            </div>
+
+            <div class="content">
+                <img src="{{ this.sale.product.productMedias[1].path }}">
+            </div>
+
+            <div class="content">
+                <img src="{{ this.sale.product.productMedias[2].path }}">
             </div>
         </div>
     </div>
 
     <div class="column is-2 has-text-centered is-hidden-mobile">
         <div id="side-preview">
-            <figure class="image">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </figure>
-
-            <figure class="image">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </figure>
-
-            <figure class="image">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </figure>
-
-            <figure class="image">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </figure>
-
-            <figure class="image ">
-                <img src="../../../../../assets/img/product/tool1.jpg">
-            </figure>
-
-            <figure id="last-preview" class="image ">
-                <img src="../../../../../assets/img/product/tool1.jpg">
+            <figure  *ngFor="let media of sale.product.productMedias; index as i" class="image">
+                <img *ngIf="i > 2" src="{{ media.path }}">
             </figure>
         </div>
     </div>

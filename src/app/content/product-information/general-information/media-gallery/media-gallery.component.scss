@@ -1,3 +1,7 @@
+#media-gallery {
+  margin-bottom: 20px;
+}
+
 .top-container {
     display: flex;
     flex: 25%;
@@ -31,10 +35,6 @@ figure img {
   flex: 1;
   flex-wrap: wrap;
   max-width: 200px;
-}
-
-.content:hover {
-  flex: 1 1 50%;
 }
 
 .content:hover > img {
