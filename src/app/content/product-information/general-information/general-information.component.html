@@ -51,7 +51,7 @@
             </div>
 
             <figure class="image is-256x256">
-                <a><img src="../../../../assets/img/product/maps-preview.png" (click)="openModal('localisation')"></a>
+                <a><img src="../../../../assets/img/product/maps-preview.png" (click)="openImage('../../../assets/img/product/maps-preview.png')"></a>
             </figure>
         </div>
     </div>
@@ -93,15 +93,15 @@
     <button class="modal-close is-large" aria-label="close" (click)="closeModal('knowMore')"></button>
 </div>
 
-<!-- [Modal] Google maps localisation -->
-<div class="modal {{ localisation }}">
-    <div class="modal-background" (click)="closeModal('localisation')"></div>
+<!-- Image Modal -->
+<div class="modal {{ imgModal }}">
+    <div class="modal-background" (click)="closeImage()"></div>
     <div class="modal-content">
         <div class="box">
             <figure class="image">
-                <img src="../../../assets/img/product/maps-preview.png">
+                <img src="{{ imgPath }}">
             </figure>
         </div>
     </div>
-    <button class="modal-close is-large" aria-label="close" (click)="closeModal('localisation')"></button>
+    <button class="modal-close is-large" aria-label="close" (click)="closeImage()"></button>
 </div>

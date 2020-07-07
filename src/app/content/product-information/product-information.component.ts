@@ -20,6 +20,8 @@ export class ProductInformationComponent implements OnInit {
   knowMore: string;
   readMore: string;
   localisation: string;
+  imgModal: string;
+  imgPath: string;
   pictures: Array<string>;
   @Input() sale: Sale;
   inputProperties: Array<string>;
@@ -33,12 +35,13 @@ export class ProductInformationComponent implements OnInit {
     this.knowMore = "";
     this.readMore = "";
     this.localisation = "";
+    this.imgModal = "";
     this.pictures = ["a", "a", "a"];
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = +params['id'];
+      this.id = params['id'];
    });
     this.getProductById(this.id.toString());
   }
@@ -62,5 +65,14 @@ export class ProductInformationComponent implements OnInit {
 
   closeModal(modal: string): void {
     this[modal] = "";
+  }
+
+  openImage(imgPath: string): void {
+    this.imgPath = imgPath;
+    this.imgModal = "is-active";
+  }
+
+  closeImage(): void {
+    this.imgModal = "";
   }
 }

@@ -34,7 +34,6 @@ figure img {
   margin: 5px;
   flex: 1;
   flex-wrap: wrap;
-  max-width: 200px;
 }
 
 .content:hover > img {
@@ -59,4 +58,8 @@ figure img {
 
 #last-preview img {
   filter: brightness(0.2);
+}
+
+.modal .box img {
+  margin: auto;
 }

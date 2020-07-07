@@ -1,25 +1,41 @@
 <div id="media-gallery" class="columns">
     <div class="column">
+
+        <!-- Top pictures -->
         <div class="top-container">
             <div class="content">
-                <img src="{{ this.sale.product.productMedias[0].path }}">
+                <img src="{{ sale.product.productMedias[0].path }}" (click)="openImage(sale.product.productMedias[0].path)">
             </div>
 
             <div class="content">
-                <img src="{{ this.sale.product.productMedias[1].path }}">
+                <img src="{{ sale.product.productMedias[1].path }}" (click)="openImage(sale.product.productMedias[1].path)">
             </div>
 
             <div class="content">
-                <img src="{{ this.sale.product.productMedias[2].path }}">
+                <img src="{{ sale.product.productMedias[2].path }}" (click)="openImage(sale.product.productMedias[2].path)">
             </div>
         </div>
     </div>
 
+    <!-- Side pictures -->
     <div class="column is-2 has-text-centered is-hidden-mobile">
         <div id="side-preview">
-            <figure  *ngFor="let media of sale.product.productMedias; index as i" class="image">
-                <img *ngIf="i > 2" src="{{ media.path }}">
+            <figure *ngFor="let media of sale.product.productMedias; index as i" class="image">
+                <img *ngIf="i > 2" src="{{ media.path }}" (click)="openImage(media.path)">
             </figure>
         </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal {{ imgModal }}">
+        <div class="modal-background" (click)="closeImage()"></div>
+        <div class="modal-content">
+            <div class="box">
+                <figure class="image">
+                    <img src="{{ imgPath }}">
+                </figure>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" (click)="closeImage()"></button>
     </div>
 </div>
