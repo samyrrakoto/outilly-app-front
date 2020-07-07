@@ -9,9 +9,6 @@ import { Sale } from 'src/app/models/sale';
   styleUrls: ['./side-information.component.css']
 })
 export class SideInformationComponent extends ProductInformationComponent implements OnInit {
-
-  @Input('sale') sale: Sale;
-
   constructor(request: RequestService) {
     super(request);
   }

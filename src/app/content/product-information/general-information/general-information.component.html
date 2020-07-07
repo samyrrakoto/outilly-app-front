@@ -14,7 +14,7 @@
             <h2 class="subtitle has-text-weight-bold">Description</h2>
 
             <div class="content is-size-6">
-                <span *ngIf="!descriptionFlag">{{ this.sale.product.description }}</span>
+                <span *ngIf="!descriptionFlag">{{ this.sale.product.description.slice(0, 255) + "..." }}</span>
                 <span *ngIf="descriptionFlag">{{ this.sale.product.description }}</span>
             </div>
 

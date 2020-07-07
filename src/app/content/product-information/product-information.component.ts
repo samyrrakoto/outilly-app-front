@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
-import { HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-information',
@@ -11,17 +11,20 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent implements OnInit {
+  id: number;
   vendor: Vendor;
   vendorProducts: string;
   product: Product;
   descriptionFlag: boolean;
+  shortDescription: string;
   knowMore: string;
   readMore: string;
   localisation: string;
   pictures: Array<string>;
-  sale: Sale;
+  @Input() sale: Sale;
+  inputProperties: Array<string>;
 
-  constructor(public request: RequestService) {
+  constructor(public request: RequestService, private route: ActivatedRoute) {
     this.vendor = new Vendor();
     this.sale = new Sale();
     this.vendorProducts = "";
@@ -34,11 +37,14 @@ export class ProductInformationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProductById();
+    let sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+   });
+    this.getProductById(this.id.toString());
   }
 
-  private getProductById() {
-    let response = this.request.getData(this.request.uri.SALE, "2");
+  private getProductById(id: string) {
+    let response = this.request.getData(this.request.uri.SALE, id);
 
     response.subscribe((res) => {
       this.sale = res;

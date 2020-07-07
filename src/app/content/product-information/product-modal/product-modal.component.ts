@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'product-modal',
@@ -9,8 +10,8 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class ProductModalComponent extends ProductInformationComponent implements OnInit {
 
-  constructor(request: RequestService) {
-    super(request);
+  constructor(request: RequestService, route: ActivatedRoute) {
+    super(request, route);
   }
 
   ngOnInit(): void {
