@@ -10,5 +10,9 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "importHelpers": "true",
+  "angularCompilerOptions": {
+    "enableIvy": true
+  }
 }
