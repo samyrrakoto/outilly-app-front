@@ -1,5 +1,4 @@
 /*! bulma.io v0.8.2 | MIT License | github.com/jgthms/bulma */
-@import url(../../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css);
 @keyframes spinAround {
   from {
     transform: rotate(0deg); }

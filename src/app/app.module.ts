@@ -51,6 +51,9 @@ import { PaymentinformationComponent } from './content/product-information/side-
 import { QuestiontovendorComponent } from './content/product-information/side-information/questiontovendor/questiontovendor.component';
 import { ProductModalComponent } from './content/product-information/product-modal/product-modal.component';
 import { MediaGalleryComponent } from './content/product-information/general-information/media-gallery/media-gallery.component';
+import { PredefinedQuestionComponent } from './content/product-information/general-information/predefined-question/predefined-question.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -97,14 +100,17 @@ import { MediaGalleryComponent } from './content/product-information/general-inf
     PaymentinformationComponent,
     QuestiontovendorComponent,
     ProductModalComponent,
-    MediaGalleryComponent
+    MediaGalleryComponent,
+    PredefinedQuestionComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

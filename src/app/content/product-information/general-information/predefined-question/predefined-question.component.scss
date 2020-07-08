@@ -1,0 +1,17 @@
+mat-expansion-panel {
+    background: white;
+    color: black;
+}
+
+mat-panel-title {
+    color: var(--KTKP-RED);
+    font-weight: bold;
+}
+
+mat-expansion-panel-header .mat-expansion-indicator {
+    color: green;
+}
+
+.answer {
+    color: grey;
+}
