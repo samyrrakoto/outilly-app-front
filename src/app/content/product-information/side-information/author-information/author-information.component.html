@@ -1,14 +1,8 @@
 <h2 class="subtitle is-5 has-text-weight-bold">A propos du vendeur</h2>
 
 <article class="media">
-    <div class="media-left">
-        <p class="image is-128x128">
-            <img src="../../../../../assets/img/product/dorcel-store.png">
-        </p>
-    </div>
-
-    <div class="media-content">
-        <h2 class="subtitle is-6 has-text-weight-bold">Marc Dorcel Store</h2>
+    <div class="media-content has-text-centered">
+        <h2 class="subtitle is-6 has-text-weight-bold">{{ sale.seller.username }}</h2>
 
         <div class="content">
             X articles mis en vente.<br>
@@ -18,13 +12,9 @@
 </article>
 
 <article class="media">
-    <div class="media-left">
-        <fa-icon [icon]="['fas', 'hourglass-half']"></fa-icon>
-    </div>
-
     <div class="media-content">
-        <div class="content">
-            En achetant chez ce vendeur professionnel, le produit est garanti <span class="has-text-weight-bold">4 mois</span>.
+        <div class="content has-text-centered">
+            <fa-icon [icon]="['fas', 'hourglass-half']"></fa-icon> En achetant chez ce vendeur professionnel, le produit est garanti <span class="has-text-weight-bold">4 mois</span>.
         </div>
     </div>
 </article>
