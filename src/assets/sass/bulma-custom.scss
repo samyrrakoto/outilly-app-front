@@ -29,6 +29,7 @@ $input-border-color: $grey-light;
 $input-shadow: none;
 
 // Import only what you need from Bulma
+@import "../../../node_modules/bulma/bulma.sass";
 @import "../../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../../node_modules/bulma/sass/base/_all.sass";
 @import "../../../node_modules/bulma/sass/elements/button.sass";
@@ -40,4 +41,5 @@ $input-shadow: none;
 @import "../../../node_modules/bulma/sass/layout/section.sass";
 @import "../../../node_modules/bulma/sass/components/modal.sass";
 @import "../../../node_modules/bulma-divider/src/sass/index.sass";
+@import "../../../node_modules/bulma/sass/elements/progress.sass";
 @import "../../../node_modules/bulma-carousel/src/sass/index.sass";

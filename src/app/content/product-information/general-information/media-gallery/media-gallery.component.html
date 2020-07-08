@@ -1,0 +1,50 @@
+<div id="media-gallery" class="columns">
+    <div class="column">
+
+        <!-- Top pictures -->
+        <div class="top-container">
+            <div class="content">
+                <img style="cursor:pointer;" src="{{ sale.product.productMedias[0].path }}" (click)="openGalleryImage(0)">
+            </div>
+
+            <div class="content">
+                <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryImage(1)">
+            </div>
+
+            <div class="content">
+                <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryImage(2)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Side pictures -->
+    <div class="column is-2 has-text-centered is-hidden-mobile">
+        <div id="side-preview">
+            <figure *ngFor="let media of sale.product.productMedias; index as i" class="image">
+                <img *ngIf="i > 2" src="{{ media.path }}" (click)="openGalleryImage(i)">
+            </figure>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal {{ imgModal }}">
+        <div class="modal-background" (click)="closeImage()"></div>
+        <div class="modal-content">
+            <div class="box has-background-black">
+                <figure class="image">
+                    <img src="{{ imgPath }}">
+                </figure>
+                <div class="columns is-vcentered">
+                    <div class="column">
+                        <button class="button is-large has-background-black has-text-white" (click)="previousImage()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
+                    </div>
+
+                    <div class="column has-text-right">
+                        <button class="button is-large has-background-black has-text-white" (click)="nextImage()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" (click)="closeImage()"></button>
+    </div>
+</div>

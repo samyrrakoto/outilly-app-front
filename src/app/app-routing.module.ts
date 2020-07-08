@@ -118,7 +118,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:"product",
+    path:"product/:id",
     component: ProductInformationComponent
   }
 ];

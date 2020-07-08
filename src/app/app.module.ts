@@ -50,6 +50,7 @@ import { Sellingcall2actionComponent } from './content/product-information/side-
 import { PaymentinformationComponent } from './content/product-information/side-information/paymentinformation/paymentinformation.component';
 import { QuestiontovendorComponent } from './content/product-information/side-information/questiontovendor/questiontovendor.component';
 import { ProductModalComponent } from './content/product-information/product-modal/product-modal.component';
+import { MediaGalleryComponent } from './content/product-information/general-information/media-gallery/media-gallery.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ProductModalComponent } from './content/product-information/product-mod
     Sellingcall2actionComponent,
     PaymentinformationComponent,
     QuestiontovendorComponent,
-    ProductModalComponent
+    ProductModalComponent,
+    MediaGalleryComponent
   ],
   imports: [
     HttpClientModule,

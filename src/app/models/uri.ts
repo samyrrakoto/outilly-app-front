@@ -4,10 +4,11 @@ export class Uri {
     readonly CHECK: string = "check/";
     readonly CREATE: string = "create";
     readonly EXISTS: string = "exists";
+    readonly SALE: string = "sale/";
     path: string;
 
     constructor () {
-
+        this.path = "";
     }
 
     setUri(ressource: string, param: string) {
