@@ -17,4 +17,11 @@ export class MediaGalleryComponent extends ProductInformationComponent implement
   ngOnInit(): void {
   }
 
+    // Keyboard shortcuts
+    onKey(event: KeyboardEvent): void {
+      if (event.key == "ArrowRight")
+        this.nextImage();
+      else if (event.key == "ArrowLeft")
+        this.previousImage();
+    }
 }

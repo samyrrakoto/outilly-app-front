@@ -1,7 +1,7 @@
 <media-gallery [sale]="sale"></media-gallery>
 
-<h1 class="title is-2 has-text-weight-bold">{{ this.sale.product.name }}</h1>
-<h2 class="subtitle is-6">Marques : <span *ngFor="let brand of this.sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand.name }} </span></h2>
+<h1 id="product-name" class="title is-2 has-text-weight-bold">{{ this.sale.product.name }}</h1>
+<h2 id="brands" class="subtitle is-6">Marques : <span *ngFor="let brand of this.sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand.name }} </span></h2>
 
 <!-- General information -->
 <div class="box">
@@ -24,7 +24,7 @@
                     <span *ngIf="descriptionFlag">Raccourcir</span>
                 </button>
 
-                <button class="button is-info is-outlined" (click)="openModal('readMore')">Read more</button>
+                <!-- <button class="button is-info is-outlined" (click)="openModal('readMore')">Read more</button> -->
             </div>
         </div>
 
@@ -50,14 +50,14 @@
                 </table>
             </div>
 
-            <figure class="image is-256x256">
-                <a><img src="../../../../assets/img/product/maps-preview.png" (click)="openImage('../../../assets/img/product/maps-preview.png')"></a>
+            <figure class="image">
+                <a><img id="localisation" src="../../../../assets/img/product/maps-preview.png" (click)="openImage('../../../assets/img/product/maps-preview.png')"></a>
             </figure>
         </div>
     </div>
 </div>
 
-<div class="box">
+<div id="predefined-question" class="content">
     <predefined-question></predefined-question>
 </div>
 

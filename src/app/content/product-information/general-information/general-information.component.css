@@ -1,0 +1,13 @@
+#localisation {
+    margin: auto;
+    height: 200px;
+    width: auto;
+}
+
+#product-name, #brands {
+    margin-bottom: 40px;
+}
+
+#predefined-question {
+    border: solid 0px;
+}
