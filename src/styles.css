@@ -16,6 +16,11 @@
     color: var(--KTKP-RED);
 }
 
+.sold {
+    text-decoration: line-through;
+    text-decoration-color: var(--KTKP-RED);
+}
+
 a:link, a:visited {
     color: black;
 }
