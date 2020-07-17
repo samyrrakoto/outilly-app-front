@@ -3,16 +3,20 @@
 
         <!-- Top pictures -->
         <div id="top-container">
-            <div class="content">
-                <img src="{{ sale.product.productMedias[0].path }}" (click)="openGalleryImage(0)">
+            <div *ngIf="sale.product.productMedias[0].type == 'image'" class="content">
+                <img src="{{ sale.product.productMedias[0].path }}" (click)="openGalleryMedia(0, 'image')">
+            </div>
+
+            <div *ngIf="sale.product.productMedias[0].type == 'video'" class="content">
+                <img src="../../../../../assets/img/logo/play.png" (click)="openGalleryMedia(0, 'video')">
             </div>
 
             <div class="content">
-                <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryImage(1)">
+                <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryMedia(1, 'image')">
             </div>
 
             <div class="content">
-                <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryImage(2)">
+                <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryMedia(2, 'image')">
             </div>
         </div>
     </div>
@@ -20,31 +24,44 @@
     <!-- Side pictures -->
     <div class="column is-2 has-text-centered is-hidden-mobile">
         <div id="side-preview">
-            <figure *ngFor="let media of sale.product.productMedias; index as i" class="image">
-                <img *ngIf="i > 2" src="{{ media.path }}" (click)="openGalleryImage(i)">
-            </figure>
+            <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
+                <figure *ngIf="media.type == 'image'" class="image">
+                    <img *ngIf="i > 2" src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
+                </figure>
+
+                <figure *ngIf="i > 2 && media.type == 'video'">
+                    <img *ngIf="i > 2" src="../../../../../assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
+                </figure>
+            </div>
         </div>
     </div>
 
-    <!-- Image Modal -->
-    <div class="modal {{ imgModal }}">
-        <div class="modal-background" (click)="closeImage()"></div>
+    <!-- Media Modal -->
+    <div class="modal {{ mediaModal }}">
+        <div class="modal-background" (click)="closeMedia()"></div>
         <div class="modal-content">
             <div class="box has-background-black">
-                <figure class="image">
-                    <img src="{{ imgPath }}">
+                <!-- media -->
+                <figure *ngIf="mediaType == 'image'" class="image">
+                    <img src="{{ mediaPath }}">
                 </figure>
+
+                <video *ngIf="mediaType == 'video'" controls autoplay>
+                    <source src="{{ mediaPath }}" type="video/mp4">
+                </video>
+
+                <!-- nav arrows -->
                 <div class="columns is-vcentered">
                     <div class="column">
-                        <button class="button is-large has-background-black has-text-white" (click)="previousImage()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
+                        <button class="button is-large has-background-black has-text-white" (click)="previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
                     </div>
 
                     <div class="column has-text-right">
-                        <button class="button is-large has-background-black has-text-white" (click)="nextImage()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+                        <button class="button is-large has-background-black has-text-white" (click)="nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close" (click)="closeImage()"></button>
+        <button class="modal-close is-large" aria-label="close" (click)="closeMedia()"></button>
     </div>
 </div>

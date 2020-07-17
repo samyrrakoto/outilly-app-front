@@ -47,3 +47,6 @@ Thumbs.db
 
 # CSS files
 /src/assets/css/bulma-custom.css
+
+# Media
+/src/assets/video/*
