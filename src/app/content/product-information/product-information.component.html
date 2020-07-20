@@ -10,3 +10,26 @@
         <side-information [sale]="sale"></side-information>
     </div>
 </div>
+
+<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+  <mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            Acheter ce produit
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="columns">
+          <div class="column has-text-centered">
+            <p>Ce produit coûte {{ sale.product.reservePrice }}€</p>
+            Choisissez votre mode de remise
+          </div>
+          <div class="column has-text-centered">
+            <button class="button is-danger">
+              Acheter
+            </button>
+          </div>
+        </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</nav>
