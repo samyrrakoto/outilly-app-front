@@ -4,6 +4,7 @@ import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
 import { ActivatedRoute } from '@angular/router';
+import { ProductMedia } from 'src/app/models/product-media';
 
 @Component({
   selector: 'app-product-information',
@@ -20,10 +21,10 @@ export class ProductInformationComponent implements OnInit {
   knowMore: string;
   readMore: string;
   localisation: string;
-  imgModal: string;
-  imgPath: string;
-  imgIndex: number;
-  pictures: Array<string>;
+  mediaModal: string;
+  mediaPath: string;
+  mediaIndex: number;
+  mediaType: string;
   @Input() sale: Sale;
   inputProperties: Array<string>;
 
@@ -36,10 +37,10 @@ export class ProductInformationComponent implements OnInit {
     this.knowMore = "";
     this.readMore = "";
     this.localisation = "";
-    this.imgModal = "";
-    this.imgPath = "";
-    this.imgIndex = 0;
-    this.pictures = ["a", "a", "a"];
+    this.mediaModal = "";
+    this.mediaPath = "";
+    this.mediaIndex = 0;
+    this.mediaType = "image";
   }
 
   ngOnInit(): void {
@@ -49,12 +50,28 @@ export class ProductInformationComponent implements OnInit {
     this.getProductById(this.id.toString());
   }
 
+  sortByMediaType() {
+    let medias: Array<ProductMedia> = [];
+
+    for (let media of this.sale.product.productMedias) {
+      if (media.type == 'video')
+        medias.push(media);
+    }
+
+    for (let media of this.sale.product.productMedias) {
+      if (media.type == 'image')
+        medias.push(media);
+    }
+
+    this.sale.product.productMedias = medias;
+  }
+
   private getProductById(id: string) {
     let response = this.request.getData(this.request.uri.SALE, id);
 
     response.subscribe((res) => {
       this.sale = res;
-      console.log(this.sale);
+      this.sortByMediaType();
     });
   }
 
@@ -70,38 +87,41 @@ export class ProductInformationComponent implements OnInit {
     this[modal] = "";
   }
 
-  openImage(imgPath: string): void {
-    this.imgPath = imgPath;
-    this.imgModal = "is-active";
+  openMedia(mediaPath: string): void {
+    this.mediaPath = mediaPath;
+    this.mediaModal = "is-active";
   }
 
-  openGalleryImage(imgIndex: number): void {
-    this.imgIndex = imgIndex;
-    this.imgPath = this.sale.product.productMedias[imgIndex].path;
-    this.imgModal = "is-active";
+  openGalleryMedia(mediaIndex: number, mediaType: string): void {
+    this.mediaIndex = mediaIndex;
+    this.mediaPath = this.sale.product.productMedias[mediaIndex].path;
+    this.mediaType = mediaType;
+    this.mediaModal = "is-active";
   }
 
-  closeImage(): void {
-    this.imgModal = "";
+  closeMedia(): void {
+    this.mediaModal = "";
   }
 
-  previousImage(): void {
+  previousMedia(): void {
     let lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.imgIndex == 0)
-      this.imgIndex = lastIndex;
+    if (this.mediaIndex == 0)
+      this.mediaIndex = lastIndex;
     else
-      this.imgIndex -= 1;
-    this.imgPath = this.sale.product.productMedias[this.imgIndex].path;
+      this.mediaIndex -= 1;
+    this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
+    this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
   }
 
-  nextImage(): void {
+  nextMedia(): void {
     let lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.imgIndex == lastIndex)
-      this.imgIndex = 0;
+    if (this.mediaIndex == lastIndex)
+      this.mediaIndex = 0;
     else
-      this.imgIndex += 1;
-    this.imgPath = this.sale.product.productMedias[this.imgIndex].path;
+      this.mediaIndex += 1;
+    this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
+    this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
   }
 }

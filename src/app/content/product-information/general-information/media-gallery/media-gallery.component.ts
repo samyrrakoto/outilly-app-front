@@ -20,8 +20,8 @@ export class MediaGalleryComponent extends ProductInformationComponent implement
     // Keyboard shortcuts
     onKey(event: KeyboardEvent): void {
       if (event.key == "ArrowRight")
-        this.nextImage();
+        this.nextMedia();
       else if (event.key == "ArrowLeft")
-        this.previousImage();
+        this.previousMedia();
     }
 }
