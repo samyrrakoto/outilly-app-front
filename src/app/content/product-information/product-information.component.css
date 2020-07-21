@@ -11,10 +11,27 @@ mat-accordion {
 }
 
 mat-expansion-panel {
+  background: white;
+  max-width: 600px;
+}
+
+mat-expansion-panel-header {
   background: var(--KTKP-RED);
 }
 
-mat-panel-title {
+mat-expansion-panel-header:hover {
+  background: var(--KTKP-RED);
+}
+
+mat-panel-title .title {
   color: white;
-  font-weight: bold;
+}
+
+.remise {
+  border: solid 2px grey;
+  margin: 10px;
+}
+
+.price {
+  color: var(--KTKP-RED);
 }
