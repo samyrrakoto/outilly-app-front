@@ -26,17 +26,17 @@ export class Product {
 
     constructor() {
         this.id = 0;
-        this.name = "";
+        this.name = '';
         this.reservePrice = 0;
         this.productCategories = [];
-        this.quality = "";
+        this.quality = '';
         this.weight = 0;
-        this.locality = "";
+        this.locality = '';
         this.productTypes = [];
-        this.description = "";
+        this.description = '';
         this.isWarrantied = true;
         this.warrantyDuration = 0;
-        this.strId = "";
+        this.strId = '';
         this.priceOfNew = 0;
         this.isBundle = false;
         this.brands = [];

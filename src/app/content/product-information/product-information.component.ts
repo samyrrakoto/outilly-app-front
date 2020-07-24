@@ -27,20 +27,22 @@ export class ProductInformationComponent implements OnInit {
   mediaType: string;
   @Input() sale: Sale;
   inputProperties: Array<string>;
+  @Input() genericQuestions: Array<string>;
 
   constructor(public request: RequestService, private route: ActivatedRoute) {
     this.vendor = new Vendor();
     this.sale = new Sale();
-    this.vendorProducts = "";
+    this.vendorProducts = '';
     this.product = new Product();
     this.descriptionFlag = false;
-    this.knowMore = "";
-    this.readMore = "";
-    this.localisation = "";
-    this.mediaModal = "";
-    this.mediaPath = "";
+    this.knowMore = '';
+    this.readMore = '';
+    this.localisation = '';
+    this.mediaModal = '';
+    this.mediaPath = '';
     this.mediaIndex = 0;
-    this.mediaType = "image";
+    this.mediaType = 'image';
+    this.genericQuestions = [];
   }
 
   ngOnInit(): void {
@@ -48,30 +50,34 @@ export class ProductInformationComponent implements OnInit {
       this.id = params['id'];
     });
     this.getProductById(this.id.toString());
+    this.getGenericQuestions();
   }
 
   sortByMediaType() {
-    let medias: Array<ProductMedia> = [];
+    const imgMedias: Array<ProductMedia> = [];
+    const videoMedias: Array<ProductMedia> = [];
 
-    for (let media of this.sale.product.productMedias) {
-      if (media.type == 'video')
-        medias.push(media);
+    for (const media of this.sale.product.productMedias) {
+      media.type === 'video' ? videoMedias.push(media) : imgMedias.push(media);
     }
 
-    for (let media of this.sale.product.productMedias) {
-      if (media.type == 'image')
-        medias.push(media);
-    }
-
-    this.sale.product.productMedias = medias;
+    this.sale.product.productMedias = videoMedias.concat(imgMedias);
   }
 
   private getProductById(id: string) {
-    let response = this.request.getData(this.request.uri.SALE, id);
+    const response = this.request.getData(this.request.uri.SALE, id);
 
     response.subscribe((res) => {
       this.sale = res;
       this.sortByMediaType();
+    });
+  }
+
+  private getGenericQuestions() {
+    const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
+
+    response.subscribe((res) => {
+      this.genericQuestions = res;
     });
   }
 
@@ -80,47 +86,51 @@ export class ProductInformationComponent implements OnInit {
   }
 
   openModal(modal: string): void {
-    this[modal] = "is-active";
+    this[modal] = 'is-active';
   }
 
   closeModal(modal: string): void {
-    this[modal] = "";
+    this[modal] = '';
   }
 
   openMedia(mediaPath: string): void {
     this.mediaPath = mediaPath;
-    this.mediaModal = "is-active";
+    this.mediaModal = 'is-active';
   }
 
   openGalleryMedia(mediaIndex: number, mediaType: string): void {
     this.mediaIndex = mediaIndex;
     this.mediaPath = this.sale.product.productMedias[mediaIndex].path;
     this.mediaType = mediaType;
-    this.mediaModal = "is-active";
+    this.mediaModal = 'is-active';
   }
 
   closeMedia(): void {
-    this.mediaModal = "";
+    this.mediaModal = '';
   }
 
   previousMedia(): void {
-    let lastIndex = this.sale.product.productMedias.length - 1;
+    const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.mediaIndex == 0)
+    if (this.mediaIndex === 0) {
       this.mediaIndex = lastIndex;
-    else
+    }
+    else {
       this.mediaIndex -= 1;
+    }
     this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
     this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
   }
 
   nextMedia(): void {
-    let lastIndex = this.sale.product.productMedias.length - 1;
+    const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.mediaIndex == lastIndex)
+    if (this.mediaIndex === lastIndex) {
       this.mediaIndex = 0;
-    else
+    }
+    else {
       this.mediaIndex += 1;
+    }
     this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
     this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
   }
