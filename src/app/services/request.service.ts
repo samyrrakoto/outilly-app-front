@@ -24,7 +24,7 @@ export class RequestService {
     return this.http.post<any>(this.uri.path, data, this.httpOptions);
   }
 
-  getData(ressource: string, param: string): Observable<any> {
+  getData(ressource: string, param: string = ''): Observable<any> {
     this.uri.setUri(ressource, param);
 
     return this.http.get<any>(this.uri.path);

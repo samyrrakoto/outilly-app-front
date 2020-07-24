@@ -1,12 +1,12 @@
 <h1 class="title has-text-weight-bold">Le vendeur vous répond</h1>
 
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let question of questions; index as i">
+    <mat-expansion-panel *ngFor="let question of genericQuestions">
         <mat-expansion-panel-header>
         <mat-panel-title>
-            {{ question }}
+            {{ question['label'] }}
         </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>Réponse du vendeur: <span class="answer">“{{ answers[i] }}”</span></p>
+        <p>Réponse du vendeur: {{ question['answer'] }}</p>
     </mat-expansion-panel>
 </mat-accordion>

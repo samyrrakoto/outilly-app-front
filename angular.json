@@ -93,6 +93,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "theme.scss",
               "node_modules/bulma/css/bulma.min.css",
               "src/styles.css"
             ],
