@@ -4,9 +4,14 @@
             <a class="navbar-item" href="">
                 <h1 class="title"><fa-icon [icon]="['fas', 'tools']"></fa-icon> Ekip<span class="brandName">r</span></h1>
             </a>
+            <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
 
-        <div id="navbarMenu" class="navbar-menu">
+        <div id="navBarMenu" #navBarMenu class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
                     <a href="">ACCUEIL</a>
@@ -25,7 +30,7 @@
                 </div>
 
                 <div class="navbar-item">
-                    <a class="button is-success" href="onboarding">COMMENCEZ A VENDRE</a>
+                    <a class="button is-success" href="onboarding" id="onboard">COMMENCEZ A VENDRE</a>
                 </div>
             </div>
         </div>
