@@ -19,6 +19,15 @@
     width: 300px;
 }
 
+#personal-level a {
+    color: grey;
+}
+
+#personal-level a:hover {
+    color: black;
+    font-weight: bold;
+}
+
 .container
 {
     padding: 30px

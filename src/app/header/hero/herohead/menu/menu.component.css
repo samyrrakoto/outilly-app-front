@@ -9,6 +9,12 @@
     color: grey;
 }
 
+.navbar-item a:hover
+{
+    color: black;
+    font-weight: bold;
+}
+
 .navbar-item .button
 {
     color: white;
@@ -17,4 +23,10 @@
 .title
 {
     font-size: 35px;
+}
+
+#onboard:hover
+{
+    color:white;
+    font-weight: normal;
 }
