@@ -25,6 +25,10 @@ export class ProductInformationComponent implements OnInit {
   mediaPath: string;
   mediaIndex: number;
   mediaType: string;
+  stickyFlags = {
+    buying: '',
+    proposition: 'hidden'
+  };
   @Input() sale: Sale;
   inputProperties: Array<string>;
   @Input() genericQuestions: Array<string>;
@@ -43,6 +47,7 @@ export class ProductInformationComponent implements OnInit {
     this.mediaIndex = 0;
     this.mediaType = 'image';
     this.genericQuestions = [];
+    console.log(this.stickyFlags[buying]);
   }
 
   ngOnInit(): void {
