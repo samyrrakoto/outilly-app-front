@@ -44,7 +44,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params.id;
     });
     this.getProductById(this.id.toString());
     this.getGenericQuestions();
