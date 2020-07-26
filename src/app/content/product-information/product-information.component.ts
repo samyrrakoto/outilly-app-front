@@ -3,15 +3,17 @@ import { Product } from 'src/app/models/product';
 import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
+import { Media } from 'src/app/models/media';
 import { ActivatedRoute } from '@angular/router';
 import { ProductMedia } from 'src/app/models/product-media';
+import { GenericComponent } from 'src/app/models/generic-component';
 
 @Component({
   selector: 'app-product-information',
   templateUrl: './product-information.component.html',
   styleUrls: ['./product-information.component.css']
 })
-export class ProductInformationComponent implements OnInit {
+export class ProductInformationComponent extends GenericComponent implements OnInit {
   id: number;
   vendor: Vendor;
   vendorProducts: string;
@@ -21,15 +23,13 @@ export class ProductInformationComponent implements OnInit {
   knowMore: string;
   readMore: string;
   localisation: string;
-  mediaModal: string;
-  mediaPath: string;
-  mediaIndex: number;
-  mediaType: string;
+  media: Media;
   @Input() sale: Sale;
   inputProperties: Array<string>;
   @Input() genericQuestions: Array<string>;
 
   constructor(public request: RequestService, private route: ActivatedRoute) {
+    super();
     this.vendor = new Vendor();
     this.sale = new Sale();
     this.vendorProducts = '';
@@ -38,10 +38,7 @@ export class ProductInformationComponent implements OnInit {
     this.knowMore = '';
     this.readMore = '';
     this.localisation = '';
-    this.mediaModal = '';
-    this.mediaPath = '';
-    this.mediaIndex = 0;
-    this.mediaType = 'image';
+    this.media = new Media();
     this.genericQuestions = [];
   }
 
@@ -94,44 +91,44 @@ export class ProductInformationComponent implements OnInit {
   }
 
   openMedia(mediaPath: string): void {
-    this.mediaPath = mediaPath;
-    this.mediaModal = 'is-active';
+    this.media.path = mediaPath;
+    this.media.modal = 'is-active';
   }
 
   openGalleryMedia(mediaIndex: number, mediaType: string): void {
-    this.mediaIndex = mediaIndex;
-    this.mediaPath = this.sale.product.productMedias[mediaIndex].path;
-    this.mediaType = mediaType;
-    this.mediaModal = 'is-active';
+    this.media.index = mediaIndex;
+    this.media.path = this.sale.product.productMedias[mediaIndex].path;
+    this.media.type = mediaType;
+    this.media.modal = 'is-active';
   }
 
   closeMedia(): void {
-    this.mediaModal = '';
+    this.media.modal = '';
   }
 
   previousMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.mediaIndex === 0) {
-      this.mediaIndex = lastIndex;
+    if (this.media.index === 0) {
+      this.media.index = lastIndex;
     }
     else {
-      this.mediaIndex -= 1;
+      this.media.index -= 1;
     }
-    this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
-    this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
+    this.media.type = this.sale.product.productMedias[this.media.index].type;
+    this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
 
   nextMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.mediaIndex === lastIndex) {
-      this.mediaIndex = 0;
+    if (this.media.index === lastIndex) {
+      this.media.index = 0;
     }
     else {
-      this.mediaIndex += 1;
+      this.media.index += 1;
     }
-    this.mediaType = this.sale.product.productMedias[this.mediaIndex].type;
-    this.mediaPath = this.sale.product.productMedias[this.mediaIndex].path;
+    this.media.type = this.sale.product.productMedias[this.media.index].type;
+    this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
 }
