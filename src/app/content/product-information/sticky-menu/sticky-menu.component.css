@@ -1,0 +1,37 @@
+.navbar {
+  background: rgba(0, 0, 0, 0);
+  border-bottom: solid 5px var(--KTKP-RED);
+  margin: 0 auto;
+  padding: 0px;
+}
+
+mat-accordion {
+  margin: auto;
+  text-align: center;
+}
+
+mat-expansion-panel {
+  background: white;
+  max-width: 600px;
+}
+
+mat-expansion-panel-header {
+  background: var(--KTKP-RED);
+}
+
+mat-expansion-panel-header:hover {
+  background: var(--KTKP-RED);
+}
+
+mat-panel-title .title {
+  color: white;
+}
+
+.remise {
+  border: solid 2px grey;
+  margin: 10px;
+}
+
+.price {
+  color: var(--KTKP-RED);
+}

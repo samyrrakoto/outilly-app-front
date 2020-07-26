@@ -13,48 +13,4 @@
     </div>
 </div>
 
-<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
-  <mat-accordion>
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-            <h1 class="title is-3">Acheter ce produit</h1>
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <!-- <div id="buying" {{ stickyFlags.buying }}>
-          <h2 class="subtitle">Ce produit coûte <span class="has-text-weight-bold">{{ sale.product.reservePrice }}€</span></h2>
-            <p class="content">(au lieu de <span class="sold">{{ sale.product.priceOfNew }}</span>€)</p>
-
-          <div class="columns">
-            <div class="column has-text-centered">
-              <h3 class="subtitle is-6">Choisissez votre mode de remise</h3>
-
-              <div class="columns">
-                <div class="column remise">
-                  MONDIAL RELAY<br>
-                  <span class="price">6,90€</span>
-                </div>
-
-                <div class="column remise">
-                  COLISSIMO<br>
-                  <span class="price">9,80€</span>
-                </div>
-
-                <div class="column remise">
-                  MAINS PROPRES<br>
-                  <span class="price">GRATUIT</span>
-                </div>
-              </div>
-            </div>
-            <div class="column has-text-centered">
-              <button class="button is-danger">
-                Acheter
-              </button>
-              <p>Je souhaite faire une proposition au vendeur</p>
-            </div>
-          </div>
-        </div> -->
-    </mat-expansion-panel>
-  </mat-accordion>
-</nav>
+<sticky-menu [sale]="sale"></sticky-menu>

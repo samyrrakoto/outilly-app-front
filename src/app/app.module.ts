@@ -54,6 +54,7 @@ import { MediaGalleryComponent } from './content/product-information/general-inf
 import { PredefinedQuestionComponent } from './content/product-information/general-information/predefined-question/predefined-question.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { StickyMenuComponent } from './content/product-information/sticky-menu/sticky-menu.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     QuestiontovendorComponent,
     ProductModalComponent,
     MediaGalleryComponent,
-    PredefinedQuestionComponent
+    PredefinedQuestionComponent,
+    StickyMenuComponent
   ],
   imports: [
     HttpClientModule,
