@@ -55,6 +55,9 @@ import { PredefinedQuestionComponent } from './content/product-information/gener
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StickyMenuComponent } from './content/product-information/sticky-menu/sticky-menu.component';
+import { DeliveryOptionsComponent } from './content/product-information/sticky-menu/delivery-options/delivery-options.component';
+import { BuyingConfirmationComponent } from './content/product-information/sticky-menu/buying-confirmation/buying-confirmation.component';
+import { BuyingPropositionComponent } from './content/product-information/sticky-menu/buying-proposition/buying-proposition.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +106,10 @@ import { StickyMenuComponent } from './content/product-information/sticky-menu/s
     ProductModalComponent,
     MediaGalleryComponent,
     PredefinedQuestionComponent,
-    StickyMenuComponent
+    StickyMenuComponent,
+    DeliveryOptionsComponent,
+    BuyingConfirmationComponent,
+    BuyingPropositionComponent
   ],
   imports: [
     HttpClientModule,

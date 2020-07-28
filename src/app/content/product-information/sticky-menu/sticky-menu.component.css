@@ -12,26 +12,65 @@ mat-accordion {
 
 mat-expansion-panel {
   background: white;
-  max-width: 600px;
 }
 
 mat-expansion-panel-header {
-  background: var(--KTKP-RED);
-}
-
-mat-expansion-panel-header:hover {
-  background: var(--KTKP-RED);
+  background: var(--KTKP-RED) !important;
 }
 
 mat-panel-title .title {
+  margin: 0 auto;
   color: white;
 }
 
+#buying, #proposition {
+  margin-top: 20px;
+}
+
 .remise {
-  border: solid 2px grey;
-  margin: 10px;
+  color: var(--MAT-GREY);
+  font-size: 0.85em;
+  border: solid 1px var(--MAT-GREY);
+  height: 80px;
+  width: 80px;
+  margin: auto;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.remise:hover {
+  background: var(--MAT-GREY);
+  color: white;
+}
+
+.chosen-remise {
+  background: black;
+  border-color: black;
+  color: white;
 }
 
 .price {
+  font-size: 1.2em;
+  font-weight: bold;
   color: var(--KTKP-RED);
+}
+
+.delay {
+  font-size: 10px;
+}
+
+.normal {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.warning {
+  color: var(--KTKP-RED);
+}
+
+.input {
+  border: none;
+  border-bottom: solid 1px grey;
 }

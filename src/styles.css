@@ -6,9 +6,10 @@
     --KTKP-BLUE-DARKER: #3A4984;
     --KTKP-GREEN: #7DD2B3;
     --KTKP-YELLOW: #F6A933;
-    --KTKP_GREY: #F5F5F5;
+    --KTKP-GREY: #F5F5F5;
 
     --GREY-LIGHT: #DBDBDB;
+    --MAT-GREY: rgb(80, 80, 80);
 }
 
 .brandName

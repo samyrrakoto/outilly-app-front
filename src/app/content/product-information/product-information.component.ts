@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from 'src/app/models/product';
 import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
@@ -17,29 +16,33 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   id: number;
   vendor: Vendor;
   vendorProducts: string;
-  product: Product;
   descriptionFlag: boolean;
   shortDescription: string;
   knowMore: string;
-  readMore: string;
   localisation: string;
-  media: Media;
   @Input() sale: Sale;
   inputProperties: Array<string>;
   @Input() genericQuestions: Array<string>;
+  deliveryName: string;
+  deliveryFees: number;
+  @Input() proposedPrice: number;
+  @Input() minPrice: number;
+  maxPrice: number;
+  @Input() errorMsg: any;
 
   constructor(public request: RequestService, private route: ActivatedRoute) {
     super();
     this.vendor = new Vendor();
     this.sale = new Sale();
     this.vendorProducts = '';
-    this.product = new Product();
     this.descriptionFlag = false;
     this.knowMore = '';
-    this.readMore = '';
-    this.localisation = '';
-    this.media = new Media();
+    this.modals = {
+      knowMore: ''
+    };
     this.genericQuestions = [];
+    this.deliveryName = 'Mondial Relay';
+    this.deliveryFees = 6.90;
   }
 
   ngOnInit(): void {
@@ -50,7 +53,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.getGenericQuestions();
   }
 
-  sortByMediaType() {
+  sortByMediaType(): void {
     const imgMedias: Array<ProductMedia> = [];
     const videoMedias: Array<ProductMedia> = [];
 
@@ -61,16 +64,23 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.sale.product.productMedias = videoMedias.concat(imgMedias);
   }
 
-  private getProductById(id: string) {
+  private getProductById(id: string): void {
     const response = this.request.getData(this.request.uri.SALE, id);
 
     response.subscribe((res) => {
       this.sale = res;
+      this.proposedPrice = this.sale.product.reservePrice;
+      this.minPrice = this.sale.product.reservePrice * 0.8;
+      this.maxPrice = this.sale.product.reservePrice * 2;
+      this.errorMsg = {
+        delivery: 'Veuillez choisir un mode de livraison',
+        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice
+      };
       this.sortByMediaType();
     });
   }
 
-  private getGenericQuestions() {
+  private getGenericQuestions(): void {
     const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
 
     response.subscribe((res) => {
@@ -78,21 +88,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
-  displayDescription() {
+  displayDescription(): void {
     this.descriptionFlag ? this.descriptionFlag = false : this.descriptionFlag = true;
-  }
-
-  openModal(modal: string): void {
-    this[modal] = 'is-active';
-  }
-
-  closeModal(modal: string): void {
-    this[modal] = '';
-  }
-
-  openMedia(mediaPath: string): void {
-    this.media.path = mediaPath;
-    this.media.modal = 'is-active';
   }
 
   openGalleryMedia(mediaIndex: number, mediaType: string): void {
@@ -100,10 +97,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.media.path = this.sale.product.productMedias[mediaIndex].path;
     this.media.type = mediaType;
     this.media.modal = 'is-active';
-  }
-
-  closeMedia(): void {
-    this.media.modal = '';
   }
 
   previousMedia(): void {

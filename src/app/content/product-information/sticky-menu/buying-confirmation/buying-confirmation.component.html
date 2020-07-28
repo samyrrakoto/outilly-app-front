@@ -1,0 +1,64 @@
+<div id="buying">
+  <h2 class="subtitle">Plus qu'une étape : confirmez votre achat :)</h2>
+
+  <div class="columns is-vcentered">
+    <div class="column has-text-left">
+      <div class="content">
+        <table class="table">
+          <tr>
+            <td><span class="has-text-weight-bold">Le prix du produit</span> :</td>
+            <td>{{ sale.product.reservePrice }}€</td>
+          </tr>
+          <tr>
+            <td><span class="has-text-weight-bold">Nos frais de sécurisation (6%)</span> :</td>
+            <td>{{ sale.product.reservePrice * 0.06 }}€</td>
+          </tr>
+          <tr>
+            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ sticky.deliveryName }}</span></span> :</td>
+            <td>{{ sticky.deliveryFees }}€</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="is-divider-vertical is-hidden-mobile"></div>
+
+    <div class="column has-text-centered">
+      <h2 class="subtitle has-text-weight-bold">{{ sale.product.reservePrice }}€</h2>
+      <button (click)="openModal('buyingConfirmation')" class="button is-danger">
+        Confirmer mon achat
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    < <button class="normal" (click)="sticky.previousStep()">Choisir un nouveau mode de remise</button>
+  </div>
+</div>
+
+<!-- [Modal] Buying confirmation -->
+<div class="modal {{ modals.buyingConfirmation }}">
+  <div class="modal-background" (click)="closeModal('buyingConfirmation')"></div>
+  <div class="modal-content">
+      <div class="box">
+        <p class="content">Etes-vous sûr(e) de vouloir acheter :</p>
+
+        <div class="content">
+          <span class="warning has-text-weight-bold">{{ sale.product.name }}</span><br>
+          au prix de <br>
+          <span class="has-text-weight-bold">{{ sale.product.reservePrice }}€</span> ?<br>
+          (+ {{ sticky.deliveryFees }}€ de frais de port avec {{ sticky.deliveryName }})
+        </div>
+
+        <div class="buttons is-centered">
+            <button class="button is-success">
+              Oui
+            </button>
+            <button class="button is-danger" (click)="closeModal('buyingConfirmation')">
+              Non
+            </button>
+        </div>
+      </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="closeModal('buyingConfirmation')"></button>
+</div>
