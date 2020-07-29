@@ -12,6 +12,12 @@ export class PredefinedQuestionComponent extends ProductInformationComponent imp
 
   constructor(request: RequestService, route: ActivatedRoute) {
     super(request, route);
+
+    for (const [index, question] of this.genericQuestions) {
+      if (question['answer'] === 'Je vends cet article') {
+        this.genericQuestions[index]['answer'] += ' ' + this.sale.product.reservePrice;
+      }
+    }
   }
 
   ngOnInit(): void {
