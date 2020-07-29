@@ -1,0 +1,22 @@
+<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+  <mat-accordion>
+    <mat-expansion-panel hideToggle (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+              <h1 class="title is-5"><span class="blink-me">Acheter ce produit </span><fa-icon class="caret" *ngIf="!panelOpenState" [icon]="['fas', 'caret-up']"></fa-icon><fa-icon class="caret" *ngIf="panelOpenState" [icon]="['fas', 'caret-down']"></fa-icon></h1>
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div id="menu-content" class="content">
+          <delivery-options [sale]="sale" [errorMsg]="errorMsg" *ngIf="stickyMenuSteps.deliveryOptions"></delivery-options>
+          <buying-confirmation [sale]="sale" *ngIf="stickyMenuSteps.buyingConfirmation"></buying-confirmation>
+          <buying-proposition [sale]="sale"
+          [errorMsg]="errorMsg"
+          [minPrice]="minPrice"
+          [proposedPrice]="proposedPrice"
+          *ngIf="stickyMenuSteps.buyingProposition"></buying-proposition>
+        </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</nav>

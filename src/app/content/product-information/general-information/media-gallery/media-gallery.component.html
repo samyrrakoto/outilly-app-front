@@ -37,17 +37,17 @@
     </div>
 
     <!-- Media Modal -->
-    <div class="modal {{ mediaModal }}">
+    <div class="modal {{ media.modal }}">
         <div class="modal-background" (click)="closeMedia()"></div>
         <div class="modal-content">
             <div class="box has-background-black">
                 <!-- media -->
-                <figure *ngIf="mediaType == 'image'" class="image">
-                    <img src="{{ mediaPath }}">
+                <figure *ngIf="media.type == 'image'" class="image">
+                    <img src="{{ media.path }}">
                 </figure>
 
-                <video *ngIf="mediaType == 'video'" controls autoplay>
-                    <source src="{{ mediaPath }}" type="video/mp4">
+                <video *ngIf="media.type == 'video'" controls autoplay>
+                    <source src="{{ media.path }}" type="video/mp4">
                 </video>
 
                 <!-- nav arrows -->

@@ -1,0 +1,44 @@
+<div id="buying">
+  <h2 class="subtitle">Ce produit coûte <span class="has-text-weight-bold" style="font-size:1.5em;">{{ sale.product.reservePrice }}€</span></h2>
+    <p class="content">(au lieu de <span class="sold">{{ sale.product.priceOfNew }}</span>€)</p>
+
+  <div class="columns is-vcentered">
+    <div class="column has-text-centered">
+      <h3 class="subtitle is-6">Choisissez votre mode de remise</h3>
+
+      <div class="columns">
+        <div class="column">
+          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 6.90)">
+              MONDIAL RELAY<br><br>
+              <span class="price">6,90€</span><br><br>
+          </div>
+          <span class="delay">4-5 jours ouvrés</span>
+        </div>
+
+        <div class="column">
+          <div id="colissimo" class="content remise" (click)="sticky.setDelivery('colissimo', 'Colissimo', 9.80)">
+            COLISSIMO<br><br>
+            <span class="price">9,80€</span>
+          </div>
+          <span class="delay">2-4 jours ouvrés</span>
+        </div>
+
+        <div class="column">
+          <div id="hand" class="content remise" (click)="sticky.setDelivery('hand', 'Remise en main propre', 0)">
+            MAINS PROPRES<br><br>
+            <span class="price">GRATUIT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column has-text-centered">
+      <p class="content">
+        <button class="button is-danger" (click)="sticky.nextStep()">
+          Acheter
+        </button>
+      </p>
+
+      <button class="normal" (click)="sticky.nextAltStep()">Je souhaite faire une proposition au vendeur</button>
+    </div>
+  </div>
+</div>

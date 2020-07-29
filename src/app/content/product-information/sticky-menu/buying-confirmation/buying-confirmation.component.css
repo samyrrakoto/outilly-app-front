@@ -1,0 +1,11 @@
+.is-divider-vertical, .is-divider-vertical:before {
+  color: var(--KTKP-RED);
+  border: solid 4px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0px;
+}
+
+.table td {
+  text-align: right;
+}

@@ -1,20 +1,5 @@
-<!-- [Modal] Read more -->
-<div class="modal {{ readMore }}">
-    <div class="modal-background" (click)="closeModal('readMore')"></div>
-    <div class="modal-content">
-        <div class="box">
-            <h2 class="subtitle has-text-weight-bold">Description</h2>
-
-            <div class="content">
-                {{ product.description }}
-            </div>
-        </div>
-    </div>
-    <button class="modal-close is-large" aria-label="close" (click)="closeModal('readMore')"></button>
-</div>
-
 <!-- [Modal] Know more about products state -->
-<div class="modal {{ knowMore }}">
+<div class="modal {{ modals[knowMore] }}">
     <div class="modal-background" (click)="closeModal('knowMore')"></div>
     <div class="modal-content">
         <div class="box">
@@ -34,15 +19,15 @@
     <button class="modal-close is-large" aria-label="close" (click)="closeModal('knowMore')"></button>
 </div>
 
-            <!-- [Modal] Google maps localisation -->
-            <div class="modal {{ localisation }}">
-                <div class="modal-background" (click)="closeModal('localisation')"></div>
-                <div class="modal-content">
-                    <div class="box">
-                        <figure class="image">
-                            <img src="../../../assets/img/product/maps-preview.png">
-                        </figure>
-                    </div>
-                </div>
-                <button class="modal-close is-large" aria-label="close" (click)="closeModal('localisation')"></button>
-            </div>
+<!-- [Modal] Google maps localisation -->
+<div class="modal {{ modals.localisation }}">
+    <div class="modal-background" (click)="closeModal('localisation')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <figure class="image">
+                <img src="assets/img/product/maps-preview.png">
+            </figure>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal('localisation')"></button>
+</div>
