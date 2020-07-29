@@ -2,7 +2,7 @@
   <h2 class="subtitle">Quel montant souhaitez-vous proposer au vendeur ?</h2>
 
   <p class="content warning">
-    Le vendeur pourra accepter ou refuser votre offre, mais aussi vous faire une nouvelle proposition de prix.<br>
+    <fa-icon [icon]="['fas', 'info-circle']"></fa-icon> Le vendeur pourra accepter ou refuser votre offre, mais aussi vous faire une nouvelle proposition de prix.<br>
     Attention : vous ne pouvez négocier qu'une seule fois et n'aurez pas la possibilité de négocier de nouveau avec le vendeur.<br>
     Ne laissez pas passer votre chance si le prix est intéressant. :-)
   </p>
@@ -14,7 +14,7 @@
 
     <div class="column">
       <div class="control has-icons-right">
-        <input class="input" type="number" placeholder="{{ sale.product.reservePrice }}" [(ngModel)]="sticky.proposedPrice" step="5">
+        <input id="propositionPrice" class="input" type="number" placeholder="{{ sale.product.reservePrice }}" [(ngModel)]="sticky.proposedPrice" step="5">
         <span class="icon is-small is-right">
           <fa-icon [icon]="['fas', 'euro-sign']"></fa-icon>
         </span>
@@ -27,7 +27,7 @@
   </div>
 
   <p class="content">
-    <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning">{{ errorMsg.lowPrice }}€.</span>
+    <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
   </p>
   < <button class="normal" (click)="sticky.previousStep()">Revenir au prix initial</button>
 </div>

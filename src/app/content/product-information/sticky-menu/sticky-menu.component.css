@@ -8,6 +8,7 @@
 mat-accordion {
   margin: auto;
   text-align: center;
+  width: 100%;
 }
 
 mat-expansion-panel {
@@ -27,12 +28,17 @@ mat-panel-title .title {
   margin-top: 20px;
 }
 
+#menu-content {
+  width: 60%;
+  margin: 0 auto;
+}
+
 .remise {
   color: var(--MAT-GREY);
   font-size: 0.85em;
   border: solid 1px var(--MAT-GREY);
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   margin: auto;
   padding: 20px;
   cursor: pointer;
@@ -70,7 +76,12 @@ mat-panel-title .title {
   color: var(--KTKP-RED);
 }
 
-.input {
+.input, .input:active {
   border: none;
   border-bottom: solid 1px grey;
+}
+
+#propositionPrice {
+  font-size: 1.8em;
+  font-weight: bold;
 }

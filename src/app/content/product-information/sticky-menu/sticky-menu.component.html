@@ -3,17 +3,19 @@
     <mat-expansion-panel hideToggle (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
         <mat-panel-title>
-            <h1 class="title is-5">Acheter ce produit  <fa-icon class="caret" *ngIf="!panelOpenState" [icon]="['fas', 'caret-up']"></fa-icon><fa-icon class="caret" *ngIf="panelOpenState" [icon]="['fas', 'caret-down']"></fa-icon></h1>
+              <h1 class="title is-5">Acheter ce produit  <fa-icon class="caret" *ngIf="!panelOpenState" [icon]="['fas', 'caret-up']"></fa-icon><fa-icon class="caret" *ngIf="panelOpenState" [icon]="['fas', 'caret-down']"></fa-icon></h1>
         </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <delivery-options [sale]="sale" [errorMsg]="errorMsg" *ngIf="stickyMenuSteps.deliveryOptions"></delivery-options>
-        <buying-confirmation [sale]="sale" *ngIf="stickyMenuSteps.buyingConfirmation"></buying-confirmation>
-        <buying-proposition [sale]="sale"
-        [errorMsg]="errorMsg"
-        [minPrice]="minPrice"
-        [proposedPrice]="proposedPrice"
-        *ngIf="stickyMenuSteps.buyingProposition"></buying-proposition>
+        <div id="menu-content" class="content">
+          <delivery-options [sale]="sale" [errorMsg]="errorMsg" *ngIf="stickyMenuSteps.deliveryOptions"></delivery-options>
+          <buying-confirmation [sale]="sale" *ngIf="stickyMenuSteps.buyingConfirmation"></buying-confirmation>
+          <buying-proposition [sale]="sale"
+          [errorMsg]="errorMsg"
+          [minPrice]="minPrice"
+          [proposedPrice]="proposedPrice"
+          *ngIf="stickyMenuSteps.buyingProposition"></buying-proposition>
+        </div>
 
     </mat-expansion-panel>
   </mat-accordion>
