@@ -20,15 +20,15 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   shortDescription: string;
   knowMore: string;
   localisation: string;
-  @Input() sale: Sale;
+  sale: Sale;
   inputProperties: Array<string>;
-  @Input() genericQuestions: Array<string>;
+  genericQuestions: Array<string>;
   deliveryName: string;
   deliveryFees: number;
-  @Input() proposedPrice: number;
-  @Input() minPrice: number;
+  proposedPrice: number;
+  minPrice: number;
   maxPrice: number;
-  @Input() errorMsg: any;
+  errorMsg: any;
 
   constructor(public request: RequestService, private route: ActivatedRoute) {
     super();

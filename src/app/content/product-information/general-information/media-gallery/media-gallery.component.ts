@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./media-gallery.component.scss']
 })
 export class MediaGalleryComponent extends ProductInformationComponent implements OnInit {
+  @Input() sale: Sale;
+
   constructor(request: RequestService, route: ActivatedRoute) {
     super(request, route);
   }

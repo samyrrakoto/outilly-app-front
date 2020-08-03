@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
+import { Sale } from 'src/app/models/sale';
 
 @Component({
   selector: 'side-information',
@@ -9,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./side-information.component.css']
 })
 export class SideInformationComponent extends ProductInformationComponent implements OnInit {
+  @Input() sale: Sale;
+
   constructor(request: RequestService, route: ActivatedRoute) {
     super(request, route);
   }
