@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -127,6 +128,7 @@ import { CheckoutComponent } from './content/product-information/checkout/checko
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatExpansionModule,
+<<<<<<< HEAD
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {
@@ -141,6 +143,9 @@ import { CheckoutComponent } from './content/product-information/checkout/checko
       useClass: AuthHttpInterceptorService,
       multi: true
     }
+=======
+    RouterModule
+>>>>>>> Taking to predefined questions when clicking on 'Poser une question au vendeur'
   ],
   bootstrap: [AppComponent]
 })

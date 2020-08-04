@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./questiontovendor.component.css']
 })
 export class QuestiontovendorComponent implements OnInit {
+  id: number;
 
-  constructor() { }
+  constructor(public router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+    });
   }
-
 }
