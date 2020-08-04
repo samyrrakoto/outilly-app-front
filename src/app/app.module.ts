@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 import { MenuComponent } from './header/hero/herohead/menu/menu.component';
 import { HeaderComponent } from './header/header.component'
 import { HeroComponent } from './header/hero/hero.component';
@@ -54,6 +55,7 @@ import { MediaGalleryComponent } from './content/product-information/general-inf
 import { PredefinedQuestionComponent } from './content/product-information/general-information/predefined-question/predefined-question.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { LoginComponent } from './content/login/login.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     QuestiontovendorComponent,
     ProductModalComponent,
     MediaGalleryComponent,
-    PredefinedQuestionComponent
+    PredefinedQuestionComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
@@ -110,7 +113,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AppRoutingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    JwtModule.forRoot({
+      config: {
+          tokenGetter: () => {
+              return localStorage.getItem('access_token');
+          }
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
