@@ -9,11 +9,14 @@ import { Sale } from 'src/app/models/sale';
   templateUrl: './sticky-menu.component.html',
   styleUrls: ['./sticky-menu.component.css']
 })
-export class StickyMenuComponent extends ProductInformationComponent implements OnInit {
+export class StickyMenuComponent implements OnInit {
   @Input() sale: Sale;
   @Input() errorMsg: any;
   @Input() minPrice: number;
+  @Input() maxPrice: number;
   @Input() proposedPrice: number;
+  deliveryName: string;
+  deliveryFees: number;
   panelOpenState: boolean;
   stickyMenuSteps: any;
   current: string;
@@ -22,7 +25,6 @@ export class StickyMenuComponent extends ProductInformationComponent implements 
   nextAlt: string;
 
   constructor(request: RequestService, route: ActivatedRoute) {
-    super(request, route);
     this.stickyMenuSteps = {
       deliveryOptions: true,
       buyingConfirmation: false,
@@ -31,6 +33,8 @@ export class StickyMenuComponent extends ProductInformationComponent implements 
     this.current = 'deliveryOptions';
     this.previous = '';
     this.next = 'buyingConfirmation';
+    this.deliveryName = 'Mondial Relay';
+    this.deliveryFees = 6.90;
   }
 
   nextStep(): void {

@@ -23,8 +23,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   sale: Sale;
   inputProperties: Array<string>;
   genericQuestions: Array<string>;
-  deliveryName: string;
-  deliveryFees: number;
   proposedPrice: number;
   minPrice: number;
   maxPrice: number;
@@ -41,8 +39,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       knowMore: ''
     };
     this.genericQuestions = [];
-    this.deliveryName = 'Mondial Relay';
-    this.deliveryFees = 6.90;
   }
 
   ngOnInit(): void {
@@ -75,7 +71,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       this.maxPrice = this.sale.product.reservePrice * 2;
       this.errorMsg = {
         delivery: 'Veuillez choisir un mode de livraison',
-        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice
+        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,
+        highPrice: 'Votre prix est trop haut : votre proposition doit être inférieure à ' + this.maxPrice
       };
       this.sortByMediaType();
     });
