@@ -62,6 +62,7 @@ import { BuyingPropositionComponent } from './content/product-information/sticky
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
+import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { AuthHttpInterceptorService } from './services/auth-http-interceptor.ser
     BuyingConfirmationComponent,
     BuyingPropositionComponent,
     LoginComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    CheckoutComponent
   ],
   imports: [
     HttpClientModule,
