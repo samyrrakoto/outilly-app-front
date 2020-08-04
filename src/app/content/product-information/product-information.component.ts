@@ -53,6 +53,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.getGenericQuestions();
   }
 
+
   sortByMediaType(): void {
     const imgMedias: Array<ProductMedia> = [];
     const videoMedias: Array<ProductMedia> = [];
