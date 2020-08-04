@@ -3,6 +3,7 @@ export class Uri {
     readonly secure: string = 'secure/';
     readonly BID: string = 'bid/';
     readonly USER: string = 'user/';
+    readonly LOGIN: string = 'login/check';
     readonly CHECK: string = 'check/';
     readonly CREATE: string = 'create';
     readonly EXISTS: string = 'exists';
