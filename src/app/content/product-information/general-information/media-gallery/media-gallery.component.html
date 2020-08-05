@@ -38,7 +38,7 @@
 
     <!-- Media Modal -->
     <div class="modal {{ media.modal }}">
-        <div class="modal-background" (click)="closeMedia()"></div>
+        <div class="modal-background" (click)="closeMedia(); pauseVideo('demoVideo')"></div>
         <div class="modal-content">
             <div class="box has-background-black">
                 <!-- media -->
@@ -46,7 +46,7 @@
                     <img src="{{ media.path }}">
                 </figure>
 
-                <video *ngIf="media.type == 'video'" controls autoplay>
+                <video id="demoVideo" *ngIf="media.type == 'video'" controls autoplay>
                     <source src="{{ media.path }}" type="video/mp4">
                 </video>
 
@@ -62,6 +62,6 @@
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close" (click)="closeMedia()"></button>
+        <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>
     </div>
 </div>
