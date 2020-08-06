@@ -1,7 +1,7 @@
 export class Uri {
-    readonly base: string = 'http://ktkp.api/';
-    readonly secure: string = 'secure/';
+    readonly BASE: string = 'http://ktkp.api/';
     readonly BID: string = 'bid/';
+    readonly SECURE: string = "secure/"
     readonly USER: string = 'user/';
     readonly LOGIN: string = 'login/check';
     readonly CHECK: string = 'check/';
