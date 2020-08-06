@@ -25,10 +25,8 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.model).then(
         (success) => {
-          console.log("Login succes");
-          this.router.navigate(['home']);
+          this.router.navigate(['user/dashboard']);
         }, (failure) => {
-          console.log("Login fail");
           this.loginFailed = true;
         }
     );

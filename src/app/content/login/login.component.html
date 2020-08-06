@@ -1,6 +1,13 @@
 <section>
     <div class="columns is-centered">
         <div class="login">
+            <section *ngIf="loginFailed" class="section">
+                <article class="message is-danger">
+                    <div class="message-body">
+                        Nom d'utilisateur ou mot de passe incorrect.
+                    </div>
+                </article>
+            </section>
             <section class="section">
                 <form (ngSubmit)="login()" #form="ngForm">
                 <div class="field">
