@@ -46,4 +46,8 @@ export class RequestService {
   getSaleCall(saleId: string = "1"): Observable<HttpResponse<Sale>> {
     return this.getData(this.uri.SALE, saleId);
   }
+
+  getUserInfos(){
+    return this.getData(this.uri.SECURE, this.uri.USER)
+  }
 }
