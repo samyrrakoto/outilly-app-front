@@ -26,6 +26,7 @@ export class AuthService {
       this.getJwtToken(credentials).subscribe(response => {
         if (response.body.token) {
           this.setAccessToken(response.body);
+          this.setUserNameSession();
           resolve(true);
         } else {
           reject(false);
