@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -60,6 +60,8 @@ import { DeliveryOptionsComponent } from './content/product-information/sticky-m
 import { BuyingConfirmationComponent } from './content/product-information/sticky-menu/buying-confirmation/buying-confirmation.component';
 import { BuyingPropositionComponent } from './content/product-information/sticky-menu/buying-proposition/buying-proposition.component';
 import { LoginComponent } from './content/login/login.component';
+import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
+import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,8 @@ import { LoginComponent } from './content/login/login.component';
     DeliveryOptionsComponent,
     BuyingConfirmationComponent,
     BuyingPropositionComponent,
-    LoginComponent
+    LoginComponent,
+    UserDashboardComponent
   ],
   imports: [
     HttpClientModule,
@@ -130,7 +133,13 @@ import { LoginComponent } from './content/login/login.component';
       }
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
