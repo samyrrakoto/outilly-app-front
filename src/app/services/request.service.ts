@@ -3,6 +3,7 @@ import { Uri } from '../models/uri';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Sale } from '../models/sale';
+import { AccessToken } from '../models/access-token';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class RequestService {
     return this.http.get<any>(this.uri.path);
   }
 
+  login(data: any): Observable<HttpResponse<AccessToken>> {
+    return this.postData(data, this.uri.LOGIN, '');
+  }
+
   createUser(data: any): Observable<HttpResponse<any>> {
     return this.postData(data, this.uri.USER, this.uri.CREATE);
   }
@@ -40,5 +45,9 @@ export class RequestService {
 
   getSaleCall(saleId: string = "1"): Observable<HttpResponse<Sale>> {
     return this.getData(this.uri.SALE, saleId);
+  }
+
+  getUserInfos(){
+    return this.getData(this.uri.SECURE, this.uri.USER)
   }
 }

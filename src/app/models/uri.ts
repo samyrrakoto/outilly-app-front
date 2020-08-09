@@ -1,8 +1,9 @@
 export class Uri {
-    readonly base: string = 'http://ktkp.api/';
-    readonly secure: string = 'secure/';
+    readonly BASE: string = 'http://ktkp.api/';
     readonly BID: string = 'bid/';
+    readonly SECURE: string = "secure/"
     readonly USER: string = 'user/';
+    readonly LOGIN: string = 'login/check';
     readonly CHECK: string = 'check/';
     readonly CREATE: string = 'create';
     readonly EXISTS: string = 'exists';
@@ -15,6 +16,6 @@ export class Uri {
     }
 
     setUri(ressource: string, param: string) {
-        this.path = this.base + ressource + param;
+        this.path = this.BASE + ressource + param;
     }
 }

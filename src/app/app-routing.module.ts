@@ -22,6 +22,9 @@ import { ConfirmationComponent } from './content/onboarding/confirmation/confirm
 import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
 import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
 import { ProductInformationComponent } from './content/product-information/product-information.component';
+import { LoginComponent } from './content/login/login.component';
+import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -31,6 +34,15 @@ const routes: Routes = [
   {
     path:"home",
     component: HomepageComponent
+  },
+  {
+    path:"login",
+    component: LoginComponent
+  },
+  {
+    path:"user/dashboard",
+    component: UserDashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:"onboarding",

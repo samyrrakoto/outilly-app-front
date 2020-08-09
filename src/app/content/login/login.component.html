@@ -1,0 +1,42 @@
+<section>
+    <div class="columns is-centered">
+        <div class="login">
+            <section *ngIf="loginFailed" class="section">
+                <article class="message is-danger">
+                    <div class="message-body">
+                        Nom d'utilisateur ou mot de passe incorrect.
+                    </div>
+                </article>
+            </section>
+            <section class="section">
+                <form (ngSubmit)="login()" #form="ngForm">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="text" name="username" placeholder="Email" [(ngModel)]="model.username" required />
+                        <span class="icon is-small is-right">
+                            <fa-icon [icon]="['fas','user']"></fa-icon>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Mot de passe</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="password" name="password" placeholder="Mot de passe" [(ngModel)]="model.password" required />
+                        <span class="icon is-small is-right">
+                            <fa-icon [icon]="['fas','key']"></fa-icon>
+                        </span>
+                    </div>
+                </div>
+                <div class="has-text-centered">
+                    <button type="submit" class="button is-vcentered is-primary is-outlined">Se connecter</button>
+                </div>
+                </form>
+                <div class="has-text-centered">
+                    <a href="signup.html"> Vous n'avez pas de compte ? Inscrivez-vous !</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
