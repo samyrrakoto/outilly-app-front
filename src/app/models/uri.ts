@@ -16,6 +16,6 @@ export class Uri {
     }
 
     setUri(ressource: string, param: string) {
-        this.path = this.base + ressource + param;
+        this.path = this.BASE + ressource + param;
     }
 }
