@@ -26,7 +26,7 @@ export class AuthService {
       this.getJwtToken(credentials).subscribe(response => {
         if (response.body.token) {
           this.setAccessToken(response.body);
-          this.setUserNameSession();
+          this.setUserInfosInSession();
           resolve(true);
         } else {
           reject(false);
@@ -65,9 +65,10 @@ export class AuthService {
     localStorage.setItem('access_token', response.token);
   }
 
-  private setUserNameSession() {
+  private setUserInfosInSession() {
       const token = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
       sessionStorage.setItem('username', token.username);
+      sessionStorage.setItem('userId', token.userId);
   }
 
   // Handle API errors
