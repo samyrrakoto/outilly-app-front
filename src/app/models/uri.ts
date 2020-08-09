@@ -1,5 +1,7 @@
+import { environment } from './../../environments/environment';
+
 export class Uri {
-    readonly BASE: string = 'http://ktkp.api/';
+    readonly BASE: string;
     readonly BID: string = 'bid/';
     readonly SECURE: string = "secure/"
     readonly USER: string = 'user/';
@@ -12,6 +14,7 @@ export class Uri {
     path: string;
 
     constructor() {
+        this.BASE = environment.apiBaseUri;
         this.path = '';
     }
 
