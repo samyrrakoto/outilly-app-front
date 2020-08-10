@@ -28,6 +28,7 @@
 
   <p class="content">
     <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
+    <span *ngIf="sticky.proposedPrice > sticky.maxPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.highPrice }}€.</span>
   </p>
   < <button class="normal" (click)="sticky.previousStep()">Revenir au prix initial</button>
 </div>

@@ -1,3 +1,4 @@
+import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './content/homepage/homepage.component';
@@ -28,115 +29,119 @@ import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
-    path:"",
+    path: '',
     component: HomepageComponent
   },
   {
-    path:"home",
+    path: 'home',
     component: HomepageComponent
   },
   {
-    path:"login",
+    path: 'login',
     component: LoginComponent
   },
   {
-    path:"user/dashboard",
+    path: 'user/dashboard',
     component: UserDashboardComponent,
     canActivate: [AuthGuard]
   },
   {
-    path:"onboarding",
+    path: 'onboarding',
     component: OnboardingComponent,
     children: [
       {
-        path:"", redirectTo: '1/username', pathMatch: 'full'
+        path: '', redirectTo: '1/username', pathMatch: 'full'
       },
       {
-        path:"1/username",
+        path: '1/username',
         component: PseudoComponent
       },
       {
-        path:"2/email",
+        path: '2/email',
         component: EmailComponent
       },
       {
-        path:"3/firstname",
+        path: '3/firstname',
         component: FirstNameComponent
       },
       {
-        path:"4/lastname",
+        path: '4/lastname',
         component: LastNameComponent
       },
       {
-        path:"5/gender",
+        path: '5/gender',
         component: GenderComponent
       },
       {
-        path:"6/status",
+        path: '6/status',
         component: StatusComponent,
       },
       {
-        path:"6/status/siret",
+        path: '6/status/siret',
         component: SiretComponent
       },
       {
-        path:"6/status/tva",
+        path: '6/status/tva',
         component: TvaComponent
       },
       {
-        path:"7/birthdate",
+        path: '7/birthdate',
         component: BirthdateComponent
       },
       {
-        path:"8/country",
+        path: '8/country',
         component: CountryComponent
       },
       {
-        path:"9/zipcode",
+        path: '9/zipcode',
         component: ZipcodeComponent
       },
       {
-        path:"10/city",
+        path: '10/city',
         component: CityComponent
       },
       {
-        path:"11/street",
+        path: '11/street',
         component: StreetComponent
       },
       {
-        path:"12/phonenumber",
+        path: '12/phonenumber',
         component: PhoneNumberComponent
       },
       {
-        path:"13/password",
+        path: '13/password',
         component: PasswordComponent
       },
       {
-        path:"14/passwordconfirmation",
+        path: '14/passwordconfirmation',
         component: PasswordconfirmationComponent
       },
       {
-        path:"15/emailoptin",
+        path: '15/emailoptin',
         component: EmailOptinComponent
       },
       {
-        path:"validation",
+        path: 'validation',
         component: ValidationComponent
       },
       {
-        path:"confirmation",
+        path: 'confirmation',
         component: ConfirmationComponent
       }
     ]
   },
   {
-    path:"product/:id",
+    path: 'product/:id',
     component: ProductInformationComponent
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {anchorScrolling: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -15,11 +15,11 @@ export class CityComponent extends OnboardingComponent {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.errorMessages;
-    this.formDataService.fieldName = "city";
+    this.formDataService.fieldName = 'city';
     this.stepNb = 10;
-    this.stepName = "Quelle est votre ville ?";
-    this.formDataService.path.previous = "9/zipcode";
-    this.formDataService.path.next = "11/street";
-    this.placeholder = "(ex : Jouy-en-Josas)";
+    this.stepName = 'Quelle est votre ville ?';
+    this.formDataService.path.previous = '9/zipcode';
+    this.formDataService.path.next = '11/street';
+    this.placeholder = '(ex : Jouy-en-Josas)';
   }
 }

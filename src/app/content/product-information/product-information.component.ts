@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
@@ -12,7 +12,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
   templateUrl: './product-information.component.html',
   styleUrls: ['./product-information.component.css']
 })
-export class ProductInformationComponent extends GenericComponent implements OnInit {
+export class ProductInformationComponent extends GenericComponent implements OnInit, OnChanges {
   id: number;
   vendor: Vendor;
   vendorProducts: string;
@@ -20,15 +20,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   shortDescription: string;
   knowMore: string;
   localisation: string;
-  @Input() sale: Sale;
+  sale: Sale;
   inputProperties: Array<string>;
-  @Input() genericQuestions: Array<string>;
-  deliveryName: string;
-  deliveryFees: number;
-  @Input() proposedPrice: number;
-  @Input() minPrice: number;
+  genericQuestions: Array<string>;
+  proposedPrice: number;
+  minPrice: number;
   maxPrice: number;
-  @Input() errorMsg: any;
+  errorMsg: any;
+  openMenuState: boolean;
 
   constructor(public request: RequestService, private route: ActivatedRoute) {
     super();
@@ -41,8 +40,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       knowMore: ''
     };
     this.genericQuestions = [];
-    this.deliveryName = 'Mondial Relay';
-    this.deliveryFees = 6.90;
+    this.openMenuState = false;
   }
 
   ngOnInit(): void {
@@ -51,6 +49,10 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
     this.getProductById(this.id.toString());
     this.getGenericQuestions();
+  }
+
+  ngOnChanges() {
+
   }
 
   sortByMediaType(): void {
@@ -74,7 +76,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       this.maxPrice = this.sale.product.reservePrice * 2;
       this.errorMsg = {
         delivery: 'Veuillez choisir un mode de livraison',
-        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice
+        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,
+        highPrice: 'Votre prix est trop haut : votre proposition doit être inférieure à ' + this.maxPrice
       };
       this.sortByMediaType();
     });
@@ -108,6 +111,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     else {
       this.media.index -= 1;
     }
+
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
@@ -119,9 +123,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       this.media.index = 0;
     }
     else {
-      this.media.index += 1;
+      this.media.index++;
     }
+
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
+  }
+
+  getOpenState(state: boolean): void {
+    this.openMenuState = state;
   }
 }

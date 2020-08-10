@@ -11,12 +11,20 @@
                 <img src="assets/img/logo/play.png" (click)="openGalleryMedia(0, 'video')">
             </div>
 
-            <div class="content">
-                <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryMedia(1, 'image')">
+            <div *ngIf="sale.product.productMedias[1].type == 'image'" class="content">
+              <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryMedia(1, 'image')">
             </div>
 
-            <div class="content">
-                <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryMedia(2, 'image')">
+            <div *ngIf="sale.product.productMedias[1].type == 'video'" class="content">
+                <img src="assets/img/logo/play.png" (click)="openGalleryMedia(1, 'video')">
+            </div>
+
+            <div *ngIf="sale.product.productMedias[2].type == 'image'" class="content">
+              <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryMedia(2, 'image')">
+            </div>
+
+            <div *ngIf="sale.product.productMedias[2].type == 'video'" class="content">
+                <img src="assets/img/logo/play.png" (click)="openGalleryMedia(2, 'video')">
             </div>
         </div>
     </div>
@@ -25,12 +33,12 @@
     <div class="column is-2 has-text-centered is-hidden-mobile">
         <div id="side-preview">
             <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
-                <figure *ngIf="media.type == 'image'" class="image">
-                    <img *ngIf="i > 2" src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
+                <figure *ngIf="i > 2 && media.type === 'image'" class="image">
+                    <img src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
                 </figure>
 
-                <figure *ngIf="i > 2 && media.type == 'video'">
-                    <img *ngIf="i > 2" src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
+                <figure *ngIf="i > 2 && media.type === 'video'">
+                    <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
                 </figure>
             </div>
         </div>
@@ -38,17 +46,19 @@
 
     <!-- Media Modal -->
     <div class="modal {{ media.modal }}">
-        <div class="modal-background" (click)="closeMedia()"></div>
+        <div class="modal-background" (click)="closeMedia(); pauseVideo('demoVideo')"></div>
         <div class="modal-content">
             <div class="box has-background-black">
                 <!-- media -->
-                <figure *ngIf="media.type == 'image'" class="image">
+                <figure *ngIf="media.type === 'image'" class="image">
                     <img src="{{ media.path }}">
                 </figure>
 
-                <video *ngIf="media.type == 'video'" controls autoplay>
+                <figure class="video" *ngIf="media.type === 'video'">
+                  <video id="demoVideo" controls autoplay>
                     <source src="{{ media.path }}" type="video/mp4">
-                </video>
+                  </video>
+                </figure>
 
                 <!-- nav arrows -->
                 <div class="columns is-vcentered">
@@ -62,6 +72,6 @@
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close" (click)="closeMedia()"></button>
+        <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>
     </div>
 </div>
