@@ -15,10 +15,10 @@ export class CountryComponent extends OnboardingComponent {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.errorMessages;
-    this.formDataService.fieldName = "country";
+    this.formDataService.fieldName = 'country';
     this.stepNb = 8;
-    this.stepName = "Quel est votre pays ?";
-    this.formDataService.path.previous = "7/birthdate";
-    this.formDataService.path.next = "9/zipcode";
+    this.stepName = 'Quel est votre pays ?';
+    this.formDataService.path.previous = '7/birthdate';
+    this.formDataService.path.next = '9/zipcode';
   }
 }

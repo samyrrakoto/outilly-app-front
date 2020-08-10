@@ -12,7 +12,7 @@ export class StepLabelComponent {
 
   constructor() {
     this.stepNb = 0;
-    this.stepName = "";
+    this.stepName = '';
     this.isMandatory = true;
   }
 }

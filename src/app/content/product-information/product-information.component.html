@@ -4,12 +4,13 @@
     <div class="column is-half">
         <general-information
         [sale]="sale"
-        [genericQuestions]="genericQuestions"></general-information>
+        [genericQuestions]="genericQuestions">
+        </general-information>
     </div>
 
     <!-- Side information -->
     <div class="column is-one-quarter">
-        <side-information [sale]="sale"></side-information>
+        <side-information [sale]="sale" (openState)="getOpenState($event)"></side-information>
     </div>
 
     <sticky-menu [sale]="sale"
@@ -17,5 +18,6 @@
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"
       [proposedPrice]="proposedPrice"
-  ></sticky-menu>
+      [openState]="openMenuState">
+    </sticky-menu>
 </div>

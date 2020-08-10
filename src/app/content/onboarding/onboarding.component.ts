@@ -19,15 +19,15 @@ export class OnboardingComponent implements OnInit {
   path: Path;
   isMandatory: boolean;
   errorMessages: Array<string>;
-  readonly root = "onboarding/";
+  readonly root = 'onboarding/';
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidator: FormValidatorService)
   {
     this.user = new User();
     this.stepNb = 0;
-    this.stepName = "";
-    this.placeholder = "Ecrivez ici";
-    this.ngModelName = "";
+    this.stepName = '';
+    this.placeholder = 'Ecrivez ici';
+    this.ngModelName = '';
     this.path = new Path();
     this.isMandatory = true;
     this.errorMessages = [];
@@ -36,35 +36,39 @@ export class OnboardingComponent implements OnInit {
   ngOnInit(): void {}
 
   next(): void {
-    let path = this.root + this.formDataService.path.next;
+    const path = this.root + this.formDataService.path.next;
 
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formDataService)) {
-      if (this.formDataService.path.current == "6/status" && this.formDataService.user.userProfile.type == "professional")
-        this.goTo("6/status/siret");
-      else
+      if (this.formDataService.path.current === '6/status' && this.formDataService.user.userProfile.type === 'professional') {
+        this.goTo('6/status/siret');
+      }
+      else {
         this.router.navigateByUrl(path);
+      }
     }
   }
 
   previous(): void {
-    let path = this.root + this.formDataService.path.previous;
+    const path = this.root + this.formDataService.path.previous;
 
     this.router.navigateByUrl(path);
   }
 
   goTo(route: string): void {
-    let path = this.root + route;
+    const path = this.root + route;
 
     this.router.navigateByUrl(path);
   }
 
   // Keyboard shortcuts
   onKey(event: KeyboardEvent): void {
-    if ((event.shiftKey && event.key == "ArrowRight") || (event.key == "Enter"))
+    if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
       this.next();
-    else if (event.shiftKey && event.key == "ArrowLeft")
+    }
+    else if (event.shiftKey && event.key === 'ArrowLeft') {
       this.previous();
+ }
   }
 }
 
