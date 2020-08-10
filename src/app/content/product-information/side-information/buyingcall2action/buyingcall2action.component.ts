@@ -14,15 +14,17 @@ import { Sale } from 'src/app/models/sale';
 export class Buyingcall2actionComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
   @Output() openState = new EventEmitter<boolean>();
+  open: boolean;
 
   constructor(request: RequestService, route: ActivatedRoute) {
     super(request, route);
+    this.open = false;
   }
 
   ngOnInit(): void {
   }
 
   emitOpenState() {
-    this.openState.emit(true);
+    this.openState.emit(this.open);
   }
 }
