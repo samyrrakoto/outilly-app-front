@@ -27,6 +27,7 @@ import { ProductInformationComponent } from './content/product-information/produ
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
+import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 
 const routes: Routes = [
   {
@@ -133,7 +134,13 @@ const routes: Routes = [
   },
   {
     path: 'product/create',
-    component: ProductCreationComponent
+    component: ProductCreationComponent,
+    children: [
+      {
+        path: 'batch-choice',
+        component: BatchChoiceComponent
+      }
+    ]
   },
   {
     path: 'product/:id',
