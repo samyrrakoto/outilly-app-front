@@ -68,7 +68,7 @@ export class OnboardingComponent implements OnInit {
     }
     else if (event.shiftKey && event.key === 'ArrowLeft') {
       this.previous();
- }
+    }
   }
 }
 
