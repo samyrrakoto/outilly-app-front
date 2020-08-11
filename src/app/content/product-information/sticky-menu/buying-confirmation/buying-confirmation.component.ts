@@ -1,4 +1,3 @@
-import { StickyService } from './../../../../services/sticky.service';
 import { Component, OnInit } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';

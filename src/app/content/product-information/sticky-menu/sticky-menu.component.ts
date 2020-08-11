@@ -1,6 +1,4 @@
-import { StickyService } from './../../../services/sticky.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
