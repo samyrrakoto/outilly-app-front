@@ -132,16 +132,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'product/create',
+    component: ProductCreationComponent
+  },
+  {
     path: 'product/:id',
     component: ProductInformationComponent
   },
   {
     path: 'checkout',
     component: CheckoutComponent
-  },
-  {
-    path: 'product/create',
-    component: ProductCreationComponent
   }
 ];
 
