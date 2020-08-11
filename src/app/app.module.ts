@@ -64,6 +64,7 @@ import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
+import { ProductCreationComponent } from './content/product-creation/product-creation.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { CheckoutComponent } from './content/product-information/checkout/checko
     BuyingPropositionComponent,
     LoginComponent,
     UserDashboardComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProductCreationComponent
   ],
   imports: [
     HttpClientModule,
