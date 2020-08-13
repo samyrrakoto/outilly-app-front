@@ -1,1 +1,33 @@
-<p>batch-choice works!</p>
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName>
+      </app-step-label>
+
+      <div class="columns is-vcentered has-text-centered">
+        <div class="column">
+          <div id="bundled" class="content tile" (click)="product.isBundle = true; setFocus('bundled')">
+            Oui, je vends différents outils.
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="not-bundled" class="content tile" (click)="product.isBundle = false; setFocus('not-bundled')">
+            Non, je ne vends pas plusieurs outils.
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

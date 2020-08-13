@@ -1,0 +1,51 @@
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName>
+      </app-step-label>
+
+      <div class="columns is-vcentered has-text-centered">
+        <div class="column">
+          <div id="never-opened" class="content tile" (click)="product.isBundle = true; setFocus('never-opened')">
+            Jamais ouvert
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="excellent" class="content tile" (click)="product.isBundle = false; setFocus('excellent')">
+            Excellent
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="good" class="content tile" (click)="product.isBundle = false; setFocus('good')">
+            Bon
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="acceptable" class="content tile" (click)="product.isBundle = false; setFocus('acceptable')">
+            Acceptable
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="pieces" class="content tile" (click)="product.isBundle = false; setFocus('pieces')">
+            Pour pièces
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

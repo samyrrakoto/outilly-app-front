@@ -1,0 +1,22 @@
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName
+        [isMandatory]=isMandatory>
+      </app-step-label>
+  </div>
+</div>
+
+<button class="button is-success">Télécharger</button>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

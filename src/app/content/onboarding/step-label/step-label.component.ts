@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-step-label',
   templateUrl: './step-label.component.html',
-  styleUrls: ['../../onboarding/onboarding.component.css', './step-label.component.css']
+  styleUrls: ['./step-label.component.css']
 })
 export class StepLabelComponent {
   @Input() stepNb: number;

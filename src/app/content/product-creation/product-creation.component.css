@@ -1,0 +1,26 @@
+
+.tile {
+  color: black;
+  font-size: 0.9em;
+  font-weight: 500;
+  border: solid 2px #DEDEDE;
+  border-radius: 10px;
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile:hover {
+  background: var(--KTKP-GREY);
+  border-color: var(--KTKP-GREY);
+}
+
+.chosen-tile {
+  background: var(--KTKP-GREEN) !important;
+  border-color: var(--KTKP-GREEN);
+}

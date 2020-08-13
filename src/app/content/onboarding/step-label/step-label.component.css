@@ -1,0 +1,13 @@
+.label {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.asterisque {
+  font-weight: bold;
+  color: #E35557;
+}
+
+.error {
+  color: #E35557;
+}

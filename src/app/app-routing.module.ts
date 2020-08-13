@@ -1,3 +1,13 @@
+import { ProductDescriptionComponent } from './content/product-creation/product-description/product-description.component';
+import { ProductStateComponent } from './content/product-creation/product-state/product-state.component';
+import { ProductTypeComponent } from './content/product-creation/product-type/product-type.component';
+import { ProductType } from './models/product-type';
+import { ProductCategoryComponent } from './content/product-creation/product-category/product-category.component';
+import { ProductCategory } from './models/product-category';
+import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
+import { ActivityDomain } from './models/activity-domain';
+import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
+import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
 import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
 import { NgModule } from '@angular/core';
@@ -28,6 +38,7 @@ import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
+import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 
 const routes: Routes = [
   {
@@ -137,8 +148,43 @@ const routes: Routes = [
     component: ProductCreationComponent,
     children: [
       {
+        path: '', redirectTo: 'batch-choice', pathMatch: 'full'
+      },
+      {
         path: 'batch-choice',
         component: BatchChoiceComponent
+      },
+      {
+        path: 'announcement-title',
+        component: AnnouncementTitleComponent
+      },
+      {
+        path: 'media-upload',
+        component: MediaUploadComponent
+      },
+      {
+        path: 'activity-domain',
+        component: ActivityDomainComponent
+      },
+      {
+        path: 'product-brand',
+        component: ProductBrandComponent
+      },
+      {
+        path: 'product-category',
+        component: ProductCategoryComponent
+      },
+      {
+        path: 'product-type',
+        component: ProductTypeComponent
+      },
+      {
+        path: 'product-state',
+        component: ProductStateComponent
+      },
+      {
+        path: 'product-description',
+        component: ProductDescriptionComponent
       }
     ]
   },

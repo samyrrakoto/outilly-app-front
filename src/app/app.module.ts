@@ -1,10 +1,9 @@
-import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MenuComponent } from './header/hero/herohead/menu/menu.component';
 import { HeaderComponent } from './header/header.component'
@@ -33,7 +32,7 @@ import { CountryComponent } from './content/onboarding/user-details/address-deta
 import { ZipcodeComponent } from './content/onboarding/user-details/address-details/zipcode/zipcode.component';
 import { CityComponent } from './content/onboarding/user-details/address-details/city/city.component';
 import { StreetComponent } from './content/onboarding/user-details/address-details/street/street.component';
-import { NavigationComponent } from './content/onboarding/navigation/navigation.component';
+import { NavigationComponent } from './content/navigation/navigation.component';
 import { PhoneNumberComponent } from './content/onboarding/user-details/personal-details/phone-number/phone-number.component';
 import { PasswordComponent } from './content/onboarding/user-details/password/password.component';
 import { PasswordconfirmationComponent } from './content/onboarding/user-details/passwordconfirmation/passwordconfirmation.component';
@@ -56,6 +55,7 @@ import { MediaGalleryComponent } from './content/product-information/general-inf
 import { PredefinedQuestionComponent } from './content/product-information/general-information/predefined-question/predefined-question.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StickyMenuComponent } from './content/product-information/sticky-menu/sticky-menu.component';
 import { DeliveryOptionsComponent } from './content/product-information/sticky-menu/delivery-options/delivery-options.component';
 import { BuyingConfirmationComponent } from './content/product-information/sticky-menu/buying-confirmation/buying-confirmation.component';
@@ -66,6 +66,14 @@ import { AuthHttpInterceptorService } from './services/auth-http-interceptor.ser
 import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
+import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
+import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
+import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
+import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
+import { ProductCategoryComponent } from './content/product-creation/product-category/product-category.component';
+import { ProductTypeComponent } from './content/product-creation/product-type/product-type.component';
+import { ProductStateComponent } from './content/product-creation/product-state/product-state.component';
+import { ProductDescriptionComponent } from './content/product-creation/product-description/product-description.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +130,15 @@ import { BatchChoiceComponent } from './content/product-creation/batch-choice/ba
     UserDashboardComponent,
     CheckoutComponent,
     ProductCreationComponent,
-    BatchChoiceComponent
+    BatchChoiceComponent,
+    AnnouncementTitleComponent,
+    MediaUploadComponent,
+    ActivityDomainComponent,
+    ProductBrandComponent,
+    ProductCategoryComponent,
+    ProductTypeComponent,
+    ProductStateComponent,
+    ProductDescriptionComponent
   ],
   imports: [
     HttpClientModule,
@@ -132,6 +148,8 @@ import { BatchChoiceComponent } from './content/product-creation/batch-choice/ba
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatExpansionModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {

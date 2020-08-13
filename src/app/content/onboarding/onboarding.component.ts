@@ -15,11 +15,12 @@ export class OnboardingComponent implements OnInit {
   stepNb: number;
   stepName: string;
   placeholder: string;
-  ngModelName: string;
   path: Path;
   isMandatory: boolean;
   errorMessages: Array<string>;
-  readonly root = 'onboarding/';
+  nextOn: boolean;
+  previousOn: boolean;
+  readonly root: string = 'onboarding/';
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidator: FormValidatorService)
   {
@@ -27,47 +28,23 @@ export class OnboardingComponent implements OnInit {
     this.stepNb = 0;
     this.stepName = '';
     this.placeholder = 'Ecrivez ici';
-    this.ngModelName = '';
     this.path = new Path();
     this.isMandatory = true;
     this.errorMessages = [];
   }
 
-  ngOnInit(): void {}
-
-  next(): void {
-    const path = this.root + this.formDataService.path.next;
-
-    // Verifying that the field matches the constraints it gets before going further
-    if (this.formValidator.verify(this.formDataService)) {
-      if (this.formDataService.path.current === '6/status' && this.formDataService.user.userProfile.type === 'professional') {
-        this.goTo('6/status/siret');
-      }
-      else {
-        this.router.navigateByUrl(path);
-      }
-    }
-  }
-
-  previous(): void {
-    const path = this.root + this.formDataService.path.previous;
-
-    this.router.navigateByUrl(path);
-  }
-
-  goTo(route: string): void {
-    const path = this.root + route;
-
-    this.router.navigateByUrl(path);
+  ngOnInit(): void {
+    this.previousOn = false;
+    this.nextOn = false;
   }
 
   // Keyboard shortcuts
   onKey(event: KeyboardEvent): void {
-    if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
-      this.next();
+    if (event.shiftKey && event.key === 'ArrowLeft') {
+      this.previousOn = !this.previousOn;
     }
-    else if (event.shiftKey && event.key === 'ArrowLeft') {
-      this.previous();
+    else if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
+      this.nextOn = !this.nextOn;
     }
   }
 }

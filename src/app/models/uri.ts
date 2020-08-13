@@ -11,6 +11,7 @@ export class Uri {
     readonly EXISTS: string = 'exists';
     readonly SALE: string = 'sale/';
     readonly GENERIC_QUESTIONS = 'questions/generic';
+    readonly PRODUCT_CREATION = 'product/create';
     path: string;
 
     constructor() {

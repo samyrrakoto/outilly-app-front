@@ -15,6 +15,7 @@ export class FormDataService {
 
   constructor() {
     this.user = new User();
+    this.product = new Product();
     this.pwdConfirmation = "";
     this.fieldName = "";
     this.path = new Path();

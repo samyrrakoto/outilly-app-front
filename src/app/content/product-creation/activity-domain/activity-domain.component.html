@@ -1,0 +1,45 @@
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName>
+      </app-step-label>
+
+      <div class="columns is-vcentered has-text-centered">
+        <div class="column">
+          <div id="mecanique" class="content tile chosen-tile" (click)="setActivityDomain('mecanique'); setFocus('mecanique')">
+            Mécanique
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="bricolage" class="content tile" (click)="setActivityDomain('bricolage'); setFocus('bricolage')">
+            Bricolage
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="jardin" class="content tile" (click)="setActivityDomain('jardin'); setFocus('jardin')">
+            Jardin
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="machine" class="content tile" (click)="setActivityDomain('machine'); setFocus('machine')">
+            Machines d'atelier
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

@@ -17,4 +17,8 @@
     {{ error }}
 </div>
 
-<app-navigation></app-navigation>
+<app-navigation
+[data]="formDataService"
+[rootUri]="root"
+[nextOn]="nextOn"
+[previousOn]="previousOn"></app-navigation>

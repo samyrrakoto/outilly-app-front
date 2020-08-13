@@ -1,7 +1,7 @@
 export class ActivityDomain {
     name: string;
 
-    constructor() {
-        this.name = "";
+    constructor(name = '') {
+        this.name = name;
     }
 }

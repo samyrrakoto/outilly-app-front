@@ -1,3 +1,8 @@
+import { ProductType } from './../models/product-type';
+import { ProductCategory } from './../models/product-category';
+import { Brand } from './../models/brand';
+import { ActivityDomain } from './../models/activity-domain';
+import { ProductMedia } from './../models/product-media';
 import { Injectable } from '@angular/core';
 import { FormDataService } from './form-data.service';
 import { RequestService } from './request.service';
@@ -449,6 +454,114 @@ export class FormValidatorService {
       return false;
     return true;
   }
+
+  /*
+  ====================                                  ====================
+  ====================  Product Creation Verifications  ====================
+  ====================                                  ====================
+  */
+
+  /*
+  ----- Batch Choice constraints
+  */
+
+  batchChoiceVerify(data: FormDataService): boolean {
+    let batchChoice: boolean = data.product.isBundle;
+    let empty: boolean = this.isEmpty(batchChoice);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Announcement Title constraints
+  */
+
+  announcementTitleVerify(data: FormDataService): boolean {
+    let announcementTitle: string = data.product.name;
+    let empty: boolean = this.isEmpty(announcementTitle);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Media Upload constraints
+  */
+
+  mediaUploadVerify(data: FormDataService): boolean {
+    let mediaUpload: Array<ProductMedia> = data.product.productMedias;
+    let empty: boolean = this.isEmpty(mediaUpload);
+
+    return true;
+  }
+
+  /*
+  ----- Activity Domain constraints
+  */
+
+  activityDomainVerify(data: FormDataService): boolean {
+    let activityDomain: Array<ActivityDomain> = data.product.activityDomains;
+    let empty: boolean = this.isEmpty(activityDomain);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Product Brand constraints
+  */
+
+ productBrandVerify(data: FormDataService): boolean {
+  let productBrand: Array<Brand> = data.product.brands;
+  let empty: boolean = this.isEmpty(productBrand);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Activity constraints
+  */
+
+ productCategoryVerify(data: FormDataService): boolean {
+  let productCategories: Array<ProductCategory> = data.product.productCategories;
+  let empty: boolean = this.isEmpty(productCategories);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Activity constraints
+  */
+
+ productTypeVerify(data: FormDataService): boolean {
+  let productType: Array<ProductType> = data.product.productTypes;
+  let empty: boolean = this.isEmpty(productType);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Activity constraints
+  */
+
+ productStateVerify(data: FormDataService): boolean {
+  let productState: string = data.product.quality;
+  let empty: boolean = this.isEmpty(productState);
+
+  if (empty)
+    return false;
+  return true;
+}
 
   /*
   ----- Constraints manager called by the form

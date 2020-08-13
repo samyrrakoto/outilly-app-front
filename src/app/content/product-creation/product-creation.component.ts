@@ -1,3 +1,4 @@
+import { RequestService } from './../../services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Path } from 'src/app/models/Path/path';
 import { Product } from './../../models/product';
@@ -15,54 +16,45 @@ export class ProductCreationComponent implements OnInit {
   stepNb: number;
   stepName: string;
   placeholder: string;
-  ngModelName: string;
   path: Path;
   isMandatory: boolean;
   errorMessages: Array<string>;
-  readonly root = 'product/create/';
+  nextOn: boolean;
+  previousOn: boolean;
+  readonly rootUri = 'product/create/';
 
-  constructor(public formDataService: FormDataService, public router: Router, public formValidator: FormValidatorService)
+  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidator: FormValidatorService)
   {
     this.product = new Product();
     this.stepNb = 0;
     this.stepName = '';
     this.placeholder = 'Ecrivez ici';
-    this.ngModelName = '';
     this.path = new Path();
     this.isMandatory = true;
     this.errorMessages = [];
   }
 
-  ngOnInit(): void {}
-
-  next(): void {
-    const path = this.root + this.formDataService.path.next;
-
-    // Verifying that the field matches the constraints it gets before going further
-    if (this.formValidator.verify(this.formDataService)) {
-      this.router.navigateByUrl(path);
-    }
+  ngOnInit(): void {
+    this.previousOn = false;
+    this.nextOn = false;
+    this.createProduct();
   }
 
-  previous(): void {
-    const path = this.root + this.formDataService.path.previous;
+  private createProduct(): void {
+    const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
 
-    this.router.navigateByUrl(path);
-  }
-
-  goTo(route: string): void {
-    const path = this.root + route;
-
-    this.router.navigateByUrl(path);
+    response.subscribe((res) => {
+      console.log(res);
+    });
   }
 
   // Keyboard shortcuts
   onKey(event: KeyboardEvent): void {
-    if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
-      this.next();
+    if (event.shiftKey && event.key === 'ArrowLeft') {
+      this.previousOn = !this.previousOn;
     }
-    else if (event.shiftKey && event.key === 'ArrowLeft') {
-      this.previous();
+    else if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
+      this.nextOn = !this.nextOn;
     }
   }
 }
