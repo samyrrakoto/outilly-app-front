@@ -26,24 +26,43 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
   }
 
   ngOnInit(): void {
+    this.product.activityDomains = [];
   }
 
   setFocus(id: string): void {
     const tiles = ['mecanique', 'bricolage', 'jardin', 'machine'];
 
-    document.getElementById(id).classList.add('chosen-tile');
-
-    for (const tile of tiles) {
-      if (tile !== id) {
-        document.getElementById(tile).classList.remove('chosen-tile');
-      }
+    if (document.getElementById(id).classList.contains('chosen-tile')) {
+      document.getElementById(id).classList.remove('chosen-tile');
+      this.removeActivityDomain(id);
     }
+    else {
+      document.getElementById(id).classList.add('chosen-tile');
+      this.addActivityDomain(id);
+    }
+    console.log(this.product.activityDomains);
   }
 
-  setActivityDomain(activity: string) {
-    const activityDomain = new ActivityDomain(activity);
+  private addActivityDomain(activity: string): void {
+    this.product.activityDomains.push(new ActivityDomain(activity));
+  }
 
-    this.product.activityDomains = [];
-    this.product.activityDomains.push(activityDomain);
+  private removeActivityDomain(activity: string): void {
+    let pos: number = 0;
+
+    pos = this.findActivity(activity);
+    this.product.activityDomains.splice(pos, 1);
+  }
+
+  private findActivity(activity: string): number {
+    let i: number = 0;
+
+    for (const elem of this.product.activityDomains) {
+      if (elem.name === activity) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
   }
 }
