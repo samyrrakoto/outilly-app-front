@@ -13,7 +13,7 @@ import { ProductCategory } from 'src/app/models/product-category';
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
-  styleUrls: ['./product-category.component.css']
+  styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
   myControl = new FormControl();

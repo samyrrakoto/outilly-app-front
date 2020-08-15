@@ -22,6 +22,7 @@ export class BatchChoiceComponent extends ProductCreationComponent {
     this.formData.path.previous = "batch-choice";
     this.formData.path.next = "announcement-title";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";
+    this.product.isBundle = null;
   }
 
   setFocus(id: string): void {

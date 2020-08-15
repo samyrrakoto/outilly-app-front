@@ -5,11 +5,11 @@ export class ProductMedia {
     type: string;
     isHosted: boolean;
 
-    constructor() {
-        this.id = 0;
-        this.path = "";
-        this.link = "";
-        this.type = "image";
-        this.isHosted = true;
+    constructor(id: number = 0, path: string = '', link: string = '', type: string = 'image', isHosted: boolean = true) {
+        this.id = id;
+        this.path = path;
+        this.link = link;
+        this.type = type;
+        this.isHosted = isHosted;
     }
 }

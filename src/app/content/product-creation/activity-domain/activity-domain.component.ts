@@ -40,7 +40,6 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
       document.getElementById(id).classList.add('chosen-tile');
       this.addActivityDomain(id);
     }
-    console.log(this.product.activityDomains);
   }
 
   private addActivityDomain(activity: string): void {
@@ -48,10 +47,9 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
   }
 
   private removeActivityDomain(activity: string): void {
-    let pos: number = 0;
+    let pos = this.findActivity(activity);
 
-    pos = this.findActivity(activity);
-    this.product.activityDomains.splice(pos, 1);
+    this.product.activityDomains.splice(pos);
   }
 
   private findActivity(activity: string): number {

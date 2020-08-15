@@ -24,3 +24,7 @@
   background: var(--KTKP-GREEN) !important;
   border-color: var(--KTKP-GREEN);
 }
+
+.error {
+  color: #E35557;
+}

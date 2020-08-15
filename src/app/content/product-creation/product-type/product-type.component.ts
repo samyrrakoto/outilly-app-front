@@ -12,7 +12,7 @@ import { ProductType } from 'src/app/models/product-type';
 @Component({
   selector: 'app-product-type',
   templateUrl: './product-type.component.html',
-  styleUrls: ['./product-type.component.css']
+  styleUrls: ['../product-creation.component.css', './product-type.component.css']
 })
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
 

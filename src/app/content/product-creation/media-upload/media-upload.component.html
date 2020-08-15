@@ -8,11 +8,16 @@
   </div>
 </div>
 
-<button class="button is-success">Télécharger</button>
+<input type="file" id="product-pictures" name="product-pictures" (change)="getFile()" class="button is-success">
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
+
+<p *ngFor="let media of product.productMedias">
+  {{ media.path }}
+  <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
+</p>
 
 <app-navigation
   [data]=formData

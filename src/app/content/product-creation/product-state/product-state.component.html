@@ -7,31 +7,31 @@
 
       <div class="columns is-vcentered has-text-centered">
         <div class="column">
-          <div id="never-opened" class="content tile" (click)="product.isBundle = true; setFocus('never-opened')">
+          <div id="never-opened" class="content tile" (click)="product.quality = 'Jamais ouvert'; setFocus('never-opened')">
             Jamais ouvert
           </div>
         </div>
 
         <div class="column">
-          <div id="excellent" class="content tile" (click)="product.isBundle = false; setFocus('excellent')">
+          <div id="excellent" class="content tile" (click)="product.quality = 'Excellent'; setFocus('excellent')">
             Excellent
           </div>
         </div>
 
         <div class="column">
-          <div id="good" class="content tile" (click)="product.isBundle = false; setFocus('good')">
+          <div id="good" class="content tile" (click)="product.quality = 'Bon'; setFocus('good')">
             Bon
           </div>
         </div>
 
         <div class="column">
-          <div id="acceptable" class="content tile" (click)="product.isBundle = false; setFocus('acceptable')">
+          <div id="acceptable" class="content tile" (click)="product.quality = 'Acceptable'; setFocus('acceptable')">
             Acceptable
           </div>
         </div>
 
         <div class="column">
-          <div id="pieces" class="content tile" (click)="product.isBundle = false; setFocus('pieces')">
+          <div id="pieces" class="content tile" (click)="product.quality = 'Pour pièces'; setFocus('pieces')">
             Pour pièces
           </div>
         </div>

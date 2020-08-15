@@ -31,15 +31,18 @@ export class FormValidatorService {
   isEmpty(field: any): boolean {
     let message: string = this.REQUIRED;
     let index: number = this.errorMessages.indexOf(message);
-    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
+    let hasError: boolean;
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) === -1;
     let emptyErrors: boolean = this.errorMessages.length == 0;
-    let nullValue: any;
 
     // Depending on the type we set a null value
-    if (typeof(field) == "string") nullValue = "";
-    else if (field instanceof Date) nullValue = null;
+    if (typeof(field) === "string") hasError = field === "";
+    else if (field instanceof Date) hasError = field === null;
+    else if (field instanceof Array) hasError = field.length === 0;
+    else if (field instanceof Array) hasError = field.length === 0;
+    else if (typeof(field) === "boolean") hasError = field === null;
 
-    if (field == nullValue) {
+    if (hasError) {
       if (messageUnexists && emptyErrors)
         this.errorMessages.push(message);
       return true;
@@ -51,7 +54,7 @@ export class FormValidatorService {
   isNotNum(field: string) {
     let message: string = "Le champ doit contenir uniquement des chiffres !";
     let index: number = this.errorMessages.indexOf(message);
-    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) === -1;
     let alphabet: string = this.NUM;
     let isInAlphabet: boolean = false;
 
@@ -59,10 +62,10 @@ export class FormValidatorService {
       isInAlphabet = false;
 
       for (let symbol of alphabet) {
-        if (char == symbol)
+        if (char === symbol)
           isInAlphabet = true;
       }
-      if (isInAlphabet == false) {
+      if (isInAlphabet === false) {
         if (messageUnexists && field.length > 0)
           this.errorMessages.push(message);
         return true;
@@ -119,6 +122,22 @@ export class FormValidatorService {
     }
     this.errorMessages.splice(index);
     return false;
+  }
+
+  isWrongFormat(file: string, extensions: Array<string>) {
+    let message: string = 'Tous les fichiers doivent être du ou des format(s) suivant(s) : ';
+
+    for (const extension of extensions) {
+      message += extension + ' ';
+    }
+
+    for (const extension of extensions) {
+      if (file.endsWith(extension)) {
+        return false;
+      }
+    }
+    this.errorMessages.push(message);
+    return true;
   }
 
   isMailConform(field: string): boolean {
@@ -495,6 +514,11 @@ export class FormValidatorService {
     let mediaUpload: Array<ProductMedia> = data.product.productMedias;
     let empty: boolean = this.isEmpty(mediaUpload);
 
+    let wrongFormat: boolean = this.isWrongFormat(data.product.productMedias[0].path, ['.rar', '.pnl']);
+
+    if (wrongFormat) {
+      return false;
+    }
     return true;
   }
 
@@ -551,7 +575,7 @@ export class FormValidatorService {
 }
 
   /*
-  ----- Product Activity constraints
+  ----- Product State constraints
   */
 
  productStateVerify(data: FormDataService): boolean {
@@ -562,6 +586,19 @@ export class FormValidatorService {
     return false;
   return true;
 }
+
+  /*
+  ----- Product Description constraints
+  */
+
+  productDescriptionVerify(data: FormDataService): boolean {
+    let productState: string = data.product.description;
+    let empty: boolean = this.isEmpty(productState);
+
+    if (empty)
+      return false;
+    return true;
+  }
 
   /*
   ----- Constraints manager called by the form

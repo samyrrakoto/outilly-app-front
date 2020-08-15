@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-announcement-title',
   templateUrl: './announcement-title.component.html',
-  styleUrls: ['./announcement-title.component.css']
+  styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
 export class AnnouncementTitleComponent extends ProductCreationComponent implements OnInit {
 

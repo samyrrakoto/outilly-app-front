@@ -43,8 +43,6 @@ export class NavigationComponent implements OnChanges {
   next(): void {
     const path = this.rootUri + this.formData.path.next;
 
-    console.log(path);
-
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formData)) {
       if (this.formData.path.current === '6/status' && this.formData.user.userProfile.type === 'professional') {

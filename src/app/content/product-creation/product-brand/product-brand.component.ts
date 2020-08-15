@@ -12,7 +12,7 @@ import { Brand } from 'src/app/models/brand';
 @Component({
   selector: 'app-product-brand',
   templateUrl: './product-brand.component.html',
-  styleUrls: ['./product-brand.component.css']
+  styleUrls: ['../product-creation.component.css', './product-brand.component.css']
 })
 export class ProductBrandComponent extends ProductCreationComponent implements OnInit, OnChanges {
   myControl = new FormControl();
