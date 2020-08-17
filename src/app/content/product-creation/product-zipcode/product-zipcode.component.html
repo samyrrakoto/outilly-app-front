@@ -6,12 +6,8 @@
       </app-step-label>
 
       <div class="columns is-vcentered has-text-centered">
-        <div class="column tile" id="bundled" (click)="product.isBundle = true; setFocus('bundled')">
-            Oui, je vends différents outils.
-        </div>
-
-        <div class="column tile" id="not-bundled" (click)="product.isBundle = false; setFocus('not-bundled')">
-            Non, je ne vends pas plusieurs outils.
+        <div class="column">
+          <input class="input" type="text" (keydown)="onKey($event)" placeholder="{{ placeholder }}" [(ngModel)]="product.locality">
         </div>
       </div>
   </div>

@@ -13,5 +13,6 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "lib": ["es2015", "dom"]
 }

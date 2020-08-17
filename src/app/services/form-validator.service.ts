@@ -1,3 +1,4 @@
+import { IsWarrantiedComponent } from './../content/product-creation/is-warrantied/is-warrantied.component';
 import { ProductType } from './../models/product-type';
 import { ProductCategory } from './../models/product-category';
 import { Brand } from './../models/brand';
@@ -511,14 +512,13 @@ export class FormValidatorService {
   */
 
   mediaUploadVerify(data: FormDataService): boolean {
-    let mediaUpload: Array<ProductMedia> = data.product.productMedias;
-    let empty: boolean = this.isEmpty(mediaUpload);
+    // let mediaUpload: Array<ProductMedia> = data.product.productMedias;
+    // const empty: boolean = this.isEmpty(mediaUpload);
+    // const wrongFormat: boolean = this.isWrongFormat(data.product.productMedias[0].path, ['.rar', '.pnl']);
 
-    let wrongFormat: boolean = this.isWrongFormat(data.product.productMedias[0].path, ['.rar', '.pnl']);
-
-    if (wrongFormat) {
-      return false;
-    }
+    // if (wrongFormat) {
+    //   return false;
+    // }
     return true;
   }
 
@@ -528,7 +528,7 @@ export class FormValidatorService {
 
   activityDomainVerify(data: FormDataService): boolean {
     let activityDomain: Array<ActivityDomain> = data.product.activityDomains;
-    let empty: boolean = this.isEmpty(activityDomain);
+    const empty: boolean = this.isEmpty(activityDomain);
 
     if (empty)
       return false;
@@ -597,6 +597,90 @@ export class FormValidatorService {
 
     if (empty)
       return false;
+    return true;
+  }
+
+  /*
+  ----- Product Zipcode constraints
+  */
+
+  productZipcodeVerify(data: FormDataService): boolean {
+    let locality: string = data.product.locality;
+    let empty: boolean = this.isEmpty(locality);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Delivery constraints
+  */
+
+  productDeliveryVerify(data: FormDataService): boolean {
+    let isWarrantied: boolean = data.product.isWarrantied;
+    let empty: boolean = this.isEmpty(isWarrantied);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Product Weight constraints
+  */
+
+  productWeightVerify(data: FormDataService): boolean {
+    let productWeight: number = data.product.weight;
+    let empty: boolean = this.isEmpty(productWeight);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  deliveryPriceInformationVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  isWarrantiedVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Warranty Duration constraints
+  */
+
+  warrantyDurationVerify(data: FormDataService): boolean {
+    let warrantyDuration: number = data.product.warrantyDuration;
+    let empty: boolean = this.isEmpty(warrantyDuration);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Video Upload constraints
+  */
+
+  videoUploadVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Announce Kind constraints
+  */
+
+  announceKindVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Reserve Price constraints
+  */
+
+  reservePriceVerify(data: FormDataService): boolean {
     return true;
   }
 

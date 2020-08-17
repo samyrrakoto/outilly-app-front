@@ -6,41 +6,26 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-batch-choice',
-  templateUrl: './batch-choice.component.html',
-  styleUrls: ['../product-creation.component.css', './batch-choice.component.css']
+  selector: 'app-announce-kind',
+  templateUrl: './announce-kind.component.html',
+  styleUrls: ['../product-creation.component.css', './announce-kind.component.css']
 })
-export class BatchChoiceComponent extends ProductCreationComponent implements OnInit {
+export class AnnounceKindComponent extends ProductCreationComponent implements OnInit {
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.errorMessages;
-    this.formData.fieldName = "batchChoice";
-    this.stepNb = 1;
-    this.stepName = "Vendez-vous un lot de plusieurs pièces ?";
-    this.formData.path.previous = "batch-choice";
-    this.formData.path.next = "announcement-title";
+    this.formData.fieldName = "announceKind";
+    this.stepNb = 17;
+    this.stepName = "Comment souhaitez-vous vendre votre produit ?";
+    this.formData.path.previous = "video-upload";
+    this.formData.path.next = "reserve-price";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";
-    this.product.isBundle = null;
-  }
-
-  ngOnInit(): void {
-    this.createProduct();
-  }
-
-  private createProduct(): void {
-    const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
-
-    response.subscribe((res) => {
-      console.log(res);
-      localStorage.setItem('id', res.body.id);
-      localStorage.setItem('strId', res.body.strId);
-    });
   }
 
   setFocus(id: string): void {
-    const tiles = ['bundled', 'not-bundled'];
+    const tiles = ['classic-announce', 'hybrid-announce'];
 
     document.getElementById(id).classList.add('chosen-tile');
 
@@ -50,4 +35,8 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
       }
     }
   }
+
+  ngOnInit(): void {
+  }
+
 }

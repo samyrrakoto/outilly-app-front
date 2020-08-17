@@ -30,9 +30,9 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   ngOnChanges(): void {}
 
   public getFile(): void {
-    let files = document.getElementById('product-pictures').files;
+    // let files = document.getElementById('product-pictures').files;
 
-    this.addMedia(files[0]);
+    // this.addMedia(files[0]);
   }
 
   public addMedia(file: any): void {

@@ -25,7 +25,7 @@ export class ProductStateComponent extends ProductCreationComponent {
   }
 
   setFocus(id: string): void {
-    const tiles = ['never-opened', 'excellent', 'good', 'acceptable', 'pieces'];
+    const tiles = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 
     document.getElementById(id).classList.add('chosen-tile');
 

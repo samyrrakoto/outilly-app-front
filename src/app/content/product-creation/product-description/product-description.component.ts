@@ -20,7 +20,7 @@ export class ProductDescriptionComponent extends ProductCreationComponent implem
     this.stepNb = 9;
     this.stepName = "Description de votre annonce";
     this.formData.path.previous = "product-state";
-    this.formData.path.next = "product-description";
+    this.formData.path.next = "product-zipcode";
     this.placeholder = "(ex :  Tondeuse en parfait état de marche...)";
   }
 

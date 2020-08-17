@@ -37,15 +37,6 @@ export class ProductCreationComponent implements OnInit {
   ngOnInit(): void {
     this.previousOn = false;
     this.nextOn = false;
-    this.createProduct();
-  }
-
-  private createProduct(): void {
-    const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
-
-    response.subscribe((res) => {
-      console.log(res);
-    });
   }
 
   // Keyboard shortcuts

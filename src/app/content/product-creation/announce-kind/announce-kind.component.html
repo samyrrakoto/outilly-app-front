@@ -6,12 +6,16 @@
       </app-step-label>
 
       <div class="columns is-vcentered has-text-centered">
-        <div class="column tile" id="bundled" (click)="product.isBundle = true; setFocus('bundled')">
-            Oui, je vends différents outils.
+        <div class="column">
+          <div id="classic-announce" class="content tile" (click)="product.buyingOption = 'classic'; setFocus('classic-announce')">
+            Annonce classique
+          </div>
         </div>
 
-        <div class="column tile" id="not-bundled" (click)="product.isBundle = false; setFocus('not-bundled')">
-            Non, je ne vends pas plusieurs outils.
+        <div class="column">
+          <div id="hybrid-announce" class="content tile" (click)="product.buyingOption = 'hybrid'; setFocus('hybrid-announce')">
+            Hybrid bid
+          </div>
         </div>
       </div>
   </div>

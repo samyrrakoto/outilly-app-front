@@ -74,6 +74,16 @@ import { ProductCategoryComponent } from './content/product-creation/product-cat
 import { ProductTypeComponent } from './content/product-creation/product-type/product-type.component';
 import { ProductStateComponent } from './content/product-creation/product-state/product-state.component';
 import { ProductDescriptionComponent } from './content/product-creation/product-description/product-description.component';
+import { ProductZipcodeComponent } from './content/product-creation/product-zipcode/product-zipcode.component';
+import { ProductDeliveryComponent } from './content/product-creation/product-delivery/product-delivery.component';
+import { ProductWeightComponent } from './content/product-creation/product-weight/product-weight.component';
+import { IsWarrantiedComponent } from './content/product-creation/is-warrantied/is-warrantied.component';
+import { WarrantyDurationComponent } from './content/product-creation/warranty-duration/warranty-duration.component';
+import { DeliveryPriceInformationComponent } from './content/product-creation/delivery-price-information/delivery-price-information.component';
+import { VideoUploadComponent } from './content/product-creation/video-upload/video-upload.component';
+import { AnnounceKindComponent } from './content/product-creation/announce-kind/announce-kind.component';
+import { ReservePriceComponent } from './content/product-creation/reserve-price/reserve-price.component';
+import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +148,17 @@ import { ProductDescriptionComponent } from './content/product-creation/product-
     ProductCategoryComponent,
     ProductTypeComponent,
     ProductStateComponent,
-    ProductDescriptionComponent
+    ProductDescriptionComponent,
+    ProductZipcodeComponent,
+    ProductDeliveryComponent,
+    ProductWeightComponent,
+    IsWarrantiedComponent,
+    WarrantyDurationComponent,
+    DeliveryPriceInformationComponent,
+    VideoUploadComponent,
+    AnnounceKindComponent,
+    ReservePriceComponent,
+    AccountRequestComponent
   ],
   imports: [
     HttpClientModule,

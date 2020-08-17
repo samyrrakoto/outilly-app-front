@@ -16,8 +16,7 @@ export class MediaGalleryComponent extends ProductInformationComponent implement
     super(request, route);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // Keyboard shortcuts
   onKey(event: KeyboardEvent): void {

@@ -1,11 +1,18 @@
+import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';
+import { ReservePriceComponent } from './content/product-creation/reserve-price/reserve-price.component';
+import { AnnounceKindComponent } from './content/product-creation/announce-kind/announce-kind.component';
+import { VideoUploadComponent } from './content/product-creation/video-upload/video-upload.component';
+import { DeliveryPriceInformationComponent } from './content/product-creation/delivery-price-information/delivery-price-information.component';
+import { WarrantyDurationComponent } from './content/product-creation/warranty-duration/warranty-duration.component';
+import { IsWarrantiedComponent } from './content/product-creation/is-warrantied/is-warrantied.component';
+import { ProductWeightComponent } from './content/product-creation/product-weight/product-weight.component';
+import { ProductDeliveryComponent } from './content/product-creation/product-delivery/product-delivery.component';
+import { ProductZipcodeComponent } from './content/product-creation/product-zipcode/product-zipcode.component';
 import { ProductDescriptionComponent } from './content/product-creation/product-description/product-description.component';
 import { ProductStateComponent } from './content/product-creation/product-state/product-state.component';
 import { ProductTypeComponent } from './content/product-creation/product-type/product-type.component';
-import { ProductType } from './models/product-type';
 import { ProductCategoryComponent } from './content/product-creation/product-category/product-category.component';
-import { ProductCategory } from './models/product-category';
 import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
-import { ActivityDomain } from './models/activity-domain';
 import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
@@ -185,6 +192,46 @@ const routes: Routes = [
       {
         path: 'product-description',
         component: ProductDescriptionComponent
+      },
+      {
+        path: 'product-zipcode',
+        component: ProductZipcodeComponent
+      },
+      {
+        path: 'product-delivery',
+        component: ProductDeliveryComponent
+      },
+      {
+        path: 'product-weight',
+        component: ProductWeightComponent
+      },
+      {
+        path: 'delivery-price-information',
+        component: DeliveryPriceInformationComponent
+      },
+      {
+        path: 'is-warrantied',
+        component: IsWarrantiedComponent
+      },
+      {
+        path: 'warranty-duration',
+        component: WarrantyDurationComponent
+      },
+      {
+        path: 'video-upload',
+        component: VideoUploadComponent
+      },
+      {
+        path: 'announce-kind',
+        component: AnnounceKindComponent
+      },
+      {
+        path: 'reserve-price',
+        component: ReservePriceComponent
+      },
+      {
+        path: 'account-request',
+        component: AccountRequestComponent
       }
     ]
   },

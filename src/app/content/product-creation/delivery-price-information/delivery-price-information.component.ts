@@ -6,24 +6,21 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-announcement-title',
-  templateUrl: './announcement-title.component.html',
-  styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
+  selector: 'app-delivery-price-information',
+  templateUrl: './delivery-price-information.component.html',
+  styleUrls: ['./delivery-price-information.component.css']
 })
-export class AnnouncementTitleComponent extends ProductCreationComponent implements OnInit {
+export class DeliveryPriceInformationComponent extends ProductCreationComponent implements OnInit {
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.errorMessages;
-    this.formData.fieldName = "announcementTitle";
-    this.stepNb = 2;
-    this.stepName = "Donnez un titre à votre annonce";
-    this.formData.path.previous = "batch-choice";
-    this.formData.path.next = "media-upload";
-    this.placeholder = "(ex :  Tondeuse à gazon Milwaukee 750-ZF)";
-    console.log(localStorage.getItem('id'));
-    console.log(localStorage.getItem('strId'));
+    this.formData.fieldName = "deliveryPriceInformation";
+    this.stepNb = 13;
+    this.stepName = "Avec notre partenaire Mondial Relay, votre colis coûtera 12.95€ à l'acheteur.";
+    this.formData.path.previous = "product-weight";
+    this.formData.path.next = "is-warrantied";
   }
 
   ngOnInit(): void {

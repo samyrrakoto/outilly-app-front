@@ -1,0 +1,20 @@
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName>
+      </app-step-label>
+
+      <div class="columns is-vcentered has-text-centered">
+        <div class="column">
+          <nav class="panel">
+            <button class="panel-block is-active">A. Oui</button>
+            <button class="panel-block is-active">B. Non</button>
+          </nav>
+      </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
