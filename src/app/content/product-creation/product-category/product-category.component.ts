@@ -17,7 +17,7 @@ import { ProductCategory } from 'src/app/models/product-category';
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
   myControl = new FormControl();
-  options: Array<string>;
+  categories: Array<string>;
   filteredOptions: Observable<Array<string>>;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
@@ -30,30 +30,84 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-type";
     this.placeholder = "(ex :  Outillage à main)";
-    this.options = ['Outillage électroportatif', 'Outillage à main', 'Outillage à main', 'Autre', 'Outillage hydraulique'];
+    this.categories = [];
   }
 
   ngOnInit(): void {
+    this.getCategories();
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-    this.product.productCategories.push(new ProductCategory());
   }
 
   ngOnChanges(): void {}
 
-  ngDoCheck() {
-    if (this.myControl.valueChanges) {
-      this.product.productCategories[0].label = this.myControl.value;
-    }
-  }
+  ngDoCheck() {}
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue));
   }
 
+  getCategories(): void {
+    const response = this.request.getData(this.request.uri.CATEGORIES);
+
+    response.subscribe((res) => {
+      for (const elem of res) {
+        this.categories.push(elem.label);
+      }
+    });
+  }
+
+  addCategory(): void {
+    if (!this.hasCategory() && this.isCategoryExist()) {
+      const categoryId: number = this.getId();
+
+      this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
+    }
+  }
+
+  removeCategory(categoryName: string): void {
+    let i: number = 0;
+
+    for (const category of this.product.productCategories) {
+      if (categoryName === category.label) {
+        this.product.productCategories.splice(i, 1);
+      }
+      i++;
+    }
+  }
+
+  hasCategory(): boolean {
+    for (const category of this.product.productCategories) {
+      if (category.label === this.myControl.value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isCategoryExist(): boolean {
+    for (const category of this.categories) {
+      if (this.myControl.value === category) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getId(): number {
+    let i: number = 0;
+
+    for (const category of this.categories) {
+      if (this.myControl.value === category) {
+        return i + 1;
+      }
+      i++;
+    }
+    return -1;
+  }
 }

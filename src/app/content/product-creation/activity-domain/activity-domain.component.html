@@ -6,20 +6,8 @@
       </app-step-label>
 
       <div class="columns is-vcentered has-text-centered">
-        <div class="column tile" id="mecanique" (click)="setFocus('mecanique')">
-            Mécanique
-        </div>
-
-        <div class="column tile" id="bricolage" (click)="setFocus('bricolage')">
-            Bricolage
-        </div>
-
-        <div class="column tile" id="jardin" (click)="setFocus('jardin')">
-            Jardin
-        </div>
-
-        <div class="column tile" id="machine" (click)="setFocus('machine')">
-            Machines d'atelier
+        <div class="column tile" *ngFor="let activityDomain of activityDomains" id="{{ activityDomain.name }}" (click)="setFocus(activityDomain.name)">
+          {{ activityDomain.name }}
         </div>
       </div>
   </div>

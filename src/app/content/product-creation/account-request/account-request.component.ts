@@ -21,6 +21,7 @@ export class AccountRequestComponent extends ProductCreationComponent implements
     this.stepName = "Avez-vous un compte sur Ekipr ?";
     this.formData.path.previous = "reserve-price";
     this.formData.path.next = "account-request";
+    console.log(formData.product);
   }
 
   ngOnInit(): void {

@@ -13,6 +13,17 @@
 
       <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
   </div>
+  <button class="button is-success" (click)="addBrand()" style="margin-bottom:20px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une marque</button>
+
+  <nav class="level new-element" id="{{ brand.name }}" *ngFor="let brand of product.brands">
+    <div class="level-left">
+      {{ brand.name }}
+    </div>
+
+    <div class="level-right">
+      <button (click)="removeBrand(brand.name)" class="button cross"><fa-icon [icon]="['fas', 'times-circle']"></fa-icon></button>
+    </div>
+  </nav>
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

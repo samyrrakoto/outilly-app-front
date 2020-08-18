@@ -1,0 +1,7 @@
+.unavailable {
+  background-color: var(--KTKP-RED);
+}
+
+.unavailable:hover {
+  background-color: var(--KTKP-RED);
+}

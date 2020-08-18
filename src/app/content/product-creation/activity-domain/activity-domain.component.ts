@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './activity-domain.component.css']
 })
 export class ActivityDomainComponent extends ProductCreationComponent implements OnInit {
+  activityDomains: Array<ActivityDomain>;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -23,15 +24,23 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
     this.stepName = "Choisissez un domaine d'activité.";
     this.formData.path.previous = "media-upload";
     this.formData.path.next = "product-brand";
+    this.activityDomains = [];
   }
 
   ngOnInit(): void {
     this.product.activityDomains = [];
+    this.getActivityDomains();
+  }
+
+  getActivityDomains(): void {
+    const response = this.request.getData(this.request.uri.ACTIVITY_DOMAINS);
+
+    response.subscribe((res) => {
+      this.activityDomains = res;
+    });
   }
 
   setFocus(id: string): void {
-    const tiles = ['mecanique', 'bricolage', 'jardin', 'machine'];
-
     if (document.getElementById(id).classList.contains('chosen-tile')) {
       document.getElementById(id).classList.remove('chosen-tile');
       this.removeActivityDomain(id);

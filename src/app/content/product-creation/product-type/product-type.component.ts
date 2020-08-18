@@ -17,7 +17,7 @@ import { ProductType } from 'src/app/models/product-type';
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
 
   myControl = new FormControl();
-  options: Array<string>;
+  types: Array<string>;
   filteredOptions: Observable<Array<string>>;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
@@ -30,29 +30,84 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     this.formData.path.previous = "product-category";
     this.formData.path.next = "product-state";
     this.placeholder = "(ex :  Perceuse)";
-    this.options = ['Perceuse', 'Perforateur- Burineur', 'Visseuse et tournevis électrique', 'Carotteuse'];
+    this.types = [];
   }
 
   ngOnInit(): void {
+    this.getTypes();
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-    this.product.productTypes.push(new ProductType());
   }
 
   ngOnChanges(): void {}
 
-  ngDoCheck() {
-    if (this.myControl.valueChanges) {
-      this.product.productTypes[0].label = this.myControl.value;
-    }
-  }
+  ngDoCheck() {}
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.types.filter(type => type.toLowerCase().includes(filterValue));
+  }
+
+  getTypes(): void {
+    const response = this.request.getData(this.request.uri.TYPES);
+
+    response.subscribe((res) => {
+      for (const elem of res) {
+        this.types.push(elem.label);
+      }
+    });
+  }
+
+  addType(): void {
+    if (!this.hasType() && this.isTypeExist()) {
+      const typeId: number = this.getId();
+
+      this.product.productTypes.push(new ProductType(typeId, this.myControl.value));
+    }
+  }
+
+  removeType(typeLabel: string): void {
+    let i: number = 0;
+
+    for (const productType of this.product.productTypes) {
+      if (typeLabel === productType.label) {
+        this.product.productTypes.splice(i, 1);
+      }
+      i++;
+    }
+  }
+
+  hasType(): boolean {
+    for (const productType of this.product.productTypes) {
+      if (productType.label === this.myControl.value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isTypeExist(): boolean {
+    for (const type of this.types) {
+      if (this.myControl.value === type) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getId(): number {
+    let i: number = 0;
+
+    for (const type of this.types) {
+      if (this.myControl.value === type) {
+        return i + 1;
+      }
+      i++;
+    }
+    return -1;
   }
 }

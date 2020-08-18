@@ -26,16 +26,17 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
   }
 
   ngOnInit(): void {
-    this.createProduct();
+    if (localStorage.getItem('id') === null) {
+      this.createProduct();
+    }
   }
 
   private createProduct(): void {
     const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
 
     response.subscribe((res) => {
-      console.log(res);
-      localStorage.setItem('id', res.body.id);
-      localStorage.setItem('strId', res.body.strId);
+        localStorage.setItem('id', res.body.id);
+        localStorage.setItem('strId', res.body.strId);
     });
   }
 

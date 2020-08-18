@@ -26,3 +26,19 @@
 .error {
   color: #E35557;
 }
+
+.new-element {
+  border: solid 5px var(--KTKP-GREY);
+  background-color: white;
+  padding: 10px;
+  width: 300px;
+}
+
+.cross {
+  border: none;
+  color: var(--KTKP-RED);
+}
+
+.cross:hover {
+  color: black;
+}

@@ -16,7 +16,7 @@ import { Brand } from 'src/app/models/brand';
 })
 export class ProductBrandComponent extends ProductCreationComponent implements OnInit, OnChanges {
   myControl = new FormControl();
-  options: Array<string>;
+  brands: Array<string>;
   filteredOptions: Observable<Array<string>>;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
@@ -29,29 +29,83 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     this.formData.path.previous = "activity-domain";
     this.formData.path.next = "product-category";
     this.placeholder = "(ex :  Facom)";
-    this.options = ['Facom', 'Milwaukee', 'Casto'];
+    this.brands = [];
   }
 
   ngOnInit(): void {
+    this.getBrands();
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-    this.product.brands.push(new Brand());
   }
 
   ngOnChanges(): void {}
 
-  ngDoCheck() {
-    if (this.myControl.valueChanges) {
-      this.formData.product.brands[0].name = this.myControl.value;
-    }
-  }
+  ngDoCheck() {}
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.brands.filter(brands => brands.toLowerCase().includes(filterValue));
+  }
+
+  getBrands(): void {
+    const response = this.request.getData(this.request.uri.BRANDS);
+
+    response.subscribe((res) => {
+      for (const elem of res) {
+        this.brands.push(elem.name);
+      }
+    });
+  }
+
+  addBrand(): void {
+    if (!this.hasType() && this.isBrandExist()) {
+      const brandId: number = this.getId();
+      this.product.brands.push(new Brand(brandId, this.myControl.value));
+    }
+  }
+
+  removeBrand(brandName: string): void {
+    let i: number = 0;
+
+    for (const brand of this.product.brands) {
+      if (brandName === brand.name) {
+        this.product.brands.splice(i, 1);
+      }
+      i++;
+    }
+  }
+
+  hasType(): boolean {
+    for (const brand of this.product.brands) {
+      if (brand.name === this.myControl.value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isBrandExist(): boolean {
+    for (const brand of this.brands) {
+      if (this.myControl.value === brand) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getId(): number {
+    let i: number = 0;
+
+    for (const brand of this.brands) {
+      if (this.myControl.value === brand) {
+        return i + 1;
+      }
+      i++;
+    }
+    return -1;
   }
 }
