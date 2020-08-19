@@ -20,7 +20,7 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     this.formData.fieldName = "videoUpload";
     this.stepNb = 16;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
-    this.formData.path.previous = "warranty-duration";
+    this.formData.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
     this.formData.path.next = "announce-kind";
   }
 

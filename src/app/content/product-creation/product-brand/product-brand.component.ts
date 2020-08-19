@@ -28,7 +28,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     this.stepName = "Quelle est la marque de votre produit ?";
     this.formData.path.previous = "activity-domain";
     this.formData.path.next = "product-category";
-    this.placeholder = "(ex :  Facom)";
+    this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }
 
@@ -42,8 +42,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
   }
 
   ngOnChanges(): void {}
-
-  ngDoCheck() {}
+  ngDoCheck(): void {}
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -51,7 +50,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     return this.brands.filter(brands => brands.toLowerCase().includes(filterValue));
   }
 
-  getBrands(): void {
+  private getBrands(): void {
     const response = this.request.getData(this.request.uri.BRANDS);
 
     response.subscribe((res) => {
@@ -66,6 +65,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
     }
+    this.myControl.setValue('');
   }
 
   removeBrand(brandName: string): void {
@@ -79,7 +79,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     }
   }
 
-  hasType(): boolean {
+  private hasType(): boolean {
     for (const brand of this.product.brands) {
       if (brand.name === this.myControl.value) {
         return true;
@@ -88,7 +88,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     return false;
   }
 
-  isBrandExist(): boolean {
+  private isBrandExist(): boolean {
     for (const brand of this.brands) {
       if (this.myControl.value === brand) {
         return true;
@@ -97,7 +97,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     return false;
   }
 
-  getId(): number {
+  private getId(): number {
     let i: number = 0;
 
     for (const brand of this.brands) {

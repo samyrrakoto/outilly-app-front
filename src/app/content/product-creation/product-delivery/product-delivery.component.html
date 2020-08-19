@@ -5,19 +5,12 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="columns is-vcentered has-text-centered">
-        <div class="column">
-          <div class="control has-text-centered">
-            <label class="radio">
-              <input type="radio" name="delivery" value="yes" [(ngModel)]="product.todeliver">
-              Oui
-            </label>
-            <label class="radio">
-              <input type="radio" name="delivery" value="no" [(ngModel)]="product.todeliver">
-              Non
-            </label>
-          </div>
-        </div>
+      <div class="content tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery()">
+        <span class="choice-symbol">A</span> Oui.
+      </div>
+
+      <div class="content tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery()">
+        <span class="choice-symbol">B</span> Non, pas de livraison.
       </div>
   </div>
 </div>

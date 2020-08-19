@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-account-request',
   templateUrl: './account-request.component.html',
-  styleUrls: ['./account-request.component.css']
+  styleUrls: ['../product-creation.component.css', './account-request.component.css']
 })
 export class AccountRequestComponent extends ProductCreationComponent implements OnInit {
 
@@ -24,7 +24,17 @@ export class AccountRequestComponent extends ProductCreationComponent implements
     console.log(formData.product);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  setFocus(id: string): void {
+    const tiles = ['yes', 'no'];
+
+    document.getElementById(id).classList.add('chosen-tile');
+
+    for (const tile of tiles) {
+      if (tile !== id) {
+        document.getElementById(tile).classList.remove('chosen-tile');
+      }
+    }
+  }
 }

@@ -29,7 +29,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     this.stepName = "Quel est le type du produit que vous vendez ?";
     this.formData.path.previous = "product-category";
     this.formData.path.next = "product-state";
-    this.placeholder = "(ex :  Perceuse)";
+    this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";
     this.types = [];
   }
 
@@ -68,6 +68,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
 
       this.product.productTypes.push(new ProductType(typeId, this.myControl.value));
     }
+    this.myControl.setValue('');
   }
 
   removeType(typeLabel: string): void {

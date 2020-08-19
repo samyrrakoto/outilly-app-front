@@ -12,6 +12,7 @@ export class FormDataService {
   fieldName: string;
   path: Path;
   product: Product;
+  hasAccount: boolean;
 
   constructor() {
     this.user = new User();
@@ -19,5 +20,6 @@ export class FormDataService {
     this.pwdConfirmation = "";
     this.fieldName = "";
     this.path = new Path();
+    this.hasAccount = false;
   }
 }

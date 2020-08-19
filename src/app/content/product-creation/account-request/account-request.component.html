@@ -5,12 +5,12 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="columns is-vcentered has-text-centered">
-        <div class="column">
-          <nav class="panel">
-            <button class="panel-block is-active">A. Oui</button>
-            <button class="panel-block is-active">B. Non</button>
-          </nav>
+      <div class="content tile" id="yes" (click)="formData.hasAccount = true; setFocus('yes')">
+        <span class="choice-symbol">A</span> Oui.
+      </div>
+
+      <div class="content tile" id="no" (click)="formData.hasAccount = false; setFocus('no')">
+        <span class="choice-symbol">B</span> Non, pas encore.
       </div>
   </div>
 </div>

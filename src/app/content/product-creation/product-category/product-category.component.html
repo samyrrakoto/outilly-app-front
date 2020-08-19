@@ -13,7 +13,7 @@
 
       <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
   </div>
-  <button class="button is-success" (click)="addCategory()" style="margin-bottom: 20px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une catégorie</button>
+  <button class="button is-success" (click)="addCategory()" style="margin-bottom: 10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une catégorie</button>
 
   <nav class="level new-element" id="{{ category.label }}" *ngFor="let category of product.productCategories">
     <div class="level-left">

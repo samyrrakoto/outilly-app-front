@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-warranty-duration',
   templateUrl: './warranty-duration.component.html',
-  styleUrls: ['./warranty-duration.component.css']
+  styleUrls: ['../product-creation.component.css', './warranty-duration.component.css']
 })
 export class WarrantyDurationComponent extends ProductCreationComponent implements OnInit {
 

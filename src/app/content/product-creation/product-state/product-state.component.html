@@ -5,57 +5,35 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="columns is-vcentered has-text-centered">
-        <div class="column tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          Jamais ouvert
+      <nav class="level">
+        <div class="level-item tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
+            Jamais ouvert
         </div>
 
-        <div class="column tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          Excellent
+        <div class="level-item tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
+          <div class="content">
+            Excellent
+          </div>
         </div>
 
-        <div class="column tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
+        <div class="level-item tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
+          <div class="content">
           Bon
+          </div>
         </div>
 
-        <div class="column tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
+        <div class="level-item tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
+          <div class="content">
           Acceptable
+          </div>
         </div>
 
-        <div class="column tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['fas', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
-          <fa-icon [icon]="['far', 'star']"></fa-icon>
+        <div class="level-item tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
+          <div class="content">
           Pour pièces
+          </div>
         </div>
-      </div>
+      </nav>
   </div>
 </div>
 

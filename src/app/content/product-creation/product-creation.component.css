@@ -1,3 +1,11 @@
+.input, .input:focus, .input:enabled {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  color: #727272;
+  border-left: solid 2px #727272;
+}
+
 .tile {
   color: black;
   font-size: 0.9em;
@@ -30,15 +38,27 @@
 .new-element {
   border: solid 5px var(--KTKP-GREY);
   background-color: white;
-  padding: 10px;
+  font-size: 0.8em;
+  font-weight: 400;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   width: 300px;
+  transition: 0.75s;
 }
 
 .cross {
   border: none;
-  color: var(--KTKP-RED);
+  color: black;
 }
 
 .cross:hover {
-  color: black;
+  color: var(--KTKP-RED);
+}
+
+.choice-symbol {
+  border: solid 1px black;
+  margin-right: 20px;
+  padding: 3px;
 }

@@ -23,7 +23,21 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
     this.formData.path.next = "product-weight";
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  handleDelivery(): void {
+    this.formData.path.next = this.product.todeliver ? 'product-weight' : 'delivery-price-information';
   }
 
+  setFocus(id: string): void {
+    const tiles = ['yes', 'no'];
+
+    document.getElementById(id).classList.add('chosen-tile');
+
+    for (const tile of tiles) {
+      if (tile !== id) {
+        document.getElementById(tile).classList.remove('chosen-tile');
+      }
+    }
+  }
 }

@@ -13,7 +13,7 @@
 
       <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
   </div>
-  <button class="button is-success" (click)="addType()" style="margin-bottom: 20px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter un type</button>
+  <button class="button is-success" (click)="addType()" style="margin-bottom: 10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter un type</button>
 
   <nav class="level new-element" id="{{ productType.label }}" *ngFor="let productType of product.productTypes">
     <div class="level-left">

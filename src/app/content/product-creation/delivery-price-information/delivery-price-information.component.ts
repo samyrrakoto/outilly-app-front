@@ -19,7 +19,7 @@ export class DeliveryPriceInformationComponent extends ProductCreationComponent 
     this.formData.fieldName = "deliveryPriceInformation";
     this.stepNb = 13;
     this.stepName = "Avec notre partenaire Mondial Relay, votre colis coûtera 12.95€ à l'acheteur.";
-    this.formData.path.previous = "product-weight";
+    this.formData.path.previous = this.formData.product.todeliver.toString() === 'true' ? 'product-weight' : 'product-delivery';
     this.formData.path.next = "is-warrantied";
   }
 

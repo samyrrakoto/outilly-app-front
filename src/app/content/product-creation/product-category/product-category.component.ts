@@ -29,7 +29,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
     this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-type";
-    this.placeholder = "(ex :  Outillage à main)";
+    this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];
   }
 
@@ -68,6 +68,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
 
       this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
     }
+    this.myControl.setValue('');
   }
 
   removeCategory(categoryName: string): void {

@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductWeightComponent extends ProductCreationComponent implements OnInit {
   maxValue: number;
+  unity: string;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -23,8 +24,12 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
     this.formData.path.previous = "product-delivery";
     this.formData.path.next = "delivery-price-information";
     this.placeholder = '(ex : 10kg)';
+    this.unity = 'kg';
   }
 
   ngOnInit(): void {}
 
+  test() {
+    console.log(this.maxValue);
+  }
 }
