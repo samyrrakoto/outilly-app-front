@@ -5,35 +5,37 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <nav class="level">
-        <div class="level-item tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
+      <div class="columns">
+        <div class="column">
+          <div class="tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
             Jamais ouvert
+          </div>
         </div>
 
-        <div class="level-item tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
-          <div class="content">
+        <div class="column">
+          <div class="tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
             Excellent
           </div>
         </div>
 
-        <div class="level-item tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
-          <div class="content">
-          Bon
+        <div class="column">
+          <div class="tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
+            Bon
           </div>
         </div>
 
-        <div class="level-item tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
-          <div class="content">
-          Acceptable
+        <div class="column">
+          <div class="tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
+            Acceptable
           </div>
         </div>
 
-        <div class="level-item tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
-          <div class="content">
-          Pour pièces
+        <div class="column">
+          <div class="tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
+            Pour pièces
           </div>
         </div>
-      </nav>
+      </div>
   </div>
 </div>
 

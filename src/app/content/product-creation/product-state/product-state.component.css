@@ -1,6 +1,8 @@
 .tile {
-  height: 75px;
-  margin: 2px;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+  text-align: center;
 }
 
 fa-icon {

@@ -6,8 +6,10 @@
       </app-step-label>
 
       <div class="columns is-vcentered has-text-centered">
-        <div class="column tile" *ngFor="let activityDomain of activityDomains" id="{{ activityDomain.name }}" (click)="setFocus(activityDomain.name)">
-          {{ activityDomain.name }}
+        <div class="column" *ngFor="let activityDomain of activityDomains">
+          <div class="tile" id="{{ activityDomain.name }}" (click)="setFocus(activityDomain.name)">
+            {{ activityDomain.name }}
+          </div>
         </div>
       </div>
   </div>
