@@ -1,10 +1,15 @@
 <div class="content has-text-left">
   <div class="field">
-      <app-step-label class="has-text-centered"
-        [stepNb]=stepNb
-        [stepName]=stepName
-        [isMandatory]=isMandatory>
-      </app-step-label>
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName
+      [isMandatory]=isMandatory>
+    </app-step-label>
   </div>
 </div>
 

@@ -1,22 +1,27 @@
 <div class="content has-text-left">
   <div class="field">
-      <app-step-label class="has-text-centered"
-        [stepNb]=stepNb
-        [stepName]=stepName>
-      </app-step-label>
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
 
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
 
-      <p class="control has-icons-right">
-        <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
-        <span class="icon is-right">
-          <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
-        </span>
-      </p>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <p class="control has-icons-right">
+      <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
+      <span class="icon is-right">
+        <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+      </span>
+    </p>
   </div>
   <button class="button is-success" (click)="addBrand()" style="margin-bottom:10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une marque</button>
 

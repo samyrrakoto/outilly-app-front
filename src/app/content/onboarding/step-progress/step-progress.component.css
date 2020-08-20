@@ -1,0 +1,9 @@
+#progress {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 60px;
+}
+
+.step {
+  color: var(--KTKP-GREEN);
+}

@@ -84,6 +84,7 @@ import { VideoUploadComponent } from './content/product-creation/video-upload/vi
 import { AnnounceKindComponent } from './content/product-creation/announce-kind/announce-kind.component';
 import { ReservePriceComponent } from './content/product-creation/reserve-price/reserve-price.component';
 import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';
+import { StepProgressComponent } from './content/onboarding/step-progress/step-progress.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +159,8 @@ import { AccountRequestComponent } from './content/product-creation/account-requ
     VideoUploadComponent,
     AnnounceKindComponent,
     ReservePriceComponent,
-    AccountRequestComponent
+    AccountRequestComponent,
+    StepProgressComponent
   ],
   imports: [
     HttpClientModule,

@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCreationComponent implements OnInit {
   product: Product;
+  nbStep: number = 19;
   stepNb: number;
   stepName: string;
   placeholder: string;
