@@ -1,0 +1,64 @@
+.input, .input:focus, .input:enabled {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  color: #727272;
+  border-left: solid 2px #727272;
+}
+
+.tile {
+  color: black;
+  font-size: 0.9em;
+  font-weight: 500;
+  border: solid 2px #DEDEDE;
+  border-radius: 10px;
+  height: 150px;
+  margin: 20px;
+  padding: 10px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile:hover {
+  background: var(--KTKP-GREY);
+  border-color: var(--KTKP-GREY);
+}
+
+.chosen-tile {
+  background: var(--KTKP-GREEN) !important;
+  border-color: var(--KTKP-GREEN);
+  color: white;
+}
+
+.error {
+  color: #E35557;
+}
+
+.new-element {
+  border: solid 5px var(--KTKP-GREY);
+  background-color: white;
+  font-size: 0.8em;
+  font-weight: 400;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  width: 300px;
+  transition: 0.75s;
+}
+
+.cross {
+  border: none;
+  color: black;
+}
+
+.cross:hover {
+  color: var(--KTKP-RED);
+}
+
+.choice-symbol {
+  border: solid 1px black;
+  margin-right: 20px;
+  padding: 3px;
+}

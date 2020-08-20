@@ -10,7 +10,12 @@ export class Uri {
     readonly CREATE: string = 'create';
     readonly EXISTS: string = 'exists';
     readonly SALE: string = 'sale/';
-    readonly GENERIC_QUESTIONS = 'questions/generic';
+    readonly GENERIC_QUESTIONS: string = 'questions/generic';
+    readonly PRODUCT_CREATION: string = 'product/create';
+    readonly ACTIVITY_DOMAINS: string = 'activity-domains';
+    readonly BRANDS: string = 'brands';
+    readonly CATEGORIES: string = 'product/categories/all';
+    readonly TYPES: string = 'product/types/all';
     path: string;
 
     constructor() {

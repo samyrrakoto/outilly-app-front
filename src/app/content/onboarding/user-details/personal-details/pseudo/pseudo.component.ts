@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,7 +10,7 @@ import { RequestService } from 'src/app/services/request.service';
   templateUrl: './pseudo.component.html',
   styleUrls: ['../../../onboarding.component.css', './pseudo.component.css']
 })
-export class PseudoComponent extends OnboardingComponent {
+export class PseudoComponent extends OnboardingComponent implements OnChanges {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
@@ -22,5 +22,8 @@ export class PseudoComponent extends OnboardingComponent {
     this.formDataService.path.previous = "1/username";
     this.formDataService.path.next = "2/email";
     this.placeholder = "(ex : JeanMarc78)";
+  }
+
+  ngOnChanges() {
   }
 }

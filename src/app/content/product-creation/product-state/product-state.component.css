@@ -1,0 +1,10 @@
+.tile {
+  height: 100px;
+  width: 100px;
+  margin: auto;
+  text-align: center;
+}
+
+fa-icon {
+  font-size: 0.8em;
+}

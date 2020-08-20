@@ -1,0 +1,48 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <p class="control has-icons-right">
+      <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
+      <span class="icon is-right">
+        <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+      </span>
+    </p>
+  </div>
+  <button class="button is-success" (click)="addBrand()" style="margin-bottom:10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une marque</button>
+
+  <nav class="level new-element" id="{{ brand.name }}" *ngFor="let brand of product.brands">
+    <div class="level-left">
+      {{ brand.name }}
+    </div>
+
+    <div class="level-right">
+      <button (click)="removeBrand(brand.name)" class="button cross"><fa-icon [icon]="['fas', 'times-circle']"></fa-icon></button>
+    </div>
+  </nav>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

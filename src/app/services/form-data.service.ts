@@ -1,3 +1,4 @@
+import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Path } from '../models/Path/path';
@@ -10,11 +11,15 @@ export class FormDataService {
   pwdConfirmation: string;
   fieldName: string;
   path: Path;
+  product: Product;
+  hasAccount: boolean;
 
   constructor() {
     this.user = new User();
+    this.product = new Product();
     this.pwdConfirmation = "";
     this.fieldName = "";
     this.path = new Path();
+    this.hasAccount = false;
   }
 }

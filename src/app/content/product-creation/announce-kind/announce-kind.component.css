@@ -1,0 +1,15 @@
+.tile {
+  height: 150px;
+  width: 150px;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.unavailable {
+  background-color: var(--KTKP-RED);
+}
+
+.unavailable:hover {
+  background-color: var(--KTKP-RED);
+  cursor: default;
+}

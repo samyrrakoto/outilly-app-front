@@ -1,3 +1,9 @@
+import { IsWarrantiedComponent } from './../content/product-creation/is-warrantied/is-warrantied.component';
+import { ProductType } from './../models/product-type';
+import { ProductCategory } from './../models/product-category';
+import { Brand } from './../models/brand';
+import { ActivityDomain } from './../models/activity-domain';
+import { ProductMedia } from './../models/product-media';
 import { Injectable } from '@angular/core';
 import { FormDataService } from './form-data.service';
 import { RequestService } from './request.service';
@@ -26,15 +32,18 @@ export class FormValidatorService {
   isEmpty(field: any): boolean {
     let message: string = this.REQUIRED;
     let index: number = this.errorMessages.indexOf(message);
-    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
+    let hasError: boolean;
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) === -1;
     let emptyErrors: boolean = this.errorMessages.length == 0;
-    let nullValue: any;
 
     // Depending on the type we set a null value
-    if (typeof(field) == "string") nullValue = "";
-    else if (field instanceof Date) nullValue = null;
+    if (typeof(field) === "string") hasError = field === "";
+    else if (field instanceof Date) hasError = field === null;
+    else if (field instanceof Array) hasError = field.length === 0;
+    else if (field instanceof Array) hasError = field.length === 0;
+    else if (typeof(field) === "boolean") hasError = field === null;
 
-    if (field == nullValue) {
+    if (hasError) {
       if (messageUnexists && emptyErrors)
         this.errorMessages.push(message);
       return true;
@@ -46,7 +55,7 @@ export class FormValidatorService {
   isNotNum(field: string) {
     let message: string = "Le champ doit contenir uniquement des chiffres !";
     let index: number = this.errorMessages.indexOf(message);
-    let messageUnexists: boolean = this.errorMessages.indexOf(message) == -1;
+    let messageUnexists: boolean = this.errorMessages.indexOf(message) === -1;
     let alphabet: string = this.NUM;
     let isInAlphabet: boolean = false;
 
@@ -54,10 +63,10 @@ export class FormValidatorService {
       isInAlphabet = false;
 
       for (let symbol of alphabet) {
-        if (char == symbol)
+        if (char === symbol)
           isInAlphabet = true;
       }
-      if (isInAlphabet == false) {
+      if (isInAlphabet === false) {
         if (messageUnexists && field.length > 0)
           this.errorMessages.push(message);
         return true;
@@ -114,6 +123,22 @@ export class FormValidatorService {
     }
     this.errorMessages.splice(index);
     return false;
+  }
+
+  isWrongFormat(file: string, extensions: Array<string>) {
+    let message: string = 'Tous les fichiers doivent être du ou des format(s) suivant(s) : ';
+
+    for (const extension of extensions) {
+      message += extension + ' ';
+    }
+
+    for (const extension of extensions) {
+      if (file.endsWith(extension)) {
+        return false;
+      }
+    }
+    this.errorMessages.push(message);
+    return true;
   }
 
   isMailConform(field: string): boolean {
@@ -447,6 +472,215 @@ export class FormValidatorService {
 
     if (empty || notNum)
       return false;
+    return true;
+  }
+
+  /*
+  ====================                                  ====================
+  ====================  Product Creation Verifications  ====================
+  ====================                                  ====================
+  */
+
+  /*
+  ----- Batch Choice constraints
+  */
+
+  batchChoiceVerify(data: FormDataService): boolean {
+    let batchChoice: boolean = data.product.isBundle;
+    let empty: boolean = this.isEmpty(batchChoice);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Announcement Title constraints
+  */
+
+  announcementTitleVerify(data: FormDataService): boolean {
+    let announcementTitle: string = data.product.name;
+    let empty: boolean = this.isEmpty(announcementTitle);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Media Upload constraints
+  */
+
+  mediaUploadVerify(data: FormDataService): boolean {
+    // let mediaUpload: Array<ProductMedia> = data.product.productMedias;
+    // const empty: boolean = this.isEmpty(mediaUpload);
+    // const wrongFormat: boolean = this.isWrongFormat(data.product.productMedias[0].path, ['.rar', '.pnl']);
+
+    // if (wrongFormat) {
+    //   return false;
+    // }
+    return true;
+  }
+
+  /*
+  ----- Activity Domain constraints
+  */
+
+  activityDomainVerify(data: FormDataService): boolean {
+    let activityDomain: Array<ActivityDomain> = data.product.activityDomains;
+    const empty: boolean = this.isEmpty(activityDomain);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Product Brand constraints
+  */
+
+ productBrandVerify(data: FormDataService): boolean {
+  let productBrand: Array<Brand> = data.product.brands;
+  let empty: boolean = this.isEmpty(productBrand);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Activity constraints
+  */
+
+ productCategoryVerify(data: FormDataService): boolean {
+  let productCategories: Array<ProductCategory> = data.product.productCategories;
+  let empty: boolean = this.isEmpty(productCategories);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Activity constraints
+  */
+
+ productTypeVerify(data: FormDataService): boolean {
+  let productType: Array<ProductType> = data.product.productTypes;
+  let empty: boolean = this.isEmpty(productType);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product State constraints
+  */
+
+ productStateVerify(data: FormDataService): boolean {
+  let productState: string = data.product.quality;
+  let empty: boolean = this.isEmpty(productState);
+
+  if (empty)
+    return false;
+  return true;
+}
+
+  /*
+  ----- Product Description constraints
+  */
+
+  productDescriptionVerify(data: FormDataService): boolean {
+    let productState: string = data.product.description;
+    let empty: boolean = this.isEmpty(productState);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Product Zipcode constraints
+  */
+
+  productZipcodeVerify(data: FormDataService): boolean {
+    let locality: string = data.product.locality;
+    let empty: boolean = this.isEmpty(locality);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Delivery constraints
+  */
+
+  productDeliveryVerify(data: FormDataService): boolean {
+    let isWarrantied: boolean = data.product.isWarrantied;
+    let empty: boolean = this.isEmpty(isWarrantied);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Product Weight constraints
+  */
+
+  productWeightVerify(data: FormDataService): boolean {
+    let productWeight: number = data.product.weight;
+    let empty: boolean = this.isEmpty(productWeight);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  deliveryPriceInformationVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  isWarrantiedVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Warranty Duration constraints
+  */
+
+  warrantyDurationVerify(data: FormDataService): boolean {
+    let warrantyDuration: number = data.product.warrantyDuration;
+    let empty: boolean = this.isEmpty(warrantyDuration);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  /*
+  ----- Video Upload constraints
+  */
+
+  videoUploadVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Announce Kind constraints
+  */
+
+  announceKindVerify(data: FormDataService): boolean {
+    return true;
+  }
+
+  /*
+  ----- Reserve Price constraints
+  */
+
+  reservePriceVerify(data: FormDataService): boolean {
     return true;
   }
 

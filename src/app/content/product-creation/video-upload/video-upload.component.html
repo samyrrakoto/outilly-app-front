@@ -1,0 +1,32 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName
+      [isMandatory]=isMandatory>
+    </app-step-label>
+  </div>
+</div>
+
+<input type="file" accept=".mp4, .avi" id="product-pictures" name="product-pictures" (change)="getFile()" class="button is-success">
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<p *ngFor="let media of product.productMedias">
+  {{ media.path }}
+  <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
+</p>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

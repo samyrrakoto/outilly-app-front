@@ -1,0 +1,25 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <div class="content tile" id="yes" (click)="formData.hasAccount = true; setFocus('yes')">
+      <span class="choice-symbol">A</span> Oui.
+    </div>
+
+    <div class="content tile" id="no" (click)="formData.hasAccount = false; setFocus('no')">
+      <span class="choice-symbol">B</span> Non, pas encore.
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>

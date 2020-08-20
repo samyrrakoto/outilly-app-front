@@ -1,0 +1,32 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <div class="content tile" id="yes" (click)="product.isWarrantied = true; setFocus('yes'); handleWarranty()">
+      <span class="choice-symbol">A</span> Oui.
+    </div>
+
+    <div class="content tile" id="no" (click)="product.isWarrantied = false; setFocus('no'); handleWarranty()">
+      <span class="choice-symbol">B</span> Non, pas de garantie.
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

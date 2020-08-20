@@ -26,7 +26,7 @@ export class ValidationComponent extends OnboardingComponent {
     let isOk: boolean = status201 && matchingUsername && existingId;
 
     if (isOk)
-      this.goTo("confirmation");
+      this.router.navigateByUrl("confirmation");
     else
       console.log("ERROR");
   }

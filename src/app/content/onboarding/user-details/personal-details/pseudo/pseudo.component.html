@@ -1,8 +1,9 @@
 <div class="content has-text-left">
     <div class="field">
-        <app-step-label
+      <app-step-label
         [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+        [stepName]=stepName>
+      </app-step-label>
 
         <p class="control has-icons-left">
             <input class="input" type="text" (keydown)="onKey($event)" placeholder="{{ this.placeholder }}" [(ngModel)]="user.username">
@@ -18,4 +19,8 @@
 </div>
 
 <app-navigation
-></app-navigation>
+  [data]=formDataService
+  [rootUri]=root
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

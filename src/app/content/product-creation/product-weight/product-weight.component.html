@@ -1,0 +1,42 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <div class="columns is-vcentered has-text-centered">
+      <div class="column">
+        <div class="field has-addons">
+          <p class="control">
+            <input #value type="number" max="40" class="input" placeholder="{{ placeholder }}" [(ngModel)]="product.weight">
+          </p>
+          <p class="control">
+            <span class="select">
+              <select id="unity" name="unity">
+                <option value="kg" selected>kg</option>
+                <option value="g">g</option>
+              </select>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

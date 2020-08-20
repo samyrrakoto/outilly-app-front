@@ -1,0 +1,41 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <div class="columns has-text-centered">
+      <div class="column">
+        <div id="classic-announce" class="tile" (click)="product.buyingOption = 'classic'; setFocus('classic-announce')">
+          Annonce classique
+        </div>
+      </div>
+
+      <div class="column">
+        <div id="hybrid-announce" class="tile unavailable">
+          Hybrid bid
+        </div>
+        <div class="content">
+          A venir prochainement !
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

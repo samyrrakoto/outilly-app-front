@@ -20,4 +20,9 @@
     {{ error }}
 </div>
 
-<app-navigation></app-navigation>
+<app-navigation
+  [data]=formDataService
+  [rootUri]=root
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

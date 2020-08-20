@@ -1,0 +1,56 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <div class="columns">
+      <div class="column">
+        <div class="tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
+          Jamais ouvert
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
+          Excellent
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
+          Bon
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
+          Acceptable
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
+          Pour pièces
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

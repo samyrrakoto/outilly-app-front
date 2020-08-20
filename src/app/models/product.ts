@@ -16,6 +16,8 @@ export class Product {
     description: string;
     shortDescription: string;
     isWarrantied: boolean;
+    todeliver: boolean;
+    buyingOption: string;
     warrantyDuration: number;
     strId: string;
     priceOfNew: number;
@@ -35,6 +37,8 @@ export class Product {
         this.productTypes = [];
         this.description = '';
         this.isWarrantied = true;
+        this.todeliver = true;
+        this.buyingOption = "classic";
         this.warrantyDuration = 0;
         this.strId = '';
         this.priceOfNew = 0;

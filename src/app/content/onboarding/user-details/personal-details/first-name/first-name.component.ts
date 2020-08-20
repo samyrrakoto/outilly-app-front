@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -9,7 +9,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   templateUrl: './first-name.component.html',
   styleUrls: ['../../../onboarding.component.css', './first-name.component.css']
 })
-export class FirstNameComponent extends OnboardingComponent {
+export class FirstNameComponent extends OnboardingComponent implements OnChanges {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -22,4 +22,6 @@ export class FirstNameComponent extends OnboardingComponent {
     this.formDataService.path.next = "4/lastname";
     this.placeholder = "(ex : Jean Marc)";
   }
+
+  ngOnChanges() {}
 }
