@@ -21,10 +21,11 @@ export class AccountRequestComponent extends ProductCreationComponent implements
     this.stepName = "Avez-vous un compte sur Ekipr ?";
     this.formData.path.previous = "reserve-price";
     this.formData.path.next = "account-request";
-    console.log(formData.product);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.constructResponse());
+  }
 
   setFocus(id: string): void {
     const tiles = ['yes', 'no'];
@@ -36,5 +37,11 @@ export class AccountRequestComponent extends ProductCreationComponent implements
         document.getElementById(tile).classList.remove('chosen-tile');
       }
     }
+  }
+
+  private constructResponse(): string {
+    const response = JSON.stringify(this.formData.product);
+
+    return response;
   }
 }

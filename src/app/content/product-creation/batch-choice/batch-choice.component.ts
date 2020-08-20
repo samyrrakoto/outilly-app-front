@@ -29,6 +29,8 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     if (localStorage.getItem('id') === null) {
       this.createProduct();
     }
+    this.formData.product.id = +localStorage.getItem(('id'));
+    this.formData.product.strId = localStorage.getItem('strId');
   }
 
   private createProduct(): void {
