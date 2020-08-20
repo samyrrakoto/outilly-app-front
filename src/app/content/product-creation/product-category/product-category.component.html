@@ -11,7 +11,12 @@
         </mat-option>
       </mat-autocomplete>
 
-      <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
+      <p class="control has-icons-right">
+        <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
+        <span class="icon is-right">
+          <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+        </span>
+      </p>
   </div>
   <button class="button is-success" (click)="addCategory()" style="margin-bottom: 10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une catégorie</button>
 
