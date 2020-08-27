@@ -1,4 +1,4 @@
-<div class="level">
+<div class="level is-mobile">
     <div class="level-left">
         <p *ngIf="formData.path.previous" class="control">
             <button class="button nav-arrow is-large has-icons-left" type="button" (click)="previous()">
@@ -8,6 +8,10 @@
                 </div>
             </button>
         </p>
+    </div>
+
+    <div *ngIf="data.isComplete" class="level-item">
+      <button (click)="backToRecap()" class="button is-success">Retourner au récapitulatif</button>
     </div>
 
     <div class="level-right">

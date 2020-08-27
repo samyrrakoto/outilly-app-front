@@ -1,4 +1,4 @@
-.input, .input:focus, .input:enabled {
+.input, .input:focus, .input:enabled, .textarea {
   border: none;
   border-radius: 0;
   background-color: white;
