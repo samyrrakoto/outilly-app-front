@@ -137,6 +137,7 @@ export class FormValidatorService {
         return false;
       }
     }
+
     this.errorMessages.push(message);
     return true;
   }
@@ -512,13 +513,19 @@ export class FormValidatorService {
   */
 
   mediaUploadVerify(data: FormDataService): boolean {
-    // let mediaUpload: Array<ProductMedia> = data.product.productMedias;
-    // const empty: boolean = this.isEmpty(mediaUpload);
-    // const wrongFormat: boolean = this.isWrongFormat(data.product.productMedias[0].path, ['.rar', '.pnl']);
+    let mediaUpload: Array<ProductMedia> = data.product.productMedias;
+    const empty: boolean = this.isEmpty(mediaUpload);
+    let wrongFormat: boolean = false;
 
-    // if (wrongFormat) {
-    //   return false;
-    // }
+    for (const media of data.product.productMedias) {
+      if (this.isWrongFormat(media.path, ['.jpg', '.png'])) {
+        wrongFormat = true;
+      }
+    }
+
+    if (wrongFormat) {
+      return false;
+    }
     return true;
   }
 
