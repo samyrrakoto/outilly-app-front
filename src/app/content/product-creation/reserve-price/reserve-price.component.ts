@@ -20,7 +20,7 @@ export class ReservePriceComponent extends ProductCreationComponent implements O
     this.stepNb = 18;
     this.stepName = "Quel est votre prix (en €) ?";
     this.formData.path.previous = "announce-kind";
-    this.formData.path.next = "account-request";
+    this.formData.path.next = "announce-overview";
   }
 
   ngOnInit(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -8,7 +9,10 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class UserDashboardComponent implements OnInit {
   res: any;
-  constructor(private request: RequestService) { }
+  constructor(
+    private request: RequestService,
+    private auth: AuthService
+    ) { }
 
   ngOnInit(): void {
     this.getUserInfos();
@@ -20,5 +24,9 @@ export class UserDashboardComponent implements OnInit {
       console.log(result);
       console.log(this.res);
     })
+  }
+
+  logOut():void {
+    this.auth.logout();
   }
 }
