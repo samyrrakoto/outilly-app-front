@@ -9,7 +9,7 @@ import { ProductMedia } from 'src/app/models/product-media';
 @Component({
   selector: 'app-video-upload',
   templateUrl: './video-upload.component.html',
-  styleUrls: ['./video-upload.component.css']
+  styleUrls: ['../product-creation.component.css', './video-upload.component.css']
 })
 export class VideoUploadComponent extends ProductCreationComponent implements OnInit {
 
@@ -25,9 +25,22 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
   }
 
   public getFile(): void {
-    // let files = document.getElementById('product-pictures').files;
+    let files = (<HTMLInputElement>document.getElementById('product-video')).files;
 
-    // this.addMedia(files[0]);
+    this.addMedia(files[0]);
+    this.sendMedia([{
+      'id': localStorage.getItem('id'),
+      'strId': localStorage.getItem('strId'),
+      'file': files[0]
+    }]);
+  }
+
+  public sendMedia(data: any): void {
+    const response = this.request.postData(data, this.request.uri.MEDIA_PRODUCT);
+
+    response.subscribe((res) => {
+      console.log(res);
+    });
   }
 
   public addMedia(file: any): void {

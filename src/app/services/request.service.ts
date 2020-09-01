@@ -19,10 +19,10 @@ export class RequestService {
     this.uri = new Uri();
   }
 
-  postData(data: any, ressource: string, param: string=''): Observable<HttpResponse<any>> {
+  postData(data: any, ressource: string, param: string='', options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, param);
 
-    return this.http.post<any>(this.uri.path, data, this.httpOptions);
+    return this.http.post<any>(this.uri.path, data, options);
   }
 
   getData(ressource: string, param: string = ''): Observable<any> {
