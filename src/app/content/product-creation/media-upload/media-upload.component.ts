@@ -1,4 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ProductMedia } from './../../../models/product-media';
 import { RequestService } from './../../../services/request.service';
 import { ProductCreationComponent } from '../product-creation.component';
@@ -13,12 +13,8 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './media-upload.component.css']
 })
 export class MediaUploadComponent extends ProductCreationComponent implements OnInit, OnChanges {
-  httpOptions: any = {
-    headers: new HttpHeaders({'Content-Type': 'multipart/form-data'}),
-    observe: 'response' as 'response'
-  };
 
-  constructor(public request: RequestService,  public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+  constructor(public request: RequestService,  public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public http: HttpClient) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.errorMessages;
@@ -57,8 +53,8 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   }
 
   public sendMedia(data: any): void {
-    const response = this.request.postData(data, this.request.uri.MEDIA_PRODUCT);
-
+    // TODO @clément : intégrer dans le service request le fait de ne pas mettre d'option http
+    const response = this.http.post<any>(this.request.uri.BASE + this.request.uri.MEDIA_PRODUCT, data);
     response.subscribe((res) => {
       console.log(res);
     });
