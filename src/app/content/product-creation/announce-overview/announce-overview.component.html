@@ -1,6 +1,6 @@
 <h1 class="title">Récapitulatif de votre annonce</h1>
 
-<button class="button is-success is-large" style="margin-bottom: 20px;">Confirmer</button>
+<!--<button class="button is-success is-large" style="margin-bottom: 20px;">Confirmer</button>-->
 
 <table class="table">
   <tr>
@@ -8,42 +8,42 @@
   </tr>
   <tr>
     <td class="field-name">Titre de l'annonce</td>
-    <td>{{ data.product.name }}</td>
+    <td>{{ formData.product.name }}</td>
     <td class="has-text-right"><button routerLink="/product/create/announcement-title" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Description</td>
-    <td>{{ data.product.description }}</td>
+    <td>{{ formData.product.description }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-description" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Prix de vente</td>
-    <td>{{ data.product.reservePrice }}€</td>
+    <td>{{ formData.product.reservePrice }}€</td>
     <td class="has-text-right"><button routerLink="/product/create/reserve-price" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Domaines d'activité</td>
-    <td><p *ngFor="let activity of data.product.activityDomains">{{ activity.name }}</p></td>
+    <td><p *ngFor="let activity of formData.product.activityDomains">{{ activity.name }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/activity-domain" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Marques</td>
-    <td><p *ngFor="let brand of data.product.brands">{{ brand.name }}</p></td>
+    <td><p *ngFor="let brand of formData.product.brands">{{ brand.name }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/product-brand" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Catégories</td>
-    <td><p *ngFor="let category of data.product.productCategories">{{ category.label }}</p></td>
+    <td><p *ngFor="let category of formData.product.productCategories">{{ category.label }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/product-category" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Types</td>
-    <td><p *ngFor="let type of data.product.productTypes">{{ type.label }}</p></td>
+    <td><p *ngFor="let type of formData.product.productTypes">{{ type.label }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/product-type" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Etat</td>
-    <td [ngSwitch]="data.product.quality">
+    <td [ngSwitch]="formData.product.quality">
       <span *ngSwitchCase="'new'">Jamais ouvert</span>
       <span *ngSwitchCase="'excellent'">Excellent</span>
       <span *ngSwitchCase="'good'">Bon</span>
@@ -56,13 +56,13 @@
     <td colspan="3"><h2 class="subtitle">Médias</h2></td>
   </tr>
   <tr>
-    <td *ngIf="data.product.productMedias" class="field-name">Images uploadées</td>
-    <td><p *ngFor="let image of data.product.productMedias">{{ image.link }}</p></td>
+    <td *ngIf="formData.product.productMedias" class="field-name">Images uploadées</td>
+    <td><p *ngFor="let image of formData.product.productMedias">{{ image.link }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/media-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td *ngIf="data.product.productMedias" class="field-name">Vidéo uploadée</td>
-    <td><p *ngFor="let video of data.product.productMedias">{{ video.link }}</p></td>
+    <td *ngIf="formData.product.productMedias" class="field-name">Vidéo uploadée</td>
+    <td><p *ngFor="let video of formData.product.productMedias">{{ video.link }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/video-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -70,18 +70,18 @@
   </tr>
   <tr>
     <td class="field-name">Code postal</td>
-    <td>{{ data.product.locality }}</td>
+    <td>{{ formData.product.locality }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Livraison</td>
-    <td *ngIf="data.product.todeliver">Oui</td>
-    <td *ngIf="data.product.todeliver === false">Non</td>
+    <td *ngIf="formData.product.todeliver">Oui</td>
+    <td *ngIf="formData.product.todeliver === false">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/product-delivery" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr *ngIf="data.product.todeliver">
+  <tr *ngIf="formData.product.todeliver">
     <td class="field-name">Poids du colis</td>
-    <td>{{ data.product.weight * 1000 }}kg</td>
+    <td>{{ formData.product.weight * 1000 }}kg</td>
     <td class="has-text-right"><button routerLink="/product/create/product-weight" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -89,21 +89,34 @@
   </tr>
   <tr>
     <td class="field-name">Garantie</td>
-    <td *ngIf="data.product.isWarrantied">Oui</td>
-    <td *ngIf="data.product.isWarrantied === false">Non</td>
+    <td *ngIf="formData.product.isWarrantied">Oui</td>
+    <td *ngIf="formData.product.isWarrantied === false">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/is-warrantied" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr *ngIf="data.product.isWarrantied">
+  <tr *ngIf="formData.product.isWarrantied">
     <td class="field-name">Durée de la garantie</td>
-    <td>{{ data.product.warrantyDuration }} mois</td>
+    <td>{{ formData.product.warrantyDuration }} mois</td>
     <td class="has-text-right"><button routerLink="/product/create/warranty-duration" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Type d'annonce</td>
-    <td *ngIf="data.product.buyingOption === 'classic'">Annonce classique</td>
-    <td *ngIf="data.product.buyingOption !== 'classic'">Annonce hybride</td>
+    <td *ngIf="formData.product.buyingOption === 'classic'">Annonce classique</td>
+    <td *ngIf="formData.product.buyingOption !== 'classic'">Annonce hybride</td>
     <td class="has-text-right"><button routerLink="/product/create/announce-kind" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
 </table>
-
-<button class="button is-success is-large" style="margin-top: 20px;">Confirmer</button>
+<hr/>
+<button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
+<ng-template #notLoggedIn>
+  <div class="content has-text-left">
+    <h4>Avez-vous un compte sur Ekipr ?</h4>
+    <div class="field">
+      <div class="content tile" id="yes" (click)="this.signInOrUp(true)">
+        <span class="choice-symbol">A</span> Oui.
+      </div>
+      <div class="content tile" id="no" (click)="this.signInOrUp(false)">
+        <span class="choice-symbol">B</span> Non, pas encore.
+      </div>
+    </div>
+  </div>
+</ng-template>

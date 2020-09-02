@@ -19,16 +19,27 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.logout();
+    if (localStorage.getItem("access_token") != null)
+    {
+      this.checkHasRedirectAfterLogin();
+    }
   }
 
   login() {
     this.authService.login(this.model).then(
         (success) => {
-          this.router.navigate(['user/dashboard']);
+          this.checkHasRedirectAfterLogin();
         }, (failure) => {
           this.loginFailed = true;
         }
     );
+  }
+
+  private checkHasRedirectAfterLogin(){
+    if (sessionStorage.getItem("redirect_after_login") === null){
+      this.router.navigate(['user/dashboard']);
+    } else {
+      this.router.navigate([sessionStorage.getItem("redirect_after_login")]);
+    }
   }
 }

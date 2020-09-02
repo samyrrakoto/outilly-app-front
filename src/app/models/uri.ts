@@ -12,11 +12,13 @@ export class Uri {
     readonly SALE: string = 'sale/';
     readonly GENERIC_QUESTIONS: string = 'questions/generic';
     readonly PRODUCT_CREATION: string = 'product/create';
+    readonly PRODUCT_UPDATE: string = 'secure/product/update';
+    readonly SALE_CREATE: string = 'secure/sale/create';
     readonly ACTIVITY_DOMAINS: string = 'activity-domains';
     readonly BRANDS: string = 'brands';
     readonly CATEGORIES: string = 'product/categories/all';
     readonly TYPES: string = 'product/types/all';
-    readonly MEDIA_PRODUCT = 'product/media/create';
+    readonly PRODUCT_MEDIA_CREATE = 'product/media/create';
     path: string;
 
     constructor() {
