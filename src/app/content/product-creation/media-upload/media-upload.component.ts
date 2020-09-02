@@ -30,15 +30,15 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   ngOnChanges(): void {}
 
   public handleFile(): void {
-    const files = (<HTMLInputElement>document.getElementById('product-pictures')).files;
+    const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
     const formData: FormData = new FormData();
 
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
     formData.append('mediaFile', files.item(0), files.item(0).name);
 
-    this.addMedia(files.item(0));
-    // this.displayPreview(files[0]);
+    this.addMedia(files);
+    this.displayPreview(files[0]);
     this.sendMedia(formData);
   }
 
@@ -48,13 +48,13 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     fileElem.click();
   }
 
-  public addMedia(file: any): void {
-    this.product.productMedias.push(new ProductMedia(0, file.name, 'image'));
+  private addMedia(file: FileList): void {
+    this.product.productMedias.push(new ProductMedia(0, file[0].name, 'image'));
   }
 
-  public sendMedia(data: any): void {
-    // TODO @clément : intégrer dans le service request le fait de ne pas mettre d'option http
+  private sendMedia(data: FormData): void {
     const response = this.http.post<any>(this.request.uri.BASE + this.request.uri.MEDIA_PRODUCT, data);
+
     response.subscribe((res) => {
       console.log(res);
     });
@@ -62,6 +62,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
 
   public removeMedia(mediaPath: string): void {
     let i: number = 0;
+    const nav: any = document.getElementById(mediaPath);
 
     for (const media of this.product.productMedias) {
       if (media.path === mediaPath) {
@@ -69,16 +70,39 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
       }
       i++;
     }
+    nav.remove();
   }
 
-  public displayPreview(file: any): void {
+  private displayPreview(file: any): void {
+    const div: HTMLElement = document.getElementById("displayed-medias")
+    const nav: HTMLElement = document.createElement("nav");
+    const leftLevel: HTMLElement = document.createElement("div");
+    const rightLevel: HTMLElement = document.createElement("div");
     const img: any = document.createElement("img");
-    const medias: any = document.getElementById("displayed-medias");
-    const reader = new FileReader();
+    const btn: HTMLElement = document.createElement("button");
+    const reader: FileReader = new FileReader();
 
-    img.classList.add("obj", "previews");
+    img.classList.add("previews");
     img.file = file;
-    medias.appendChild(img);
+    img.style.width = "250px";
+    img.style.margin = "auto";
+    img.style.border = "solid 3px var(--KTKP-GREEN)";
+
+    leftLevel.appendChild(img);
+    leftLevel.classList.add("level-left");
+
+    btn.classList.add("button", "has-background-black", "has-text-white");
+    btn.innerHTML = "x";
+    btn.addEventListener('click', () => this.removeMedia(img.file.name));
+    rightLevel.appendChild(btn);
+    rightLevel.classList.add("level-right");
+
+    nav.appendChild(leftLevel);
+    nav.appendChild(rightLevel);
+    nav.classList.add("level", "new-element");
+    nav.id = img.file.name;
+
+    div.appendChild(nav);
 
     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
     reader.readAsDataURL(file);

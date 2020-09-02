@@ -22,7 +22,7 @@ export class RequestService {
   postData(data: any, ressource: string, param: string='', options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, param);
 
-    return this.http.post<any>(this.uri.path, data, options);
+    return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
   }
 
   getData(ressource: string, param: string = ''): Observable<any> {
