@@ -105,11 +105,11 @@
     <td class="has-text-right"><button routerLink="/product/create/announce-kind" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
 </table>
-
+<hr/>
 <button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
 <ng-template #notLoggedIn>
   <div class="content has-text-left">
-    <h3>Avez-vous un compte sur Ekipr ?</h3>
+    <h4>Avez-vous un compte sur Ekipr ?</h4>
     <div class="field">
       <div class="content tile" id="yes" (click)="this.signInOrUp(true)">
         <span class="choice-symbol">A</span> Oui.

@@ -26,17 +26,18 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
 
   public getFile(): void {
     let files = (<HTMLInputElement>document.getElementById('product-video')).files;
+    const formData: FormData = new FormData();
+
+    formData.append('productId', localStorage.getItem('id'));
+    formData.append('productStrId', localStorage.getItem('strId'));
+    formData.append('mediaFile', files.item(0), files.item(0).name);
 
     this.addMedia(files[0]);
-    this.sendMedia([{
-      'id': localStorage.getItem('id'),
-      'strId': localStorage.getItem('strId'),
-      'file': files[0]
-    }]);
+    this.sendMedia(formData);
   }
 
   public sendMedia(data: any): void {
-    const response = this.request.postData(data, this.request.uri.MEDIA_PRODUCT);
+    const response = this.request.uploadMedia(data);
 
     response.subscribe((res) => {
       console.log(res);

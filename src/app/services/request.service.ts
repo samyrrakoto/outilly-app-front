@@ -25,10 +25,10 @@ export class RequestService {
     return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
   }
 
-  patchData(data: any, ressource: string, param: string=''): Observable<HttpResponse<any>> {
+  patchData(data: any, ressource: string, param: string='', options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, param);
 
-    return this.http.patch<any>(this.uri.path, data, this.httpOptions);
+    return options === null ? this.http.patch<any>(this.uri.path, data) : this.http.patch<any>(this.uri.path, data, options);
   }
 
   getData(ressource: string, param: string = ''): Observable<any> {
@@ -63,6 +63,10 @@ export class RequestService {
 
   createSale(data: any): Observable<HttpResponse<any>>{
     return this.postData(data, this.uri.SALE_CREATE);
+  }
+
+  uploadMedia(data: any): Observable<HttpResponse<any>>{
+    return this.postData(data, this.uri.PRODUCT_MEDIA_CREATE, '', null);
   }
 
 }

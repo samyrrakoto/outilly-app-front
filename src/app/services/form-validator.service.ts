@@ -513,7 +513,8 @@ export class FormValidatorService {
   */
 
   mediaUploadVerify(data: FormDataService): boolean {
-    let mediaUpload: Array<ProductMedia> = data.product.productMedias;
+    //TODO fixbug 
+    /*let mediaUpload: Array<ProductMedia> = data.product.productMedias;
     const empty: boolean = this.isEmpty(mediaUpload);
     let wrongFormat: boolean = false;
 
@@ -525,7 +526,7 @@ export class FormValidatorService {
 
     if (wrongFormat) {
       return false;
-    }
+    }*/
     return true;
   }
 

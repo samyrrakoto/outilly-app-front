@@ -53,7 +53,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   }
 
   private sendMedia(data: FormData): void {
-    const response = this.http.post<any>(this.request.uri.BASE + this.request.uri.MEDIA_PRODUCT, data);
+    const response = this.request.uploadMedia(data);
 
     response.subscribe((res) => {
       console.log(res);

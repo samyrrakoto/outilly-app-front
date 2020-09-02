@@ -18,7 +18,7 @@ export class Uri {
     readonly BRANDS: string = 'brands';
     readonly CATEGORIES: string = 'product/categories/all';
     readonly TYPES: string = 'product/types/all';
-    readonly MEDIA_PRODUCT = 'product/media/create';
+    readonly PRODUCT_MEDIA_CREATE = 'product/media/create';
     path: string;
 
     constructor() {
