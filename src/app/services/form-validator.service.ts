@@ -112,6 +112,20 @@ export class FormValidatorService {
     return false;
   }
 
+  maxNb(field: Array<any>, maxNb: number): boolean {
+    const message: string = "Vous ne pouvez prendre que 2 domaines d'activité au maximum";
+    const index: number = this.errorMessages.indexOf(message);
+
+    if (field.length > maxNb) {
+      if (this.errorMessages.indexOf(message) == -1 && field.length > 0) {
+        this.errorMessages.push(message);
+      }
+      return true;
+    }
+    this.errorMessages.splice(index);
+    return false;
+  }
+
   wrongLength(field: string, length: number = 10) {
     let message: string = "Le champ doit faire " + length + " caractères !";
     let index: number = this.errorMessages.indexOf(message);
@@ -513,7 +527,7 @@ export class FormValidatorService {
   */
 
   mediaUploadVerify(data: FormDataService): boolean {
-    //TODO fixbug 
+    //TODO fixbug
     /*let mediaUpload: Array<ProductMedia> = data.product.productMedias;
     const empty: boolean = this.isEmpty(mediaUpload);
     let wrongFormat: boolean = false;
@@ -537,8 +551,9 @@ export class FormValidatorService {
   activityDomainVerify(data: FormDataService): boolean {
     let activityDomain: Array<ActivityDomain> = data.product.activityDomains;
     const empty: boolean = this.isEmpty(activityDomain);
+    const maxNb: boolean = this.maxNb(activityDomain, 2);
 
-    if (empty)
+    if (empty || maxNb)
       return false;
     return true;
   }
@@ -647,9 +662,17 @@ export class FormValidatorService {
     return true;
   }
 
+  /*
+  ----- Delivery Price constraints
+  */
+
   deliveryPriceInformationVerify(data: FormDataService): boolean {
     return true;
   }
+
+  /*
+  ----- Is Warrantied constraints
+  */
 
   isWarrantiedVerify(data: FormDataService): boolean {
     return true;
