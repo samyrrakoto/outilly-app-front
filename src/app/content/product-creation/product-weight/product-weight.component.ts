@@ -3,7 +3,7 @@ import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-product-weight',
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './product-weight.component.css']
 })
 export class ProductWeightComponent extends ProductCreationComponent implements OnInit {
+  @ViewChild("weight") weight: ElementRef;
   maxValue: number;
   unity: string;
 
@@ -29,7 +30,7 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
 
   ngOnInit(): void {}
 
-  test() {
-    console.log(this.maxValue);
+  ngAfterViewInit(): void {
+    this.weight.nativeElement.focus();
   }
 }

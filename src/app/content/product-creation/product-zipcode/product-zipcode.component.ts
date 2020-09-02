@@ -3,7 +3,7 @@ import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-product-zipcode',
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './product-zipcode.component.css']
 })
 export class ProductZipcodeComponent extends ProductCreationComponent implements OnInit {
+  @ViewChild("zipcode") zipcode: ElementRef;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -26,4 +27,7 @@ export class ProductZipcodeComponent extends ProductCreationComponent implements
 
   ngOnInit(): void {}
 
+  ngAfterViewInit(): void {
+    this.zipcode.nativeElement.focus();
+  }
 }

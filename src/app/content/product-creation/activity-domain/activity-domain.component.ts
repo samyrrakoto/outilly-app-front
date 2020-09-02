@@ -4,7 +4,7 @@ import { FormValidatorService } from './../../../services/form-validator.service
 import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { ProductCreationComponent } from './../product-creation.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-activity-domain',
