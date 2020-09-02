@@ -19,12 +19,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn().subscribe(res =>{
-      if (res === true)
-      {
-        this.checkHasRedirectAfterLogin();
-      }
-    })
+    if (localStorage.getItem("access_token") != null)
+    {
+      this.checkHasRedirectAfterLogin();
+    }
   }
 
   login() {

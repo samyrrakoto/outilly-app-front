@@ -25,6 +25,12 @@ export class RequestService {
     return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
   }
 
+  patchData(data: any, ressource: string, param: string=''): Observable<HttpResponse<any>> {
+    this.uri.setUri(ressource, param);
+
+    return this.http.patch<any>(this.uri.path, data, this.httpOptions);
+  }
+
   getData(ressource: string, param: string = ''): Observable<any> {
     this.uri.setUri(ressource, param);
 
@@ -48,6 +54,15 @@ export class RequestService {
   }
 
   getUserInfos(){
-    return this.getData(this.uri.SECURE, this.uri.USER)
+    return this.getData(this.uri.SECURE, this.uri.USER);
   }
+
+  updateProduct(data: any): Observable<HttpResponse<any>>{
+    return this.patchData(data, this.uri.PRODUCT_UPDATE);
+  }
+
+  createSale(data: any): Observable<HttpResponse<any>>{
+    return this.postData(data, this.uri.SALE_CREATE);
+  }
+
 }

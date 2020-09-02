@@ -106,7 +106,7 @@
   </tr>
 </table>
 
-<button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;">Confirmer</button>
+<button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
 <ng-template #notLoggedIn>
   <div class="content has-text-left">
     <h3>Avez-vous un compte sur Ekipr ?</h3>

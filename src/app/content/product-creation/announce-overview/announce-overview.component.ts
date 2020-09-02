@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { Sale } from 'src/app/models/sale';
+import { Seller } from 'src/app/models/seller';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-announce-overview',
@@ -15,6 +18,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 export class AnnounceOverviewComponent extends ProductCreationComponent  implements OnInit {
 
   isLoggedIn: Observable<boolean>;
+  productCreated: boolean;
 
   constructor(
     public request: RequestService,
@@ -83,5 +87,42 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
       target = "onboarding"
     }
     this.router.navigate([target]);
+  }
+
+  submitProduct()
+  {
+    let productPayload = {
+      product : this.formData.product
+    };
+    let sale = new Sale();
+    let seller = new Seller();
+    seller.id = +sessionStorage.getItem("userId");
+    let product = new Product();
+    product.id = this.formData.product.id;
+    product.strId = this.formData.product.strId;
+    sale.seller = seller;
+    sale.product = product;
+    sale.id = null;
+    let salePayload = {
+      sale: sale
+    }
+    //console.log(JSON.stringify(payload));
+    this.request.updateProduct(productPayload).subscribe(res => {
+      if (res.status === 201)
+      {
+        console.log("Product created in API with success");
+        this.request.createSale(salePayload).subscribe(res => {
+          if (res.status === 201)
+          {
+            console.log("Sale created in API with success");
+            console.log(res.body);
+          } else {
+            console.error("Error creating sale");
+          }
+        })
+      } else {
+        console.error("Error creating product");
+      }
+    });
   }
 }
