@@ -13,16 +13,14 @@
   </div>
 </div>
 
-<input accept=".png, .jpg" type="file" id="product-pictures" name="product-pictures" (change)="getFile()" class="button is-success">
+<input accept=".png, .jpg" type="file" id="product-pictures" name="product-pictures" (change)="handleFile()" style="display: none;">
+<button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
 
-<p *ngFor="let media of product.productMedias">
-  {{ media.path }}
-  <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
-</p>
+<div id="displayed-medias"></div>
 
 <app-navigation
   [data]=formData
