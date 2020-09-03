@@ -25,7 +25,7 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
   }
 
   public getFile(): void {
-    let files = (<HTMLInputElement>document.getElementById('product-video')).files;
+    let files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
     const formData: FormData = new FormData();
 
     formData.append('productId', localStorage.getItem('id'));
@@ -34,6 +34,12 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
 
     this.addMedia(files[0]);
     this.sendMedia(formData);
+  }
+
+  public openImgPicker(): void {
+    const fileElem = document.getElementById("product-video");
+
+    fileElem.click();
   }
 
   public sendMedia(data: any): void {
