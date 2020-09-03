@@ -6,10 +6,10 @@
 }
 
 .unavailable {
-  background-color: var(--KTKP-RED);
+  background-color: var(--MAT-GREY);
 }
 
 .unavailable:hover {
-  background-color: var(--KTKP-RED);
+  background-color: var(--MAT-GREY);
   cursor: default;
 }
