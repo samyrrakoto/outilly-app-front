@@ -38,8 +38,8 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     formData.append('mediaFile', files.item(0), files.item(0).name);
 
     this.addMedia(files);
-    this.displayPreview(files[0]);
     this.sendMedia(formData);
+    this.displayPreview(files[0]);
   }
 
   public openImgPicker(): void {

@@ -65,7 +65,5 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     }
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
