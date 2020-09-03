@@ -386,9 +386,8 @@ export class FormValidatorService {
   cityVerify(data: FormDataService): boolean {
     let city: string = data.user.userProfile.address.city;
     let empty: boolean = this.isEmpty(city);
-    let cityConform: boolean = this.isCityConform(city);
 
-    if (empty || cityConform == false)
+    if (empty)
       return false;
     return true;
   }
@@ -400,7 +399,6 @@ export class FormValidatorService {
   streetVerify(data: FormDataService): boolean {
     let street: string = data.user.userProfile.address.line1;
     let empty: boolean = this.isEmpty(street);
-    let streetConform: boolean = this.isStreetConform(street);
 
     if (empty)
       return false;
@@ -412,11 +410,9 @@ export class FormValidatorService {
   */
 
   phoneNumberVerify(data: FormDataService): boolean {
-    let phoneNumber: string = data.user.userProfile.phone1;
-    let notNum: boolean = this.isNotNum(phoneNumber);
+    const phoneNumber: string = data.user.userProfile.phone1;
+    const empty: boolean = this.isEmpty(phoneNumber);
 
-    if (notNum)
-      return false;
     return true;
   }
 
