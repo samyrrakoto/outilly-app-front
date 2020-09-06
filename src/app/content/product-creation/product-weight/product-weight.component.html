@@ -14,11 +14,11 @@
       <div class="column">
         <div class="field has-addons">
           <p class="control">
-            <input #weight type="number" max="40" class="input" placeholder="{{ placeholder }}" [(ngModel)]="product.weight">
+            <input #weight type="number" max="{{ maxValue }}" class="input" placeholder="{{ placeholder }}" [(ngModel)]="product.weight">
           </p>
           <p class="control">
             <span class="select">
-              <select id="unity" name="unity">
+              <select [(ngModel)]="product.weightUnity" (change)="weightChange()" #unity id="unity" name="unity">
                 <option value="kg" selected>kg</option>
                 <option value="g">g</option>
               </select>

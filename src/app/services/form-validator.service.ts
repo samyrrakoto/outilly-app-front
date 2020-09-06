@@ -40,7 +40,6 @@ export class FormValidatorService {
     if (typeof(field) === "string") hasError = field === "";
     else if (field instanceof Date) hasError = field === null;
     else if (field instanceof Array) hasError = field.length === 0;
-    else if (field instanceof Array) hasError = field.length === 0;
     else if (typeof(field) === "boolean") hasError = field === null;
 
     if (hasError) {
@@ -477,9 +476,9 @@ export class FormValidatorService {
   */
 
   tvaVerify(data: FormDataService): boolean {
-    let tva: string = data.user.userProfile.company.tvanumber;
-    let empty: boolean = this.isEmpty(tva);
-    let notNum: boolean = this.isNotNum(tva);
+    const tva: string = data.user.userProfile.company.tvanumber;
+    const empty: boolean = this.isEmpty(tva);
+    const notNum: boolean = this.isNotNum(tva);
 
     if (empty || notNum)
       return false;
@@ -491,6 +490,19 @@ export class FormValidatorService {
   ====================  Product Creation Verifications  ====================
   ====================                                  ====================
   */
+
+ maxWeight(weight: number, weightUnity: string, maxWeight: number) {
+  const message: string = "Le poids du colis ne doit pas dépasser " + maxWeight + " kg";
+  const index: number = this.errorMessages.indexOf(message);
+  maxWeight = weightUnity === 'kg' ? maxWeight : maxWeight * 1000;
+
+  if (weight > maxWeight) {
+    this.errorMessages.push(message);
+    return true;
+  }
+  this.errorMessages.splice(index);
+  return false;
+}
 
   /*
   ----- Batch Choice constraints
@@ -650,10 +662,12 @@ export class FormValidatorService {
   */
 
   productWeightVerify(data: FormDataService): boolean {
-    let productWeight: number = data.product.weight;
-    let empty: boolean = this.isEmpty(productWeight);
+    const productWeight: number = data.product.weight;
+    const weightUnity: string = data.product.weightUnity;
+    const empty: boolean = this.isEmpty(productWeight);
+    const maxWeight: boolean = this.maxWeight(productWeight, weightUnity, 30);
 
-    if (empty)
+    if (empty || maxWeight)
       return false;
     return true;
   }

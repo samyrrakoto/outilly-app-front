@@ -12,8 +12,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class ProductWeightComponent extends ProductCreationComponent implements OnInit {
   @ViewChild("weight") weight: ElementRef;
-  maxValue: number;
-  unity: string;
+  @ViewChild("unity") unity: ElementRef;
+  maxValue: string = "30";
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -23,14 +23,20 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
     this.stepNb = 12;
     this.stepName = "Combien pèse votre colis emballé (en kg) ?";
     this.formData.path.previous = "product-delivery";
+    this.formData.path.current = 'product-weight';
     this.formData.path.next = "delivery-price-information";
     this.placeholder = '(ex : 10kg)';
-    this.unity = 'kg';
   }
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.weight.nativeElement.focus();
+  }
+
+  weightChange(): void {
+    const unity: any = this.unity.nativeElement.value;
+
+    this.maxValue = unity === 'kg' ? "30" : "999";
   }
 }
