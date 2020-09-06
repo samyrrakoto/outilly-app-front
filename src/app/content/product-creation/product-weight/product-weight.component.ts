@@ -13,7 +13,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class ProductWeightComponent extends ProductCreationComponent implements OnInit {
   @ViewChild("weight") weight: ElementRef;
   @ViewChild("unity") unity: ElementRef;
-  maxValue: string = "30";
+  maxValue: string = '30';
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -35,8 +35,6 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
   }
 
   weightChange(): void {
-    const unity: any = this.unity.nativeElement.value;
-
-    this.maxValue = unity === 'kg' ? "30" : "999";
+    this.maxValue = this.unity.nativeElement.value === 'kg' ? '30' : '999';
   }
 }
