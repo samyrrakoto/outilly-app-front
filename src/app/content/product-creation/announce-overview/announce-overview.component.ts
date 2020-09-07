@@ -91,6 +91,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
 
   submitProduct()
   {
+    if (this.formData.product.weightUnity === 'kg') {
+      this.formData.product.weight *= 1000;
+    }
     let productPayload = {
       product : this.formData.product
     };
