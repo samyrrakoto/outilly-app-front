@@ -29,6 +29,7 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     if (localStorage.getItem('id') === null) {
       this.createProduct();
     }
+    this.getUser();
     this.formData.product.id = +localStorage.getItem(('id'));
     this.formData.product.strId = localStorage.getItem('strId');
   }
@@ -42,7 +43,15 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     });
   }
 
-  setFocus(id: string): void {
+  private getUser(): void {
+    const response = this.request.getData(this.request.uri.GET_USER);
+
+    response.subscribe((res) => {
+      this.formData.product.locality = res.userProfile.addresses[0].zipcode;
+    });
+  }
+
+  public setFocus(id: string): void {
     const tiles = ['bundled', 'not-bundled'];
 
     document.getElementById(id).classList.add('chosen-tile');

@@ -1,3 +1,4 @@
+import { UserProfile } from './../../../models/user-profile';
 import { RequestService } from './../../../services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
