@@ -5,9 +5,9 @@
         [stepName]=stepName></app-step-label>
 
         <div class="control has-icons-left">
-            <div class="select is-hovered">
+            <div #status class="select is-hovered">
                 <select [(ngModel)]="user.userProfile.type">
-                    <option value="individual" selected>Particulier</option>
+                    <option value="individual">Particulier</option>
                     <option value="professional">Professionnel</option>
                 </select>
             </div>

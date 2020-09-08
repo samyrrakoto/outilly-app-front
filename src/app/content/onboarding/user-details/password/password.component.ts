@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../onboarding.component';
@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['../../onboarding.component.css', './password.component.css']
 })
 export class PasswordComponent extends OnboardingComponent {
+  @ViewChild('pwd') pwd: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -21,5 +22,9 @@ export class PasswordComponent extends OnboardingComponent {
     this.formDataService.path.previous = "12/phonenumber";
     this.formDataService.path.next = "14/passwordconfirmation";
     this.placeholder = "(ex : AuMoins6Caracteres)";
+  }
+
+  ngAfterViewInit(): void {
+    this.pwd.nativeElement.focus();
   }
 }

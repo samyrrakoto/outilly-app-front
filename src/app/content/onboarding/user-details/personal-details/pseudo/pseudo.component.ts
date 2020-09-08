@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnChanges, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,7 +10,8 @@ import { RequestService } from 'src/app/services/request.service';
   templateUrl: './pseudo.component.html',
   styleUrls: ['../../../onboarding.component.css', './pseudo.component.css']
 })
-export class PseudoComponent extends OnboardingComponent implements OnChanges {
+export class PseudoComponent extends OnboardingComponent implements OnInit, OnChanges {
+  @ViewChild('pseudo') pseudo: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
@@ -24,6 +25,16 @@ export class PseudoComponent extends OnboardingComponent implements OnChanges {
     this.placeholder = "(ex : JeanMarc78)";
   }
 
-  ngOnChanges() {
+  ngOnChanges() {}
+
+  ngOnInit() {
+    this.formDataService.user.userProfile.gender = 'female';
+    this.formDataService.user.userProfile.type = 'individual';
+    this.formDataService.user.userProfile.address.country.isocode = 'FR';
+    this.formDataService.user.userProfile.emailOptin = false;
+  }
+
+  ngAfterViewInit(): void {
+    this.pseudo.nativeElement.focus();
   }
 }

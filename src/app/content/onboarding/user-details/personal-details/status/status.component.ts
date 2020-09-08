@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['../../../onboarding.component.css', './status.component.css']
 })
 export class StatusComponent extends OnboardingComponent {
+  @ViewChild('status') status: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -22,4 +23,6 @@ export class StatusComponent extends OnboardingComponent {
     this.formDataService.path.previous = "5/gender";
     this.formDataService.path.next = "7/birthdate";
   }
+
+  ngAfterViewInit(): void {}
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['../../../onboarding.component.css', './city.component.css']
 })
 export class CityComponent extends OnboardingComponent {
+  @ViewChild('city') city: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -21,5 +22,9 @@ export class CityComponent extends OnboardingComponent {
     this.formDataService.path.previous = '9/zipcode';
     this.formDataService.path.next = '11/street';
     this.placeholder = '(ex : Jouy-en-Josas)';
+  }
+
+  ngAfterViewInit(): void {
+    this.city.nativeElement.focus();
   }
 }
