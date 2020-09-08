@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../onboarding.component';
@@ -12,11 +12,15 @@ import { HttpResponse } from '@angular/common/http';
   templateUrl: './validation.component.html',
   styleUrls: ['./validation.component.css']
 })
-export class ValidationComponent extends OnboardingComponent {
+export class ValidationComponent extends OnboardingComponent implements OnInit {
 
   constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
+  }
+
+  ngOnInit() {
+    this.formDataService.isAccountComplete = true;
   }
 
   checkResponse(response: HttpResponse<User>) {

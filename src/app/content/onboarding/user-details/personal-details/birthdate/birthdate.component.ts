@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['../../../onboarding.component.css', './birthdate.component.css']
 })
 export class BirthdateComponent extends OnboardingComponent {
+  @ViewChild('birthdate') birthdate: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -20,5 +21,9 @@ export class BirthdateComponent extends OnboardingComponent {
     this.stepName = "Quelle est votre date de naissance ?";
     this.formDataService.path.previous = "6/status";
     this.formDataService.path.next = "8/country";
+  }
+
+  ngAfterViewInit(): void {
+    this.birthdate.nativeElement.focus();
   }
 }

@@ -9,3 +9,23 @@
 .notification {
     font-size: 14px;
 }
+
+.field-name {
+  font-weight: bold;
+}
+
+fa-icon {
+  color: white;
+}
+
+.table {
+  margin: auto;
+  width: 100%;
+}
+
+.subtitle {
+  text-align: left;
+  font-weight: bold;
+  border-bottom: solid 3px var(--KTKP-GREEN);
+  padding: 10px;
+}

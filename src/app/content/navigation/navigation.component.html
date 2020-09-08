@@ -10,8 +10,12 @@
         </p>
     </div>
 
-    <div *ngIf="data.isComplete" class="level-item">
-      <button (click)="backToRecap()" class="button is-success">Retourner au récapitulatif</button>
+    <div *ngIf="data.isAccountComplete" class="level-item">
+      <button (click)="backToAccountRecap()" class="button is-success">Retourner au récapitulatif</button>
+    </div>
+
+    <div *ngIf="data.isProductComplete" class="level-item">
+      <button (click)="backToProductRecap()" class="button is-success">Retourner au récapitulatif</button>
     </div>
 
     <div class="level-right">

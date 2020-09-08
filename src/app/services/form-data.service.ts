@@ -13,7 +13,8 @@ export class FormDataService {
   path: Path;
   product: Product;
   hasAccount: boolean;
-  isComplete: boolean;
+  isProductComplete: boolean;
+  isAccountComplete: boolean;
 
   constructor() {
     this.user = new User();
@@ -22,6 +23,7 @@ export class FormDataService {
     this.fieldName = "";
     this.path = new Path();
     this.hasAccount = false;
-    this.isComplete = false;
+    this.isAccountComplete = false;
+    this.isProductComplete = false;
   }
 }

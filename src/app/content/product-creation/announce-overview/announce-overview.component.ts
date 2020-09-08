@@ -32,7 +32,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
     }
 
   ngOnInit(): void {
-    this.formData.isComplete = true;
+    this.formData.isProductComplete = true;
     this.isLoggedIn = this.auth.isLoggedIn();
     this.setProductSession();
     this.mapSessionProductToFormData();
@@ -53,7 +53,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
   private mapSessionProductToFormData(): void
   {
     if(sessionStorage.getItem("current_product") === null) {
-      this.formData.isComplete = false;
+      this.formData.isProductComplete = false;
       this.backToStart();
     } else if (!this.checkProductExistsInSession()) {
       this.formData.product = JSON.parse(sessionStorage.getItem("current_product"));

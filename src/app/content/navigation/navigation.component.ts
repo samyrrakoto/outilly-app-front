@@ -54,8 +54,17 @@ export class NavigationComponent implements OnChanges {
     }
   }
 
-  backToRecap(): void {
+  backToProductRecap(): void {
     const path = this.rootUri + "announce-overview";
+
+    // Verifying that the field matches the constraints it gets before going further
+    if (this.formValidator.verify(this.formData)) {
+      this.router.navigateByUrl(path);
+    }
+  }
+
+  backToAccountRecap(): void {
+    const path = "onboarding/validation";
 
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formData)) {
