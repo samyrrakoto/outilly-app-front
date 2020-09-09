@@ -69,15 +69,15 @@
     <td colspan="3"><h2 class="subtitle">Livraison</h2></td>
   </tr>
   <tr>
-    <td class="field-name">Code postal</td>
-    <td>{{ formData.product.locality }}</td>
-    <td class="has-text-right"><button routerLink="/product/create/product-zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
-  <tr>
     <td class="field-name">Livraison</td>
     <td *ngIf="formData.product.todeliver">Oui</td>
     <td *ngIf="formData.product.todeliver === false">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/product-delivery" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+  </tr>
+  <tr *ngIf="formData.product.todeliver">
+    <td class="field-name">Code postal</td>
+    <td>{{ formData.product.locality }}</td>
+    <td class="has-text-right"><button routerLink="/product/create/product-zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr *ngIf="formData.product.todeliver">
     <td class="field-name">Poids du colis</td>
