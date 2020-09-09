@@ -10,11 +10,11 @@
         </p>
     </div>
 
-    <div *ngIf="data.isAccountComplete" class="level-item">
+    <div *ngIf="data.isAccountComplete && rootUri === 'onboarding/'" class="level-item">
       <button (click)="backToAccountRecap()" class="button is-success">Retourner au récapitulatif</button>
     </div>
 
-    <div *ngIf="data.isProductComplete" class="level-item">
+    <div *ngIf="data.isProductComplete && rootUri === 'product/create/'" class="level-item">
       <button (click)="backToProductRecap()" class="button is-success">Retourner au récapitulatif</button>
     </div>
 
