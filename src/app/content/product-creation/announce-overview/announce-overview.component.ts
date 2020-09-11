@@ -77,10 +77,10 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
     return (this.formData.product.id != 0 && this.formData.product.strId != null);
   }
 
-  signInOrUp(hasAccount)
-  {
+  signInOrUp(hasAccount): void {
+    let target: string;
+
     sessionStorage.setItem("redirect_after_login", "product/create/announce-overview");
-    let target;
     if (hasAccount === true) {
       target = "login";
     } else {
@@ -89,24 +89,24 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
     this.router.navigate([target]);
   }
 
-  submitProduct()
-  {
+  submitProduct(): void {
+    const sale = new Sale();
+    const seller = new Seller();
+    const product = new Product();
+
     if (this.formData.product.weightUnity === 'kg') {
       this.formData.product.weight *= 1000;
     }
-    let productPayload = {
-      product : this.formData.product
-    };
-    let sale = new Sale();
-    let seller = new Seller();
     seller.id = +sessionStorage.getItem("userId");
-    let product = new Product();
     product.id = this.formData.product.id;
     product.strId = this.formData.product.strId;
     sale.seller = seller;
     sale.product = product;
     sale.id = null;
-    let salePayload = {
+    const productPayload = {
+      product: this.formData.product
+    };
+    const salePayload = {
       sale: sale
     }
     //console.log(JSON.stringify(payload));

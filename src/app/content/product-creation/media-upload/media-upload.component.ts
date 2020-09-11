@@ -26,20 +26,31 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.isMandatory = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    for (const media of this.formData.product.productMedias) {
+      this.displayPreview(media.file);
+    }
+  }
+
   ngOnChanges(): void {}
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
+    const formData: FormData = this.getFormData(files);
+
+    this.addMedia(files[0]);
+    // this.sendMedia(formData);
+    this.displayPreview(files[0]);
+  }
+
+  private getFormData(files: FileList): FormData {
     const formData: FormData = new FormData();
 
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
     formData.append('mediaFile', files.item(0), files.item(0).name);
 
-    this.addMedia(files);
-    this.sendMedia(formData);
-    this.displayPreview(files[0]);
+    return formData;
   }
 
   public openImgPicker(): void {
@@ -48,8 +59,8 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     fileElem.click();
   }
 
-  private addMedia(file: FileList): void {
-    this.product.productMedias.push(new ProductMedia(0, file[0].name, 'image'));
+  private addMedia(file: File): void {
+    this.product.productMedias.push(new ProductMedia(file));
   }
 
   private sendMedia(data: FormData): void {
@@ -73,20 +84,39 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     nav.remove();
   }
 
-  private displayPreview(file: any): void {
-    const div: HTMLElement = document.getElementById("displayed-medias")
-    const nav: HTMLElement = document.createElement("nav");
-    const leftLevel: HTMLElement = document.createElement("div");
-    const rightLevel: HTMLElement = document.createElement("div");
-    const img: any = document.createElement("img");
-    const btn: HTMLElement = document.createElement("button");
+  private displayPreview(file: File): void {
     const reader: FileReader = new FileReader();
+    const img: any = this.constructPreview(file);
+
+    reader.onload = function (e) { img.src = reader.result; }
+    reader.readAsDataURL(file);
+  }
+
+  private constructPreview(file: any): any {
+    const medias: HTMLElement = document.getElementById("displayed-medias");
+    const img: any = this.constructImg(file);
+    const levels: HTMLElement = this.constructLevels(img);
+
+    medias.appendChild(levels);
+    return(img);
+  }
+
+  private constructImg(file: any): any {
+    const img: any = document.createElement("img");
 
     img.classList.add("previews");
     img.file = file;
     img.style.width = "250px";
     img.style.margin = "auto";
     img.style.border = "solid 3px var(--KTKP-GREEN)";
+    return img;
+  }
+
+  private constructLevels(img: any): HTMLElement {
+    const levels: HTMLElement = document.createElement("nav");
+    const leftLevel: HTMLElement = document.createElement("div");
+    const rightLevel: HTMLElement = document.createElement("div");
+    const btn: HTMLElement = document.createElement("button");
 
     leftLevel.appendChild(img);
     leftLevel.classList.add("level-left");
@@ -97,14 +127,10 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     rightLevel.appendChild(btn);
     rightLevel.classList.add("level-right");
 
-    nav.appendChild(leftLevel);
-    nav.appendChild(rightLevel);
-    nav.classList.add("level", "new-element");
-    nav.id = img.file.name;
-
-    div.appendChild(nav);
-
-    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-    reader.readAsDataURL(file);
+    levels.appendChild(leftLevel);
+    levels.appendChild(rightLevel);
+    levels.classList.add("level", "new-element");
+    levels.id = img.file.name;
+    return levels;
   }
 }

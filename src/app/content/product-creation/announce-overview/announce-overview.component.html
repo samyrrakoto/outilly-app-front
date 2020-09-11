@@ -71,7 +71,7 @@
   <tr>
     <td class="field-name">Livraison</td>
     <td *ngIf="formData.product.todeliver">Oui</td>
-    <td *ngIf="formData.product.todeliver === false">Non</td>
+    <td *ngIf="!formData.product.todeliver">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/product-delivery" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr *ngIf="formData.product.todeliver">
@@ -90,7 +90,7 @@
   <tr>
     <td class="field-name">Garantie</td>
     <td *ngIf="formData.product.isWarrantied">Oui</td>
-    <td *ngIf="formData.product.isWarrantied === false">Non</td>
+    <td *ngIf="!formData.product.isWarrantied">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/is-warrantied" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr *ngIf="formData.product.isWarrantied">
@@ -107,6 +107,7 @@
 </table>
 <hr/>
 <button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
+{{ isLoggedIn | async }}
 <ng-template #notLoggedIn>
   <div class="content has-text-left">
     <h4>Avez-vous un compte sur Ekipr ?</h4>
