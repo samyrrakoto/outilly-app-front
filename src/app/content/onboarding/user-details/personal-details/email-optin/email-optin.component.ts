@@ -21,5 +21,6 @@ export class EmailOptinComponent extends OnboardingComponent {
     this.isMandatory = false;
     this.formDataService.path.previous = "14/passwordconfirmation";
     this.formDataService.path.next = "validation";
+    this.formDataService.user.userProfile.emailOptin = false;
   }
 }

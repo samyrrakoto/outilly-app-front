@@ -13,16 +13,23 @@
   </div>
 </div>
 
-<input type="file" accept=".mp4, .avi" id="product-video" name="product-video" (change)="getFile()" class="button is-success">
+<input type="file" accept=".mp4, .avi" id="product-video" name="product-video" (change)="getFile()" class="button is-success" style="display: none">
+<button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
 
-<p *ngFor="let media of product.productMedias">
-  {{ media.path }}
-  <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
-</p>
+<div *ngFor="let media of product.productMedias">
+  <nav class="level" *ngIf="media.type === 'video'">
+    <div class="level-left">
+      {{ media.path }}
+    </div>
+    <div class="level-right">
+      <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
+    </div>
+  </nav>
+</div>
 
 <app-navigation
   [data]=formData

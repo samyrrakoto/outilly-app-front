@@ -8,3 +8,9 @@
 fa-icon {
   font-size: 0.8em;
 }
+
+#info {
+  font-size: 1em;
+  margin-right: 10px;
+  color: var(--KTKP-GREEN);
+}

@@ -44,6 +44,10 @@
   </div>
 </div>
 
+<div *ngIf="currentStateDescription" class="box has-text-left">
+  <fa-icon id="info" [icon]="['fas', 'info-circle']"></fa-icon>{{ currentStateDescription }}
+</div>
+
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>

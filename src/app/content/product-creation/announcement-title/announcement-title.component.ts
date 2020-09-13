@@ -3,7 +3,7 @@ import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-announcement-title',
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
 export class AnnouncementTitleComponent extends ProductCreationComponent implements OnInit {
+  @ViewChild("title") title: ElementRef;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
@@ -22,11 +23,13 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
     this.formData.path.previous = "batch-choice";
     this.formData.path.next = "media-upload";
     this.placeholder = "(ex :  Tondeuse à gazon Milwaukee 750-ZF)";
-    console.log(localStorage.getItem('id'));
-    console.log(localStorage.getItem('strId'));
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.title.nativeElement.focus();
   }
 
 }

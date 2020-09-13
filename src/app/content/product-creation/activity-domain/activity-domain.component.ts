@@ -4,7 +4,7 @@ import { FormValidatorService } from './../../../services/form-validator.service
 import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { ProductCreationComponent } from './../product-creation.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-activity-domain',
@@ -53,12 +53,14 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
 
   private addActivityDomain(activity: string): void {
     this.product.activityDomains.push(new ActivityDomain(activity));
+    console.log(this.product.activityDomains);
   }
 
   private removeActivityDomain(activity: string): void {
     let pos = this.findActivity(activity);
 
-    this.product.activityDomains.splice(pos);
+    this.product.activityDomains.splice(pos, 1);
+    console.log(this.product.activityDomains);
   }
 
   private findActivity(activity: string): number {

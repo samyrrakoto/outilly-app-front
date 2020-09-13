@@ -6,7 +6,7 @@
 
         <div class="control has-icons-left">
             <div class="field">
-                <input class="input" type="date" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate">
+                <input #birthdate class="input" type="date" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate">
             </div>
 
             <div class="icon is-small is-left">

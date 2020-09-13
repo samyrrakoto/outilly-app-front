@@ -26,7 +26,7 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
   ngOnInit(): void {}
 
   handleDelivery(): void {
-    this.formData.path.next = this.product.todeliver ? 'product-weight' : 'delivery-price-information';
+    this.formData.path.next = this.product.todeliver ? 'product-weight' : 'is-warrantied';
   }
 
   setFocus(id: string): void {

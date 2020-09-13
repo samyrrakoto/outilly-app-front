@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { RequestService } from './../../../services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
@@ -14,7 +14,8 @@ import { Brand } from 'src/app/models/brand';
   templateUrl: './product-brand.component.html',
   styleUrls: ['../product-creation.component.css', './product-brand.component.css']
 })
-export class ProductBrandComponent extends ProductCreationComponent implements OnInit, OnChanges {
+export class ProductBrandComponent extends ProductCreationComponent implements OnInit {
+  @ViewChild("brand") brand: ElementRef;
   myControl = new FormControl();
   brands: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -41,8 +42,9 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     );
   }
 
-  ngOnChanges(): void {}
-  ngDoCheck(): void {}
+  ngAfterViewInit(): void {
+    this.brand.nativeElement.focus();
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -66,6 +68,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
       this.product.brands.push(new Brand(brandId, this.myControl.value));
     }
     this.myControl.setValue('');
+    this.brand.nativeElement.focus();
   }
 
   removeBrand(brandName: string): void {
@@ -77,6 +80,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
       }
       i++;
     }
+    this.brand.nativeElement.focus();
   }
 
   private hasType(): boolean {
@@ -107,5 +111,9 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
       i++;
     }
     return -1;
+  }
+
+  test() {
+    console.log("test");
   }
 }

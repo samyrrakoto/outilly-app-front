@@ -43,7 +43,7 @@ export class NavigationComponent implements OnChanges {
   next(): void {
     const path = this.rootUri + this.formData.path.next;
 
-    // Verifying that the field matches the constraints it gets before going further
+    // Verifying that the field matches the constraints before going further
     if (this.formValidator.verify(this.formData)) {
       if (this.formData.path.current === '6/status' && this.formData.user.userProfile.type === 'professional') {
         this.goTo('6/status/siret');
@@ -54,8 +54,17 @@ export class NavigationComponent implements OnChanges {
     }
   }
 
-  backToRecap(): void {
+  backToProductRecap(): void {
     const path = this.rootUri + "announce-overview";
+
+    // Verifying that the field matches the constraints it gets before going further
+    if (this.formValidator.verify(this.formData)) {
+      this.router.navigateByUrl(path);
+    }
+  }
+
+  backToAccountRecap(): void {
+    const path = "onboarding/validation";
 
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formData)) {

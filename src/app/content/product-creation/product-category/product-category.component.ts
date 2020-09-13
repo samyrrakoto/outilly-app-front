@@ -7,7 +7,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { RequestService } from './../../../services/request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductCategory } from 'src/app/models/product-category';
 
 @Component({
@@ -16,6 +16,7 @@ import { ProductCategory } from 'src/app/models/product-category';
   styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
+  @ViewChild("category") category: ElementRef;
   myControl = new FormControl();
   categories: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -42,9 +43,9 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     );
   }
 
-  ngOnChanges(): void {}
-
-  ngDoCheck() {}
+  ngAfterViewInit(): void {
+    this.category.nativeElement.focus();
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -69,6 +70,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
     }
     this.myControl.setValue('');
+    this.category.nativeElement.focus();
   }
 
   removeCategory(categoryName: string): void {
@@ -80,6 +82,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       }
       i++;
     }
+    this.category.nativeElement.focus();
   }
 
   hasCategory(): boolean {

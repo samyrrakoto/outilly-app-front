@@ -5,7 +5,7 @@
         [stepName]=stepName></app-step-label>
 
         <p class="control has-icons-left">
-        <input class="input" type="email" (keydown)="onKey($event)" placeholder="{{ placeholder }}" [(ngModel)]="user.userProfile.email">
+        <input #email class="input" type="email" (keydown)="onKey($event)" placeholder="{{ placeholder }}" [(ngModel)]="user.userProfile.email">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
             </span>

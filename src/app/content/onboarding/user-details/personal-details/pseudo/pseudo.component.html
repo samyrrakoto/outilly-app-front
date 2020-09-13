@@ -6,7 +6,7 @@
       </app-step-label>
 
         <p class="control has-icons-left">
-            <input class="input" type="text" (keydown)="onKey($event)" placeholder="{{ this.placeholder }}" [(ngModel)]="user.username">
+            <input #pseudo class="input" type="text" (keydown)="onKey($event)" placeholder="{{ this.placeholder }}" [(ngModel)]="user.username">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>
             </span>

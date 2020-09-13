@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   styleUrls: ['../../../onboarding.component.css', './first-name.component.css']
 })
 export class FirstNameComponent extends OnboardingComponent implements OnChanges {
+  @ViewChild('firstName') firstName: ElementRef;
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
@@ -24,4 +25,8 @@ export class FirstNameComponent extends OnboardingComponent implements OnChanges
   }
 
   ngOnChanges() {}
+
+  ngAfterViewInit(): void {
+    this.firstName.nativeElement.focus();
+  }
 }

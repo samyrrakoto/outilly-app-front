@@ -6,7 +6,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { RequestService } from './../../../services/request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductType } from 'src/app/models/product-type';
 
 @Component({
@@ -15,7 +15,7 @@ import { ProductType } from 'src/app/models/product-type';
   styleUrls: ['../product-creation.component.css', './product-type.component.css']
 })
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
-
+  @ViewChild("type") type: ElementRef;
   myControl = new FormControl();
   types: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -42,9 +42,9 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     );
   }
 
-  ngOnChanges(): void {}
-
-  ngDoCheck() {}
+  ngAfterViewInit(): void {
+    this.type.nativeElement.focus();
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -69,6 +69,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       this.product.productTypes.push(new ProductType(typeId, this.myControl.value));
     }
     this.myControl.setValue('');
+    this.type.nativeElement.focus();
   }
 
   removeType(typeLabel: string): void {
@@ -80,6 +81,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       }
       i++;
     }
+    this.type.nativeElement.focus();
   }
 
   hasType(): boolean {

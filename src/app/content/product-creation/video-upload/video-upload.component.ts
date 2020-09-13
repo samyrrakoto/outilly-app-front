@@ -24,8 +24,10 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     this.formData.path.next = "announce-kind";
   }
 
+  ngOnInit(): void {}
+
   public getFile(): void {
-    let files = (<HTMLInputElement>document.getElementById('product-video')).files;
+    let files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
     const formData: FormData = new FormData();
 
     formData.append('productId', localStorage.getItem('id'));
@@ -36,6 +38,12 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     this.sendMedia(formData);
   }
 
+  public openImgPicker(): void {
+    const fileElem = document.getElementById("product-video");
+
+    fileElem.click();
+  }
+
   public sendMedia(data: any): void {
     const response = this.request.uploadMedia(data);
 
@@ -44,8 +52,8 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     });
   }
 
-  public addMedia(file: any): void {
-    this.product.productMedias.push(new ProductMedia(0, file.name, file.name, 'video'));
+  public addMedia(file: File): void {
+    this.product.productMedias.push(new ProductMedia(file, 'video'));
   }
 
   public removeMedia(mediaPath: string): void {
@@ -58,8 +66,4 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
       i++;
     }
   }
-
-  ngOnInit(): void {
-  }
-
 }

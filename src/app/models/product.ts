@@ -11,6 +11,7 @@ export class Product {
     productCategories: Array<ProductCategory>;
     quality: string;
     weight: number;
+    weightUnity: string;
     locality: string;
     productTypes: Array<ProductType>;
     description: string;
@@ -33,6 +34,7 @@ export class Product {
         this.productCategories = [];
         this.quality = '';
         this.weight = 0;
+        this.weightUnity = 'kg';
         this.locality = '';
         this.productTypes = [];
         this.description = '';
