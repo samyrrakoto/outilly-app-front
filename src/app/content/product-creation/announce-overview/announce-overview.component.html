@@ -81,7 +81,7 @@
   </tr>
   <tr *ngIf="formData.product.todeliver">
     <td class="field-name">Poids du colis</td>
-    <td>{{ formData.product.weight * 1000 }}kg</td>
+    <td>{{ formData.product.weight }}{{ formData.product.weightUnity }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-weight" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -107,7 +107,7 @@
 </table>
 <hr/>
 <button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
-{{ isLoggedIn | async }}
+
 <ng-template #notLoggedIn>
   <div class="content has-text-left">
     <h4>Avez-vous un compte sur Ekipr ?</h4>

@@ -26,10 +26,13 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('id') === null) {
+    if (localStorage.getItem('id') === null || localStorage.getItem('strId') === null) {
       this.createProduct();
     }
     this.getUser();
+  }
+
+  ngOnDestroy(): void {
     this.formData.product.id = +localStorage.getItem(('id'));
     this.formData.product.strId = localStorage.getItem('strId');
   }

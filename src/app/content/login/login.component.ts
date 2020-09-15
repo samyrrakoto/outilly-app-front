@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   model: any = {};
-  loginFailed = false;
+  loginFailed: boolean = false;
 
   constructor(
       private authService: AuthService,
@@ -19,13 +19,12 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (localStorage.getItem("access_token") != null)
-    {
+    if (localStorage.getItem("access_token") != null) {
       this.checkHasRedirectAfterLogin();
     }
   }
 
-  login() {
+  public login(): void {
     this.authService.login(this.model).then(
         (success) => {
           this.checkHasRedirectAfterLogin();
@@ -35,8 +34,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  private checkHasRedirectAfterLogin(){
-    if (sessionStorage.getItem("redirect_after_login") === null){
+  private checkHasRedirectAfterLogin(): void{
+    if (sessionStorage.getItem("redirect_after_login") === null) {
       this.router.navigate(['user/dashboard']);
     } else {
       this.router.navigate([sessionStorage.getItem("redirect_after_login")]);
