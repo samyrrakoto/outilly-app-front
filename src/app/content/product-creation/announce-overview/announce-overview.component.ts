@@ -15,7 +15,7 @@ import { Product } from 'src/app/models/product';
   templateUrl: './announce-overview.component.html',
   styleUrls: ['../product-creation.component.css', './announce-overview.component.css']
 })
-export class AnnounceOverviewComponent extends ProductCreationComponent  implements OnInit {
+export class AnnounceOverviewComponent extends ProductCreationComponent implements OnInit {
 
   isLoggedIn: Observable<boolean>;
   productCreated: boolean;
@@ -38,21 +38,8 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
     this.mapSessionProductToFormData();
   }
 
-  setFocus(id: string): void {
-    const tiles = ['yes', 'no'];
-
-    document.getElementById(id).classList.add('chosen-tile');
-
-    for (const tile of tiles) {
-      if (tile !== id) {
-        document.getElementById(tile).classList.remove('chosen-tile');
-      }
-    }
-  }
-
-  private mapSessionProductToFormData(): void
-  {
-    if(sessionStorage.getItem("current_product") === null) {
+  private mapSessionProductToFormData(): void {
+    if (sessionStorage.getItem("current_product") === null) {
       this.formData.isProductComplete = false;
       this.backToStart();
     } else if (!this.checkProductExistsInSession()) {
@@ -60,20 +47,17 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
     }
   }
 
-  private backToStart(): void
-  {
+  private backToStart(): void {
     this.router.navigate(['product/create']);
   }
 
-  private setProductSession(): void
-  {
+  private setProductSession(): void {
     if (this.checkProductExistsInSession()) {
       sessionStorage.setItem("current_product", JSON.stringify(this.formData.product));
     }
   }
 
-  private checkProductExistsInSession(): boolean
-  {
+  private checkProductExistsInSession(): boolean {
     return (this.formData.product.id != 0 && this.formData.product.strId != null);
   }
 
@@ -90,9 +74,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent  impleme
   }
 
   submitProduct(): void {
-    const sale = new Sale();
-    const seller = new Seller();
-    const product = new Product();
+    const sale: Sale = new Sale();
+    const seller: Seller = new Seller();
+    const product: Product = new Product();
 
     if (this.formData.product.weightUnity === 'kg') {
       this.formData.product.weight *= 1000;

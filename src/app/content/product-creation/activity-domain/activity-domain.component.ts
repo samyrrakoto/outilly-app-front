@@ -53,14 +53,12 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
 
   private addActivityDomain(activity: string): void {
     this.product.activityDomains.push(new ActivityDomain(activity));
-    console.log(this.product.activityDomains);
   }
 
   private removeActivityDomain(activity: string): void {
     let pos = this.findActivity(activity);
 
     this.product.activityDomains.splice(pos, 1);
-    console.log(this.product.activityDomains);
   }
 
   private findActivity(activity: string): number {
