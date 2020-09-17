@@ -68,6 +68,14 @@
                   "with": "src/environments/environment.staging.ts"
                 }
               ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -82,6 +90,9 @@
             },
             "staging": {
               "browserTarget": "angular:build:staging"
+            },
+            "dev": {
+              "browserTarget": "angular:build:dev"
             }
           }
         },
