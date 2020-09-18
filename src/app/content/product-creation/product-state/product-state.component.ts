@@ -33,7 +33,7 @@ export class ProductStateComponent extends ProductCreationComponent {
   }
 
   setFocus(id: string): void {
-    const tiles = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
+    const tiles: Array<string> = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 
     document.getElementById(id).classList.add('chosen-tile');
 

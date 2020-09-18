@@ -53,8 +53,8 @@ export class RequestService {
     return this.getData(this.uri.SALE, saleId);
   }
 
-  getUserInfos(){
-    return this.getData(this.uri.SECURE, this.uri.USER);
+  getUserInfos(): any {
+    return this.getData(this.uri.SECURE + this.uri.USER);
   }
 
   updateProduct(data: any): Observable<HttpResponse<any>>{

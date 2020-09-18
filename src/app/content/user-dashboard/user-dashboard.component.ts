@@ -8,25 +8,37 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-  res: any;
-  constructor(
-    private request: RequestService,
-    private auth: AuthService
-    ) { }
+  user: any;
+
+  constructor(private request: RequestService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getUserInfos();
   }
 
-  getUserInfos(){
-    this.request.getUserInfos().subscribe(result => {
-      this.res = result;
-      console.log(result);
-      console.log(this.res);
-    })
+  ngAfterViewChecked(): void {
+    console.log(this.user.userProfile.firstname);
   }
 
-  logOut():void {
+  private getUserInfos(): void {
+    this.request.getUserInfos().subscribe(result => {
+      this.user = result;
+    });
+  }
+
+  public logOut(): void {
     this.auth.logout();
+  }
+
+  public setFocus(id: string): void {
+    const tabs: Array<string> = ['information', 'payment', 'sale'];
+
+    for (const tab of tabs) {
+      if (tab !== id) {
+        document.getElementById(tab).classList.remove('is-active');
+      }
+    }
+
+    document.getElementById(id).classList.add('is-active');
   }
 }

@@ -1,0 +1,97 @@
+<div class="content">
+
+  <table class="table">
+    <tr>
+      <td colspan="3"><h2 class="subtitle">Informations générales</h2></td>
+    </tr>
+    <tr>
+      <td class="field-name">Nom d'utilisateur</td>
+      <td>{{ formDataService.user.username }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/1/username" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Prénom</td>
+      <td>{{ formDataService.user.userProfile.firstName }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/3/firstname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Nom</td>
+      <td>{{ formDataService.user.userProfile.lastName }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/4/lastname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Genre</td>
+      <td [ngSwitch]="formDataService.user.userProfile.gender">
+        <span *ngSwitchCase="'female'">Femme</span>
+        <span *ngSwitchCase="'male'">Homme</span>
+        <span *ngSwitchCase="'other'">Autre</span>
+      </td>
+      <td class="has-text-right"><button routerLink="/onboarding/5/gender" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Date de naissance</td>
+      <td>{{ formDataService.user.userProfile.birthdate | date:'dd/MM/yyyy' }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/7/birthdate" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Statut</td>
+      <td [ngSwitch]="formDataService.user.userProfile.type">
+        <span *ngSwitchCase="'individual'">Particulier</span>
+        <span *ngSwitchCase="'professional'">Professionnel</span>
+      </td>
+      <td class="has-text-right"><button routerLink="/onboarding/6/status" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
+      <td class="field-name">SIRET</td>
+      <td>{{ formDataService.user.userProfile.company.siret }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/6/status/siret" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
+      <td class="field-name">TVA</td>
+      <td>{{ formDataService.user.userProfile.company.tvanumber }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/6/status/tva" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td colspan="3"><h2 class="subtitle">Localisation</h2></td>
+    </tr>
+    <tr>
+      <td class="field-name">Pays</td>
+      <td [ngSwitch]="formDataService.user.userProfile.address.country.isocode">
+        <span *ngSwitchCase="'FR'">France</span>
+        <span *ngSwitchCase="'BE'">Belgique</span>
+        <span *ngSwitchCase="'CH'">Suisse</span>
+        <span *ngSwitchCase="'LU'">Luxembourg</span>
+      </td>
+      <td class="has-text-right"><button routerLink="/onboarding/8/country" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Code postal</td>
+      <td>{{ formDataService.user.userProfile.address.zipcode }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/9/zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Ville</td>
+      <td>{{ formDataService.user.userProfile.address.city }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/10/city" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Voie</td>
+      <td>{{ formDataService.user.userProfile.address.line1 }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/11/street" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td colspan="3"><h2 class="subtitle">Contact</h2></td>
+    </tr>
+    <tr>
+      <td class="field-name">Email</td>
+      <td>{{ formDataService.user.userProfile.email }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/2/email" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+    <tr>
+      <td class="field-name">Téléphone</td>
+      <td>{{ formDataService.user.userProfile.phone1 }}</td>
+      <td class="has-text-right"><button routerLink="/onboarding/12/phonenumber" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+    </tr>
+  </table>
+  <button class="button is-success">On sauvegarde !</button>
+</div>

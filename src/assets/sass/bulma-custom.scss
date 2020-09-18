@@ -7,11 +7,16 @@ $pink: #FA7C91;
 $brown: #757763;
 $grey-light: #838383;
 $grey-lighter: #F6F6F6;
+$grey-dark: #3e3e3e;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 $success: #7DD2B3;
 $danger: #E35557;
-$warning: #F6A933;
+$warning: #030303;
+$link: #3A4984;
+$tabs-toggle-link-active-background-color: $grey-dark;
+$tabs-link-color: $danger;
+$tabs-toggle-link-active-color: white;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
