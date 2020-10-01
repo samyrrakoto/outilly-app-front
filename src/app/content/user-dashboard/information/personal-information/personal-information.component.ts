@@ -1,3 +1,4 @@
+import { Address } from 'src/app/models/address';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../../services/auth.service';
 import { RequestService } from './../../../../services/request.service';
@@ -11,10 +12,16 @@ import { Component, Input, OnInit, ɵɵelementContainerStart } from '@angular/co
 })
 export class PersonalInformationComponent extends UserDashboardComponent implements OnInit {
   idNames: Array<string>;
+  addressFlag: boolean;
+  nextIndex: number;
+  newPwd: string;
 
   constructor(protected request: RequestService, protected auth: AuthService, protected router: Router) {
     super(request, auth, router);
     this.idNames = [];
+    this.addressFlag = false;
+    this.nextIndex = 0;
+    this.newPwd = '';
   }
 
   ngOnInit(): void {
@@ -76,6 +83,17 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     this.request.updateUser(payload).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  public addAddress(): void {
+    this.nextIndex = this.user.userProfile.addresses.length;
+    this.user.userProfile.addresses.push(new Address());
+    console.log(this.nextIndex);
+    this.addressFlag = true;
+  }
+
+  public removeAddress(index: number): void {
+    this.user.userProfile.addresses.splice(index);
   }
 
   public updateUserAddress(addressIndex: number): void {

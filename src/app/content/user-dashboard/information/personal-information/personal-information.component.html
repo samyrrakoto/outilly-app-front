@@ -103,8 +103,23 @@
               <td><input id="line" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
             </tr>
           </table>
-          <button id="save" class="button is-success is-small" (click)="updateUserAddress(i)"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour cette adresse</button>
+
+          <div class="field is-grouped">
+            <p class="control">
+              <button class="button is-success is-small" (click)="updateUserAddress(i)">
+                <fa-icon [icon]="['fas', 'save']"></fa-icon>Sauvegarder
+              </button>
+            </p>
+            <p class="control">
+              <button class="button is-danger is-small" (click)="removeAddress(i)">
+                <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>Supprimer
+              </button>
+            </p>
+          </div>
         </div>
+
+        <button class="button is-info is-small" (click)="addAddress()" style="margin-top: 20px">Ajouter une adresse</button>
+
     </mat-expansion-panel>
 
     <!-- CONTACT INFORMATION -->
@@ -157,12 +172,17 @@
         </mat-expansion-panel-header>
           <table class="table">
             <tr>
-              <td class="field-name">Mot de passe</td>
+              <td class="field-name">Mot de passe actuel</td>
               <td><input id="password" type="password" class="input is-small" [(ngModel)]="user.password"></td>
             </tr>
 
-            <tr *ngIf="user.password">
-              <td class="field-name">Confirmation du mot de passe</td>
+            <tr>
+              <td class="field-name">Nouveau mot de passe</td>
+              <td><input id="newPwd" type="password" class="input is-small" [(ngModel)]="newPwd"></td>
+            </tr>
+
+            <tr *ngIf="newPwd">
+              <td class="field-name">Confirmation du nouveau mot de passe</td>
               <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
             </tr>
           </table>
