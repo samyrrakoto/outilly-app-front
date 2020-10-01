@@ -31,7 +31,6 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "angular-fontawesome": "^1.0.0",
-    "angular-intl": "^2.0.1",
     "bulma": "^0.8.2",
     "bulma-accordion": "^2.0.1",
     "bulma-carousel": "^4.0.4",
