@@ -8,9 +8,10 @@ export class User {
     userProfile: UserProfile;
 
     constructor() {
-        this.username = "";
-        this.password = "";
-        this.passwordConfirmation = "";
-        this.userProfile = new UserProfile();
+      this.id = 0;
+      this.username = '';
+      this.password = '';
+      this.passwordConfirmation = '';
+      this.userProfile = new UserProfile();
     }
 }

@@ -219,20 +219,20 @@ export class FormValidatorService {
     return true;
   }
 
-  firstNameVerify(data: FormDataService): boolean {
-    const firstName: string = data.user.userProfile.firstName;
-    const empty: boolean = this.isEmpty(firstName);
-    const nameConform: boolean = this.isNameConform(firstName);
+  firstnameVerify(data: FormDataService): boolean {
+    const firstname: string = data.user.userProfile.firstname;
+    const empty: boolean = this.isEmpty(firstname);
+    const nameConform: boolean = this.isNameConform(firstname);
 
     if (empty || nameConform == false)
       return false;
     return true;
   }
 
-  lastNameVerify(data: FormDataService): boolean {
-    const lastName: string = data.user.userProfile.lastName;
-    const empty: boolean = this.isEmpty(lastName);
-    const nameConform: boolean = this.isNameConform(lastName);
+  lastnameVerify(data: FormDataService): boolean {
+    const lastname: string = data.user.userProfile.lastname;
+    const empty: boolean = this.isEmpty(lastname);
+    const nameConform: boolean = this.isNameConform(lastname);
 
     if (empty || nameConform == false)
       return false;
@@ -258,7 +258,7 @@ export class FormValidatorService {
   }
 
   birthdateVerify(data: FormDataService): boolean {
-    const birthdate: Date = data.user.userProfile.birthdate;
+    const birthdate: number = data.user.userProfile.birthdate;
     const empty: boolean = this.isEmpty(birthdate);
 
     if (empty)
@@ -267,7 +267,7 @@ export class FormValidatorService {
   }
 
   countryVerify(data: FormDataService): boolean {
-    const country: string = data.user.userProfile.address.country.isocode;
+    const country: string = data.user.userProfile.addresses[0].country.isoCode;
     const empty: boolean = this.isEmpty(country);
 
     if (empty)
@@ -276,12 +276,12 @@ export class FormValidatorService {
   }
 
   zipcodeVerify(data: FormDataService): boolean {
-    const zipcode: string = data.user.userProfile.address.zipcode;
+    const zipcode: string = data.user.userProfile.addresses[0].zipcode;
     const empty: boolean = this.isEmpty(zipcode);
     const notNum: boolean = this.isNotNum(zipcode);
     let length: number;
 
-    switch (data.user.userProfile.address.country.isocode) {
+    switch (data.user.userProfile.addresses[0].country.isoCode) {
       case "FR":
         length = 5;
         break;
@@ -300,7 +300,7 @@ export class FormValidatorService {
   }
 
   cityVerify(data: FormDataService): boolean {
-    const city: string = data.user.userProfile.address.city;
+    const city: string = data.user.userProfile.addresses[0].city;
     const empty: boolean = this.isEmpty(city);
 
     if (empty)
@@ -309,7 +309,7 @@ export class FormValidatorService {
   }
 
   streetVerify(data: FormDataService): boolean {
-    const street: string = data.user.userProfile.address.line1;
+    const street: string = data.user.userProfile.addresses[0].line1;
     const empty: boolean = this.isEmpty(street);
 
     if (empty)

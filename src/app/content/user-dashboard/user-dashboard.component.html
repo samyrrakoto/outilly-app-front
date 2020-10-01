@@ -1,2 +1,17 @@
-<p>{{ res.username }}</p>
-<button (click)="this.logOut()">Logout</button>
+<div class="columns is-centered">
+  <div class="column is-one-third has-text-centered">
+    <h1 class="title">Bienvenue</h1>
+
+    <div id="tabs" class="tabs is-toggle is-toggle-rounded is-centered" style="margin-top: 20px;">
+      <ul>
+        <li id="information" class="is-active" (click)="setFocus('information')" routerLink="/user/dashboard/information"><a>Mes informations</a></li>
+        <li id="payment" (click)="setFocus('payment')" routerLink="/user/dashboard/activity-log"><a>Historique</a></li>
+        <li id="sale" (click)="setFocus('sale')"><a>Vendre</a></li>
+      </ul>
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <button class="button is-danger is-outlined" (click)="logOut()" style="margin-top: 20px;">Déconnexion</button>
+  </div>
+</div>

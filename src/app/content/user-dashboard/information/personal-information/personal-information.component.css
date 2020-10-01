@@ -1,0 +1,82 @@
+.content {
+  margin-top: 10px;
+}
+
+.table {
+  margin: auto;
+  width: 100%;
+}
+
+.table td {
+  border: none;
+  vertical-align: middle;
+}
+
+.notification {
+  font-size: 14px;
+}
+
+.field-name {
+  font-weight: 500;
+}
+
+select {
+  border: none;
+  border-bottom: solid 2px var(--KTKP-GREEN);
+  background: transparent;
+}
+
+select:active {
+  border: none;
+  border-bottom: solid 2px var(--KTKP-GREEN);
+  background: transparent;
+}
+
+fa-icon {
+  color: white;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+.pointed {
+  cursor: pointer;
+}
+
+.subtitle {
+  text-align: left;
+  font-weight: bold;
+  border-bottom: solid 3px var(--KTKP-GREEN);
+  padding: 10px;
+}
+
+.not-editable {
+  border: none;
+}
+
+.section-title {
+  font-size: 1em;
+  font-weight: bold;
+  border-bottom: solid 2px black;
+}
+
+.section-icon {
+  color: black;
+  margin-right: 10px;
+}
+
+mat-panel-title {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+mat-expansion-panel {
+  border: none;
+  border-left: solid 4px var(--KTKP-GREEN);
+  box-shadow: unset;
+  margin-bottom: 10px;
+}
+
+#save {
+  color: white;
+  margin-top: 15px;
+}

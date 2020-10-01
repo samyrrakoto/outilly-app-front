@@ -1,0 +1,7 @@
+#tabs a {
+  color: black;
+}
+
+#tabs .is-active a {
+  color: white;
+}

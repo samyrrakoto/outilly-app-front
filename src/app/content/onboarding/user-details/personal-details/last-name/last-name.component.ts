@@ -15,7 +15,7 @@ export class LastNameComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.errorMessages;
-    this.formDataService.fieldName = "lastName";
+    this.formDataService.fieldName = "lastname";
     this.user = formDataService.user;
     this.stepNb = 4;
     this.stepName = "Quel est votre nom ?";

@@ -86,6 +86,10 @@ import { ReservePriceComponent } from './content/product-creation/reserve-price/
 import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';
 import { StepProgressComponent } from './content/onboarding/step-progress/step-progress.component';
 import { AnnounceOverviewComponent } from './content/product-creation/announce-overview/announce-overview.component';
+import { InformationComponent } from './content/user-dashboard/information/information.component';
+import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
+import { ActivityLogComponent } from './content/user-dashboard/activity-log/activity-log.component';
+import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
 
 @NgModule({
   declarations: [
@@ -162,7 +166,11 @@ import { AnnounceOverviewComponent } from './content/product-creation/announce-o
     ReservePriceComponent,
     AccountRequestComponent,
     StepProgressComponent,
-    AnnounceOverviewComponent
+    AnnounceOverviewComponent,
+    InformationComponent,
+    PaymentInformationComponent,
+    ActivityLogComponent,
+    PersonalInformationComponent
   ],
   imports: [
     HttpClientModule,

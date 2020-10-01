@@ -1,0 +1,8 @@
+#under-tabs a {
+  color: var(--MAT-GREY);
+}
+
+#under-tabs .is-active a {
+  background-color: var(--KTKP-GREEN);
+  color: white;
+}

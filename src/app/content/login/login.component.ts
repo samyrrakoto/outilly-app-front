@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    document.getElementById('username').focus();
+  }
+
   public login(): void {
     this.authService.login(this.model).then(
         (success) => {

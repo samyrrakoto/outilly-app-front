@@ -15,7 +15,7 @@ export class FirstNameComponent extends OnboardingComponent implements OnChanges
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.errorMessages;
-    this.formDataService.fieldName = "firstName";
+    this.formDataService.fieldName = "firstname";
     this.user = formDataService.user;
     this.stepNb = 3;
     this.stepName = "Quel est votre prénom ?";

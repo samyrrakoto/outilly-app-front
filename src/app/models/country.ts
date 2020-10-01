@@ -1,7 +1,9 @@
 export class Country {
-    isocode: string;
+  name: string;
+  isoCode: string;
 
-    constructor() {
-        this.isocode = "";
-    }
+  constructor() {
+    this.name = '';
+    this.isoCode = '';
+  }
 }

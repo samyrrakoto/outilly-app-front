@@ -1,11 +1,13 @@
 export class Company {
-    name: string;
-    siret: string;
-    tvanumber: string
+  id: number;
+  name: string;
+  siret: string;
+  tvanumber: string
 
-    constructor() {
-        this.name = "";
-        this.siret = "";
-        this.tvanumber = "";
-    }
+  constructor() {
+    this.id = 0;
+    this.name = '';
+    this.siret = '';
+    this.tvanumber = '';
+  }
 }
