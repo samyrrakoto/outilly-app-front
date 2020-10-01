@@ -1,6 +1,6 @@
+import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
 import { ActivityLogComponent } from './content/user-dashboard/activity-log/activity-log.component';
-import { PaymentInformationComponent } from './content/user-dashboard/payment-information/payment-information.component';
 import { InformationComponent } from './content/user-dashboard/information/information.component';
 import { AnnounceOverviewComponent } from './content/product-creation/announce-overview/announce-overview.component';
 import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';

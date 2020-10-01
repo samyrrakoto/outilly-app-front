@@ -1,97 +1,172 @@
 <div class="content">
 
-  <table class="table">
-    <tr>
-      <td colspan="3"><h2 class="subtitle">Informations générales</h2></td>
-    </tr>
-    <tr>
-      <td class="field-name">Nom d'utilisateur</td>
-      <td>{{ formDataService.user.username }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/1/username" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Prénom</td>
-      <td>{{ formDataService.user.userProfile.firstName }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/3/firstname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Nom</td>
-      <td>{{ formDataService.user.userProfile.lastName }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/4/lastname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Genre</td>
-      <td [ngSwitch]="formDataService.user.userProfile.gender">
-        <span *ngSwitchCase="'female'">Femme</span>
-        <span *ngSwitchCase="'male'">Homme</span>
-        <span *ngSwitchCase="'other'">Autre</span>
-      </td>
-      <td class="has-text-right"><button routerLink="/onboarding/5/gender" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Date de naissance</td>
-      <td>{{ formDataService.user.userProfile.birthdate | date:'dd/MM/yyyy' }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/7/birthdate" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Statut</td>
-      <td [ngSwitch]="formDataService.user.userProfile.type">
-        <span *ngSwitchCase="'individual'">Particulier</span>
-        <span *ngSwitchCase="'professional'">Professionnel</span>
-      </td>
-      <td class="has-text-right"><button routerLink="/onboarding/6/status" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
-      <td class="field-name">SIRET</td>
-      <td>{{ formDataService.user.userProfile.company.siret }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/6/status/siret" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
-      <td class="field-name">TVA</td>
-      <td>{{ formDataService.user.userProfile.company.tvanumber }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/6/status/tva" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td colspan="3"><h2 class="subtitle">Localisation</h2></td>
-    </tr>
-    <tr>
-      <td class="field-name">Pays</td>
-      <td [ngSwitch]="formDataService.user.userProfile.address.country.isocode">
-        <span *ngSwitchCase="'FR'">France</span>
-        <span *ngSwitchCase="'BE'">Belgique</span>
-        <span *ngSwitchCase="'CH'">Suisse</span>
-        <span *ngSwitchCase="'LU'">Luxembourg</span>
-      </td>
-      <td class="has-text-right"><button routerLink="/onboarding/8/country" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Code postal</td>
-      <td>{{ formDataService.user.userProfile.address.zipcode }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/9/zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Ville</td>
-      <td>{{ formDataService.user.userProfile.address.city }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/10/city" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Voie</td>
-      <td>{{ formDataService.user.userProfile.address.line1 }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/11/street" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td colspan="3"><h2 class="subtitle">Contact</h2></td>
-    </tr>
-    <tr>
-      <td class="field-name">Email</td>
-      <td>{{ formDataService.user.userProfile.email }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/2/email" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-    <tr>
-      <td class="field-name">Téléphone</td>
-      <td>{{ formDataService.user.userProfile.phone1 }}</td>
-      <td class="has-text-right"><button routerLink="/onboarding/12/phonenumber" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-    </tr>
-  </table>
-  <button class="button is-success">On sauvegarde !</button>
+    <!-- GENERAL INFORMATION -->
+    <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            <fa-icon class="section-icon" [icon]="['fas', 'user']"></fa-icon>Informations générales
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <table class="table">
+              <tr>
+                <td class="field-name">Nom d'utilisateur</td>
+                <td><input id="username" type="text" class="input is-small not-editable" [(ngModel)]="user.username" readonly></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">Prénom</td>
+                <td><input id="firstname" type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.firstname" readonly></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">Nom</td>
+                <td><input id="lastname" type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.lastname" readonly></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">Genre</td>
+                <td colspan="2">
+                  <select [(ngModel)]="user.userProfile.gender" class="select pointed">
+                    <option value="male">Homme</option>
+                    <option value="female">Femme</option>
+                    <option value="other">Autre</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="field-name">Date de naissance</td>
+                <td><input id="birthdate" type="date" class="input is-small" [(ngModel)]="birthdate"></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">Statut</td>
+                <td colspan="2">
+                  <select [(ngModel)]="user.userProfile.type" class="select pointed">
+                    <option value="individual">Particulier</option>
+                    <option value="professional">Professionnel</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr *ngIf="user.userProfile.type === 'professional'">
+                <td class="field-name">SIRET</td>
+                <td><input id="siret" type="text" class="input is-small" [(ngModel)]="user.userProfile.company.siret"></td>
+              </tr>
+
+              <tr *ngIf="user.userProfile.type === 'professional'">
+                <td class="field-name">TVA</td>
+                <td><input id="tva" type="text" class="input is-small" [(ngModel)]="user.userProfile.company.tvanumber"></td>
+              </tr>
+            </table>
+          </mat-panel-description>
+      </mat-expansion-panel>
+
+    <!-- ADDRESSES -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            <fa-icon class="section-icon" [icon]="['fas', 'house-user']"></fa-icon>Adresses
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let address of user.userProfile.addresses; let i = index">
+          <table class="table">
+            <tr>
+              <td colspan="2" class="section-title">Adresse {{ i + 1 }} - {{ user.userProfile.addresses[i].city }}</td>
+            </tr>
+            <tr>
+              <td class="field-name">Pays</td>
+              <td>
+                <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="select pointed">
+                  <option value="FR">France</option>
+                  <option value="CH">Suisse</option>
+                  <option value="LU">Luxembourg</option>
+                  <option value="BE">Belgique</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Code postal</td>
+              <td><input id="zipcode" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].zipcode"></td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Ville</td>
+              <td><input id="city" type="text" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].city"></td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Voie</td>
+              <td><input id="line" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
+            </tr>
+          </table>
+          <button id="save" class="button is-success is-small" (click)="updateUserAddress(i)"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour cette adresse</button>
+        </div>
+    </mat-expansion-panel>
+
+    <!-- CONTACT INFORMATION -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          <fa-icon class="section-icon" [icon]="['fas', 'envelope-open']"></fa-icon>Contact
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+          <table class="table">
+            <tr>
+              <td class="field-name">Email</td>
+              <td><input id="email" class="input is-small" [(ngModel)]="user.userProfile.email"></td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Recevoir des actualités par mail</td>
+              <td>
+                <select [(ngModel)]="user.userProfile.emailOptin" class="select pointed">
+                  <option value="1">Oui</option>
+                  <option value="0">Non</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Téléphone</td>
+              <td><input id="phone" class="input is-small" [(ngModel)]="user.userProfile.phone1"></td>
+            </tr>
+
+            <tr>
+              <td class="field-name">Recevoir des actualités par SMS</td>
+              <td>
+                <select [(ngModel)]="user.userProfile.phone1Optin" class="select pointed">
+                  <option value="1">Oui</option>
+                  <option value="0">Non</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+    </mat-expansion-panel>
+
+
+    <!-- SECURITY INFORMATION -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          <fa-icon class="section-icon" [icon]="['fas', 'lock']"></fa-icon>Sécurité
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+          <table class="table">
+            <tr>
+              <td class="field-name">Mot de passe</td>
+              <td><input id="password" type="password" class="input is-small" [(ngModel)]="user.password"></td>
+            </tr>
+
+            <tr *ngIf="user.password">
+              <td class="field-name">Confirmation du mot de passe</td>
+              <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
+            </tr>
+          </table>
+    </mat-expansion-panel>
+    </mat-accordion>
+  <button id="save" class="button is-success" (click)="updateUserData()">Mettre à jour</button>
 </div>

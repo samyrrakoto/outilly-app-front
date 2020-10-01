@@ -37,6 +37,12 @@ export class RequestService {
     return this.http.get<any>(this.uri.path);
   }
 
+  putData(ressource: string, data: any, param: string=''): Observable<any> {
+    this.uri.setUri(ressource, param);
+
+    return this.http.put<any>(this.uri.path, data)
+  }
+
   login(data: any): Observable<HttpResponse<AccessToken>> {
     return this.postData(data, this.uri.LOGIN, '');
   }
@@ -69,4 +75,7 @@ export class RequestService {
     return this.postData(data, this.uri.PRODUCT_MEDIA_CREATE, '', null);
   }
 
+  updateUser(data: any): Observable<HttpResponse<any>> {
+    return this.putData(this.uri.UPDATE_USER, data);
+  }
 }

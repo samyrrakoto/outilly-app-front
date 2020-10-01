@@ -30,7 +30,7 @@ export class PseudoComponent extends OnboardingComponent implements OnInit, OnCh
   ngOnInit() {
     this.formDataService.user.userProfile.gender = 'female';
     this.formDataService.user.userProfile.type = 'individual';
-    this.formDataService.user.userProfile.address.country.isocode = 'FR';
+    this.formDataService.user.userProfile.addresses[0].country.isoCode = 'FR';
     this.formDataService.user.userProfile.emailOptin = false;
   }
 

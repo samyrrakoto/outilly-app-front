@@ -12,12 +12,12 @@
       </tr>
       <tr>
         <td class="field-name">Prénom</td>
-        <td>{{ formDataService.user.userProfile.firstName }}</td>
+        <td>{{ formDataService.user.userProfile.firstname }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/3/firstname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Nom</td>
-        <td>{{ formDataService.user.userProfile.lastName }}</td>
+        <td>{{ formDataService.user.userProfile.lastname }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/4/lastname" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
@@ -57,7 +57,7 @@
       </tr>
       <tr>
         <td class="field-name">Pays</td>
-        <td [ngSwitch]="formDataService.user.userProfile.address.country.isocode">
+        <td [ngSwitch]="formDataService.user.userProfile.addresses[0].country.isoCode">
           <span *ngSwitchCase="'FR'">France</span>
           <span *ngSwitchCase="'BE'">Belgique</span>
           <span *ngSwitchCase="'CH'">Suisse</span>
@@ -67,17 +67,17 @@
       </tr>
       <tr>
         <td class="field-name">Code postal</td>
-        <td>{{ formDataService.user.userProfile.address.zipcode }}</td>
+        <td>{{ formDataService.user.userProfile.addresses[0].zipcode }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/9/zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Ville</td>
-        <td>{{ formDataService.user.userProfile.address.city }}</td>
+        <td>{{ formDataService.user.userProfile.addresses[0].city }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/10/city" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Voie</td>
-        <td>{{ formDataService.user.userProfile.address.line1 }}</td>
+        <td>{{ formDataService.user.userProfile.addresses[0].line1 }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/11/street" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>

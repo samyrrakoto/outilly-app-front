@@ -20,6 +20,7 @@ export class Uri {
     readonly TYPES: string = 'product/types/all';
     readonly PRODUCT_MEDIA_CREATE = 'product/media/create';
     readonly GET_USER = 'secure/user';
+    readonly UPDATE_USER = 'secure/user/update';
     path: string;
 
     constructor() {
