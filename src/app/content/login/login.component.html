@@ -11,9 +11,9 @@
             <section class="section">
                 <form (ngSubmit)="login()" #form="ngForm">
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label">Nom d'utilisateur</label>
                     <div class="control has-icons-right">
-                        <input id="email" class="input" type="text" name="username" placeholder="Email" [(ngModel)]="model.username" required />
+                        <input id="username" class="input" type="text" name="username" [(ngModel)]="model.username" required />
                         <span class="icon is-small is-right">
                             <fa-icon [icon]="['fas','user']"></fa-icon>
                         </span>
@@ -23,7 +23,7 @@
                 <div class="field">
                     <label class="label">Mot de passe</label>
                     <div class="control has-icons-right">
-                        <input class="input" type="password" name="password" placeholder="Mot de passe" [(ngModel)]="model.password" required />
+                        <input class="input" type="password" name="password" [(ngModel)]="model.password" required />
                         <span class="icon is-small is-right">
                             <fa-icon [icon]="['fas','key']"></fa-icon>
                         </span>
