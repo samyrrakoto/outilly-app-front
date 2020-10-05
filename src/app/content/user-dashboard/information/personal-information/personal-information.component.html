@@ -28,26 +28,19 @@
               <tr>
                 <td class="field-name">Genre</td>
                 <td colspan="2">
-                  <select [(ngModel)]="user.userProfile.gender" class="select pointed">
-                    <option value="male">Homme</option>
-                    <option value="female">Femme</option>
-                    <option value="other">Autre</option>
-                  </select>
+                  <input class="input is-small not-editable" value="{{ getGender() }}" readonly>
                 </td>
               </tr>
 
               <tr>
                 <td class="field-name">Date de naissance</td>
-                <td><input id="birthdate" type="date" class="input is-small" [(ngModel)]="birthdate"></td>
+                <td><input id="birthdate" type="date" class="input is-small not-editable" [(ngModel)]="birthdate" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Statut</td>
                 <td colspan="2">
-                  <select [(ngModel)]="user.userProfile.type" class="select pointed">
-                    <option value="individual">Particulier</option>
-                    <option value="professional">Professionnel</option>
-                  </select>
+                  <input class="input is-small not-editable" value="{{ getType() }}" readonly>
                 </td>
               </tr>
 
@@ -62,6 +55,7 @@
               </tr>
             </table>
           </mat-panel-description>
+          <button class="button is-light is-small">Une modification à faire ? Cliquez ici !</button>
       </mat-expansion-panel>
 
     <!-- ADDRESSES -->
@@ -80,10 +74,7 @@
               <td class="field-name">Pays</td>
               <td>
                 <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="select pointed">
-                  <option value="FR">France</option>
-                  <option value="CH">Suisse</option>
-                  <option value="LU">Luxembourg</option>
-                  <option value="BE">Belgique</option>
+                  <option *ngFor="let isoCode of isoCodes" value="{{ isoCode }}">{{ getCountryName(isoCode) }}</option>
                 </select>
               </td>
             </tr>
@@ -178,15 +169,21 @@
 
             <tr>
               <td class="field-name">Nouveau mot de passe</td>
-              <td><input id="newPwd" type="password" class="input is-small" [(ngModel)]="newPwd"></td>
+              <td><input id="newPwd" type="password" class="input is-small" [(ngModel)]="user.newPassword"></td>
             </tr>
 
-            <tr *ngIf="newPwd">
+            <tr *ngIf="user.newPassword">
               <td class="field-name">Confirmation du nouveau mot de passe</td>
               <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
             </tr>
           </table>
     </mat-expansion-panel>
     </mat-accordion>
-  <button id="save" class="button is-success" (click)="updateUserData()">Mettre à jour</button>
+
+    <article id="error-messages" class="message is-danger" *ngFor="let errorMsg of this.dashboardValidator.errorMessages">
+      <div class="message-body">
+        {{ errorMsg }}
+      </div>
+    </article>
+    <button id="save" class="button is-success" (click)="updateUserData()">Mettre à jour</button>
 </div>

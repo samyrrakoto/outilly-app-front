@@ -1,3 +1,4 @@
+import { DashboardValidatorService } from './../../../../dashboard-validator.service';
 import { Address } from 'src/app/models/address';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../../services/auth.service';
@@ -14,14 +15,18 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   idNames: Array<string>;
   addressFlag: boolean;
   nextIndex: number;
-  newPwd: string;
+  readonly genders: Array<string> = ['male', 'female', 'other'];
+  readonly genderNames: Array<string> = ['Homme', 'Femme', 'Autre'];
+  readonly isoCodes: Array<string> = ['FR', 'CH', 'LU', 'BE'];
+  readonly countryNames: Array<string> = ['France', 'Suisse', 'Luxembourg', 'Belgique'];
+  readonly types: Array<string> = ['individual', 'professionnal'];
+  readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
 
-  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router) {
+  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router, public dashboardValidator: DashboardValidatorService) {
     super(request, auth, router);
     this.idNames = [];
     this.addressFlag = false;
     this.nextIndex = 0;
-    this.newPwd = '';
   }
 
   ngOnInit(): void {
@@ -40,55 +45,55 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     }
   }
 
-  public makeEditable(id: string): void {
-    const element: HTMLElement = document.getElementById(id);
+  public getGender(): string {
+    let i: number = 0;
 
-    if (element.hasAttribute('readonly')) {
-      this.setInputFocus(element, id);
-    } else {
-      this.unsetInputFocus(element);
-    }
-  }
-
-  public changeStatus(): void {
-    this.user.userProfile.type = this.user.userProfile.type === 'individual' ? 'professional' : 'individual';
-  }
-
-  private setInputFocus(element: HTMLElement, id: string): void {
-    element.removeAttribute('readonly');
-    element.classList.remove('not-editable');
-    element.focus();
-    this.removeEditable(id);
-  }
-
-  private unsetInputFocus(element: HTMLElement): void {
-    element.setAttribute('readonly', '');
-    element.classList.add('not-editable');
-  }
-
-  private removeEditable(currentId: string): void {
-    for (const idName of this.idNames) {
-      if (idName !== currentId) {
-        const currentElement: HTMLElement = document.getElementById(idName);
-
-        currentElement.setAttribute('readonly', '');
-        currentElement.classList.add('not-editable');
+    for (const gender of this.genders) {
+      if (this.user.userProfile.gender === gender) {
+        return this.genderNames[i];
       }
+      i++;
     }
+    return "not found";
+  }
+
+  public getType(): string {
+    let i: number = 0;
+
+    for (const type of this.types) {
+      if (this.user.userProfile.type === type) {
+        return this.typeNames[i];
+      }
+      i++;
+    }
+    return "not found";
+  }
+
+  public getCountryName(currentIsoCode: string): string {
+    let i: number = 0;
+
+    for (const isoCode of this.isoCodes) {
+      if (currentIsoCode === isoCode) {
+        return this.countryNames[i];
+      }
+      i++;
+    }
+    return "not found";
   }
 
   public updateUserData(): void {
     const payload: any = this.createPayload();
 
-    this.request.updateUser(payload).subscribe((res) => {
-      console.log(res);
-    });
+    if (this.dashboardValidator.verify(this.user)) {
+      this.request.updateUser(payload).subscribe((res) => {
+        console.log(res);
+      });
+    }
   }
 
   public addAddress(): void {
     this.nextIndex = this.user.userProfile.addresses.length;
     this.user.userProfile.addresses.push(new Address());
-    console.log(this.nextIndex);
     this.addressFlag = true;
   }
 
@@ -130,6 +135,7 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
 
     const user: any = {
       "user": {
+        "id": this.user.id,
         "password": this.user.password,
         userProfile
       }
