@@ -81,12 +81,32 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     return "not found";
   }
 
+  private displayNotification(duration: number = 3000): void {
+    const content: HTMLElement = document.getElementById('content');
+    const notif: HTMLDivElement = document.createElement('div');
+
+    notif.classList.add('notification', 'is-success');
+    notif.id = 'notification';
+    notif.style.marginTop = '20px';
+    notif.innerHTML = 'Votre compte a bien été mis à jour !';
+    content.appendChild(notif);
+
+    setTimeout(() => { this.removeNotification() }, duration);
+  }
+
+  private removeNotification(): void {
+    const notif: HTMLElement = document.getElementById('notification');
+
+    notif.remove();
+  }
+
   public updateUserData(): void {
     const payload: any = this.createPayload();
 
     if (this.dashboardValidator.verify(this.user)) {
       this.request.updateUser(payload).subscribe((res) => {
         console.log(res);
+        this.displayNotification();
       });
     }
   }
