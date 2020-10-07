@@ -21,6 +21,10 @@ export class Uri {
     readonly PRODUCT_MEDIA_CREATE = 'product/media/create';
     readonly GET_USER = 'secure/user';
     readonly UPDATE_USER = 'secure/user/update';
+    readonly UPDATE_PWD = 'secure/pwd-reset';
+    readonly DELETE_ADDRESS = 'secure/address/';
+    readonly ADD_ADDRESS = 'secure/address/';
+    readonly UPDATE_ADDRESS = 'secure/address/'
     path: string;
 
     constructor() {

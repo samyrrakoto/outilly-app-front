@@ -5,3 +5,7 @@
 #tabs .is-active a {
   color: white;
 }
+
+#username {
+  color: var(--KTKP-GREEN);
+}

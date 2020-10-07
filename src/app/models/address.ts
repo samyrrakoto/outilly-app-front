@@ -2,6 +2,7 @@ import { Country } from './country';
 
 export class Address {
   id: number;
+  name: string;
   type: string;
   line1: string;
   line2: string;
@@ -10,8 +11,10 @@ export class Address {
   city: string;
   country: Country;
 
-  constructor() {
+  constructor(id: number = 0) {
+    this.id = id;
     this.type ='billing';
+    this.name = '';
     this.line1 = '';
     this.line2 = '';
     this.line3 = '';

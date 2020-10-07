@@ -80,3 +80,7 @@ mat-expansion-panel {
   color: white;
   margin-top: 15px;
 }
+
+#error-messages {
+  margin-top: 20px;
+}
