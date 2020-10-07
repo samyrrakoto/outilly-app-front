@@ -2,6 +2,7 @@ import { Country } from './country';
 
 export class Address {
   id: number;
+  name: string;
   type: string;
   line1: string;
   line2: string;
@@ -12,6 +13,7 @@ export class Address {
 
   constructor() {
     this.type ='billing';
+    this.name = '';
     this.line1 = '';
     this.line2 = '';
     this.line3 = '';

@@ -15,7 +15,6 @@ import { Component, Input, OnInit, ɵɵelementContainerStart } from '@angular/co
 })
 export class PersonalInformationComponent extends UserDashboardComponent implements OnInit {
   idNames: Array<string>;
-  addressFlag: boolean;
   nextIndex: number;
   readonly genders: Array<string> = ['male', 'female', 'other'];
   readonly genderNames: Array<string> = ['Homme', 'Femme', 'Autre'];
@@ -30,7 +29,6 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   constructor(protected request: RequestService, protected auth: AuthService, protected router: Router, public dashboardValidator: DashboardValidatorService, public notification: NotificationService) {
     super(request, auth, router);
     this.idNames = [];
-    this.addressFlag = false;
     this.nextIndex = 0;
     this.myModals = new Modals();
     this.myModals.addModal('id');
@@ -106,7 +104,9 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   public addAddress(): void {
     this.nextIndex = this.user.userProfile.addresses.length;
     this.user.userProfile.addresses.push(new Address());
-    this.addressFlag = true;
+    this.request.postData(this.user.userProfile.addresses[this.nextIndex], this.request.uri.ADD_ADDRESS).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   public removeAddress(index: number): void {
@@ -118,21 +118,26 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     });
   }
 
-  public updateUserAddress(addressIndex: number): void {
-    const addresses: any =
-    [{
-      "type": "billing",
-      "country": {
-        "name": this.user.userProfile.addresses[addressIndex].country.name,
-        "isoCode": this.user.userProfile.addresses[addressIndex].country.isoCode
-      },
-      "city": this.user.userProfile.addresses[addressIndex].city,
-      "zipcode": this.user.userProfile.addresses[addressIndex].zipcode,
-      "line1": this.user.userProfile.addresses[addressIndex].line1
-    }];
+  public updateUserAddress(index: number): void {
+    const addressId: number = this.user.userProfile.addresses[index].id;
+    const payload: any =
+    {
+      "address" : {
+        "id": addressId,
+        "type": "billing",
+        "country": {
+          "name": this.user.userProfile.addresses[index].country.name,
+          "isocode": this.user.userProfile.addresses[index].country.isoCode
+        },
+        "city": this.user.userProfile.addresses[index].city,
+        "zipcode": this.user.userProfile.addresses[index].zipcode,
+        "line1": this.user.userProfile.addresses[index].line1
+      }
+    };
 
-    // TODO: Waiting for the api call to send the address to the server
-    console.log(this.user.userProfile.addresses[addressIndex]);
+    this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe((res) => {
+      console.log(res);
+    })
   }
 
   public updateUserPwd(): void {

@@ -71,8 +71,14 @@
         <div *ngFor="let address of user.userProfile.addresses; let i = index">
           <table class="table">
             <tr>
-              <td colspan="2" class="section-title">Adresse {{ i + 1 }} - {{ user.userProfile.addresses[i].city }}</td>
+              <td colspan="2" class="section-title">Adresse: {{ user.userProfile.addresses[i].name }}</td>
             </tr>
+
+            <tr>
+              <td class="field-name">Nom</td>
+              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].name"></td>
+            </tr>
+
             <tr>
               <td class="field-name">Pays</td>
               <td>
@@ -192,7 +198,6 @@
         {{ errorMsg }}
       </div>
     </article>
-    <button id="save" class="button is-success" (click)="updateUserData()">Mettre à jour</button>
 </div>
 
 <!-- Information Modal -->
