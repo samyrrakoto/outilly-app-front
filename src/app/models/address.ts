@@ -11,7 +11,8 @@ export class Address {
   city: string;
   country: Country;
 
-  constructor() {
+  constructor(id: number = 0) {
+    this.id = id;
     this.type ='billing';
     this.name = '';
     this.line1 = '';

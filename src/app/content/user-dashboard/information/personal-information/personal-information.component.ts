@@ -103,9 +103,24 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
 
   public addAddress(): void {
     this.nextIndex = this.user.userProfile.addresses.length;
-    this.user.userProfile.addresses.push(new Address());
-    this.request.postData(this.user.userProfile.addresses[this.nextIndex], this.request.uri.ADD_ADDRESS).subscribe((res) => {
+    const payload: any = {
+      "address": {
+        "name": "Travail",
+        "type": "billing",
+        "line1": "7 rue Bourgneuf",
+        "line2": "",
+        "line4": "",
+        "zipcode": "92160",
+        "city": "Antony",
+        "region": "Haut de Seine",
+        "country": {
+            "isocode": "FR"
+        }
+      }
+    };
+    this.request.postData(payload, this.request.uri.ADD_ADDRESS).subscribe((res) => {
       console.log(res);
+      this.user.userProfile.addresses.push(new Address(res.body.id));
     });
   }
 
