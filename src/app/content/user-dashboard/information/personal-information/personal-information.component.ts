@@ -124,6 +124,7 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     {
       "address" : {
         "id": addressId,
+        "name": this.user.userProfile.addresses[index].name,
         "type": "billing",
         "country": {
           "name": this.user.userProfile.addresses[index].country.name,
