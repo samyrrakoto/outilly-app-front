@@ -57,8 +57,13 @@
             </table>
           </mat-panel-description>
 
-          <button class="button is-dark is-small" (click)="myModals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
           <button class="button is-light is-small" (click)="myModals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
+
+          <div id="documents" class="content">
+            <h2 class="subtitle">Mes documents</h2>
+          </div>
+
+          <button class="button is-dark is-small" (click)="myModals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
       </mat-expansion-panel>
 
     <!-- ADDRESSES -->
@@ -71,7 +76,7 @@
         <div *ngFor="let address of user.userProfile.addresses; let i = index">
           <table class="table">
             <tr>
-              <td colspan="2" class="section-title">Adresse: {{ user.userProfile.addresses[i].name }}</td>
+              <td colspan="2" class="section-title">{{ user.userProfile.addresses[i].name }}</td>
             </tr>
 
             <tr>

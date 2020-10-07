@@ -242,7 +242,7 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   }
 
   private constructPreview(file: File): any {
-    const medias: HTMLElement = document.getElementById("displayed-medias");
+    const medias: HTMLElement = document.getElementById("documents");
     const img: any = this.constructImg(file);
     const levels: HTMLElement = this.constructLevels(img);
 
