@@ -1,11 +1,11 @@
 <div class="columns is-centered">
   <div class="column is-one-third has-text-centered">
-    <h1 class="title">Bienvenue</h1>
+    <h1 class="title">Bienvenue <span id="username">{{ user.username }}</span> !</h1>
 
     <div id="tabs" class="tabs is-toggle is-toggle-rounded is-centered" style="margin-top: 20px;">
       <ul>
         <li id="information" class="is-active" (click)="setFocus('information')" routerLink="/user/dashboard/information"><a>Mes informations</a></li>
-        <li id="payment" (click)="setFocus('payment')" routerLink="/user/dashboard/activity-log"><a>Historique</a></li>
+        <li id="payment" (click)="setFocus('payment')" routerLink="/user/dashboard/activity-log"><a>Mes activités</a></li>
         <li id="sale" (click)="setFocus('sale')"><a>Vendre</a></li>
       </ul>
     </div>

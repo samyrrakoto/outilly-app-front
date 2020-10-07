@@ -1,3 +1,5 @@
+import { NotificationService } from './../../../../notification.service';
+import { Modals } from './../../../../models/modals';
 import { DashboardValidatorService } from './../../../../dashboard-validator.service';
 import { Address } from 'src/app/models/address';
 import { Router } from '@angular/router';
@@ -21,12 +23,22 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   readonly countryNames: Array<string> = ['France', 'Suisse', 'Luxembourg', 'Belgique'];
   readonly types: Array<string> = ['individual', 'professionnal'];
   readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
+  myModals: Modals;
+  modals: any;
+  addressIndexToDelete: number;
+  idMedias: Array<any>;
 
-  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router, public dashboardValidator: DashboardValidatorService) {
+  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router, public dashboardValidator: DashboardValidatorService, public notification: NotificationService) {
     super(request, auth, router);
     this.idNames = [];
     this.addressFlag = false;
     this.nextIndex = 0;
+    this.myModals = new Modals();
+    this.myModals.addModal('id');
+    this.myModals.addModal('addressDeletion');
+    this.myModals.addModal('dataChanges');
+    this.addressIndexToDelete = 0;
+    this.idMedias = [];
   }
 
   ngOnInit(): void {
@@ -81,32 +93,13 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     return "not found";
   }
 
-  private displayNotification(duration: number = 3000): void {
-    const content: HTMLElement = document.getElementById('content');
-    const notif: HTMLDivElement = document.createElement('div');
-
-    notif.classList.add('notification', 'is-success');
-    notif.id = 'notification';
-    notif.style.marginTop = '20px';
-    notif.innerHTML = 'Votre compte a bien été mis à jour !';
-    content.appendChild(notif);
-
-    setTimeout(() => { this.removeNotification() }, duration);
-  }
-
-  private removeNotification(): void {
-    const notif: HTMLElement = document.getElementById('notification');
-
-    notif.remove();
-  }
-
   public updateUserData(): void {
     const payload: any = this.createPayload();
 
     if (this.dashboardValidator.verify(this.user)) {
       this.request.updateUser(payload).subscribe((res) => {
         console.log(res);
-        this.displayNotification();
+        this.notification.display('Votre compte a bien été mis à jour !', 'content');
       });
     }
   }
@@ -126,15 +119,35 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
     [{
       "type": "billing",
       "country": {
-        "name": this.user.userProfile.addresses[0].country.name,
-        "isoCode": this.user.userProfile.addresses[0].country.isoCode
+        "name": this.user.userProfile.addresses[addressIndex].country.name,
+        "isoCode": this.user.userProfile.addresses[addressIndex].country.isoCode
       },
-      "city": this.user.userProfile.addresses[0].city,
-      "zipcode": this.user.userProfile.addresses[0].zipcode,
-      "line1": this.user.userProfile.addresses[0].line1
+      "city": this.user.userProfile.addresses[addressIndex].city,
+      "zipcode": this.user.userProfile.addresses[addressIndex].zipcode,
+      "line1": this.user.userProfile.addresses[addressIndex].line1
     }];
 
+    // TODO: Waiting for the api call to send the address to the server
     console.log(this.user.userProfile.addresses[addressIndex]);
+  }
+
+  public updateUserPwd(): void {
+    const errorMessage: string = 'Les mots de passe ne correspondent pas';
+    const payload: any = {
+      currentPwd: this.user.password,
+      newPwd: this.user.newPassword
+    };
+
+    if (this.user.newPassword !== this.user.passwordConfirmation) {
+      this.dashboardValidator.addErrorMsg(errorMessage);
+      return;
+    }
+    this.dashboardValidator.removeErrorMsg(errorMessage);
+    this.request.putData(this.request.uri.UPDATE_PWD, payload).subscribe((res) => {
+        console.log(res);
+        this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
+      }
+    );
   }
 
   private createPayload(): any {
@@ -161,5 +174,100 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
       }
     };
     return user;
+  }
+
+  /*
+  ** -- File management
+  */
+  public handleFile(): void {
+    const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
+    const formData: FormData = this.getFormData(files);
+
+    this.addMedia(files[0]);
+    // this.sendMedia(formData);
+    this.displayPreview(files[0]);
+  }
+
+  public openImgPicker(): void {
+    const fileElem = document.getElementById("product-pictures");
+
+    fileElem.click();
+  }
+
+  private getFormData(files: FileList): FormData {
+    const formData: FormData = new FormData();
+
+    formData.append('productId', localStorage.getItem('id'));
+    formData.append('productStrId', localStorage.getItem('strId'));
+    formData.append('mediaFile', files.item(0), files.item(0).name);
+
+    return formData;
+  }
+
+  private addMedia(file: File): void {
+    this.idMedias.push();
+  }
+
+  private displayPreview(file: File): void {
+    const reader: FileReader = new FileReader();
+    const img: any = this.constructPreview(file);
+
+    reader.onload = function (e) { img.src = reader.result; }
+    reader.readAsDataURL(file);
+  }
+
+  private constructPreview(file: File): any {
+    const medias: HTMLElement = document.getElementById("displayed-medias");
+    const img: any = this.constructImg(file);
+    const levels: HTMLElement = this.constructLevels(img);
+
+    medias.appendChild(levels);
+    return img;
+  }
+
+  private constructImg(file: File): any {
+    const img: any = document.createElement("img");
+
+    img.classList.add("previews");
+    img.file = file;
+    img.style.width = "250px";
+    img.style.margin = "auto";
+    img.style.border = "solid 3px var(--KTKP-GREEN)";
+    return img;
+  }
+
+  private constructLevels(img: any): HTMLElement {
+    const levels: HTMLElement = document.createElement("nav");
+    const leftLevel: HTMLElement = document.createElement("div");
+    const rightLevel: HTMLElement = document.createElement("div");
+    const btn: HTMLElement = document.createElement("button");
+
+    leftLevel.appendChild(img);
+    leftLevel.classList.add("level-left");
+
+    btn.classList.add("button", "has-background-black", "has-text-white");
+    btn.innerHTML = "x";
+    btn.addEventListener('click', () => this.removeMedia(img.file.name));
+    rightLevel.appendChild(btn);
+    rightLevel.classList.add("level-right");
+
+    levels.appendChild(leftLevel);
+    levels.appendChild(rightLevel);
+    levels.classList.add("level", "new-element");
+    levels.id = img.file.name;
+    return levels;
+  }
+
+  public removeMedia(mediaPath: string): void {
+    let i: number = 0;
+    const nav: any = document.getElementById(mediaPath);
+
+    for (const media of this.idMedias) {
+      if (media.path === mediaPath) {
+        this.idMedias.splice(i, 1);
+      }
+      i++;
+    }
+    nav.remove();
   }
 }

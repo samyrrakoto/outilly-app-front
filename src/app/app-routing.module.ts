@@ -1,3 +1,4 @@
+import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
 import { ActivityLogComponent } from './content/user-dashboard/activity-log/activity-log.component';
@@ -51,6 +52,7 @@ import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.
 import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
+import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 
 const routes: Routes = [
   {
@@ -92,7 +94,20 @@ const routes: Routes = [
       },
       {
         path: 'activity-log',
-        component: ActivityLogComponent
+        component: ActivityLogComponent,
+        children: [
+          {
+            path: '', redirectTo: 'sales', pathMatch: 'full'
+          },
+          {
+            path: 'sales',
+            component: UserSalesComponent
+          },
+          {
+            path: 'purchases',
+            component: UserPurchasesComponent
+          }
+        ]
       }
     ]
   },

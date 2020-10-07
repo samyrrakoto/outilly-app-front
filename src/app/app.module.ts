@@ -90,6 +90,8 @@ import { InformationComponent } from './content/user-dashboard/information/infor
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { ActivityLogComponent } from './content/user-dashboard/activity-log/activity-log.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
+import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
+import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 
 @NgModule({
   declarations: [
@@ -170,7 +172,9 @@ import { PersonalInformationComponent } from './content/user-dashboard/informati
     InformationComponent,
     PaymentInformationComponent,
     ActivityLogComponent,
-    PersonalInformationComponent
+    PersonalInformationComponent,
+    UserSalesComponent,
+    UserPurchasesComponent
   ],
   imports: [
     HttpClientModule,

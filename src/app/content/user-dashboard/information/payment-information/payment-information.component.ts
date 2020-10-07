@@ -6,10 +6,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-information.component.css']
 })
 export class PaymentInformationComponent implements OnInit {
+  modals: any;
 
-  constructor() { }
+  constructor() {
+    this.modals = {
+      card: ''
+    }
+  }
 
   ngOnInit(): void {
   }
 
+  public openModal(modalName: string): void {
+    this.modals[modalName] = 'is-active';
+  }
+
+  public closeModal(modalName: string): void {
+    this.modals[modalName] = '';
+  }
 }

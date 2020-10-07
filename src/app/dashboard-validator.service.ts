@@ -10,13 +10,13 @@ export class DashboardValidatorService {
 
   constructor() { }
 
-  private removeErrorMsg(item: any): void {
+  public removeErrorMsg(item: any): void {
     const pos: number = this.errorMessages.indexOf(item);
 
     this.errorMessages.splice(pos, 1);
   }
 
-  private addErrorMsg(errorMsg: string) {
+  public addErrorMsg(errorMsg: string) {
     if (!this.errorMessages.includes(errorMsg)) {
       this.errorMessages.push(errorMsg);
     }

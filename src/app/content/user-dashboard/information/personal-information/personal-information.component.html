@@ -1,28 +1,29 @@
 <div id="content" class="content">
 
-    <!-- GENERAL INFORMATION -->
+    <!-- IDENTITY INFORMATION -->
     <mat-accordion>
       <mat-expansion-panel>
           <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon class="section-icon" [icon]="['fas', 'user']"></fa-icon>Informations générales
+            <fa-icon class="section-icon" [icon]="['fas', 'address-card']"></fa-icon>Identité
           </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-panel-description>
+
             <table class="table">
               <tr>
                 <td class="field-name">Nom d'utilisateur</td>
-                <td><input id="username" type="text" class="input is-small not-editable" [(ngModel)]="user.username" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.username" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Prénom</td>
-                <td><input id="firstname" type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.firstname" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.firstname" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Nom</td>
-                <td><input id="lastname" type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.lastname" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.lastname" readonly></td>
               </tr>
 
               <tr>
@@ -34,7 +35,7 @@
 
               <tr>
                 <td class="field-name">Date de naissance</td>
-                <td><input id="birthdate" type="date" class="input is-small not-editable" [(ngModel)]="birthdate" readonly></td>
+                <td><input type="date" class="input is-small not-editable" [(ngModel)]="birthdate" readonly></td>
               </tr>
 
               <tr>
@@ -46,16 +47,18 @@
 
               <tr *ngIf="user.userProfile.type === 'professional'">
                 <td class="field-name">SIRET</td>
-                <td><input id="siret" type="text" class="input is-small" [(ngModel)]="user.userProfile.company.siret"></td>
+                <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.company.siret"></td>
               </tr>
 
               <tr *ngIf="user.userProfile.type === 'professional'">
                 <td class="field-name">TVA</td>
-                <td><input id="tva" type="text" class="input is-small" [(ngModel)]="user.userProfile.company.tvanumber"></td>
+                <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.company.tvanumber"></td>
               </tr>
             </table>
           </mat-panel-description>
-          <button class="button is-light is-small">Une modification à faire ? Cliquez ici !</button>
+
+          <button class="button is-dark is-small" (click)="myModals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
+          <button class="button is-light is-small" (click)="myModals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
       </mat-expansion-panel>
 
     <!-- ADDRESSES -->
@@ -81,35 +84,35 @@
 
             <tr>
               <td class="field-name">Code postal</td>
-              <td><input id="zipcode" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].zipcode"></td>
+              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].zipcode"></td>
             </tr>
 
             <tr>
               <td class="field-name">Ville</td>
-              <td><input id="city" type="text" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].city"></td>
+              <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].city"></td>
             </tr>
 
             <tr>
               <td class="field-name">Voie</td>
-              <td><input id="line" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
+              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
             </tr>
           </table>
 
           <div class="field is-grouped">
             <p class="control">
-              <button class="button is-success is-small" (click)="updateUserAddress(i)">
-                <fa-icon [icon]="['fas', 'save']"></fa-icon>Sauvegarder
+              <button class="button is-dark is-small" (click)="updateUserAddress(i)">
+                <fa-icon [icon]="['fas', 'save']" style="color: var(--KTKP-GREEN)"></fa-icon>Sauvegarder
               </button>
             </p>
             <p class="control">
-              <button class="button is-danger is-small" (click)="removeAddress(i)">
-                <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>Supprimer
+              <button class="button is-dark is-small" (click)="myModals.open('addressDeletion'); addressIndexToDelete = i">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: var(--KTKP-RED)"></fa-icon>Supprimer
               </button>
             </p>
           </div>
         </div>
 
-        <button class="button is-info is-small" (click)="addAddress()" style="margin-top: 20px">Ajouter une adresse</button>
+        <button class="button is-info is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
 
     </mat-expansion-panel>
 
@@ -177,13 +180,63 @@
               <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
             </tr>
           </table>
+
+          <button class="button is-light is-small" (click)="updateUserPwd()">Mettre à jour le mot de passe</button>
+
+          <div id="security"></div>
     </mat-expansion-panel>
     </mat-accordion>
 
-    <article id="error-messages" class="message is-danger" *ngFor="let errorMsg of this.dashboardValidator.errorMessages">
+    <article id="error-messages" class="message is-danger" *ngFor="let errorMsg of dashboardValidator.errorMessages">
       <div class="message-body">
         {{ errorMsg }}
       </div>
     </article>
     <button id="save" class="button is-success" (click)="updateUserData()">Mettre à jour</button>
+</div>
+
+<!-- Information Modal -->
+<div class="modal {{ myModals.get('addressDeletion') }}">
+  <div class="modal-background" (click)="myModals.close('addressDeletion')"></div>
+  <div class="modal-content">
+      <div class="box">
+        <h2 class="subtitle">Voulez-vous réellement supprimer cette adresse ?</h2>
+
+        <button class="button is-danger" (click)="removeAddress(addressIndexToDelete); myModals.close('addressDeletion')">Oui</button>
+        <button class="button is-light" (click)="myModals.close('addressDeletion')">Non</button>
+      </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('addressDeletion')"></button>
+</div>
+
+<!-- ID Modal -->
+<div class="modal {{ myModals.get('id') }}">
+  <div class="modal-background" (click)="myModals.close('id')"></div>
+  <div class="modal-content">
+      <div class="box">
+        <h2 class="subtitle">Ajouter une pièce d'identité</h2>
+
+        <div id="displayed-medias"></div>
+
+        <input accept=".png, .jpg" type="file" id="product-pictures" name="product-pictures" (change)="handleFile()" style="display: none;">
+        <button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+      </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('id')"></button>
+</div>
+
+<!-- Data changes Modal -->
+<div class="modal {{ myModals.get('dataChanges') }}">
+  <div class="modal-background" (click)="myModals.close('dataChanges')"></div>
+  <div class="modal-content">
+      <div class="box">
+        <h2 class="subtitle">Modifier des informations</h2>
+
+        <label class="label">Que souhaitez-vous changer ?</label>
+        <textarea class="textarea">
+
+        </textarea>
+      </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('dataChanges')"></button>
 </div>
