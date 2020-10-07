@@ -43,6 +43,12 @@ export class RequestService {
     return this.http.put<any>(this.uri.path, data)
   }
 
+  deleteData(ressource: string, data: any, param: string=''): Observable<any> {
+    this.uri.setUri(ressource, param);
+
+    return this.http.delete<any>(this.uri.path, data)
+  }
+
   login(data: any): Observable<HttpResponse<AccessToken>> {
     return this.postData(data, this.uri.LOGIN, '');
   }

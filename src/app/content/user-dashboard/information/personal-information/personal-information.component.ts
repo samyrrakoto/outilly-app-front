@@ -24,7 +24,6 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   readonly types: Array<string> = ['individual', 'professionnal'];
   readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
   myModals: Modals;
-  modals: any;
   addressIndexToDelete: number;
   idMedias: Array<any>;
 
@@ -111,7 +110,12 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   }
 
   public removeAddress(index: number): void {
-    this.user.userProfile.addresses.splice(index);
+    const addressIndex: number = this.user.userProfile.addresses[index].id;
+
+    this.request.deleteData(this.request.uri.DELETE_ADDRESS, this.user.userProfile.addresses, addressIndex.toString()).subscribe((res) => {
+      console.log(res);
+      this.user.userProfile.addresses.splice(index, 1);
+    });
   }
 
   public updateUserAddress(addressIndex: number): void {

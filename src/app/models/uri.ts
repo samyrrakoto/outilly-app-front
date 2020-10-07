@@ -22,6 +22,7 @@ export class Uri {
     readonly GET_USER = 'secure/user';
     readonly UPDATE_USER = 'secure/user/update';
     readonly UPDATE_PWD = 'secure/pwd-reset';
+    readonly DELETE_ADDRESS = 'secure/address/';
     path: string;
 
     constructor() {
