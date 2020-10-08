@@ -1,3 +1,4 @@
+import { BidManagerService } from './../../../../bid-manager.service';
 import { Sale } from './../../../../models/sale';
 import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
@@ -16,13 +17,15 @@ export class BuyingPropositionComponent implements OnInit {
   @Input() errorMsg: any;
   @Input() proposedPrice: number;
 
-  constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent) {
+  constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent, public bidManager: BidManagerService) {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  public placeBid(amount: number): void {
+    this.bidManager.place(amount, this.sale.id);
+  }
 }

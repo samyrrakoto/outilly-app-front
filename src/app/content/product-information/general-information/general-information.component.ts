@@ -1,3 +1,4 @@
+import { BidManagerService } from './../../../bid-manager.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
@@ -13,11 +14,9 @@ export class GeneralInformationComponent extends ProductInformationComponent imp
   @Input() sale: Sale;
   @Input() genericQuestions: Array<string>;
 
-  constructor(request: RequestService, route: ActivatedRoute) {
-    super(request, route);
+  constructor(request: RequestService, route: ActivatedRoute, bidManager: BidManagerService) {
+    super(request, route, bidManager);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

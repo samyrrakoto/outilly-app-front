@@ -24,7 +24,8 @@ export class Uri {
     readonly UPDATE_PWD = 'secure/pwd-reset';
     readonly DELETE_ADDRESS = 'secure/address/';
     readonly ADD_ADDRESS = 'secure/address/';
-    readonly UPDATE_ADDRESS = 'secure/address/'
+    readonly UPDATE_ADDRESS = 'secure/address/';
+    readonly PLACE_BID = 'secure/bid/place';
     path: string;
 
     constructor() {
