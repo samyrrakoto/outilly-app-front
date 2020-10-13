@@ -9,3 +9,185 @@
 #username {
   color: var(--KTKP-GREEN);
 }
+
+.content {
+  margin-top: 10px;
+}
+
+.table {
+  margin: auto;
+  width: 100%;
+}
+
+.table td {
+  border: none;
+  vertical-align: middle;
+}
+
+.notification {
+  font-size: 14px;
+}
+
+.field-name {
+  font-weight: 500;
+}
+
+select {
+  border: none;
+  border-bottom: solid 2px var(--KTKP-GREEN);
+  background: transparent;
+}
+
+select:active {
+  border: none;
+  border-bottom: solid 2px var(--KTKP-GREEN);
+  background: transparent;
+}
+
+fa-icon {
+  color: white;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+.pointed {
+  cursor: pointer;
+}
+
+.subtitle {
+  text-align: left;
+  font-weight: bold;
+  border-bottom: solid 3px var(--KTKP-GREEN);
+  padding: 10px;
+}
+
+.not-editable {
+  border: none;
+}
+
+.section-title {
+  font-size: 1em;
+  font-weight: bold;
+  border-bottom: solid 2px black;
+}
+
+.section-icon {
+  color: black;
+  margin-right: 5px;
+}
+
+mat-accordion {
+  text-align: left;
+}
+
+mat-panel-title {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: left;
+}
+
+mat-expansion-panel {
+  border: none;
+  border-left: solid 4px var(--KTKP-GREEN);
+  box-shadow: unset;
+  margin-bottom: 10px;
+}
+
+mat-panel-description {
+  text-align: left;
+}
+
+.bid {
+  background-color: rgb(245, 245, 245);
+  border-radius: 10px;
+  border: solid 1px var(--KTKP-GREY-DARKER);
+  text-align: center;
+  padding: 10px;
+}
+
+.new-bid {
+  color: var(--KTKP-RED);
+}
+
+.bidder {
+  font-weight: bold;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+#error-messages {
+  margin-top: 20px;
+}
+
+.choice {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.green {
+  border-top: solid 4px var(--KTKP-GREEN);
+}
+
+.yellow {
+  border-top: solid 4px var(--KTKP-BLUE-DARKER);
+}
+
+.red {
+  border-top: solid 4px var(--KTKP-RED);
+}
+
+.green:hover {
+  background-color: var(--KTKP-GREEN);
+  opacity: 0.75;
+}
+
+.yellow:hover {
+  background-color: var(--KTKP-BLUE-DARKER);
+  opacity: 0.75;
+}
+
+.red:hover {
+  background-color: var(--KTKP-RED);
+  opacity: 0.75;
+}
+
+.offer-icon {
+  color: black;
+  margin-right: 2px;
+}
+
+.info-icon {
+  color: var(--KTKP-BLUE-DARKER);
+  margin-right: 2px;
+}
+
+.waiting-icon {
+  color: black;
+  margin-right: 2px;
+}
+
+.actions {
+  margin: auto;
+  margin-top: 10px;
+}
+
+.accepted {
+  color: var(--KTKP-GREEN);
+  font-weight: bold;
+}
+
+.declined {
+  color: var(--KTKP-RED);
+  font-weight: bold;
+}
+
+.counter-offer {
+  color: var(--KTKP-BLUE-DARKER);
+  font-weight: bold;
+}
+
+.product-page {
+  text-decoration: underline;
+}

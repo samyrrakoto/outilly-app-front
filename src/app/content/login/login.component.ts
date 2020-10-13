@@ -13,9 +13,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
 
-  constructor(
-      private authService: AuthService,
-      private router: Router
+  constructor(private authService: AuthService, private router: Router
   ) {}
 
   ngOnInit() {
@@ -30,9 +28,10 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     this.authService.login(this.model).then(
-        (success) => {
+        () => {
           this.checkHasRedirectAfterLogin();
-        }, (failure) => {
+        },
+        () => {
           this.loginFailed = true;
         }
     );

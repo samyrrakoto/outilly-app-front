@@ -1,8 +1,10 @@
+import { Bid } from './bid';
 import { Product } from './product';
 import { Seller } from './seller';
 
 export class Sale {
     id: number;
+    bids: Array<Bid>;
     status: string;
     startDate: Date;
     endDate: Date;
@@ -11,6 +13,7 @@ export class Sale {
 
     constructor() {
         this.id = 0;
+        this.bids = [];
         this.status = "new";
         this.startDate = null;
         this.endDate = null;

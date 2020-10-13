@@ -14,6 +14,8 @@ export class Uri {
     readonly PRODUCT_CREATION: string = 'product/create';
     readonly PRODUCT_UPDATE: string = 'secure/product/update';
     readonly SALE_CREATE: string = 'secure/sale/create';
+    readonly GET_SALE: string = 'sale/';
+    readonly GET_BIDS_AND_SALES = 'secure/bids/sales';
     readonly ACTIVITY_DOMAINS: string = 'activity-domains';
     readonly BRANDS: string = 'brands';
     readonly CATEGORIES: string = 'product/categories/all';
@@ -26,6 +28,9 @@ export class Uri {
     readonly ADD_ADDRESS = 'secure/address/';
     readonly UPDATE_ADDRESS = 'secure/address/';
     readonly PLACE_BID = 'secure/bid/place';
+    readonly ACCEPT_OFFER = 'secure/bid/update-acceptance';
+    readonly DECLINE_OFFER = 'secure/bid/update-acceptance';
+    readonly COUNTER_OFFER = 'secure/bid/place/counter-offer';
     path: string;
 
     constructor() {

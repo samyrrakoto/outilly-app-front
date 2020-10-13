@@ -1,1 +1,97 @@
-<p>user-purchases works!</p>
+<div class="content">
+  <h2 class="subtitle">Mes offres</h2>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let purchase of purchases">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          <fa-icon class="section-icon" [icon]="['fas', 'tools']"></fa-icon>
+          {{ purchase.productName }}
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          Prix de réserve : {{ purchase.reservePrice }}€
+        </mat-panel-description>
+          <div *ngIf="purchase.isAccepted" class="content bid">
+            <fa-icon class="choice accepted" [icon]="['fas', 'check-circle']"></fa-icon>
+            Félicitations !<br><br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount }}€</span> a été <span class="accepted">acceptée</span>. ;-)<br>
+            Rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
+
+            <div (click)="modals.open('purchase-explanation')" class="content pointed">
+              <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>
+            </div>
+          </div>
+          <div *ngIf="purchase.isAccepted === false" class="content bid">
+            <fa-icon class="choice declined" [icon]="['fas', 'times-circle']"></fa-icon>
+            Quel dommage !<br><br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount }}€</span> a été <span class="declined">refusée</span>. :-(<br>
+            Vous ne pouvez plus faire de proposition mais vous pouvez toujours acheter le produit au prix de réserve. :-)
+          </div>
+          <div *ngIf="purchase.counterOfferAmount !== null" class="content bid">
+            <fa-icon class="choice counter-offer" [icon]="['fas', 'share']"></fa-icon>
+            On y arrive !<br><br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount }}€</span> a été <span class="counter-offer">contre-proposée à {{ purchase.counterOfferAmount }}€</span>.<br>
+            Si elle vous convient, rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
+
+            <div (click)="modals.open('purchase-explanation')" class="content pointed">
+              <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>
+            </div>
+          </div>
+          <div *ngIf="purchase.isClosed === null" class="content bid">
+            <fa-icon class="choice waiting-icon" [icon]="['fas', 'stopwatch']"></fa-icon>
+            Offre de <span class="amount">{{ purchase.bidAmount }}€</span> envoyée !<br><br>
+            En attente d'une réponse de la part du vendeur.
+          </div>
+        <a class="product-page" (click)="router.navigate(['/product', purchase.saleId])">Accéder à la page du produit</a>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<!-- ##### MODALS ##### -->
+
+<!-- Purchase explanation -->
+<div class="modal {{ modals.get('purchase-explanation') }}">
+  <div class="modal-background" (click)="modals.close('purchase-explanation')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Comment ça se passe pour finaliser mon achat ?</h2>
+
+      <div class="content">
+        Vos allez être redirigé vers une page récapitulative.<br>
+        Une fois que tout vous semblera bon, vous pourrez utiliser votre carte de crédit pour effectuer le paiement via notre partenaire MangoPay.
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('purchase-explanation')"></button>
+</div>
+
+<!-- Offer acceptance -->
+<div class="modal {{ modals.get('acceptOffer') }}">
+  <div class="modal-background" (click)="modals.close('acceptOffer')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Voulez-vous vraiment accepter cette offre ?</h2>
+
+      <button (click)="bidManager.acceptOffer(currentBid.id); modals.close('acceptOffer')" class="button is-success">Oui</button>
+      <button (click)="modals.close('acceptOffer')" class="button is-light">Non</button>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('acceptOffer')"></button>
+</div>
+
+<!-- Offer declinance -->
+<div class="modal {{ modals.get('declineOffer') }}">
+  <div class="modal-background" (click)="modals.close('declineOffer')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Voulez-vous vraiment refuser cette offre ?</h2>
+
+      <button (click)="bidManager.declineOffer(currentBid.id); modals.close('declineOffer')" class="button is-danger">Oui</button>
+      <button (click)="modals.close('declineOffer')" class="button is-light">Non</button>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('declineOffer')"></button>
+</div>
