@@ -39,8 +39,8 @@ export class StickyMenuComponent implements OnInit, OnChanges {
     this.deliveryFees = 6.90;
   }
 
-  ngOnChanges() {
-  }
+  ngOnInit(): void {}
+  ngOnChanges(): void {}
 
   nextStep(): void {
     this.stickyMenuSteps[this.current] = false;
@@ -77,8 +77,4 @@ export class StickyMenuComponent implements OnInit, OnChanges {
       }
     }
   }
-
-  ngOnInit(): void {
-  }
-
 }

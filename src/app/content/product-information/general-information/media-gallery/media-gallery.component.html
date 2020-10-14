@@ -3,27 +3,27 @@
 
         <!-- Top pictures -->
         <div id="top-container">
-            <div *ngIf="sale.product.productMedias[0].type == 'image'" class="content">
+            <div *ngIf="sale.product.productMedias[0].type === 'image'" class="content">
                 <img src="{{ sale.product.productMedias[0].path }}" (click)="openGalleryMedia(0, 'image')">
             </div>
 
-            <div *ngIf="sale.product.productMedias[0].type == 'video'" class="content">
+            <div *ngIf="sale.product.productMedias[0].type === 'video'" class="content">
                 <img src="assets/img/logo/play.png" (click)="openGalleryMedia(0, 'video')">
             </div>
 
-            <div *ngIf="sale.product.productMedias[1].type == 'image'" class="content">
+            <div *ngIf="sale.product.productMedias[1].type === 'image'" class="content">
               <img src="{{ sale.product.productMedias[1].path }}" (click)="openGalleryMedia(1, 'image')">
             </div>
 
-            <div *ngIf="sale.product.productMedias[1].type == 'video'" class="content">
+            <div *ngIf="sale.product.productMedias[1].type === 'video'" class="content">
                 <img src="assets/img/logo/play.png" (click)="openGalleryMedia(1, 'video')">
             </div>
 
-            <div *ngIf="sale.product.productMedias[2].type == 'image'" class="content">
+            <div *ngIf="sale.product.productMedias[2].type === 'image'" class="content">
               <img src="{{ sale.product.productMedias[2].path }}" (click)="openGalleryMedia(2, 'image')">
             </div>
 
-            <div *ngIf="sale.product.productMedias[2].type == 'video'" class="content">
+            <div *ngIf="sale.product.productMedias[2].type === 'video'" class="content">
                 <img src="assets/img/logo/play.png" (click)="openGalleryMedia(2, 'video')">
             </div>
         </div>

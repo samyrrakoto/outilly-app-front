@@ -55,16 +55,16 @@
   </mat-expansion-panel>
   </mat-accordion>
 
-  <button class="button is-success" (click)="openModal('card')">Ajouter une carte</button>
+  <button class="button is-success" (click)="modals.open('card')">Ajouter une carte</button>
 </div>
 
 <!-- Card Modal -->
-<div class="modal {{ modals.card }}">
-  <div class="modal-background" (click)="closeModal('card')"></div>
+<div class="modal {{ modals.get('card') }}">
+  <div class="modal-background" (click)="modals.close('card')"></div>
   <div class="modal-content">
       <div class="box">
         Nouvelle carte
       </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="closeModal('card')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('card')"></button>
 </div>

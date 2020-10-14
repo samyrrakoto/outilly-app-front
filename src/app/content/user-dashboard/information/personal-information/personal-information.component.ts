@@ -1,8 +1,9 @@
+import { InformationComponent } from './../information.component';
 import { NotificationService } from './../../../../notification.service';
 import { Modals } from './../../../../models/modals';
 import { DashboardValidatorService } from './../../../../dashboard-validator.service';
 import { Address } from 'src/app/models/address';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './../../../../services/auth.service';
 import { RequestService } from './../../../../services/request.service';
 import { UserDashboardComponent } from './../../user-dashboard.component';
@@ -13,7 +14,7 @@ import { Component, Input, OnInit, ɵɵelementContainerStart } from '@angular/co
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css']
 })
-export class PersonalInformationComponent extends UserDashboardComponent implements OnInit {
+export class PersonalInformationComponent extends InformationComponent implements OnInit {
   idNames: Array<string>;
   nextIndex: number;
   readonly genders: Array<string> = ['male', 'female', 'other'];
@@ -22,23 +23,35 @@ export class PersonalInformationComponent extends UserDashboardComponent impleme
   readonly countryNames: Array<string> = ['France', 'Suisse', 'Luxembourg', 'Belgique'];
   readonly types: Array<string> = ['individual', 'professionnal'];
   readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
-  myModals: Modals;
+  modals: Modals;
   addressIndexToDelete: number;
   idMedias: Array<any>;
 
-  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router, public dashboardValidator: DashboardValidatorService, public notification: NotificationService) {
-    super(request, auth, router);
+  constructor(protected request: RequestService,
+    protected auth: AuthService,
+    protected router: Router,
+    public dashboardValidator: DashboardValidatorService,
+    public notification: NotificationService,
+    public route: ActivatedRoute) {
+    super(request, auth, router, route);
     this.idNames = [];
     this.nextIndex = 0;
-    this.myModals = new Modals();
-    this.myModals.addModal('id');
-    this.myModals.addModal('addressDeletion');
-    this.myModals.addModal('dataChanges');
+    this.modals = new Modals();
+    this.modals.addModal('id');
+    this.modals.addModal('addressDeletion');
+    this.modals.addModal('dataChanges');
     this.addressIndexToDelete = 0;
     this.idMedias = [];
   }
 
   ngOnInit(): void {
+    this.route.url.subscribe((url: any) => {
+      this.url = url[0].path;
+
+      if (this.url === 'personal-information') {
+        this.setFocus(this.informationTabs, 'personal-information');
+      }
+    });
     this.getUserInfos();
   }
 

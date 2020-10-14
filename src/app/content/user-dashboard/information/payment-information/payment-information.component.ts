@@ -1,3 +1,8 @@
+import { Modals } from './../../../../models/modals';
+import { AuthService } from './../../../../services/auth.service';
+import { RequestService } from './../../../../services/request.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InformationComponent } from './../information.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,23 +10,27 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './payment-information.component.html',
   styleUrls: ['./payment-information.component.css']
 })
-export class PaymentInformationComponent implements OnInit {
-  modals: any;
+export class PaymentInformationComponent extends InformationComponent implements OnInit {
+  modals: Modals;
+  url: string;
 
-  constructor() {
-    this.modals = {
-      card: ''
-    }
+  constructor(protected request: RequestService,
+    protected auth: AuthService,
+    protected router: Router,
+    protected route: ActivatedRoute) {
+    super(request, auth, router, route);
+    this.modals = new Modals();
+    this.modals.addModal('card');
+    this.url = '';
   }
 
   ngOnInit(): void {
-  }
+    this.route.url.subscribe((url: any) => {
+      this.url = url[0].path;
 
-  public openModal(modalName: string): void {
-    this.modals[modalName] = 'is-active';
-  }
-
-  public closeModal(modalName: string): void {
-    this.modals[modalName] = '';
+      if (this.url === 'payment-information') {
+        this.setFocus(this.informationTabs, 'payment-information');
+      }
+    });
   }
 }

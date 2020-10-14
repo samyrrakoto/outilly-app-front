@@ -1,3 +1,4 @@
+import { BidManagerService } from './../../bid-manager.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Vendor } from 'src/app/models/vendor';
 import { RequestService } from 'src/app/services/request.service';
@@ -29,7 +30,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   errorMsg: any;
   openMenuState: boolean;
 
-  constructor(public request: RequestService, private route: ActivatedRoute) {
+  constructor(public request: RequestService, private route: ActivatedRoute, public bidManager: BidManagerService) {
     super();
     this.vendor = new Vendor();
     this.sale = new Sale();
@@ -51,9 +52,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.getGenericQuestions();
   }
 
-  ngOnChanges() {
-
-  }
+  ngOnChanges() {}
 
   sortByMediaType(): void {
     const imgMedias: Array<ProductMedia> = [];
@@ -73,7 +72,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       this.sale = res;
       this.proposedPrice = this.sale.product.reservePrice;
       this.minPrice = this.sale.product.reservePrice * 0.8;
-      this.maxPrice = this.sale.product.reservePrice * 2;
+      this.maxPrice = this.sale.product.reservePrice - 1;
       this.errorMsg = {
         delivery: 'Veuillez choisir un mode de livraison',
         lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,

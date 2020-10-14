@@ -1,3 +1,7 @@
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from './../../../services/auth.service';
+import { RequestService } from './../../../services/request.service';
+import { UserDashboardComponent } from './../user-dashboard.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,22 +9,27 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './information.component.html',
   styleUrls: ['./information.component.css']
 })
-export class InformationComponent implements OnInit {
+export class InformationComponent extends UserDashboardComponent implements OnInit {
+  readonly informationTabs: Array<string> = ['personal-information', 'payment-information'];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(protected request: RequestService,
+    protected auth: AuthService,
+    protected router: Router,
+    protected route: ActivatedRoute) {
+    super(request, auth, router);
   }
 
-  public setFocus(id: string): void {
-    const tabs: Array<string> = ['personal-information', 'payment-information'];
+  ngOnInit(): void {
+    this.getUrl();
+  }
 
-    for (const tab of tabs) {
-      if (tab !== id) {
-        document.getElementById(tab).classList.remove('is-active');
+  private getUrl(): void {
+    this.route.url.subscribe((url: any) => {
+      this.url = url[0].path;
+
+      if (this.url === 'information') {
+        this.setFocus(this.menuTabs, 'information');
       }
-    }
-
-    document.getElementById(id).classList.add('is-active');
+    });
   }
 }

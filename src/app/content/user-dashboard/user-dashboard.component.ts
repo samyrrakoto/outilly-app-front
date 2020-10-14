@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -13,10 +13,15 @@ import { Address } from 'src/app/models/address';
 export class UserDashboardComponent implements OnInit {
   user: User;
   birthdate: any;
+  url: string;
+  menuTabs: Array<string> = ['information', 'activities', 'sell'];
 
-  constructor(protected request: RequestService, protected auth: AuthService, protected router: Router) {
+  constructor(protected request: RequestService,
+    protected auth: AuthService,
+    protected router: Router) {
     this.user = new User();
     this.birthdate = '';
+    this.url = '';
   }
 
   ngOnInit(): void {
@@ -26,8 +31,8 @@ export class UserDashboardComponent implements OnInit {
 
   protected getUserInfos() {
     this.request.getUserInfos().subscribe({
-      next: (value) => this.userMapping(value),
-      error: (err) => {
+      next: (value: any) => this.userMapping(value),
+      error: () => {
         this.auth.logout();
         this.router.navigate(['/login']);
       }
@@ -74,9 +79,7 @@ export class UserDashboardComponent implements OnInit {
     this.auth.logout();
   }
 
-  public setFocus(id: string): void {
-    const tabs: Array<string> = ['information', 'payment', 'sale'];
-
+  public setFocus(tabs: Array<string>, id: string): void {
     for (const tab of tabs) {
       if (tab !== id) {
         document.getElementById(tab).classList.remove('is-active');
