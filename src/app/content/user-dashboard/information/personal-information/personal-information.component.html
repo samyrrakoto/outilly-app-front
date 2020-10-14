@@ -57,13 +57,13 @@
             </table>
           </mat-panel-description>
 
-          <button class="button is-light is-small" (click)="myModals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
+          <button class="button is-light is-small" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
 
           <div id="documents" class="content">
             <h2 class="subtitle">Mes documents</h2>
           </div>
 
-          <button class="button is-dark is-small" (click)="myModals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
+          <button class="button is-dark is-small" (click)="modals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
       </mat-expansion-panel>
 
     <!-- ADDRESSES -->
@@ -116,7 +116,7 @@
               </button>
             </p>
             <p class="control">
-              <button class="button is-dark is-small" (click)="myModals.open('addressDeletion'); addressIndexToDelete = i">
+              <button class="button is-dark is-small" (click)="modals.open('addressDeletion'); addressIndexToDelete = i">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: var(--KTKP-RED)"></fa-icon>Supprimer
               </button>
             </p>
@@ -165,6 +165,8 @@
               </td>
             </tr>
           </table>
+
+          <button class="button is-info is-small" (click)="updateUserData()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
     </mat-expansion-panel>
 
 
@@ -206,22 +208,22 @@
 </div>
 
 <!-- Information Modal -->
-<div class="modal {{ myModals.get('addressDeletion') }}">
-  <div class="modal-background" (click)="myModals.close('addressDeletion')"></div>
+<div class="modal {{ modals.get('addressDeletion') }}">
+  <div class="modal-background" (click)="modals.close('addressDeletion')"></div>
   <div class="modal-content">
       <div class="box">
         <h2 class="subtitle">Voulez-vous réellement supprimer cette adresse ?</h2>
 
-        <button class="button is-danger" (click)="removeAddress(addressIndexToDelete); myModals.close('addressDeletion')">Oui</button>
-        <button class="button is-light" (click)="myModals.close('addressDeletion')">Non</button>
+        <button class="button is-danger" (click)="removeAddress(addressIndexToDelete); modals.close('addressDeletion')">Oui</button>
+        <button class="button is-light" (click)="modals.close('addressDeletion')">Non</button>
       </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('addressDeletion')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('addressDeletion')"></button>
 </div>
 
 <!-- ID Modal -->
-<div class="modal {{ myModals.get('id') }}">
-  <div class="modal-background" (click)="myModals.close('id')"></div>
+<div class="modal {{ modals.get('id') }}">
+  <div class="modal-background" (click)="modals.close('id')"></div>
   <div class="modal-content">
       <div class="box">
         <h2 class="subtitle">Ajouter une pièce d'identité</h2>
@@ -232,12 +234,12 @@
         <button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
       </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('id')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('id')"></button>
 </div>
 
 <!-- Data changes Modal -->
-<div class="modal {{ myModals.get('dataChanges') }}">
-  <div class="modal-background" (click)="myModals.close('dataChanges')"></div>
+<div class="modal {{ modals.get('dataChanges') }}">
+  <div class="modal-background" (click)="modals.close('dataChanges')"></div>
   <div class="modal-content">
       <div class="box">
         <h2 class="subtitle">Modifier des informations</h2>
@@ -248,5 +250,5 @@
         </textarea>
       </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="myModals.close('dataChanges')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('dataChanges')"></button>
 </div>

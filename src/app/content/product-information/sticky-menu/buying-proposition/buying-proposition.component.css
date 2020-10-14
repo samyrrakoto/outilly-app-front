@@ -1,0 +1,18 @@
+.amount {
+  font-weight: bold;
+}
+
+.accepted {
+  color: var(--KTKP-GREEN);
+  font-weight: bold;
+}
+
+.declined {
+  color: var(--KTKP-RED);
+  font-weight: bold;
+}
+
+.counter-offer {
+  color: var(--KTKP-BLUE-DARKER);
+  font-weight: bold;
+}

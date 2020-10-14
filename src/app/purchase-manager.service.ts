@@ -13,12 +13,17 @@ export class PurchaseManagerService {
     const request: any = this.request.getData(this.request.uri.GET_BIDS_AND_SALES);
     const purchases: Array<Purchase> = [];
 
-    return new Promise((resolve) => {
-      request.subscribe((res: any) => {
-        for (const elem of res) {
-          purchases.push(new Purchase(elem));
+    return new Promise((resolve, reject) => {
+      request.subscribe({
+        next: (value: any) => {
+          for (const elem of value) {
+            purchases.push(new Purchase(elem));
+          }
+          resolve(purchases);
+        },
+        error: () => {
+          reject();
         }
-        resolve(purchases);
       });
     });
   }

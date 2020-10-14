@@ -1,12 +1,12 @@
 <div id="under-tabs" class="tabs is-boxed is-centered is-small">
   <ul>
-    <li id="personal-information" class="is-active" (click)="setFocus('personal-information')">
+    <li id="personal-information" class="is-active" (click)="setFocus(informationTabs, 'personal-information')">
       <a routerLink="/user/dashboard/information/personal-information">
         <span class="icon is-small"><fa-icon [icon]="['fas', 'portrait']"></fa-icon></span>
         <span>Informations personnelles</span>
       </a>
     </li>
-    <li id="payment-information" (click)="setFocus('payment-information')">
+    <li id="payment-information" (click)="setFocus(informationTabs, 'payment-information')">
       <a routerLink="/user/dashboard/information/payment-information">
         <span class="icon is-small"><fa-icon [icon]="['fas', 'credit-card']"></fa-icon></span>
         <span>Informations de paiement</span>

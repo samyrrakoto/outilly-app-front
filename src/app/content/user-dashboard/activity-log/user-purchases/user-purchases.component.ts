@@ -1,3 +1,4 @@
+import { ActivityLogComponent } from './../activity-log.component';
 import { Bid } from './../../../../models/bid';
 import { Sale } from './../../../../models/sale';
 import { PurchaseManagerService } from './../../../../purchase-manager.service';
@@ -6,7 +7,7 @@ import { RequestService } from './../../../../services/request.service';
 import { Purchase } from './../../../../models/purchase';
 import { Modals } from './../../../../models/modals';
 import { BidManagerService } from './../../../../bid-manager.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,13 +15,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './user-purchases.component.html',
   styleUrls: ['../../user-dashboard.component.css', './user-purchases.component.css']
 })
-export class UserPurchasesComponent implements OnInit {
+export class UserPurchasesComponent extends ActivityLogComponent implements OnInit {
   modals: Modals;
   purchases: Array<Purchase>;
   currentBid: Bid;
   bidderId: number;
 
-  constructor(public request: RequestService, public router: Router, public auth: AuthService, public purchaseManager: PurchaseManagerService, public bidManager: BidManagerService) {
+  constructor(public request: RequestService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public auth: AuthService,
+    public purchaseManager: PurchaseManagerService,
+    public bidManager: BidManagerService) {
+    super(request, auth, router, route);
     this.modals = new Modals();
     this.modals.addModal('purchase-explanation');
     this.modals.addModal('acceptOffer');
@@ -31,6 +38,13 @@ export class UserPurchasesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.url.subscribe((url: any) => {
+      this.url = url[0].path;
+
+      if (this.url === 'purchases') {
+        this.setFocus(this.activityTabs, 'user-purchases');
+      }
+    });
     this.getPurchases();
   }
 

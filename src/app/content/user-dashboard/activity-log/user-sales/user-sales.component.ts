@@ -1,5 +1,5 @@
 import { SaleManagerService } from './../../../../sale-manager.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Modals } from './../../../../models/modals';
@@ -7,13 +7,14 @@ import { Bid } from './../../../../models/bid';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from './../../../../models/sale';
 import { Component, OnInit } from '@angular/core';
+import { ActivityLogComponent } from '../activity-log.component';
 
 @Component({
   selector: 'app-user-sales',
   templateUrl: './user-sales.component.html',
   styleUrls: ['../../user-dashboard.component.css', './user-sales.component.css']
 })
-export class UserSalesComponent implements OnInit {
+export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   sales: Array<Sale>;
   currentBid: Bid;
   counterOfferAmount: number;
@@ -23,7 +24,9 @@ export class UserSalesComponent implements OnInit {
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
-    public saleManager: SaleManagerService) {
+    public saleManager: SaleManagerService,
+    protected route: ActivatedRoute) {
+    super(request, auth, router, route);
     this.sales = [];
     this.currentBid = new Bid();
     this.counterOfferAmount = 0;
@@ -34,6 +37,13 @@ export class UserSalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.url.subscribe((url: any) => {
+      this.url = url[0].path;
+
+      if (this.url === 'sales') {
+        this.setFocus(this.activityTabs, 'user-sales');
+      }
+    });
     this.getUserSales();
   }
 
