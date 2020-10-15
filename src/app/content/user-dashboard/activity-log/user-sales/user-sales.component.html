@@ -29,7 +29,7 @@
                   </button>
                 </p>
                 <p class="control">
-                  <button (click)="modals.open('counterOffer'); currentBid = bid" class="button is-dark is-small yellow" title="Faire une contre-offre">
+                  <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount" class="button is-dark is-small yellow" title="Faire une contre-offre">
                     <fa-icon class="choice" [icon]="['fas', 'share']"></fa-icon>Contre-offre
                   </button>
                 </p>
@@ -59,6 +59,7 @@
           <div *ngIf="!saleManager.hasBids(sale)"class="content">
             Aucune proposition pour le moment. ='(
           </div>
+
         </div>
 
         <a class="product-page" (click)="router.navigate(['/product', sale.product.id])">Accéder à la page du produit</a>
@@ -107,9 +108,24 @@
 
       <input class="input" type="number" [(ngModel)]="counterOfferAmount">
 
-      <button class="button is-success">Proposer cette contre-offre</button>
+      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer cette contre-offre</button>
 
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('counterOffer')"></button>
+</div>
+
+<!-- Counter offer confirmation -->
+<div class="modal {{ modals.get('counterOfferConfirmation') }}">
+  <div class="modal-background" (click)="modals.close('counterOfferConfirmation')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Etes-vous sûr(e) de vouloir proposer une contre-offre à {{ counterOfferAmount }}€ ?</h2>
+
+      <button (click)="bidManager.counterOffer(currentBid.id, counterOfferAmount); modals.close('counterOfferConfirmation'); modals.close('counterOffer')" class="button is-success">Oui</button>
+      <button (click)="modals.close('counterOfferConfirmation')" class="button is-light">Non</button>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('counterOfferConfirmation')"></button>
 </div>

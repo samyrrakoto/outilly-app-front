@@ -29,11 +29,11 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     super(request, auth, router, route);
     this.sales = [];
     this.currentBid = new Bid();
-    this.counterOfferAmount = 0;
     this.modals = new Modals();
     this.modals.addModal('declineOffer');
     this.modals.addModal('acceptOffer');
     this.modals.addModal('counterOffer');
+    this.modals.addModal('counterOfferConfirmation');
   }
 
   ngOnInit(): void {
