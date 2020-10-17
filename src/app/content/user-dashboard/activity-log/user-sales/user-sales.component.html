@@ -1,5 +1,6 @@
 <div class="content">
   <h2 class="subtitle">Mes ventes</h2>
+  <div id="notifications" style="margin-bottom: 10px;"></div>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let sale of sales">
@@ -76,8 +77,8 @@
     <div class="box">
       <h2 class="subtitle">Voulez-vous vraiment accepter cette offre ?</h2>
 
-      <button (click)="bidManager.acceptOffer(currentBid.id); modals.close('acceptOffer')" class="button is-success">Oui</button>
-      <button (click)="modals.close('acceptOffer')" class="button is-light">Non</button>
+      <button (click)="offerAcceptanceConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="offerAcceptanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
   </div>
@@ -91,8 +92,8 @@
     <div class="box">
       <h2 class="subtitle">Voulez-vous vraiment refuser cette offre ?</h2>
 
-      <button (click)="bidManager.declineOffer(currentBid.id); modals.close('declineOffer')" class="button is-danger">Oui</button>
-      <button (click)="modals.close('declineOffer')" class="button is-light">Non</button>
+      <button (click)="offerDeclinanceConfirmation('yes')" class="button is-danger">Oui</button>
+      <button (click)="offerDeclinanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
   </div>
@@ -122,8 +123,8 @@
     <div class="box">
       <h2 class="subtitle">Etes-vous sûr(e) de vouloir proposer une contre-offre à {{ counterOfferAmount }}€ ?</h2>
 
-      <button (click)="bidManager.counterOffer(currentBid.id, counterOfferAmount); modals.close('counterOfferConfirmation'); modals.close('counterOffer')" class="button is-success">Oui</button>
-      <button (click)="modals.close('counterOfferConfirmation')" class="button is-light">Non</button>
+      <button (click)="counterOfferConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="counterOfferConfirmation('no')" class="button is-light">Non</button>
 
     </div>
   </div>

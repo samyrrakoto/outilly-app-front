@@ -1,5 +1,6 @@
+import { NotificationService } from './../../../../notification.service';
 import { SaleManagerService } from './../../../../sale-manager.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Modals } from './../../../../models/modals';
@@ -8,6 +9,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { Sale } from './../../../../models/sale';
 import { Component, OnInit } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-sales',
@@ -19,13 +21,16 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   currentBid: Bid;
   counterOfferAmount: number;
   modals: Modals;
+  mySubscription: any;
 
   constructor(public request: RequestService,
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
-    protected route: ActivatedRoute) {
+    protected route: ActivatedRoute,
+    protected notification: NotificationService,
+    protected location: Location) {
     super(request, auth, router, route);
     this.sales = [];
     this.currentBid = new Bid();
@@ -47,11 +52,19 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.getUserSales();
   }
 
+  ngAfterViewInit() {}
+
+  ngOnDestroy() {
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
+
   private getUserSalesId(saleId: number): void {
     const request: any = this.request.getData(this.request.uri.SALE, saleId.toString());
 
-    request.subscribe((res) => {
-      this.sales.push(res);
+    request.subscribe((sale: Sale) => {
+      this.sales.push(sale);
     });
   }
 
@@ -62,13 +75,61 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
           this.getUserSalesId(sale.id);
         }
       },
-      error: (err) => {
-        this.auth.logout();
-        this.router.navigate(['/login']);
-        sessionStorage.setItem('redirect_after_login', 'user/dashboard/activity-log/sales');
-
+      error: () => {
+        this.errorHandle();
       }
     });
-    console.log(this.sales);
+  }
+
+  public offerAcceptanceConfirmation(choice: string): void {
+    const message: string = "L'offre a bien été acceptée";
+
+    if (choice === 'yes') {
+      this.bidManager.acceptOffer(this.currentBid.id);
+      this.modals.close('acceptOffer');
+      this.refresh(message);
+    }
+    else if (choice === 'no') {
+      this.modals.close('acceptOffer');
+    }
+  }
+
+  public offerDeclinanceConfirmation(choice: string): void {
+    const message: string = "L'offre a bien été refusée";
+
+    if (choice === 'yes') {
+      this.bidManager.declineOffer(this.currentBid.id);
+      this.modals.close('declineOffer');
+      this.refresh(message);
+    }
+    else if (choice === 'no') {
+      this.modals.close('declineOffer');
+    }
+  }
+
+  public counterOfferConfirmation(choice: string): void {
+    const message: string = 'La contre-offre de ' + this.counterOfferAmount + '€ a bien été réalisée';
+
+    if (choice === 'yes') {
+      this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount);
+      this.modals.close('counterOfferConfirmation');
+      this.modals.close('counterOffer');
+      this.refresh(message);
+    }
+    else if (choice === 'no') {
+      this.modals.close('counterOfferConfirmation');
+    }
+  }
+
+  private refresh(message: string): void {
+    this.notification.display(message, 'notifications');
+    setTimeout(() => window.location.reload(), 3000);
+
+  }
+
+  private errorHandle(): void {
+    this.auth.logout();
+    sessionStorage.setItem('redirect_after_login', this.location.path());
+    this.router.navigate(['/login']);
   }
 }
