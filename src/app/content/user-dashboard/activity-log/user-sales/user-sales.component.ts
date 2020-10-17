@@ -111,7 +111,7 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     const message: string = 'La contre-offre de ' + this.counterOfferAmount + '€ a bien été réalisée';
 
     if (choice === 'yes') {
-      this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount);
+      this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount * 100);
       this.modals.close('counterOfferConfirmation');
       this.modals.close('counterOffer');
       this.refresh(message);
