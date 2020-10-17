@@ -1,9 +1,7 @@
 import { BidManagerService } from './../../bid-manager.service';
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Vendor } from 'src/app/models/vendor';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
-import { Media } from 'src/app/models/media';
 import { ActivatedRoute } from '@angular/router';
 import { ProductMedia } from 'src/app/models/product-media';
 import { GenericComponent } from 'src/app/models/generic-component';
@@ -13,15 +11,15 @@ import { GenericComponent } from 'src/app/models/generic-component';
   templateUrl: './product-information.component.html',
   styleUrls: ['./product-information.component.css']
 })
-export class ProductInformationComponent extends GenericComponent implements OnInit, OnChanges {
+export class ProductInformationComponent extends GenericComponent implements OnInit {
   id: number;
-  vendor: Vendor;
   vendorProducts: string;
   descriptionFlag: boolean;
   shortDescription: string;
   knowMore: string;
   localisation: string;
   sale: Sale;
+  sales: Array<Sale>;
   inputProperties: Array<string>;
   genericQuestions: Array<string>;
   proposedPrice: number;
@@ -32,7 +30,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   constructor(public request: RequestService, private route: ActivatedRoute, public bidManager: BidManagerService) {
     super();
-    this.vendor = new Vendor();
     this.sale = new Sale();
     this.vendorProducts = '';
     this.descriptionFlag = false;
@@ -42,17 +39,36 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     };
     this.genericQuestions = [];
     this.openMenuState = false;
+    this.sales = [];
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = params.id;
+    this.route.params.subscribe((params: any) => {
+      this.id = parseInt(params.id);
     });
     this.getProductById(this.id.toString());
     this.getGenericQuestions();
+    this.getSales();
   }
 
-  ngOnChanges() {}
+  private getSales(): void {
+    this.request.getUserInfos().subscribe({
+      next: (user: any) => {
+        for (const sale of user.sales) {
+          this.sales.push(sale);
+        }
+      }
+    });
+  }
+
+  public isSeller(): boolean {
+    for (const sale of this.sales) {
+      if (sale.id === this.id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   sortByMediaType(): void {
     const imgMedias: Array<ProductMedia> = [];
@@ -85,7 +101,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   private getGenericQuestions(): void {
     const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
 
-    response.subscribe((res) => {
+    response.subscribe((res: any) => {
       this.genericQuestions = res;
     });
   }

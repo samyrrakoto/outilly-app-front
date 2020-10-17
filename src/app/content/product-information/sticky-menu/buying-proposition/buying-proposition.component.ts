@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user';
 import { PurchaseManagerService } from './../../../../purchase-manager.service';
 import { Purchase } from './../../../../models/purchase';
 import { BidManagerService } from './../../../../bid-manager.service';
@@ -22,7 +23,7 @@ export class BuyingPropositionComponent implements OnInit {
   currentPurchase: Purchase;
   id: number;
 
-  constructor(request: RequestService,
+  constructor(public request: RequestService,
     public route: ActivatedRoute,
     public router: Router,
     public sticky: StickyMenuComponent,
@@ -41,12 +42,12 @@ export class BuyingPropositionComponent implements OnInit {
       this.id = parseInt(params.id);
     });
     this.purchaseManager.getPurchases()
-    .then((purchases: Array<Purchase>) => {
-      this.purchases = purchases;
-      if (this.hasBidded()) {
-        this.currentPurchase = this.getCurrentPurchase();
-      }
-    })
+      .then((purchases: Array<Purchase>) => {
+        this.purchases = purchases;
+        if (this.hasBidded()) {
+          this.currentPurchase = this.getCurrentPurchase();
+        }
+      });
   }
 
   public placeBid(amount: number): void {

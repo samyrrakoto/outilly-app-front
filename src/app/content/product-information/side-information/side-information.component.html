@@ -1,4 +1,4 @@
-<div class="box has-text-centered is-hidden-mobile">
+<div *ngIf="!isSeller()" class="box has-text-centered is-hidden-mobile">
     <buying-call-2-action [sale]="sale" (openState)="emitOpenState($event)"></buying-call-2-action>
 </div>
 

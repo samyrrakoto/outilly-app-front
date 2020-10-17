@@ -1,6 +1,4 @@
-import { StickyService } from './../../../services/sticky.service';
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { ProductInformationComponent } from '../product-information.component';
+import { Component, Input } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -11,7 +9,7 @@ import { Sale } from 'src/app/models/sale';
   templateUrl: './sticky-menu.component.html',
   styleUrls: ['./sticky-menu.component.css']
 })
-export class StickyMenuComponent implements OnInit, OnChanges {
+export class StickyMenuComponent {
   @Input() sale: Sale;
   @Input() errorMsg: any;
   @Input() minPrice: number;
@@ -38,9 +36,6 @@ export class StickyMenuComponent implements OnInit, OnChanges {
     this.deliveryName = 'Mondial Relay';
     this.deliveryFees = 6.90;
   }
-
-  ngOnInit(): void {}
-  ngOnChanges(): void {}
 
   nextStep(): void {
     this.stickyMenuSteps[this.current] = false;
