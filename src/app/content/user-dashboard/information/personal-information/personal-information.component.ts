@@ -181,11 +181,14 @@ export class PersonalInformationComponent extends InformationComponent implement
       return;
     }
     this.dashboardValidator.removeErrorMsg(errorMessage);
-    this.request.putData(this.request.uri.UPDATE_PWD, payload).subscribe((res) => {
-        console.log(res);
+    this.request.putData(this.request.uri.UPDATE_PWD, payload).subscribe({
+      next: () => {
         this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
+      },
+      error: (err) => {
+        this.notification.display('Le mot de passe actuel est erroné !', 'security', 'error');
       }
-    );
+    });
   }
 
   private createPayload(): any {
