@@ -164,8 +164,14 @@ export class PersonalInformationComponent extends InformationComponent implement
       }
     };
 
-    this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe((res) => {
-      console.log(res);
+    this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe({
+      next: (value: any) => {
+        this.notification.display('L\'adresse a bien été modifiée', 'addresses');
+        console.log(value);
+      },
+      error: () => {
+        this.notification.display('Une erreur est survenue', 'addresses', 'error');
+      }
     })
   }
 
