@@ -38,9 +38,7 @@ export class BuyingPropositionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = parseInt(params.id);
-    });
+    this.getId();
     this.purchaseManager.getPurchases()
       .then((purchases: Array<Purchase>) => {
         this.purchases = purchases;
@@ -50,8 +48,14 @@ export class BuyingPropositionComponent implements OnInit {
       });
   }
 
+  private getId(): void {
+    this.route.params.subscribe(params => {
+      this.id = parseInt(params.id);
+    });
+  }
+
   public placeBid(amount: number): void {
-    this.bidManager.place(amount, this.sale.id);
+    this.bidManager.place(amount * 100, this.sale.id);
   }
 
   public hasBidded(): boolean {
@@ -66,6 +70,7 @@ export class BuyingPropositionComponent implements OnInit {
   private getCurrentPurchase(): Purchase {
     for (const purchase of this.purchases) {
       if (purchase.saleId === this.id) {
+        purchase.counterOfferAmount /= 100;
         return purchase;
       }
     }

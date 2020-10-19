@@ -1,6 +1,6 @@
 import { NotificationService } from './../../../../notification.service';
 import { SaleManagerService } from './../../../../sale-manager.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Modals } from './../../../../models/modals';
@@ -21,7 +21,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   currentBid: Bid;
   counterOfferAmount: number;
   modals: Modals;
-  mySubscription: any;
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -52,18 +51,11 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.getUserSales();
   }
 
-  ngAfterViewInit() {}
-
-  ngOnDestroy() {
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
-  }
-
   private getUserSalesId(saleId: number): void {
     const request: any = this.request.getData(this.request.uri.SALE, saleId.toString());
 
     request.subscribe((sale: Sale) => {
+      sale.product.reservePrice /= 100;
       this.sales.push(sale);
     });
   }

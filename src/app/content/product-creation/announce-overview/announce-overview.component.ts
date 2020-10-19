@@ -9,6 +9,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Sale } from 'src/app/models/sale';
 import { Seller } from 'src/app/models/seller';
 import { Product } from 'src/app/models/product';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-announce-overview',
@@ -20,13 +21,12 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   isLoggedIn: Observable<boolean>;
   productCreated: boolean;
 
-  constructor(
-    public request: RequestService,
+  constructor(public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidator: FormValidatorService,
-    public auth: AuthService
-    ) {
+    public auth: AuthService,
+    public location: Location) {
       super(request, formData, router, formValidator);
       this.product = formData.product;
     }
@@ -58,18 +58,14 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   }
 
   private checkProductExistsInSession(): boolean {
-    return (this.formData.product.id != 0 && this.formData.product.strId != null);
+    return this.formData.product.id != 0 && this.formData.product.strId != null;
   }
 
-  signInOrUp(hasAccount): void {
+  signInOrUp(hasAccount: boolean): void {
     let target: string;
 
-    sessionStorage.setItem("redirect_after_login", "product/create/announce-overview");
-    if (hasAccount === true) {
-      target = "login";
-    } else {
-      target = "onboarding"
-    }
+    sessionStorage.setItem("redirect_after_login", this.location.path());
+    target = hasAccount ? 'login' : 'onboarding';
     this.router.navigate([target]);
   }
 
@@ -77,10 +73,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     const sale: Sale = new Sale();
     const seller: Seller = new Seller();
     const product: Product = new Product();
+    this.formData.product.weight = this.formData.product.weightUnity === 'kg'? this.formData.product.weight *= 1000 : this.formData.product.weight;
+    this.formData.product.reservePrice *= 100;
 
-    if (this.formData.product.weightUnity === 'kg') {
-      this.formData.product.weight *= 1000;
-    }
     seller.id = +sessionStorage.getItem("userId");
     product.id = this.formData.product.id;
     product.strId = this.formData.product.strId;
@@ -94,11 +89,11 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       sale: sale
     }
     //console.log(JSON.stringify(payload));
-    this.request.updateProduct(productPayload).subscribe(res => {
+    this.request.updateProduct(productPayload).subscribe((res: any) => {
       if (res.status === 201)
       {
         console.log("Product created in API with success");
-        this.request.createSale(salePayload).subscribe(res => {
+        this.request.createSale(salePayload).subscribe((res: any) => {
           if (res.status === 201)
           {
             console.log("Sale created in API with success");

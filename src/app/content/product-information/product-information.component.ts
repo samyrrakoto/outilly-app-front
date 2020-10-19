@@ -43,15 +43,19 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   ngOnInit(): void {
+    this.getId();
+    this.getProductById(this.id.toString());
+    this.getGenericQuestions();
+    this.getSalesId();
+  }
+
+  private getId(): void {
     this.route.params.subscribe((params: any) => {
       this.id = parseInt(params.id);
     });
-    this.getProductById(this.id.toString());
-    this.getGenericQuestions();
-    this.getSales();
   }
 
-  private getSales(): void {
+  private getSalesId(): void {
     this.request.getUserInfos().subscribe({
       next: (user: any) => {
         for (const sale of user.sales) {
@@ -86,6 +90,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
     response.subscribe((res) => {
       this.sale = res;
+      this.sale.product.reservePrice /= 100;
       this.proposedPrice = this.sale.product.reservePrice;
       this.minPrice = this.sale.product.reservePrice * 0.8;
       this.maxPrice = this.sale.product.reservePrice - 1;
