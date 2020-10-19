@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-delivery-information',
@@ -16,12 +17,10 @@ export class DeliveryInformationComponent implements OnInit {
   }
 
   public mondialRelayWidget(): void {
-    $(document).ready(function () {
-      $("#zone_widget").MR_ParcelShopPicker({
-          Target: "#data",
-          Brand: "BDTEST13",
-          Country: "FR"
-      });
-  });
-  }
+    $("#zone_widget").MR_ParcelShopPicker({
+        Target: "#data",
+        Brand: "BDTEST13",
+        Country: "FR"
+    });
+  };
 }
