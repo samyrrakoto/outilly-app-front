@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../../notification.service';
 import { User } from 'src/app/models/user';
 import { PurchaseManagerService } from './../../../../purchase-manager.service';
 import { Purchase } from './../../../../models/purchase';
@@ -28,7 +29,8 @@ export class BuyingPropositionComponent implements OnInit {
     public router: Router,
     public sticky: StickyMenuComponent,
     public bidManager: BidManagerService,
-    public purchaseManager: PurchaseManagerService) {
+    public purchaseManager: PurchaseManagerService,
+    public notification: NotificationService) {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
@@ -56,6 +58,7 @@ export class BuyingPropositionComponent implements OnInit {
 
   public placeBid(amount: number): void {
     this.bidManager.place(amount * 100, this.sale.id);
+    this.notification.display('Votre offre a bien été envoyée', 'proposition');
   }
 
   public hasBidded(): boolean {
