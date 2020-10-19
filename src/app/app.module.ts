@@ -93,6 +93,7 @@ import { PersonalInformationComponent } from './content/user-dashboard/informati
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { DeliveryInformationComponent } from './content/product-information/checkout/delivery-information/delivery-information.component';
 
 @NgModule({
   declarations: [
@@ -176,7 +177,8 @@ import { CurrencyPipe } from './pipes/currency.pipe';
     PersonalInformationComponent,
     UserSalesComponent,
     UserPurchasesComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    DeliveryInformationComponent
   ],
   imports: [
     HttpClientModule,

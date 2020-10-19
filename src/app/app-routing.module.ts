@@ -1,3 +1,4 @@
+import { DeliveryInformationComponent } from './content/product-information/checkout/delivery-information/delivery-information.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
@@ -291,7 +292,16 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    children: [
+      {
+        path: '', redirectTo: 'delivery-information', pathMatch: 'full'
+      },
+      {
+        path: 'delivery-information',
+        component: DeliveryInformationComponent
+      }
+    ]
   }
 ];
 

@@ -28,9 +28,15 @@
               "node_modules/bulma/css/bulma.min.css",
               "src/assets/css/bulma-custom.css",
               "src/styles.css",
+              "https://unpkg.com/leaflet/dist/leaflet.css",
               "src/theme.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js",
+              "https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js",
+              "https://unpkg.com/leaflet/dist/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
