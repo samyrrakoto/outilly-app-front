@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-delivery-information',
@@ -7,16 +6,15 @@ import * as $ from 'jquery';
   styleUrls: ['./delivery-information.component.css']
 })
 export class DeliveryInformationComponent implements OnInit {
-
+  $: any;
   constructor() { }
 
-  ngOnInit(): void {}
-
-  ngAfterViewChecked(): void {
+  ngOnInit(): void {
     this.mondialRelayWidget();
   }
 
   public mondialRelayWidget(): void {
+    // @ts-ignore
     $("#zone_widget").MR_ParcelShopPicker({
         Target: "#data",
         Brand: "BDTEST13",
