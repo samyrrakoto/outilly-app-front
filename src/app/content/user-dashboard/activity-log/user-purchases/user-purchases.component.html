@@ -10,12 +10,12 @@
         </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-panel-description>
-          Prix de réserve : {{ purchase.reservePrice | fullCurrency }}€
+          Prix de réserve : {{ purchase.reservePrice | currency:'full' }}€
         </mat-panel-description>
           <div *ngIf="purchase.isAccepted" class="content bid">
             <fa-icon class="choice accepted" [icon]="['fas', 'check-circle']"></fa-icon>
             Félicitations !<br><br>
-            Votre offre de <span class="amount">{{ purchase.bidAmount | fullCurrency }}€</span> a été <span class="accepted">acceptée</span>. ;-)<br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="accepted">acceptée</span>. ;-)<br>
             Rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
 
             <div (click)="modals.open('purchase-explanation')" class="content pointed">
@@ -25,13 +25,13 @@
           <div *ngIf="purchase.isAccepted === false" class="content bid">
             <fa-icon class="choice declined" [icon]="['fas', 'times-circle']"></fa-icon>
             Quel dommage !<br><br>
-            Votre offre de <span class="amount">{{ purchase.bidAmount | fullCurrency }}€</span> a été <span class="declined">refusée</span>. :-(<br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="declined">refusée</span>. :-(<br>
             Vous ne pouvez plus faire de proposition mais vous pouvez toujours acheter le produit au prix de réserve. :-)
           </div>
           <div *ngIf="purchase.counterOfferAmount !== null" class="content bid">
             <fa-icon class="choice counter-offer" [icon]="['fas', 'share']"></fa-icon>
             On y arrive !<br><br>
-            Votre offre de <span class="amount">{{ purchase.bidAmount | fullCurrency }}€</span> a été <span class="counter-offer">contre-proposée à {{ purchase.counterOfferAmount | fullCurrency }}€</span>.<br>
+            Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="counter-offer">contre-proposée à {{ purchase.counterOfferAmount | currency:'full' }}€</span>.<br>
             Si elle vous convient, rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
 
             <div (click)="modals.open('purchase-explanation')" class="content pointed">
@@ -40,7 +40,7 @@
           </div>
           <div *ngIf="purchase.isClosed === null" class="content bid">
             <fa-icon class="choice waiting-icon" [icon]="['fas', 'stopwatch']"></fa-icon>
-            Offre de <span class="amount">{{ purchase.bidAmount | fullCurrency }}€</span> envoyée !<br><br>
+            Offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> envoyée !<br><br>
             En attente d'une réponse de la part du vendeur.
           </div>
         <a class="product-page" (click)="router.navigate(['/product', purchase.saleId])">Accéder à la page du produit</a>
