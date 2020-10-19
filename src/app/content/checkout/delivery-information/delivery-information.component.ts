@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-delivery-information',
@@ -17,7 +18,7 @@ export class DeliveryInformationComponent implements OnInit {
     // @ts-ignore
     $("#zone_widget").MR_ParcelShopPicker({
         Target: "#data",
-        Brand: "BDTEST13",
+        Brand: environment.mondialBrand,
         Country: "FR"
     });
   };

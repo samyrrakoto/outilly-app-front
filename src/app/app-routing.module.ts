@@ -1,4 +1,4 @@
-import { DeliveryInformationComponent } from './content/product-information/checkout/delivery-information/delivery-information.component';
+import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
@@ -23,7 +23,7 @@ import { ProductBrandComponent } from './content/product-creation/product-brand/
 import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
-import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
+import { CheckoutComponent } from './content/checkout/checkout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './content/homepage/homepage.component';
