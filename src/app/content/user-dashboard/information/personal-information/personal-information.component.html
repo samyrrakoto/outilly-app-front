@@ -63,6 +63,8 @@
             <h2 class="subtitle">Mes documents</h2>
           </div>
 
+          <div id="identity"></div>
+
           <button class="button is-dark is-small" (click)="modals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
       </mat-expansion-panel>
 
@@ -123,6 +125,8 @@
           </div>
         </div>
 
+        <div id="addresses"></div>
+
         <button class="button is-info is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
 
     </mat-expansion-panel>
@@ -165,6 +169,8 @@
               </td>
             </tr>
           </table>
+
+          <div id="contact-information"></div>
 
           <button class="button is-info is-small" (click)="updateUserData()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
     </mat-expansion-panel>

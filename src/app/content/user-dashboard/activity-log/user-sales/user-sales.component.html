@@ -21,7 +21,7 @@
           <div class="content bid" *ngFor="let bid of bidManager.sortBidsByAmount(sale.bids)">
             <div class="content">
               <fa-icon class="offer-icon" [icon]="['fas', 'hand-holding-usd']"></fa-icon>
-                Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | fullCurrency }}€</span>
+                Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | currency:'full' }}€</span>
 
               <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
                 <p class="control">
@@ -49,7 +49,7 @@
                   Proposition <span class="declined">refusée</span>.
                 </div>
                 <div *ngIf="bidManager.isCounterOffer(bid)" class="content">
-                  <span class="counter-offer">Contre proposition</span> à <span class="amount">{{ bid.counterOfferAmount | fullCurrency }}€</span>. <br>
+                  <span class="counter-offer">Contre proposition</span> à <span class="amount">{{ bid.counterOfferAmount | currency:'full' }}€</span>. <br>
                   En attente d'une décision de l'acheteur.
                 </div>
               </div>
