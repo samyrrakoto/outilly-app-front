@@ -107,10 +107,15 @@ export class PersonalInformationComponent extends InformationComponent implement
     const payload: any = this.createPayload();
 
     if (this.dashboardValidator.verify(this.user)) {
-      this.request.updateUser(payload).subscribe((res) => {
-        console.log(res);
-        this.notification.display('Votre compte a bien été mis à jour !', 'content');
-      });
+      this.request.updateUser(payload).subscribe({
+        next: (value: any) => {
+          this.notification.display('Vos information de contact ont bien été modifiées', 'contact-information');
+          console.log(value);
+        },
+        error: () => {
+          this.notification.display('Une erreur est survenue', 'contact-information', 'error');
+        }
+      })
     }
   }
 
