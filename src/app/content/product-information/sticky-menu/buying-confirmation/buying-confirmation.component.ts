@@ -1,4 +1,4 @@
-import { StickyService } from './../../../../services/sticky.service';
+import { Modals } from './../../../../models/modals';
 import { Component, OnInit } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
@@ -10,19 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['../sticky-menu.component.css', './buying-confirmation.component.css']
 })
 export class BuyingConfirmationComponent extends StickyMenuComponent implements OnInit {
-  modals: any;
+  modals: Modals;
 
   constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent) {
     super(request, route);
     this.sticky.current = 'buyingConfirmation';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
-    this.modals = {
-      buyingConfirmation: ''
-    };
+    this.modals.addModal('buyingConfirmation');
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

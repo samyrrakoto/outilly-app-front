@@ -19,6 +19,7 @@ export class SideInformationComponent extends ProductInformationComponent implem
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   emitOpenState(state: boolean) {

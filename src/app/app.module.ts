@@ -92,6 +92,7 @@ import { ActivityLogComponent } from './content/user-dashboard/activity-log/acti
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
+import { CurrencyPipe } from './currency.pipe';
 
 @NgModule({
   declarations: [
@@ -174,7 +175,8 @@ import { UserPurchasesComponent } from './content/user-dashboard/activity-log/us
     ActivityLogComponent,
     PersonalInformationComponent,
     UserSalesComponent,
-    UserPurchasesComponent
+    UserPurchasesComponent,
+    CurrencyPipe
   ],
   imports: [
     HttpClientModule,

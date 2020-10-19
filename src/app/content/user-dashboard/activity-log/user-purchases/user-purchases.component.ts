@@ -9,6 +9,7 @@ import { Modals } from './../../../../models/modals';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-purchases',
@@ -26,7 +27,8 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
     public route: ActivatedRoute,
     public auth: AuthService,
     public purchaseManager: PurchaseManagerService,
-    public bidManager: BidManagerService) {
+    public bidManager: BidManagerService,
+    public location: Location) {
     super(request, auth, router, route);
     this.modals = new Modals();
     this.modals.addModal('purchase-explanation');
@@ -59,9 +61,9 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   }
 
   private errorHandle(): void {
+    sessionStorage.setItem('redirect_after_login', this.location.path());
     this.auth.logout();
     this.router.navigate(['/login']);
-    sessionStorage.setItem('redirect_after_login', 'user/dashboard/activity-log/purchases');
   }
 
   public createBid(bidId: number): Bid {

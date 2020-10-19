@@ -13,7 +13,7 @@
         <side-information [sale]="sale" (openState)="getOpenState($event)"></side-information>
     </div>
 
-    <sticky-menu [sale]="sale"
+    <sticky-menu *ngIf="!isSeller()" [sale]="sale"
       [errorMsg]="errorMsg"
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"

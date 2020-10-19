@@ -1,3 +1,5 @@
+import { NotificationService } from './../../../../notification.service';
+import { User } from 'src/app/models/user';
 import { PurchaseManagerService } from './../../../../purchase-manager.service';
 import { Purchase } from './../../../../models/purchase';
 import { BidManagerService } from './../../../../bid-manager.service';
@@ -22,12 +24,13 @@ export class BuyingPropositionComponent implements OnInit {
   currentPurchase: Purchase;
   id: number;
 
-  constructor(request: RequestService,
+  constructor(public request: RequestService,
     public route: ActivatedRoute,
     public router: Router,
     public sticky: StickyMenuComponent,
     public bidManager: BidManagerService,
-    public purchaseManager: PurchaseManagerService) {
+    public purchaseManager: PurchaseManagerService,
+    public notification: NotificationService) {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
@@ -37,20 +40,25 @@ export class BuyingPropositionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getId();
+    this.purchaseManager.getPurchases()
+      .then((purchases: Array<Purchase>) => {
+        this.purchases = purchases;
+        if (this.hasBidded()) {
+          this.currentPurchase = this.getCurrentPurchase();
+        }
+      });
+  }
+
+  private getId(): void {
     this.route.params.subscribe(params => {
       this.id = parseInt(params.id);
     });
-    this.purchaseManager.getPurchases()
-    .then((purchases: Array<Purchase>) => {
-      this.purchases = purchases;
-      if (this.hasBidded()) {
-        this.currentPurchase = this.getCurrentPurchase();
-      }
-    })
   }
 
   public placeBid(amount: number): void {
-    this.bidManager.place(amount, this.sale.id);
+    this.bidManager.place(amount * 100, this.sale.id);
+    this.notification.display('Votre offre a bien été envoyée', 'proposition');
   }
 
   public hasBidded(): boolean {
@@ -65,6 +73,7 @@ export class BuyingPropositionComponent implements OnInit {
   private getCurrentPurchase(): Purchase {
     for (const purchase of this.purchases) {
       if (purchase.saleId === this.id) {
+        purchase.counterOfferAmount /= 100;
         return purchase;
       }
     }

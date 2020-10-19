@@ -1,5 +1,6 @@
 <div class="content">
   <h2 class="subtitle">Mes ventes</h2>
+  <div id="notifications" style="margin-bottom: 10px;"></div>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let sale of sales">
@@ -20,7 +21,7 @@
           <div class="content bid" *ngFor="let bid of bidManager.sortBidsByAmount(sale.bids)">
             <div class="content">
               <fa-icon class="offer-icon" [icon]="['fas', 'hand-holding-usd']"></fa-icon>
-                Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount }}€</span>
+                Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | fullCurrency }}€</span>
 
               <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
                 <p class="control">
@@ -29,7 +30,7 @@
                   </button>
                 </p>
                 <p class="control">
-                  <button (click)="modals.open('counterOffer'); currentBid = bid" class="button is-dark is-small yellow" title="Faire une contre-offre">
+                  <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow" title="Faire une contre-offre">
                     <fa-icon class="choice" [icon]="['fas', 'share']"></fa-icon>Contre-offre
                   </button>
                 </p>
@@ -48,7 +49,7 @@
                   Proposition <span class="declined">refusée</span>.
                 </div>
                 <div *ngIf="bidManager.isCounterOffer(bid)" class="content">
-                  <span class="counter-offer">Contre proposition</span> à <span class="amount">{{ bid.counterOfferAmount }}€</span>. <br>
+                  <span class="counter-offer">Contre proposition</span> à <span class="amount">{{ bid.counterOfferAmount | fullCurrency }}€</span>. <br>
                   En attente d'une décision de l'acheteur.
                 </div>
               </div>
@@ -59,6 +60,7 @@
           <div *ngIf="!saleManager.hasBids(sale)"class="content">
             Aucune proposition pour le moment. ='(
           </div>
+
         </div>
 
         <a class="product-page" (click)="router.navigate(['/product', sale.product.id])">Accéder à la page du produit</a>
@@ -75,8 +77,8 @@
     <div class="box">
       <h2 class="subtitle">Voulez-vous vraiment accepter cette offre ?</h2>
 
-      <button (click)="bidManager.acceptOffer(currentBid.id); modals.close('acceptOffer')" class="button is-success">Oui</button>
-      <button (click)="modals.close('acceptOffer')" class="button is-light">Non</button>
+      <button (click)="offerAcceptanceConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="offerAcceptanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
   </div>
@@ -90,8 +92,8 @@
     <div class="box">
       <h2 class="subtitle">Voulez-vous vraiment refuser cette offre ?</h2>
 
-      <button (click)="bidManager.declineOffer(currentBid.id); modals.close('declineOffer')" class="button is-danger">Oui</button>
-      <button (click)="modals.close('declineOffer')" class="button is-light">Non</button>
+      <button (click)="offerDeclinanceConfirmation('yes')" class="button is-danger">Oui</button>
+      <button (click)="offerDeclinanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
   </div>
@@ -107,9 +109,24 @@
 
       <input class="input" type="number" [(ngModel)]="counterOfferAmount">
 
-      <button class="button is-success">Proposer cette contre-offre</button>
+      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer cette contre-offre</button>
 
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('counterOffer')"></button>
+</div>
+
+<!-- Counter offer confirmation -->
+<div class="modal {{ modals.get('counterOfferConfirmation') }}">
+  <div class="modal-background" (click)="modals.close('counterOfferConfirmation')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Etes-vous sûr(e) de vouloir proposer une contre-offre à {{ counterOfferAmount }}€ ?</h2>
+
+      <button (click)="counterOfferConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="counterOfferConfirmation('no')" class="button is-light">Non</button>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('counterOfferConfirmation')"></button>
 </div>
