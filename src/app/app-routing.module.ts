@@ -1,3 +1,4 @@
+import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
@@ -299,7 +300,16 @@ const routes: Routes = [
       },
       {
         path: 'delivery-information',
-        component: DeliveryInformationComponent
+        component: DeliveryInformationComponent,
+        children: [
+          {
+            path: '', redirectTo: 'mondial-relay-selector', pathMatch: 'full'
+          },
+          {
+            path: 'mondial-relay-selector',
+            component: MondialRelaySelectorComponent
+          }
+        ]
       }
     ]
   }

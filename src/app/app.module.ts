@@ -94,6 +94,7 @@ import { UserSalesComponent } from './content/user-dashboard/activity-log/user-s
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
+import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,8 @@ import { DeliveryInformationComponent } from './content/checkout/delivery-inform
     UserSalesComponent,
     UserPurchasesComponent,
     CurrencyPipe,
-    DeliveryInformationComponent
+    DeliveryInformationComponent,
+    MondialRelaySelectorComponent
   ],
   imports: [
     HttpClientModule,
