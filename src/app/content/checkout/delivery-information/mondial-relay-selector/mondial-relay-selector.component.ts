@@ -8,13 +8,52 @@ import { environment } from 'src/environments/environment';
 })
 export class MondialRelaySelectorComponent implements OnInit {
   $: any;
-  relayId: string;
-  relayCountry: string;
 
   constructor() {}
 
   ngOnInit(): void {
     this.mondialRelayWidget();
+  }
+
+  ngAfterViewChecked(): void {
+    window.onload = () => { this.setMRStyle() };
+  }
+
+  private setMRStyle(): void {
+    const mrWidget: any = document.getElementsByClassName('MR-Widget');
+    const mrTitle: any = document.getElementsByClassName('MRW-Title');
+    const mrInputs: any = document.getElementsByClassName('MRW-Line');
+
+    this.setMRWidgetStyle(mrWidget[0]);
+    this.setMRTitleStyle(mrTitle[0]);
+    this.setMRInputsStyle(mrInputs[0]);
+    this.setMRButtonsStyle(mrInputs[0]);
+  }
+
+  private setMRWidgetStyle(DOMElement: HTMLElement): void {
+    DOMElement.style.margin = '0 auto';
+    DOMElement.style.fontFamily = 'Arial';
+  }
+
+  private setMRTitleStyle(DOMElement: HTMLElement): void {
+    DOMElement.style.backgroundColor = 'var(--KTKP-RED)';
+    DOMElement.style.color = 'white';
+  }
+
+  private setMRInputsStyle(DOMElement: HTMLElement): void {
+    const inputs: any = DOMElement.getElementsByTagName('input');
+
+    for (const input of inputs) {
+      input.classList.add('input');
+    }
+  }
+
+  private setMRButtonsStyle(DOMElement: HTMLElement): void {
+    const buttons: any = DOMElement.getElementsByTagName('button');
+
+    for (const button of buttons) {
+      button.classList.add('button', 'is-small');
+    }
   }
 
   public mondialRelayWidget(): void {
@@ -29,9 +68,7 @@ export class MondialRelaySelectorComponent implements OnInit {
   public chooseRelay(): void {
     const data: any = document.getElementById('data');
 
-    this.relayId = data.value.split('-')[1];
-    this.relayCountry = data.value.split('-')[0];
-    localStorage.setItem('relayId', this.relayId);
-    localStorage.setItem('relayCountry', this.relayCountry);
+    localStorage.setItem('relayId', data.value.split('-')[1]);
+    localStorage.setItem('relayCountry', data.value.split('-')[0]);
   }
 }
