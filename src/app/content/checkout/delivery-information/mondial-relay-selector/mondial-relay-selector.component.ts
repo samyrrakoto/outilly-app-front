@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -8,15 +8,30 @@ import { environment } from 'src/environments/environment';
 })
 export class MondialRelaySelectorComponent implements OnInit {
   $: any;
+  mrWidget: HTMLElement;
+  isMobileDevice: MediaQueryList = window.matchMedia("(max-width: 768px)");
 
   constructor() {}
 
   ngOnInit(): void {
-    this.mondialRelayWidget();
+    this.loadMondialRelayWidget();
   }
 
   ngAfterViewChecked(): void {
-    window.onload = () => { this.setMRStyle() };
+    window.onload = () => {
+      this.setMRStyle();
+      this.updateMondialRelayWidgetParams();
+      if (this.isMobileDevice.matches === true){
+        this.applyMobileStyle();
+      }
+    };
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if(event.target.innerWidth <= 768){
+      this.applyMobileStyle();
+    }
   }
 
   private setMRStyle(): void {
@@ -25,17 +40,16 @@ export class MondialRelaySelectorComponent implements OnInit {
     flag.remove();
     this.setMRWidgetStyle();
     this.setMRTitleStyle();
-    this.setMRSearchStyle();
     this.setMRLineStyle();
     this.setMRPRStyle();
     // this.setMRResultsStyle();
   }
 
   private setMRWidgetStyle(): void {
-    const mrWidget: HTMLElement = <HTMLElement>document.getElementsByClassName('MR-Widget')[0];
+    this.mrWidget = <HTMLElement>document.getElementsByClassName('MR-Widget')[0];
 
-    mrWidget.style.margin = '0 auto';
-    mrWidget.style.fontFamily = 'Arial';
+    this.mrWidget.style.margin = '0 auto';
+    this.mrWidget.style.fontFamily = 'Arial';
   }
 
   private setMRTitleStyle(): void {
@@ -45,12 +59,6 @@ export class MondialRelaySelectorComponent implements OnInit {
     mrTitle.style.color = 'white';
     mrTitle.style.fontFamily = 'Arial';
     mrTitle.style.fontSize = '1.5em';
-  }
-
-  private setMRSearchStyle(): void {
-    const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
-
-    // mondialIcon.style.backgroundImage = 'none';
   }
 
   private setMRLineStyle(): void {
@@ -74,7 +82,6 @@ export class MondialRelaySelectorComponent implements OnInit {
 
   private setMRZipcodeStyle(DOMElement: HTMLElement): void {
     const zipcodeField: HTMLElement = <HTMLElement>DOMElement.getElementsByClassName('Arg2')[0];
-
     zipcodeField.style.width = '65px';
     zipcodeField.style.fontSize = 'Arial';
   }
@@ -131,14 +138,39 @@ export class MondialRelaySelectorComponent implements OnInit {
     }
   }
 
-  public mondialRelayWidget(): void {
+  private applyMobileStyle(): void {
+    this.mrWidget.style.width = '100%';
+
+    const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
+    mondialIcon.style.backgroundImage = 'none';
+
+    const map : HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Map')[0];
+    map.style.display = 'none';
+
+    const listPR : HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-RList')[0];
+    listPR.style.width = '100%';
+    listPR.style.maxHeight = 'none';
+
+    // @ts-ignore
+    $("#zone_widget").trigger("MR_SetParams",{
+      ShowResultsOnMap: false
+    });
+  }
+
+  private updateMondialRelayWidgetParams(): void {
+    // @ts-ignore
+    $("#zone_widget").trigger("MR_SetParams",{
+      NbResults: 10,
+      Responsive: true,
+    });
+  }
+
+  public loadMondialRelayWidget(): void {
     // @ts-ignore
     $("#zone_widget").MR_ParcelShopPicker({
         Target: "#data",
         Brand: environment.mondialBrand,
         Country: "FR",
-        NbResults: 20,
-        ShowResultsOnMap: false
     });
   };
 
