@@ -1,4 +1,3 @@
-import { ActivityDomainComponent } from './../../../product-creation/activity-domain/activity-domain.component';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -29,7 +28,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     this.setMRSearchStyle();
     this.setMRLineStyle();
     this.setMRPRStyle();
-    this.setMRResults();
+    // this.setMRResultsStyle();
   }
 
   private setMRWidgetStyle(): void {
@@ -51,7 +50,7 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRSearchStyle(): void {
     const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
 
-    mondialIcon.style.backgroundImage = 'none';
+    // mondialIcon.style.backgroundImage = 'none';
   }
 
   private setMRLineStyle(): void {
@@ -83,15 +82,25 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRButtonsStyle(): void {
     const mrLine: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-Line');
     const buttons: HTMLCollectionOf<HTMLButtonElement> = mrLine[0].getElementsByTagName('button');
+    const content: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Content')[0];
 
     for (let i=0; i<buttons.length; i++) {
       buttons[i].classList.add('button', 'is-small');
       buttons[i].style.fontFamily = 'Arial';
-      buttons[i].addEventListener('onclick', () => {
-        this.setMRResults();
-        }
-      );
     }
+    this.test(content);
+  }
+
+  private test(target: HTMLElement): void {
+    const observer: MutationObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        console.log(mutation);
+      };
+    });
+    const config = { attributes: true, childList: true, characterData: true };
+
+    observer.observe(target, config);
+    observer.disconnect();
   }
 
   private setMRPRStyle(): void {
@@ -101,14 +110,24 @@ export class MondialRelaySelectorComponent implements OnInit {
     }
   }
 
-  private setMRResults(): void {
-    const results: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Results')[0];
-    const prNames: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>results.getElementsByClassName('PR-Name');
+  private setMRResultsStyle(): void {
+    const results: HTMLElement = <HTMLElement>document.querySelector('.MRW-Results')[0];
 
     results.style.backgroundColor = 'var(--KTKP-GREEN)';
+    this.setMRMapStyle();
+  }
 
-    for (let i=0; i<prNames.length; i++) {
-      prNames[i].style.color = 'orange';
+  private setMRMapStyle(): void {
+    const map: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Map')[0];
+
+    map.style.margin = '0 auto';
+    map.style.float = 'center';
+  }
+
+  private setMRList(): void {
+    const relayList: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-RList');
+
+    for (let i=0; i<relayList.length; i++) {
     }
   }
 
@@ -117,7 +136,9 @@ export class MondialRelaySelectorComponent implements OnInit {
     $("#zone_widget").MR_ParcelShopPicker({
         Target: "#data",
         Brand: environment.mondialBrand,
-        Country: "FR"
+        Country: "FR",
+        NbResults: 20,
+        ShowResultsOnMap: false
     });
   };
 
