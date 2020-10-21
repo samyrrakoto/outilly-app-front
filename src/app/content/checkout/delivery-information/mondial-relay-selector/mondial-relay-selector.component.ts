@@ -1,3 +1,4 @@
+import { ActivityDomainComponent } from './../../../product-creation/activity-domain/activity-domain.component';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -20,39 +21,93 @@ export class MondialRelaySelectorComponent implements OnInit {
   }
 
   private setMRStyle(): void {
-    const mrWidget: any = document.getElementsByClassName('MR-Widget');
-    const mrTitle: any = document.getElementsByClassName('MRW-Title');
-    const mrInputs: any = document.getElementsByClassName('MRW-Line');
+    const flag: HTMLElement = document.getElementById('Img_Pays');
 
-    this.setMRWidgetStyle(mrWidget[0]);
-    this.setMRTitleStyle(mrTitle[0]);
-    this.setMRInputsStyle(mrInputs[0]);
-    this.setMRButtonsStyle(mrInputs[0]);
+    flag.remove();
+    this.setMRWidgetStyle();
+    this.setMRTitleStyle();
+    this.setMRSearchStyle();
+    this.setMRLineStyle();
+    this.setMRPRStyle();
   }
 
-  private setMRWidgetStyle(DOMElement: HTMLElement): void {
-    DOMElement.style.margin = '0 auto';
-    DOMElement.style.fontFamily = 'Arial';
+  private setMRWidgetStyle(): void {
+    const mrWidget: HTMLElement = <HTMLElement>document.getElementsByClassName('MR-Widget')[0];
+
+    mrWidget.style.margin = '0 auto';
+    mrWidget.style.fontFamily = 'Arial';
   }
 
-  private setMRTitleStyle(DOMElement: HTMLElement): void {
-    DOMElement.style.backgroundColor = 'var(--KTKP-RED)';
-    DOMElement.style.color = 'white';
+  private setMRTitleStyle(): void {
+    const mrTitle: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Title')[0];
+
+    mrTitle.style.backgroundColor = 'var(--KTKP-GREEN)';
+    mrTitle.style.color = 'white';
+    mrTitle.style.fontFamily = 'Arial';
+    mrTitle.style.fontSize = '1.5em';
+  }
+
+  private setMRSearchStyle(): void {
+    const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
+
+    mondialIcon.style.backgroundImage = 'none';
+  }
+
+  private setMRLineStyle(): void {
+    const mrLine: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Line')[0];
+
+    mrLine.style.verticalAlign = 'middle';
+    this.setMRButtonsStyle();
+    this.setMRInputsStyle(mrLine);
+    this.setMRZipcodeStyle(mrLine);
   }
 
   private setMRInputsStyle(DOMElement: HTMLElement): void {
-    const inputs: any = DOMElement.getElementsByTagName('input');
+    const inputs: HTMLCollectionOf<HTMLInputElement> = DOMElement.getElementsByTagName('input');
 
-    for (const input of inputs) {
-      input.classList.add('input');
+    for (let i=0; i<inputs.length; i++) {
+      inputs[i].classList.add('input');
+      inputs[i].classList.add('is-small');
+      inputs[i].style.fontFamily = 'Arial';
     }
   }
 
-  private setMRButtonsStyle(DOMElement: HTMLElement): void {
-    const buttons: any = DOMElement.getElementsByTagName('button');
+  private setMRZipcodeStyle(DOMElement: HTMLElement): void {
+    const zipcodeField: HTMLElement = <HTMLElement>DOMElement.getElementsByClassName('Arg2')[0];
 
-    for (const button of buttons) {
-      button.classList.add('button', 'is-small');
+    zipcodeField.style.width = '65px';
+    zipcodeField.style.fontSize = 'Arial';
+  }
+
+  private setMRButtonsStyle(): void {
+    const mrLine: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-Line');
+    const buttons: HTMLCollectionOf<HTMLButtonElement> = mrLine[0].getElementsByTagName('button');
+    const mrResults: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-Results');
+
+    for (let i=0; i<buttons.length; i++) {
+      buttons[i].classList.add('button', 'is-small');
+      buttons[i].style.fontFamily = 'Arial';
+      buttons[i].addEventListener('onclick', () => {
+        this.setMRResults(mrResults[0]);
+        }
+      );
+    }
+  }
+
+  private setMRPRStyle(): void {
+    const mrPRNames: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('PR-Name');
+
+    for (let i=0; i<mrPRNames.length; i++) {
+    }
+  }
+
+  private setMRResults(DOMElement: HTMLElement): void {
+    const prNames: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>DOMElement.getElementsByClassName('PR-Name');
+
+    DOMElement.style.backgroundColor = 'var(--KTKP-GREEN)';
+
+    for (let i=0; i<prNames.length; i++) {
+      prNames[i].style.color = 'orange';
     }
   }
 
