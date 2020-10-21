@@ -29,6 +29,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     this.setMRSearchStyle();
     this.setMRLineStyle();
     this.setMRPRStyle();
+    this.setMRResults();
   }
 
   private setMRWidgetStyle(): void {
@@ -82,13 +83,12 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRButtonsStyle(): void {
     const mrLine: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-Line');
     const buttons: HTMLCollectionOf<HTMLButtonElement> = mrLine[0].getElementsByTagName('button');
-    const mrResults: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('MRW-Results');
 
     for (let i=0; i<buttons.length; i++) {
       buttons[i].classList.add('button', 'is-small');
       buttons[i].style.fontFamily = 'Arial';
       buttons[i].addEventListener('onclick', () => {
-        this.setMRResults(mrResults[0]);
+        this.setMRResults();
         }
       );
     }
@@ -101,10 +101,11 @@ export class MondialRelaySelectorComponent implements OnInit {
     }
   }
 
-  private setMRResults(DOMElement: HTMLElement): void {
-    const prNames: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>DOMElement.getElementsByClassName('PR-Name');
+  private setMRResults(): void {
+    const results: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Results')[0];
+    const prNames: HTMLCollectionOf<HTMLElement> = <HTMLCollectionOf<HTMLElement>>results.getElementsByClassName('PR-Name');
 
-    DOMElement.style.backgroundColor = 'var(--KTKP-GREEN)';
+    results.style.backgroundColor = 'var(--KTKP-GREEN)';
 
     for (let i=0; i<prNames.length; i++) {
       prNames[i].style.color = 'orange';
