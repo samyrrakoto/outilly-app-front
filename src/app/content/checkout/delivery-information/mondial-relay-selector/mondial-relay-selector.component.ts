@@ -97,19 +97,6 @@ export class MondialRelaySelectorComponent implements OnInit {
       buttons[i].style.fontFamily = 'Arial';
       buttons[i].style.verticalAlign = 'middle';
     }
-    this.test(content);
-  }
-
-  private test(target: HTMLElement): void {
-    const observer: MutationObserver = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        console.log(mutation);
-      };
-    });
-    const config = { attributes: true, childList: true, characterData: true };
-
-    observer.observe(target, config);
-    observer.disconnect();
   }
 
   private setMRPRStyle(): void {
