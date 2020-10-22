@@ -64,7 +64,6 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRLineStyle(): void {
     const mrLine: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Line')[0];
 
-    mrLine.style.verticalAlign = 'middle';
     this.setMRButtonsStyle();
     this.setMRInputsStyle(mrLine);
     this.setMRZipcodeStyle(mrLine);
@@ -77,11 +76,13 @@ export class MondialRelaySelectorComponent implements OnInit {
       inputs[i].classList.add('input');
       inputs[i].classList.add('is-small');
       inputs[i].style.fontFamily = 'Arial';
+      inputs[i].style.verticalAlign = 'middle';
     }
   }
 
   private setMRZipcodeStyle(DOMElement: HTMLElement): void {
     const zipcodeField: HTMLElement = <HTMLElement>DOMElement.getElementsByClassName('Arg2')[0];
+
     zipcodeField.style.width = '65px';
     zipcodeField.style.fontSize = 'Arial';
   }
@@ -94,6 +95,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     for (let i=0; i<buttons.length; i++) {
       buttons[i].classList.add('button', 'is-small');
       buttons[i].style.fontFamily = 'Arial';
+      buttons[i].style.verticalAlign = 'middle';
     }
     this.test(content);
   }
