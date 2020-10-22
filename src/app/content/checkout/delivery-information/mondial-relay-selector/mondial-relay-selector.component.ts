@@ -10,8 +10,15 @@ export class MondialRelaySelectorComponent implements OnInit {
   $: any;
   mrWidget: HTMLElement;
   isMobileDevice: MediaQueryList = window.matchMedia("(max-width: 768px)");
+  displayMondialLogo: boolean;
+  mondialLogoSize: string;
+  displayCountryLogo: boolean;
 
-  constructor() {}
+  constructor() {
+    this.displayMondialLogo = true;
+    this.mondialLogoSize = '50px 50px';
+    this.displayCountryLogo = false;
+  }
 
   ngOnInit(): void {
     this.loadMondialRelayWidget();
@@ -37,7 +44,7 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRStyle(): void {
     const flag: HTMLElement = document.getElementById('Img_Pays');
 
-    flag.remove();
+    this.displayCountryLogo ? null : flag.remove();
     this.setMRWidgetStyle();
     this.setMRTitleStyle();
     this.setMRLineStyle();
@@ -63,7 +70,9 @@ export class MondialRelaySelectorComponent implements OnInit {
 
   private setMRLineStyle(): void {
     const mrLine: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Line')[0];
+    const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
 
+    this.displayMondialLogo ? mondialIcon.style.backgroundSize= this.mondialLogoSize : mondialIcon.style.backgroundImage = 'none';
     this.setMRButtonsStyle();
     this.setMRInputsStyle(mrLine);
     this.setMRZipcodeStyle(mrLine);
@@ -145,6 +154,10 @@ export class MondialRelaySelectorComponent implements OnInit {
       ShowResultsOnMap: false
     });
   }
+
+  /*
+  ** MR Widget methods
+  */
 
   private updateMondialRelayWidgetParams(): void {
     // @ts-ignore
