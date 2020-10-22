@@ -72,7 +72,8 @@ export class MondialRelaySelectorComponent implements OnInit {
     const mrLine: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Line')[0];
     const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
 
-    this.displayMondialLogo ? mondialIcon.style.backgroundSize= this.mondialLogoSize : mondialIcon.style.backgroundImage = 'none';
+    this.displayMondialLogo ? mondialIcon.style.backgroundSize = this.mondialLogoSize : mondialIcon.style.backgroundImage = 'none';
+    mrLine.style.fontFamily = 'Arial';
     this.setMRButtonsStyle();
     this.setMRInputsStyle(mrLine);
     this.setMRZipcodeStyle(mrLine);
