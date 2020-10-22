@@ -28,9 +28,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     window.onload = () => {
       this.setMRStyle();
       this.updateMondialRelayWidgetParams();
-      if (this.isMobileDevice.matches === true){
-        this.applyMobileStyle();
-      }
+      this.isMobileDevice.matches ? this.applyMobileStyle() : null;
     };
   }
 
@@ -44,7 +42,7 @@ export class MondialRelaySelectorComponent implements OnInit {
   private setMRStyle(): void {
     const flag: HTMLElement = document.getElementById('Img_Pays');
 
-    this.displayCountryLogo ? null : flag.remove();
+    this.displayCountryLogo ? null : flag.style.display = 'none';
     this.setMRWidgetStyle();
     this.setMRTitleStyle();
     this.setMRLineStyle();
@@ -153,6 +151,26 @@ export class MondialRelaySelectorComponent implements OnInit {
     // @ts-ignore
     $("#zone_widget").trigger("MR_SetParams",{
       ShowResultsOnMap: false
+    });
+  }
+
+  // TODO: fix me when I have time
+  private applyDesktopStyle(): void {
+    this.mrWidget.style.width = '';
+
+    const mondialIcon: HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Search')[0];
+    mondialIcon.style.backgroundImage = 'url(https://widget.mondialrelay.com/parcelshop-picker/v4_0/css/imgs/mr-64.png)';
+
+    const map : HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-Map')[0];
+    map.style.display = 'contents';
+
+    const listPR : HTMLElement = <HTMLElement>document.getElementsByClassName('MRW-RList')[0];
+    listPR.style.width = '230px';
+    listPR.style.maxHeight = '';
+
+    // @ts-ignore
+    $("#zone_widget").trigger("MR_SetParams",{
+      ShowResultsOnMap: true
     });
   }
 
