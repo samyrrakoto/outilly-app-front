@@ -1,3 +1,4 @@
+import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
@@ -310,6 +311,10 @@ const routes: Routes = [
             component: MondialRelaySelectorComponent
           }
         ]
+      },
+      {
+        path: 'order-summary',
+        component: OrderSummaryComponent
       }
     ]
   }

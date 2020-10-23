@@ -95,6 +95,11 @@ import { UserPurchasesComponent } from './content/user-dashboard/activity-log/us
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
+import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
+import { ProductSummaryComponent } from './content/checkout/order-summary/product-summary/product-summary.component';
+import { DeliverySummaryComponent } from './content/checkout/order-summary/delivery-summary/delivery-summary.component';
+import { InformationSummaryComponent } from './content/checkout/order-summary/information-summary/information-summary.component';
+import { PriceSummaryComponent } from './content/checkout/order-summary/price-summary/price-summary.component';
 
 @NgModule({
   declarations: [
@@ -180,7 +185,12 @@ import { MondialRelaySelectorComponent } from './content/checkout/delivery-infor
     UserPurchasesComponent,
     CurrencyPipe,
     DeliveryInformationComponent,
-    MondialRelaySelectorComponent
+    MondialRelaySelectorComponent,
+    OrderSummaryComponent,
+    ProductSummaryComponent,
+    DeliverySummaryComponent,
+    InformationSummaryComponent,
+    PriceSummaryComponent
   ],
   imports: [
     HttpClientModule,
