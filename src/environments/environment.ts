@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUri: 'http://ktkp.api/',
+  mondialBrand: 'BDTEST13'
 };
 
 /*

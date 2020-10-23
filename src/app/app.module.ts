@@ -63,7 +63,7 @@ import { BuyingPropositionComponent } from './content/product-information/sticky
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
-import { CheckoutComponent } from './content/product-information/checkout/checkout.component';
+import { CheckoutComponent } from './content/checkout/checkout.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
@@ -93,6 +93,8 @@ import { PersonalInformationComponent } from './content/user-dashboard/informati
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
+import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 
 @NgModule({
   declarations: [
@@ -176,7 +178,9 @@ import { CurrencyPipe } from './pipes/currency.pipe';
     PersonalInformationComponent,
     UserSalesComponent,
     UserPurchasesComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    DeliveryInformationComponent,
+    MondialRelaySelectorComponent
   ],
   imports: [
     HttpClientModule,

@@ -30,7 +30,12 @@
               "src/styles.css",
               "src/theme.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/googleApi.js",
+              "src/assets/js/mondialRelay.js",
+              "src/assets/js/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
