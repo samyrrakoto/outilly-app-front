@@ -10,16 +10,5 @@ export class DeliveryInformationComponent implements OnInit {
   $: any;
   constructor() { }
 
-  ngOnInit(): void {
-    this.mondialRelayWidget();
-  }
-
-  public mondialRelayWidget(): void {
-    // @ts-ignore
-    $("#zone_widget").MR_ParcelShopPicker({
-        Target: "#data",
-        Brand: environment.mondialBrand,
-        Country: "FR"
-    });
-  };
+  ngOnInit(): void {}
 }
