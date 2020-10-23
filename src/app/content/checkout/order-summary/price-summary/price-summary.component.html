@@ -1,3 +1,37 @@
-<div class="box">
-  <p>price-summary works!</p>
+<div class="box has-text-centered">
+  <h2 class="subtitle has-text-weight-bold">Récapitulatif</h2>
+
+    <div class="column">
+      <table class="table">
+        <tr>
+          <td>Produit</td>
+          <td class="value">300€</td>
+        </tr>
+
+        <tr>
+          <td>Frais de commission (6%)</td>
+          <td class="value">18€</td>
+        </tr>
+
+        <tr>
+          <td>Frais de livraison</td>
+          <td class="value">6.90€</td>
+        </tr>
+
+        <tr id="total-line">
+          <td>TOTAL</td>
+          <td id="total-value" class="value">324.90€</td>
+        </tr>
+      </table>
+
+      <div class="columns">
+        <div class="column has-text-centered">
+          <input class="input" placeholder="Code promotionnel">
+        </div>
+
+        <div class="column has-text-centered">
+          <button class="button is-success">Appliquer</button>
+        </div>
+      </div>
+    </div>
 </div>

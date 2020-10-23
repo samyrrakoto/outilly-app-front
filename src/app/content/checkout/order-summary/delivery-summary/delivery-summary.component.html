@@ -1,3 +1,92 @@
 <div class="box">
-  <p>delivery-summary works!</p>
+  <h2 class="subtitle has-text-centered has-text-weight-bold">La livraison</h2>
+
+  <div class="content has-text-centered has-text-weight-bold">
+    Vous avez choisi la livraison dans le Point Relais suivant :
+  </div>
+
+  <div class="columns">
+    <div id="relay-point" class="column">
+      <h2 class="subtitle has-text-danger has-text-weight-bold">Disney Store Champs-Elysées</h2>
+
+      <div class="content has-text-centered">
+        <button (click)="modals.open('relayPointPicture')" class="button is-small">
+          <fa-icon [icon]="['fas', 'camera']"></fa-icon>Voir une photo
+        </button>
+      </div>
+
+      <table class="table" id="relay-point-address">
+        <tr>
+          <td>
+            <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+          </td>
+          <td>
+            4 avenue des Champs-Elysées,<br>
+            75017 Paris
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="opening-hours" class="column">
+      <h2 id="product-title" class="subtitle has-text-centered has-text-weight-bold">
+        <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+        Horaires d'ouverture
+      </h2>
+
+      <table class="table">
+        <tr>
+          <td class="day"> Lundi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Mardi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Mercredi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Jeudi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Vendredi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Samedi :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+
+        <tr>
+          <td class="day"> Dimanche :</td>
+          <td>10:00-12:00 & 14:00-23:00</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="content has-text-centered">
+    <button class="button is-danger is-outlined">
+      <fa-icon id="previous-icon" [icon]="['fas', 'arrow-alt-circle-left']"></fa-icon>
+      Choisir un autre Point Relais
+    </button>
+  </div>
+</div>
+
+<div class="modal {{ modals.get('relayPointPicture') }}">
+  <div class="modal-background" (click)="modals.close('relayPointPicture')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <img src="https://www.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_77884/node_77893/disney-store-champs-elys%C3%A9es-%7C-630x405-%7C-%C2%A9-dr/10957765-1-fre-FR/Disney-Store-champs-elys%C3%A9es-%7C-630x405-%7C-%C2%A9-DR.jpg">
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('relayPointPicture')"></button>
 </div>

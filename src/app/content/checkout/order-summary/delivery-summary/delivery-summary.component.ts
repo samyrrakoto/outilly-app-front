@@ -1,3 +1,4 @@
+import { Modals } from './../../../../models/modals';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../order-summary.component.css', './delivery-summary.component.css']
 })
 export class DeliverySummaryComponent implements OnInit {
+  modals: Modals;
 
-  constructor() { }
+  constructor() {
+    this.modals = new Modals();
+    this.modals.addModal('relayPointPicture');
+  }
 
   ngOnInit(): void {
   }
