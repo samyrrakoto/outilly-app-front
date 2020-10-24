@@ -10,6 +10,7 @@
     --KTKP-GREY-DARKER: #DEDEDE;
 
     --GREY-LIGHT: #DBDBDB;
+    --FAKE-WHITE: rgba(248, 248, 248, 0.865);
     --MAT-GREY: rgb(80, 80, 80);
 }
 
@@ -21,6 +22,18 @@
 .sold {
     text-decoration: line-through;
     text-decoration-color: var(--KTKP-RED);
+}
+
+.overline {
+  border-top: solid 2px var(--FAKE-WHITE);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 a:link, a:visited {

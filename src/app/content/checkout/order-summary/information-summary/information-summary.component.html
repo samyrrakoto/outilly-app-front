@@ -1,17 +1,50 @@
   <div class="box">
-    <h2 class="subtitle has-text-centered has-text-weight-bold">Vos informations</h2>
+    <h2 class="subtitle section-title has-text-centered has-text-weight-bold">Vos informations</h2>
 
-    <div id="product-description" class="content">
-      <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth">
+    <!-- DESKTOP Display-->
+    <div class="content is-hidden-touch">
+      <div class="columns desktop-field has-text-left">
+        <div class="column is-1 shortpadding">
           <fa-icon [icon]="['fas', 'user']"></fa-icon>
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           {{ 'Lenne' | uppercase }} Sidonie
         </div>
       </div>
 
-      <div class="content has-text-centered is-hidden-desktop">
+      <div class="columns desktop-field has-text-left shortline">
+        <div class="column is-1 shortpadding">
+          <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
+        </div>
+        <div class="column shortpadding">
+          06.00.00.00.00
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left shortline">
+        <div class="column is-1 shortpadding">
+          <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+        </div>
+        <div class="column shortpadding">
+          sidonie.lenne@gmail.com
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left">
+        <div class="column is-1 shortpadding">
+          <fa-icon [icon]="['fas', 'home']"></fa-icon>
+        </div>
+        <div class="column shortpadding">
+          177 boulevard du Parc,<br>
+          77700 Coupray
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLET Display -->
+    <div class="content is-hidden-desktop">
+
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field">
           <fa-icon [icon]="['fas', 'user']"></fa-icon>
         </div>
@@ -20,16 +53,7 @@
         </div>
       </div>
 
-      <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth">
-          <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
-        </div>
-        <div class="column">
-          06.00.00.00.00
-        </div>
-      </div>
-
-      <div class="content has-text-centered is-hidden-desktop">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field">
           <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
         </div>
@@ -38,16 +62,7 @@
         </div>
       </div>
 
-      <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth">
-          <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
-        </div>
-        <div class="column">
-          sidonie.lenne@gmail.com
-        </div>
-      </div>
-
-      <div class="content has-text-centered is-hidden-desktop">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field">
           <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
         </div>
@@ -56,17 +71,7 @@
         </div>
       </div>
 
-      <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth">
-          <fa-icon [icon]="['fas', 'home']"></fa-icon>
-        </div>
-        <div class="column">
-          177 boulevard du Parc,<br>
-          77700 Coupray
-        </div>
-      </div>
-
-      <div class="content has-text-centered is-hidden-desktop">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field">
           <fa-icon [icon]="['fas', 'home']"></fa-icon>
         </div>
@@ -75,17 +80,19 @@
           77700 Coupray
         </div>
       </div>
+    </div>
 
-      <div class="content has-text-centered">
-        <button class="button is-danger is-outlined is-clipped">
-          <div class="content wrapped">
-          Modifier mes informations
-          </div>
-        </button>
+    <div class="content has-text-centered">
+      <button class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
+        Modifier mes informations
+      </button>
 
-        <div class="content">
-          Ces informations restent confidentielles
-        </div>
+      <button class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
+        Modifier mes informations
+      </button>
+
+      <div class="content discreet-text">
+        Ces informations restent confidentielles
       </div>
-  </div>
+    </div>
 </div>

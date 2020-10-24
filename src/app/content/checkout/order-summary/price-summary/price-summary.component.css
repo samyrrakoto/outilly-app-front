@@ -11,29 +11,15 @@
 }
 
 #total-line {
-  border-top: solid 4px black;
+  border-top: solid 2px black;
   font-size: 1.5em;
   font-weight: bold;
 }
 
-.desktop-field, .tablet-field {
-  word-break: break-all;
+#promo-code {
+  border: solid 1px var(--KTKP-GREEN);
 }
 
-.tablet-field {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.desktop-field {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.button {
-  width: 80%;
-}
-
-.wrapped {
-  word-break: break-all;
+#apply-button {
+  color: white;
 }

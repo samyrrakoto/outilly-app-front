@@ -1,6 +1,8 @@
 <div class="box">
-  <div class="columns has-text-centered">
-    <div class="column is-one-fifth">
+
+  <!-- DESKTOP display -->
+  <div class="columns is-vcentered is-hidden-touch has-text-centered">
+    <div class="column is-1">
       <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
     </div>
 
@@ -8,8 +10,23 @@
       Paiement 100% sécurisé avec notre partenaire MangoPay
     </div>
 
-    <div class="column is-one-fifth">
+    <div class="column is-4">
+      <img id="payment-logo" src="assets/img/logo/visa-mastercard.png" alt="Logo visa et mastercard">
+    </div>
+  </div>
 
+  <!-- TABLET display -->
+  <div class="content is-hidden-desktop has-text-centered">
+    <div class="content shortline">
+      <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
+    </div>
+
+    <div class="content shortline">
+      Paiement 100% sécurisé avec notre partenaire MangoPay
+    </div>
+
+    <div class="content shortline">
+      <img id="payment-logo" src="assets/img/logo/visa-mastercard.png" alt="Logo visa et mastercard">
     </div>
   </div>
 </div>

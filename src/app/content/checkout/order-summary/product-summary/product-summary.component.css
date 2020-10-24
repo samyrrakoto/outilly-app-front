@@ -6,6 +6,16 @@
   font-weight: bold;
 }
 
+#product-image-desktop {
+  width: 200px;
+  height: auto;
+}
+
+#product-image-tablet {
+  width: 300px;
+  height: auto;
+}
+
 .product-field {
   font-weight: bold;
 }
@@ -22,4 +32,9 @@
 .desktop-field {
   margin-top: 2px;
   margin-bottom: 2px;
+}
+
+#product-price {
+  margin-top: 20px;
+  font-size: 1.3em;
 }

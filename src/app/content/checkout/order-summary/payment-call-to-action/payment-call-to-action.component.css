@@ -1,21 +1,11 @@
-.desktop-field, .tablet-field {
-  word-break: break-all;
-}
-
-.tablet-field {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.desktop-field {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
 .button {
-  width: 80%;
+  font-size: 1.3em;
 }
 
-.wrapped {
-  word-break: break-all;
+.is-desktop {
+  width: 100%;
+}
+
+.is-mobile {
+  width: 70%;
 }

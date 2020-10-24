@@ -1,28 +1,33 @@
 <div class="box">
-  <h2 class="subtitle has-text-centered has-text-weight-bold">La livraison</h2>
+  <h2 class="subtitle section-title has-text-centered has-text-weight-bold">La livraison</h2>
 
-  <div class="content has-text-centered has-text-weight-bold">
-    Vous avez choisi la livraison dans le Point Relais suivant :
+  <div class="content has-text-left has-text-weight-bold">
+    Vous avez choisi la livraison dans le Point Relais suivant&nbsp;:
   </div>
 
   <!-- DESKTOP Display -->
   <div class="columns">
     <div id="relay-point" class="column is-hidden-touch">
-      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">Disney Store Champs-Elysées</h2>
+      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile removespacebelow">Disney Store Champs-Elysées</h2>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-left">
         <button (click)="modals.open('relayPointPicture')" class="button is-small">
           <fa-icon id="camera-icon" [icon]="['fas', 'camera']"></fa-icon>Voir une photo
         </button>
       </div>
 
-      <div class="content desktop-field has-text-centered">
-        <div class="content is-one-quarter shortline">
+      <div class="columns desktop-field has-text-centered">
+        <div class="column is-1 shortline">
           <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
         </div>
-        <div class="content shortline">
-          44 avenue des Champs-Elysées,<br>
-          75017 Paris
+        <div class="column shortline has-text-left">
+          <div id="relay-point-line1" class="content">
+            44 avenue des Champs-Elysées,<br>
+            75017 Paris
+          </div>
+          <div id="relay-point-line2" class="content">
+            Près de l'arc de Triomphe
+          </div>
         </div>
       </div>
     </div>
@@ -30,67 +35,68 @@
     <div id="opening-hours" class="column is-hidden-touch">
       <h2 id="product-title" class="subtitle has-text-centered has-text-weight-bold">
         <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+        Horaires d'ouverture
       </h2>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-quarter day shortline">
+        <div class="column is-one-quarter day shortpadding">
           Lundi
         </div>
-        <div class="column shortline">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-quarter day">
+        <div class="column is-one-quarter day shortpadding">
           Mardi
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-quarter day">
+        <div class="column is-one-quarter day shortpadding">
           Mercredi
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-quarter day">
+        <div class="column is-one-quarter day shortpadding">
           Jeudi
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth day">
+        <div class="column is-one-quarter day shortpadding">
           Vendredi
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth day">
+        <div class="column is-one-quarter day shortpadding">
           Samedi
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
 
       <div class="columns desktop-field has-text-left is-hidden-touch">
-        <div class="column is-one-fifth day">
+        <div class="column is-one-quarter day shortpadding">
           Dimanche
         </div>
-        <div class="column">
+        <div class="column shortpadding">
           10:00-12:00 & 14:00-23:00
         </div>
       </div>
@@ -123,7 +129,9 @@
           <fa-icon [icon]="['fas', 'clock']"></fa-icon>
           Horaires d'ouverture
         </h2>
+      </div>
 
+      <div class="content shortline">
         <div class="content tablet-field day">
           Lundi
         </div>
@@ -132,7 +140,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Mardi
         </div>
@@ -141,7 +149,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Mercredi
         </div>
@@ -150,7 +158,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Jeudi
         </div>
@@ -159,7 +167,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Vendredi
         </div>
@@ -168,7 +176,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Samedi
         </div>
@@ -177,7 +185,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <div class="content has-text-centered shortline">
         <div class="content tablet-field day">
           Dimanche
         </div>
@@ -188,8 +196,8 @@
     </div>
   </div>
 
-  <div class="content has-text-centered">
-    <button class="button is-danger is-outlined">
+  <div class="content has-text-left">
+    <button class="button is-danger is-outlined no-overflow">
       <fa-icon id="previous-icon" [icon]="['fas', 'arrow-alt-circle-left']"></fa-icon>
       Choisir un autre Point Relais
     </button>

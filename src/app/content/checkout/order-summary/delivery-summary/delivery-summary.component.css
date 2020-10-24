@@ -12,6 +12,16 @@
   word-break: normal;
 }
 
+#relay-point-line1 {
+  margin-bottom: 1px;
+}
+
+#relay-point-line2 {
+  margin-top: 1px;
+  font-size: 0.8em;
+  color: var(--MAT-GREY);
+}
+
 #relay-point-address {
   font-size: 0.9em;
 }
@@ -41,8 +51,4 @@
 .desktop-field {
   margin-top: 2px;
   margin-bottom: 2px;
-}
-
-.button {
-  width: 80%;
 }

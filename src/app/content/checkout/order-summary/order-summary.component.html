@@ -1,17 +1,18 @@
 <h1 class="title has-text-centered">Récapitulatif de votre commande</h1>
 
-<div class="columns is-centered">
+<div class="columns is-variable is-8 is-centered">
 
   <!-- General information -->
-  <div class="column is-one-third">
+  <div class="column is-6">
     <app-product-summary></app-product-summary>
     <app-delivery-summary></app-delivery-summary>
   </div>
 
   <!-- Side information -->
-  <div class="column is-one-fifth">
+  <div class="column is-3">
     <app-information-summary></app-information-summary>
     <app-price-summary></app-price-summary>
+    <app-conditions-of-sale></app-conditions-of-sale>
     <app-payment-call-to-action></app-payment-call-to-action>
     <app-payment-means-information></app-payment-means-information>
   </div>

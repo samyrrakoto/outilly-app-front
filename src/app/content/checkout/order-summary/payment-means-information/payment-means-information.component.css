@@ -1,3 +1,15 @@
 #lock-icon {
   font-size: 2em;
 }
+
+#payment-logo {
+  margin: auto;
+  height: 50px;
+  max-height: 50px;
+  width: 100px;
+  max-width: 100px;
+}
+
+.columns {
+  font-size:0.8em;
+}
