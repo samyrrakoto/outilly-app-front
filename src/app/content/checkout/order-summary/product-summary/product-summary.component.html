@@ -1,38 +1,96 @@
 <div class="box has-text-centered">
   <h2 class="subtitle has-text-weight-bold">Le produit</h2>
 
-  <div class="columns">
-    <div id="product-image" class="column">
+  <div class="columns is-vcentered is-hidden-touch">
+    <div id="product-image" class="column is-one-third">
       <img src="http://ekipr-media-dev.loutillerie.com/7ghonda18de2e/Groupe-electrogene-HONDA-4000W-0.jpg">
     </div>
 
     <div id="product-description" class="column">
-      <h2 id="product-title" class="subtitle has-text-left">Groupe électrogène HONDA 4000W</h2>
+      <h2 id="product-title" class="subtitle has-text-left-tablet has-text-centered-mobile">Groupe électrogène HONDA 4000W</h2>
 
-      <table class="table">
-        <tr>
-          <td class="product-field"><fa-icon [icon]="['fas', 'tag']"></fa-icon> Marque :</td>
-          <td>Honda</td>
-        </tr>
+      <div class="columns desktop-field has-text-left">
+        <div class="column">
+          <fa-icon [icon]="['fas', 'tag']"></fa-icon> Marque :
+        </div>
+        <div class="column">
+          Honda
+        </div>
+      </div>
 
-        <tr>
-          <td class="product-field"><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat :</td>
-          <td>Bon</td>
-        </tr>
+      <div class="columns desktop-field has-text-left">
+        <div class="column">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon> Etat :
+        </div>
+        <div class="column">
+          Bon
+        </div>
+      </div>
 
-        <tr>
-          <td class="product-field"><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids :</td>
-          <td>1000</td>
-        </tr>
+      <div class="columns desktop-field has-text-left">
+        <div class="column">
+          <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids :
+        </div>
+        <div class="column">
+          1000
+        </div>
+      </div>
 
-        <tr>
-          <td class="product-field"><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation :</td>
-          <td>Paris</td>
-        </tr>
-      </table>
+      <div class="columns desktop-field has-text-left">
+        <div class="column">
+          <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation :
+        </div>
+        <div class="column">
+          Paris
+        </div>
+      </div>
 
       <div class="content has-text-centered">
         Prix : <span class="price">300€</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLET Display-->
+  <div class="content is-hidden-desktop">
+    <h2 id="product-title" class="subtitle has-text-centered">Groupe électrogène HONDA 4000W</h2>
+
+    <div class="content">
+      <img src="http://ekipr-media-dev.loutillerie.com/7ghonda18de2e/Groupe-electrogene-HONDA-4000W-0.jpg">
+    </div>
+    <div class="content has-text-centered">
+      <div class="content tablet-field">
+        <fa-icon [icon]="['fas', 'tag']"></fa-icon> Marque
+      </div>
+      <div class="content tablet-field">
+        Honda
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+      <div class="content tablet-field">
+        <fa-icon [icon]="['fas', 'search']"></fa-icon> Etat
+      </div>
+      <div class="content tablet-field">
+        Bon
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+      <div class="content tablet-field">
+        <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids
+      </div>
+      <div class="content tablet-field">
+        1000
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+      <div class="content tablet-field">
+        <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation
+      </div>
+      <div class="content tablet-field">
+        Paris
       </div>
     </div>
   </div>

@@ -13,3 +13,13 @@
 .price {
   font-weight: bold;
 }
+
+.tablet-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desktop-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

@@ -4,7 +4,6 @@
 
 .value {
   font-weight: bold;
-  text-align: right
 }
 
 #total-value {
@@ -15,4 +14,26 @@
   border-top: solid 4px black;
   font-size: 1.5em;
   font-weight: bold;
+}
+
+.desktop-field, .tablet-field {
+  word-break: break-all;
+}
+
+.tablet-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desktop-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.button {
+  width: 80%;
+}
+
+.wrapped {
+  word-break: break-all;
 }

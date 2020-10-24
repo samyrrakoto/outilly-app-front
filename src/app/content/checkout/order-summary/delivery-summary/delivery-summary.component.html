@@ -5,71 +5,186 @@
     Vous avez choisi la livraison dans le Point Relais suivant :
   </div>
 
+  <!-- DESKTOP Display -->
   <div class="columns">
-    <div id="relay-point" class="column">
-      <h2 class="subtitle has-text-danger has-text-weight-bold">Disney Store Champs-Elysées</h2>
+    <div id="relay-point" class="column is-hidden-touch">
+      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">Disney Store Champs-Elysées</h2>
 
       <div class="content has-text-centered">
         <button (click)="modals.open('relayPointPicture')" class="button is-small">
-          <fa-icon [icon]="['fas', 'camera']"></fa-icon>Voir une photo
+          <fa-icon id="camera-icon" [icon]="['fas', 'camera']"></fa-icon>Voir une photo
         </button>
       </div>
 
-      <table class="table" id="relay-point-address">
-        <tr>
-          <td>
-            <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
-          </td>
-          <td>
-            4 avenue des Champs-Elysées,<br>
-            75017 Paris
-          </td>
-        </tr>
-      </table>
+      <div class="content desktop-field has-text-centered">
+        <div class="content is-one-quarter shortline">
+          <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        </div>
+        <div class="content shortline">
+          44 avenue des Champs-Elysées,<br>
+          75017 Paris
+        </div>
+      </div>
     </div>
 
-    <div id="opening-hours" class="column">
+    <div id="opening-hours" class="column is-hidden-touch">
       <h2 id="product-title" class="subtitle has-text-centered has-text-weight-bold">
         <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-        Horaires d'ouverture
       </h2>
 
-      <table class="table">
-        <tr>
-          <td class="day"> Lundi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortline">
+          Lundi
+        </div>
+        <div class="column shortline">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Mardi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day">
+          Mardi
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Mercredi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day">
+          Mercredi
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Jeudi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day">
+          Jeudi
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Vendredi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-fifth day">
+          Vendredi
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Samedi :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-fifth day">
+          Samedi
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
 
-        <tr>
-          <td class="day"> Dimanche :</td>
-          <td>10:00-12:00 & 14:00-23:00</td>
-        </tr>
-      </table>
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-fifth day">
+          Dimanche
+        </div>
+        <div class="column">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLET Display -->
+    <div class="column has-text-centered is-hidden-desktop">
+      <div class="content">
+        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">Disney Store Champs-Elysées</h2>
+
+        <div class="content has-text-centered">
+          <button (click)="modals.open('relayPointPicture')" class="button is-small">
+            <fa-icon id="camera-icon" [icon]="['fas', 'camera']"></fa-icon>Voir une photo
+          </button>
+        </div>
+
+        <div class="content has-text-centered">
+          <div class="content tablet-field day">
+            <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+          </div>
+          <div class="content tablet-field">
+            44 avenue des Champs-Elysées,<br>
+            75017 Paris
+          </div>
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <h2 class="subtitle has-text-centered has-text-weight-bold">
+          <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+          Horaires d'ouverture
+        </h2>
+
+        <div class="content tablet-field day">
+          Lundi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Mardi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Mercredi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Jeudi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Vendredi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Samedi
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <div class="content tablet-field day">
+          Dimanche
+        </div>
+        <div class="content tablet-field">
+          10:00-12:00 & 14:00-23:00
+        </div>
+      </div>
     </div>
   </div>
 

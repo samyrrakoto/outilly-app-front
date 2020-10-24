@@ -9,6 +9,7 @@
 
 .day {
   font-weight: bold;
+  word-break: normal;
 }
 
 #relay-point-address {
@@ -19,7 +20,29 @@
   font-size: 1.5em;
 }
 
+#camera-icon {
+  margin-right: 5px;
+}
+
 #previous-icon {
   margin-right: 10px;
   font-size: 1.2em;
+}
+
+.desktop-field, .tablet-field {
+  word-break: break-all;
+}
+
+.tablet-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desktop-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.button {
+  width: 80%;
 }
