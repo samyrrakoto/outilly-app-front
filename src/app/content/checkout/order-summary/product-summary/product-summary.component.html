@@ -17,12 +17,12 @@
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;<span class="bold">Etat</span> :
-        {{ sale.product.quality }}
+        {{ sale.product.quality | quality }}
       </div>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>&nbsp;<span class="bold">Poids</span> :
-        {{ sale.product.weight | weight:'value' }} {{ sale.product.weight | weight:'unity' }}
+        {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
       </div>
 
       <div class="content desktop-field has-text-left">
@@ -57,7 +57,7 @@
         <fa-icon [icon]="['fas', 'search']"></fa-icon> Etat
       </div>
       <div class="content tablet-field">
-        {{ sale.product.quality }}
+        {{ sale.product.quality | quality }}
       </div>
     </div>
 
@@ -66,7 +66,7 @@
         <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids
       </div>
       <div class="content tablet-field">
-        {{ sale.product.weight | weight:'value' }} {{ sale.product.weight | weight:'unity' }}
+        {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
       </div>
     </div>
 

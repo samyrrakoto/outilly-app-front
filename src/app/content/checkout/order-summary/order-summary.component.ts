@@ -1,9 +1,7 @@
-import { RelayPoint } from './../../../models/relay-point';
 import { AuthService } from './../../../services/auth.service';
 import { RequestService } from './../../../services/request.service';
 import { Bid } from './../../../models/bid';
 import { Sale } from './../../../models/sale';
-import { User } from './../../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';

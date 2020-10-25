@@ -24,7 +24,6 @@ export class DeliverySummaryComponent extends OrderSummaryComponent implements O
     this.modals = new Modals();
     this.modals.addModal('relayPointPicture');
     this.relayPoint = new RelayPoint();
-
   }
 
   ngOnInit(): any {

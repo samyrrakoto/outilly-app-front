@@ -105,6 +105,8 @@ import { PaymentCallToActionComponent } from './content/checkout/order-summary/p
 import { PaymentMeansInformationComponent } from './content/checkout/order-summary/payment-means-information/payment-means-information.component';
 import { PhonePipe } from './pipes/phone.pipe';
 import { WeightPipe } from './pipes/weight.pipe';
+import { RelayHoursPipe } from './pipes/relay-hours.pipe';
+import { QualityPipe } from './pipes/quality.pipe';
 
 @NgModule({
   declarations: [
@@ -200,7 +202,9 @@ import { WeightPipe } from './pipes/weight.pipe';
     PaymentCallToActionComponent,
     PaymentMeansInformationComponent,
     PhonePipe,
-    WeightPipe
+    WeightPipe,
+    RelayHoursPipe,
+    QualityPipe
   ],
   imports: [
     HttpClientModule,
