@@ -2,7 +2,7 @@ import { OrderSummaryComponent } from './../order-summary.component';
 import { AuthService } from './../../../../services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['../order-summary.component.css', './price-summary.component.css']
 })
 export class PriceSummaryComponent extends OrderSummaryComponent implements OnInit {
+  @Output() priceToPayEvent: EventEmitter<number> = new EventEmitter<number>();
   priceToPay: number;
   commissionFees: number;
   deliveryFees: number;
@@ -46,6 +47,7 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
           this.priceToPay = this.sale.product.reservePrice;
         }
       }
+      this.priceToPayEvent.emit(this.priceToPay);
       resolve();
     });
   }

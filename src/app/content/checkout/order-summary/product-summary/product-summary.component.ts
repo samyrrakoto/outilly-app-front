@@ -2,7 +2,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from './../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { OrderSummaryComponent } from './../order-summary.component';
-import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['../order-summary.component.css', './product-summary.component.css']
 })
 export class ProductSummaryComponent extends OrderSummaryComponent implements OnInit {
+  @Input() priceToPay: number;
   thumbnail: string;
 
   constructor(public request: RequestService,

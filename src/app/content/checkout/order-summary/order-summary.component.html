@@ -4,15 +4,15 @@
 
   <!-- General information -->
   <div class="column is-6">
-    <app-product-summary></app-product-summary>
+    <app-product-summary [priceToPay]="priceToPay"></app-product-summary>
     <app-delivery-summary></app-delivery-summary>
   </div>
 
   <!-- Side information -->
   <div class="column is-3">
     <app-information-summary></app-information-summary>
-    <app-price-summary></app-price-summary>
-    <app-conditions-of-sale (areConditionsAccepted)="addItem($event)"></app-conditions-of-sale>
+    <app-price-summary (priceToPayEvent)="getRealPriceToPay($event)"></app-price-summary>
+    <app-conditions-of-sale (areConditionsAccepted)="checkConditionsAccepted($event)"></app-conditions-of-sale>
     <app-payment-call-to-action [areConditionsAccepted]="areConditionsAccepted"></app-payment-call-to-action>
     <app-payment-means-information></app-payment-means-information>
   </div>

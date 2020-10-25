@@ -18,6 +18,7 @@ export class OrderSummaryComponent implements OnInit {
   relayId: string;
   relayCountry: string;
   areConditionsAccepted: boolean;
+  priceToPay: number;
 
   constructor(public request: RequestService,
     public router: Router,
@@ -26,6 +27,7 @@ export class OrderSummaryComponent implements OnInit {
     this.bid = new Bid();
     this.sale = new Sale();
     this.areConditionsAccepted = false;
+    this.priceToPay = 0;
     this.productId = localStorage.getItem('saleId');
     localStorage.setItem('saleId', '3');
     this.checkRelay();
@@ -87,8 +89,12 @@ export class OrderSummaryComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public addItem(item: boolean): void {
-    this.areConditionsAccepted = item;
+  public checkConditionsAccepted(conditions: boolean): void {
+    this.areConditionsAccepted = conditions;
+  }
+
+  public getRealPriceToPay(priceToPay: number): void {
+    this.priceToPay = priceToPay;
   }
 
   private checkRelay(): void {
