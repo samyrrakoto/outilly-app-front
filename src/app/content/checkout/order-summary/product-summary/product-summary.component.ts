@@ -11,15 +11,28 @@ import { Location } from '@angular/common';
   styleUrls: ['../order-summary.component.css', './product-summary.component.css']
 })
 export class ProductSummaryComponent extends OrderSummaryComponent implements OnInit {
+  thumbnail: string;
 
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location) {
       super(request, router, auth, location);
+      this.thumbnail = '';
     }
 
   ngOnInit(): any {
-    this.getSale();
+    this.getSale()
+    .then(() => {
+      this.thumbnail = this.getFirstPicture();
+    });
+  }
+
+  private getFirstPicture(): string {
+    for (const media of this.sale.product.productMedias) {
+      if (media.type === 'image') {
+        return media.path;
+      }
+    }
   }
 }

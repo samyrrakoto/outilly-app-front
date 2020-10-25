@@ -24,10 +24,10 @@ export class OrderSummaryComponent implements OnInit {
     public router: Router,
     public auth: AuthService,
     public location: Location) {
-    localStorage.setItem('productId', '1');
+    localStorage.setItem('saleId', '2');
     localStorage.setItem('relayId', '002743');
     localStorage.setItem('relayCountry', 'FR');
-    this.productId = localStorage.getItem('productId');
+    this.productId = localStorage.getItem('saleId');
     this.relayId = localStorage.getItem('relayId');
     this.relayCountry = localStorage.getItem('relayCountry');
     this.bid = new Bid();

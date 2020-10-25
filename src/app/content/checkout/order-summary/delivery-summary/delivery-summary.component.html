@@ -105,7 +105,7 @@
     <!-- TABLET Display -->
     <div class="column has-text-centered is-hidden-desktop">
       <div class="content">
-        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">Disney Store Champs-Elysées</h2>
+        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">{{ relayPoint.addLine1 }}</h2>
 
         <div class="content has-text-centered">
           <button (click)="modals.open('relayPointPicture')" class="button is-small">
@@ -118,8 +118,8 @@
             <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
           </div>
           <div class="content tablet-field">
-            44 avenue des Champs-Elysées,<br>
-            75017 Paris
+            {{ relayPoint.addLine3 | lowercase }},<br>
+            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@
           Lundi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.monday }}
         </div>
       </div>
 
@@ -145,7 +145,7 @@
           Mardi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.tuesday }}
         </div>
       </div>
 
@@ -154,7 +154,7 @@
           Mercredi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.wednesday }}
         </div>
       </div>
 
@@ -163,7 +163,7 @@
           Jeudi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.thursday }}
         </div>
       </div>
 
@@ -172,7 +172,7 @@
           Vendredi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.friday }}
         </div>
       </div>
 
@@ -181,7 +181,7 @@
           Samedi
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.saturday }}
         </div>
       </div>
 
@@ -190,7 +190,7 @@
           Dimanche
         </div>
         <div class="content tablet-field">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.sunday }}
         </div>
       </div>
     </div>
