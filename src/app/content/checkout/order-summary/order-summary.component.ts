@@ -19,17 +19,24 @@ export class OrderSummaryComponent implements OnInit {
   productId: string;
   relayId: string;
   relayCountry: string;
+  areConditionsAccepted: boolean;
 
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location) {
-    localStorage.setItem('saleId', '2');
+    localStorage.setItem('saleId', '3');
     this.productId = localStorage.getItem('saleId');
-    this.relayId = localStorage.getItem('relayId');
-    this.relayCountry = localStorage.getItem('relayCountry');
+    if (this.isEmpty(localStorage.getItem('relayId')) || this.isEmpty(localStorage.getItem('relayCountry'))) {
+      this.router.navigate(['checkout/delivery-information/mondial-relay-selector']);
+    }
+    else {
+      this.relayId = localStorage.getItem('relayId');
+      this.relayCountry = localStorage.getItem('relayCountry');
+    }
     this.bid = new Bid();
     this.sale = new Sale();
+    this.areConditionsAccepted = false;
   }
 
   ngOnInit(): Promise<any> {
@@ -87,5 +94,13 @@ export class OrderSummaryComponent implements OnInit {
     sessionStorage.setItem('redirect_after_login', this.location.path());
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  public addItem(item: boolean): void {
+    this.areConditionsAccepted = item;
+  }
+
+  private isEmpty(value: any): boolean {
+    return [null, 'undefined'].includes(value);
   }
 }

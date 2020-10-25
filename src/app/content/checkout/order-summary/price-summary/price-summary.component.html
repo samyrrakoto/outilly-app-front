@@ -52,38 +52,38 @@
 
   <!-- TABLET Display -->
   <div class="content is-hidden-desktop">
-    <div class="content has-text-centered">
-      <div class="content tablet-field shortline">
+    <div class="content has-text-centered shortline">
+      <div class="content shortline">
         Produit
       </div>
-      <div class="content tablet-field value shortline">
+      <div class="content value shortline">
         {{ priceToPay | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
-    <div class="content has-text-centered">
-      <div class="content tablet-field shortline">
+    <div class="content has-text-centered shortline">
+      <div class="content shortline">
         Frais de commission (6%)
       </div>
-      <div class="content tablet-field value shortline">
+      <div class="content value shortline">
         {{ commissionFees | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
     <div class="content has-text-centered">
-      <div class="content tablet-field shortline">
+      <div class="content shortline">
         Frais de livraison
       </div>
-      <div class="content tablet-field value shortline">
+      <div class="content value shortline">
         {{ deliveryFees | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
     <div id="total-line" class="content has-text-centered">
-      <div class="content tablet-field shortline">
+      <div class="content shortline">
         TOTAL
       </div>
-      <div id="total-value" class="content tablet-field value shortline">
+      <div id="total-value" class="content value shortline">
         {{ totalPrice | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>

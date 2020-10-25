@@ -1,6 +1,6 @@
 <div id="conditions-of-sale" class="content has-text-centered">
   <label class="checkbox">
-    <input type="checkbox">
+    <input (click)="addNewItem()" type="checkbox">
     J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGU</span> et les <span (click)="modals.open('conditions-of-sale')" class="underline brandName">CGV</span>.
   </label>
 </div>

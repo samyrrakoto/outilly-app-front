@@ -1,5 +1,5 @@
 import { Modals } from './../../../../models/modals';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-conditions-of-sale',
@@ -8,14 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConditionsOfSaleComponent implements OnInit {
   modals: Modals;
+  conditionFLag: boolean;
+  @Output() areConditionsAccepted: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
     this.modals = new Modals();
     this.modals.addModal('conditions-of-use');
     this.modals.addModal('conditions-of-sale');
+    this.conditionFLag = false;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  addNewItem(): void {
+    this.conditionFLag = !this.conditionFLag;
+    this.areConditionsAccepted.emit(this.conditionFLag);
+  }
 }

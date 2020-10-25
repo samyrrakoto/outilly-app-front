@@ -1,7 +1,14 @@
-<div class="content has-text-centered addspacebelow is-hidden-touch">
-  <button class="button is-danger no-overflow is-desktop">Procéder au paiement sécurisé</button>
+<div *ngIf="errorMessage" class="notification has-text-centered has-text-danger addspacebelow">
+  <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+  {{ errorMessage }}
 </div>
 
+<!-- DESKTOP display -->
+<div class="content has-text-centered addspacebelow is-hidden-touch">
+  <button (click)="goPayment()" class="button is-danger no-overflow is-desktop">Procéder au paiement sécurisé</button>
+</div>
+
+<!-- TABLET Display -->
 <div class="content has-text-centered addspacebelow is-hidden-desktop">
-  <button class="button is-danger no-overflow is-mobile">Procéder au paiement sécurisé</button>
+  <button (click)="goPayment()" class="button is-danger no-overflow is-mobile">Procéder au paiement sécurisé</button>
 </div>
