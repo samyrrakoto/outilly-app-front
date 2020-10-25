@@ -25,8 +25,6 @@ export class OrderSummaryComponent implements OnInit {
     public auth: AuthService,
     public location: Location) {
     localStorage.setItem('saleId', '2');
-    localStorage.setItem('relayId', '002743');
-    localStorage.setItem('relayCountry', 'FR');
     this.productId = localStorage.getItem('saleId');
     this.relayId = localStorage.getItem('relayId');
     this.relayCountry = localStorage.getItem('relayCountry');

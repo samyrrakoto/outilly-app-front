@@ -46,7 +46,6 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
           this.priceToPay = this.sale.product.reservePrice;
         }
       }
-      console.log(this.bid);
       resolve();
     });
   }

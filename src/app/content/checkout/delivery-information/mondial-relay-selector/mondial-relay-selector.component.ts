@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -14,7 +15,7 @@ export class MondialRelaySelectorComponent implements OnInit {
   mondialLogoSize: string;
   displayCountryLogo: boolean;
 
-  constructor() {
+  constructor(public router: Router) {
     this.displayMondialLogo = true;
     this.mondialLogoSize = '50px 50px';
     this.displayCountryLogo = false;
@@ -200,5 +201,6 @@ export class MondialRelaySelectorComponent implements OnInit {
 
     localStorage.setItem('relayId', data.value.split('-')[1]);
     localStorage.setItem('relayCountry', data.value.split('-')[0]);
+    this.router.navigate(['/checkout/order-summary']);
   }
 }

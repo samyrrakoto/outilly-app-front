@@ -45,4 +45,8 @@ export class DeliverySummaryComponent extends OrderSummaryComponent implements O
       });
     });
   }
+
+  protected backToRelay(): void {
+    this.route.navigate(['checkout/delivery-information/mondial-relay-selector']);
+  }
 }
