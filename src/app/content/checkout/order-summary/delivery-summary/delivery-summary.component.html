@@ -8,7 +8,7 @@
   <!-- DESKTOP Display -->
   <div class="columns">
     <div id="relay-point" class="column is-hidden-touch">
-      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile removespacebelow">Disney Store Champs-Elysées</h2>
+      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile removespacebelow">{{ relayPoint.addLine1 }}</h2>
 
       <div class="content has-text-left">
         <button (click)="modals.open('relayPointPicture')" class="button is-small">
@@ -16,17 +16,17 @@
         </button>
       </div>
 
-      <div class="columns desktop-field has-text-centered">
+      <div class="columns is-variable is-3 desktop-field has-text-centered">
         <div class="column is-1 shortline">
           <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
         </div>
         <div class="column shortline has-text-left">
           <div id="relay-point-line1" class="content">
-            44 avenue des Champs-Elysées,<br>
-            75017 Paris
+            {{ relayPoint.addLine3 | lowercase }},<br>
+            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}
           </div>
           <div id="relay-point-line2" class="content">
-            Près de l'arc de Triomphe
+            {{ relayPoint.addLine2 }}
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
           Lundi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.monday }}
         </div>
       </div>
 
@@ -52,7 +52,7 @@
           Mardi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.tuesday }}
         </div>
       </div>
 
@@ -61,7 +61,7 @@
           Mercredi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.wednesday }}
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           Jeudi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.thursday }}
         </div>
       </div>
 
@@ -79,7 +79,7 @@
           Vendredi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.friday }}
         </div>
       </div>
 
@@ -88,7 +88,7 @@
           Samedi
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.saturday }}
         </div>
       </div>
 
@@ -97,7 +97,7 @@
           Dimanche
         </div>
         <div class="column shortpadding">
-          10:00-12:00 & 14:00-23:00
+          {{ relayPoint.sunday }}
         </div>
       </div>
     </div>
@@ -207,8 +207,8 @@
 <div class="modal {{ modals.get('relayPointPicture') }}">
   <div class="modal-background" (click)="modals.close('relayPointPicture')"></div>
   <div class="modal-content">
-    <div class="box">
-      <img src="https://www.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_77884/node_77893/disney-store-champs-elys%C3%A9es-%7C-630x405-%7C-%C2%A9-dr/10957765-1-fre-FR/Disney-Store-champs-elys%C3%A9es-%7C-630x405-%7C-%C2%A9-DR.jpg">
+    <div class="box has-text-centered">
+      <img id="relay-point-picture" src="{{ relayPoint.photoUrl }}">
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('relayPointPicture')"></button>

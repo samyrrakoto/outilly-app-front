@@ -8,7 +8,7 @@
         Produit
       </div>
       <div class="column value has-text-right shortpadding">
-        300€
+        {{ priceToPay | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
@@ -17,7 +17,7 @@
         Frais de commission (6%)
       </div>
       <div class="column value has-text-right shortpadding">
-        18€
+        {{ commissionFees | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
@@ -26,7 +26,7 @@
         Frais de livraison
       </div>
       <div class="column shortpadding value has-text-right shortpadding">
-        6.90€
+        {{ deliveryFees | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 
@@ -35,7 +35,7 @@
         TOTAL
       </div>
       <div id="total-value" class="column shortpadding value has-text-right">
-        324.90€
+        {{ totalPrice | currency:'full' | number:'1.2-2' }}€
       </div>
     </div>
 

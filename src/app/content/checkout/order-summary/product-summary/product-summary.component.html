@@ -7,31 +7,31 @@
       <img id="product-image-desktop" src="http://ekipr-media-dev.loutillerie.com/7ghonda18de2e/Groupe-electrogene-HONDA-4000W-0.jpg">
     </div>
 
-    <div id="product-description" class="column">
-      <h2 id="product-title" class="subtitle has-text-left-tablet has-text-centered-mobile">Groupe électrogène HONDA 4000W</h2>
+    <div *ngIf="sale" id="product-description" class="column">
+      <h2 id="product-title" class="subtitle has-text-left-tablet has-text-centered-mobile">{{ sale.product.name }}</h2>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'tag']"></fa-icon>&nbsp;<span class="bold">Marque</span>&nbsp;:
-        Honda
+        <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
       </div>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;<span class="bold">Etat</span> :
-        Bon
+        {{ sale.product.quality }}
       </div>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>&nbsp;<span class="bold">Poids</span> :
-        1000
+        {{ sale.product.weight | weight:'value' }} {{ sale?.product.weight | weight:'unity' }}
       </div>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>&nbsp;&nbsp;<span class="bold">Localisation</span> :
-        Paris
+        {{ sale.product.locality }}
       </div>
 
       <div id="product-price" class="content has-text-centered">
-        Prix : <span class="price">300€</span>
+        Prix : <span class="price">{{ sale.product.reservePrice | currency:'full'}}€</span>
       </div>
     </div>
   </div>

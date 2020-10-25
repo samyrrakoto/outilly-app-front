@@ -2,42 +2,30 @@
     <h2 class="subtitle section-title has-text-centered has-text-weight-bold">Vos informations</h2>
 
     <!-- DESKTOP Display-->
-    <div class="content is-hidden-touch">
-      <div class="columns desktop-field has-text-left">
-        <div class="column is-1 shortpadding">
-          <fa-icon [icon]="['fas', 'user']"></fa-icon>
-        </div>
-        <div class="column shortpadding">
-          {{ 'Lenne' | uppercase }} Sidonie
-        </div>
+    <div *ngIf="user" class="content is-hidden-touch">
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
+        {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
       </div>
 
-      <div class="columns desktop-field has-text-left shortline">
-        <div class="column is-1 shortpadding">
-          <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
-        </div>
-        <div class="column shortpadding">
-          06.00.00.00.00
-        </div>
+      <div class="content desktop-field has-text-left shortline">
+        <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>&nbsp;
+        {{ user.userProfile.phone1 | phone:'.'}}
       </div>
 
-      <div class="columns desktop-field has-text-left shortline">
-        <div class="column is-1 shortpadding">
-          <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
-        </div>
-        <div class="column shortpadding">
-          sidonie.lenne@gmail.com
-        </div>
+      <div class="content desktop-field has-text-left shortline">
+        <fa-icon [icon]="['fas', 'envelope']"></fa-icon>&nbsp;
+        {{ user.userProfile.email }}
       </div>
 
-      <div class="columns desktop-field has-text-left">
-        <div class="column is-1 shortpadding">
-          <fa-icon [icon]="['fas', 'home']"></fa-icon>
-        </div>
-        <div class="column shortpadding">
-          177 boulevard du Parc,<br>
-          77700 Coupray
-        </div>
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'home']"></fa-icon>&nbsp;
+        <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
+          <span *ngIf="isFirst">
+            {{ address.line1 }},<br>
+            {{ address.zipcode }} {{ address.city }}<br>
+          </span>
+        </span>
       </div>
     </div>
 
@@ -49,7 +37,7 @@
           <fa-icon [icon]="['fas', 'user']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          {{ 'Lenne' | uppercase }} Sidonie
+          {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
         </div>
       </div>
 
@@ -58,7 +46,7 @@
           <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          06.00.00.00.00
+          {{ user.userProfile.phone1 | phone:'.'}}
         </div>
       </div>
 
@@ -67,7 +55,7 @@
           <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          sidonie.lenne@gmail.com
+          {{ user.userProfile.email }}
         </div>
       </div>
 
@@ -76,8 +64,12 @@
           <fa-icon [icon]="['fas', 'home']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          177 boulevard du Parc,<br>
-          77700 Coupray
+          <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
+            <span *ngIf="isFirst">
+              {{ address.line1 }},<br>
+              {{ address.zipcode }} {{ address.city }}<br>
+            </span>
+          </span>
         </div>
       </div>
     </div>
