@@ -44,39 +44,44 @@
     <div class="content">
       <img id="product-image-tablet" src="{{ thumbnail }}">
     </div>
-    <div class="content has-text-centered">
-      <div class="content tablet-field">
-        <fa-icon [icon]="['fas', 'tag']"></fa-icon> Marque
+
+    <div class="columns has-text-centered">
+      <div class="column">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'tag']"></fa-icon><span class="bold">&nbsp;Marque</span>
+        </div>
+        <div class="content tablet-field">
+          <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+        </div>
       </div>
-      <div class="content tablet-field">
-        <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+
+      <div class="column">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;<span class="bold">Etat</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.quality | quality }}
+        </div>
       </div>
     </div>
 
-    <div class="content has-text-centered">
-      <div class="content tablet-field">
-        <fa-icon [icon]="['fas', 'search']"></fa-icon> Etat
+    <div class="columns">
+      <div class="column has-text-centered">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>&nbsp;<span class="bold">Poids</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
+        </div>
       </div>
-      <div class="content tablet-field">
-        {{ sale.product.quality | quality }}
-      </div>
-    </div>
 
-    <div class="content has-text-centered">
-      <div class="content tablet-field">
-        <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids
-      </div>
-      <div class="content tablet-field">
-        {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
-      </div>
-    </div>
-
-    <div class="content has-text-centered">
-      <div class="content tablet-field">
-        <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation
-      </div>
-      <div class="content tablet-field">
-        {{ sale.product.locality }}
+      <div class="column has-text-centered">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>&nbsp;<span class="bold">Localisation</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.locality }}
+        </div>
       </div>
     </div>
   </div>

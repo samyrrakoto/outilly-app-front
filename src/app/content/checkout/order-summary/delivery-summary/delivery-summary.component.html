@@ -1,7 +1,7 @@
 <div class="box">
   <h2 class="subtitle section-title has-text-centered has-text-weight-bold">La livraison</h2>
 
-  <div class="content has-text-left has-text-weight-bold">
+  <div class="content has-text-left-desktop has-text-centered-touch has-text-weight-bold">
     Vous avez choisi la livraison dans le Point Relais suivant&nbsp;:
   </div>
 
@@ -105,7 +105,7 @@
     <!-- TABLET Display -->
     <div class="column has-text-centered is-hidden-desktop">
       <div class="content">
-        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile">{{ relayPoint.addLine1 }}</h2>
+        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-centered-tablet has-text-centered-mobile">{{ relayPoint.addLine1 }}</h2>
 
         <div class="content has-text-centered">
           <button (click)="modals.open('relayPointPicture')" class="button is-small">
@@ -199,7 +199,7 @@
     </div>
   </div>
 
-  <div class="content has-text-left">
+  <div class="content has-text-centered">
     <button (click)="backToRelay()" class="button is-danger is-outlined no-overflow">
       <fa-icon id="previous-icon" [icon]="['fas', 'arrow-alt-circle-left']"></fa-icon>
       Choisir un autre Point Relais
