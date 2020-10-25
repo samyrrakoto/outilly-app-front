@@ -22,11 +22,11 @@
         </div>
         <div class="column shortline has-text-left">
           <div id="relay-point-line1" class="content">
-            {{ relayPoint.addLine3 | lowercase }},<br>
+            {{ relayPoint.addLine3 | titlecase }},<br>
             {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}
           </div>
           <div id="relay-point-line2" class="content">
-            {{ relayPoint.addLine2 }}
+            {{ relayPoint.location1 | titlecase }}
           </div>
         </div>
       </div>
@@ -118,8 +118,11 @@
             <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
           </div>
           <div class="content tablet-field">
-            {{ relayPoint.addLine3 | lowercase }},<br>
-            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}
+            {{ relayPoint.addLine3 | titlecase }},<br>
+            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}<br>
+          </div>
+          <div id="relay-point-line2" class="content">
+            {{ relayPoint.location1 | titlecase }}
           </div>
         </div>
       </div>

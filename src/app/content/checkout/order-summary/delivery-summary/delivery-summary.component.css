@@ -20,6 +20,7 @@
   margin-top: 1px;
   font-size: 0.8em;
   color: var(--MAT-GREY);
+  font-style: italic;
 }
 
 #relay-point-address {
