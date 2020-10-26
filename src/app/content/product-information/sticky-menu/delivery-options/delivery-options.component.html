@@ -7,7 +7,7 @@
 
       <div class="columns">
         <div class="column">
-          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 6.90)">
+          <div id="mondial" class="content remise" (click)="setDelivery('mondial', 'Mondial Relay', 6.90)">
               MONDIAL RELAY<br><br>
               <span class="price">6,90€</span><br><br>
           </div>
@@ -15,7 +15,7 @@
         </div>
 
         <div class="column">
-          <div id="hand" class="content remise" (click)="sticky.setDelivery('hand', 'Remise en main propre', 0)">
+          <div id="hand" class="content remise" (click)="setDelivery('hand', 'Remise en main propre', 0)">
             MAINS PROPRES<br><br>
             <span class="price">GRATUIT</span>
           </div>
@@ -24,12 +24,12 @@
     </div>
     <div class="column has-text-centered">
       <p class="content">
-        <button class="button is-danger" (click)="sticky.nextStep()">
+        <button class="button is-danger" (click)="nextStep()">
           Acheter
         </button>
       </p>
 
-      <button class="normal" (click)="sticky.nextAltStep()">Je souhaite faire une proposition au vendeur</button>
+      <button class="normal" (click)="nextAltStep()">Je souhaite faire une proposition au vendeur</button>
     </div>
   </div>
 </div>

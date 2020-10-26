@@ -33,8 +33,8 @@ export class StickyMenuComponent {
     this.current = 'deliveryOptions';
     this.previous = '';
     this.next = 'buyingConfirmation';
-    this.deliveryName = 'Mondial Relay';
-    this.deliveryFees = 6.90;
+    this.deliveryName = '';
+    this.deliveryFees = 0;
   }
 
   nextStep(): void {
@@ -62,7 +62,7 @@ export class StickyMenuComponent {
   }
 
   setFocus(id: string): void {
-    const remises = ['mondial', 'colissimo', 'hand'];
+    const remises = ['mondial', 'hand'];
 
     document.getElementById(id).classList.add('chosen-remise');
 

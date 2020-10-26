@@ -20,7 +20,17 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
     this.sticky.nextAlt = 'buyingProposition';
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public nextStep() {
+    if (this.deliveryName !== '') {
+      this.sticky.nextStep();
+    }
   }
 
+  public nextAltStep() {
+    if (this.deliveryName !== '') {
+      this.sticky.nextAltStep();
+    }
+  }
 }
