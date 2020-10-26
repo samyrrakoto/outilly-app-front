@@ -84,5 +84,10 @@
         </div>
       </div>
     </div>
+
+    <div id="product-price" class="content has-text-centered">
+      Prix : <span *ngIf="sale.product.reservePrice !== priceToPay" class="price sold">{{ sale.product.reservePrice | currency:'full'}}€</span>&nbsp;
+      <span class="price">{{ priceToPay | currency:'full'}}€</span>
+    </div>
   </div>
 </div>
