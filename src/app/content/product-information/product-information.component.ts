@@ -1,3 +1,4 @@
+import { AccessToken } from './../../models/access-token';
 import { AuthService } from './../../services/auth.service';
 import { BidManagerService } from './../../bid-manager.service';
 import { Component, OnInit } from '@angular/core';
@@ -33,7 +34,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   constructor(public request: RequestService,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
-    public auth: AuthService) {
+    public auth: AuthService,) {
     super();
     this.sale = new Sale();
     this.vendorProducts = '';
@@ -61,7 +62,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       this.auth.isLoggedIn().subscribe({
         next: (value: boolean) => {
           this.isLogged = value;
-          console.log(this.isLogged);
           resolve();
         },
         error: () => {
@@ -72,6 +72,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
 
     return promise;
+  }
+
+  private getTokenStatus(): string {
+    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
+    const actualTimestamp: number = Date.now();
+
+    return actualTimestamp > timestamp ? 'expired' : 'good';
   }
 
   private getId(): Promise<any> {
@@ -85,7 +93,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getSalesId(): Promise<any> {
     return new Promise((resolve) => {
-      if (this.isLogged) {
+      if (this.isLogged && this.getTokenStatus() === 'good') {
         this.request.getUserInfos().subscribe({
           next: (user: any) => {
             for (const sale of user.sales) {
