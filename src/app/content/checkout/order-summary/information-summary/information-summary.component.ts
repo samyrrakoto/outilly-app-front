@@ -35,7 +35,7 @@ export class InformationSummaryComponent extends OrderSummaryComponent implement
         },
         error: () => {
           console.log('ERROR');
-          this.errorHandle();
+          this.errorHandle('');
           reject();
         }
       });

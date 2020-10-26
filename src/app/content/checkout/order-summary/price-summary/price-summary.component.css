@@ -1,5 +1,7 @@
 .value {
   font-weight: bold;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 #total-value {
@@ -18,4 +20,9 @@
 
 #apply-button {
   color: white;
+}
+
+.breaking {
+  word-break: break-all;
+  padding: 0px !important;
 }

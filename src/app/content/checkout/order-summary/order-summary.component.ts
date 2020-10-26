@@ -31,15 +31,20 @@ export class OrderSummaryComponent implements OnInit {
     this.relayId = localStorage.getItem('relayId');
     this.relayCountry = localStorage.getItem('relayCountry');
     this.productId = localStorage.getItem('saleId');
+    if (this.productId === null) {
+      this.router.navigate(['/user/dashboard/activity-logs/purchases']);
+    }
   }
 
   ngOnInit(): Promise<any> {
     return new Promise((resolve) => {
       this.getSale()
+      .catch(() => this.errorHandle('sale'))
       .then(() => this.getBid())
+      .catch(() => this.errorHandle('bid'))
       .then(() => {
         this.checkRelay();
-        resolve()
+        resolve();
       });
     });
   }
@@ -52,7 +57,6 @@ export class OrderSummaryComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.errorHandle();
           reject();
         }
       });
@@ -71,8 +75,6 @@ export class OrderSummaryComponent implements OnInit {
           resolve();
         },
         error: () => {
-          console.log('ERROR');
-          this.errorHandle();
           reject();
         }
       });
@@ -87,27 +89,23 @@ export class OrderSummaryComponent implements OnInit {
     this.bid.isClosed = value.isClosed;
   }
 
-  private getCurrentLocation(): Promise<string> {
-    return new Promise<any> ((resolve) => {
-      const currentLocation = '/checkout/order-summary';
-
-      resolve(currentLocation);
+  private deconnect(): Promise<string> {
+    return new Promise (() => {
+      this.auth.logout();
     })
   }
 
-  private deconnect(currentLocation: string): Promise<string> {
-    return new Promise ((resolve) => {
-      this.auth.logout()
-      resolve(currentLocation)
-    })
-  }
-
-  protected errorHandle(): void {
-    this.getCurrentLocation()
-      .then((currentLocation) => this.deconnect(currentLocation))
-      .then((currentLocation) => {
-        sessionStorage.setItem('redirect_after_login', currentLocation);
-      });
+  protected errorHandle(type: string): void {
+    switch (type) {
+      case 'bid':
+      case 'sale':
+        this.deconnect()
+          .then(() => sessionStorage.setItem('redirect_after_login', 'checkout/order-summary'));
+          break;
+      default:
+        this.deconnect();
+        break;
+    }
   }
 
   public checkConditionsAccepted(conditions: boolean): void {
