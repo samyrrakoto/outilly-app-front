@@ -32,6 +32,8 @@ export class MediaGalleryComponent extends ProductInformationComponent implement
   pauseVideo(videoId: string): void {
     const video: any = document.getElementById(videoId);
 
-    video.pause();
+    if (video !== null) {
+      video.pause();
+    }
   }
 }
