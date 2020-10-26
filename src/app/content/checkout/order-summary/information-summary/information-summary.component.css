@@ -23,3 +23,7 @@
 .is-mobile {
   width: 70%;
 }
+
+#modify-tablet {
+  font-size: 1.3vmax;
+}
