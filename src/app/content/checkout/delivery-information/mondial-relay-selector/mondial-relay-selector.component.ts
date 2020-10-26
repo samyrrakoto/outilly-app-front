@@ -26,11 +26,9 @@ export class MondialRelaySelectorComponent implements OnInit {
   }
 
   ngAfterViewChecked(): void {
-    window.onload = () => {
-      this.setMRStyle();
-      this.updateMondialRelayWidgetParams();
-      this.isMobileDevice.matches ? this.applyMobileStyle() : null;
-    };
+    this.setMRStyle();
+    this.updateMondialRelayWidgetParams();
+    this.isMobileDevice.matches ? this.applyMobileStyle() : null;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -115,6 +113,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     }
   }
 
+  // TODO: find a mean of getting MRW Results when displayed
   private setMRResultsStyle(): void {
     const results: HTMLElement = <HTMLElement>document.querySelector('.MRW-Results')[0];
 
