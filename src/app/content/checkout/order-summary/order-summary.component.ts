@@ -28,16 +28,20 @@ export class OrderSummaryComponent implements OnInit {
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    this.productId = localStorage.getItem('saleId');
     localStorage.setItem('saleId', '3');
-    this.checkRelay();
+    this.relayId = localStorage.getItem('relayId');
+    this.relayCountry = localStorage.getItem('relayCountry');
+    this.productId = localStorage.getItem('saleId');
   }
 
   ngOnInit(): Promise<any> {
     return new Promise((resolve) => {
       this.getSale()
       .then(() => this.getBid())
-      .then(() => resolve());
+      .then(() => {
+        this.checkRelay();
+        resolve()
+      });
     });
   }
 
@@ -49,6 +53,7 @@ export class OrderSummaryComponent implements OnInit {
           resolve();
         },
         error: () => {
+          this.errorHandle();
           reject();
         }
       });
@@ -83,10 +88,27 @@ export class OrderSummaryComponent implements OnInit {
     this.bid.isClosed = value.isClosed;
   }
 
+  private getCurrentLocation(): Promise<string> {
+    return new Promise<any> ((resolve) => {
+      const currentLocation = '/checkout/order-summary';
+
+      resolve(currentLocation);
+    })
+  }
+
+  private deconnect(currentLocation: string): Promise<string> {
+    return new Promise ((resolve) => {
+      this.auth.logout()
+      resolve(currentLocation)
+    })
+  }
+
   protected errorHandle(): void {
-    sessionStorage.setItem('redirect_after_login', this.location.path());
-    this.auth.logout();
-    this.router.navigate(['/login']);
+    this.getCurrentLocation()
+      .then((currentLocation) => this.deconnect(currentLocation))
+      .then((currentLocation) => {
+        sessionStorage.setItem('redirect_after_login', currentLocation);
+      });
   }
 
   public checkConditionsAccepted(conditions: boolean): void {
