@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { BidManagerService } from './../../../bid-manager.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ProductInformationComponent } from '../product-information.component';
@@ -14,8 +15,11 @@ export class SideInformationComponent extends ProductInformationComponent implem
   @Input() sale: Sale;
   @Output() openState = new EventEmitter<boolean>();
 
-  constructor(request: RequestService, route: ActivatedRoute, bidManager: BidManagerService) {
-    super(request, route, bidManager);
+  constructor(request: RequestService,
+    route: ActivatedRoute,
+    bidManager: BidManagerService,
+    public auth: AuthService) {
+    super(request, route, bidManager, auth);
   }
 
   ngOnInit(): void {

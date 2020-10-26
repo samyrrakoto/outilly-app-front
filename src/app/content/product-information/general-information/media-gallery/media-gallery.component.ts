@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
@@ -13,8 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 export class MediaGalleryComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
 
-  constructor(request: RequestService, route: ActivatedRoute, bidManager: BidManagerService) {
-    super(request, route, bidManager);
+  constructor(request: RequestService,
+    route: ActivatedRoute,
+    bidManager: BidManagerService,
+    public auth: AuthService) {
+    super(request, route, bidManager, auth);
   }
 
   ngOnInit(): void {}

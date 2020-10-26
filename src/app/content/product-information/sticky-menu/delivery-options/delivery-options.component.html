@@ -23,11 +23,15 @@
       </div>
     </div>
     <div class="column has-text-centered">
-      <p class="content">
-        <button class="button is-danger" (click)="nextStep()">
+      <div class="content">
+        <button *ngIf="isLogged" class="button is-danger" (click)="nextStep()">
           Acheter
         </button>
-      </p>
+
+        <button *ngIf="isLogged === false" class="button">
+          Acheter
+        </button>
+      </div>
 
       <button class="normal" (click)="nextAltStep()">Je souhaite faire une proposition au vendeur</button>
     </div>

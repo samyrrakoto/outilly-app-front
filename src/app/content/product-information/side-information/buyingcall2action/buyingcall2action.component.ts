@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { StickyService } from './../../../../services/sticky.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -17,8 +18,11 @@ export class Buyingcall2actionComponent extends ProductInformationComponent impl
   @Output() openState = new EventEmitter<boolean>();
   open: boolean;
 
-  constructor(request: RequestService, route: ActivatedRoute, bidManager: BidManagerService) {
-    super(request, route, bidManager);
+  constructor(request: RequestService,
+    route: ActivatedRoute,
+    bidManager: BidManagerService,
+    auth: AuthService) {
+    super(request, route, bidManager, auth);
     this.open = false;
   }
 

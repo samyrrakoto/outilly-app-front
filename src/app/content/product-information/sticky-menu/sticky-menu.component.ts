@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, Input } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +25,8 @@ export class StickyMenuComponent {
   next: string;
   nextAlt: string;
 
-  constructor(request: RequestService, route: ActivatedRoute) {
+  constructor(public request: RequestService,
+    public route: ActivatedRoute) {
     this.stickyMenuSteps = {
       deliveryOptions: true,
       buyingConfirmation: false,
