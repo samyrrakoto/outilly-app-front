@@ -17,6 +17,7 @@ export class BuyingConfirmationComponent extends StickyMenuComponent implements 
     this.sticky.current = 'buyingConfirmation';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
+    this.modals = new Modals();
     this.modals.addModal('buyingConfirmation');
   }
 
