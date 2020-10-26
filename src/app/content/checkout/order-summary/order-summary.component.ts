@@ -28,7 +28,6 @@ export class OrderSummaryComponent implements OnInit {
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    localStorage.setItem('saleId', '3');
     this.relayId = localStorage.getItem('relayId');
     this.relayCountry = localStorage.getItem('relayCountry');
     this.productId = localStorage.getItem('saleId');

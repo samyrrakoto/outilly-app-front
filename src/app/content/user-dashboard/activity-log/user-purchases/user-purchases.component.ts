@@ -63,10 +63,14 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   private errorHandle(): void {
     sessionStorage.setItem('redirect_after_login', this.location.path());
     this.auth.logout();
-    this.router.navigate(['/login']);
   }
 
   public createBid(bidId: number): Bid {
     return new Bid(bidId);
+  }
+
+  public goToRelayPoint(purchase: Purchase): void {
+    localStorage.setItem('saleId', purchase.saleId.toString());
+    this.router.navigate(['/checkout/delivery-information']);
   }
 }
