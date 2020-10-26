@@ -90,4 +90,8 @@ export class RequestService {
   updateUser(data: any): Observable<HttpResponse<any>> {
     return this.putData(this.uri.UPDATE_USER, data);
   }
+
+  getPreauthData(preAuthId: any): Observable<any> {
+    return this.getData(this.uri.GET_PREAUTH_DATA + '?preAuthorizationId=' + preAuthId);
+  }
 }

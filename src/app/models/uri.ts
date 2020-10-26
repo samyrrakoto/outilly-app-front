@@ -32,6 +32,8 @@ export class Uri {
   readonly DECLINE_OFFER = 'secure/bid/update-acceptance';
   readonly COUNTER_OFFER = 'secure/bid/place/counter-offer';
   readonly GET_RELAY_POINT = 'mondialrelay/relaypoint/'
+  readonly GET_PREAUTH_DATA = 'secure/mangopay/preauth/check';
+  readonly GET_TRANSACTION_DATA = 'secure/mangopay/transaction/check';
   path: string;
 
   constructor() {
