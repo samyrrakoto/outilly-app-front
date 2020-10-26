@@ -14,11 +14,13 @@ export class MondialRelaySelectorComponent implements OnInit {
   displayMondialLogo: boolean;
   mondialLogoSize: string;
   displayCountryLogo: boolean;
+  errorMessage: string;
 
   constructor(public router: Router) {
     this.displayMondialLogo = true;
     this.mondialLogoSize = '50px 50px';
     this.displayCountryLogo = false;
+    this.errorMessage = '';
   }
 
   ngOnInit(): void {
@@ -200,6 +202,16 @@ export class MondialRelaySelectorComponent implements OnInit {
 
     localStorage.setItem('relayId', data.value.split('-')[1]);
     localStorage.setItem('relayCountry', data.value.split('-')[0]);
-    this.router.navigate(['/checkout/order-summary']);
+
+    if (this.isEmpty(localStorage.getItem('relayId'))) {
+      this.errorMessage = 'Vous devez choisir un point relais';
+    }
+    else {
+      this.router.navigate(['/checkout/order-summary']);
+    }
+  }
+
+  private isEmpty(value: any): boolean {
+    return [null, 'undefined'].includes(value);
   }
 }
