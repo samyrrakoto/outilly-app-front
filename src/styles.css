@@ -72,5 +72,6 @@
 a:link, a:visited {
     color: black;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, "Helvetica Neue", sans-serif; }
