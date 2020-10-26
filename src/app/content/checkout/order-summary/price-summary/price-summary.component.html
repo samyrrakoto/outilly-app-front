@@ -1,0 +1,101 @@
+<div class="box has-text-centered">
+  <h2 class="subtitle section-title has-text-weight-bold">Récapitulatif</h2>
+
+  <!-- DESKTOP Display -->
+  <div class="content is-hidden-touch">
+    <div class="columns desktop-field has-text-left">
+      <div class="column breaking is-6 shortpadding">
+        Produit
+      </div>
+      <div class="column value has-text-right shortpadding">
+        {{ priceToPay | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="columns desktop-field has-text-left">
+      <div class="column breaking is-6 shortpadding">
+        Frais de commission (6%)
+      </div>
+      <div class="column value has-text-right shortpadding">
+        {{ commissionFees | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="columns desktop-field has-text-left">
+      <div class="column breaking is-6 shortpadding">
+        Frais de livraison
+      </div>
+      <div class="column shortpadding value has-text-right shortpadding">
+        {{ deliveryFees | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div id="total-line" class="columns desktop-field has-text-left">
+      <div class="column breaking is-6 shortpadding">
+        TOTAL
+      </div>
+      <div id="total-value" class="column shortpadding value has-text-right">
+        {{ totalPrice | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="columns is-vcentered">
+      <div class="column has-text-centered">
+        <input id="promo-code" class="input" placeholder="Code promotionnel">
+      </div>
+
+      <div class="column has-text-centered">
+        <button id="apply-button" class="button is-success no-overflow">Appliquer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLET Display -->
+  <div class="content is-hidden-desktop">
+    <div class="content has-text-centered shortline">
+      <div class="content shortline">
+        Produit
+      </div>
+      <div class="content value shortline">
+        {{ priceToPay | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="content has-text-centered shortline">
+      <div class="content shortline">
+        Frais de commission (6%)
+      </div>
+      <div class="content value shortline">
+        {{ commissionFees | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+      <div class="content shortline">
+        Frais de livraison
+      </div>
+      <div class="content value shortline">
+        {{ deliveryFees | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div id="total-line" class="content has-text-centered">
+      <div class="content shortline">
+        TOTAL
+      </div>
+      <div id="total-value" class="content value shortline">
+        {{ totalPrice | currency:'full' | number:'1.2-2' }}€
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="content has-text-centered">
+        <input id="promo-code" class="input" placeholder="Code promotionnel">
+      </div>
+
+      <div class="content has-text-centered">
+        <button id="apply-button" class="button is-success">Appliquer</button>
+      </div>
+    </div>
+  </div>
+</div>

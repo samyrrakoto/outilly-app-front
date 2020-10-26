@@ -37,6 +37,12 @@ export class RequestService {
     return this.http.get<any>(this.uri.path);
   }
 
+  getData2(ressource: string, params: Array<string> = []): Observable<any> {
+    this.uri.setUri2(ressource, params);
+
+    return this.http.get<any>(this.uri.path);
+  }
+
   putData(ressource: string, data: any, param: string=''): Observable<any> {
     this.uri.setUri(ressource, param);
 
@@ -61,7 +67,7 @@ export class RequestService {
     return this.postData(data, this.uri.CHECK, this.uri.EXISTS);
   }
 
-  getSaleCall(saleId: string = "1"): Observable<HttpResponse<Sale>> {
+  getSaleCall(saleId: string = "1"): any {
     return this.getData(this.uri.SALE, saleId);
   }
 

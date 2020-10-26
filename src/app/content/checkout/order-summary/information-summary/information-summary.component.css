@@ -1,0 +1,29 @@
+.desktop-field, .tablet-field {
+  word-break: break-all;
+}
+
+.tablet-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desktop-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.wrapped {
+  word-break: break-all;
+}
+
+.is-desktop {
+  width: 100%;
+}
+
+.is-mobile {
+  width: 70%;
+}
+
+#modify-tablet {
+  font-size: 1.3vmax;
+}

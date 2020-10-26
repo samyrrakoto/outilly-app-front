@@ -95,6 +95,18 @@ import { UserPurchasesComponent } from './content/user-dashboard/activity-log/us
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
+import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
+import { ProductSummaryComponent } from './content/checkout/order-summary/product-summary/product-summary.component';
+import { DeliverySummaryComponent } from './content/checkout/order-summary/delivery-summary/delivery-summary.component';
+import { InformationSummaryComponent } from './content/checkout/order-summary/information-summary/information-summary.component';
+import { PriceSummaryComponent } from './content/checkout/order-summary/price-summary/price-summary.component';
+import { ConditionsOfSaleComponent } from './content/checkout/order-summary/conditions-of-sale/conditions-of-sale.component';
+import { PaymentCallToActionComponent } from './content/checkout/order-summary/payment-call-to-action/payment-call-to-action.component';
+import { PaymentMeansInformationComponent } from './content/checkout/order-summary/payment-means-information/payment-means-information.component';
+import { PhonePipe } from './pipes/phone.pipe';
+import { WeightPipe } from './pipes/weight.pipe';
+import { RelayHoursPipe } from './pipes/relay-hours.pipe';
+import { QualityPipe } from './pipes/quality.pipe';
 
 @NgModule({
   declarations: [
@@ -180,7 +192,19 @@ import { MondialRelaySelectorComponent } from './content/checkout/delivery-infor
     UserPurchasesComponent,
     CurrencyPipe,
     DeliveryInformationComponent,
-    MondialRelaySelectorComponent
+    MondialRelaySelectorComponent,
+    OrderSummaryComponent,
+    ProductSummaryComponent,
+    DeliverySummaryComponent,
+    InformationSummaryComponent,
+    PriceSummaryComponent,
+    ConditionsOfSaleComponent,
+    PaymentCallToActionComponent,
+    PaymentMeansInformationComponent,
+    PhonePipe,
+    WeightPipe,
+    RelayHoursPipe,
+    QualityPipe
   ],
   imports: [
     HttpClientModule,

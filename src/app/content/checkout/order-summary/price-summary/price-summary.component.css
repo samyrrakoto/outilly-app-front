@@ -1,0 +1,28 @@
+.value {
+  font-weight: bold;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+#total-value {
+  color: var(--KTKP-RED);
+}
+
+#total-line {
+  border-top: solid 2px black;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#promo-code {
+  border: solid 1px var(--KTKP-GREEN);
+}
+
+#apply-button {
+  color: white;
+}
+
+.breaking {
+  word-break: break-all;
+  padding: 0px !important;
+}

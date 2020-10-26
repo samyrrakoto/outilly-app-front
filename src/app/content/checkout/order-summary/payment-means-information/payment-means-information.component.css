@@ -1,0 +1,14 @@
+#lock-icon {
+  font-size: 2em;
+}
+
+#payment-logo {
+  margin: auto;
+  height: 50px;
+  width: auto;
+}
+
+.column {
+  font-size: 0.8em;
+  padding: 10px !important;
+}

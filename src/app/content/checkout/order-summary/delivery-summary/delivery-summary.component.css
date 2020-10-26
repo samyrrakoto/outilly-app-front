@@ -1,0 +1,55 @@
+#opening-hours {
+  font-size: 0.8em;
+}
+
+#opening-hours td {
+  padding-top:2px;
+  padding-bottom: 2px;
+}
+
+.day {
+  font-weight: bold;
+  word-break: normal;
+}
+
+#relay-point-line1 {
+  margin-bottom: 1px;
+}
+
+#relay-point-line2 {
+  margin-top: 1px;
+  font-size: 0.8em;
+  color: var(--MAT-GREY);
+  font-style: italic;
+}
+
+#relay-point-address {
+  font-size: 0.9em;
+}
+
+#loc-icon {
+  font-size: 1.5em;
+}
+
+#camera-icon {
+  margin-right: 5px;
+}
+
+#previous-icon {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.desktop-field, .tablet-field {
+  word-break: break-all;
+}
+
+.tablet-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desktop-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

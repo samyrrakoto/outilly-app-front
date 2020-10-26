@@ -16,7 +16,7 @@
             <fa-icon class="choice accepted" [icon]="['fas', 'check-circle']"></fa-icon>
             Félicitations !<br><br>
             Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="accepted">acceptée</span>. ;-)<br>
-            Rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
+            Rendez-vous <a (click)="goToRelayPoint(purchase)" class="accepted">ici</a> pour finaliser la transaction.
 
             <div (click)="modals.open('purchase-explanation')" class="content pointed">
               <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>
@@ -32,7 +32,7 @@
             <fa-icon class="choice counter-offer" [icon]="['fas', 'share']"></fa-icon>
             On y arrive !<br><br>
             Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="counter-offer">contre-proposée à {{ purchase.counterOfferAmount | currency:'full' }}€</span>.<br>
-            Si elle vous convient, rendez-vous <a class="accepted" href="">ici</a> pour finaliser la transaction.
+            Si elle vous convient, rendez-vous <a (click)="goToRelayPoint(purchase)" class="accepted">ici</a> pour finaliser la transaction.
 
             <div (click)="modals.open('purchase-explanation')" class="content pointed">
               <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>

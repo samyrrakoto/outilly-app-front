@@ -2,6 +2,11 @@
 
 <input id="data" hidden>
 
+<div *ngIf="errorMessage" class="notification has-text-centered has-text-danger">
+  <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+  {{ errorMessage }}
+</div>
+
 <div id="submit" class="content has-text-centered">
   <button (click)="chooseRelay()" class="button is-danger is-small">Sélectionner ce point relais</button>
 </div>

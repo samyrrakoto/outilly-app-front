@@ -10,6 +10,7 @@
     --KTKP-GREY-DARKER: #DEDEDE;
 
     --GREY-LIGHT: #DBDBDB;
+    --FAKE-WHITE: rgba(248, 248, 248, 0.865);
     --MAT-GREY: rgb(80, 80, 80);
 }
 
@@ -21,6 +22,51 @@
 .sold {
     text-decoration: line-through;
     text-decoration-color: var(--KTKP-RED);
+}
+
+.overline {
+  border-top: solid 2px var(--FAKE-WHITE);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.wrapped {
+  word-break: break-all;
+}
+
+.no-overflow {
+  white-space: normal;
+  padding: 8px;
+  height: auto;
+}
+
+.addspacebelow {
+  margin-bottom: 20px;
+}
+
+.removespacebelow {
+  margin-bottom: 5px;
+}
+
+.shortline {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.shortpadding {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.discreet-text {
+  font-size: 0.8em;
+  color: var(--MAT-GREY);
 }
 
 a:link, a:visited {

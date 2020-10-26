@@ -1,0 +1,218 @@
+<div class="box">
+  <h2 class="subtitle section-title has-text-centered has-text-weight-bold">La livraison</h2>
+
+  <div class="content has-text-left-desktop has-text-centered-touch has-text-weight-bold">
+    Vous avez choisi la livraison dans le Point Relais suivant&nbsp;:
+  </div>
+
+  <!-- DESKTOP Display -->
+  <div class="columns">
+    <div id="relay-point" class="column is-hidden-touch">
+      <h2 class="subtitle has-text-danger has-text-weight-bold has-text-left-tablet has-text-centered-mobile removespacebelow">{{ relayPoint.addLine1 }}</h2>
+
+      <div class="content has-text-left">
+        <button (click)="modals.open('relayPointPicture')" class="button is-small">
+          <fa-icon id="camera-icon" [icon]="['fas', 'camera']"></fa-icon>Voir une photo
+        </button>
+      </div>
+
+      <div class="columns is-variable is-3 desktop-field has-text-centered">
+        <div class="column is-1 shortline">
+          <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        </div>
+        <div class="column shortline has-text-left">
+          <div id="relay-point-line1" class="content">
+            {{ relayPoint.addLine3 | titlecase }},<br>
+            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}
+          </div>
+          <div id="relay-point-line2" class="content">
+            {{ relayPoint.location1 | titlecase }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="opening-hours" class="column is-hidden-touch">
+      <h2 id="product-title" class="subtitle has-text-centered has-text-weight-bold">
+        <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+        Horaires d'ouverture
+      </h2>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Lundi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.monday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Mardi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.tuesday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Mercredi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.wednesday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Jeudi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.thursday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Vendredi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.friday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Samedi
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.saturday | relayHours }}
+        </div>
+      </div>
+
+      <div class="columns desktop-field has-text-left is-hidden-touch">
+        <div class="column is-one-quarter day shortpadding">
+          Dimanche
+        </div>
+        <div class="column shortpadding">
+          {{ relayPoint.sunday | relayHours }}
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLET Display -->
+    <div class="column has-text-centered is-hidden-desktop">
+      <div class="content">
+        <h2 class="subtitle has-text-danger has-text-weight-bold has-text-centered-tablet has-text-centered-mobile">{{ relayPoint.addLine1 }}</h2>
+
+        <div class="content has-text-centered">
+          <button (click)="modals.open('relayPointPicture')" class="button is-small">
+            <fa-icon id="camera-icon" [icon]="['fas', 'camera']"></fa-icon>Voir une photo
+          </button>
+        </div>
+
+        <div class="content has-text-centered">
+          <div class="content tablet-field day">
+            <fa-icon id="loc-icon" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+          </div>
+          <div class="content tablet-field">
+            {{ relayPoint.addLine3 | titlecase }},<br>
+            {{ relayPoint.zipcode }} {{ relayPoint.city | titlecase }}<br>
+          </div>
+          <div id="relay-point-line2" class="content">
+            {{ relayPoint.location1 | titlecase }}
+          </div>
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <h2 class="subtitle has-text-centered has-text-weight-bold">
+          <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+          Horaires d'ouverture
+        </h2>
+      </div>
+
+      <div class="content shortline">
+        <div class="content tablet-field day">
+          Lundi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.monday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Mardi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.tuesday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Mercredi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.wednesday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Jeudi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.thursday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Vendredi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.friday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Samedi
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.saturday | relayHours }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field day">
+          Dimanche
+        </div>
+        <div class="content tablet-field">
+          {{ relayPoint.sunday | relayHours }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content has-text-centered">
+    <button (click)="backToRelay()" class="button is-danger is-outlined no-overflow">
+      <fa-icon id="previous-icon" [icon]="['fas', 'arrow-alt-circle-left']"></fa-icon>
+      Choisir un autre Point Relais
+    </button>
+  </div>
+</div>
+
+<div class="modal {{ modals.get('relayPointPicture') }}">
+  <div class="modal-background" (click)="modals.close('relayPointPicture')"></div>
+  <div class="modal-content">
+    <div class="box has-text-centered">
+      <img id="relay-point-picture" src="{{ relayPoint.photoUrl }}">
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('relayPointPicture')"></button>
+</div>

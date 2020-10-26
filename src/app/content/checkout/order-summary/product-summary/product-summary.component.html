@@ -1,0 +1,93 @@
+<div class="box has-text-centered">
+  <h2 class="subtitle section-title has-text-weight-bold">Le produit</h2>
+
+  <!-- DESKTOP Display -->
+  <div class="columns is-vcentered is-hidden-touch">
+    <div class="column is-one-third">
+      <img id="product-image-desktop" src="{{ thumbnail }}">
+    </div>
+
+    <div *ngIf="sale" id="product-description" class="column">
+      <h2 id="product-title" class="subtitle has-text-left-tablet has-text-centered-mobile">{{ sale.product.name }}</h2>
+
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'tag']"></fa-icon>&nbsp;<span class="bold">Marque</span>&nbsp;:
+        <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+      </div>
+
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;<span class="bold">Etat</span> :
+        {{ sale.product.quality | quality }}
+      </div>
+
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>&nbsp;<span class="bold">Poids</span> :
+        {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
+      </div>
+
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>&nbsp;&nbsp;<span class="bold">Localisation</span> :
+        {{ sale.product.locality }}
+      </div>
+
+      <div id="product-price" class="content has-text-centered">
+        Prix : <span *ngIf="sale.product.reservePrice !== priceToPay" class="price sold">{{ sale.product.reservePrice | currency:'full'}}€</span>&nbsp;
+        <span class="price">{{ priceToPay | currency:'full'}}€</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLET Display-->
+  <div class="content is-hidden-desktop">
+    <h2 id="product-title" class="subtitle has-text-centered">{{ sale.product.name }}</h2>
+
+    <div class="content">
+      <img id="product-image-tablet" src="{{ thumbnail }}">
+    </div>
+
+    <div class="columns has-text-centered">
+      <div class="column">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'tag']"></fa-icon><span class="bold">&nbsp;Marque</span>
+        </div>
+        <div class="content tablet-field">
+          <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;<span class="bold">Etat</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.quality | quality }}
+        </div>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column has-text-centered">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>&nbsp;<span class="bold">Poids</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.weight | weight:'value' }}{{ sale.product.weight | weight:'unity' }}
+        </div>
+      </div>
+
+      <div class="column has-text-centered">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>&nbsp;<span class="bold">Localisation</span>
+        </div>
+        <div class="content tablet-field">
+          {{ sale.product.locality }}
+        </div>
+      </div>
+    </div>
+
+    <div id="product-price" class="content has-text-centered">
+      Prix : <span *ngIf="sale.product.reservePrice !== priceToPay" class="price sold">{{ sale.product.reservePrice | currency:'full'}}€</span>&nbsp;
+      <span class="price">{{ priceToPay | currency:'full'}}€</span>
+    </div>
+  </div>
+</div>

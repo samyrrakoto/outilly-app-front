@@ -1,0 +1,90 @@
+  <div class="box">
+    <h2 class="subtitle section-title has-text-centered has-text-weight-bold">Vos informations</h2>
+
+    <!-- DESKTOP Display-->
+    <div *ngIf="user" class="content is-hidden-touch">
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
+        {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
+      </div>
+
+      <div class="content desktop-field has-text-left shortline">
+        <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>&nbsp;
+        {{ user.userProfile.phone1 | phone:'.'}}
+      </div>
+
+      <div class="content desktop-field has-text-left shortline">
+        <fa-icon [icon]="['fas', 'envelope']"></fa-icon>&nbsp;
+        {{ user.userProfile.email }}
+      </div>
+
+      <div class="content desktop-field has-text-left">
+        <fa-icon [icon]="['fas', 'home']"></fa-icon>&nbsp;
+        <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
+          <span *ngIf="isFirst">
+            {{ address.line1 }},<br>
+            {{ address.zipcode }} {{ address.city }}<br>
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <!-- TABLET Display -->
+    <div class="content is-hidden-desktop">
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'user']"></fa-icon>
+        </div>
+        <div class="content tablet-field">
+          {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
+        </div>
+        <div class="content tablet-field">
+          {{ user.userProfile.phone1 | phone:'.'}}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+        </div>
+        <div class="content tablet-field">
+          {{ user.userProfile.email }}
+        </div>
+      </div>
+
+      <div class="content has-text-centered shortline">
+        <div class="content tablet-field">
+          <fa-icon [icon]="['fas', 'home']"></fa-icon>
+        </div>
+        <div class="content tablet-field">
+          <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
+            <span *ngIf="isFirst">
+              {{ address.line1 }},<br>
+              {{ address.zipcode }} {{ address.city }}<br>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+      <button id="modify-desktop" routerLink="/user/dashboard/" class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
+        Modifier mes informations
+      </button>
+
+      <button id="modify-tablet" routerLink="/user/dashboard/" class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
+        Modifier mes informations
+      </button>
+
+      <div class="content discreet-text">
+        Ces informations restent confidentielles
+      </div>
+    </div>
+</div>

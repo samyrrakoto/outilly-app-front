@@ -8,3 +8,7 @@
   width: 200px;
   cursor: pointer;
 }
+
+.notification {
+  background: none;
+}

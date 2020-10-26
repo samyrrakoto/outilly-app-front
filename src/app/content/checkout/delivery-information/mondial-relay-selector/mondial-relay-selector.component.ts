@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -13,11 +14,13 @@ export class MondialRelaySelectorComponent implements OnInit {
   displayMondialLogo: boolean;
   mondialLogoSize: string;
   displayCountryLogo: boolean;
+  errorMessage: string;
 
-  constructor() {
+  constructor(public router: Router) {
     this.displayMondialLogo = true;
     this.mondialLogoSize = '50px 50px';
     this.displayCountryLogo = false;
+    this.errorMessage = '';
   }
 
   ngOnInit(): void {
@@ -25,11 +28,9 @@ export class MondialRelaySelectorComponent implements OnInit {
   }
 
   ngAfterViewChecked(): void {
-    window.onload = () => {
-      this.setMRStyle();
-      this.updateMondialRelayWidgetParams();
-      this.isMobileDevice.matches ? this.applyMobileStyle() : null;
-    };
+    this.setMRStyle();
+    this.updateMondialRelayWidgetParams();
+    this.isMobileDevice.matches ? this.applyMobileStyle() : null;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -114,6 +115,7 @@ export class MondialRelaySelectorComponent implements OnInit {
     }
   }
 
+  // TODO: find a mean of getting MRW Results when displayed
   private setMRResultsStyle(): void {
     const results: HTMLElement = <HTMLElement>document.querySelector('.MRW-Results')[0];
 
@@ -200,5 +202,16 @@ export class MondialRelaySelectorComponent implements OnInit {
 
     localStorage.setItem('relayId', data.value.split('-')[1]);
     localStorage.setItem('relayCountry', data.value.split('-')[0]);
+
+    if (this.isEmpty(localStorage.getItem('relayId'))) {
+      this.errorMessage = 'Vous devez choisir un point relais';
+    }
+    else {
+      this.router.navigate(['/checkout/order-summary']);
+    }
+  }
+
+  private isEmpty(value: any): boolean {
+    return [null, 'undefined'].includes(value);
   }
 }
