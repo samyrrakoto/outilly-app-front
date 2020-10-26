@@ -56,6 +56,7 @@ import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
+import { PaymentReturnComponent } from './content/checkout/payment/payment-return/payment-return.component';
 
 const routes: Routes = [
   {
@@ -315,6 +316,10 @@ const routes: Routes = [
       {
         path: 'order-summary',
         component: OrderSummaryComponent
+      },
+      {
+        path: 'payment-return',
+        component: PaymentReturnComponent
       }
     ]
   }

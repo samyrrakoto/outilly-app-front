@@ -103,6 +103,7 @@ import { PriceSummaryComponent } from './content/checkout/order-summary/price-su
 import { ConditionsOfSaleComponent } from './content/checkout/order-summary/conditions-of-sale/conditions-of-sale.component';
 import { PaymentCallToActionComponent } from './content/checkout/order-summary/payment-call-to-action/payment-call-to-action.component';
 import { PaymentMeansInformationComponent } from './content/checkout/order-summary/payment-means-information/payment-means-information.component';
+import { PaymentReturnComponent } from './content/checkout/payment/payment-return/payment-return.component';
 import { PhonePipe } from './pipes/phone.pipe';
 import { WeightPipe } from './pipes/weight.pipe';
 import { RelayHoursPipe } from './pipes/relay-hours.pipe';
@@ -201,6 +202,7 @@ import { QualityPipe } from './pipes/quality.pipe';
     ConditionsOfSaleComponent,
     PaymentCallToActionComponent,
     PaymentMeansInformationComponent,
+    PaymentReturnComponent,
     PhonePipe,
     WeightPipe,
     RelayHoursPipe,
