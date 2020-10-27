@@ -1,5 +1,5 @@
 import { Modals } from './../../../../models/modals';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BuyingConfirmationComponent extends StickyMenuComponent implements OnInit {
   modals: Modals;
+  @Input() priceTopay: number;
 
   constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent) {
     super(request, route);

@@ -39,61 +39,11 @@ export class BuyingPropositionComponent implements OnInit {
     this.currentPurchase = null;
   }
 
-  ngOnInit(): void {
-    this.getId();
-    this.purchaseManager.getPurchases()
-      .then((purchases: Array<Purchase>) => {
-        this.purchases = purchases;
-        if (this.hasBidded()) {
-          this.currentPurchase = this.getCurrentPurchase();
-        }
-      });
-  }
-
-  private getId(): void {
-    this.route.params.subscribe(params => {
-      this.id = parseInt(params.id);
-    });
-  }
+  ngOnInit(): void {}
 
   public placeBid(amount: number): void {
     this.bidManager.place(amount * 100, this.sale.id);
     this.notification.display('Votre offre a bien été envoyée', 'proposition');
-  }
-
-  public hasBidded(): boolean {
-    for (const purchase of this.purchases) {
-      if (purchase.saleId === this.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private getCurrentPurchase(): Purchase {
-    for (const purchase of this.purchases) {
-      if (purchase.saleId === this.id) {
-        purchase.counterOfferAmount /= 100;
-        return purchase;
-      }
-    }
-    return null;
-  }
-
-  public isAccepted(): boolean {
-    return this.currentPurchase.isAccepted;
-  }
-
-  public isDeclined(): boolean {
-    return this.currentPurchase.isAccepted === false;
-  }
-
-  public isAwaiting(): boolean {
-    return this.currentPurchase.isAccepted === null && this.currentPurchase.counterOfferAmount === null;
-  }
-
-  public hasCounterOffer(): boolean {
-    return this.currentPurchase.counterOfferAmount > 0;
   }
 
   public goToSales(): void {

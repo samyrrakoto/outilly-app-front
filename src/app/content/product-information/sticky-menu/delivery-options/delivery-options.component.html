@@ -22,20 +22,69 @@
         </div>
       </div>
     </div>
+
     <div class="column has-text-centered">
 
       <!-- When login succeeds -->
       <div *ngIf="isLogged && accessToken === 'good'" class="content">
         <div class="content">
-          <button class="button is-danger" (click)="nextStep()">
-            Acheter
-          </button>
-        </div>
 
-        <div class="content">
-          <button class="button is-success is-outlined is-small" (click)="nextAltStep()">
-            Je souhaite faire une proposition au vendeur
-          </button>
+          <!-- If a counter-offer has been made -->
+          <div *ngIf="isCounterOffer()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter au prix de {{ priceTopay | currency:'full' }}€
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="counter-offer">contre-proposée à {{ currentPurchase.counterOfferAmount | currency:'full' }}€</span> !
+            </div>
+          </div>
+
+          <!-- If an offer has been accepted -->
+          <div *ngIf="isAccepted()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter au prix de {{ priceTopay | currency:'full' }}€
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="accepted">acceptée</span> !
+            </div>
+          </div>
+
+          <!-- If an offer has been declined -->
+          <div *ngIf="isDeclined()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter à prix coûtant
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="declined">refusée</span> :-(<br><br>
+              Vous pouvez néanmoins toujours acheter le produit au prix coûtant ! :-)
+            </div>
+          </div>
+
+          <!-- If a bid is pending -->
+          <div *ngIf="isPending()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de <span class="bold">{{ currentPurchase.bidAmount | currency:'full' }}€</span> est en attente de traitement ;-)
+            </div>
+
+            <div class="content">
+              Si jamais ce produit vous tente et que vous avez peur de passer à côté, vous pouvez l'acheter directement au prix coûtant.
+            </div>
+          </div>
         </div>
       </div>
 
