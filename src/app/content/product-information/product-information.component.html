@@ -14,6 +14,8 @@
     </div>
 
     <sticky-menu *ngIf="!isSeller()" [sale]="sale"
+      [isLogged]="isLogged"
+      [accessToken]="accessToken"
       [errorMsg]="errorMsg"
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"

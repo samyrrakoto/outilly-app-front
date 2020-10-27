@@ -8,7 +8,12 @@
         </mat-expansion-panel-header>
 
         <div id="menu-content" class="content">
-          <delivery-options [sale]="sale" [errorMsg]="errorMsg" *ngIf="stickyMenuSteps.deliveryOptions"></delivery-options>
+          <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
+            [isLogged]="isLogged"
+            [accessToken]="accessToken"
+            [sale]="sale"
+            [errorMsg]="errorMsg">
+          </delivery-options>
           <buying-confirmation [sale]="sale" *ngIf="stickyMenuSteps.buyingConfirmation"></buying-confirmation>
           <buying-proposition [sale]="sale"
           [errorMsg]="errorMsg"

@@ -17,6 +17,8 @@ export class StickyMenuComponent {
   @Input() maxPrice: number;
   @Input() proposedPrice: number;
   @Input() openState: boolean;
+  @Input() isLogged: boolean;
+  @Input() accessToken: string;
   deliveryName: string;
   deliveryFees: number;
   stickyMenuSteps: any;

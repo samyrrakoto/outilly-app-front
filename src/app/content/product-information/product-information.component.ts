@@ -15,6 +15,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   isLogged: boolean;
+  accessToken: string;
   id: number;
   vendorProducts: string;
   descriptionFlag: boolean;
@@ -47,6 +48,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.openMenuState = false;
     this.sales = [];
     this.isLogged = undefined;
+    this.accessToken = '';
   }
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       })
     });
 
+    this.accessToken = this.getTokenStatus();
     return promise;
   }
 

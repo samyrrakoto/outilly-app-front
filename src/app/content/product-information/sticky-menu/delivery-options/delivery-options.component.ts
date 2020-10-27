@@ -1,6 +1,6 @@
 import { AuthService } from './../../../../services/auth.service';
 import { StickyService } from './../../../../services/sticky.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,8 @@ import { ProductInformationComponent } from '../../product-information.component
   styleUrls: ['../sticky-menu.component.css', './delivery-options.component.css']
 })
 export class DeliveryOptionsComponent extends StickyMenuComponent implements OnInit {
-  isLogged: boolean;
+  @Input() isLogged: boolean;
+  @Input() accessToken: string;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute,
@@ -26,9 +27,7 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
     this.isLogged = undefined;
   }
 
-  ngOnInit(): void {
-    this.getLogStatus();
-  }
+  ngOnInit(): void {}
 
   public nextStep() {
     if (this.deliveryName !== '') {
@@ -40,23 +39,5 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
     if (this.deliveryName !== '') {
       this.sticky.nextAltStep();
     }
-  }
-
-  private getLogStatus(): Promise<boolean> {
-    const promise: Promise<boolean> = new Promise((resolve, reject) => {
-      this.auth.isLoggedIn().subscribe({
-        next: (value: boolean) => {
-          this.isLogged = value;
-          console.log(this.isLogged);
-          resolve();
-        },
-        error: () => {
-          this.isLogged = null;
-          reject();
-        }
-      })
-    });
-
-    return promise;
   }
 }

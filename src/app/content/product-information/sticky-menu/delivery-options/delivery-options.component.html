@@ -23,17 +23,36 @@
       </div>
     </div>
     <div class="column has-text-centered">
-      <div class="content">
-        <button *ngIf="isLogged" class="button is-danger" (click)="nextStep()">
-          Acheter
-        </button>
 
-        <button *ngIf="isLogged === false" class="button">
-          Acheter
-        </button>
+      <!-- When login succeed -->
+      <div *ngIf="isLogged && accessToken === 'good'" class="content">
+        <div class="content">
+          <button class="button is-danger" (click)="nextStep()">
+            Acheter
+          </button>
+        </div>
+
+        <div class="content">
+          <button class="button is-success is-outlined is-small" (click)="nextAltStep()">
+            Je souhaite faire une proposition au vendeur
+          </button>
+        </div>
       </div>
 
-      <button class="normal" (click)="nextAltStep()">Je souhaite faire une proposition au vendeur</button>
+      <!-- When login fails -->
+      <div *ngIf="isLogged === false || accessToken === 'expired'" class="content">
+        <div class="content">
+          <button class="button is-light">
+            Acheter
+          </button>
+        </div>
+
+        <div class="content">
+          <button class="button is-light is-small">
+            Je souhaite faire une proposition au vendeur
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
