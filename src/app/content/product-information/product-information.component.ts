@@ -78,6 +78,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getTokenStatus(): string {
+    if (localStorage.getItem('access_token') === null) {
+      return 'expired';
+    }
     const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
     const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
     const actualTimestamp: number = Date.now();

@@ -24,7 +24,7 @@
     </div>
     <div class="column has-text-centered">
 
-      <!-- When login succeed -->
+      <!-- When login succeeds -->
       <div *ngIf="isLogged && accessToken === 'good'" class="content">
         <div class="content">
           <button class="button is-danger" (click)="nextStep()">
@@ -48,8 +48,8 @@
         </div>
 
         <div class="content">
-          <button class="button is-light is-small">
-            Je souhaite faire une proposition au vendeur
+          <button routerLink="/login" class="button is-text">
+            Veuillez-vous connecter ou créer un compte pour acheter ou faire une offre :)
           </button>
         </div>
       </div>
