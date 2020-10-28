@@ -2,7 +2,7 @@ import { OrderSummaryComponent } from './../order-summary.component';
 import { AuthService } from './../../../../services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -16,6 +16,7 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
   commissionFees: number;
   deliveryFees: number;
   totalPrice: number;
+  @Input() deliveryMethod: string;
 
   constructor(public request: RequestService,
     public router: Router,
@@ -29,7 +30,7 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
       .then(() => { this.getPriceToPay() })
       .then(() => {
         this.commissionFees = this.priceToPay * 0.06;
-        this.deliveryFees = 690;
+        this.deliveryFees = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
         this.totalPrice = this.priceToPay + this.commissionFees + this.deliveryFees;
       });
   }

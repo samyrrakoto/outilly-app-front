@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { OrderSummaryComponent } from './../order-summary.component';
 import { RelayPoint } from './../../../../models/relay-point';
 import { Modals } from './../../../../models/modals';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -12,15 +12,16 @@ import { Location } from '@angular/common';
   templateUrl: './delivery-summary.component.html',
   styleUrls: ['../order-summary.component.css', './delivery-summary.component.css']
 })
-export class DeliverySummaryComponent extends OrderSummaryComponent implements OnInit {
+export class DeliverySummaryComponent implements OnInit {
   modals: Modals;
   relayPoint: RelayPoint;
+  @Input() relayCountry: string;
+  @Input() relayId: string;
 
   constructor(public request: RequestService,
     public route: Router,
     public auth: AuthService,
     public location: Location) {
-    super(request, route, auth, location);
     this.modals = new Modals();
     this.modals.addModal('relayPointPicture');
     this.relayPoint = new RelayPoint();

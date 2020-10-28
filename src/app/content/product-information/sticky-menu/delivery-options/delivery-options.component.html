@@ -1,5 +1,5 @@
 <div id="buying">
-  <h2 class="subtitle">Ce produit coûte <span class="has-text-weight-bold" style="font-size:1.5em;">{{ sale.product.reservePrice }}€</span></h2>
+  <h2 class="subtitle">Ce produit coûte <span class="has-text-weight-bold" style="font-size:1.5em;">{{ sale.product.reservePrice | currency:'full' }}€</span></h2>
 
   <div class="columns is-vcentered">
     <div class="column has-text-centered">
@@ -7,19 +7,11 @@
 
       <div class="columns">
         <div class="column">
-          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 6.90)">
+          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 690)">
               MONDIAL RELAY<br><br>
               <span class="price">6,90€</span><br><br>
           </div>
           <span class="delay">4-5 jours ouvrés</span>
-        </div>
-
-        <div class="column">
-          <div id="colissimo" class="content remise" (click)="sticky.setDelivery('colissimo', 'Colissimo', 9.80)">
-            COLISSIMO<br><br>
-            <span class="price">9,80€</span>
-          </div>
-          <span class="delay">2-4 jours ouvrés</span>
         </div>
 
         <div class="column">
@@ -29,15 +21,92 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="column has-text-centered">
-      <p class="content">
-        <button class="button is-danger" (click)="sticky.nextStep()">
-          Acheter
-        </button>
-      </p>
 
-      <button class="normal" (click)="sticky.nextAltStep()">Je souhaite faire une proposition au vendeur</button>
+      <div *ngIf="errorMsg" class="notification has-text-danger">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+        {{ errorMsg }}
+      </div>
+    </div>
+
+    <div class="column has-text-centered">
+
+      <!-- When login succeeds -->
+      <div *ngIf="isLogged && accessToken === 'good'" class="content">
+        <div class="content">
+
+          <!-- If a counter-offer has been made -->
+          <div *ngIf="isCounterOffer()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter au prix de {{ priceTopay | currency:'full' }}€
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="counter-offer">contre-proposée à {{ currentPurchase.counterOfferAmount | currency:'full' }}€</span> !
+            </div>
+          </div>
+
+          <!-- If an offer has been accepted -->
+          <div *ngIf="isAccepted()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter au prix de {{ priceTopay | currency:'full' }}€
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="accepted">acceptée</span> !
+            </div>
+          </div>
+
+          <!-- If an offer has been declined -->
+          <div *ngIf="isDeclined()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter à prix coûtant
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="declined">refusée</span> :-(<br><br>
+              Vous pouvez néanmoins toujours acheter le produit au prix coûtant ! :-)
+            </div>
+          </div>
+
+          <!-- If a bid is pending -->
+          <div *ngIf="isPending()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter
+              </button>
+            </div>
+
+            <div class="content">
+              Votre proposition de <span class="bold">{{ currentPurchase.bidAmount | currency:'full' }}€</span> est en attente de traitement ;-)
+            </div>
+
+            <div class="content">
+              Si jamais ce produit vous tente et que vous avez peur de passer à côté, vous pouvez l'acheter directement au prix coûtant.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- When login fails -->
+      <div *ngIf="isLogged === false || accessToken === 'expired'" class="content">
+        <div class="content">
+          <button class="button is-light">
+            Acheter
+          </button>
+        </div>
+
+        <div class="content">
+          <button (click)="goToLogin()" class="button is-text">
+            Veuillez-vous connecter ou créer un compte pour acheter ou faire une offre :)
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

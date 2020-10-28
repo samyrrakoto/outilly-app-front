@@ -35,11 +35,11 @@
                 <table class="table">
                     <tr>
                         <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat du produit :</td>
-                        <td>{{ this.sale.product.quality }} <a class="has-text-danger" (click)="openModal(knowMore)">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
+                        <td>{{ this.sale.product.quality | quality }} <a class="has-text-danger" (click)="openModal(knowMore)">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
                     </tr>
                     <tr>
                         <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids total : </td>
-                        <td>{{ this.sale.product.weight }}</td>
+                        <td>{{ this.sale.product.weight | weight:'value' }}{{ this.sale.product.weight | weight:'unity' }}</td>
                     </tr>
                     <tr>
                         <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation : </td>

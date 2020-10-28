@@ -1,7 +1,6 @@
 <div id="proposition" class="content">
 
-  <!-- If no bid has been placed -->
-  <div *ngIf="!hasBidded()" class="content">
+  <div class="content">
     <h2 class="subtitle">Quel montant souhaitez-vous proposer au vendeur ?</h2>
 
     <p class="content warning">
@@ -30,36 +29,9 @@
     </div>
   </div>
 
-  <!-- If a bid has already been placed -->
-  <div *ngIf="hasBidded()" class="column">
-    <div *ngIf="" class="content">
-      Vous avez déjà fait une offre ! ;-) <br><br>
-      Il ne reste plus qu'à patienter en attendant la réponse du vendeur :-)
-    </div>
-
-    <div *ngIf="isAccepted()" class="content">
-      Votre offre a été <span class="accepted">acceptée !</span> :-) <br><br>
-      Rendez-vous <a routerLink="/checkout">ici</a> pour effectuer le règlement !
-    </div>
-
-    <div *ngIf="isDeclined()" class="content">
-      Votre offre a été <span class="declined">refusée !</span> ! ;-( <br><br>
-      Vous ne pouvez plus faire de proposition néanmoins vous pouvez toujours acheter le produit au prix indiqué ! :-D
-    </div>
-
-    <div *ngIf="hasCounterOffer()" class="content">
-      Votre offre a été <span class="counter-offer">contre-proposée</span> à <span class="amount">{{ currentPurchase.counterOfferAmount }}€</span> ! <br><br>
-      Si cette contre-proposition vous convient, rendez-vous <a class="accepted" routerLink="/checkout">ici</a> pour effectuer le règlement !
-    </div>
-
-    <div class="content">
-      <button class="button" (click)="goToSales()">Voir mes offres</button>
-    </div>
-  </div>
-
-  <p class="content">
+  <div class="content">
     <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
     <span *ngIf="sticky.proposedPrice > sticky.maxPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.highPrice }}€.</span>
-  </p>
+  </div>
   <button class="normal" (click)="sticky.previousStep()">Revenir au prix initial</button>
 </div>

@@ -2,18 +2,21 @@
 
     <!-- General information -->
     <div class="column is-half">
-        <general-information
+      <general-information
         [sale]="sale"
         [genericQuestions]="genericQuestions">
-        </general-information>
+      </general-information>
     </div>
 
     <!-- Side information -->
     <div class="column is-one-quarter">
-        <side-information [sale]="sale" (openState)="getOpenState($event)"></side-information>
+      <side-information [sale]="sale" (openState)="getOpenState($event)"></side-information>
     </div>
 
-    <sticky-menu *ngIf="!isSeller()" [sale]="sale"
+    <sticky-menu *ngIf="!isSeller() && sale.id !== 0"
+      [sale]="sale"
+      [isLogged]="isLogged"
+      [accessToken]="accessToken"
       [errorMsg]="errorMsg"
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"

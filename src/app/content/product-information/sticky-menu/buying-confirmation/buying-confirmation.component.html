@@ -1,21 +1,19 @@
 <div id="buying">
-  <h2 class="subtitle">Plus qu'une étape : confirmez votre achat :)</h2>
-
   <div class="columns is-vcentered">
     <div class="column has-text-left">
       <div class="content">
         <table class="table">
           <tr>
             <td><span class="has-text-weight-bold">Le prix du produit</span> :</td>
-            <td>{{ sale.product.reservePrice }}€</td>
+            <td>{{ priceToPay | currency:'full' }}€</td>
           </tr>
           <tr>
             <td><span class="has-text-weight-bold">Nos frais de sécurisation (6%)</span> :</td>
-            <td>{{ sale.product.reservePrice * 0.06 }}€</td>
+            <td>{{ securisationFees | currency:'full' }}€</td>
           </tr>
           <tr>
-            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ sticky.deliveryName }}</span></span> :</td>
-            <td>{{ sticky.deliveryFees }}€</td>
+            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ deliveryName }}</span></span> :</td>
+            <td>{{ deliveryFees | currency:'full' }}€</td>
           </tr>
         </table>
       </div>
@@ -24,8 +22,8 @@
     <div class="is-divider-vertical is-hidden-mobile"></div>
 
     <div class="column has-text-centered">
-      <button routerLink="/checkout" class="button is-danger">
-        Confirmer mon achat
+      <button (click)="goToCheckout()" class="button is-danger">
+        Passer à l'étape suivante
       </button>
     </div>
   </div>

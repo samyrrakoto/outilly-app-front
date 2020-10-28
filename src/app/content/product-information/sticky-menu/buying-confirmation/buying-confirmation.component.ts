@@ -1,24 +1,49 @@
+import { Router } from '@angular/router';
+import { Sale } from './../../../../models/sale';
 import { Modals } from './../../../../models/modals';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'buying-confirmation',
   templateUrl: './buying-confirmation.component.html',
   styleUrls: ['../sticky-menu.component.css', './buying-confirmation.component.css']
 })
-export class BuyingConfirmationComponent extends StickyMenuComponent implements OnInit {
+export class BuyingConfirmationComponent implements OnInit {
   modals: Modals;
+  @Input() priceToPay: number;
+  @Input() deliveryName: string;
+  @Input() deliveryFees: number;
+  @Input() sale: Sale;
+  securisationFees: number;
 
-  constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent) {
-    super(request, route);
+  constructor(public sticky: StickyMenuComponent,
+    public router: Router) {
     this.sticky.current = 'buyingConfirmation';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
+    this.modals = new Modals();
     this.modals.addModal('buyingConfirmation');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.securisationFees = this.priceToPay * 0.06;
+  }
+
+  public goToCheckout(): void {
+    localStorage.setItem('saleId', this.sale.product.id.toString());
+
+    if (this.deliveryName === 'Mondial Relay') {
+      localStorage.setItem('mondial-relay', 'true');
+      localStorage.setItem('hand-delivery', 'false');
+
+      this.router.navigate(['/checkout']);
+    }
+    else if (this.deliveryName === 'Remise en main propre') {
+      localStorage.setItem('hand-delivery', 'true');
+      localStorage.setItem('mondial-relay', 'false');
+
+      this.router.navigate(['/checkout/order-summary']);
+    }
+  }
 }

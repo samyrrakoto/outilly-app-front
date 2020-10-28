@@ -5,15 +5,29 @@
   <!-- General information -->
   <div class="column is-6">
     <app-product-summary [priceToPay]="priceToPay"></app-product-summary>
-    <app-delivery-summary></app-delivery-summary>
+    <app-delivery-summary *ngIf="deliveryMethod === 'mondial-relay'"
+      [relayId]="relayId"
+      [relayCountry]="relayCountry">
+    </app-delivery-summary>
+    <app-hand-delivery *ngIf="deliveryMethod === 'hand'"></app-hand-delivery>
   </div>
 
   <!-- Side information -->
   <div class="column is-3">
-    <app-information-summary></app-information-summary>
-    <app-price-summary (priceToPayEvent)="getRealPriceToPay($event)"></app-price-summary>
+    <app-information-summary (userEmitter)="getUser($event)"></app-information-summary>
+    <app-price-summary (priceToPayEvent)="getRealPriceToPay($event)"
+      [deliveryMethod]="deliveryMethod">
+    </app-price-summary>
     <app-conditions-of-sale (areConditionsAccepted)="checkConditionsAccepted($event)"></app-conditions-of-sale>
-    <app-payment-call-to-action [areConditionsAccepted]="areConditionsAccepted"></app-payment-call-to-action>
+    <app-payment-call-to-action [areConditionsAccepted]="areConditionsAccepted"
+      [sale]="sale"
+      [user]="user"
+      [bid]="bid"
+      [relayCountry]="relayCountry"
+      [relayId]="relayId"
+      [priceToPay]="priceToPay"
+      [deliveryMethod]="deliveryMethod">
+    </app-payment-call-to-action>
     <app-payment-means-information></app-payment-means-information>
   </div>
 </div>

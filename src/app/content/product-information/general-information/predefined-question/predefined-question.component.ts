@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { BidManagerService } from './../../../../bid-manager.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductInformationComponent } from '../../product-information.component';
@@ -14,8 +15,11 @@ export class PredefinedQuestionComponent extends ProductInformationComponent imp
   @Input() sale: Sale;
   @Input() genericQuestions: Array<string>;
 
-  constructor(request: RequestService, route: ActivatedRoute, bidManager: BidManagerService) {
-    super(request, route, bidManager);
+  constructor(request: RequestService,
+    route: ActivatedRoute,
+    bidManager: BidManagerService,
+    public auth: AuthService) {
+    super(request, route, bidManager, auth);
 
     for (const [index, question] of this.genericQuestions) {
       if (question['answer'] === 'Je vends cet article') {

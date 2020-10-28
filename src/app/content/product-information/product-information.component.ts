@@ -1,3 +1,5 @@
+import { AccessToken } from './../../models/access-token';
+import { AuthService } from './../../services/auth.service';
 import { BidManagerService } from './../../bid-manager.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -12,6 +14,8 @@ import { GenericComponent } from 'src/app/models/generic-component';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
+  isLogged: boolean;
+  accessToken: string;
   id: number;
   vendorProducts: string;
   descriptionFlag: boolean;
@@ -28,7 +32,10 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   errorMsg: any;
   openMenuState: boolean;
 
-  constructor(public request: RequestService, private route: ActivatedRoute, public bidManager: BidManagerService) {
+  constructor(public request: RequestService,
+    private route: ActivatedRoute,
+    public bidManager: BidManagerService,
+    public auth: AuthService,) {
     super();
     this.sale = new Sale();
     this.vendorProducts = '';
@@ -40,27 +47,70 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.genericQuestions = [];
     this.openMenuState = false;
     this.sales = [];
+    this.isLogged = undefined;
+    this.accessToken = '';
   }
 
   ngOnInit(): void {
-    this.getId();
-    this.getProductById(this.id.toString());
-    this.getGenericQuestions();
-    this.getSalesId();
+    this.getLogStatus()
+    .then(() => this.getId())
+    .then(() => this.getProductById(this.id.toString()))
+    .then(() => this.getGenericQuestions())
+    .then(() => this.getSalesId());
   }
 
-  private getId(): void {
-    this.route.params.subscribe((params: any) => {
-      this.id = parseInt(params.id);
+  private getLogStatus(): Promise<boolean> {
+    const promise: Promise<boolean> = new Promise((resolve, reject) => {
+      this.auth.isLoggedIn().subscribe({
+        next: (value: boolean) => {
+          this.isLogged = value;
+          resolve();
+        },
+        error: () => {
+          this.isLogged = null;
+          reject();
+        }
+      })
+    });
+
+    this.accessToken = this.getTokenStatus();
+    return promise;
+  }
+
+  private getTokenStatus(): string {
+    if (localStorage.getItem('access_token') === null) {
+      return 'expired';
+    }
+    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
+    const actualTimestamp: number = Date.now();
+
+    return actualTimestamp > timestamp ? 'expired' : 'good';
+  }
+
+  private getId(): Promise<any> {
+    return new Promise((resolve) => {
+      this.route.params.subscribe((params: any) => {
+        this.id = parseInt(params.id);
+        resolve();
+      });
     });
   }
 
-  private getSalesId(): void {
-    this.request.getUserInfos().subscribe({
-      next: (user: any) => {
-        for (const sale of user.sales) {
-          this.sales.push(sale);
-        }
+  private getSalesId(): Promise<any> {
+    return new Promise((resolve) => {
+      if (this.isLogged && this.getTokenStatus() === 'good') {
+        this.request.getUserInfos().subscribe({
+          next: (user: any) => {
+            for (const sale of user.sales) {
+              this.sales.push(sale);
+            }
+            resolve();
+          }
+        });
+      }
+      else {
+        resolve();
       }
     });
   }
@@ -85,29 +135,34 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.sale.product.productMedias = videoMedias.concat(imgMedias);
   }
 
-  private getProductById(id: string): void {
-    const response = this.request.getData(this.request.uri.SALE, id);
+  private getProductById(id: string): Promise<any> {
+    return new Promise((resolve) => {
+      const response = this.request.getData(this.request.uri.SALE, id);
 
-    response.subscribe((res) => {
-      this.sale = res;
-      this.sale.product.reservePrice /= 100;
-      this.proposedPrice = this.sale.product.reservePrice;
-      this.minPrice = this.sale.product.reservePrice * 0.8;
-      this.maxPrice = this.sale.product.reservePrice - 1;
-      this.errorMsg = {
-        delivery: 'Veuillez choisir un mode de livraison',
-        lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,
-        highPrice: 'Votre prix est trop haut : votre proposition doit être inférieure à ' + this.maxPrice
-      };
-      this.sortByMediaType();
+      response.subscribe((res: any) => {
+        this.sale = res;
+        this.proposedPrice = this.sale.product.reservePrice;
+        this.minPrice = this.sale.product.reservePrice * 0.8;
+        this.maxPrice = this.sale.product.reservePrice - 1;
+        this.errorMsg = {
+          delivery: 'Veuillez choisir un mode de livraison',
+          lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,
+          highPrice: 'Votre prix est trop haut : votre proposition doit être inférieure à ' + this.maxPrice
+        };
+        this.sortByMediaType();
+        resolve();
+      });
     });
   }
 
-  private getGenericQuestions(): void {
-    const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
+  private getGenericQuestions(): Promise<any> {
+    return new Promise((resolve) => {
+      const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
 
-    response.subscribe((res: any) => {
-      this.genericQuestions = res;
+      response.subscribe((res: any) => {
+        this.genericQuestions = res;
+        resolve();
+      });
     });
   }
 
@@ -125,13 +180,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   previousMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.media.index === 0) {
-      this.media.index = lastIndex;
-    }
-    else {
-      this.media.index -= 1;
-    }
-
+    this.media.index === 0 ? this.media.index = lastIndex : this.media.index -= 1;
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
@@ -139,13 +188,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   nextMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
-    if (this.media.index === lastIndex) {
-      this.media.index = 0;
-    }
-    else {
-      this.media.index++;
-    }
-
+    this.media.index === lastIndex ? this.media.index = 0 : this.media.index++;
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
   }

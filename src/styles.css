@@ -69,8 +69,24 @@
   color: var(--MAT-GREY);
 }
 
+.accepted {
+  color: var(--KTKP-GREEN);
+  font-weight: bold;
+}
+
+.declined {
+  color: var(--KTKP-RED);
+  font-weight: bold;
+}
+
+.counter-offer {
+  color: var(--KTKP-BLUE-DARKER);
+  font-weight: bold;
+}
+
 a:link, a:visited {
     color: black;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, "Helvetica Neue", sans-serif; }
