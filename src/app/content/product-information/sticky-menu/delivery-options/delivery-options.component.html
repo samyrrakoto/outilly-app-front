@@ -21,6 +21,11 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="errorMsg" class="notification has-text-danger">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+        {{ errorMsg }}
+      </div>
     </div>
 
     <div class="column has-text-centered">

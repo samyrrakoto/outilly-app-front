@@ -23,6 +23,7 @@ export class DeliveryOptionsComponent implements OnInit {
   currentPurchase: Purchase;
   deliveryName: string;
   deliveryFees: number;
+  errorMsg: string;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class DeliveryOptionsComponent implements OnInit {
     this.priceTopay = 0;
     this.deliveryFees = 0;
     this.deliveryName = '';
+    this.errorMsg = '';
   }
 
   ngOnInit(): void {
@@ -122,11 +124,17 @@ export class DeliveryOptionsComponent implements OnInit {
     if (this.sticky.deliveryName !== '') {
       this.sticky.nextStep();
     }
+    else {
+      this.errorMsg = 'Veuillez choisir votre mode de remise pour passer à l\'étape suivante';
+    }
   }
 
   public nextAltStep() {
     if (this.sticky.deliveryName !== '') {
       this.sticky.nextAltStep();
+    }
+    else {
+      this.errorMsg = 'Veuillez choisir votre mode de remise pour passer à l\'étape suivante';
     }
   }
 }
