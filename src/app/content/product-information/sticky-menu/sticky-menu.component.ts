@@ -1,5 +1,5 @@
 import { AuthService } from './../../../services/auth.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -10,7 +10,7 @@ import { Sale } from 'src/app/models/sale';
   templateUrl: './sticky-menu.component.html',
   styleUrls: ['./sticky-menu.component.css']
 })
-export class StickyMenuComponent {
+export class StickyMenuComponent implements OnInit {
   @Input() sale: Sale;
   @Input() errorMsg: any;
   @Input() minPrice: number;
@@ -26,6 +26,7 @@ export class StickyMenuComponent {
   previous: string;
   next: string;
   nextAlt: string;
+  priceToPay: number;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute) {
@@ -39,7 +40,10 @@ export class StickyMenuComponent {
     this.next = 'buyingConfirmation';
     this.deliveryName = '';
     this.deliveryFees = 0;
+    this.priceToPay = 0;
   }
+
+  ngOnInit() {}
 
   nextStep(): void {
     this.stickyMenuSteps[this.current] = false;
@@ -66,7 +70,7 @@ export class StickyMenuComponent {
   }
 
   setFocus(id: string): void {
-    const remises = ['mondial', 'hand'];
+    const remises: Array<string> = ['mondial', 'hand'];
 
     document.getElementById(id).classList.add('chosen-remise');
 
@@ -75,5 +79,9 @@ export class StickyMenuComponent {
         document.getElementById(remise).classList.remove('chosen-remise');
       }
     }
+  }
+
+  public getRealPriceToPay(priceToPay: number): void {
+    this.priceToPay = priceToPay;
   }
 }

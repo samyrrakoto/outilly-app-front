@@ -1,12 +1,11 @@
+import { Sale } from './../../../../models/sale';
 import { Purchase } from './../../../../models/purchase';
 import { PurchaseManagerService } from './../../../../purchase-manager.service';
 import { AuthService } from './../../../../services/auth.service';
-import { StickyService } from './../../../../services/sticky.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductInformationComponent } from '../../product-information.component';
 
 @Component({
   selector: 'delivery-options',
@@ -16,6 +15,8 @@ import { ProductInformationComponent } from '../../product-information.component
 export class DeliveryOptionsComponent extends StickyMenuComponent implements OnInit {
   @Input() isLogged: boolean;
   @Input() accessToken: string;
+  @Input() sale: Sale;
+  @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
   priceTopay: number;
   id: number;
   purchases: Array<Purchase>;
@@ -31,7 +32,6 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
     this.sticky.previous = '';
     this.sticky.next = 'buyingConfirmation';
     this.sticky.nextAlt = 'buyingProposition';
-    this.isLogged = undefined;
     this.id = 0;
     this.purchases = [];
     this.currentPurchase = null;
@@ -43,9 +43,11 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
       .then(() => this.purchaseManager.getPurchases())
       .then((purchases: Array<Purchase>) => {
         this.purchases = purchases;
+
         if (this.hasBidded()) {
           this.currentPurchase = this.getCurrentPurchase();
         }
+
         this.getPriceToPay();
     });
   }
@@ -79,7 +81,12 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
       else {
         this.priceTopay = this.sale.product.reservePrice;
       }
+      this.updatePriceToPay();
     }
+  }
+
+  public updatePriceToPay(): void {
+    this.priceToPayEmitter.emit(this.priceTopay);
   }
 
   public hasBidded(): boolean {

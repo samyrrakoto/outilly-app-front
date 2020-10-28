@@ -5,15 +5,15 @@
         <table class="table">
           <tr>
             <td><span class="has-text-weight-bold">Le prix du produit</span> :</td>
-            <td>{{ sale.product.reservePrice }}€</td>
+            <td>{{ priceToPay | currency:'full' }}€</td>
           </tr>
           <tr>
             <td><span class="has-text-weight-bold">Nos frais de sécurisation (6%)</span> :</td>
-            <td>{{ sale.product.reservePrice * 0.06 }}€</td>
+            <td>{{ securisationFees | currency:'full' }}€</td>
           </tr>
           <tr>
-            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ sticky.deliveryName }}</span></span> :</td>
-            <td>{{ sticky.deliveryFees }}€</td>
+            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ deliveryName }}</span></span> :</td>
+            <td>{{ deliveryFees | currency:'full' }}€</td>
           </tr>
         </table>
       </div>

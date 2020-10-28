@@ -9,18 +9,25 @@
 
         <div id="menu-content" class="content">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
+            (priceToPayEmitter)="getRealPriceToPay($event)"
             [isLogged]="isLogged"
             [accessToken]="accessToken"
             [sale]="sale"
             [errorMsg]="errorMsg">
           </delivery-options>
-          <buying-confirmation [sale]="sale" *ngIf="stickyMenuSteps.buyingConfirmation"></buying-confirmation>
-          <buying-proposition [sale]="sale"
-          [errorMsg]="errorMsg"
-          [minPrice]="minPrice"
-          [maxPrice]="maxPrice"
-          [proposedPrice]="proposedPrice"
-          *ngIf="stickyMenuSteps.buyingProposition"></buying-proposition>
+          <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
+            [priceToPay]="priceToPay"
+            [sale]="sale"
+            [proposedPrice]="proposedPrice"
+            [deliveryName]="deliveryName">
+          </buying-confirmation>
+          <buying-proposition *ngIf="stickyMenuSteps.buyingProposition"
+            [sale]="sale"
+            [errorMsg]="errorMsg"
+            [minPrice]="minPrice"
+            [maxPrice]="maxPrice"
+            [proposedPrice]="proposedPrice">
+          </buying-proposition>
         </div>
 
     </mat-expansion-panel>

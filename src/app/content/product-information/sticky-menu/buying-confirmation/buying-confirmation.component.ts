@@ -11,9 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BuyingConfirmationComponent extends StickyMenuComponent implements OnInit {
   modals: Modals;
-  @Input() priceTopay: number;
+  @Input() priceToPay: number;
+  @Input() deliveryName: string;
+  securisationFees: number;
+  deliveryFees: number;
 
-  constructor(request: RequestService, route: ActivatedRoute, public sticky: StickyMenuComponent) {
+  constructor(request: RequestService,
+    route: ActivatedRoute,
+    public sticky: StickyMenuComponent) {
     super(request, route);
     this.sticky.current = 'buyingConfirmation';
     this.sticky.previous = 'deliveryOptions';
@@ -22,5 +27,8 @@ export class BuyingConfirmationComponent extends StickyMenuComponent implements 
     this.modals.addModal('buyingConfirmation');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.securisationFees = this.priceToPay * 0.06;
+    this.deliveryFees = 690;
+  }
 }
