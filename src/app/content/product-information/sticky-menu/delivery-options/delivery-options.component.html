@@ -90,6 +90,21 @@
               Si jamais ce produit vous tente et que vous avez peur de passer à côté, vous pouvez l'acheter directement au prix coûtant.
             </div>
           </div>
+
+          <!-- If no bid has been made -->
+          <div *ngIf="!hasBidded()" class="content">
+            <div class="content">
+              <button class="button is-danger" (click)="nextStep()">
+                Acheter
+              </button>
+            </div>
+
+            <div class="content">
+              <button (click)="nextAltStep()" class="button is-ligh">
+                Faire une proposition au vendeur.
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

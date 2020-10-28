@@ -34,6 +34,9 @@ export class BuyingPropositionComponent implements OnInit {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
+    this.sticky.maxPrice /= 100;
+    this.sticky.minPrice /= 100;
+    this.sticky.proposedPrice /= 100;
     this.sticky.proposedPrice -= 5;
     this.purchases = [];
     this.currentPurchase = null;

@@ -16,7 +16,7 @@
 
       <div class="column">
         <div class="control has-icons-right">
-          <input id="propositionPrice" class="input" type="number" placeholder="{{ sale.product.reservePrice }}" [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
+          <input id="propositionPrice" class="input" type="number" placeholder="{{ sale.product.reservePrice | currency:'full' }}" [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
           <span class="icon is-small is-right">
             <fa-icon [icon]="['fas', 'euro-sign']"></fa-icon>
           </span>
