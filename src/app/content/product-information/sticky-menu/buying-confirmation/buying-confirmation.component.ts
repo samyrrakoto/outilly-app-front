@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Sale } from './../../../../models/sale';
 import { Modals } from './../../../../models/modals';
 import { Component, OnInit, Input } from '@angular/core';
@@ -16,7 +17,8 @@ export class BuyingConfirmationComponent implements OnInit {
   @Input() sale: Sale;
   securisationFees: number;
 
-  constructor(public sticky: StickyMenuComponent) {
+  constructor(public sticky: StickyMenuComponent,
+    public router: Router) {
     this.sticky.current = 'buyingConfirmation';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
@@ -26,5 +28,22 @@ export class BuyingConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     this.securisationFees = this.priceToPay * 0.06;
+  }
+
+  public goToCheckout(): void {
+    localStorage.setItem('saleId', this.sale.product.id.toString());
+
+    if (this.deliveryName === 'Mondial Relay') {
+      localStorage.setItem('mondial-relay', 'true');
+      localStorage.setItem('hand-delivery', 'false');
+
+      this.router.navigate(['/checkout']);
+    }
+    else if (this.deliveryName === 'Remise en main propre') {
+      localStorage.setItem('hand-delivery', 'true');
+      localStorage.setItem('mondial-relay', 'false');
+
+      this.router.navigate(['/checkout/order-summary']);
+    }
   }
 }

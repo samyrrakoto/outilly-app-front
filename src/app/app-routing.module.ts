@@ -1,3 +1,4 @@
+import { HandDeliveryComponent } from './content/checkout/delivery-information/hand-delivery/hand-delivery.component';
 import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';

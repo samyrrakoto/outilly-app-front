@@ -17,6 +17,7 @@ export class OrderSummaryComponent implements OnInit {
   productId: string;
   relayId: string;
   relayCountry: string;
+  deliveryMethod: string;
   areConditionsAccepted: boolean;
   priceToPay: number;
 
@@ -28,11 +29,8 @@ export class OrderSummaryComponent implements OnInit {
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    this.relayId = localStorage.getItem('relayId');
-    this.relayCountry = localStorage.getItem('relayCountry');
-    this.productId = localStorage.getItem('saleId');
-    if (this.productId === null) {
-      this.router.navigate(['/user/dashboard/activity-logs/purchases']);
+    if ((this.productId = localStorage.getItem('saleId')) === null) {
+      this.router.navigate(['/user/dashboard/activity-log/purchases']);
     }
   }
 
@@ -43,7 +41,8 @@ export class OrderSummaryComponent implements OnInit {
       .then(() => this.getBid())
       .catch(() => this.errorHandle('bid'))
       .then(() => {
-        this.checkRelay();
+        this.checkDeliveryMethod();
+        this.checkDelivery();
         resolve();
       });
     });
@@ -92,7 +91,7 @@ export class OrderSummaryComponent implements OnInit {
   private deconnect(): Promise<string> {
     return new Promise (() => {
       this.auth.logout();
-    })
+    });
   }
 
   protected errorHandle(type: string): void {
@@ -116,6 +115,23 @@ export class OrderSummaryComponent implements OnInit {
     this.priceToPay = priceToPay;
   }
 
+  private checkDeliveryMethod(): void {
+    if (localStorage.getItem('hand-delivery') === 'true') {
+      this.deliveryMethod = 'hand';
+    }
+    else {
+      this.deliveryMethod = 'mondial-relay';
+      this.relayId = localStorage.getItem('relayId');
+      this.relayCountry = localStorage.getItem('relayCountry');
+    }
+  }
+
+  private checkDelivery(): void {
+    if (this.checkHandDelivery() === false) {
+      this.checkRelay();
+    }
+  }
+
   private checkRelay(): void {
     if (this.isEmpty(localStorage.getItem('relayId')) || this.isEmpty(localStorage.getItem('relayCountry'))) {
       this.router.navigate(['checkout/delivery-information/mondial-relay-selector']);
@@ -124,6 +140,10 @@ export class OrderSummaryComponent implements OnInit {
       this.relayId = localStorage.getItem('relayId');
       this.relayCountry = localStorage.getItem('relayCountry');
     }
+  }
+
+  private checkHandDelivery(): boolean {
+    return localStorage.getItem('hand-delivery') === 'true';
   }
 
   private isEmpty(value: any): boolean {

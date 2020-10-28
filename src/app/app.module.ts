@@ -108,6 +108,7 @@ import { PhonePipe } from './pipes/phone.pipe';
 import { WeightPipe } from './pipes/weight.pipe';
 import { RelayHoursPipe } from './pipes/relay-hours.pipe';
 import { QualityPipe } from './pipes/quality.pipe';
+import { HandDeliveryComponent } from './content/checkout/order-summary/hand-delivery/hand-delivery.component';
 
 @NgModule({
   declarations: [
@@ -206,7 +207,8 @@ import { QualityPipe } from './pipes/quality.pipe';
     PhonePipe,
     WeightPipe,
     RelayHoursPipe,
-    QualityPipe
+    QualityPipe,
+    HandDeliveryComponent
   ],
   imports: [
     HttpClientModule,
