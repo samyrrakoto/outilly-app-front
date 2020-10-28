@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './delivery-options.component.html',
   styleUrls: ['../sticky-menu.component.css', './delivery-options.component.css']
 })
-export class DeliveryOptionsComponent extends StickyMenuComponent implements OnInit {
+export class DeliveryOptionsComponent implements OnInit {
   @Input() isLogged: boolean;
   @Input() accessToken: string;
   @Input() sale: Sale;
@@ -21,13 +21,14 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
   id: number;
   purchases: Array<Purchase>;
   currentPurchase: Purchase;
+  deliveryName: string;
+  deliveryFees: number;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute,
     public auth: AuthService,
     public sticky: StickyMenuComponent,
     public purchaseManager: PurchaseManagerService) {
-    super(request, route);
     this.sticky.current = 'deliveryOptions';
     this.sticky.previous = '';
     this.sticky.next = 'buyingConfirmation';
@@ -36,20 +37,24 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
     this.purchases = [];
     this.currentPurchase = null;
     this.priceTopay = 0;
+    this.deliveryFees = 0;
+    this.deliveryName = '';
   }
 
   ngOnInit(): void {
-    this.getId()
-      .then(() => this.purchaseManager.getPurchases())
-      .then((purchases: Array<Purchase>) => {
-        this.purchases = purchases;
+    if (this.isLogged && this.accessToken === 'good') {
+      this.getId()
+        .then(() => this.purchaseManager.getPurchases())
+        .then((purchases: Array<Purchase>) => {
+          this.purchases = purchases;
 
-        if (this.hasBidded()) {
-          this.currentPurchase = this.getCurrentPurchase();
-        }
+          if (this.hasBidded()) {
+            this.currentPurchase = this.getCurrentPurchase();
+          }
 
-        this.getPriceToPay();
-    });
+          this.getPriceToPay();
+      });
+    }
   }
 
   private getCurrentPurchase(): Purchase {
@@ -81,12 +86,8 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
       else {
         this.priceTopay = this.sale.product.reservePrice;
       }
-      this.updatePriceToPay();
+      this.priceToPayEmitter.emit(this.priceTopay);
     }
-  }
-
-  public updatePriceToPay(): void {
-    this.priceToPayEmitter.emit(this.priceTopay);
   }
 
   public hasBidded(): boolean {
@@ -118,13 +119,13 @@ export class DeliveryOptionsComponent extends StickyMenuComponent implements OnI
   }
 
   public nextStep() {
-    if (this.deliveryName !== '') {
+    if (this.sticky.deliveryName !== '') {
       this.sticky.nextStep();
     }
   }
 
   public nextAltStep() {
-    if (this.deliveryName !== '') {
+    if (this.sticky.deliveryName !== '') {
       this.sticky.nextAltStep();
     }
   }

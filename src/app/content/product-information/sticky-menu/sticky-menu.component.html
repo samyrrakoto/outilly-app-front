@@ -12,14 +12,13 @@
             (priceToPayEmitter)="getRealPriceToPay($event)"
             [isLogged]="isLogged"
             [accessToken]="accessToken"
-            [sale]="sale"
-            [errorMsg]="errorMsg">
+            [sale]="sale">
           </delivery-options>
           <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
             [priceToPay]="priceToPay"
             [sale]="sale"
-            [proposedPrice]="proposedPrice"
-            [deliveryName]="deliveryName">
+            [deliveryName]="deliveryName"
+            [deliveryFees]="deliveryFees">
           </buying-confirmation>
           <buying-proposition *ngIf="stickyMenuSteps.buyingProposition"
             [sale]="sale"
