@@ -1,3 +1,4 @@
+import { User } from './../../../models/user';
 import { AuthService } from './../../../services/auth.service';
 import { RequestService } from './../../../services/request.service';
 import { Bid } from './../../../models/bid';
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class OrderSummaryComponent implements OnInit {
   sale: Sale;
+  user: User;
   bid: Bid;
   productId: string;
   relayId: string;
@@ -78,6 +80,10 @@ export class OrderSummaryComponent implements OnInit {
         }
       });
     });
+  }
+
+  public getUser(user: User) {
+    this.user = user;
   }
 
   private bidMapping(value: any) {

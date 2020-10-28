@@ -3,7 +3,7 @@ import { AuthService } from './../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { OrderSummaryComponent } from './../order-summary.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,14 +11,14 @@ import { Location } from '@angular/common';
   templateUrl: './information-summary.component.html',
   styleUrls: ['../order-summary.component.css', './information-summary.component.css']
 })
-export class InformationSummaryComponent extends OrderSummaryComponent implements OnInit {
+export class InformationSummaryComponent implements OnInit {
   user: User;
+  @Output() userEmitter: EventEmitter<User> = new EventEmitter<User>();
 
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location) {
-      super(request, router, auth, location);
       this.user = new User();
     }
 
@@ -31,6 +31,7 @@ export class InformationSummaryComponent extends OrderSummaryComponent implement
       this.request.getUserInfos().subscribe({
         next: (value: User) => {
           this.user = value;
+          this.userEmitter.emit(this.user);
           resolve();
         },
         error: () => {
@@ -41,4 +42,23 @@ export class InformationSummaryComponent extends OrderSummaryComponent implement
       });
     });
   }
+
+  protected errorHandle(type: string): void {
+    switch (type) {
+      case 'bid':
+      case 'sale':
+        this.deconnect()
+          .then(() => sessionStorage.setItem('redirect_after_login', 'checkout/order-summary'));
+          break;
+      default:
+        this.deconnect();
+        break;
+    }
+  }
+
+    private deconnect(): Promise<string> {
+      return new Promise (() => {
+        this.auth.logout();
+      });
+    }
 }

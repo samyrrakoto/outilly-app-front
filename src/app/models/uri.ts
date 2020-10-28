@@ -34,6 +34,7 @@ export class Uri {
   readonly GET_RELAY_POINT = 'mondialrelay/relaypoint/'
   readonly GET_PREAUTH_DATA = 'secure/mangopay/preauth/check';
   readonly GET_TRANSACTION_DATA = 'secure/mangopay/transaction/check';
+  readonly CREATE_ORDER = 'secure/order/create';
   path: string;
 
   constructor() {
