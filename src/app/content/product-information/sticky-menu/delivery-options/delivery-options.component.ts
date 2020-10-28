@@ -5,7 +5,8 @@ import { AuthService } from './../../../../services/auth.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'delivery-options',
@@ -28,6 +29,8 @@ export class DeliveryOptionsComponent implements OnInit {
   constructor(public request: RequestService,
     public route: ActivatedRoute,
     public auth: AuthService,
+    public router: Router,
+    public location: Location,
     public sticky: StickyMenuComponent,
     public purchaseManager: PurchaseManagerService) {
     this.sticky.current = 'deliveryOptions';
@@ -136,5 +139,12 @@ export class DeliveryOptionsComponent implements OnInit {
     else {
       this.errorMsg = 'Veuillez choisir votre mode de remise pour passer à l\'étape suivante';
     }
+  }
+
+  public goToLogin(): void {
+    const path: string = this.location.path();
+
+    this.router.navigate(['/login']);
+    sessionStorage.setItem('redirect_after_login', path);
   }
 }

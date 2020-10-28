@@ -52,7 +52,7 @@ export class AuthService {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 
   // Verify user credentials on server to get token

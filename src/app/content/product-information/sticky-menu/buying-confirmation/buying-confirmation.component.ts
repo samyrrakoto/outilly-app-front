@@ -2,8 +2,6 @@ import { Sale } from './../../../../models/sale';
 import { Modals } from './../../../../models/modals';
 import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'buying-confirmation',
