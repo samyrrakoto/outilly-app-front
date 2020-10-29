@@ -1,11 +1,12 @@
-import { User } from './../../../models/user';
-import { AuthService } from './../../../services/auth.service';
-import { RequestService } from './../../../services/request.service';
-import { Bid } from './../../../models/bid';
-import { Sale } from './../../../models/sale';
+
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { Sale } from 'src/app/models/sale';
+import { Bid } from 'src/app/models/bid';
+import { RequestService } from 'src/app/services/request.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-order-summary',

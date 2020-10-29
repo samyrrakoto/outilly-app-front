@@ -9,7 +9,7 @@ export class Uri {
   readonly CHECK: string = 'check/';
   readonly CREATE: string = 'create';
   readonly EXISTS: string = 'exists';
-  readonly SALE: string = 'sale/';
+  readonly SALE: string = 'sale';
   readonly GENERIC_QUESTIONS: string = 'questions/generic';
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';

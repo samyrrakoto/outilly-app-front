@@ -1,9 +1,9 @@
+import { Order } from 'src/app/models/order';
 import { RequestService } from 'src/app/services/request.service';
-import { User } from './../../../../models/user';
-import { Bid } from './../../../../models/bid';
-import { Sale } from './../../../../models/sale';
-import { Order } from './../../../../models/order';
 import { Component, Input, OnInit } from '@angular/core';
+import { Sale } from 'src/app/models/sale';
+import { User } from 'src/app/models/user';
+import { Bid } from 'src/app/models/bid';
 
 @Component({
   selector: 'app-payment-call-to-action',

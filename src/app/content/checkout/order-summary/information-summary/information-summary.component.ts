@@ -1,10 +1,9 @@
-import { User } from './../../../../models/user';
-import { AuthService } from './../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
-import { OrderSummaryComponent } from './../order-summary.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-information-summary',

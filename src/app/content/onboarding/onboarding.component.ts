@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormDataService } from '../../services/form-data.service';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Path } from 'src/app/models/Path/path';
+import { User } from 'src/app/models/user';
+import { FormDataService } from 'src/app/services/form-data.service';
 
 @Component({
   selector: 'app-user',

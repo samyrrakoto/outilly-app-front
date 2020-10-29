@@ -1,9 +1,9 @@
-import { OrderSummaryComponent } from './../order-summary.component';
-import { AuthService } from './../../../../services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { OrderSummaryComponent } from '../order-summary.component';
 
 @Component({
   selector: 'app-price-summary',

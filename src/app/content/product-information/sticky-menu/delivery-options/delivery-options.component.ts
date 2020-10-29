@@ -1,12 +1,12 @@
-import { Sale } from './../../../../models/sale';
-import { Purchase } from './../../../../models/purchase';
-import { PurchaseManagerService } from './../../../../purchase-manager.service';
-import { AuthService } from './../../../../services/auth.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Sale } from 'src/app/models/sale';
+import { Purchase } from 'src/app/models/purchase';
+import { AuthService } from 'src/app/services/auth.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
+import { StickyMenuComponent } from '../sticky-menu.component';
 
 @Component({
   selector: 'delivery-options',

@@ -1,11 +1,10 @@
-import { AuthService } from './../../../../services/auth.service';
+import { RelayPoint } from 'src/app/models/relay-point';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
-import { OrderSummaryComponent } from './../order-summary.component';
-import { RelayPoint } from './../../../../models/relay-point';
-import { Modals } from './../../../../models/modals';
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Modals } from 'src/app/models/modals';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-delivery-summary',

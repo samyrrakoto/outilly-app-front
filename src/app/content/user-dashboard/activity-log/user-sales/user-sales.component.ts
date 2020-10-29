@@ -1,15 +1,15 @@
-import { NotificationService } from './../../../../notification.service';
-import { SaleManagerService } from './../../../../sale-manager.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { BidManagerService } from './../../../../bid-manager.service';
-import { Modals } from './../../../../models/modals';
-import { Bid } from './../../../../models/bid';
 import { RequestService } from 'src/app/services/request.service';
-import { Sale } from './../../../../models/sale';
 import { Component, OnInit } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log.component';
 import { Location } from '@angular/common';
+import { Bid } from 'src/app/models/bid';
+import { Sale } from 'src/app/models/sale';
+import { Modals } from 'src/app/models/modals';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-user-sales',
@@ -136,6 +136,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   }
 
   public goToProductPage(sale: Sale): void {
-    this.router.navigate(['/product', sale.product.slug, sale.product.id]);
+    this.router.navigate(['/product', sale.product.slug, sale.id]);
   }
 }

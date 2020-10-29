@@ -1,15 +1,14 @@
-import { ActivityLogComponent } from './../activity-log.component';
-import { Bid } from './../../../../models/bid';
-import { Sale } from './../../../../models/sale';
-import { PurchaseManagerService } from './../../../../purchase-manager.service';
-import { AuthService } from './../../../../services/auth.service';
-import { RequestService } from './../../../../services/request.service';
-import { Purchase } from './../../../../models/purchase';
-import { Modals } from './../../../../models/modals';
-import { BidManagerService } from './../../../../bid-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Modals } from 'src/app/models/modals';
+import { Bid } from 'src/app/models/bid';
+import { ActivityLogComponent } from '../activity-log.component';
+import { Purchase } from 'src/app/models/purchase';
+import { RequestService } from 'src/app/services/request.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
 
 @Component({
   selector: 'app-user-purchases',

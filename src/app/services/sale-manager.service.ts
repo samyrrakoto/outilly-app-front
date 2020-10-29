@@ -1,4 +1,4 @@
-import { BidManagerService } from './bid-manager.service';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Sale } from 'src/app/models/sale';
 import { Injectable } from '@angular/core';
 

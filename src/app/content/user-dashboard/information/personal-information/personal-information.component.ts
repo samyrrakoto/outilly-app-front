@@ -1,13 +1,12 @@
-import { InformationComponent } from './../information.component';
-import { NotificationService } from './../../../../notification.service';
-import { Modals } from './../../../../models/modals';
-import { DashboardValidatorService } from './../../../../dashboard-validator.service';
+import { DashboardValidatorService } from 'src/app/services/dashboard-validator.service';
 import { Address } from 'src/app/models/address';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from './../../../../services/auth.service';
-import { RequestService } from './../../../../services/request.service';
-import { UserDashboardComponent } from './../../user-dashboard.component';
-import { Component, Input, OnInit, ɵɵelementContainerStart } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { InformationComponent } from '../information.component';
+import { Modals } from 'src/app/models/modals';
+import { AuthService } from 'src/app/services/auth.service';
+import { RequestService } from 'src/app/services/request.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-personal-information',

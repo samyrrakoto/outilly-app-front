@@ -1,7 +1,7 @@
-import { Sale } from './models/sale';
-import { RequestService } from './services/request.service';
-import { Purchase } from './models/purchase';
+import { Sale } from 'src/app/models/sale';
+import { Purchase } from 'src/app/models/purchase';
 import { Injectable } from '@angular/core';
+import { RequestService } from 'src/app/services/request.service';
 
 @Injectable({
   providedIn: 'root'

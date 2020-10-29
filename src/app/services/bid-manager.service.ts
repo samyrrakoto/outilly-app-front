@@ -1,7 +1,6 @@
-import { Sale } from 'src/app/models/sale';
-import { Bid } from './models/bid';
 import { RequestService } from 'src/app/services/request.service';
 import { Injectable } from '@angular/core';
+import { Bid } from 'src/app/models/bid';
 
 @Injectable({
   providedIn: 'root'

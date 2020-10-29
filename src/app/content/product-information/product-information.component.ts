@@ -1,12 +1,11 @@
-import { AccessToken } from './../../models/access-token';
-import { AuthService } from './../../services/auth.service';
-import { BidManagerService } from './../../bid-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
 import { ActivatedRoute } from '@angular/router';
 import { ProductMedia } from 'src/app/models/product-media';
 import { GenericComponent } from 'src/app/models/generic-component';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
 
 @Component({
   selector: 'app-product-information',
