@@ -35,7 +35,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   constructor(public request: RequestService,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
-    public auth: AuthService,) {
+    public auth: AuthService) {
     super();
     this.sale = new Sale();
     this.vendorProducts = '';
@@ -73,19 +73,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       })
     });
 
-    this.accessToken = this.getTokenStatus();
+    this.accessToken = this.auth.getTokenStatus();
     return promise;
-  }
-
-  private getTokenStatus(): string {
-    if (localStorage.getItem('access_token') === null) {
-      return 'expired';
-    }
-    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
-    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
-    const actualTimestamp: number = Date.now();
-
-    return actualTimestamp > timestamp ? 'expired' : 'good';
   }
 
   private getId(): Promise<any> {
@@ -99,7 +88,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getSalesId(): Promise<any> {
     return new Promise((resolve) => {
-      if (this.isLogged && this.getTokenStatus() === 'good') {
+      if (this.isLogged && this.auth.getTokenStatus() === 'good') {
         this.request.getUserInfos().subscribe({
           next: (user: any) => {
             for (const sale of user.sales) {
