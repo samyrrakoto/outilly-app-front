@@ -145,7 +145,7 @@ export class PersonalInformationComponent extends InformationComponent implement
   public removeAddress(index: number): void {
     const addressIndex: number = this.user.userProfile.addresses[index].id;
 
-    this.request.deleteData(this.request.uri.DELETE_ADDRESS, this.user.userProfile.addresses, addressIndex.toString()).subscribe((res) => {
+    this.request.deleteData(this.request.uri.DELETE_ADDRESS, this.user.userProfile.addresses, [addressIndex.toString()]).subscribe((res) => {
       console.log(res);
       this.user.userProfile.addresses.splice(index, 1);
     });

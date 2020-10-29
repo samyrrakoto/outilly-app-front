@@ -137,7 +137,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getProductById(id: string): Promise<any> {
     return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.SALE, id);
+      const response = this.request.getData(this.request.uri.SALE, [id]);
 
       response.subscribe((res: any) => {
         this.sale = res;

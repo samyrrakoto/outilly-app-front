@@ -19,56 +19,50 @@ export class RequestService {
     this.uri = new Uri();
   }
 
-  postData(data: any, ressource: string, param: string='', options=this.httpOptions): Observable<HttpResponse<any>> {
-    this.uri.setUri(ressource, param);
+  postData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
+    this.uri.setUri(ressource, params);
 
     return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
   }
 
-  patchData(data: any, ressource: string, param: string='', options=this.httpOptions): Observable<HttpResponse<any>> {
-    this.uri.setUri(ressource, param);
+  patchData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
+    this.uri.setUri(ressource, params);
 
     return options === null ? this.http.patch<any>(this.uri.path, data) : this.http.patch<any>(this.uri.path, data, options);
   }
 
-  getData(ressource: string, param: string = ''): Observable<any> {
-    this.uri.setUri(ressource, param);
+  getData(ressource: string, params: Array<string> = []): Observable<any> {
+    this.uri.setUri(ressource, params);
 
     return this.http.get<any>(this.uri.path);
   }
 
-  getData2(ressource: string, params: Array<string> = []): Observable<any> {
-    this.uri.setUri2(ressource, params);
-
-    return this.http.get<any>(this.uri.path);
-  }
-
-  putData(ressource: string, data: any, param: string=''): Observable<any> {
-    this.uri.setUri(ressource, param);
+  putData(ressource: string, data: any, params: Array<string> = []): Observable<any> {
+    this.uri.setUri(ressource, params);
 
     return this.http.put<any>(this.uri.path, data)
   }
 
-  deleteData(ressource: string, data: any, param: string=''): Observable<any> {
-    this.uri.setUri(ressource, param);
+  deleteData(ressource: string, data: any, params: Array<string> = []): Observable<any> {
+    this.uri.setUri(ressource, params);
 
     return this.http.delete<any>(this.uri.path, data)
   }
 
   login(data: any): Observable<HttpResponse<AccessToken>> {
-    return this.postData(data, this.uri.LOGIN, '');
+    return this.postData(data, this.uri.LOGIN, []);
   }
 
   createUser(data: any): Observable<HttpResponse<any>> {
-    return this.postData(data, this.uri.USER, this.uri.CREATE);
+    return this.postData(data, this.uri.USER, [this.uri.CREATE]);
   }
 
   checkUsernameExistsCall(data: any): Observable<HttpResponse<any>> {
-    return this.postData(data, this.uri.CHECK, this.uri.EXISTS);
+    return this.postData(data, this.uri.CHECK, [this.uri.EXISTS]);
   }
 
   getSaleCall(saleId: string = "1"): any {
-    return this.getData(this.uri.SALE, saleId);
+    return this.getData(this.uri.SALE, [saleId]);
   }
 
   getUserInfos(): any {
@@ -84,7 +78,7 @@ export class RequestService {
   }
 
   uploadMedia(data: any): Observable<HttpResponse<any>>{
-    return this.postData(data, this.uri.PRODUCT_MEDIA_CREATE, '', null);
+    return this.postData(data, this.uri.PRODUCT_MEDIA_CREATE, [], null);
   }
 
   updateUser(data: any): Observable<HttpResponse<any>> {

@@ -56,7 +56,7 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
 
   private getUserSalesId(saleId: number): Promise<any> {
     return new Promise((resolve) => {
-      const request: any = this.request.getData(this.request.uri.SALE, saleId.toString());
+      const request: any = this.request.getData(this.request.uri.SALE, [saleId.toString()]);
 
       request.subscribe((sale: Sale) => {
         this.sales.push(sale);
