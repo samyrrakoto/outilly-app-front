@@ -48,28 +48,38 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
         this.setFocus(this.activityTabs, 'user-sales');
       }
     });
-    this.getUserSales();
+    this.getUserSales()
+      .then(() => {
+        console.log(this.sales);
+      });
   }
 
-  private getUserSalesId(saleId: number): void {
-    const request: any = this.request.getData(this.request.uri.SALE, saleId.toString());
+  private getUserSalesId(saleId: number): Promise<any> {
+    return new Promise((resolve) => {
+      const request: any = this.request.getData(this.request.uri.SALE, saleId.toString());
 
-    request.subscribe((sale: Sale) => {
-      sale.product.reservePrice /= 100;
-      this.sales.push(sale);
+      request.subscribe((sale: Sale) => {
+        this.sales.push(sale);
+        console.log(sale);
+        resolve();
+      });
     });
   }
 
-  private getUserSales(): void {
-    this.request.getData(this.request.uri.GET_USER).subscribe({
-      next: (value) => {
-        for (const sale of value.sales) {
-          this.getUserSalesId(sale.id);
+  private getUserSales(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.request.getData(this.request.uri.GET_USER).subscribe({
+        next: (value) => {
+          for (const sale of value.sales) {
+            this.getUserSalesId(sale.id);
+          }
+          resolve();
+        },
+        error: () => {
+          this.errorHandle();
+          reject();
         }
-      },
-      error: () => {
-        this.errorHandle();
-      }
+      });
     });
   }
 
@@ -123,5 +133,9 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.auth.logout();
     sessionStorage.setItem('redirect_after_login', this.location.path());
     this.router.navigate(['/login']);
+  }
+
+  public goToProductPage(sale: Sale): void {
+    this.router.navigate(['/product', sale.product.slug, sale.product.id]);
   }
 }

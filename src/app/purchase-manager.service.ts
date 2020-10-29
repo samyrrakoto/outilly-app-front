@@ -1,3 +1,4 @@
+import { Sale } from './models/sale';
 import { RequestService } from './services/request.service';
 import { Purchase } from './models/purchase';
 import { Injectable } from '@angular/core';
@@ -15,9 +16,9 @@ export class PurchaseManagerService {
 
     return new Promise((resolve, reject) => {
       request.subscribe({
-        next: (value: any) => {
-          for (const elem of value) {
-            purchases.push(new Purchase(elem));
+        next: (bidsAndSales: any) => {
+          for (const bidAndSale of bidsAndSales) {
+            purchases.push(new Purchase(bidAndSale));
           }
           resolve(purchases);
         },
@@ -25,6 +26,19 @@ export class PurchaseManagerService {
           reject();
         }
       });
+    });
+  }
+
+  public addSales(purchases: Array<Purchase>): Promise<Purchase[]> {
+    return new Promise((resolve) => {
+      for (const purchase of purchases) {
+        this.request.getSaleCall(purchase.saleId.toString()).subscribe({
+          next: (sale: Sale) => {
+            purchase.slug = sale.product.slug;
+          }
+        });
+      }
+      resolve(purchases);
     });
   }
 }

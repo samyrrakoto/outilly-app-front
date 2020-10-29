@@ -47,17 +47,21 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
         this.setFocus(this.activityTabs, 'user-purchases');
       }
     });
-    this.getPurchases();
-  }
-
-  private getPurchases() {
-    this.purchaseManager.getPurchases()
+    this.getPurchases()
       .then((purchases: Array<Purchase>) => {
         this.purchases = purchases;
-      })
-      .catch(() => {
-        this.errorHandle();
       });
+  }
+
+  private getPurchases(): Promise<Purchase[]> {
+    return new Promise((resolve) => {
+      this.purchaseManager.getPurchases()
+        .then((purchases: Array<Purchase>) => {
+          this.purchaseManager.addSales(purchases);
+          resolve(purchases);
+        })
+        .catch(() => { this.errorHandle() })
+    })
   }
 
   private errorHandle(): void {
@@ -72,5 +76,9 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   public goToRelayPoint(purchase: Purchase): void {
     localStorage.setItem('saleId', purchase.saleId.toString());
     this.router.navigate(['/checkout/delivery-information']);
+  }
+
+  public goToProductPage(purchase: Purchase): void {
+    this.router.navigate(['/product', purchase.slug, purchase.saleId]);
   }
 }

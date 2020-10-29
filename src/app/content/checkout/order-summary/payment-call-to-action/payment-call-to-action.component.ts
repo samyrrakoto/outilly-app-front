@@ -52,7 +52,6 @@ export class PaymentCallToActionComponent implements OnInit {
     this.order.amountTotal = this.order.amountPrice + this.order.amountFees + this.order.amountShipment;
     this.order.shipMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayShip' : 'HandDelivery';
     this.order.collMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayPoint' : 'HandDelivery';
-    console.log(this.order);
   }
 
   private createOrder(): Promise<any> {

@@ -12,7 +12,7 @@
         </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-panel-description>
-          Prix de réserve : {{ sale.product.reservePrice }}€<br>
+          Prix de réserve : {{ sale.product.reservePrice | currency:'full' }}€<br>
 
         </mat-panel-description>
 
@@ -63,7 +63,7 @@
 
         </div>
 
-        <a class="product-page" (click)="router.navigate(['/product', sale.product.id])">Accéder à la page du produit</a>
+        <a class="product-page" (click)="goToProductPage(sale)">Accéder à la page du produit</a>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

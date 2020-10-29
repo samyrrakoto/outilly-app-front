@@ -6,6 +6,7 @@ import { ActivityDomain } from './activity-domain';
 
 export class Product {
     id: number;
+    slug: string;
     name: string;
     reservePrice: number;
     productCategories: Array<ProductCategory>;
@@ -29,6 +30,7 @@ export class Product {
 
     constructor() {
         this.id = 0;
+        this.slug = '';
         this.name = '';
         this.reservePrice = 0;
         this.productCategories = [];
