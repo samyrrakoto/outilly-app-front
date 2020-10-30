@@ -3,11 +3,37 @@
     <mat-expansion-panel id="sticky" hideToggle [expanded]="openState" (opened)="openState = true" (closed)="openState = false">
         <mat-expansion-panel-header>
         <mat-panel-title>
-          <h1 class="title is-5"><span>Acheter ce produit&nbsp;</span><fa-icon class="caret" *ngIf="!openState" [icon]="['fas', 'caret-up']"></fa-icon><fa-icon class="caret" *ngIf="openState" [icon]="['fas', 'caret-down']"></fa-icon></h1>
+          <h1 class="title is-5">
+            <span>Acheter ce produit&nbsp;</span>
+            <fa-icon class="caret" *ngIf="!openState" [icon]="['fas', 'caret-up']"></fa-icon>
+            <fa-icon class="caret" *ngIf="openState" [icon]="['fas', 'caret-down']"></fa-icon>
+          </h1>
         </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <div id="menu-content" class="content">
+        <div id="menu-content-desktop" class="content is-hidden-mobile">
+          <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
+            (priceToPayEmitter)="getRealPriceToPay($event)"
+            [isLogged]="isLogged"
+            [accessToken]="accessToken"
+            [sale]="sale">
+          </delivery-options>
+          <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
+            [priceToPay]="priceToPay"
+            [sale]="sale"
+            [deliveryName]="deliveryName"
+            [deliveryFees]="deliveryFees">
+          </buying-confirmation>
+          <buying-proposition *ngIf="stickyMenuSteps.buyingProposition"
+            [sale]="sale"
+            [errorMsg]="errorMsg"
+            [minPrice]="minPrice"
+            [maxPrice]="maxPrice"
+            [proposedPrice]="proposedPrice">
+          </buying-proposition>
+        </div>
+
+        <div id="menu-content-mobile" class="content is-hidden-tablet">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
             (priceToPayEmitter)="getRealPriceToPay($event)"
             [isLogged]="isLogged"
