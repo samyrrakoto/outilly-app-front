@@ -12,11 +12,14 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router
+  constructor(private auth: AuthService, private router: Router
   ) {}
 
   ngOnInit() {
-    if (localStorage.getItem("access_token") != null) {
+    const accessToken: string = this.auth.getTokenStatus();
+
+    if (accessToken !== null && accessToken !== 'expired') {
+      console.log(accessToken);
       this.checkHasRedirectAfterLogin();
     }
   }
@@ -26,8 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.authService.login(this.model).then(
-        () => {
+    this.auth.login(this.model)
+    .then(() => {
           this.checkHasRedirectAfterLogin();
         },
         () => {

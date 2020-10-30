@@ -81,6 +81,17 @@ export class AuthService {
       sessionStorage.setItem('userId', token.userId);
   }
 
+  public getTokenStatus(): string {
+    if (localStorage.getItem('access_token') === null) {
+      return 'expired';
+    }
+    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
+    const actualTimestamp: number = Date.now();
+
+    return actualTimestamp > timestamp ? 'expired' : 'good';
+  }
+
   // Handle API errors
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
