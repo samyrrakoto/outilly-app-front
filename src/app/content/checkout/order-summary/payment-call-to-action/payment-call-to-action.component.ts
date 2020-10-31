@@ -36,6 +36,9 @@ export class PaymentCallToActionComponent implements OnInit {
       this.createOrder()
         .then(() => {
           this.router.navigate(['/checkout/payment-details']);
+        })
+        .catch(() => {
+
         });
     }
     else {
@@ -66,7 +69,15 @@ export class PaymentCallToActionComponent implements OnInit {
           resolve();
         },
         error: (err: any) => {
-          console.log("Error : " + err);
+          const existingOrder: RegExp = /INSERT INTO/;
+          const errorDetail: string = err.error.detail;
+
+          if (errorDetail.match(existingOrder)) {
+            this.errorMessage = 'Cette commande existe déjà';
+          }
+          else {
+            this.errorMessage = 'Une erreur inconnue est survenue';
+          }
           reject();
         }
       });
