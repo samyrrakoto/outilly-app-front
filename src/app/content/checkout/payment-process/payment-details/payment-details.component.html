@@ -20,7 +20,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input is-dark" type="text" placeholder="Jean-Jacques Goldman">
+              <input class="input is-dark" type="text" placeholder="Jean-Jacques Goldman" [(ngModel)]="cardOwner">
               <span class="icon is-small is-left">
                 <fa-icon [icon]="['fas', 'user']"></fa-icon>
               </span>
@@ -32,12 +32,12 @@
       <!-- Card number -->
       <div class="field is-horizontal">
         <div class="field-label is-normal has-text-left">
-          <label class="label">Numéro de la carte</label>
+          <label class="label">Numéro de carte</label>
         </div>
         <div class="field-body">
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input is-dark" type="text" placeholder="4972XXXXXXXX0234">
+              <input class="input is-dark" type="text" pattern="[A-Za-z]{3}" placeholder="4972XXXXXXXX0234" [(ngModel)]="cardNumber" required>
               <span class="icon is-small is-left">
                 <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
               </span>
@@ -55,14 +55,14 @@
           <!-- Expiration month -->
           <div class="field">
             <p class="control">
-              <input class="input is-dark" type="text" placeholder="09">
+              <input class="input is-dark" type="text" placeholder="09" [(ngModel)]="cardExpirationMonth" maxlength="2" minlength="2">
             </p>
           </div>
 
           <!-- Expiration year -->
           <div class="field">
             <p class="control">
-              <input class="input is-dark" type="text" placeholder="23">
+              <input class="input is-dark" type="text" placeholder="23" [(ngModel)]="cardExpirationYear" maxlength="2" minlength="2">
             </p>
           </div>
         </div>
@@ -76,14 +76,19 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input id="security-code" class="input is-dark" type="text" placeholder="123">
+              <input id="security-code" class="input is-dark" type="text" [(ngModel)]="cardCvx" placeholder="123" maxlength="3" minlength="3">
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <button id="lock" class="button is-danger is-large">
+    <div *ngFor="let message of paymentValidator.errorMessages" class="notification is-dark has-text-danger">
+      <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+      {{ message }}
+    </div>
+
+    <button (click)="checkData()" id="lock" class="button is-danger is-large">
       <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
       Valider le paiement
     </button>
