@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { PaymentValidatorService } from './../../../../services/payment-validator.service';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
@@ -10,6 +11,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./payment-details.component.css']
 })
 export class PaymentDetailsComponent implements OnInit {
+  httpOptions: any = {
+    headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}),
+    observe: 'response' as 'response',
+    'Access-Control-Allow-Origin': 'https://homologation-webpayment.payline.com'
+  };
   cardOwner: string;
   cardNumber: string;
   cardExpirationMonth: string;
@@ -19,6 +25,7 @@ export class PaymentDetailsComponent implements OnInit {
   constructor(private request: RequestService,
     private router: Router,
     private location: Location,
+    private http: HttpClient,
     public paymentValidator: PaymentValidatorService) {
       this.cardOwner = '';
       this.cardNumber = '';
@@ -48,10 +55,10 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   private saveMangoPayData(response: any): void {
-    localStorage.setItem('cardPreRegistrationData', response.body.mangoPayData.cardPreRegistrationData);
-    localStorage.setItem('cardRegistrationAccessKey', response.body.mangoPayData.cardRegistrationAccessKey);
-    localStorage.setItem('cardRegistrationUrl', response.body.mangoPayData.cardRegistrationUrl);
-    localStorage.setItem('cardRegistrationId', response.body.mangoPayData.cardRegistrationId);
+    sessionStorage.setItem('cardPreRegistrationData', response.body.mangoPayData.cardPreRegistrationData);
+    sessionStorage.setItem('cardRegistrationAccessKey', response.body.mangoPayData.cardRegistrationAccessKey);
+    sessionStorage.setItem('cardRegistrationUrl', response.body.mangoPayData.cardRegistrationUrl);
+    sessionStorage.setItem('cardRegistrationId', response.body.mangoPayData.cardRegistrationId);
   }
 
   public checkData(): void {
@@ -74,15 +81,31 @@ export class PaymentDetailsComponent implements OnInit {
 
   public payLineCall(): Promise<any> {
     const payload: any = {
-      'date': localStorage.getItem('cardPreRegistrationData'),
-      'accessKeyRef': localStorage.getItem('cardRegistrationAccessKey'),
+      'data': sessionStorage.getItem('cardPreRegistrationData'),
+      'accessKeyRef': sessionStorage.getItem('cardRegistrationAccessKey'),
       'cardNumber': this.cardNumber,
       'cardExpirationDate': this.cardExpirationMonth + this.cardExpirationYear,
       'cardCvx': this.cardCvx
     };
+    let params: any = "?" + "data=" + payload.data;
+    params += "&accessKeyRef=" + payload.accessKeyRef;
+    params += "&cardNumber=" + payload.cardNumber;
+    params += "&cardExpirationDate=" + payload.cardExpirationDate;
+    params += "&cardCvx=" + payload.cardCvx;
+
+    console.log(params);
 
     return new Promise((resolve, reject) => {
-
+      this.http.get<any>(sessionStorage.getItem('cardRegistrationUrl') + params, this.httpOptions).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          resolve();
+        },
+        error: (err) => {
+          console.log(err);
+          reject();
+        }
+      });
     });
   }
 }
