@@ -15,6 +15,7 @@ export class PaymentDetailsComponent implements OnInit {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
+    responseType: 'text',
     observe: 'response' as 'response'
   };
   cardOwner: string;
