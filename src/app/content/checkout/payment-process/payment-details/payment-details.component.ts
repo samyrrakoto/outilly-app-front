@@ -14,7 +14,6 @@ export class PaymentDetailsComponent implements OnInit {
   httpOptions: any = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Origin': '*'
     }),
     observe: 'response' as 'response'
   };
