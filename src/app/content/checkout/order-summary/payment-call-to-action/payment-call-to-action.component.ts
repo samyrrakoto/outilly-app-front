@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
 import { User } from 'src/app/models/user';
 import { Bid } from 'src/app/models/bid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-call-to-action',
@@ -22,7 +23,7 @@ export class PaymentCallToActionComponent implements OnInit {
   errorMessage: string;
   order: Order;
 
-  constructor(public request: RequestService) {
+  constructor(public request: RequestService, private router: Router) {
     this.errorMessage = '';
     this.order = new Order();
   }
@@ -32,7 +33,10 @@ export class PaymentCallToActionComponent implements OnInit {
   public goPayment() {
     if (this.areConditionsAccepted) {
       this.getPayload();
-      this.createOrder();
+      this.createOrder()
+        .then(() => {
+          this.router.navigate(['/checkout/payment-details']);
+        });
     }
     else {
       this.errorMessage = 'Vous devez accepter nos conditions d\'utilisation';

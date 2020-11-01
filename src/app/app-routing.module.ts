@@ -1,3 +1,4 @@
+import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
@@ -320,6 +321,10 @@ const routes: Routes = [
       {
         path: 'payment-return',
         component: PaymentReturnComponent
+      },
+      {
+        path: 'payment-details',
+        component: PaymentDetailsComponent
       }
     ]
   }

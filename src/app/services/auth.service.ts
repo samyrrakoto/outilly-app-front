@@ -19,7 +19,7 @@ export class AuthService {
       private request: RequestService,
   ) { }
 
-  login(credentials: any): Promise<any> {
+  public login(credentials: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.getJwtToken(credentials).subscribe((response: any) => {
         if (response.body.token) {
@@ -36,8 +36,8 @@ export class AuthService {
   }
 
   // Checking if token is set
-  isLoggedIn(): Observable<boolean> {
-    if (localStorage.getItem('access_token') != null){
+  public isLoggedIn(): Observable<boolean> {
+    if (localStorage.getItem('access_token') != null) {
       this.loggedIn.next(true);
     } else {
       this.loggedIn.next(false);
@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   // After clearing localStorage redirect to login screen
-  logout(): void {
+  public logout(): void {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
@@ -79,17 +79,6 @@ export class AuthService {
 
       sessionStorage.setItem('username', token.username);
       sessionStorage.setItem('userId', token.userId);
-  }
-
-  public getTokenStatus(): string {
-    if (localStorage.getItem('access_token') === null) {
-      return 'expired';
-    }
-    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
-    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
-    const actualTimestamp: number = Date.now();
-
-    return actualTimestamp > timestamp ? 'expired' : 'good';
   }
 
   // Handle API errors

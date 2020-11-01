@@ -109,6 +109,7 @@ import { WeightPipe } from './pipes/weight.pipe';
 import { RelayHoursPipe } from './pipes/relay-hours.pipe';
 import { QualityPipe } from './pipes/quality.pipe';
 import { HandDeliveryComponent } from './content/checkout/order-summary/hand-delivery/hand-delivery.component';
+import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 
 @NgModule({
   declarations: [
@@ -208,7 +209,8 @@ import { HandDeliveryComponent } from './content/checkout/order-summary/hand-del
     WeightPipe,
     RelayHoursPipe,
     QualityPipe,
-    HandDeliveryComponent
+    HandDeliveryComponent,
+    PaymentDetailsComponent
   ],
   imports: [
     HttpClientModule,
