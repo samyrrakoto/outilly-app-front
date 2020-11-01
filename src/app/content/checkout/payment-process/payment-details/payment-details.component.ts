@@ -12,9 +12,11 @@ import { Location } from '@angular/common';
 })
 export class PaymentDetailsComponent implements OnInit {
   httpOptions: any = {
-    headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}),
-    observe: 'response' as 'response',
-    'Access-Control-Allow-Origin': 'https://homologation-webpayment.payline.com'
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Origin': '*'
+    }),
+    observe: 'response' as 'response'
   };
   cardOwner: string;
   cardNumber: string;
@@ -87,16 +89,9 @@ export class PaymentDetailsComponent implements OnInit {
       'cardExpirationDate': this.cardExpirationMonth + this.cardExpirationYear,
       'cardCvx': this.cardCvx
     };
-    let params: any = "?" + "data=" + payload.data;
-    params += "&accessKeyRef=" + payload.accessKeyRef;
-    params += "&cardNumber=" + payload.cardNumber;
-    params += "&cardExpirationDate=" + payload.cardExpirationDate;
-    params += "&cardCvx=" + payload.cardCvx;
-
-    console.log(params);
 
     return new Promise((resolve, reject) => {
-      this.http.get<any>(sessionStorage.getItem('cardRegistrationUrl') + params, this.httpOptions).subscribe({
+      this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
         next: (response: any) => {
           console.log(response);
           resolve();
