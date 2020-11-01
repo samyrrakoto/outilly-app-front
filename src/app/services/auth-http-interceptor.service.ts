@@ -19,7 +19,8 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
                 Authorization: "Bearer " + authToken
             }
         });
-        return next.handle(req);
       }
+      return next.handle(req);
   }
 }
+
