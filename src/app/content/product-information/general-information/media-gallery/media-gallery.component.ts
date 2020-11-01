@@ -1,10 +1,10 @@
-import { AuthService } from './../../../../services/auth.service';
-import { BidManagerService } from './../../../../bid-manager.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
 import { ProductInformationComponent } from '../../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'media-gallery',

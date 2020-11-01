@@ -9,7 +9,7 @@ export class Uri {
   readonly CHECK: string = 'check/';
   readonly CREATE: string = 'create';
   readonly EXISTS: string = 'exists';
-  readonly SALE: string = 'sale/';
+  readonly SALE: string = 'sale';
   readonly GENERIC_QUESTIONS: string = 'questions/generic';
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
@@ -24,7 +24,7 @@ export class Uri {
   readonly GET_USER = 'secure/user';
   readonly UPDATE_USER = 'secure/user/update';
   readonly UPDATE_PWD = 'secure/pwd-reset';
-  readonly DELETE_ADDRESS = 'secure/address/';
+  readonly DELETE_ADDRESS = 'secure/address';
   readonly ADD_ADDRESS = 'secure/address/';
   readonly UPDATE_ADDRESS = 'secure/address/';
   readonly PLACE_BID = 'secure/bid/place';
@@ -42,14 +42,10 @@ export class Uri {
     this.path = '';
   }
 
-  setUri(ressource: string, param: string) {
-    this.path = this.BASE + ressource + param;
-  }
-
-  setUri2(ressource: string, params: Array<string>) {
+  setUri(ressource: string, params: Array<string>) {
     this.path = this.BASE + ressource;
 
     for (const param of params) {
-      this.path += param + '/';
+      this.path += '/' + param;
     }
   }}

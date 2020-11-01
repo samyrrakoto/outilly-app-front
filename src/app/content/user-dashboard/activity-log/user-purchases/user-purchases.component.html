@@ -43,7 +43,7 @@
             Offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> envoyée !<br><br>
             En attente d'une réponse de la part du vendeur.
           </div>
-        <a class="product-page" (click)="router.navigate(['/product', purchase.saleId])">Accéder à la page du produit</a>
+        <a class="product-page" (click)="goToProductPage(purchase)">Accéder à la page du produit</a>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

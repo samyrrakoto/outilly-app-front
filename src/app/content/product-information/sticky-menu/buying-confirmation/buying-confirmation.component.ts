@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { Sale } from './../../../../models/sale';
-import { Modals } from './../../../../models/modals';
 import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
+import { Modals } from 'src/app/models/modals';
+import { Sale } from 'src/app/models/sale';
 
 @Component({
   selector: 'buying-confirmation',

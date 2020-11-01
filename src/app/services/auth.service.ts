@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import {BehaviorSubject, Observable, pipe, throwError} from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccessToken } from '../models/access-token';
@@ -16,14 +15,13 @@ export class AuthService {
 
   constructor(
       private router: Router,
-      private http: HttpClient,
       private jwtHelper: JwtHelperService,
       private request: RequestService,
   ) { }
 
-  login(credentials) {
+  login(credentials: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.getJwtToken(credentials).subscribe(response => {
+      this.getJwtToken(credentials).subscribe((response: any) => {
         if (response.body.token) {
           this.setAccessToken(response.body);
           this.setUserInfosInSession();
@@ -31,14 +29,14 @@ export class AuthService {
         } else {
           reject(false);
         }
-      }, err => {
+      }, () => {
         reject(false);
       });
     });
   }
 
   // Checking if token is set
-  isLoggedIn() {
+  isLoggedIn(): Observable<boolean> {
     if (localStorage.getItem('access_token') != null){
       this.loggedIn.next(true);
     } else {
@@ -48,25 +46,37 @@ export class AuthService {
   }
 
   // After clearing localStorage redirect to login screen
-  logout() {
+  logout(): void {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
+  public getTokenStatus(): string {
+    if (localStorage.getItem('access_token') === null) {
+      return 'expired';
+    }
+    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
+    const actualTimestamp: number = Date.now();
+
+    return actualTimestamp > timestamp ? 'expired' : 'good';
+  }
+
   // Verify user credentials on server to get token
-  private getJwtToken(data) {
+  private getJwtToken(data: any): any {
     return this.request.login(data);
   }
 
   // After login save token and other values(if any) in localStorage
-  private setAccessToken(response: AccessToken) {
+  private setAccessToken(response: AccessToken): void {
     localStorage.setItem('access_token', response.token);
   }
 
-  private setUserInfosInSession() {
-      const token = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
+  private setUserInfosInSession(): void {
+      const token: any = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
+
       sessionStorage.setItem('username', token.username);
       sessionStorage.setItem('userId', token.userId);
   }

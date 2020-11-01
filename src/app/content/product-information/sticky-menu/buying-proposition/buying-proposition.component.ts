@@ -1,13 +1,12 @@
-import { NotificationService } from './../../../../notification.service';
-import { User } from 'src/app/models/user';
-import { PurchaseManagerService } from './../../../../purchase-manager.service';
-import { Purchase } from './../../../../models/purchase';
-import { BidManagerService } from './../../../../bid-manager.service';
-import { Sale } from './../../../../models/sale';
 import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Sale } from 'src/app/models/sale';
+import { Purchase } from 'src/app/models/purchase';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'buying-proposition',
@@ -34,6 +33,9 @@ export class BuyingPropositionComponent implements OnInit {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
+    this.sticky.maxPrice /= 100;
+    this.sticky.minPrice /= 100;
+    this.sticky.proposedPrice /= 100;
     this.sticky.proposedPrice -= 5;
     this.purchases = [];
     this.currentPurchase = null;

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormDataService } from '../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { RequestService } from 'src/app/services/request.service';
 import { User } from 'src/app/models/user';
 import { HttpResponse } from '@angular/common/http';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { OnboardingComponent } from '../onboarding.component';
 
 @Component({
   selector: 'app-validation',

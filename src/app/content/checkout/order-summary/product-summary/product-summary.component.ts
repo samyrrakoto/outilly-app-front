@@ -1,9 +1,9 @@
 import { RequestService } from 'src/app/services/request.service';
-import { AuthService } from './../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { OrderSummaryComponent } from './../order-summary.component';
 import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-summary',

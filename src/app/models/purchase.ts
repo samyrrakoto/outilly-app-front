@@ -1,5 +1,7 @@
+import { Sale } from './sale';
 export class Purchase {
   saleId: number;
+  slug: string;
   startDate: Date;
   endDate: Date;
   productName: string;
@@ -12,6 +14,7 @@ export class Purchase {
 
   constructor(purchase: any) {
     this.saleId = purchase.sale.id;
+    this.slug = '';
     this.startDate = purchase.sale.startDate;
     this.endDate = purchase.sale.endDate;
     this.productName = purchase.sale.product.name;

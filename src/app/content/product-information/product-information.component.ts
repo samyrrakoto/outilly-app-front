@@ -1,12 +1,11 @@
-import { AccessToken } from './../../models/access-token';
-import { AuthService } from './../../services/auth.service';
-import { BidManagerService } from './../../bid-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
 import { ActivatedRoute } from '@angular/router';
 import { ProductMedia } from 'src/app/models/product-media';
 import { GenericComponent } from 'src/app/models/generic-component';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
 
 @Component({
   selector: 'app-product-information',
@@ -35,7 +34,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   constructor(public request: RequestService,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
-    public auth: AuthService,) {
+    public auth: AuthService) {
     super();
     this.sale = new Sale();
     this.vendorProducts = '';
@@ -73,19 +72,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       })
     });
 
-    this.accessToken = this.getTokenStatus();
+    this.accessToken = this.auth.getTokenStatus();
     return promise;
-  }
-
-  private getTokenStatus(): string {
-    if (localStorage.getItem('access_token') === null) {
-      return 'expired';
-    }
-    const accessToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
-    const timestamp: number = parseInt(JSON.parse(accessToken).exp + '000');
-    const actualTimestamp: number = Date.now();
-
-    return actualTimestamp > timestamp ? 'expired' : 'good';
   }
 
   private getId(): Promise<any> {
@@ -99,7 +87,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getSalesId(): Promise<any> {
     return new Promise((resolve) => {
-      if (this.isLogged && this.getTokenStatus() === 'good') {
+      if (this.isLogged && this.auth.getTokenStatus() === 'good') {
         this.request.getUserInfos().subscribe({
           next: (user: any) => {
             for (const sale of user.sales) {
@@ -137,7 +125,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getProductById(id: string): Promise<any> {
     return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.SALE, id);
+      const response = this.request.getData(this.request.uri.SALE, [id]);
 
       response.subscribe((res: any) => {
         this.sale = res;

@@ -1,5 +1,5 @@
-import { Modals } from './../../../../models/modals';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-conditions-of-sale',

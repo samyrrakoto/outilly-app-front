@@ -1,15 +1,14 @@
-import { ActivityLogComponent } from './../activity-log.component';
-import { Bid } from './../../../../models/bid';
-import { Sale } from './../../../../models/sale';
-import { PurchaseManagerService } from './../../../../purchase-manager.service';
-import { AuthService } from './../../../../services/auth.service';
-import { RequestService } from './../../../../services/request.service';
-import { Purchase } from './../../../../models/purchase';
-import { Modals } from './../../../../models/modals';
-import { BidManagerService } from './../../../../bid-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Modals } from 'src/app/models/modals';
+import { Bid } from 'src/app/models/bid';
+import { ActivityLogComponent } from '../activity-log.component';
+import { Purchase } from 'src/app/models/purchase';
+import { RequestService } from 'src/app/services/request.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
+import { BidManagerService } from 'src/app/services/bid-manager.service';
 
 @Component({
   selector: 'app-user-purchases',
@@ -47,17 +46,21 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
         this.setFocus(this.activityTabs, 'user-purchases');
       }
     });
-    this.getPurchases();
-  }
-
-  private getPurchases() {
-    this.purchaseManager.getPurchases()
+    this.getPurchases()
       .then((purchases: Array<Purchase>) => {
         this.purchases = purchases;
-      })
-      .catch(() => {
-        this.errorHandle();
       });
+  }
+
+  private getPurchases(): Promise<Purchase[]> {
+    return new Promise((resolve) => {
+      this.purchaseManager.getPurchases()
+        .then((purchases: Array<Purchase>) => {
+          this.purchaseManager.addSales(purchases);
+          resolve(purchases);
+        })
+        .catch(() => { this.errorHandle() })
+    })
   }
 
   private errorHandle(): void {
@@ -72,5 +75,9 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   public goToRelayPoint(purchase: Purchase): void {
     localStorage.setItem('saleId', purchase.saleId.toString());
     this.router.navigate(['/checkout/delivery-information']);
+  }
+
+  public goToProductPage(purchase: Purchase): void {
+    this.router.navigate(['/product', purchase.slug, purchase.saleId]);
   }
 }
