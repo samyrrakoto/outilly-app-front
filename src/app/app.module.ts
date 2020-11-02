@@ -110,6 +110,7 @@ import { RelayHoursPipe } from './pipes/relay-hours.pipe';
 import { QualityPipe } from './pipes/quality.pipe';
 import { HandDeliveryComponent } from './content/checkout/order-summary/hand-delivery/hand-delivery.component';
 import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
+import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 
 @NgModule({
   declarations: [
@@ -210,7 +211,8 @@ import { PaymentDetailsComponent } from './content/checkout/payment-process/paym
     RelayHoursPipe,
     QualityPipe,
     HandDeliveryComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    PaymentFailedComponent
   ],
   imports: [
     HttpClientModule,

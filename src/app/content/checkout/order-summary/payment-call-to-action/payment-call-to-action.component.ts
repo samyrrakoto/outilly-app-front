@@ -66,6 +66,7 @@ export class PaymentCallToActionComponent implements OnInit {
       this.request.postData(JSON.stringify(this.order), this.request.uri.CREATE_ORDER).subscribe({
         next: (value: any) => {
           console.log(value);
+          sessionStorage.setItem('orderId', value.body.id);
           resolve();
         },
         error: (err: any) => {

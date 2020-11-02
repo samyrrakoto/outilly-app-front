@@ -84,12 +84,12 @@
     </div>
 
     <!-- Error display -->
-    <div *ngFor="let message of paymentValidator.errorMessages" class="notification is-light has-text-danger">
+    <div *ngFor="let message of paymentValidator.errorMessages" class="notification is-light has-text-danger addspacebelow">
       <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
       {{ message }}
     </div>
 
-    <button (click)="payLineCall()" id="lock" class="button is-danger is-large">
+    <button (click)="saveCardInformation()" id="lock" class="button is-danger is-large">
       <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
       Valider le paiement
     </button>

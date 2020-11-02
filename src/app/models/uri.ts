@@ -36,6 +36,8 @@ export class Uri {
   readonly GET_TRANSACTION_DATA = 'secure/mangopay/transaction/check';
   readonly CREATE_ORDER = 'secure/order/create';
   readonly PREREGISTER = 'secure/mangopay/user/card/preregister';
+  readonly UPDATE_REGISTRATION = 'secure/mangopay/user/card/update-registration';
+  readonly PREAUTH = 'secure/mangopay/preauth';
   path: string;
 
   constructor() {
