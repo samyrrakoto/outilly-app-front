@@ -166,15 +166,19 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   private preauthHandle(value: any): void {
+    const preauthStatus: string = value.body.status;
+    const redirectUrl: string = value.body.redirectUrl;
+    const returnUrl: string = value.body.returnUrl;
+
     // for 3D secure payment : brings to a secured page then brings to payment confirmation
-    if (value.body.status === 'CREATED' && value.body.redirectUrl !== null && value.body.returnUrl !== null) {
-      window.location.href = value.body.redirectUrl;
+    if (preauthStatus === 'CREATED' && redirectUrl !== null && returnUrl !== null) {
+      window.location.href = redirectUrl;
     }
-    else if (value.body.status === 'FAILED') {
-      this.paymentValidator.errorMessages.push('Le paiement a échoué');
+    else if (preauthStatus === 'FAILED') {
+      this.router.navigate(['/checkout/payment-failed']);
     }
-    else if (value.body.status === 'SUCCEEDED') {
-      this.router.navigate(['/checkout/payment-return']);
+    else if (preauthStatus === 'SUCCEEDED') {
+      this.router.navigate(['/checkout/payment-confirmation']);
     }
   }
 

@@ -111,6 +111,7 @@ import { QualityPipe } from './pipes/quality.pipe';
 import { HandDeliveryComponent } from './content/checkout/order-summary/hand-delivery/hand-delivery.component';
 import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
+import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -212,7 +213,8 @@ import { PaymentFailedComponent } from './content/checkout/payment-process/payme
     QualityPipe,
     HandDeliveryComponent,
     PaymentDetailsComponent,
-    PaymentFailedComponent
+    PaymentFailedComponent,
+    PaymentConfirmationComponent
   ],
   imports: [
     HttpClientModule,

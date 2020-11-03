@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -11,7 +11,11 @@ export class PaymentReturnComponent implements OnInit {
   private preAuthId: number;
   private transactionId: number;
   paymentStatus: string;
-  constructor(private request: RequestService, private route: ActivatedRoute) { }
+  public errorMessage: string = '';
+
+  constructor(private request: RequestService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getTransactionId();
@@ -31,14 +35,12 @@ export class PaymentReturnComponent implements OnInit {
   private getPreauthData(): void {
       this.request.getPreauthData(this.preAuthId).subscribe((res) => {
         //TODO : redirect user to success or failure page depending on res.status;
-        if(res.status === 'SUCCEEDED')
-        {
-          this.paymentStatus = "SUCCEEDED";
-        } else if (res.status === 'FAILED')
-        {
-          this.paymentStatus = "FAILED";
+        if(res.status === 'SUCCEEDED') {
+          this.router.navigate(['/checkout/payment-confirmation']);
+        } else if (res.status === 'FAILED') {
+          this.router.navigate(['checkout/order-summary']);
         } else {
-          this.paymentStatus = "PENDING";
+          this.errorMessage = 'Une erreur est survenue, veuillez réessayer';
         }
       });
   }

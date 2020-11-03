@@ -1,3 +1,4 @@
+import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
@@ -330,6 +331,10 @@ const routes: Routes = [
       {
         path: 'payment-failed',
         component: PaymentFailedComponent
+      },
+      {
+        path: 'payment-confirmation',
+        component: PaymentConfirmationComponent
       }
     ]
   }
