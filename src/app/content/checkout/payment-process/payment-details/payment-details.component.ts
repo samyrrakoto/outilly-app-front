@@ -30,7 +30,7 @@ export class PaymentDetailsComponent implements OnInit {
     private http: HttpClient,
     public paymentValidator: PaymentValidatorService) {
       this.cardOwner = 'Jean Jacques Goldman';
-      this.cardNumber = '4970104100876596';
+      this.cardNumber = '4972485830400049';
       this.cardExpirationMonth = '09';
       this.cardExpirationYear = '22';
       this.cardCvx = '250';
@@ -49,7 +49,7 @@ export class PaymentDetailsComponent implements OnInit {
           resolve(response);
         },
         error: () => {
-          this.handlePreRegistration();
+          this.handleErrors('PreRegistration');
           reject();
         }
       });
@@ -76,9 +76,17 @@ export class PaymentDetailsComponent implements OnInit {
 
   public saveCardInformation(): void {
     this.payLineCall()
-      .then(() => { this.updateRegistration() })
-      .then(() => { this.preauth() })
-      .catch(() => this.paymentValidator.addErrorMessage('Une erreur est survenue. Revenez à la page précédente'));
+      .catch((error: any) => { this.handleErrors(error) })
+      .then(() => {
+        this.updateRegistration()
+          .catch((error: any) => this.handleErrors(error) )
+      })
+      .then(() => {
+        this.preauth()
+          .catch((error: any) => {
+            this.handleErrors(error)
+          }
+      )});
   }
 
   /*
@@ -97,16 +105,15 @@ export class PaymentDetailsComponent implements OnInit {
         next: (response: any) => {
           if (response.body.split('=')[0] !== 'data') {
             this.handlePayLineErrors(response);
-            reject();
+            reject('PayLineCall');
           }
           else {
             sessionStorage.setItem('registrationData', response.body);
             resolve();
           }
         },
-        error: (err) => {
-          console.log(err);
-          reject();
+        error: () => {
+          reject('PayLineCall');
         }
       });
     });
@@ -123,18 +130,17 @@ export class PaymentDetailsComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.request.postData(payload, this.request.uri.UPDATE_REGISTRATION).subscribe(
         (response) => {
-          console.log(response);
           sessionStorage.setItem('cardId', response.body.cardId);
           sessionStorage.removeItem('cardPreRegistrationData');
           sessionStorage.removeItem('cardRegistrationAccessKey');
           sessionStorage.removeItem('cardRegistrationUrl');
           sessionStorage.removeItem('cardRegistrationId');
           sessionStorage.removeItem('registrationData');
+          console.log(response);
           resolve();
         },
-        (error) => {
-          console.error(error);
-          reject();
+        () => {
+          reject('UpdateRegistration');
         }
       );
     });
@@ -150,18 +156,25 @@ export class PaymentDetailsComponent implements OnInit {
       'cardId': sessionStorage.getItem('cardId')
     };
 
+    console.log(payload);
     return new Promise((resolve, reject) => {
-      this.request.postData(payload, this.request.uri.PREAUTH).subscribe(
-        (value) => {
-          console.log(value);
-          sessionStorage.setItem('mangopayTransactionId', value.body.mangopayTransactionId);
-          this.preauthHandle(value);
-          resolve();
-        },
-        (error) => {
-          reject(error);
-        }
-      );
+
+      // If order information are correct
+      if (payload.orderId !== null && payload.cardId !== null) {
+        this.request.postData(payload, this.request.uri.PREAUTH).subscribe({
+          next: (value: any) => {
+            sessionStorage.setItem('mangopayTransactionId', value.body.mangopayTransactionId);
+            this.preauthHandle(value);
+            resolve();
+          },
+          error: () => {
+            reject('PreAuth');
+          }
+        });
+      }
+      else {
+        reject('OrderMissing');
+      }
     });
   }
 
@@ -185,11 +198,27 @@ export class PaymentDetailsComponent implements OnInit {
   /*
   ** ERROR HANDLING
   */
-  private handlePreRegistration(): void {
+  private handlePreRegistrationError(): void {
     const path: string = this.location.path();
 
     this.router.navigate(['/login']);
     sessionStorage.setItem('redirect_after_login', path);
+  }
+
+  private handleErrors(errorName: string): void {
+    this['handle' + errorName + 'Error']();
+  }
+
+  private handleUpdateRegistrationError(): void {
+    console.error('Update Registration Error');
+  }
+
+  private handlePreAuthError(): void {
+    console.error('Pre auth error');
+  }
+
+  private handleOrderMissingError(): void {
+    this.router.navigate(['/checkout/order-summary']);
   }
 
   private handlePayLineErrors(response: any): void {

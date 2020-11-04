@@ -37,8 +37,8 @@ export class PaymentCallToActionComponent implements OnInit {
         .then(() => {
           this.router.navigate(['/checkout/payment-details']);
         })
-        .catch(() => {
-
+        .catch((error: any) => {
+          this.handleError(error);
         });
     }
     else {
@@ -47,18 +47,20 @@ export class PaymentCallToActionComponent implements OnInit {
   }
 
   private getPayload() {
+    delete this.order.id;
     this.order.saleId = this.sale.id;
-    this.order.bidId = this.bid.id;
+    this.bid.id ? this.order.bidId = this.bid.id : delete this.order.bidId;
     this.order.billingAddressId = this.user.userProfile.addresses[0].id;
     this.order.shippingAddressId = this.order.billingAddressId;
-    this.order.relayCountry = this.relayCountry;
-    this.order.relayPointId = this.relayId;
     this.order.amountPrice = this.priceToPay;
     this.order.amountFees = this.priceToPay * 0.06;
     this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
     this.order.amountTotal = this.order.amountPrice + this.order.amountFees + this.order.amountShipment;
     this.order.shipMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayShip' : 'HandDelivery';
     this.order.collMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayPoint' : 'HandDelivery';
+    this.deliveryMethod === 'mondial-relay' ? this.order.relayCountry = this.relayCountry : delete this.order.relayCountry;
+    this.deliveryMethod === 'mondial-relay' ? this.order.relayPointId = this.relayId : delete this.order.relayPointId;
+    console.log(this.order);
   }
 
   private createOrder(): Promise<any> {
@@ -72,16 +74,32 @@ export class PaymentCallToActionComponent implements OnInit {
           const existingOrder: RegExp = /INSERT INTO/;
           const errorDetail: string = err.error.detail;
 
-          if (errorDetail.match(existingOrder)) {
-            this.errorMessage = 'Une erreur est survenue ! :-( Veuillez réessayer';
-            console.error('La commande existe déjà en base');
+          if (errorDetail && errorDetail.match(existingOrder)) {
+            reject('OrderAlreadyCreated');
           }
           else {
-            this.errorMessage = 'Une erreur inconnue est survenue';
+            reject('Unknown');
           }
-          reject();
+          this.errorMessage = 'Une erreur est survenue ! :-( Veuillez réessayer';
         }
       });
     });
+  }
+
+  /*
+  ** HANDLING ERRORS
+  */
+  private handleError(errorName: string='') {
+    if (errorName !== '') {
+      this['handle' + errorName + 'Error'];
+    }
+  }
+
+  private handleUknownError(): void {
+    console.error('Unknown error');
+  }
+
+  private handleOrderAlreadyCreatedError(): void {
+    console.log('An order already exists');
   }
 }

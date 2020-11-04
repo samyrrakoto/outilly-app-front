@@ -11,6 +11,8 @@ import { RequestService } from './request.service';
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  public logged: boolean;
+  public accessToken: string;
   model: any = {};
 
   constructor(
@@ -43,6 +45,23 @@ export class AuthService {
       this.loggedIn.next(false);
     }
     return this.loggedIn.asObservable();
+  }
+
+  public getLogStatus(): Promise<boolean> {
+    const promise: Promise<boolean> = new Promise((resolve, reject) => {
+      this.isLoggedIn().subscribe({
+        next: (value: boolean) => {
+          this.logged = value;
+          resolve();
+        },
+        error: () => {
+          this.logged = null;
+          reject();
+        }
+      })
+    });
+    this.accessToken = this.getTokenStatus();
+    return promise;
   }
 
   // After clearing localStorage redirect to login screen

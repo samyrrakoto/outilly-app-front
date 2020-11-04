@@ -31,7 +31,7 @@ export class BuyingConfirmationComponent implements OnInit {
   }
 
   public goToCheckout(): void {
-    localStorage.setItem('saleId', this.sale.product.id.toString());
+    localStorage.setItem('saleId', this.sale.id.toString());
 
     if (this.deliveryName === 'Mondial Relay') {
       localStorage.setItem('mondial-relay', 'true');

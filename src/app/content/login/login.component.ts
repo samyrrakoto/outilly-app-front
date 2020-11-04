@@ -8,18 +8,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   model: any = {};
   loginFailed: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router
-  ) {}
+  constructor(private auth: AuthService,
+    private router: Router) {}
 
   ngOnInit() {
     const accessToken: string = this.auth.getTokenStatus();
+    console.log(accessToken);
 
-    if (accessToken !== null && accessToken !== 'expired') {
-      console.log(accessToken);
+    if (accessToken === 'good') {
       this.checkHasRedirectAfterLogin();
     }
   }
@@ -41,8 +40,9 @@ export class LoginComponent implements OnInit {
 
   private checkHasRedirectAfterLogin(): void{
     if (sessionStorage.getItem("redirect_after_login") === null) {
-      this.router.navigate(['user/dashboard']);
-    } else {
+      this.router.navigate(['/user/dashboard']);
+    }
+    else {
       this.router.navigate([sessionStorage.getItem("redirect_after_login")]);
     }
   }
