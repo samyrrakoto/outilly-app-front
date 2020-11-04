@@ -13,6 +13,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PaymentConfirmationComponent implements OnInit {
   public order: Order;
+  public readonly gifCollection: Array<string> = [
+    'https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif',
+    'https://media.giphy.com/media/l2SpXyO9TOJCrCbo4/giphy.gif',
+    'https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif'
+  ];
+  public readonly randomNb: number = Math.floor(Math.random() * (this.gifCollection.length));
   public email: string;
   public transactionId: string;
   public sale: Sale;
@@ -25,6 +31,7 @@ export class PaymentConfirmationComponent implements OnInit {
     this.order = new Order();
     this.sale = new Sale();
     this.transactionId = sessionStorage.getItem('mangopayTransactionId');
+    console.log(this.randomNb);
   }
 
   ngOnInit(): void {
