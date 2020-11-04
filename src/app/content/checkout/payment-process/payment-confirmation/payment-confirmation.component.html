@@ -1,1 +1,67 @@
-<p>payment-confirmation works!</p>
+<h2 class="subtitle has-text-centered bold addspacebelow">Confirmation de votre commande</h2>
+
+<div class="columns is-centered">
+  <div class="column is-7">
+    <div id="desktop" class="box has-text-centered">
+
+      <div class="content">
+        <img src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif">
+      </div>
+
+      <h2 class="subtitle bold">Merci et félicitations pour votre achat !</h2>
+
+      <div class="content">
+        N° de commande <span class="bold">{{ order.id }}</span>
+      </div>
+
+      <div class="content">
+        Nous vous avons envoyé un e-mail de confirmation à l'adresse <span class="bold">{{ email }}</span>
+      </div>
+
+      <button routerLink="/home" class="button is-danger no-overflow">
+        <fa-icon id='left-arrow' [icon]="['fas', 'arrow-circle-left']"></fa-icon>Revenir sur le site
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDE BAR -->
+  <div class="column is-3">
+    <div class="box">
+      <div class="columns is-mobile is-vcentered field">
+        <div class="column is-8">{{ sale.product.name }}</div>
+        <div class="column has-text-right">{{ order.amountPrice | currency:'full' | number:'1.2-2' }}€</div>
+      </div>
+
+      <div class="columns is-mobile is-vcentered field">
+        <div class="column is-8">Commission</div>
+        <div class="column has-text-right">{{ order.amountFees | currency:'full' | number:'1.2-2' }}€</div>
+      </div>
+
+      <div *ngIf="order.collMethod !== 'HandDelivery'" class="columns is-mobile is-vcentered field">
+        <div class="column is-8">Frais de port</div>
+        <div class="column has-text-right">{{ order.amountShipment | currency:'full' | number:'1.2-2' }}€</div>
+      </div>
+
+      <div id="total" class="columns is-mobile is-vcentered big-field">
+        <div class="column is-8 shortpadding">Total</div>
+        <div class="column has-text-right bold">{{ order.amountTotal | currency:'full' | number:'1.2-2' }}€</div>
+      </div>
+
+      <div class="columns is-vcentered is-mobile big-field">
+        <div class="column is-8">Moyen de paiement</div>
+        <div class="column has-text-right bold">CB</div>
+      </div>
+
+      <div class="columns is-vcentered is-mobile big-field">
+        <div class="column is-8">Numéro de transaction</div>
+        <div class="column has-text-right bold">{{ transactionId }}</div>
+      </div>
+
+      <div class="content has-text-centered">
+        <button [routerLink]=productUrl class="button is-danger no-overflow">
+          Voir le produit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

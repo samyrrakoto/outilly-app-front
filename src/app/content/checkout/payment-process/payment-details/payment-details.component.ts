@@ -77,7 +77,8 @@ export class PaymentDetailsComponent implements OnInit {
   public saveCardInformation(): void {
     this.payLineCall()
       .then(() => { this.updateRegistration() })
-      .then(() => { this.preauth() });
+      .then(() => { this.preauth() })
+      .catch(() => this.paymentValidator.addErrorMessage('Une erreur est survenue. Revenez à la page précédente'));
   }
 
   /*
@@ -158,8 +159,7 @@ export class PaymentDetailsComponent implements OnInit {
           resolve();
         },
         (error) => {
-          console.error(error);
-          reject();
+          reject(error);
         }
       );
     });

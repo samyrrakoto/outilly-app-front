@@ -21,7 +21,7 @@ export class PaymentValidatorService {
     return false;
   }
 
-  private addErrorMessage(message: string): void {
+  public addErrorMessage(message: string): void {
     if (!this.isMessageExisting(message)) {
       this.errorMessages.push(message);
     }

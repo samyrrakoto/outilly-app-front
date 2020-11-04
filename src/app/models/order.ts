@@ -1,4 +1,5 @@
 export class Order {
+  id: number;
   saleId: number;
   bidId: number;
   billingAddressId: number;
@@ -13,6 +14,7 @@ export class Order {
   collMethod: string;
 
   constructor() {
+    this.id = 0;
     this.saleId = 0;
     this.bidId = 0;
     this.billingAddressId = 0;

@@ -1,0 +1,33 @@
+.box#desktop {
+  margin: auto;
+}
+
+#left-arrow {
+  margin-right: 10px;
+}
+
+img {
+  max-height: 200px;
+  width: auto;
+}
+
+h2 {
+  margin-bottom: 5px !important;
+}
+
+.field {
+  margin-bottom: 2px;
+}
+
+.big-field {
+  margin-bottom: 4px;
+}
+
+#total {
+  border-top: solid 3px black;
+  font-size: 1.3em;
+}
+
+#total:first-child {
+  padding-top: 2px;
+}

@@ -65,7 +65,6 @@ export class PaymentCallToActionComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.request.postData(JSON.stringify(this.order), this.request.uri.CREATE_ORDER).subscribe({
         next: (value: any) => {
-          console.log(value);
           sessionStorage.setItem('orderId', value.body.id);
           resolve();
         },
@@ -74,7 +73,8 @@ export class PaymentCallToActionComponent implements OnInit {
           const errorDetail: string = err.error.detail;
 
           if (errorDetail.match(existingOrder)) {
-            this.errorMessage = 'Cette commande existe déjà';
+            this.errorMessage = 'Une erreur est survenue ! :-( Veuillez réessayer';
+            console.error('La commande existe déjà en base');
           }
           else {
             this.errorMessage = 'Une erreur inconnue est survenue';

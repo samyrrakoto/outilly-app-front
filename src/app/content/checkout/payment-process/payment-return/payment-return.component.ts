@@ -18,24 +18,26 @@ export class PaymentReturnComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getTransactionId();
-    this.getPreauthData();
+    this.getTransactionId()
+      .then(() => this.getPreauthData());
   }
 
-  private getTransactionId(): void {
-    this.route.queryParams.subscribe((queryParams: any) => {
-      this.preAuthId = queryParams.preAuthorizationId;
-      this.transactionId = queryParams.transactionId;
-      // TODO : remove these when implementing the real ticket
-      console.log(this.preAuthId);
-      console.log(this.transactionId);
+  private getTransactionId(): Promise<any> {
+    return new Promise((resolve) => {
+      this.route.queryParams.subscribe((queryParams: any) => {
+        this.preAuthId = queryParams.preAuthorizationId;
+        this.transactionId = queryParams.transactionId;
+        // TODO : remove these when implementing the real ticket
+        console.log(this.preAuthId);
+        console.log(this.transactionId);
+        resolve();
+      });
     });
   }
 
   private getPreauthData(): void {
       this.request.getPreauthData(this.preAuthId).subscribe((res) => {
-        //TODO : redirect user to success or failure page depending on res.status;
-        if(res.status === 'SUCCEEDED') {
+        if (res.status === 'SUCCEEDED') {
           this.router.navigate(['/checkout/payment-confirmation']);
         } else if (res.status === 'FAILED') {
           this.router.navigate(['checkout/order-summary']);
