@@ -2,6 +2,14 @@
   width: 250px;
 }
 
+.input:valid {
+  border: solid 2px var(--KTKP-GREEN);
+}
+
+.input:invalid {
+  border: solid 2px grey;
+}
+
 .notification {
   width: 50%;
   margin: auto;

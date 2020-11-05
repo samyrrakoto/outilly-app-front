@@ -20,7 +20,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input is-dark" type="text" placeholder="" [(ngModel)]="cardOwner">
+              <input class="input is-dark" type="text" patter="^[a-zA-Z]+$" [(ngModel)]="cardOwner" required>
               <span class="icon is-small is-left">
                 <fa-icon [icon]="['fas', 'user']"></fa-icon>
               </span>
@@ -37,7 +37,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input is-dark" type="text" [(ngModel)]="cardNumber" required>
+              <input class="input is-dark" type="text" pattern="^[0-9]+$" [(ngModel)]="cardNumber" required>
               <span class="icon is-small is-left">
                 <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
               </span>
@@ -55,14 +55,14 @@
           <!-- Expiration month -->
           <div class="field">
             <p class="control">
-              <input class="input is-dark" type="text" [(ngModel)]="cardExpirationMonth" maxlength="2" minlength="2">
+              <input class="input is-dark" type="text" pattern="^(0[1-9])|(1[0-2])$" [(ngModel)]="cardExpirationMonth" required>
             </p>
           </div>
 
           <!-- Expiration year -->
           <div class="field">
             <p class="control">
-              <input class="input is-dark" type="text" [(ngModel)]="cardExpirationYear" maxlength="2" minlength="2">
+              <input class="input is-dark" type="text" pattern="^2[0-9]$" [(ngModel)]="cardExpirationYear" required>
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input id="security-code" class="input is-dark" type="text" [(ngModel)]="cardCvx" maxlength="3" minlength="3">
+              <input id="security-code" class="input is-dark" type="text" pattern="^[0-9]{3}$" [(ngModel)]="cardCvx" required>
             </p>
           </div>
         </div>
