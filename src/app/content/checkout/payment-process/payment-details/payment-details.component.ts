@@ -29,11 +29,11 @@ export class PaymentDetailsComponent implements OnInit {
     private location: Location,
     private http: HttpClient,
     public paymentValidator: PaymentValidatorService) {
-      this.cardOwner = 'Jean Jacques Goldman';
-      this.cardNumber = '4972485830400049';
-      this.cardExpirationMonth = '09';
-      this.cardExpirationYear = '22';
-      this.cardCvx = '250';
+      this.cardOwner = '';
+      this.cardNumber = '';
+      this.cardExpirationMonth = '';
+      this.cardExpirationYear = '';
+      this.cardCvx = '';
     }
 
   ngOnInit(): void {
