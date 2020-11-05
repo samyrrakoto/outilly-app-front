@@ -76,17 +76,9 @@ export class PaymentDetailsComponent implements OnInit {
 
   public saveCardInformation(): void {
     this.payLineCall()
-      .catch((error: any) => { this.handleErrors(error) })
-      .then(() => {
-        this.updateRegistration()
-          .catch((error: any) => this.handleErrors(error) )
-      })
-      .then(() => {
-        this.preauth()
-          .catch((error: any) => {
-            this.handleErrors(error)
-          }
-      )});
+      .then(() => { return this.updateRegistration() })
+      .then(() => { return this.preauth() })
+      .catch((error: any) => { this.handleErrors(error) });
   }
 
   /*
@@ -99,6 +91,8 @@ export class PaymentDetailsComponent implements OnInit {
       .set('cardNumber', this.cardNumber)
       .set('cardExpirationDate', this.cardExpirationMonth + this.cardExpirationYear)
       .set('cardCvx', this.cardCvx);
+
+      console.log(payload);
 
     return new Promise((resolve, reject) => {
       this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
@@ -136,7 +130,6 @@ export class PaymentDetailsComponent implements OnInit {
           sessionStorage.removeItem('cardRegistrationUrl');
           sessionStorage.removeItem('cardRegistrationId');
           sessionStorage.removeItem('registrationData');
-          console.log(response);
           resolve();
         },
         () => {
@@ -156,7 +149,6 @@ export class PaymentDetailsComponent implements OnInit {
       'cardId': sessionStorage.getItem('cardId')
     };
 
-    console.log(payload);
     return new Promise((resolve, reject) => {
 
       // If order information are correct
