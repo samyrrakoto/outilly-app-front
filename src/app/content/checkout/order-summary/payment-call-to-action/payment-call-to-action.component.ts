@@ -88,8 +88,4 @@ export class PaymentCallToActionComponent implements OnInit {
   private handleUknownError(): void {
     console.error('Unknown error');
   }
-
-  private handleOrderAlreadyCreatedError(): void {
-    console.log('An order already exists');
-  }
 }
