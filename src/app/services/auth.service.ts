@@ -52,7 +52,7 @@ export class AuthService {
       this.isLoggedIn().subscribe({
         next: (value: boolean) => {
           this.logged = value;
-          resolve();
+          resolve(value);
         },
         error: () => {
           this.logged = null;

@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     const accessToken: string = this.auth.getTokenStatus();
-    console.log(accessToken);
 
     if (accessToken === 'good') {
       this.checkHasRedirectAfterLogin();

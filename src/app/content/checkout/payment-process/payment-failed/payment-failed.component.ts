@@ -1,3 +1,4 @@
+import { RequestService } from './../../../../services/request.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,10 +10,26 @@ import { Component, OnInit } from '@angular/core';
 export class PaymentFailedComponent implements OnInit {
   public nbTrials: number;
 
-  constructor(private router: Router) {
-    this.nbTrials = 4;
-  }
+  constructor(private request: RequestService, private router: Router) {}
 
   ngOnInit(): void {
+    this.getAttempts();
+  }
+
+  private getAttempts(): Promise<any> {
+    const orderId = sessionStorage.getItem('orderId');
+
+    return new Promise((resolve, reject) => {
+      this.request.getData(this.request.uri.GET_ORDER, [orderId.toString()]).subscribe(
+        (order) => {
+          console.log(order);
+          this.nbTrials = order.paymentAttempts;
+          return Promise.resolve();
+        },
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    });
   }
 }

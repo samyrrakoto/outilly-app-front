@@ -38,7 +38,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.preregister()
-      .catch(() => {});
+      .catch((error: any) => { this.handleErrors(error) });
   }
 
   private preregister(): Promise<any> {
@@ -46,11 +46,10 @@ export class PaymentDetailsComponent implements OnInit {
       this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
         next: (response: any) => {
           this.saveMangoPayData(response);
-          resolve(response);
+          resolve();
         },
         error: () => {
-          this.handleErrors('PreRegistration');
-          reject();
+          reject('PreRegistration');
         }
       });
     });
@@ -92,8 +91,7 @@ export class PaymentDetailsComponent implements OnInit {
       .set('cardExpirationDate', this.cardExpirationMonth + this.cardExpirationYear)
       .set('cardCvx', this.cardCvx);
 
-      console.log(payload);
-
+    console.log(payload);
     return new Promise((resolve, reject) => {
       this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
         next: (response: any) => {
@@ -157,6 +155,7 @@ export class PaymentDetailsComponent implements OnInit {
           next: (value: any) => {
             sessionStorage.setItem('mangopayTransactionId', value.body.mangopayTransactionId);
             this.preauthHandle(value);
+            console.log(value);
             resolve();
           },
           error: () => {
@@ -190,6 +189,10 @@ export class PaymentDetailsComponent implements OnInit {
   /*
   ** ERROR HANDLING
   */
+  private handleErrors(errorName: string): void {
+    this['handle' + errorName + 'Error']();
+  }
+
   private handlePreRegistrationError(): void {
     const path: string = this.location.path();
 
@@ -197,8 +200,8 @@ export class PaymentDetailsComponent implements OnInit {
     sessionStorage.setItem('redirect_after_login', path);
   }
 
-  private handleErrors(errorName: string): void {
-    this['handle' + errorName + 'Error']();
+  private handlePayLineCallError(): void {
+    console.error('PayLine Error');
   }
 
   private handleUpdateRegistrationError(): void {
@@ -221,7 +224,10 @@ export class PaymentDetailsComponent implements OnInit {
         console.error('Incorrect registration data');
         break;
       case '02631':
-        console.error('Delay succeeded');
+        console.error('Delay exceeded : Too much time taken from the creation of the CardRegistration object to the submission of the Card Details on the Tokenizer Server');
+        break;
+      case '02623':
+        console.error('Maximum number of attempts reached');
         break;
       default:
         console.error('Unknown error');

@@ -12,6 +12,7 @@ export class Order {
   amountTotal: number;
   shipMethod: string;
   collMethod: string;
+  paymentAttempts: number;
   recipient: Array<any>;
 
   constructor() {
@@ -27,6 +28,7 @@ export class Order {
     this.amountTotal = 0;
     this.shipMethod = '';
     this.collMethod = '';
+    this.paymentAttempts = null;
     this.recipient = [];
   }
 }
