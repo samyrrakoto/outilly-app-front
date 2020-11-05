@@ -70,16 +70,7 @@ export class PaymentCallToActionComponent implements OnInit {
           resolve();
         },
         error: (err: any) => {
-          const existingOrder: RegExp = /INSERT INTO/;
-          const errorDetail: string = err.error.detail;
-
-          if (errorDetail && errorDetail.match(existingOrder)) {
-            reject('OrderAlreadyCreated');
-          }
-          else {
-            reject('Unknown');
-          }
-          this.errorMessage = 'Une erreur est survenue ! :-( Veuillez réessayer';
+          reject('Unknown');
         }
       });
     });
