@@ -198,15 +198,12 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   private handlePayLineCallError(): void {
-    console.error('PayLine Error');
   }
 
   private handleUpdateRegistrationError(): void {
-    console.error('Update Registration Error');
   }
 
   private handlePreAuthError(): void {
-    console.error('Pre auth error');
   }
 
   private handleOrderMissingError(): void {
