@@ -27,9 +27,6 @@ export class PaymentReturnComponent implements OnInit {
       this.route.queryParams.subscribe((queryParams: any) => {
         this.preAuthId = queryParams.preAuthorizationId;
         this.transactionId = queryParams.transactionId;
-        // TODO : remove these when implementing the real ticket
-        console.log(this.preAuthId);
-        console.log(this.transactionId);
         resolve();
       });
     });

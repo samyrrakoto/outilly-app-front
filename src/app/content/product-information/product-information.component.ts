@@ -53,8 +53,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => { this.getId() })
       .then(() => this.getProductById(this.id.toString()))
       .then(() => this.getGenericQuestions())
-      .then(() => this.getSalesId())
-      .catch(() => console.log('Not logged') );
+      .then(() => this.getSalesId());
   }
 
   private getId(): Promise<any> {
