@@ -14,14 +14,19 @@
 
   <!-- Side information -->
   <div class="column is-3">
-    <app-information-summary (userEmitter)="getUser($event)"></app-information-summary>
+    <app-information-summary
+      (userEmitter)="getUser($event)"
+      (recipientEmitter)="getRecipient($event)">
+    </app-information-summary>
     <app-price-summary (priceToPayEvent)="getRealPriceToPay($event)"
       [deliveryMethod]="deliveryMethod">
     </app-price-summary>
     <app-conditions-of-sale (areConditionsAccepted)="checkConditionsAccepted($event)"></app-conditions-of-sale>
-    <app-payment-call-to-action [areConditionsAccepted]="areConditionsAccepted"
+    <app-payment-call-to-action
+      [areConditionsAccepted]="areConditionsAccepted"
       [sale]="sale"
       [user]="user"
+      [recipient]="recipient"
       [bid]="bid"
       [relayCountry]="relayCountry"
       [relayId]="relayId"

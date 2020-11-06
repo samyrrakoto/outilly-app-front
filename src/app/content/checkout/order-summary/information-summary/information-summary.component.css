@@ -2,6 +2,14 @@
   word-break: break-all;
 }
 
+.input:valid {
+  border: solid 2px var(--KTKP-GREEN);
+}
+
+.input:invalid {
+  border: solid 2px grey;
+}
+
 .tablet-field {
   margin-top: 2px;
   margin-bottom: 2px;

@@ -7,6 +7,7 @@ import { Sale } from 'src/app/models/sale';
 import { Bid } from 'src/app/models/bid';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Recipient } from 'src/app/models/recipient';
 
 @Component({
   selector: 'app-order-summary',
@@ -16,6 +17,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class OrderSummaryComponent implements OnInit {
   sale: Sale;
   user: User;
+  recipient: Recipient;
   bid: Bid;
   saleId: string;
   relayId: string;
@@ -83,8 +85,12 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
-  public getUser(user: User) {
+  public getUser(user: User): void {
     this.user = user;
+  }
+
+  public getRecipient(recipient: Recipient): void {
+    this.recipient = recipient;
   }
 
   private bidMapping(value: any) {

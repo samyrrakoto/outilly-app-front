@@ -4,6 +4,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Recipient } from 'src/app/models/recipient';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-information-summary',
@@ -12,17 +14,36 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class InformationSummaryComponent implements OnInit {
   user: User;
+  recipient: Recipient;
+  modals: Modals;
   @Output() userEmitter: EventEmitter<User> = new EventEmitter<User>();
+  @Output() recipientEmitter: EventEmitter<Recipient> = new EventEmitter<Recipient>();
 
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location) {
       this.user = new User();
+      this.recipient = new Recipient();
+      this.modals = new Modals();
+      this.modals.addModal('addressee-information');
     }
 
   ngOnInit(): any {
-    this.getUser();
+    this.getUser()
+      .then(() => this.recipientMapping() );
+  }
+
+  private recipientMapping() {
+    this.recipient.civility = this.user.userProfile.gender;
+    this.recipient.firstname = this.user.userProfile.firstname;
+    this.recipient.lastname = this.user.userProfile.lastname;
+    this.recipient.addLine1 = this.user.userProfile.mainAddress.line1;
+    this.recipient.city = this.user.userProfile.mainAddress.city;
+    this.recipient.zipcode = this.user.userProfile.mainAddress.zipcode;
+    this.recipient.phone = this.user.userProfile.phone1;
+    this.recipient.email = this.user.userProfile.email;
+    this.recipientEmitter.emit(this.recipient);
   }
 
   private getUser(): Promise<any> {
@@ -34,12 +55,27 @@ export class InformationSummaryComponent implements OnInit {
           resolve();
         },
         error: () => {
-          console.log('ERROR');
           this.errorHandle('');
           reject();
         }
       });
     });
+  }
+
+  public resetRecipientInfo(): void {
+    this.recipientMapping();
+  }
+
+  public changeRecipientInfo(): void {
+    this.user.userProfile.gender = this.recipient.civility;
+    this.user.userProfile.firstname = this.recipient.firstname;
+    this.user.userProfile.lastname = this.recipient.lastname;
+    this.user.userProfile.mainAddress.line1 = this.recipient.addLine1;
+    this.user.userProfile.mainAddress.city = this.recipient.city;
+    this.user.userProfile.mainAddress.zipcode = this.recipient.zipcode;
+    this.user.userProfile.phone1 = this.recipient.phone;
+    this.user.userProfile.email = this.recipient.email;
+    this.recipientEmitter.emit(this.recipient);
   }
 
   protected errorHandle(type: string): void {

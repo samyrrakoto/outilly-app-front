@@ -1,3 +1,4 @@
+import { Recipient } from './../../../../models/recipient';
 import { Order } from 'src/app/models/order';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -15,6 +16,7 @@ export class PaymentCallToActionComponent implements OnInit {
   @Input() areConditionsAccepted: boolean;
   @Input() sale: Sale;
   @Input() user: User;
+  @Input() recipient: Recipient;
   @Input() bid: Bid;
   @Input() relayCountry: string;
   @Input() relayId: string;
@@ -26,9 +28,12 @@ export class PaymentCallToActionComponent implements OnInit {
   constructor(public request: RequestService, private router: Router) {
     this.errorMessage = '';
     this.order = new Order();
+    this.user = new User();
+    this.recipient = new Recipient();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public goPayment() {
     if (this.areConditionsAccepted) {
@@ -48,10 +53,10 @@ export class PaymentCallToActionComponent implements OnInit {
 
   private getPayload() {
     delete this.order.id;
+    delete this.order.billingAddressId;
     this.order.saleId = this.sale.id;
     this.bid.id ? this.order.bidId = this.bid.id : delete this.order.bidId;
-    this.order.billingAddressId = this.user.userProfile.addresses[0].id;
-    this.order.shippingAddressId = this.order.billingAddressId;
+    this.order.shippingAddressId = this.user.userProfile.addresses[0].id;
     this.order.amountPrice = this.priceToPay;
     this.order.amountFees = this.priceToPay * 0.06;
     this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
@@ -60,6 +65,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.order.collMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayPoint' : 'HandDelivery';
     this.deliveryMethod === 'mondial-relay' ? this.order.relayCountry = this.relayCountry : delete this.order.relayCountry;
     this.deliveryMethod === 'mondial-relay' ? this.order.relayPointId = this.relayId : delete this.order.relayPointId;
+    this.order.recipient = this.recipient;
   }
 
   private createOrder(): Promise<any> {
