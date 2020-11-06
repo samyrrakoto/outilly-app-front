@@ -56,7 +56,7 @@ export class PaymentCallToActionComponent implements OnInit {
     delete this.order.billingAddressId;
     this.order.saleId = this.sale.id;
     this.bid.id ? this.order.bidId = this.bid.id : delete this.order.bidId;
-    this.order.shippingAddressId = this.user.userProfile.addresses[0].id;
+    this.order.shippingAddressId = this.user.userProfile.mainAddress.id;
     this.order.amountPrice = this.priceToPay;
     this.order.amountFees = this.priceToPay * 0.06;
     this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
@@ -66,6 +66,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.deliveryMethod === 'mondial-relay' ? this.order.relayCountry = this.relayCountry : delete this.order.relayCountry;
     this.deliveryMethod === 'mondial-relay' ? this.order.relayPointId = this.relayId : delete this.order.relayPointId;
     this.order.recipient = this.recipient;
+    console.log(this.order);
   }
 
   private createOrder(): Promise<any> {
