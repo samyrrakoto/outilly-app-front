@@ -47,7 +47,6 @@ export class OrderSummaryComponent implements OnInit {
         .catch((error: any) => this.errorHandle(error)))
         .then(() => {
           this.checkDeliveryMethod();
-          this.checkDelivery();
           resolve();
         });
       }
@@ -61,8 +60,8 @@ export class OrderSummaryComponent implements OnInit {
   protected getSale(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getSaleCall(this.saleId).subscribe({
-        next: (value: Sale) => {
-          this.sale = value;
+        next: (sale: Sale) => {
+          this.sale = sale;
           resolve();
         },
         error: () => {
@@ -137,16 +136,18 @@ export class OrderSummaryComponent implements OnInit {
     if (localStorage.getItem('hand-delivery') === 'true') {
       this.deliveryMethod = 'hand';
     }
-    else {
+    else if (localStorage.getItem('mondial-relay') === 'true') {
       this.deliveryMethod = 'mondial-relay';
-      this.relayId = localStorage.getItem('relayId');
-      this.relayCountry = localStorage.getItem('relayCountry');
-    }
-  }
 
-  private checkDelivery(): void {
-    if (this.checkHandDelivery() === false) {
-      this.checkRelay();
+      if (this.isEmpty(localStorage.getItem('relayId')) || this.isEmpty(localStorage.getItem('relayCountry'))) {
+        this.router.navigate(['/checkout/delivery-information/mondial-relay-selector']);
+      }
+      else {
+        this.relayId = localStorage.getItem('relayId');
+        this.relayCountry = localStorage.getItem('relayCountry');      }
+    }
+    else {
+
     }
   }
 
@@ -158,10 +159,6 @@ export class OrderSummaryComponent implements OnInit {
       this.relayId = localStorage.getItem('relayId');
       this.relayCountry = localStorage.getItem('relayCountry');
     }
-  }
-
-  private checkHandDelivery(): boolean {
-    return localStorage.getItem('hand-delivery') === 'true';
   }
 
   private isEmpty(value: any): boolean {
