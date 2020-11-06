@@ -1,29 +1,29 @@
   <div class="box">
-    <h2 class="subtitle section-title has-text-centered has-text-weight-bold">Vos informations</h2>
+    <h2 class="subtitle section-title has-text-centered has-text-weight-bold">Destinataire du colis</h2>
 
     <!-- DESKTOP Display-->
     <div *ngIf="user" class="content is-hidden-touch">
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
-        {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
+        {{ recipient.lastname | uppercase }} {{ recipient.firstname }}
       </div>
 
       <div class="content desktop-field has-text-left shortline">
         <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>&nbsp;
-        {{ user.userProfile.phone1 | phone:'.'}}
+        {{ recipient.phone | phone:'.'}}
       </div>
 
       <div class="content desktop-field has-text-left shortline">
         <fa-icon [icon]="['fas', 'envelope']"></fa-icon>&nbsp;
-        {{ user.userProfile.email }}
+        {{ recipient.email }}
       </div>
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'home']"></fa-icon>&nbsp;
         <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
           <span *ngIf="isFirst">
-            {{ address.line1 }},<br>
-            {{ address.zipcode }} {{ address.city }}<br>
+            {{ recipient.addLine1 }},<br>
+            {{ recipient.zipcode }} {{ recipient.city }}<br>
           </span>
         </span>
       </div>
@@ -37,7 +37,7 @@
           <fa-icon [icon]="['fas', 'user']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          {{ user.userProfile.lastname | uppercase }} {{ user.userProfile.firstname }}
+          {{ recipient.lastname | uppercase }} {{ recipient.firstname }}
         </div>
       </div>
 
@@ -46,7 +46,7 @@
           <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          {{ user.userProfile.phone1 | phone:'.'}}
+          {{ recipient.phone | phone:'.'}}
         </div>
       </div>
 
@@ -55,7 +55,7 @@
           <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
         </div>
         <div class="content tablet-field">
-          {{ user.userProfile.email }}
+          {{ recipient.email }}
         </div>
       </div>
 
@@ -66,8 +66,8 @@
         <div class="content tablet-field">
           <span *ngFor="let address of user.userProfile.addresses; first as isFirst">
             <span *ngIf="isFirst">
-              {{ address.line1 }},<br>
-              {{ address.zipcode }} {{ address.city }}<br>
+              {{ recipient.addLine1 }},<br>
+              {{ recipient.zipcode }} {{ recipient.city }}<br>
             </span>
           </span>
         </div>
@@ -75,11 +75,11 @@
     </div>
 
     <div class="content has-text-centered">
-      <button id="modify-desktop" routerLink="/user/dashboard/" class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
+      <button id="modify-desktop" (click)="modals.open('recipient-information')" class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
         Modifier mes informations
       </button>
 
-      <button id="modify-tablet" routerLink="/user/dashboard/" class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
+      <button id="modify-tablet" (click)="modals.open('recipient-information')" class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
         Modifier mes informations
       </button>
 
@@ -87,4 +87,115 @@
         Ces informations restent confidentielles
       </div>
     </div>
+</div>
+
+<!-- Modals -->
+<div class="modal {{ modals.get('recipient-information') }}">
+  <div class="modal-background" (click)="resetRecipientInfo(); modals.close('recipient-information')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle has-text-centered">Modification des informations du destinataire</h2>
+
+      <div class="columns">
+
+        <!-- Firstname -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'user']"></fa-icon>
+              Prénom</label>
+            <div class="control">
+              <input class="input" type="text" [(ngModel)]="recipient.firstname" pattern="^[a-zA-Z]+$" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lastname -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'user']"></fa-icon>
+              Nom</label>
+            <div class="control">
+              <input class="input" type="text" [(ngModel)]="recipient.lastname" pattern="^[a-zA-Z]+$" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+
+        <!-- Email -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+              Email
+            </label>
+            <div class="control">
+              <input class="input" type="email" [(ngModel)]="recipient.email" pattern="^[a-z0-9-_.]+@[a-z]+\.[a-z]{2,}$" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'mobile-alt']"></fa-icon>
+              N° de téléphone</label>
+            <div class="control">
+              <input class="input" type="tel" [(ngModel)]="recipient.phone" pattern="^[0-9]+$" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+
+        <!-- Line1 -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'home']"></fa-icon>
+              Voie
+            </label>
+            <div class="control">
+              <input class="input" type="text" [(ngModel)]="recipient.addLine1" pattern="^[a-zA-Z0-9 ]+$" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zipcode -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'home']"></fa-icon>
+              Code postal
+            </label>
+            <div class="control">
+              <input class="input" type="text" [(ngModel)]="recipient.zipcode" pattern="^[0-9]+$" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- City -->
+        <div class="column">
+          <div class="field">
+            <label class="label">
+              <fa-icon [icon]="['fas', 'home']"></fa-icon>
+              Ville</label>
+            <div class="control">
+              <input class="input" type="text" [(ngModel)]="recipient.city" pattern="^[a-zA-Z -]+$" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        <button (click)="changeRecipientInfo(); modals.close('recipient-information')" class="button is-success">Valider ces informations</button>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="resetRecipientInfo(); modals.close('recipient-information')"></button>
 </div>

@@ -15,6 +15,9 @@ export class UserProfile {
   type: string;
   company: Company;
   addresses: Array<Address>;
+  mainAddress: Address;
+  nationality: string;
+  countryOfResidence: string;
 
   constructor() {
     this.id = 0;
@@ -30,5 +33,8 @@ export class UserProfile {
     this.type= '';
     this.company = new Company();
     this.addresses = [];
+    this.mainAddress = new Address();
+    this.nationality = null;
+    this.countryOfResidence = null;
   }
 }

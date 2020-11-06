@@ -1,3 +1,5 @@
+import { Recipient } from './recipient';
+
 export class Order {
   id: number;
   saleId: number;
@@ -13,7 +15,7 @@ export class Order {
   shipMethod: string;
   collMethod: string;
   paymentAttempts: number;
-  recipient: Array<any>;
+  recipient: Recipient;
 
   constructor() {
     this.id = 0;
@@ -29,6 +31,6 @@ export class Order {
     this.shipMethod = '';
     this.collMethod = '';
     this.paymentAttempts = null;
-    this.recipient = [];
+    this.recipient = new Recipient();
   }
 }
