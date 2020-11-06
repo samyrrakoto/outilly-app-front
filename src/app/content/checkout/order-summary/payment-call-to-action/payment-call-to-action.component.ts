@@ -1,4 +1,5 @@
-import { Recipient } from './../../../../models/recipient';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Recipient } from 'src/app/models/recipient';
 import { Order } from 'src/app/models/order';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -22,10 +23,13 @@ export class PaymentCallToActionComponent implements OnInit {
   @Input() relayId: string;
   @Input() priceToPay: number;
   @Input() deliveryMethod: string;
+  saleId: string;
   errorMessage: string;
   order: Order;
 
-  constructor(public request: RequestService, private router: Router) {
+  constructor(public request: RequestService,
+    private router: Router,
+    public saleManager: SaleManagerService) {
     this.errorMessage = '';
     this.order = new Order();
     this.user = new User();
@@ -33,14 +37,27 @@ export class PaymentCallToActionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.saleId = localStorage.getItem('saleId');
   }
 
   public goPayment() {
     if (this.areConditionsAccepted) {
       this.getPayload();
-      this.createOrder()
+      this.saleManager.getSaleAvailability(this.saleId)
+        .then((isSaleAvailable: boolean) => {
+          return new Promise((resolve, reject) => {
+            if (isSaleAvailable) {
+              this.createOrder();
+              resolve();
+            }
+            else {
+              this.router.navigate(['/product-unavailable']);
+              reject('product-unavailable');
+            }
+          });
+        })
         .then(() => {
-          this.router.navigate(['/checkout/payment-details']);
+            this.router.navigate(['/checkout/payment-details']);
         })
         .catch((error: any) => {
           this.handleError(error);
@@ -66,7 +83,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.deliveryMethod === 'mondial-relay' ? this.order.relayCountry = this.relayCountry : delete this.order.relayCountry;
     this.deliveryMethod === 'mondial-relay' ? this.order.relayPointId = this.relayId : delete this.order.relayPointId;
     this.order.recipient = this.recipient;
-    console.log(this.order);
+    console.log(JSON.stringify(this.order));
   }
 
   private createOrder(): Promise<any> {
