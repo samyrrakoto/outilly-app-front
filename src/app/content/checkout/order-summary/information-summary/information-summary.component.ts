@@ -26,7 +26,7 @@ export class InformationSummaryComponent implements OnInit {
       this.user = new User();
       this.recipient = new Recipient();
       this.modals = new Modals();
-      this.modals.addModal('addressee-information');
+      this.modals.addModal('recipient-information');
     }
 
   ngOnInit(): any {

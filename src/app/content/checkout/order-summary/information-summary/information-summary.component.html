@@ -75,11 +75,11 @@
     </div>
 
     <div class="content has-text-centered">
-      <button id="modify-desktop" (click)="modals.open('addressee-information')" class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
+      <button id="modify-desktop" (click)="modals.open('recipient-information')" class="button is-danger is-outlined no-overflow is-hidden-touch is-desktop">
         Modifier mes informations
       </button>
 
-      <button id="modify-tablet" (click)="modals.open('addressee-information')" class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
+      <button id="modify-tablet" (click)="modals.open('recipient-information')" class="button is-danger is-outlined no-overflow is-hidden-desktop is-mobile">
         Modifier mes informations
       </button>
 
@@ -90,8 +90,8 @@
 </div>
 
 <!-- Modals -->
-<div class="modal {{ modals.get('addressee-information') }}">
-  <div class="modal-background" (click)="resetRecipientInfo(); modals.close('addressee-information')"></div>
+<div class="modal {{ modals.get('recipient-information') }}">
+  <div class="modal-background" (click)="resetRecipientInfo(); modals.close('recipient-information')"></div>
   <div class="modal-content">
     <div class="box">
       <h2 class="subtitle has-text-centered">Modification des informations du destinataire</h2>
@@ -193,9 +193,9 @@
       </div>
 
       <div class="content has-text-centered">
-        <button (click)="changeRecipientInfo(); modals.close('addressee-information')" class="button is-success">Valider ces informations</button>
+        <button (click)="changeRecipientInfo(); modals.close('recipient-information')" class="button is-success">Valider ces informations</button>
       </div>
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="resetRecipientInfo(); modals.close('addressee-information')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="resetRecipientInfo(); modals.close('recipient-information')"></button>
 </div>
