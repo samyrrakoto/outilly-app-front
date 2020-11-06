@@ -1,0 +1,66 @@
+.input {
+  width: 250px;
+}
+
+.input:valid {
+  border: solid 2px var(--KTKP-GREEN);
+}
+
+.input:invalid {
+  border: solid 2px grey;
+}
+
+.notification {
+  width: 50%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.control {
+  text-align: left;
+}
+
+.subtitle {
+  margin-bottom: 5px;
+}
+
+#header {
+  margin-bottom: 50px;
+}
+
+.field.is-horizontal {
+  justify-content: center;
+  align-items: center;
+}
+
+.field-label {
+  width: 200px;
+}
+
+#expiration-date .field {
+  flex-grow: 0;
+  width: 50px;
+}
+
+.box {
+  margin: 0 auto;
+  width: 80%;
+}
+
+#security-code {
+  width: 50px;
+}
+
+.expiration-date {
+  width: 50px;
+  margin-right: 10px;
+}
+
+#lock {
+  font-size: 1em;
+}
+
+#lock fa-icon {
+  margin-right: 20px;
+}

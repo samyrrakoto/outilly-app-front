@@ -109,7 +109,7 @@
       </div>
 
       <!-- When login fails -->
-      <div *ngIf="isLogged === false || accessToken === 'expired'" class="content">
+      <div *ngIf="isLogged === false || accessToken !== 'good'" class="content">
         <div class="content">
           <button class="button is-light">
             Acheter

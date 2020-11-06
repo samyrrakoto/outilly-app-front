@@ -11,6 +11,8 @@ import { RequestService } from './request.service';
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  public logged: boolean;
+  public accessToken: string;
   model: any = {};
 
   constructor(
@@ -19,7 +21,7 @@ export class AuthService {
       private request: RequestService,
   ) { }
 
-  login(credentials: any): Promise<any> {
+  public login(credentials: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.getJwtToken(credentials).subscribe((response: any) => {
         if (response.body.token) {
@@ -36,8 +38,8 @@ export class AuthService {
   }
 
   // Checking if token is set
-  isLoggedIn(): Observable<boolean> {
-    if (localStorage.getItem('access_token') != null){
+  public isLoggedIn(): Observable<boolean> {
+    if (localStorage.getItem('access_token') != null) {
       this.loggedIn.next(true);
     } else {
       this.loggedIn.next(false);
@@ -45,8 +47,25 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
+  public getLogStatus(): Promise<boolean> {
+    const promise: Promise<boolean> = new Promise((resolve, reject) => {
+      this.isLoggedIn().subscribe({
+        next: (value: boolean) => {
+          this.logged = value;
+          resolve(value);
+        },
+        error: () => {
+          this.logged = null;
+          reject();
+        }
+      })
+    });
+    this.accessToken = this.getTokenStatus();
+    return promise;
+  }
+
   // After clearing localStorage redirect to login screen
-  logout(): void {
+  public logout(): void {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();

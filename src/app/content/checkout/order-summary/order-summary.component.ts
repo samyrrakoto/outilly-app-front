@@ -17,7 +17,7 @@ export class OrderSummaryComponent implements OnInit {
   sale: Sale;
   user: User;
   bid: Bid;
-  productId: string;
+  saleId: string;
   relayId: string;
   relayCountry: string;
   deliveryMethod: string;
@@ -32,7 +32,7 @@ export class OrderSummaryComponent implements OnInit {
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    if ((this.productId = localStorage.getItem('saleId')) === null) {
+    if ((this.saleId = localStorage.getItem('saleId')) === null) {
       this.router.navigate(['/user/dashboard/activity-log/purchases']);
     }
   }
@@ -40,9 +40,9 @@ export class OrderSummaryComponent implements OnInit {
   ngOnInit(): Promise<any> {
     return new Promise((resolve) => {
       this.getSale()
-      .catch(() => this.errorHandle('sale'))
-      .then(() => this.getBid())
-      .catch(() => this.errorHandle('bid'))
+      .catch((error: any) => this.errorHandle(error))
+      .then(() => this.getBid()
+      .catch((error: any) => this.errorHandle(error)))
       .then(() => {
         this.checkDeliveryMethod();
         this.checkDelivery();
@@ -53,13 +53,13 @@ export class OrderSummaryComponent implements OnInit {
 
   protected getSale(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.request.getSaleCall(this.productId).subscribe({
+      this.request.getSaleCall(this.saleId).subscribe({
         next: (value: Sale) => {
           this.sale = value;
           resolve();
         },
         error: () => {
-          reject();
+          reject('sale');
         }
       });
     })
@@ -70,14 +70,14 @@ export class OrderSummaryComponent implements OnInit {
       this.request.getData(this.request.uri.GET_BIDS_AND_SALES).subscribe({
         next: (value: any) => {
           for (const elem of value) {
-            if (elem.sale.id === parseInt(this.productId)) {
+            if (elem.sale.id === parseInt(this.saleId)) {
               this.bidMapping(elem);
             }
           }
           resolve();
         },
         error: () => {
-          reject();
+          reject('bid');
         }
       });
     });
@@ -106,7 +106,7 @@ export class OrderSummaryComponent implements OnInit {
       case 'bid':
       case 'sale':
         this.deconnect()
-          .then(() => sessionStorage.setItem('redirect_after_login', 'checkout/order-summary'));
+          .then(() => sessionStorage.setItem('redirect_after_login', '/checkout/order-summary'));
           break;
       default:
         this.deconnect();
@@ -141,7 +141,7 @@ export class OrderSummaryComponent implements OnInit {
 
   private checkRelay(): void {
     if (this.isEmpty(localStorage.getItem('relayId')) || this.isEmpty(localStorage.getItem('relayCountry'))) {
-      this.router.navigate(['checkout/delivery-information/mondial-relay-selector']);
+      this.router.navigate(['/checkout/delivery-information/mondial-relay-selector']);
     }
     else {
       this.relayId = localStorage.getItem('relayId');

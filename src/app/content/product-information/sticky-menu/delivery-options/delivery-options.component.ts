@@ -91,8 +91,11 @@ export class DeliveryOptionsComponent implements OnInit {
       else {
         this.priceTopay = this.sale.product.reservePrice;
       }
-      this.priceToPayEmitter.emit(this.priceTopay);
     }
+    else {
+      this.priceTopay = this.sale.product.reservePrice;
+    }
+    this.priceToPayEmitter.emit(this.priceTopay);
   }
 
   public hasBidded(): boolean {

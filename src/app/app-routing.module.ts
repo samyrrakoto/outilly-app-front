@@ -1,3 +1,6 @@
+import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
+import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
+import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
@@ -56,7 +59,7 @@ import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
-import { PaymentReturnComponent } from './content/checkout/payment/payment-return/payment-return.component';
+import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 
 const routes: Routes = [
   {
@@ -320,6 +323,18 @@ const routes: Routes = [
       {
         path: 'payment-return',
         component: PaymentReturnComponent
+      },
+      {
+        path: 'payment-details',
+        component: PaymentDetailsComponent
+      },
+      {
+        path: 'payment-failed',
+        component: PaymentFailedComponent
+      },
+      {
+        path: 'payment-confirmation',
+        component: PaymentConfirmationComponent
       }
     ]
   }

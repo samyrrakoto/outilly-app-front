@@ -15,8 +15,8 @@
 
     <sticky-menu *ngIf="!isSeller() && sale.id !== 0"
       [sale]="sale"
-      [isLogged]="isLogged"
-      [accessToken]="accessToken"
+      [isLogged]="auth.logged"
+      [accessToken]="auth.accessToken"
       [errorMsg]="errorMsg"
       [minPrice]="minPrice"
       [maxPrice]="maxPrice"

@@ -20,21 +20,25 @@ export class Uri {
   readonly BRANDS: string = 'brands';
   readonly CATEGORIES: string = 'product/categories/all';
   readonly TYPES: string = 'product/types/all';
-  readonly PRODUCT_MEDIA_CREATE = 'product/media/create';
-  readonly GET_USER = 'secure/user';
-  readonly UPDATE_USER = 'secure/user/update';
-  readonly UPDATE_PWD = 'secure/pwd-reset';
-  readonly DELETE_ADDRESS = 'secure/address';
-  readonly ADD_ADDRESS = 'secure/address/';
-  readonly UPDATE_ADDRESS = 'secure/address/';
-  readonly PLACE_BID = 'secure/bid/place';
-  readonly ACCEPT_OFFER = 'secure/bid/update-acceptance';
-  readonly DECLINE_OFFER = 'secure/bid/update-acceptance';
-  readonly COUNTER_OFFER = 'secure/bid/place/counter-offer';
-  readonly GET_RELAY_POINT = 'mondialrelay/relaypoint/'
-  readonly GET_PREAUTH_DATA = 'secure/mangopay/preauth/check';
-  readonly GET_TRANSACTION_DATA = 'secure/mangopay/transaction/check';
-  readonly CREATE_ORDER = 'secure/order/create';
+  readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
+  readonly GET_USER: string = 'secure/user';
+  readonly UPDATE_USER: string = 'secure/user/update';
+  readonly UPDATE_PWD: string = 'secure/pwd-reset';
+  readonly DELETE_ADDRESS: string = 'secure/address';
+  readonly ADD_ADDRESS: string = 'secure/address/';
+  readonly UPDATE_ADDRESS: string = 'secure/address/';
+  readonly PLACE_BID: string = 'secure/bid/place';
+  readonly ACCEPT_OFFER: string = 'secure/bid/update-acceptance';
+  readonly DECLINE_OFFER: string = 'secure/bid/update-acceptance';
+  readonly COUNTER_OFFER: string = 'secure/bid/place/counter-offer';
+  readonly GET_RELAY_POINT: string = 'mondialrelay/relaypoint/'
+  readonly GET_PREAUTH_DATA: string = 'secure/mangopay/preauth/check';
+  readonly GET_TRANSACTION_DATA: string = 'secure/mangopay/transaction/check';
+  readonly CREATE_ORDER: string = 'secure/order/create';
+  readonly GET_ORDER: string = 'secure/order';
+  readonly PREREGISTER: string = 'secure/mangopay/user/card/preregister';
+  readonly UPDATE_REGISTRATION: string = 'secure/mangopay/user/card/update-registration';
+  readonly PREAUTH: string = 'secure/mangopay/preauth';
   path: string;
 
   constructor() {

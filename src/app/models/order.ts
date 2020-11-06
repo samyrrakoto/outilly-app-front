@@ -1,4 +1,5 @@
 export class Order {
+  id: number;
   saleId: number;
   bidId: number;
   billingAddressId: number;
@@ -11,8 +12,11 @@ export class Order {
   amountTotal: number;
   shipMethod: string;
   collMethod: string;
+  paymentAttempts: number;
+  recipient: Array<any>;
 
   constructor() {
+    this.id = 0;
     this.saleId = 0;
     this.bidId = 0;
     this.billingAddressId = 0;
@@ -24,5 +28,7 @@ export class Order {
     this.amountTotal = 0;
     this.shipMethod = '';
     this.collMethod = '';
+    this.paymentAttempts = null;
+    this.recipient = [];
   }
 }

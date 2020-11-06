@@ -11,6 +11,7 @@
         </mat-panel-title>
         </mat-expansion-panel-header>
 
+        <!-- DESKTOP VERSION -->
         <div id="menu-content-desktop" class="content is-hidden-mobile">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
             (priceToPayEmitter)="getRealPriceToPay($event)"
@@ -33,6 +34,7 @@
           </buying-proposition>
         </div>
 
+        <!-- MOBILE VERSION -->
         <div id="menu-content-mobile" class="content is-hidden-tablet">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
             (priceToPayEmitter)="getRealPriceToPay($event)"

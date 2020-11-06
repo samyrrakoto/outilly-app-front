@@ -1,0 +1,96 @@
+<h2 class="subtitle has-text-centered bold">Paiement refusé</h2>
+
+<!-- DESKTOP VERSION -->
+<div id="desktop" class="box has-text-centered is-hidden-mobile">
+
+  <!-- Less than 4 trials -->
+  <div *ngIf="nbAttempts < 3">
+    <div class="content">
+      <img src="https://nestia-food-obs-ap-southeast-3.nestia.com/201904/05/94ec8e77f201109a234ae494b82bb514.gif">
+    </div>
+
+    <h2 class="subtitle bold">Désolé !</h2>
+
+    <div class="content bold">
+      Votre paiement a été refusé
+    </div>
+
+    <div class="content discreet-text">
+      N'abandonnez pas si près du but !<br>
+      Veuillez vérifier si vos informations sont correctes et réessayez.
+    </div>
+
+    <button routerLink="/checkout/payment-details" class="button is-danger no-overflow">
+      <fa-icon id='left-arrow' [icon]="['fas', 'arrow-circle-left']"></fa-icon>Revenir à l'étape précédente
+    </button>
+  </div>
+
+  <!-- Too many trials -->
+  <div *ngIf="nbAttempts >= 3">
+    <div class="content">
+      <img src="https://nestia-food-obs-ap-southeast-3.nestia.com/201904/05/94ec8e77f201109a234ae494b82bb514.gif">
+    </div>
+
+    <h2 class="subtitle bold">Désolé !</h2>
+
+    <div class="content bold">
+      Votre paiement a été refusé
+    </div>
+
+    <div class="content discreet-text">
+      Veuillez vérifier si vos informations sont correctes et réessayez.
+    </div>
+
+    <button routerLink="/home" class="button is-danger no-overflow">
+      <fa-icon id='left-arrow' [icon]="['fas', 'arrow-circle-left']"></fa-icon>Revenir à l'accueil
+    </button>
+  </div>
+</div>
+
+
+<!-- MOBILES VERSION -->
+<div id="mobile" class="box has-text-centered is-hidden-tablet">
+
+    <!-- Less than 4 trials -->
+  <div *ngIf="nbAttempts < 3">
+    <div class="content">
+      <img src="https://nestia-food-obs-ap-southeast-3.nestia.com/201904/05/94ec8e77f201109a234ae494b82bb514.gif">
+    </div>
+
+    <h2 class="subtitle bold">Désolé !</h2>
+
+    <div class="content bold">
+      Votre paiement a été refusé
+    </div>
+
+    <div class="content discreet-text">
+      N'abandonnez pas si près du but !<br>
+      Veuillez vérifier si vos informations sont correctes et réessayez.
+    </div>
+
+    <button routerLink="/checkout/payment-details" class="button is-danger no-overflow">
+      <fa-icon id='left-arrow' [icon]="['fas', 'arrow-circle-left']"></fa-icon>Revenir à l'étape précédente
+    </button>
+  </div>
+
+  <!-- Too many trials -->
+  <div *ngIf="nbAttempts >= 3">
+    <div class="content">
+      <img src="https://nestia-food-obs-ap-southeast-3.nestia.com/201904/05/94ec8e77f201109a234ae494b82bb514.gif">
+    </div>
+
+    <h2 class="subtitle bold">Désolé !</h2>
+
+    <div class="content bold">
+      Votre paiement a été refusé
+    </div>
+
+    <div class="content discreet-text">
+      Veuillez vérifier si vos informations sont correctes et réessayez.
+    </div>
+
+    <button routerLink="/home" class="button is-danger no-overflow">
+      <fa-icon id='left-arrow' [icon]="['fas', 'arrow-circle-left']"></fa-icon>Revenir à l'accueil
+    </button>
+  </div>
+</div>

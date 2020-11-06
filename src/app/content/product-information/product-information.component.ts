@@ -13,8 +13,8 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
-  isLogged: boolean;
   accessToken: string;
+  isLogged: boolean;
   id: number;
   vendorProducts: string;
   descriptionFlag: boolean;
@@ -46,34 +46,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.genericQuestions = [];
     this.openMenuState = false;
     this.sales = [];
-    this.isLogged = undefined;
-    this.accessToken = '';
   }
 
   ngOnInit(): void {
-    this.getLogStatus()
-    .then(() => this.getId())
-    .then(() => this.getProductById(this.id.toString()))
-    .then(() => this.getGenericQuestions())
-    .then(() => this.getSalesId());
-  }
-
-  private getLogStatus(): Promise<boolean> {
-    const promise: Promise<boolean> = new Promise((resolve, reject) => {
-      this.auth.isLoggedIn().subscribe({
-        next: (value: boolean) => {
-          this.isLogged = value;
-          resolve();
-        },
-        error: () => {
-          this.isLogged = null;
-          reject();
-        }
-      })
-    });
-
-    this.accessToken = this.auth.getTokenStatus();
-    return promise;
+    this.auth.getLogStatus()
+      .then(() => { this.getId() })
+      .then(() => this.getProductById(this.id.toString()))
+      .then(() => this.getGenericQuestions())
+      .then(() => this.getSalesId());
   }
 
   private getId(): Promise<any> {
@@ -86,8 +66,10 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getSalesId(): Promise<any> {
-    return new Promise((resolve) => {
-      if (this.isLogged && this.auth.getTokenStatus() === 'good') {
+    return new Promise((resolve, reject) => {
+
+      // If user logged and token is not expired
+      if (this.auth.logged && this.auth.getTokenStatus() === 'good') {
         this.request.getUserInfos().subscribe({
           next: (user: any) => {
             for (const sale of user.sales) {
@@ -98,7 +80,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       }
       else {
-        resolve();
+        reject();
       }
     });
   }

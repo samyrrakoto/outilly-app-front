@@ -1,8 +1,7 @@
+import { Uri } from 'src/app/models/uri';
 import { Injectable } from '@angular/core';
-import { Uri } from '../models/uri';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Sale } from '../models/sale';
 import { AccessToken } from '../models/access-token';
 
 @Injectable({
