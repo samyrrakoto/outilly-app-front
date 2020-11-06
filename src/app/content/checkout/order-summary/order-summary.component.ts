@@ -37,6 +37,8 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): Promise<any> {
+    this.saleId = localStorage.getItem('saleId');
+
     return new Promise((resolve) => {
       this.auth.getLogStatus();
 
@@ -54,6 +56,12 @@ export class OrderSummaryComponent implements OnInit {
         sessionStorage.setItem('redirect_after_login', this.location.path());
         this.router.navigate(['/login']);
       }
+    });
+  }
+
+  private getSaleAvailability(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [this.saleId]);
     });
   }
 
