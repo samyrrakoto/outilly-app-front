@@ -38,7 +38,7 @@ export class SaleManagerService {
           resolve(availability.isSaleAvailable);
         },
         () => {
-          reject('SaleAvailability');
+          reject('ProductUnavailable');
         }
       );
     });

@@ -83,7 +83,6 @@ export class PaymentCallToActionComponent implements OnInit {
     this.deliveryMethod === 'mondial-relay' ? this.order.relayCountry = this.relayCountry : delete this.order.relayCountry;
     this.deliveryMethod === 'mondial-relay' ? this.order.relayPointId = this.relayId : delete this.order.relayPointId;
     this.order.recipient = this.recipient;
-    console.log(JSON.stringify(this.order));
   }
 
   private createOrder(): Promise<any> {
