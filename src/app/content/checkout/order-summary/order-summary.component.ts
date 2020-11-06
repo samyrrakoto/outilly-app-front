@@ -34,22 +34,27 @@ export class OrderSummaryComponent implements OnInit {
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    if ((this.saleId = localStorage.getItem('saleId')) === null) {
-      this.router.navigate(['/user/dashboard/activity-log/purchases']);
-    }
   }
 
   ngOnInit(): Promise<any> {
     return new Promise((resolve) => {
-      this.getSale()
-      .catch((error: any) => this.errorHandle(error))
-      .then(() => this.getBid()
-      .catch((error: any) => this.errorHandle(error)))
-      .then(() => {
-        this.checkDeliveryMethod();
-        this.checkDelivery();
-        resolve();
-      });
+      this.auth.getLogStatus();
+
+      if (this.auth.logged && this.auth.accessToken === 'good') {
+        this.getSale()
+        .catch((error: any) => this.errorHandle(error))
+        .then(() => this.getBid()
+        .catch((error: any) => this.errorHandle(error)))
+        .then(() => {
+          this.checkDeliveryMethod();
+          this.checkDelivery();
+          resolve();
+        });
+      }
+      else {
+        sessionStorage.setItem('redirect_after_login', this.location.path());
+        this.router.navigate(['/login']);
+      }
     });
   }
 
