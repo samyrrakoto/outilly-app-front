@@ -112,6 +112,7 @@ import { HandDeliveryComponent } from './content/checkout/order-summary/hand-del
 import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
+import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 
 @NgModule({
   declarations: [
@@ -214,7 +215,8 @@ import { PaymentConfirmationComponent } from './content/checkout/payment-process
     HandDeliveryComponent,
     PaymentDetailsComponent,
     PaymentFailedComponent,
-    PaymentConfirmationComponent
+    PaymentConfirmationComponent,
+    ProductUnavailableComponent
   ],
   imports: [
     HttpClientModule,

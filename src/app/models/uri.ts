@@ -15,7 +15,7 @@ export class Uri {
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
   readonly SALE_CREATE: string = 'secure/sale/create';
   readonly GET_SALE: string = 'sale/';
-  readonly GET_SALE_AVAILABILITY: string = 'sale/availability/'
+  readonly GET_SALE_AVAILABILITY: string = 'sale/availability'
   readonly GET_BIDS_AND_SALES = 'secure/bids/sales';
   readonly ACTIVITY_DOMAINS: string = 'activity-domains';
   readonly BRANDS: string = 'brands';

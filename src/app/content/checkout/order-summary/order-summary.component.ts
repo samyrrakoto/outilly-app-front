@@ -8,6 +8,7 @@ import { Bid } from 'src/app/models/bid';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Recipient } from 'src/app/models/recipient';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -16,6 +17,7 @@ import { Recipient } from 'src/app/models/recipient';
 })
 export class OrderSummaryComponent implements OnInit {
   sale: Sale;
+  isSaleAvailable: boolean;
   user: User;
   recipient: Recipient;
   bid: Bid;
@@ -29,7 +31,8 @@ export class OrderSummaryComponent implements OnInit {
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
-    public location: Location) {
+    public location: Location,
+    public saleManager: SaleManagerService) {
     this.bid = new Bid();
     this.sale = new Sale();
     this.areConditionsAccepted = false;
@@ -44,24 +47,25 @@ export class OrderSummaryComponent implements OnInit {
 
       if (this.auth.logged && this.auth.accessToken === 'good') {
         this.getSale()
-        .catch((error: any) => this.errorHandle(error))
-        .then(() => this.getBid()
-        .catch((error: any) => this.errorHandle(error)))
-        .then(() => {
-          this.checkDeliveryMethod();
-          resolve();
-        });
+          .then(() => this.saleManager.getSaleAvailability(this.saleId))
+          .then((isSaleAvailable) => {
+            if (isSaleAvailable) {
+              this.getBid();
+            }
+            else {
+              this.router.navigate(['/product-unavailable']);
+            }
+          })
+          .then(() => {
+            this.checkDeliveryMethod();
+            resolve();
+          })
+          .catch((error: any) => this.errorHandle(error) );
       }
       else {
         sessionStorage.setItem('redirect_after_login', this.location.path());
         this.router.navigate(['/login']);
       }
-    });
-  }
-
-  private getSaleAvailability(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [this.saleId]);
     });
   }
 

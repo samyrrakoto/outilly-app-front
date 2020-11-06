@@ -84,6 +84,10 @@
   font-weight: bold;
 }
 
+.link:link, .link:visited {
+  color: var(--KTKP-GREEN);
+}
+
 a:link, a:visited {
     color: black;
 }
