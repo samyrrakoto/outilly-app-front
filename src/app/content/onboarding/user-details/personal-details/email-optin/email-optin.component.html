@@ -6,11 +6,11 @@
         [isMandatory]=isMandatory></app-step-label>
 
         <label class="radio">
-            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value="yes">
+            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin">
             Oui
         </label>
         <label class="radio">
-            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value="no">
+            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin">
             Non
         </label>
     </div>

@@ -4,6 +4,6 @@ export class Country {
 
   constructor() {
     this.name = '';
-    this.isoCode = '';
+    this.isoCode = 'FR';
   }
 }

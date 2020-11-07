@@ -84,12 +84,12 @@
   font-weight: bold;
 }
 
-.link:link, .link:visited {
-  color: var(--KTKP-GREEN);
+a:link, a:visited {
+  color: black;
 }
 
-a:link, a:visited {
-    color: black;
+.link:link, .link:visited {
+  color: var(--KTKP-GREEN);
 }
 
 html, body { height: 100%; }

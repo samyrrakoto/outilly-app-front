@@ -12,7 +12,7 @@ import { Address } from 'src/app/models/address';
 })
 export class UserDashboardComponent implements OnInit {
   user: User;
-  birthdate: any;
+  birthdate: string;
   url: string;
   menuTabs: Array<string> = ['information', 'activities', 'sell'];
 

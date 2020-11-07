@@ -5,7 +5,7 @@
         [stepName]=stepName></app-step-label>
 
         <p class="control has-icons-left">
-            <input #zipcode class="input" type="text" placeholder="{{ this.placeholder }}" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.addresses[0].zipcode">
+            <input #zipcode class="input" type="text" placeholder="{{ this.placeholder }}" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.mainAddress.zipcode">
             <span class="icon is-left">
                 <fa-icon [icon]="['fas', 'globe-europe']"></fa-icon>
             </span>

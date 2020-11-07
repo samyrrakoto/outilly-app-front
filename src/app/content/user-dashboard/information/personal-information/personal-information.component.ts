@@ -202,7 +202,7 @@ export class PersonalInformationComponent extends InformationComponent implement
   }
 
   private createPayload(): any {
-    this.user.userProfile.birthdate = new Date(this.birthdate).getTime() / 1000; // converting into seconds
+    this.user.userProfile.birthdate = new Date(this.birthdate); // converting into seconds
 
     const userProfile: any = {
       "id": this.user.userProfile.id,

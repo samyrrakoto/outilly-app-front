@@ -5,6 +5,8 @@ import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
 import { Location } from '@angular/common';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Sale } from 'src/app/models/sale';
 
 @Component({
   selector: 'app-payment-details',
@@ -28,6 +30,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   constructor(private request: RequestService,
     private router: Router,
+    private auth: AuthService,
     private location: Location,
     private http: HttpClient,
     public paymentValidator: PaymentValidatorService,
@@ -41,7 +44,24 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.saleId = localStorage.getItem('saleId');
-    this.preregister()
+    this.auth.getLogStatus();
+    this.saleManager.getSaleAvailability(this.saleId)
+      .then((isAvailable: boolean) => {
+        return new Promise((resolve, reject) => {
+          if (!isAvailable) {
+            reject('ProductUnavailable');
+          }
+          else {
+            resolve();
+          }
+        });
+      })
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this.auth.logged && this.auth.accessToken === 'good' ? resolve() : reject('Login');
+        });
+      })
+      .then(() => { this.preregister() })
       .catch((error: any) => { this.handleErrors(error) });
   }
 
@@ -203,6 +223,17 @@ export class PaymentDetailsComponent implements OnInit {
   */
   private handleErrors(errorName: string): void {
     this['handle' + errorName + 'Error']();
+  }
+
+  private handleLoginError(): void {
+    const request: any = this.request.getSaleCall(this.saleId).subscribe(
+      (sale: Sale) => {
+        const path: string = '/product/' + sale.product.slug + '/' + sale.id;
+
+        this.router.navigate(['/login']);
+        sessionStorage.setItem('redirect_after_login', path);
+      }
+    )
   }
 
   private handlePreRegistrationError(): void {

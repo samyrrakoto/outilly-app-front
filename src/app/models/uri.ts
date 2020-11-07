@@ -4,7 +4,7 @@ export class Uri {
   readonly BASE: string;
   readonly BID: string = 'bid/';
   readonly SECURE: string = "secure/"
-  readonly USER: string = 'user/';
+  readonly USER: string = 'user';
   readonly LOGIN: string = 'login/check';
   readonly CHECK: string = 'check/';
   readonly CREATE: string = 'create';

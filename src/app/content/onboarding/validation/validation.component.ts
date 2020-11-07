@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { HttpResponse } from '@angular/common/http';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { OnboardingComponent } from '../onboarding.component';
+import { UserProfile } from 'src/app/models/user-profile';
 
 @Component({
   selector: 'app-validation',
@@ -16,7 +17,7 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
 
   constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
-    this.user = formDataService.user;
+    this.user = this.formDataService.user;
   }
 
   ngOnInit() {
@@ -24,10 +25,10 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   }
 
   checkResponse(response: HttpResponse<User>) {
-    let status201: boolean = response.status == 201;
-    let matchingUsername: boolean = response.body.username == this.formDataService.user.username;
-    let existingId: boolean = response.body.id != 0;
-    let isOk: boolean = status201 && matchingUsername && existingId;
+    const status201: boolean = response.status === 201;
+    const matchingUsername: boolean = response.body.username === this.formDataService.user.username;
+    const existingId: boolean = response.body.id !== 0;
+    const isOk: boolean = status201 && matchingUsername && existingId;
 
     if (isOk)
       this.router.navigate(['onboarding/confirmation']);
@@ -35,12 +36,78 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
       console.log("ERROR");
   }
 
-  submit(): void {
-    let data = JSON.stringify(this.formDataService);
-    let response = this.request.createUser(data);
+  public submit(): void {
+    const user: any = this.createPayload();
+    console.log(JSON.stringify(user));
+    const response: any = this.request.createUser(user);
 
     response.subscribe((res: HttpResponse<User>) => {
       this.checkResponse(res);
     });
+  }
+
+  private createPayload(): any {
+    const userPayload: any = {
+      "user": {
+        "username": this.formDataService.user.username,
+        "password": this.formDataService.user.password,
+        "passwordConfirmation": this.formDataService.user.passwordConfirmation,
+        "userProfile": this.createUserProfilePayload()
+      }
+    };
+
+    return userPayload;
+  }
+
+  private createUserProfilePayload(): any {
+    const userProfilePayload: any = {
+      "firstname": this.formDataService.user.userProfile.firstname,
+      "lastname": this.formDataService.user.userProfile.lastname,
+      "email": this.formDataService.user.userProfile.email,
+      "emailoptin": this.formDataService.user.userProfile.emailOptin,
+      "phone1": this.formDataService.user.userProfile.phone1,
+      "phone1Optin": this.formDataService.user.userProfile.phone1Optin,
+      "gender": this.formDataService.user.userProfile.gender,
+      "birthdate": this.getBirthdate(),
+      "type": this.formDataService.user.userProfile.type,
+      "company": this.createCompanyPayload(),
+      "address": this.createAddressPayload()
+    };
+
+    return userProfilePayload;
+  }
+
+  private getBirthdate(): string {
+    const birthdate: Date = new Date(this.formDataService.user.userProfile.birthdate);
+
+    return Math.floor(birthdate.getTime() / 1000).toString();
+  }
+
+  private createCompanyPayload(): string {
+    if (this.formDataService.user.userProfile.type === 'professionnal') {
+      const companyPayload: any = {
+        "name": this.formDataService.user.userProfile.lastname,
+        "siret": this.formDataService.user.userProfile.company.siret,
+        "tva": this.formDataService.user.userProfile.company.tvanumber
+      };
+
+      return companyPayload;
+    }
+    return null;
+  }
+
+  private createAddressPayload(): any {
+    const addressPayload: any = {
+      "type": "billing",
+      "line1": this.formDataService.user.userProfile.mainAddress.line1,
+      "zipcode": this.formDataService.user.userProfile.mainAddress.zipcode,
+      "city": this.formDataService.user.userProfile.mainAddress.city,
+      "country": {
+        "name": this.formDataService.user.userProfile.mainAddress.country.name,
+        "isocode": this.formDataService.user.userProfile.mainAddress.country.isoCode
+      }
+    };
+
+    return addressPayload;
   }
 }
