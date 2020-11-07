@@ -2,10 +2,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Sale } from 'src/app/models/sale';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductMedia } from 'src/app/models/product-media';
 import { GenericComponent } from 'src/app/models/generic-component';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-product-information',
@@ -15,6 +16,7 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   accessToken: string;
   isLogged: boolean;
+  isAvailable: boolean;
   id: number;
   vendorProducts: string;
   descriptionFlag: boolean;
@@ -34,6 +36,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   constructor(public request: RequestService,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
+    public saleManager: SaleManagerService,
     public auth: AuthService) {
     super();
     this.sale = new Sale();
@@ -51,9 +54,17 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   ngOnInit(): void {
     this.auth.getLogStatus()
       .then(() => { this.getId() })
+      .then(() => this.saleManager.getSaleAvailability(this.id.toString()))
+      .then((isAvailable: boolean) => {
+        return new Promise((resolve) => {
+          this.isAvailable = isAvailable
+          resolve();
+        });
+      })
       .then(() => this.getProductById(this.id.toString()))
       .then(() => this.getGenericQuestions())
-      .then(() => this.getSalesId());
+      .then(() => this.getSalesId())
+      .catch((error: any) => this.handlingErrors(error));
   }
 
   private getId(): Promise<any> {
@@ -165,5 +176,12 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   getOpenState(state: boolean): void {
     this.openMenuState = state;
+  }
+
+  /*
+  ** ERROR HANDLING
+  */
+  private handlingErrors(errorName: string): void {
+    this['handle' + errorName + 'Error']();
   }
 }

@@ -58,7 +58,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   }
 
   private checkProductExistsInSession(): boolean {
-    return this.formData.product.id != 0 && this.formData.product.strId != null;
+    return this.formData.product.id !== 0 && this.formData.product.strId !== null;
   }
 
   signInOrUp(hasAccount: boolean): void {
@@ -82,13 +82,12 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     sale.seller = seller;
     sale.product = product;
     sale.id = null;
-    const productPayload = {
+    const productPayload: any = {
       product: this.formData.product
     };
-    const salePayload = {
+    const salePayload: any = {
       sale: sale
     }
-    //console.log(JSON.stringify(payload));
     this.request.updateProduct(productPayload).subscribe((res: any) => {
       if (res.status === 201)
       {
