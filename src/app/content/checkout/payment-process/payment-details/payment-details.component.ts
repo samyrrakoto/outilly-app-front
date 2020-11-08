@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
 import { Location } from '@angular/common';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Sale } from 'src/app/models/sale';
 
 @Component({
   selector: 'app-payment-details',
@@ -23,12 +26,15 @@ export class PaymentDetailsComponent implements OnInit {
   cardExpirationMonth: string;
   cardExpirationYear: string;
   cardCvx: string;
+  saleId: string;
 
   constructor(private request: RequestService,
     private router: Router,
+    private auth: AuthService,
     private location: Location,
     private http: HttpClient,
-    public paymentValidator: PaymentValidatorService) {
+    public paymentValidator: PaymentValidatorService,
+    public saleManager: SaleManagerService) {
       this.cardOwner = '';
       this.cardNumber = '';
       this.cardExpirationMonth = '';
@@ -37,7 +43,25 @@ export class PaymentDetailsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.preregister()
+    this.saleId = localStorage.getItem('saleId');
+    this.auth.getLogStatus();
+    this.saleManager.getSaleAvailability(this.saleId)
+      .then((isAvailable: boolean) => {
+        return new Promise((resolve, reject) => {
+          if (!isAvailable) {
+            reject('ProductUnavailable');
+          }
+          else {
+            resolve();
+          }
+        });
+      })
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this.auth.logged && this.auth.accessToken === 'good' ? resolve() : reject('Login');
+        });
+      })
+      .then(() => { this.preregister() })
       .catch((error: any) => { this.handleErrors(error) });
   }
 
@@ -76,6 +100,17 @@ export class PaymentDetailsComponent implements OnInit {
   public saveCardInformation(): void {
     this.payLineCall()
       .then(() => { return this.updateRegistration() })
+      .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
+      .then((isAvailable: boolean) => {
+        return new Promise((resolve, reject) => {
+          if (!isAvailable) {
+            reject('ProductUnavailable');
+          }
+          else {
+            resolve();
+          }
+        });
+      })
       .then(() => { return this.preauth() })
       .catch((error: any) => { this.handleErrors(error) });
   }
@@ -190,6 +225,17 @@ export class PaymentDetailsComponent implements OnInit {
     this['handle' + errorName + 'Error']();
   }
 
+  private handleLoginError(): void {
+    const request: any = this.request.getSaleCall(this.saleId).subscribe(
+      (sale: Sale) => {
+        const path: string = '/product/' + sale.product.slug + '/' + sale.id;
+
+        this.router.navigate(['/login']);
+        sessionStorage.setItem('redirect_after_login', path);
+      }
+    )
+  }
+
   private handlePreRegistrationError(): void {
     const path: string = this.location.path();
 
@@ -204,6 +250,10 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   private handlePreAuthError(): void {
+  }
+
+  private handleProductUnavailableError(): void {
+    this.router.navigate(['/product-unavailable']);
   }
 
   private handleOrderMissingError(): void {

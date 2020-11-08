@@ -10,10 +10,13 @@
 
     <!-- Side information -->
     <div class="column is-one-quarter">
-      <side-information [sale]="sale" (openState)="getOpenState($event)"></side-information>
+      <side-information
+        [sale]="sale"
+        [isAvailable]="isAvailable"
+        (openState)="getOpenState($event)"></side-information>
     </div>
 
-    <sticky-menu *ngIf="!isSeller() && sale.id !== 0"
+    <sticky-menu *ngIf="!isSeller() && sale.id !== 0 && isAvailable"
       [sale]="sale"
       [isLogged]="auth.logged"
       [accessToken]="auth.accessToken"

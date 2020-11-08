@@ -1,9 +1,7 @@
-import { IsWarrantiedComponent } from './../content/product-creation/is-warrantied/is-warrantied.component';
 import { ProductType } from './../models/product-type';
 import { ProductCategory } from './../models/product-category';
 import { Brand } from './../models/brand';
 import { ActivityDomain } from './../models/activity-domain';
-import { ProductMedia } from './../models/product-media';
 import { Injectable } from '@angular/core';
 import { FormDataService } from './form-data.service';
 import { RequestService } from './request.service';
@@ -267,7 +265,7 @@ export class FormValidatorService {
   }
 
   countryVerify(data: FormDataService): boolean {
-    const country: string = data.user.userProfile.addresses[0].country.isoCode;
+    const country: string = data.user.userProfile.mainAddress.country.isoCode;
     const empty: boolean = this.isEmpty(country);
 
     if (empty)
@@ -276,12 +274,12 @@ export class FormValidatorService {
   }
 
   zipcodeVerify(data: FormDataService): boolean {
-    const zipcode: string = data.user.userProfile.addresses[0].zipcode;
+    const zipcode: string = data.user.userProfile.mainAddress.zipcode;
     const empty: boolean = this.isEmpty(zipcode);
     const notNum: boolean = this.isNotNum(zipcode);
     let length: number;
 
-    switch (data.user.userProfile.addresses[0].country.isoCode) {
+    switch (data.user.userProfile.mainAddress.country.isoCode) {
       case "FR":
         length = 5;
         break;
@@ -300,7 +298,7 @@ export class FormValidatorService {
   }
 
   cityVerify(data: FormDataService): boolean {
-    const city: string = data.user.userProfile.addresses[0].city;
+    const city: string = data.user.userProfile.mainAddress.city;
     const empty: boolean = this.isEmpty(city);
 
     if (empty)
@@ -309,7 +307,7 @@ export class FormValidatorService {
   }
 
   streetVerify(data: FormDataService): boolean {
-    const street: string = data.user.userProfile.addresses[0].line1;
+    const street: string = data.user.userProfile.mainAddress.line1;
     const empty: boolean = this.isEmpty(street);
 
     if (empty)

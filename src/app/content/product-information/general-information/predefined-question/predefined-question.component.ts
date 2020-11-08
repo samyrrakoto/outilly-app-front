@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'predefined-question',
@@ -18,8 +19,9 @@ export class PredefinedQuestionComponent extends ProductInformationComponent imp
   constructor(request: RequestService,
     route: ActivatedRoute,
     bidManager: BidManagerService,
-    public auth: AuthService) {
-    super(request, route, bidManager, auth);
+    public auth: AuthService,
+    public saleManager: SaleManagerService) {
+    super(request, route, bidManager, saleManager, auth);
 
     for (const [index, question] of this.genericQuestions) {
       if (question['answer'] === 'Je vends cet article') {

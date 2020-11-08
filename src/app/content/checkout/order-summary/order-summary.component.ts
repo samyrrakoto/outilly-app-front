@@ -8,6 +8,7 @@ import { Bid } from 'src/app/models/bid';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Recipient } from 'src/app/models/recipient';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -16,6 +17,7 @@ import { Recipient } from 'src/app/models/recipient';
 })
 export class OrderSummaryComponent implements OnInit {
   sale: Sale;
+  isSaleAvailable: boolean;
   user: User;
   recipient: Recipient;
   bid: Bid;
@@ -29,35 +31,49 @@ export class OrderSummaryComponent implements OnInit {
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
-    public location: Location) {
+    public location: Location,
+    public saleManager: SaleManagerService) {
     this.bid = new Bid();
     this.sale = new Sale();
     this.areConditionsAccepted = false;
     this.priceToPay = 0;
-    if ((this.saleId = localStorage.getItem('saleId')) === null) {
-      this.router.navigate(['/user/dashboard/activity-log/purchases']);
-    }
   }
 
   ngOnInit(): Promise<any> {
+    this.saleId = localStorage.getItem('saleId');
+
     return new Promise((resolve) => {
-      this.getSale()
-      .catch((error: any) => this.errorHandle(error))
-      .then(() => this.getBid()
-      .catch((error: any) => this.errorHandle(error)))
-      .then(() => {
-        this.checkDeliveryMethod();
-        this.checkDelivery();
-        resolve();
-      });
+      this.auth.getLogStatus();
+
+      if (this.auth.logged && this.auth.accessToken === 'good') {
+        this.getSale()
+          .then(() => this.saleManager.getSaleAvailability(this.saleId))
+          .then((isSaleAvailable: boolean) => {
+            if (isSaleAvailable) {
+              this.getBid();
+            }
+            else {
+              this.router.navigate(['/product-unavailable']);
+            }
+          })
+          .then(() => {
+            this.checkDeliveryMethod();
+            resolve();
+          })
+          .catch((error: any) => this.errorHandle(error) );
+      }
+      else {
+        sessionStorage.setItem('redirect_after_login', this.location.path());
+        this.router.navigate(['/login']);
+      }
     });
   }
 
   protected getSale(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getSaleCall(this.saleId).subscribe({
-        next: (value: Sale) => {
-          this.sale = value;
+        next: (sale: Sale) => {
+          this.sale = sale;
           resolve();
         },
         error: () => {
@@ -132,16 +148,18 @@ export class OrderSummaryComponent implements OnInit {
     if (localStorage.getItem('hand-delivery') === 'true') {
       this.deliveryMethod = 'hand';
     }
-    else {
+    else if (localStorage.getItem('mondial-relay') === 'true') {
       this.deliveryMethod = 'mondial-relay';
-      this.relayId = localStorage.getItem('relayId');
-      this.relayCountry = localStorage.getItem('relayCountry');
-    }
-  }
 
-  private checkDelivery(): void {
-    if (this.checkHandDelivery() === false) {
-      this.checkRelay();
+      if (this.isEmpty(localStorage.getItem('relayId')) || this.isEmpty(localStorage.getItem('relayCountry'))) {
+        this.router.navigate(['/checkout/delivery-information/mondial-relay-selector']);
+      }
+      else {
+        this.relayId = localStorage.getItem('relayId');
+        this.relayCountry = localStorage.getItem('relayCountry');      }
+    }
+    else {
+
     }
   }
 
@@ -153,10 +171,6 @@ export class OrderSummaryComponent implements OnInit {
       this.relayId = localStorage.getItem('relayId');
       this.relayCountry = localStorage.getItem('relayCountry');
     }
-  }
-
-  private checkHandDelivery(): boolean {
-    return localStorage.getItem('hand-delivery') === 'true';
   }
 
   private isEmpty(value: any): boolean {

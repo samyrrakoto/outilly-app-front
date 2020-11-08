@@ -28,9 +28,9 @@ export class UserProfile {
     this.phone1 = '';
     this.phone1Optin = false;
     this.phone2;
-    this.gender = '';
+    this.gender = 'female';
     this.birthdate = 0;
-    this.type= '';
+    this.type= 'individual';
     this.company = new Company();
     this.addresses = [];
     this.mainAddress = new Address();

@@ -4,6 +4,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderSummaryComponent } from '../order-summary.component';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-price-summary',
@@ -21,8 +22,9 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
-    public location: Location) {
-      super(request, router, auth, location);
+    public location: Location,
+    public saleManager: SaleManagerService) {
+      super(request, router, auth, location, saleManager);
     }
 
   ngOnInit(): any {

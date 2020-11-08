@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'general-information',
@@ -18,8 +19,9 @@ export class GeneralInformationComponent extends ProductInformationComponent imp
   constructor(request: RequestService,
     route: ActivatedRoute,
     bidManager: BidManagerService,
-    auth: AuthService) {
-    super(request, route, bidManager, auth);
+    auth: AuthService,
+    public saleManager: SaleManagerService) {
+    super(request, route, bidManager, saleManager, auth);
   }
 
   ngOnInit(): void {}

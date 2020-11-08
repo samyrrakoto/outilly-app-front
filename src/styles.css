@@ -85,7 +85,11 @@
 }
 
 a:link, a:visited {
-    color: black;
+  color: black;
+}
+
+.link:link, .link:visited {
+  color: var(--KTKP-GREEN);
 }
 
 html, body { height: 100%; }

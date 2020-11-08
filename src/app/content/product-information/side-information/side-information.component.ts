@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'side-information',
@@ -13,13 +14,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SideInformationComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
+  @Input() isAvailable: boolean;
   @Output() openState = new EventEmitter<boolean>();
 
   constructor(request: RequestService,
     route: ActivatedRoute,
     bidManager: BidManagerService,
-    public auth: AuthService) {
-    super(request, route, bidManager, auth);
+    public auth: AuthService,
+    public saleManager: SaleManagerService) {
+    super(request, route, bidManager, saleManager, auth);
   }
 
   ngOnInit(): void {

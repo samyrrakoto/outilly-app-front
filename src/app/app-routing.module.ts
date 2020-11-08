@@ -60,6 +60,7 @@ import { BatchChoiceComponent } from './content/product-creation/batch-choice/ba
 import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
+import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 
 const routes: Routes = [
   {
@@ -337,6 +338,10 @@ const routes: Routes = [
         component: PaymentConfirmationComponent
       }
     ]
+  },
+  {
+    path: 'product-unavailable',
+    component: ProductUnavailableComponent
   }
 ];
 

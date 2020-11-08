@@ -195,14 +195,14 @@ export class PersonalInformationComponent extends InformationComponent implement
       next: () => {
         this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
       },
-      error: (err) => {
+      error: () => {
         this.notification.display('Le mot de passe actuel est erroné !', 'security', 'error');
       }
     });
   }
 
   private createPayload(): any {
-    this.user.userProfile.birthdate = new Date(this.birthdate).getTime() / 1000; // converting into seconds
+    this.user.userProfile.birthdate = parseInt(this.birthdate); // converting into seconds
 
     const userProfile: any = {
       "id": this.user.userProfile.id,

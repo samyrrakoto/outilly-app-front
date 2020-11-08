@@ -1,5 +1,5 @@
 import { Component, OnChanges, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -28,10 +28,6 @@ export class PseudoComponent extends OnboardingComponent implements OnInit, OnCh
   ngOnChanges() {}
 
   ngOnInit() {
-    this.formDataService.user.userProfile.gender = 'female';
-    this.formDataService.user.userProfile.type = 'individual';
-    this.formDataService.user.userProfile.addresses[0].country.isoCode = 'FR';
-    this.formDataService.user.userProfile.emailOptin = false;
   }
 
   ngAfterViewInit(): void {
