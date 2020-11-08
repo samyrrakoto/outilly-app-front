@@ -39,7 +39,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     const formData: FormData = this.getFormData(files);
 
     this.addMedia(files[0]);
-    // this.sendMedia(formData);
+    this.sendMedia(formData);
     this.displayPreview(files[0]);
   }
 
@@ -49,6 +49,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
     formData.append('mediaFile', files.item(0), files.item(0).name);
+    console.log(files.item(0));
 
     return formData;
   }
