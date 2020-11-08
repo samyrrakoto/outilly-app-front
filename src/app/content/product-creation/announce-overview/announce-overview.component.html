@@ -106,18 +106,16 @@
   </tr>
 </table>
 <hr/>
-<button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
+<button *ngIf="isLogged" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
 
-<ng-template #notLoggedIn>
-  <div class="content has-text-left">
-    <h4>Avez-vous un compte sur Ekipr ?</h4>
-    <div class="field">
-      <div class="content tile" id="yes" (click)="this.signInOrUp(true)">
-        <span class="choice-symbol">A</span> Oui.
-      </div>
-      <div class="content tile" id="no" (click)="this.signInOrUp(false)">
-        <span class="choice-symbol">B</span> Non, pas encore.
-      </div>
+<div *ngIf="!isLogged" class="content has-text-left">
+  <h4>Avez-vous un compte sur Ekipr ?</h4>
+  <div class="field">
+    <div class="content tile" id="yes" (click)="signInOrUp(true)">
+      <span class="choice-symbol">A</span> Oui.
+    </div>
+    <div class="content tile" id="no" (click)="signInOrUp(false)">
+      <span class="choice-symbol">B</span> Non, pas encore.
     </div>
   </div>
-</ng-template>
+</div>
