@@ -23,10 +23,12 @@
 <div *ngFor="let media of product.productMedias">
   <nav class="level" *ngIf="media.type === 'video'">
     <div class="level-left">
-      {{ media.path }}
+      {{ media.file.name }}
     </div>
     <div class="level-right">
-      <button class="button is-danger" (click)="removeMedia(media.path)">X</button>
+      <button class="button is-danger" (click)="removeMedia(media.file.name)">
+        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+      </button>
     </div>
   </nav>
 </div>
