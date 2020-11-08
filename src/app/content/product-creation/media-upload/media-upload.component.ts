@@ -1,11 +1,11 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { ProductMedia } from './../../../models/product-media';
-import { RequestService } from './../../../services/request.service';
+import { HttpClient } from '@angular/common/http';
 import { ProductCreationComponent } from '../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { RequestService } from 'src/app/services/request.service';
+import { ProductMedia } from 'src/app/models/product-media';
 
 @Component({
   selector: 'app-media-upload',
@@ -14,7 +14,12 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 })
 export class MediaUploadComponent extends ProductCreationComponent implements OnInit, OnChanges {
 
-  constructor(public request: RequestService,  public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public http: HttpClient) {
+  constructor(public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public http: HttpClient)
+    {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.errorMessages;
@@ -26,9 +31,15 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.isMandatory = false;
   }
 
-  ngOnInit(): void {
-    for (const media of this.formData.product.productMedias) {
-      this.displayPreview(media.file);
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    if (this.product.productMedias.length > 0) {
+      for (const media of this.formData.product.productMedias) {
+        if (media.type === 'image') {
+          this.displayPreview(media.file);
+        }
+      }
     }
   }
 
@@ -49,15 +60,12 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
     formData.append('mediaFile', files.item(0), files.item(0).name);
-    console.log(files.item(0));
 
     return formData;
   }
 
   public openImgPicker(): void {
-    const fileElem = document.getElementById("product-pictures");
-
-    fileElem.click();
+    document.getElementById("product-pictures").click();
   }
 
   private addMedia(file: File): void {
@@ -65,19 +73,17 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   }
 
   private sendMedia(data: FormData): void {
-    const response = this.request.uploadMedia(data);
-
-    response.subscribe((res) => {
-      console.log(res);
-    });
+    this.request.uploadMedia(data).subscribe(
+      () => {}
+    );
   }
 
-  public removeMedia(mediaPath: string): void {
+  public removeMedia(fileName: string): void {
     let i: number = 0;
-    const nav: any = document.getElementById(mediaPath);
+    const nav: any = document.getElementById(fileName);
 
     for (const media of this.product.productMedias) {
-      if (media.path === mediaPath) {
+      if (media.file.name === fileName) {
         this.product.productMedias.splice(i, 1);
       }
       i++;
@@ -89,8 +95,12 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     const reader: FileReader = new FileReader();
     const img: any = this.constructPreview(file);
 
-    reader.onload = function (e) { img.src = reader.result; }
-    reader.readAsDataURL(file);
+    reader.onloadend = (e) => {
+      img.src = reader.result;
+    }
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 
   private constructPreview(file: any): any {

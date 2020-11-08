@@ -1,7 +1,5 @@
 <h1 class="title">Récapitulatif de votre annonce</h1>
 
-<!--<button class="button is-success is-large" style="margin-bottom: 20px;">Confirmer</button>-->
-
 <table class="table">
   <tr>
     <td colspan="3"><h2 class="subtitle">Informations générales</h2></td>
@@ -43,13 +41,7 @@
   </tr>
   <tr>
     <td class="field-name">Etat</td>
-    <td [ngSwitch]="formData.product.quality">
-      <span *ngSwitchCase="'new'">Jamais ouvert</span>
-      <span *ngSwitchCase="'excellent'">Excellent</span>
-      <span *ngSwitchCase="'good'">Bon</span>
-      <span *ngSwitchCase="'acceptable'">Acceptable</span>
-      <span *ngSwitchCase="'forparts'">Pour pièces</span>
-    </td>
+    <td>{{ formData.product.quality | quality }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-state" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -57,12 +49,24 @@
   </tr>
   <tr>
     <td *ngIf="formData.product.productMedias" class="field-name">Images uploadées</td>
-    <td><p *ngFor="let image of formData.product.productMedias">{{ image.link }}</p></td>
+    <td>
+      <div *ngFor="let media of formData.product.productMedias">
+        <div *ngIf="media.type === 'image'">
+          {{ media.file.name }}
+        </div>
+      </div>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/media-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td *ngIf="formData.product.productMedias" class="field-name">Vidéo uploadée</td>
-    <td><p *ngFor="let video of formData.product.productMedias">{{ video.link }}</p></td>
+    <td>
+      <div *ngFor="let media of formData.product.productMedias">
+        <div *ngIf="media.type === 'video'">
+          {{ media.file.name }}
+        </div>
+      </div>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/video-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -106,7 +110,7 @@
   </tr>
 </table>
 <hr/>
-<button *ngIf="isLogged" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
+<button *ngIf="isLogged" class="button is-success is-large" style="margin-top: 20px;" (click)="submitProduct()">Confirmer</button>
 
 <div *ngIf="!isLogged" class="content has-text-left">
   <h4>Avez-vous un compte sur Ekipr ?</h4>

@@ -1,14 +1,13 @@
-import { ActivityDomain } from './../../../models/activity-domain';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
-import { FormDataService } from './../../../services/form-data.service';
-import { RequestService } from './../../../services/request.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductCategory } from 'src/app/models/product-category';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-product-category',
@@ -48,7 +47,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
   }
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    const filterValue: string = value.toLowerCase();
 
     return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue));
   }

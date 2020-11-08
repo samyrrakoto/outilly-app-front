@@ -1,13 +1,10 @@
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Sale } from 'src/app/models/sale';
-import { Seller } from 'src/app/models/seller';
 import { Product } from 'src/app/models/product';
 import { Location } from '@angular/common';
 
@@ -17,15 +14,16 @@ import { Location } from '@angular/common';
   styleUrls: ['../product-creation.component.css', './announce-overview.component.css']
 })
 export class AnnounceOverviewComponent extends ProductCreationComponent implements OnInit {
-  productCreated: boolean;
-  isLogged: boolean;
+  public productCreated: boolean;
+  public isLogged: boolean;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidator: FormValidatorService,
     public auth: AuthService,
-    public location: Location) {
+    public location: Location)
+    {
       super(request, formData, router, formValidator);
       this.product = formData.product;
     }
@@ -33,7 +31,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   ngOnInit(): void {
     this.auth.getLogStatus()
       .then(() => {
-        this.auth.logged && this.auth.accessToken === 'good' ? this.isLogged = true : this.isLogged = false;
+        this.isLogged = this.auth.logged && this.auth.accessToken === 'good';
         this.formData.isProductComplete = true;
         this.setProductSession();
         this.mapSessionProductToFormData();
@@ -44,7 +42,8 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     if (sessionStorage.getItem("current_product") === null) {
       this.formData.isProductComplete = false;
       this.backToStart();
-    } else if (!this.checkProductExistsInSession()) {
+    }
+    else if (!this.checkProductExistsInSession()) {
       this.formData.product = JSON.parse(sessionStorage.getItem("current_product"));
     }
   }
@@ -64,10 +63,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   }
 
   public signInOrUp(hasAccount: boolean): void {
-    let target: string;
+    const target: string = hasAccount ? 'login' : 'onboarding';
 
     sessionStorage.setItem("redirect_after_login", this.location.path());
-    target = hasAccount ? 'login' : 'onboarding';
     this.router.navigate([target]);
   }
 
@@ -115,18 +113,16 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     const productPayload: any = this.getProductPayload();
     const salePayload: any = this.getSalePayload();
 
-    this.request.updateProduct(productPayload).subscribe((res: any) => {
-      if (res.status === 201)
+    this.request.updateProduct(productPayload).subscribe((product: any) => {
+      if (product.status === 201)
       {
-        this.request.createSale(salePayload).subscribe((res: any) => {
-          if (res.status === 201)
-          {
-            console.log(res.body);
-          } else {
+        this.request.createSale(salePayload).subscribe((sale: any) => {
+          if (sale.status !== 201) {
             console.error("Error creating sale");
           }
-        })
-      } else {
+        });
+      }
+      else {
         console.error("Error creating product");
       }
     });
