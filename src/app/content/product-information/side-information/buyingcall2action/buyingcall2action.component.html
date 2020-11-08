@@ -3,7 +3,7 @@
 
 <div class="content">
     <button *ngIf="isAvailable" class="button is-danger is-large" (click)="open = !open; emitOpenState()">Acheter</button>
-    <button *ngIf="!isAvailable" class="button is-light is-large">Vendu</button>
+    <button *ngIf="!isAvailable" class="button is-light is-large has-text-danger">Vendu</button>
 </div>
 
 <div class="content is-size-6">
