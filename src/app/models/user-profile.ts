@@ -11,7 +11,7 @@ export class UserProfile {
   phone1Optin: boolean;
   phone2: string;
   gender: string;
-  birthdate: Date;
+  birthdate: number;
   type: string;
   company: Company;
   addresses: Array<Address>;
@@ -29,7 +29,7 @@ export class UserProfile {
     this.phone1Optin = false;
     this.phone2;
     this.gender = 'female';
-    this.birthdate = new Date();
+    this.birthdate = 0;
     this.type= 'individual';
     this.company = new Company();
     this.addresses = [];

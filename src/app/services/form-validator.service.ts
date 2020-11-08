@@ -256,7 +256,7 @@ export class FormValidatorService {
   }
 
   birthdateVerify(data: FormDataService): boolean {
-    const birthdate: Date = data.user.userProfile.birthdate;
+    const birthdate: number = data.user.userProfile.birthdate;
     const empty: boolean = this.isEmpty(birthdate);
 
     if (empty)
