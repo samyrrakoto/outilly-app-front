@@ -11,7 +11,7 @@
           Réponse du vendeur : {{ this.sale.product.locality }}
         </p>
         <p *ngIf="question['label'] !== 'Où se trouve le produit pour le récupérer en mains propres ?'">
-          Réponse du vendeur : {{ question['answer'] === 'Je vends cet article' ? question['answer'] + ' ' + sale.product.reservePrice + '€' : question['answer'] + '.' }}
+          Réponse du vendeur : {{ question['answer'] === 'Je vends cet article' ? question['answer'] + ' ' + sale.product.reservePrice / 100 + '€' : question['answer'] + '.' }}
         </p>
     </mat-expansion-panel>
 </mat-accordion>
