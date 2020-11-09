@@ -1,4 +1,6 @@
-<media-gallery [sale]="sale"></media-gallery>
+<media-gallery
+  [sale]="sale">
+</media-gallery>
 
 <h1 id="product-name" class="title is-2 has-text-weight-bold">{{ sale.product.name }}</h1>
 <h2 id="brands" class="subtitle is-6">Marques : <span *ngFor="let brand of sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand.name }} </span></h2>

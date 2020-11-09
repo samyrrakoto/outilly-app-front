@@ -1,12 +1,3 @@
-.box#desktop {
-  width: 50%;
-  margin: auto;
-}
-
-.box#mobile {
-  width: 100%;
-}
-
 #left-arrow {
   margin-right: 10px;
 }

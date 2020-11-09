@@ -63,9 +63,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       })
       .then(() => this.getProductById(this.id.toString()))
-      .then(() => this.handleSaleStatus())
       .then(() => this.getGenericQuestions())
       .then(() => this.getSalesId())
+      .then(() => this.handleSaleStatus())
       .catch((error: any) => this.handlingErrors(error));
   }
 
@@ -79,7 +79,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getSalesId(): Promise<any> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       // If user logged and token is not expired
       if (this.auth.logged && this.auth.getTokenStatus() === 'good') {
@@ -93,7 +93,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       }
       else {
-        reject('SaleId');
+        resolve();
       }
     });
   }
@@ -141,9 +141,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   private handleSaleStatus(): Promise<any> {
     if (this.sale.status === 'new' && !this.isSeller()) {
       this.router.navigate(['/error404']);
-      return Promise.reject();
+      return Promise.reject('SaleStatus');
     }
-    return Promise.resolve('SaleStatus');
+    return Promise.resolve();
   }
 
   private getGenericQuestions(): Promise<any> {
@@ -196,11 +196,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private handleSaleIdError(): void {
-
   }
 
   private handleSaleStatusError(): void {
-
   }
 
   private handleProductUnavailableError(): void {
