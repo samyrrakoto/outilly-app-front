@@ -95,11 +95,12 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     const reader: FileReader = new FileReader();
     const img: any = this.constructPreview(file);
 
-    reader.onloadend = (e) => {
-      img.src = reader.result;
+    reader.onload = (e) => {
+      img.src = e.target.result;
     }
-    if (file) {
-      reader.readAsDataURL(file);
+
+    if (img.file) {
+      reader.readAsDataURL(img.file);
     }
   }
 
