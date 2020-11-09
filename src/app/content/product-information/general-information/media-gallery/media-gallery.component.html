@@ -1,60 +1,57 @@
 <div id="media-gallery" class="columns">
-    <div class="column">
 
-        <!-- Top pictures -->
-        <div id="top-container">
-            <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
-              <div *ngIf="i < 3" class="content">
-                <img *ngIf="media.type === 'image'" src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
-                <img *ngIf="media.type === 'video'" src="{{ media.path }}" (click)="openGalleryMedia(i, 'video')">
-              </div>
-            </div>
+  <!-- Top pictures -->
+  <div id="top-container" class="column">
+    <div class="columns is-centered is-mobile">
+      <div *ngFor="let media of sale.product.productMedias; index as i">
+        <div *ngIf="i < 3" class="column is-narrow">
+          <img class="top-thumbnail" src="{{ media.path }}" (click)="openGalleryMedia(i, media.type)">
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Side pictures -->
-    <div class="column is-2 has-text-centered is-hidden-mobile">
-        <div id="side-preview">
-            <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
-                <figure *ngIf="i > 2 && media.type === 'image'" class="image">
-                    <img src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
-                </figure>
+  <!-- Side pictures -->
+  <div id="side-preview" class="column is-3 has-text-centered is-hidden-mobile">
+    <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
+      <figure *ngIf="i > 2 && media.type === 'image'" class="image">
+        <img src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
+      </figure>
 
-                <figure *ngIf="i > 2 && media.type === 'video'">
-                    <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
-                </figure>
-            </div>
+      <figure *ngIf="i > 2 && media.type === 'video'">
+        <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
+      </figure>
+    </div>
+  </div>
+</div>
+
+<!-- Media Modal -->
+<div class="modal {{ media.modal }}">
+  <div class="modal-background" (click)="closeMedia(); pauseVideo('demoVideo')"></div>
+  <div class="modal-content">
+    <div class="box has-background-black">
+      <!-- media -->
+      <figure *ngIf="media.type === 'image'" class="image">
+        <img src="{{ media.path }}">
+      </figure>
+
+      <figure class="video" *ngIf="media.type === 'video'">
+        <video id="demoVideo" controls autoplay>
+          <source src="{{ media.path }}" type="video/mp4">
+        </video>
+      </figure>
+
+      <!-- nav arrows -->
+      <div class="columns is-mobile is-vcentered">
+        <div class="column">
+          <button class="button is-large has-background-black has-text-white" (click)="previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
         </div>
-    </div>
 
-    <!-- Media Modal -->
-    <div class="modal {{ media.modal }}">
-        <div class="modal-background" (click)="closeMedia(); pauseVideo('demoVideo')"></div>
-        <div class="modal-content">
-            <div class="box has-background-black">
-                <!-- media -->
-                <figure *ngIf="media.type === 'image'" class="image">
-                    <img src="{{ media.path }}">
-                </figure>
-
-                <figure class="video" *ngIf="media.type === 'video'">
-                  <video id="demoVideo" controls autoplay>
-                    <source src="{{ media.path }}" type="video/mp4">
-                  </video>
-                </figure>
-
-                <!-- nav arrows -->
-                <div class="columns is-mobile is-vcentered">
-                    <div class="column">
-                        <button class="button is-large has-background-black has-text-white" (click)="previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
-                    </div>
-
-                    <div class="column has-text-right">
-                        <button class="button is-large has-background-black has-text-white" (click)="nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
-                    </div>
-                </div>
-            </div>
+        <div class="column has-text-right">
+          <button class="button is-large has-background-black has-text-white" (click)="nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
         </div>
-        <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>
+      </div>
     </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>
 </div>
