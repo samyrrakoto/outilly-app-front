@@ -1,6 +1,6 @@
 <h1 class="title">Récapitulatif de votre annonce</h1>
 
-<table class="table">
+<table *ngIf="!isSaleCreated" class="table">
   <tr>
     <td colspan="3"><h2 class="subtitle">Informations générales</h2></td>
   </tr>
@@ -104,13 +104,22 @@
   </tr>
   <tr>
     <td class="field-name">Type d'annonce</td>
-    <td *ngIf="formData.product.buyingOption === 'classic'">Annonce classique</td>
-    <td *ngIf="formData.product.buyingOption !== 'classic'">Annonce hybride</td>
+    <td>{{ formData.product.buyingOption | announce }}</td>
     <td class="has-text-right"><button routerLink="/product/create/announce-kind" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
 </table>
 <hr/>
-<button *ngIf="isLogged" class="button is-success is-large" style="margin-top: 20px;" (click)="submitProduct()">Confirmer</button>
+<button *ngIf="isLogged && !isSaleCreated" class="button is-success is-large" style="margin-top: 20px;" (click)="submitProduct()">Confirmer</button>
+
+<div *ngIf="isSaleCreated" class="content">
+  <div class="content">
+    Votre annonce a été soumise et est en cours de validation.
+  </div>
+
+  <div class="content">
+    <button *ngIf="isSaleCreated" class="button is-danger is-large" style="margin-top: 20px;" (click)="goToProduct()">Aller à la page produit</button>
+  </div>
+</div>
 
 <div *ngIf="!isLogged" class="content has-text-left">
   <h4>Avez-vous un compte sur Ekipr ?</h4>

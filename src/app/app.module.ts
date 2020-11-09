@@ -113,6 +113,7 @@ import { PaymentDetailsComponent } from './content/checkout/payment-process/paym
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
+import { AnnouncePipe } from './announce.pipe';
 
 @NgModule({
   declarations: [
@@ -216,7 +217,8 @@ import { ProductUnavailableComponent } from './content/product-unavailable/produ
     PaymentDetailsComponent,
     PaymentFailedComponent,
     PaymentConfirmationComponent,
-    ProductUnavailableComponent
+    ProductUnavailableComponent,
+    AnnouncePipe
   ],
   imports: [
     HttpClientModule,

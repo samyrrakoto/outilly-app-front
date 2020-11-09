@@ -16,6 +16,8 @@ import { Location } from '@angular/common';
 export class AnnounceOverviewComponent extends ProductCreationComponent implements OnInit {
   public productCreated: boolean;
   public isLogged: boolean;
+  public isSaleCreated: boolean;
+  public productUrl: string;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -26,6 +28,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     {
       super(request, formData, router, formValidator);
       this.product = formData.product;
+      this.isSaleCreated = false;
     }
 
   ngOnInit(): void {
@@ -117,7 +120,13 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       if (product.status === 201)
       {
         this.request.createSale(salePayload).subscribe((sale: any) => {
-          if (sale.status !== 201) {
+          if (sale.status === 201) {
+            this.isSaleCreated = true;
+            this.productUrl = '/product/' + sale.body.product.slug + '/' + sale.body.id;
+            localStorage.removeItem('strId');
+            localStorage.removeItem('id');
+          }
+          else {
             console.error("Error creating sale");
           }
         });
@@ -126,5 +135,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         console.error("Error creating product");
       }
     });
+  }
+
+  public goToProduct(): void {
+    this.router.navigate([this.productUrl]);
   }
 }
