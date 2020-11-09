@@ -34,6 +34,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   openMenuState: boolean;
 
   constructor(public request: RequestService,
+    public router: Router,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
@@ -62,6 +63,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       })
       .then(() => this.getProductById(this.id.toString()))
+      .then(() => this.handleSaleStatus())
       .then(() => this.getGenericQuestions())
       .then(() => this.getSalesId())
       .catch((error: any) => this.handlingErrors(error));
@@ -91,7 +93,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       }
       else {
-        reject();
+        reject('SaleId');
       }
     });
   }
@@ -120,8 +122,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     return new Promise((resolve) => {
       const response = this.request.getData(this.request.uri.SALE, [id]);
 
-      response.subscribe((res: any) => {
-        this.sale = res;
+      response.subscribe((sale: any) => {
+        this.sale = sale;
         this.proposedPrice = this.sale.product.reservePrice;
         this.minPrice = this.sale.product.reservePrice * 0.8;
         this.maxPrice = this.sale.product.reservePrice - 1;
@@ -134,6 +136,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         resolve();
       });
     });
+  }
+
+  private handleSaleStatus(): Promise<any> {
+    if (this.sale.status === 'new' && !this.isSeller()) {
+      this.router.navigate(['/error404']);
+      return Promise.reject();
+    }
+    return Promise.resolve('SaleStatus');
   }
 
   private getGenericQuestions(): Promise<any> {
@@ -183,5 +193,17 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   */
   private handlingErrors(errorName: string): void {
     this['handle' + errorName + 'Error']();
+  }
+
+  private handleSaleIdError(): void {
+
+  }
+
+  private handleSaleStatusError(): void {
+
+  }
+
+  private handleProductUnavailableError(): void {
+
   }
 }

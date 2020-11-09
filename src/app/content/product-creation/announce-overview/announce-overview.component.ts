@@ -127,12 +127,12 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
             localStorage.removeItem('id');
           }
           else {
-            console.error("Error creating sale");
+            this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
           }
         });
       }
       else {
-        console.error("Error creating product");
+        this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
       }
     });
   }

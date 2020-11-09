@@ -61,6 +61,7 @@ import { ActivityDomainComponent } from './content/product-creation/activity-dom
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
+import { Error404Component } from './content/error404/error404.component';
 
 const routes: Routes = [
   {
@@ -342,6 +343,10 @@ const routes: Routes = [
   {
     path: 'product-unavailable',
     component: ProductUnavailableComponent
+  },
+  {
+    path: 'error404',
+    component: Error404Component
   }
 ];
 

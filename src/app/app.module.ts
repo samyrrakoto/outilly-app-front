@@ -114,6 +114,7 @@ import { PaymentFailedComponent } from './content/checkout/payment-process/payme
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 import { AnnouncePipe } from './announce.pipe';
+import { Error404Component } from './content/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -218,7 +219,8 @@ import { AnnouncePipe } from './announce.pipe';
     PaymentFailedComponent,
     PaymentConfirmationComponent,
     ProductUnavailableComponent,
-    AnnouncePipe
+    AnnouncePipe,
+    Error404Component
   ],
   imports: [
     HttpClientModule,

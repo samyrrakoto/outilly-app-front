@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductInformationComponent } from '../../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,11 +20,12 @@ export class Buyingcall2actionComponent extends ProductInformationComponent impl
   open: boolean;
 
   constructor(request: RequestService,
+    router: Router,
     route: ActivatedRoute,
     bidManager: BidManagerService,
     auth: AuthService,
     public saleManager: SaleManagerService) {
-    super(request, route, bidManager, saleManager, auth);
+    super(request, router, route, bidManager, saleManager, auth);
     this.open = false;
   }
 
