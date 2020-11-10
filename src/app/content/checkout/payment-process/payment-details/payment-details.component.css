@@ -45,6 +45,10 @@ input.expiration-date {
   width: 50px;
 }
 
+fa-icon:not(#lock-icon) {
+  color: black;
+}
+
 #lock {
   font-size: 1em;
 }
