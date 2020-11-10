@@ -1,5 +1,9 @@
 .input {
-  width: 250px;
+  width: 200px;
+}
+
+.input:default {
+  color: black;
 }
 
 .input:valid {
@@ -29,32 +33,16 @@
   margin-bottom: 50px;
 }
 
-.field.is-horizontal {
-  justify-content: center;
-  align-items: center;
-}
-
-.field-label {
-  width: 200px;
-}
-
-#expiration-date .field {
-  flex-grow: 0;
+#security-code input {
   width: 50px;
 }
 
-.box {
-  margin: 0 auto;
-  width: 80%;
+.field-body > .field:not(:last-child) {
+  flex: 0;
 }
 
-#security-code {
+input.expiration-date {
   width: 50px;
-}
-
-.expiration-date {
-  width: 50px;
-  margin-right: 10px;
 }
 
 #lock {
@@ -63,4 +51,55 @@
 
 #lock fa-icon {
   margin-right: 20px;
+}
+
+.columns {
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/* On mobile devices */
+@media (max-width: 768px) {
+  .input {
+    width: 250px;
+  }
+
+  .control {
+    display: flex;
+    width: 250px;
+    margin: auto;
+  }
+
+  .input.expiration-date {
+    width: 50px;
+  }
+
+  div.expiration-date .field {
+    display: inline-flex;
+    width: 60px;
+  }
+
+  .expiration-date .control {
+    width: 50px;
+  }
+
+  #security-code .control {
+    width: 50px;
+  }
+
+  .column {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .field-label {
+    margin-bottom: 2px;
+  }
+
+  .field-block {
+    margin-bottom: 20px;
+  }
 }
