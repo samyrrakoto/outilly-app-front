@@ -21,7 +21,7 @@
             <div class="column">
               <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input is-dark" type="text" patter="^[a-zA-Z]+$" [(ngModel)]="cardOwner" required>
+                  <input class="input is-dark" type="text" pattern="^[a-zA-Z]+$" [(ngModel)]="cardOwner" required>
                   <span class="icon is-small is-left">
                     <fa-icon [icon]="['fas', 'user']"></fa-icon>
                   </span>
@@ -39,7 +39,7 @@
             <div class="column has-text-centered-mobile">
               <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input is-dark" type="text" pattern="^[0-9]+$" [(ngModel)]="cardNumber" required>
+                  <input class="input is-dark" type="text" pattern="^[0-9]{16}$" maxlength="16" [(ngModel)]="cardNumber" required>
                   <span class="icon is-small is-left">
                     <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
                   </span>
