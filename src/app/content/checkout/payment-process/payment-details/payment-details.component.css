@@ -68,6 +68,15 @@ img[src*="powered-by-mangopay"] {
   height: auto;
 }
 
+button#back {
+  text-decoration: none;
+}
+
+fa-icon#left-arrow {
+  margin-right: 10px;
+  font-size: 1.3em;
+}
+
 /* On mobile devices */
 @media (max-width: 768px) {
   .input {
