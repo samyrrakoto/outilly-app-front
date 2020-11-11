@@ -10,7 +10,7 @@
       [stepName]=stepName>
     </app-step-label>
 
-    <mat-autocomplete #auto="matAutocomplete">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option }}
       </mat-option>
@@ -18,7 +18,7 @@
 
     <p class="control has-icons-right">
       <input #category class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [(formControl)]="myControl">
-      <span class="icon is-right">
+      <span id="caret-down" class="icon is-right">
         <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
       </span>
     </p>

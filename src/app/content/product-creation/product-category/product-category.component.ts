@@ -34,7 +34,17 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
   }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getCategories()
+      .then(() => {
+        this.filterTreatment();
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.category.nativeElement.focus();
+  }
+
+  private filterTreatment(): void {
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
@@ -42,37 +52,36 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     );
   }
 
-  ngAfterViewInit(): void {
-    this.category.nativeElement.focus();
-  }
-
   private _filter(value: string): string[] {
     const filterValue: string = value.toLowerCase();
 
-    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue));
+    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue)).sort();
   }
 
-  getCategories(): void {
-    const response = this.request.getData(this.request.uri.CATEGORIES);
+  private getCategories(): Promise<any> {
+    return new Promise((resolve) => {
+      const response: any = this.request.getData(this.request.uri.CATEGORIES);
 
-    response.subscribe((res) => {
-      for (const elem of res) {
-        this.categories.push(elem.label);
-      }
+      response.subscribe((categories: any) => {
+        for (const category of categories) {
+          this.categories.push(category.label);
+        }
+        resolve();
+      });
     });
   }
 
-  addCategory(): void {
+  public addCategory(): void {
     if (!this.hasCategory() && this.isCategoryExist()) {
       const categoryId: number = this.getId();
 
       this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
     }
-    this.myControl.setValue('');
+    this.filterTreatment();
     this.category.nativeElement.focus();
   }
 
-  removeCategory(categoryName: string): void {
+  public removeCategory(categoryName: string): void {
     let i: number = 0;
 
     for (const category of this.product.productCategories) {
@@ -84,7 +93,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.category.nativeElement.focus();
   }
 
-  hasCategory(): boolean {
+  private hasCategory(): boolean {
     for (const category of this.product.productCategories) {
       if (category.label === this.myControl.value) {
         return true;
@@ -93,7 +102,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     return false;
   }
 
-  isCategoryExist(): boolean {
+  private isCategoryExist(): boolean {
     for (const category of this.categories) {
       if (this.myControl.value === category) {
         return true;
@@ -112,5 +121,9 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       i++;
     }
     return -1;
+  }
+
+  public test(): void {
+    console.log('CA PASSE');
   }
 }
