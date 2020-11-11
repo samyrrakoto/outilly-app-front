@@ -63,6 +63,11 @@ fa-icon:not(#lock-icon) {
   padding-bottom: 0px;
 }
 
+img[src*="powered-by-mangopay"] {
+  width: 300px;
+  height: auto;
+}
+
 /* On mobile devices */
 @media (max-width: 768px) {
   .input {

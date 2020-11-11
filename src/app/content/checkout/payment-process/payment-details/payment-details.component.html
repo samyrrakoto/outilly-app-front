@@ -95,11 +95,19 @@
           {{ message }}
         </div>
 
+        <div class="content">
+          <img src="/assets/img/logo/visa-mastercard.png">
+        </div>
+
         <button (click)="checkData(); saveCardInformation()" id="lock" class="button is-danger is-large">
           <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
           Valider le paiement
         </button>
       </div>
+    </div>
+
+    <div class="content has-text-right">
+      <img src="/assets/img/logo/powered-by-mangopay.png">
     </div>
   </div>
 </div>
