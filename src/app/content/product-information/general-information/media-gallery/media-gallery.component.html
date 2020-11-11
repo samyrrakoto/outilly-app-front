@@ -2,7 +2,7 @@
 
   <!-- Top pictures -->
   <div id="top-container" class="column">
-    <div class="columns is-centered is-mobile">
+    <div class="columns is-gapless is-centered is-mobile">
       <div *ngFor="let media of sale.product.productMedias; index as i">
         <div *ngIf="i < 3" class="column is-narrow">
           <img class="top-thumbnail" src="{{ media.path }}" (click)="openGalleryMedia(i, media.type)">

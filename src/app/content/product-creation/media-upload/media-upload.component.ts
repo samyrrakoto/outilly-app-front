@@ -28,7 +28,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.stepNb = 3;
     this.stepName = "Téléchargez au moins 3 photos. (.jpg, .png uniquement)";
     this.formData.path.previous = "announcement-title";
-    this.formData.path.next = "activity-domain";
+    this.formData.path.next = "product-brand";
     this.isMandatory = false;
     this.previews = [];
   }

@@ -20,11 +20,6 @@
     <td class="has-text-right"><button routerLink="/product/create/reserve-price" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td class="field-name">Domaines d'activité</td>
-    <td><p *ngFor="let activity of formData.product.activityDomains">{{ activity.name }}</p></td>
-    <td class="has-text-right"><button routerLink="/product/create/activity-domain" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
-  <tr>
     <td class="field-name">Marques</td>
     <td><p *ngFor="let brand of formData.product.brands">{{ brand.name }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/product-brand" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>

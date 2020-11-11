@@ -10,7 +10,7 @@
 }
 
 #personal-space .level-right {
-  background-color: var(--KTKP-BLACK);
+  background-color: white;
   font-size: 12px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 #personal-level a:hover {
-  color: white;
+  color: black;
   font-weight: bold;
 }
 
