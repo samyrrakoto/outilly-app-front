@@ -15,7 +15,7 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("category") category: ElementRef;
+  @ViewChild("matOption") matOption: ElementRef;
   myControl = new FormControl();
   categories: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -31,25 +31,26 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.formData.path.next = "product-type";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];
+    this.matOption = null;
   }
 
   ngOnInit(): void {
     this.getCategories()
-      .then(() => {
-        this.filterTreatment();
-      });
+      .then(() => this.filterTreatment());
   }
 
   ngAfterViewInit(): void {
-    this.category.nativeElement.focus();
+    if (this.matOption) {
+      this.matOption.nativeElement.openPanel();
+    }
   }
 
   private filterTreatment(): void {
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   private _filter(value: string): string[] {
@@ -78,7 +79,6 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
     }
     this.filterTreatment();
-    this.category.nativeElement.focus();
   }
 
   public removeCategory(categoryName: string): void {
@@ -90,7 +90,6 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       }
       i++;
     }
-    this.category.nativeElement.focus();
   }
 
   private hasCategory(): boolean {
@@ -121,9 +120,5 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       i++;
     }
     return -1;
-  }
-
-  public test(): void {
-    console.log('CA PASSE');
   }
 }

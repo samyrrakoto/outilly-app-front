@@ -15,7 +15,7 @@ import { ProductType } from 'src/app/models/product-type';
   styleUrls: ['../product-creation.component.css', './product-type.component.css']
 })
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("type") type: ElementRef;
+  @ViewChild("matOption") matOption: ElementRef;
   myControl = new FormControl();
   types: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -34,45 +34,53 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
   }
 
   ngOnInit(): void {
-    this.getTypes();
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.getTypes()
+      .then(() => this.filterTreatment());
   }
 
   ngAfterViewInit(): void {
-    this.type.nativeElement.focus();
+    if (this.matOption) {
+      this.matOption.nativeElement.openPanel();
+    }
+  }
+
+  private filterTreatment(): void {
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.types.filter(type => type.toLowerCase().includes(filterValue));
+    return this.types.filter(type => type.toLowerCase().includes(filterValue)).sort();
   }
 
-  getTypes(): void {
-    const response = this.request.getData(this.request.uri.TYPES);
+  private getTypes(): Promise<any> {
+    return new Promise((resolve) => {
+      const response = this.request.getData(this.request.uri.TYPES);
 
-    response.subscribe((res) => {
-      for (const elem of res) {
-        this.types.push(elem.label);
-      }
+      response.subscribe((res) => {
+        for (const elem of res) {
+          this.types.push(elem.label);
+        }
+        resolve();
+      });
     });
   }
 
-  addType(): void {
+  public addType(): void {
     if (!this.hasType() && this.isTypeExist()) {
       const typeId: number = this.getId();
 
       this.product.productTypes.push(new ProductType(typeId, this.myControl.value));
     }
-    this.myControl.setValue('');
-    this.type.nativeElement.focus();
+    this.filterTreatment();
   }
 
-  removeType(typeLabel: string): void {
+  public removeType(typeLabel: string): void {
     let i: number = 0;
 
     for (const productType of this.product.productTypes) {
@@ -81,10 +89,9 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       }
       i++;
     }
-    this.type.nativeElement.focus();
   }
 
-  hasType(): boolean {
+  private hasType(): boolean {
     for (const productType of this.product.productTypes) {
       if (productType.label === this.myControl.value) {
         return true;
@@ -93,7 +100,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     return false;
   }
 
-  isTypeExist(): boolean {
+  private isTypeExist(): boolean {
     for (const type of this.types) {
       if (this.myControl.value === type) {
         return true;
@@ -102,7 +109,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     return false;
   }
 
-  getId(): number {
+  private getId(): number {
     let i: number = 0;
 
     for (const type of this.types) {
