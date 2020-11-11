@@ -2,3 +2,11 @@
   height: 50px;
   margin: 5px;
 }
+
+#caret-down {
+  cursor: pointer;
+}
+
+#caret-down fa-icon {
+  color: black;
+}

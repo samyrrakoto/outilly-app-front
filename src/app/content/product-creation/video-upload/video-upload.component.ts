@@ -27,43 +27,59 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
   ngOnInit(): void {}
 
   public getFile(): void {
-    let files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
+    const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
+    const formData: FormData = this.getFormData(files);
+
+    this.addMedia(files[0]);
+    this.sendMedia(formData);
+  }
+
+  private getFormData(files: FileList): FormData {
     const formData: FormData = new FormData();
 
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
     formData.append('mediaFile', files.item(0), files.item(0).name);
 
-    this.addMedia(files[0]);
-    this.sendMedia(formData);
+    return formData;
   }
 
   public openImgPicker(): void {
-    const fileElem = document.getElementById("product-video");
-
-    fileElem.click();
+    document.getElementById("product-video").click();
   }
 
-  public sendMedia(data: any): void {
-    const response = this.request.uploadMedia(data);
-
-    response.subscribe((res) => {
-      console.log(res);
-    });
+  private sendMedia(data: any): void {
+    this.request.uploadMedia(data).subscribe(
+      () => {},
+      () => {
+        this.errorMessages.push('Une erreur lors de l\'upload est survenue');
+      }
+      );
   }
 
-  public addMedia(file: File): void {
-    this.product.productMedias.push(new ProductMedia(file, 'video'));
+  private addMedia(file: File): void {
+    if (!this.isMediaPresent(file.name)) {
+      this.product.productMedias.push(new ProductMedia(file, 'video'));
+    }
   }
 
-  public removeMedia(mediaPath: string): void {
+  public removeMedia(fileName: string): void {
     let i: number = 0;
 
     for (const media of this.product.productMedias) {
-      if (media.path === mediaPath) {
+      if (media.file.name === fileName) {
         this.product.productMedias.splice(i, 1);
       }
       i++;
     }
+  }
+
+  private isMediaPresent(fileName: string): boolean {
+    for (const media of this.product.productMedias) {
+      if (media.file.name === fileName) {
+        return true;
+      }
+    }
+    return false;
   }
 }

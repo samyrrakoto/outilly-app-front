@@ -7,7 +7,7 @@ export class QualityPipe implements PipeTransform {
 
   transform(quality: string): string {
     switch(quality) {
-      case 'forParts':
+      case 'forparts':
         return 'Pour pièces';
       case 'acceptable':
         return 'Acceptable';
@@ -16,7 +16,7 @@ export class QualityPipe implements PipeTransform {
       case 'excellent':
         return 'Excellent';
       case 'new':
-        return 'Comme neuf'
+        return 'Jamais ouvert'
     }
   }
 

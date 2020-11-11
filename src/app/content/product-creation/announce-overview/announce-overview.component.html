@@ -1,8 +1,6 @@
 <h1 class="title">Récapitulatif de votre annonce</h1>
 
-<!--<button class="button is-success is-large" style="margin-bottom: 20px;">Confirmer</button>-->
-
-<table class="table">
+<table *ngIf="!isSaleCreated" class="table">
   <tr>
     <td colspan="3"><h2 class="subtitle">Informations générales</h2></td>
   </tr>
@@ -22,11 +20,6 @@
     <td class="has-text-right"><button routerLink="/product/create/reserve-price" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td class="field-name">Domaines d'activité</td>
-    <td><p *ngFor="let activity of formData.product.activityDomains">{{ activity.name }}</p></td>
-    <td class="has-text-right"><button routerLink="/product/create/activity-domain" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
-  <tr>
     <td class="field-name">Marques</td>
     <td><p *ngFor="let brand of formData.product.brands">{{ brand.name }}</p></td>
     <td class="has-text-right"><button routerLink="/product/create/product-brand" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
@@ -43,13 +36,7 @@
   </tr>
   <tr>
     <td class="field-name">Etat</td>
-    <td [ngSwitch]="formData.product.quality">
-      <span *ngSwitchCase="'new'">Jamais ouvert</span>
-      <span *ngSwitchCase="'excellent'">Excellent</span>
-      <span *ngSwitchCase="'good'">Bon</span>
-      <span *ngSwitchCase="'acceptable'">Acceptable</span>
-      <span *ngSwitchCase="'forparts'">Pour pièces</span>
-    </td>
+    <td>{{ formData.product.quality | quality }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-state" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -57,12 +44,24 @@
   </tr>
   <tr>
     <td *ngIf="formData.product.productMedias" class="field-name">Images uploadées</td>
-    <td><p *ngFor="let image of formData.product.productMedias">{{ image.link }}</p></td>
+    <td>
+      <div *ngFor="let media of formData.product.productMedias">
+        <div *ngIf="media.type === 'image'">
+          {{ media.file.name }}
+        </div>
+      </div>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/media-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td *ngIf="formData.product.productMedias" class="field-name">Vidéo uploadée</td>
-    <td><p *ngFor="let video of formData.product.productMedias">{{ video.link }}</p></td>
+    <td>
+      <div *ngFor="let media of formData.product.productMedias">
+        <div *ngIf="media.type === 'video'">
+          {{ media.file.name }}
+        </div>
+      </div>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/video-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -100,24 +99,31 @@
   </tr>
   <tr>
     <td class="field-name">Type d'annonce</td>
-    <td *ngIf="formData.product.buyingOption === 'classic'">Annonce classique</td>
-    <td *ngIf="formData.product.buyingOption !== 'classic'">Annonce hybride</td>
+    <td>{{ formData.product.buyingOption | announce }}</td>
     <td class="has-text-right"><button routerLink="/product/create/announce-kind" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
 </table>
 <hr/>
-<button *ngIf="isLoggedIn | async; else notLoggedIn" class="button is-success is-large" style="margin-top: 20px;" (click)="this.submitProduct()">Confirmer</button>
+<button *ngIf="isLogged && !isSaleCreated" class="button is-success is-large" style="margin-top: 20px;" (click)="submitProduct()">Confirmer</button>
 
-<ng-template #notLoggedIn>
-  <div class="content has-text-left">
-    <h4>Avez-vous un compte sur Ekipr ?</h4>
-    <div class="field">
-      <div class="content tile" id="yes" (click)="this.signInOrUp(true)">
-        <span class="choice-symbol">A</span> Oui.
-      </div>
-      <div class="content tile" id="no" (click)="this.signInOrUp(false)">
-        <span class="choice-symbol">B</span> Non, pas encore.
-      </div>
+<div *ngIf="isSaleCreated" class="content">
+  <div class="content">
+    Votre annonce a été soumise et est en cours de validation.
+  </div>
+
+  <div class="content">
+    <button *ngIf="isSaleCreated" class="button is-danger is-large" style="margin-top: 20px;" (click)="goToProduct()">Aller à la page produit</button>
+  </div>
+</div>
+
+<div *ngIf="!isLogged" class="content has-text-left">
+  <h4>Avez-vous un compte sur Ekipr ?</h4>
+  <div class="field">
+    <div class="content tile" id="yes" (click)="signInOrUp(true)">
+      <span class="choice-symbol">A</span> Oui.
+    </div>
+    <div class="content tile" id="no" (click)="signInOrUp(false)">
+      <span class="choice-symbol">B</span> Non, pas encore.
     </div>
   </div>
-</ng-template>
+</div>

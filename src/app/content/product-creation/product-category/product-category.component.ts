@@ -1,14 +1,13 @@
-import { ActivityDomain } from './../../../models/activity-domain';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
-import { FormDataService } from './../../../services/form-data.service';
-import { RequestService } from './../../../services/request.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductCategory } from 'src/app/models/product-category';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-product-category',
@@ -16,7 +15,7 @@ import { ProductCategory } from 'src/app/models/product-category';
   styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("category") category: ElementRef;
+  @ViewChild("matOption") matOption: ElementRef;
   myControl = new FormControl();
   categories: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -32,48 +31,57 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.formData.path.next = "product-type";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];
+    this.matOption = null;
   }
 
   ngOnInit(): void {
-    this.getCategories();
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.getCategories()
+      .then(() => this.filterTreatment());
   }
 
   ngAfterViewInit(): void {
-    this.category.nativeElement.focus();
+    if (this.matOption) {
+      this.matOption.nativeElement.openPanel();
+    }
+  }
+
+  private filterTreatment(): void {
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    const filterValue: string = value.toLowerCase();
 
-    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue));
+    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue)).sort();
   }
 
-  getCategories(): void {
-    const response = this.request.getData(this.request.uri.CATEGORIES);
+  private getCategories(): Promise<any> {
+    return new Promise((resolve) => {
+      const response: any = this.request.getData(this.request.uri.CATEGORIES);
 
-    response.subscribe((res) => {
-      for (const elem of res) {
-        this.categories.push(elem.label);
-      }
+      response.subscribe((categories: any) => {
+        for (const category of categories) {
+          this.categories.push(category.label);
+        }
+        resolve();
+      });
     });
   }
 
-  addCategory(): void {
+  public addCategory(): void {
     if (!this.hasCategory() && this.isCategoryExist()) {
       const categoryId: number = this.getId();
 
       this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
     }
-    this.myControl.setValue('');
-    this.category.nativeElement.focus();
+    this.filterTreatment();
   }
 
-  removeCategory(categoryName: string): void {
+  public removeCategory(categoryName: string): void {
     let i: number = 0;
 
     for (const category of this.product.productCategories) {
@@ -82,10 +90,9 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       }
       i++;
     }
-    this.category.nativeElement.focus();
   }
 
-  hasCategory(): boolean {
+  private hasCategory(): boolean {
     for (const category of this.product.productCategories) {
       if (category.label === this.myControl.value) {
         return true;
@@ -94,7 +101,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     return false;
   }
 
-  isCategoryExist(): boolean {
+  private isCategoryExist(): boolean {
     for (const category of this.categories) {
       if (this.myControl.value === category) {
         return true;

@@ -15,7 +15,7 @@ import { Brand } from 'src/app/models/brand';
   styleUrls: ['../product-creation.component.css', './product-brand.component.css']
 })
 export class ProductBrandComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("brand") brand: ElementRef;
+  @ViewChild("matOption") matOption: ElementRef;
   myControl = new FormControl();
   brands: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -27,51 +27,59 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
-    this.formData.path.previous = "activity-domain";
+    this.formData.path.previous = "media-upload";
     this.formData.path.next = "product-category";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }
 
   ngOnInit(): void {
-    this.getBrands();
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.getBrands()
+      .then(() => this.filterTreatment());
   }
 
   ngAfterViewInit(): void {
-    this.brand.nativeElement.focus();
+    if (this.matOption) {
+      this.matOption.nativeElement.openPanel();
+    }
+  }
+
+  private filterTreatment(): void {
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.brands.filter(brands => brands.toLowerCase().includes(filterValue));
+    return this.brands.filter(brands => brands.toLowerCase().includes(filterValue)).sort();
   }
 
-  private getBrands(): void {
-    const response = this.request.getData(this.request.uri.BRANDS);
+  private getBrands(): Promise<any> {
+    return new Promise((resolve) => {
+      const response = this.request.getData(this.request.uri.BRANDS);
 
-    response.subscribe((res) => {
-      for (const elem of res) {
-        this.brands.push(elem.name);
-      }
+      response.subscribe((res) => {
+        for (const elem of res) {
+          this.brands.push(elem.name);
+        }
+        resolve();
+      });
     });
   }
 
-  addBrand(): void {
+  public addBrand(): void {
     if (!this.hasType() && this.isBrandExist()) {
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
     }
-    this.myControl.setValue('');
-    this.brand.nativeElement.focus();
+    this.filterTreatment();
   }
 
-  removeBrand(brandName: string): void {
+  public removeBrand(brandName: string): void {
     let i: number = 0;
 
     for (const brand of this.product.brands) {
@@ -80,7 +88,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
       }
       i++;
     }
-    this.brand.nativeElement.focus();
+    this.filterTreatment();
   }
 
   private hasType(): boolean {

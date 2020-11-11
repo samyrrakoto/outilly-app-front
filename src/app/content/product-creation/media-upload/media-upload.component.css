@@ -1,0 +1,5 @@
+.previews {
+  width: 250px;
+  margin: auto;
+  border: solid 3px var(--KTKP-GREEN);
+}

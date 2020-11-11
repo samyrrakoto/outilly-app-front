@@ -4,6 +4,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-batch-choice',
@@ -11,8 +12,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './batch-choice.component.css']
 })
 export class BatchChoiceComponent extends ProductCreationComponent implements OnInit {
+  private isLogged: boolean;
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+  constructor(public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    private auth: AuthService)
+    {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.errorMessages;
@@ -29,8 +36,14 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     if (localStorage.getItem('id') === null || localStorage.getItem('strId') === null) {
       this.createProduct();
     }
-    this.getUser();
-  }
+    this.auth.getLogStatus()
+      .then(() => {
+        this.isLogged = this.auth.logged && this.auth.accessToken === 'good';
+        if (this.isLogged) {
+          this.getUser();
+        }
+      });
+}
 
   ngOnDestroy(): void {
     this.formData.product.id = +localStorage.getItem(('id'));

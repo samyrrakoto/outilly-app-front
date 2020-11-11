@@ -1,65 +1,65 @@
 .hero-body
 {
-    background-image: url("../../../../assets/img/background/latelier-darkened.jpg");
-    background-position: center;
-    margin-bottom: 50px;
-    padding-bottom: 200px;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-left: 0px;
+  background-image: url("/assets/img/background/latelier-darkened.jpg");
+  background-position: center;
+  margin-bottom: 50px;
+  padding-bottom: 200px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 #personal-space .level-right {
-    background-color: var(--KTKP_GREY);
-    font-size: 12px;
+  background-color: white;
+  font-size: 12px;
 }
 
 #personal-level {
-    padding: 10px;
-    width: 300px;
+  padding: 10px;
+  width: 300px;
 }
 
 #personal-level a {
-    color: grey;
+  color: grey;
 }
 
 #personal-level a:hover {
-    color: black;
-    font-weight: bold;
+  color: black;
+  font-weight: bold;
 }
 
 .container
 {
-    padding: 30px
+  padding: 30px
 }
 
 .box
 {
-    background: rgba(0,0,0,0);
-    color: white;
+  background: rgba(0,0,0,0);
+  color: white;
 }
 
 .title
 {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .subtitle
 {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .title, .subtitle, p, a
 {
-    color: white;
+  color: white;
 }
 
 #brandName
 {
-    color:#E35557;
+  color:#E35557;
 }
 
 p
 {
-    font-size: 22px;
+  font-size: 22px;
 }

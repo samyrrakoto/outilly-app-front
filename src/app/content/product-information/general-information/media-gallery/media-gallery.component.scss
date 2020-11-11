@@ -2,13 +2,6 @@
   margin-bottom: 20px;
 }
 
-#top-container {
-    display: flex;
-    flex: 25%;
-    box-sizing: border-box;
-    height: 42vh;
-  }
-
 #top-container img, #side-preview img {
   cursor: pointer;
 }
@@ -22,8 +15,8 @@
   line-height: 0;
 }
 
-.content > img {
-  height: 100%;
+.top-thumbnail {
+  height: 42vh;
   opacity: 0.8;
   filter: brightness(0.95);
   object-fit: cover;
@@ -40,7 +33,7 @@ figure img {
   flex-wrap: wrap;
 }
 
-.content:hover > img {
+.top-thumbnail:hover {
   opacity: 1;
   filter: brightness(1);
 }

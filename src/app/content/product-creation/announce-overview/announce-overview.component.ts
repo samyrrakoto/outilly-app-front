@@ -1,13 +1,10 @@
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Sale } from 'src/app/models/sale';
-import { Seller } from 'src/app/models/seller';
 import { Product } from 'src/app/models/product';
 import { Location } from '@angular/common';
 
@@ -17,32 +14,39 @@ import { Location } from '@angular/common';
   styleUrls: ['../product-creation.component.css', './announce-overview.component.css']
 })
 export class AnnounceOverviewComponent extends ProductCreationComponent implements OnInit {
-
-  isLoggedIn: Observable<boolean>;
-  productCreated: boolean;
+  public productCreated: boolean;
+  public isLogged: boolean;
+  public isSaleCreated: boolean;
+  public productUrl: string;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidator: FormValidatorService,
     public auth: AuthService,
-    public location: Location) {
+    public location: Location)
+    {
       super(request, formData, router, formValidator);
       this.product = formData.product;
+      this.isSaleCreated = false;
     }
 
   ngOnInit(): void {
-    this.formData.isProductComplete = true;
-    this.isLoggedIn = this.auth.isLoggedIn();
-    this.setProductSession();
-    this.mapSessionProductToFormData();
+    this.auth.getLogStatus()
+      .then(() => {
+        this.isLogged = this.auth.logged && this.auth.accessToken === 'good';
+        this.formData.isProductComplete = true;
+        this.setProductSession();
+        this.mapSessionProductToFormData();
+      });
   }
 
   private mapSessionProductToFormData(): void {
     if (sessionStorage.getItem("current_product") === null) {
       this.formData.isProductComplete = false;
       this.backToStart();
-    } else if (!this.checkProductExistsInSession()) {
+    }
+    else if (!this.checkProductExistsInSession()) {
       this.formData.product = JSON.parse(sessionStorage.getItem("current_product"));
     }
   }
@@ -61,49 +65,79 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     return this.formData.product.id !== 0 && this.formData.product.strId !== null;
   }
 
-  signInOrUp(hasAccount: boolean): void {
-    let target: string;
+  public signInOrUp(hasAccount: boolean): void {
+    const target: string = hasAccount ? 'login' : 'onboarding';
 
     sessionStorage.setItem("redirect_after_login", this.location.path());
-    target = hasAccount ? 'login' : 'onboarding';
     this.router.navigate([target]);
   }
 
-  submitProduct(): void {
-    const sale: Sale = new Sale();
-    const seller: Seller = new Seller();
-    const product: Product = new Product();
-    this.formData.product.weight = this.formData.product.weightUnity === 'kg'? this.formData.product.weight *= 1000 : this.formData.product.weight;
-    this.formData.product.reservePrice *= 100;
-
-    seller.id = +sessionStorage.getItem("userId");
-    product.id = this.formData.product.id;
-    product.strId = this.formData.product.strId;
-    sale.seller = seller;
-    sale.product = product;
-    sale.id = null;
-    const productPayload: any = {
-      product: this.formData.product
+  private getProductPayload(): any {
+    const product: Product = this.formData.product;
+    const weight: number = product.weightUnity === 'kg'? product.weight * 1000 : product.weight;
+    const payload: any = {
+      "product": {
+        "id": product.id,
+        "strId": product.strId,
+        "name": product.name,
+        "description": product.description,
+        "quality": product.quality,
+        "isBundle": product.isBundle,
+        "buyingOption": product.buyingOption,
+        "reservePrice": product.reservePrice * 100,
+        "weight": weight,
+        "locality": product.locality,
+        "toDeliver": product.todeliver,
+        "isWarrantied": product.isWarrantied,
+        "warrantyDuration": product.warrantyDuration,
+        "productCategories": product.productCategories,
+        "productTypes": product.productTypes,
+        "brands": product.brands,
+        "productMedias": product.productMedias
+      }
     };
-    const salePayload: any = {
-      sale: sale
-    }
-    this.request.updateProduct(productPayload).subscribe((res: any) => {
-      if (res.status === 201)
+    return payload;
+  }
+
+  private getSalePayload(): any {
+    const payload: any = {
+      "sale": {
+        "id": null,
+        "product": this.getProductPayload().product,
+        "seller": {
+          "id": +sessionStorage.getItem("userId")
+        }
+      }
+    };
+    return payload;
+  }
+
+  public submitProduct(): void {
+    const productPayload: any = this.getProductPayload();
+    const salePayload: any = this.getSalePayload();
+
+    this.request.updateProduct(productPayload).subscribe((product: any) => {
+      if (product.status === 201)
       {
-        console.log("Product created in API with success");
-        this.request.createSale(salePayload).subscribe((res: any) => {
-          if (res.status === 201)
-          {
-            console.log("Sale created in API with success");
-            console.log(res.body);
-          } else {
-            console.error("Error creating sale");
+        this.request.createSale(salePayload).subscribe((sale: any) => {
+          if (sale.status === 201) {
+            this.isSaleCreated = true;
+            this.productUrl = '/product/' + sale.body.product.slug + '/' + sale.body.id;
+            localStorage.removeItem('strId');
+            localStorage.removeItem('id');
           }
-        })
-      } else {
-        console.error("Error creating product");
+          else {
+            this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
+          }
+        });
+      }
+      else {
+        this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
       }
     });
+  }
+
+  public goToProduct(): void {
+    this.router.navigate([this.productUrl]);
   }
 }
