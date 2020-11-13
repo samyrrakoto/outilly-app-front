@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -32,7 +31,8 @@ export class OrderSummaryComponent implements OnInit {
     public router: Router,
     public auth: AuthService,
     public location: Location,
-    public saleManager: SaleManagerService) {
+    public saleManager: SaleManagerService)
+  {
     this.bid = new Bid();
     this.sale = new Sale();
     this.areConditionsAccepted = false;
