@@ -36,9 +36,11 @@ export class PaymentReturnComponent implements OnInit {
       this.request.getPreauthData(this.preAuthId).subscribe((res) => {
         if (res.status === 'SUCCEEDED') {
           this.router.navigate(['/checkout/payment-confirmation']);
-        } else if (res.status === 'FAILED') {
-          this.router.navigate(['checkout/order-summary']);
-        } else {
+        }
+        else if (res.status === 'FAILED') {
+          this.router.navigate(['checkout/payment-failed']);
+        }
+        else {
           this.errorMessage = 'Une erreur est survenue, veuillez réessayer';
         }
       });

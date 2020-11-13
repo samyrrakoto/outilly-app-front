@@ -234,9 +234,9 @@ import { Error404Component } from './content/error404/error404.component';
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-          tokenGetter: () => {
-              return localStorage.getItem('access_token');
-          }
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        }
       }
     }),
   ],

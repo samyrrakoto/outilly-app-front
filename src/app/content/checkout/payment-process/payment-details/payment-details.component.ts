@@ -34,13 +34,14 @@ export class PaymentDetailsComponent implements OnInit {
     private location: Location,
     private http: HttpClient,
     public paymentValidator: PaymentValidatorService,
-    public saleManager: SaleManagerService) {
-      this.cardOwner = '';
-      this.cardNumber = '';
-      this.cardExpirationMonth = '';
-      this.cardExpirationYear = '';
-      this.cardCvx = '';
-    }
+    public saleManager: SaleManagerService)
+  {
+    this.cardOwner = '';
+    this.cardNumber = '';
+    this.cardExpirationMonth = '';
+    this.cardExpirationYear = '';
+    this.cardCvx = '';
+  }
 
   ngOnInit(): void {
     this.saleId = localStorage.getItem('saleId');
@@ -63,20 +64,6 @@ export class PaymentDetailsComponent implements OnInit {
       })
       .then(() => { this.preregister() })
       .catch((error: any) => { this.handleErrors(error) });
-  }
-
-  private preregister(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
-        next: (response: any) => {
-          this.saveMangoPayData(response);
-          resolve();
-        },
-        error: () => {
-          reject('PreRegistration');
-        }
-      });
-    });
   }
 
   private saveMangoPayData(response: any): void {
@@ -116,7 +103,25 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   /*
-  ** Call to PayLine
+  ** 1 - Preregister
+  */
+  private preregister(): Promise<any> {
+    console.log('preregister');
+    return new Promise((resolve, reject) => {
+      this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
+        next: (response: any) => {
+          this.saveMangoPayData(response);
+          resolve();
+        },
+        error: () => {
+          reject('PreRegistration');
+        }
+      });
+    });
+  }
+
+  /*
+  ** 2 - Call to PayLine
   */
   private payLineCall(): Promise<any> {
     const payload: HttpParams = new HttpParams()
@@ -129,7 +134,8 @@ export class PaymentDetailsComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
         next: (response: any) => {
-          if (response.body.split('=')[0] !== 'data') {;
+          if (response.body.split('=')[0] !== 'data') {
+            console.error(response.body);
             reject('PayLineCall');
           }
           else {
@@ -137,7 +143,7 @@ export class PaymentDetailsComponent implements OnInit {
             resolve();
           }
         },
-        error: () => {
+        error: (err: any) => {
           reject('PayLineCall');
         }
       });
@@ -145,7 +151,7 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   /*
-  ** Mango Pay Update Registration Card
+  ** 3 - Mango Pay Update Registration Card
   */
   private updateRegistration(): Promise<any> {
     const payload: any = {
@@ -171,9 +177,11 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   /*
-  ** Pre-Authorization
+  ** 4 - Pre-Authorization
   */
   private preauth(): Promise<any> {
+    console.log('preauth');
+
     const payload: any = {
       'type': 'preauth-card',
       'orderId': sessionStorage.getItem('orderId'),
