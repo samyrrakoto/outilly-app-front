@@ -27,6 +27,7 @@ export class PaymentDetailsComponent implements OnInit {
   cardExpirationYear: string;
   cardCvx: string;
   saleId: string;
+  loading: boolean;
 
   constructor(private request: RequestService,
     private router: Router,
@@ -41,6 +42,7 @@ export class PaymentDetailsComponent implements OnInit {
     this.cardExpirationMonth = '';
     this.cardExpirationYear = '';
     this.cardCvx = '';
+    this.loading = false;
   }
 
   ngOnInit(): void {
