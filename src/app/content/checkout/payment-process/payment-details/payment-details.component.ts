@@ -137,7 +137,6 @@ export class PaymentDetailsComponent implements OnInit {
       this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
         next: (response: any) => {
           if (response.body.split('=')[0] !== 'data') {
-            console.error(response.body);
             reject('PayLineCall');
           }
           else {
@@ -182,8 +181,6 @@ export class PaymentDetailsComponent implements OnInit {
   ** 4 - Pre-Authorization
   */
   private preauth(): Promise<any> {
-    console.log('preauth');
-
     const payload: any = {
       'type': 'preauth-card',
       'orderId': sessionStorage.getItem('orderId'),
