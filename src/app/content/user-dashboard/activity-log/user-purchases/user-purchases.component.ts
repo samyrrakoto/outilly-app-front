@@ -27,7 +27,8 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
     public auth: AuthService,
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
-    public location: Location) {
+    public location: Location)
+  {
     super(request, auth, router, route);
     this.modals = new Modals();
     this.modals.addModal('purchase-explanation');

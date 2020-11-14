@@ -27,11 +27,11 @@ export class PaymentConfirmationComponent implements OnInit {
   constructor(private request: RequestService,
     private location: Location,
     private router: Router,
-    private auth: AuthService) {
+    private auth: AuthService)
+  {
     this.order = new Order();
     this.sale = new Sale();
     this.transactionId = sessionStorage.getItem('mangopayTransactionId');
-    console.log(this.randomNb);
   }
 
   ngOnInit(): void {
@@ -78,10 +78,9 @@ export class PaymentConfirmationComponent implements OnInit {
             (order: any) => {
               this.order = order;
               this.order.saleId = order.sale.id;
-              resolve('Success');
+              resolve();
             },
-            (error: any) => {
-              console.error(error);
+            () => {
               reject('orderFailed');
             }
           );
@@ -104,7 +103,7 @@ export class PaymentConfirmationComponent implements OnInit {
           this.request.getSaleCall(this.order.saleId.toString()).subscribe(
             (sale: any) => {
               this.sale = sale;
-              this.productUrl = '/product/' + this.sale.product.slug + '/' + this.sale.product.id;
+              this.productUrl = '/product/' + this.sale.product.slug + '/' + localStorage.getItem('saleId');
               resolve();
             },
             (error: any) => { reject(); }

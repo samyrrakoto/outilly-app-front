@@ -1,7 +1,15 @@
 <div class="content">
   <h2 class="subtitle">Mes offres</h2>
 
-  <mat-accordion>
+  <div class="content" *ngIf="purchases.length === 0">
+    Vous n'avez fait aucune offre pour le moment :'-(
+
+    <div class="content">
+      N'hésitez pas à <a routerLink="/home" class="accepted">consulter nos produits ici !</a>
+    </div>
+  </div>
+
+  <mat-accordion *ngIf="purchases.length > 0">
     <mat-expansion-panel *ngFor="let purchase of purchases">
         <mat-expansion-panel-header>
         <mat-panel-title>

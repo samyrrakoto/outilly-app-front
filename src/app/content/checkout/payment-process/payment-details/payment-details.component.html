@@ -73,14 +73,14 @@
                 <!-- Expiration month -->
                 <div class="field">
                   <p class="control">
-                    <input class="input is-dark expiration-date" type="text" pattern="^(0[1-9])|(1[0-2])$" maxlength="2" [(ngModel)]="cardExpirationMonth" required>
+                    <input class="input is-dark expiration-date" placeholder="mm" type="text" pattern="^(0[1-9])|(1[0-2])$" maxlength="2" [(ngModel)]="cardExpirationMonth" required>
                   </p>
                 </div>
 
                 <!-- Expiration year -->
                 <div class="field">
                   <p class="control">
-                    <input class="input is-dark expiration-date" type="text" pattern="^2[0-9]$" maxlength="2" [(ngModel)]="cardExpirationYear" required>
+                    <input class="input is-dark expiration-date" placeholder="aa" type="text" pattern="^2[0-9]$" maxlength="2" [(ngModel)]="cardExpirationYear" required>
                   </p>
                 </div>
               </div>
@@ -90,7 +90,9 @@
           <!-- Security Code -->
           <div class="columns field-block is-centered is-vcentered">
             <div class="column field-label has-text-right has-text-centered-mobile">
-              <label class="label">Code de sécurité</label>
+              <label class="label">Code de sécurité
+                <fa-icon [icon]="['fas', 'question-circle']" title="Le code de sécurité correspond aux 3 chiffres situés généralement au dos de votre carte"></fa-icon>
+              </label>
             </div>
 
             <div class="column">
@@ -112,10 +114,11 @@
           <img src="/assets/img/logo/visa-mastercard.png">
         </div>
 
-        <button (click)="checkData(); saveCardInformation()" id="lock" class="button is-danger is-large">
+        <button *ngIf="loading === false" (click)="checkData(); saveCardInformation(); loading = true" id="lock" class="button is-danger is-large">
           <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
           Valider le paiement
         </button>
+        <button *ngIf="loading" class="button is-light is-loading"></button>
       </div>
     </div>
 

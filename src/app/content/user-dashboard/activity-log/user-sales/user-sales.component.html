@@ -2,7 +2,15 @@
   <h2 class="subtitle">Mes ventes</h2>
   <div id="notifications" style="margin-bottom: 10px;"></div>
 
-  <mat-accordion>
+  <div class="content" *ngIf="sales.length === 0">
+    Vous n'avez posté aucune annonce pour le moment :'-(
+
+    <div class="content">
+      N'hésitez pas à <a routerLink="/product/create" class="accepted">commencer à vendre un produit !</a>
+    </div>
+  </div>
+
+  <mat-accordion *ngIf="sales.length > 0">
     <mat-expansion-panel *ngFor="let sale of sales">
         <mat-expansion-panel-header>
         <mat-panel-title>
