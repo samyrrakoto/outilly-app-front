@@ -37,6 +37,10 @@
   font-weight: bold;
 }
 
+.pointed {
+  cursor: pointer;
+}
+
 .wrapped {
   word-break: break-all;
 }
