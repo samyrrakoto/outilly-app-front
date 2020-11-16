@@ -115,6 +115,11 @@ import { PaymentConfirmationComponent } from './content/checkout/payment-process
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 import { AnnouncePipe } from './announce.pipe';
 import { Error404Component } from './content/error404/error404.component';
+import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
+import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
+import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
+import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
+import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 
 @NgModule({
   declarations: [
@@ -220,7 +225,12 @@ import { Error404Component } from './content/error404/error404.component';
     PaymentConfirmationComponent,
     ProductUnavailableComponent,
     AnnouncePipe,
-    Error404Component
+    Error404Component,
+    UserSalesConfirmedComponent,
+    UserSalesRunningComponent,
+    UserPurchasesConfirmedComponent,
+    UserPurchasesRunningComponent,
+    DispatchNoteComponent
   ],
   imports: [
     HttpClientModule,

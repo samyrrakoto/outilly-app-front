@@ -1,0 +1,80 @@
+<div class="content">
+  <h2 class="subtitle">Mes ventes confirmées</h2>
+  <div id="notifications" style="margin-bottom: 10px;"></div>
+
+  <div class="content" *ngIf="isLoaded && orders.length === 0">
+    Vous n'avez posté aucune annonce pour le moment :'-(
+
+    <div class="content">
+      N'hésitez pas à <a routerLink="/product/create" class="accepted">commencer à vendre un produit !</a>
+    </div>
+  </div>
+
+  <mat-accordion *ngIf="isLoaded && orders.length > 0">
+    <mat-expansion-panel *ngFor="let order of orders">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="content">
+              {{ order.sale.product.name }}
+          </div>
+
+          <div class="content has-text-right discreet-text" style="position: absolute; right: 50px">
+            {{ order.createdAt | date:'dd-MM-yyyy'}}
+          </div>
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+
+        </mat-panel-description>
+        <h2 class="subtitle has-text-centered"><span class="accepted">{{ order.buyer.userProfile.firstname }}</span> a acheté votre produit !</h2>
+
+        <div class="columns">
+          <div class="column has-text-centered-mobile">
+            <div class="content">
+              Prix : <span class="bold">{{ order.amountPrice | currency:'full' }}€</span>
+            </div>
+
+            <div class="content">
+              N° de commande : <span class="bold">{{ order.id }}</span>
+            </div>
+          </div>
+
+          <div class="column has-text-centered-mobile">
+            <div class="content">
+              Date de commande : <span class="bold">{{ order.transaction.createdAt | date:'dd-MM-yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="is-divider"></div>
+
+        <!-- If delivery note has been generated -->
+        <div *ngIf="isDeliveryNoteGenerated(order)" class="content">
+          <div class="content has-text-centered">
+            <button class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'box']"></fa-icon>
+              Confirmer l'envoi du colis
+            </button>
+          </div>
+
+          <div class="content has-text-centered">
+            <button class="button no-overflow has-text-success">
+              <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
+              Générer à nouveau mon bon d'envoi
+            </button>
+          </div>
+        </div>
+
+        <!-- If delivery note has not been generated yet -->
+        <div *ngIf="!isDeliveryNoteGenerated(order)" class="content">
+          <div class="content has-text-centered">
+            <button routerLink="/user/dashboard/dispatch-note" class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'box']"></fa-icon>
+              Générer mon étiquette d'expédition
+            </button>
+          </div>
+        </div>
+        <a class="product-page" (click)="goToProductPage(order.saleId)">Accéder à la page du produit</a>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,3 +1,4 @@
+import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 import { PaymentDetailsComponent } from './content/checkout/payment-process/payment-details/payment-details.component';
@@ -62,6 +63,8 @@ import { UserSalesComponent } from './content/user-dashboard/activity-log/user-s
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 import { Error404Component } from './content/error404/error404.component';
+import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
+import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 
 const routes: Routes = [
   {
@@ -106,17 +109,28 @@ const routes: Routes = [
         component: ActivityLogComponent,
         children: [
           {
-            path: '', redirectTo: 'sales', pathMatch: 'full'
-          },
-          {
             path: 'sales',
-            component: UserSalesComponent
+            component: UserSalesComponent,
+            children: [
+              {
+                path: 'sales-running',
+                component: UserSalesRunningComponent
+              },
+              {
+                path: 'sales-confirmed',
+                component: UserSalesConfirmedComponent
+              }
+            ]
           },
           {
             path: 'purchases',
             component: UserPurchasesComponent
           }
         ]
+      },
+      {
+        path: 'dispatch-note',
+        component: DispatchNoteComponent
       }
     ]
   },
