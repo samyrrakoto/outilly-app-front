@@ -5,6 +5,8 @@
 .announce {
   font-size: 1.3em;
   border: none;
+  margin-top: 2px !important;
+  padding-top: 2px;
 }
 
 .content {
