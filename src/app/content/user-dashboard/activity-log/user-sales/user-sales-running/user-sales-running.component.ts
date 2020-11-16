@@ -16,7 +16,6 @@ import { UserSalesComponent } from '../user-sales.component';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', '../user-sales.component.css', './user-sales-running.component.css']
 })
 export class UserSalesRunningComponent extends UserSalesComponent implements OnInit {
-  @Input() sales: Array<Sale>;
   public runningSales: Array<Sale>;
   @Input() isLoaded: boolean;
 

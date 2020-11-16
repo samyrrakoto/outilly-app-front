@@ -16,9 +16,7 @@ import { Order } from 'src/app/models/order';
   styleUrls: ['../../../user-dashboard.component.css', './user-sales-confirmed.component.css']
 })
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
-  @Input() sales: Array<Sale>;
   @Input() isLoaded: boolean;
-  public soldSales: Array<Sale>;
   public orders: Array<any>;
 
   constructor(public request: RequestService,
@@ -31,7 +29,6 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     protected location: Location)
   {
     super(request, auth, router, bidManager, saleManager, route, notification, location);
-    this.soldSales = [];
     this.orders = [];
   }
 
@@ -52,5 +49,9 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
 
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
+  }
+
+  public gToProductPage(saleId: number): void {
+
   }
 }

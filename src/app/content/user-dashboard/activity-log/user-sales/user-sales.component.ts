@@ -125,7 +125,8 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     sessionStorage.setItem('redirect_after_login', path);
   }
 
-  public goToProductPage(sale: Sale): void {
-    this.router.navigate(['/product', sale.product.slug, sale.id]);
+  public goToProductPage(slug: string, saleId: number): void {
+    console.log('/product' + '/' + slug + '/' + saleId.toString());
+    this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
   }
 }

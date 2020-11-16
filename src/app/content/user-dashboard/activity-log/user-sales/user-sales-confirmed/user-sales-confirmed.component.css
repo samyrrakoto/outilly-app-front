@@ -22,3 +22,8 @@
 #redo {
   color: var(--KTKP-GREEN);
 }
+
+#order-date {
+  position: absolute;
+  right: 50px
+}

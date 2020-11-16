@@ -18,7 +18,7 @@
               {{ order.sale.product.name }}
           </div>
 
-          <div class="content has-text-right discreet-text" style="position: absolute; right: 50px">
+          <div id="order-date" class="content has-text-right discreet-text">
             {{ order.createdAt | date:'dd-MM-yyyy'}}
           </div>
         </mat-panel-title>
@@ -74,7 +74,7 @@
             </button>
           </div>
         </div>
-        <a class="product-page" (click)="goToProductPage(order.saleId)">Accéder à la page du produit</a>
+        <a class="product-page" (click)="goToProductPage(order.sale.productSlug, order.sale.id)">Accéder à la page du produit</a>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
