@@ -173,21 +173,21 @@ mat-panel-description {
   margin-top: 10px;
 }
 
-.accepted {
-  color: var(--KTKP-GREEN);
-  font-weight: bold;
-}
-
-.declined {
-  color: var(--KTKP-RED);
-  font-weight: bold;
-}
-
-.counter-offer {
-  color: var(--KTKP-BLUE-DARKER);
-  font-weight: bold;
-}
-
 .product-page {
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .tabs ul {
+    flex-direction: column;
+  }
+
+  .tabs li {
+    width: 80%;
+    border-radius: 50px;
+  }
+
+  .tabs li a {
+    text-align: left;
+  }
 }

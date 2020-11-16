@@ -50,9 +50,7 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.auth.getLogStatus()
       .then(() => { return this.checkLogin() })
       .then(() => { return this.getUrl() })
-      .then(() => {
-        this.isLoaded = true;
-      })
+      .then(() => { this.isLoaded = true })
       .catch(() => this.errorHandle() );
   }
 
@@ -126,7 +124,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   }
 
   public goToProductPage(slug: string, saleId: number): void {
-    console.log('/product' + '/' + slug + '/' + saleId.toString());
     this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
   }
 }

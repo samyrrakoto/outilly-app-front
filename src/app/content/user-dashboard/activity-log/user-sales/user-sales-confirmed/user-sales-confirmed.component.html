@@ -1,6 +1,6 @@
 <div class="content">
   <h2 class="subtitle">Mes ventes confirmées</h2>
-  <div id="notifications" style="margin-bottom: 10px;"></div>
+  <div id="notifications"></div>
 
   <div class="content" *ngIf="isLoaded && orders.length === 0">
     Vous n'avez posté aucune annonce pour le moment :'-(
@@ -26,7 +26,7 @@
         <mat-panel-description>
 
         </mat-panel-description>
-        <h2 class="subtitle has-text-centered"><span class="accepted">{{ order.buyer.userProfile.firstname }}</span> a acheté votre produit !</h2>
+        <h2 class="subtitle announce has-text-centered"><span class="accepted">{{ order.buyer.userProfile.firstname }}</span> a acheté votre produit !</h2>
 
         <div class="columns">
           <div class="column has-text-centered-mobile">
