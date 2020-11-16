@@ -67,6 +67,13 @@
 
         <!-- If delivery note has not been generated yet -->
         <div *ngIf="!isDeliveryNoteGenerated(order)" class="content">
+          <div class="content">
+            <h2 class="subtitle announce has-text-centered">
+              L'acheteur souhaite se faire livrer par<br>
+              <span class="accepted">{{ order.shipMethod | delivery}}</span>
+            </h2>
+          </div>
+
           <div class="content has-text-centered">
             <button routerLink="/user/dashboard/dispatch-note" class="button is-success no-overflow has-text-white">
               <fa-icon [icon]="['fas', 'box']"></fa-icon>

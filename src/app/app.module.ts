@@ -113,13 +113,14 @@ import { PaymentDetailsComponent } from './content/checkout/payment-process/paym
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
-import { AnnouncePipe } from './announce.pipe';
+import { AnnouncePipe } from './pipes/announce.pipe';
 import { Error404Component } from './content/error404/error404.component';
 import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
 import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
+import { DeliveryPipe } from './pipes/delivery.pipe';
 
 @NgModule({
   declarations: [
@@ -230,7 +231,8 @@ import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/di
     UserSalesRunningComponent,
     UserPurchasesConfirmedComponent,
     UserPurchasesRunningComponent,
-    DispatchNoteComponent
+    DispatchNoteComponent,
+    DeliveryPipe
   ],
   imports: [
     HttpClientModule,
