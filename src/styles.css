@@ -89,6 +89,11 @@
   font-weight: bold;
 }
 
+.mat-expansion-panel-header {
+  min-height: 48px;
+  height: auto !important;
+}
+
 a:link, a:visited {
   color: black;
 }

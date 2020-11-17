@@ -16,7 +16,6 @@ import { Location } from '@angular/common';
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
   public orders: Array<any>;
-  @Output() requireActionEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -32,8 +31,7 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   }
 
   ngOnInit(): void {
-    this.getOrders()
-      .then(() => this.hasRequiredActions());
+    this.getOrders();
   }
 
   private getOrders(): Promise<any> {
@@ -49,14 +47,5 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
 
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
-  }
-
-  private hasRequiredActions(): void {
-    for (const order of this.orders) {
-      if (order.mrExpedition === null) {
-        this.requireActionEmitter.emit(true);
-        return;
-      }
-    }
   }
 }

@@ -48,8 +48,4 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
     this.purchaseStatus = status;
     this.router.navigate(['/user/dashboard/activity-log/purchases']);
   }
-
-  public getRequireAction(requireAction: boolean) : void{
-    this.requireAction = requireAction;
-  }
 }

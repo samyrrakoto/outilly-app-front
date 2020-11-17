@@ -18,7 +18,6 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   @Input() saleStatus: string;
-  @Output() requireActionParentEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   public sales: Array<Sale>;
   public runningSales: Array<Sale>;
   public currentBid: Bid;
@@ -125,10 +124,5 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
 
   public goToProductPage(slug: string, saleId: number): void {
     this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
-  }
-
-  public getRequireAction(requireAction: boolean): void {
-    console.log(requireAction);
-    this.requireActionParentEmitter.emit(requireAction);
   }
 }

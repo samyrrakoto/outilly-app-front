@@ -35,7 +35,6 @@
 </div>
 
 <app-user-sales *ngIf="currentSection === 'sales'"
-  (requireActionParentEmitter)="getRequireAction($event)"
   [saleStatus]="saleStatus">
 </app-user-sales>
 <app-user-purchases *ngIf="currentSection === 'purchases'"
