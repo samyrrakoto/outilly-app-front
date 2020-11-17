@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log.component';
 import { Location } from '@angular/common';
 import { Bid } from 'src/app/models/bid';
@@ -19,6 +18,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   @Input() saleStatus: string;
+  @Output() requireActionParentEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   public sales: Array<Sale>;
   public runningSales: Array<Sale>;
   public currentBid: Bid;
@@ -125,5 +125,10 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
 
   public goToProductPage(slug: string, saleId: number): void {
     this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
+  }
+
+  public getRequireAction(requireAction: boolean): void {
+    console.log(requireAction);
+    this.requireActionParentEmitter.emit(requireAction);
   }
 }

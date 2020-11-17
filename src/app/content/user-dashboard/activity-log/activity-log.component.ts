@@ -14,6 +14,7 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
   public currentSection: string;
   public saleStatus: string;
   public purchaseStatus: string;
+  public requireAction: boolean;
 
   constructor(protected request: RequestService,
     protected auth: AuthService,
@@ -22,6 +23,7 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
       super(request, auth, router);
       this.currentSection = 'sales';
       this.saleStatus = 'running';
+      this.requireAction = false;
     }
 
   ngOnInit(): void {
@@ -45,5 +47,9 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
     this.currentSection = 'purchases';
     this.purchaseStatus = status;
     this.router.navigate(['/user/dashboard/activity-log/purchases']);
+  }
+
+  public getRequireAction(requireAction: boolean) : void{
+    this.requireAction = requireAction;
   }
 }

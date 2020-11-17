@@ -1,6 +1,7 @@
 <div class="columns is-centered">
   <div class="column is-5">
     <app-user-sales-confirmed *ngIf="saleStatus === 'confirmed'"
+    (requireActionEmitter)="getRequireAction($event)"
     [isLoaded]="isLoaded">
   </app-user-sales-confirmed>
   <app-user-sales-running *ngIf="saleStatus === 'running'"

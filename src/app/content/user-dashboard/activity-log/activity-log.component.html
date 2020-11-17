@@ -12,6 +12,7 @@
       <a (click)="goToSales('confirmed')">
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Ventes confirmées</span>
+        <fa-icon id="notification-icon" *ngIf="requireAction" [icon]="['fas', 'bell']"></fa-icon>
       </a>
     </li>
 
@@ -34,6 +35,7 @@
 </div>
 
 <app-user-sales *ngIf="currentSection === 'sales'"
+  (requireActionParentEmitter)="getRequireAction($event)"
   [saleStatus]="saleStatus">
 </app-user-sales>
 <app-user-purchases *ngIf="currentSection === 'purchases'"

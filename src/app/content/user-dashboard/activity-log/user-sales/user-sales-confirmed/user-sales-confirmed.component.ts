@@ -1,6 +1,5 @@
 import { UserSalesComponent } from './../user-sales.component';
-import { Component, Input, OnInit } from '@angular/core';
-import { Sale } from 'src/app/models/sale';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +7,6 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Location } from '@angular/common';
-import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-user-sales-confirmed',
@@ -18,6 +16,7 @@ import { Order } from 'src/app/models/order';
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
   public orders: Array<any>;
+  @Output() requireActionEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -33,14 +32,15 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   }
 
   ngOnInit(): void {
-    this.getOrders();
+    this.getOrders()
+      .then(() => this.hasRequiredActions());
   }
 
   private getOrders(): Promise<any> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_USER_ORDERS).subscribe(
         (orders: any) =>  {
-          this.orders = orders
+          this.orders = orders;
           resolve();
         }
       );
@@ -51,7 +51,12 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     return order.mrExpedition !== null;
   }
 
-  public gToProductPage(saleId: number): void {
-
+  private hasRequiredActions(): void {
+    for (const order of this.orders) {
+      if (order.mrExpedition === null) {
+        this.requireActionEmitter.emit(true);
+        return;
+      }
+    }
   }
 }
