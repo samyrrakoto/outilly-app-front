@@ -124,12 +124,10 @@ export class PaymentConfirmationComponent implements OnInit {
   }
 
   private saleMissingError(): void {
-    console.error('Missing sale id');
     this.router.navigate(['/checkout/order-summary']);
   }
 
   private orderMissingError(): void {
-    console.error('Missing order id');
     this.router.navigate(['/checkout/order-summary']);
   }
 
