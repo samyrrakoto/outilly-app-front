@@ -56,4 +56,13 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   public isRelayDelivery(order: any): boolean {
     return order.shipMethod === 'RelayShip';
   }
+
+  public isRequiringAction(order: any): boolean {
+    if (this.isHandDelivery(order)) {
+      return order.isDelivered === null;
+    }
+    else {
+      return !this.isDeliveryNoteGenerated(order);
+    }
+  }
 }

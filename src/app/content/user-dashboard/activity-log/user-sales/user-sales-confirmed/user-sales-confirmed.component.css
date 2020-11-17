@@ -35,3 +35,9 @@
 .product-title {
   width: 70%;
 }
+
+.notification-icon {
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--KTKP-RED);
+}
