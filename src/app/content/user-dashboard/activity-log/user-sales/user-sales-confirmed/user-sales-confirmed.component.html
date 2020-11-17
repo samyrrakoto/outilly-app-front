@@ -30,6 +30,11 @@
         <mat-panel-description>
 
         </mat-panel-description>
+        <div *ngIf="isRequiringAction(order)" class="content warning has-text-centered">
+          <fa-icon class="notification-icon" [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+          Vous avez une action à effectuer pour cette vente
+        </div>
+
         <h2 class="subtitle announce has-text-centered">
           <span class="accepted">{{ order.buyer.userProfile.firstname }} {{ order.buyer.userProfile.lastname | slice:0:1 }}.</span> a acheté votre produit !
         </h2>
