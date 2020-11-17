@@ -134,7 +134,6 @@ export class PaymentConfirmationComponent implements OnInit {
   }
 
   private handleError(errorName: string = ''): void {
-    console.log(errorName);
     if (errorName !== '') {
       this[errorName + 'Error']();
     }

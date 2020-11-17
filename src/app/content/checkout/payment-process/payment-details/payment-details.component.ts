@@ -108,7 +108,6 @@ export class PaymentDetailsComponent implements OnInit {
   ** 1 - Preregister
   */
   private preregister(): Promise<any> {
-    console.log('preregister');
     return new Promise((resolve, reject) => {
       this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
         next: (response: any) => {

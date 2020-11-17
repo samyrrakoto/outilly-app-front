@@ -23,9 +23,7 @@ export class AccountRequestComponent extends ProductCreationComponent implements
     this.formData.path.next = "account-request";
   }
 
-  ngOnInit(): void {
-    console.log(this.constructResponse());
-  }
+  ngOnInit(): void {}
 
   setFocus(id: string): void {
     const tiles = ['yes', 'no'];

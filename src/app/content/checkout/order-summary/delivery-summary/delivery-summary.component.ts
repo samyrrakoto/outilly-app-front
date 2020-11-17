@@ -38,7 +38,6 @@ export class DeliverySummaryComponent implements OnInit {
           resolve();
         },
         error: () => {
-          console.log('ERROR');
           reject();
         }
       });

@@ -14,7 +14,6 @@ export class CountryComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = this.formDataService.user;
-    console.log(this.formDataService);
     this.errorMessages = formValidatorService.errorMessages;
     this.formDataService.fieldName = 'country';
     this.stepNb = 8;
