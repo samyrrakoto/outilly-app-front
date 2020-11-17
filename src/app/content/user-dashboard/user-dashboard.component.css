@@ -84,7 +84,7 @@ mat-panel-title {
 
 mat-expansion-panel {
   border: none;
-  border-left: solid 4px var(--KTKP-GREEN);
+  border-left: solid 4px var(--KTKP-GREY-DARKER);
   box-shadow: unset;
   margin-bottom: 10px;
 }
