@@ -49,7 +49,7 @@
         <div class="is-divider"></div>
 
         <!-- If delivery note has been generated -->
-        <div *ngIf="isDeliveryNoteGenerated(order)" class="content">
+        <div *ngIf="isRelayDelivery(order) && isDeliveryNoteGenerated(order)" class="content">
           <div class="content has-text-centered">
             <button class="button is-success no-overflow has-text-white">
               <fa-icon [icon]="['fas', 'box']"></fa-icon>
@@ -66,7 +66,7 @@
         </div>
 
         <!-- If delivery note has not been generated yet -->
-        <div *ngIf="!isDeliveryNoteGenerated(order)" class="content">
+        <div *ngIf="isRelayDelivery(order) && !isDeliveryNoteGenerated(order)" class="content">
           <div class="content">
             <h2 class="subtitle announce has-text-centered">
               L'acheteur souhaite se faire livrer par<br>
@@ -78,6 +78,23 @@
             <button routerLink="/user/dashboard/dispatch-note" class="button is-success no-overflow has-text-white">
               <fa-icon [icon]="['fas', 'box']"></fa-icon>
               Générer mon étiquette d'expédition
+            </button>
+          </div>
+        </div>
+
+        <!-- If hand delivery has been chosen -->
+        <div *ngIf="isHandDelivery(order)" class="content">
+          <div class="content">
+            <h2 class="subtitle announce has-text-centered">
+              L'acheteur souhaite se faire livrer par<br>
+              <span class="accepted">{{ order.shipMethod | delivery}}</span>
+            </h2>
+          </div>
+
+          <div class="content has-text-centered">
+            <button class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
+              Contacter l'acheteur pour convenir d'un rendez-vous
             </button>
           </div>
         </div>

@@ -48,4 +48,12 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
   }
+
+  public isHandDelivery(order: any): boolean {
+    return order.shipMethod === 'HandDelivery';
+  }
+
+  public isRelayDelivery(order: any): boolean {
+    return order.shipMethod === 'RelayShip';
+  }
 }
