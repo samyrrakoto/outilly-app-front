@@ -16,7 +16,6 @@ export class BidManagerService {
     const request: any = this.request.postData(payload, this.request.uri.PLACE_BID);
 
     request.subscribe((res: any) => {
-      console.log(res);
     });
   }
 
@@ -28,7 +27,6 @@ export class BidManagerService {
     const request: any = this.request.putData(this.request.uri.ACCEPT_OFFER, payload);
 
     request.subscribe((res: any) => {
-      console.log(res);
     });
   }
 
@@ -40,7 +38,6 @@ export class BidManagerService {
     const request: any = this.request.putData(this.request.uri.DECLINE_OFFER, payload);
 
     request.subscribe((res: any) => {
-      console.log(res);
     });
   }
 
@@ -52,7 +49,6 @@ export class BidManagerService {
     const request: any = this.request.putData(this.request.uri.COUNTER_OFFER, payload);
 
     request.subscribe((res: any) => {
-      console.log(res);
     });
   }
 

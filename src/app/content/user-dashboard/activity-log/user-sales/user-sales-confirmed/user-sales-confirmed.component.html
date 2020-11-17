@@ -1,0 +1,115 @@
+<div class="content">
+  <h2 class="subtitle">Mes ventes confirmées</h2>
+  <div id="notifications"></div>
+
+  <div class="content" *ngIf="isLoaded && orders.length === 0">
+    Vous n'avez posté aucune annonce pour le moment :'-(
+
+    <div class="content">
+      N'hésitez pas à <a routerLink="/product/create" class="accepted">commencer à vendre un produit !</a>
+    </div>
+  </div>
+
+  <mat-accordion *ngIf="isLoaded && orders.length > 0">
+    <mat-expansion-panel *ngFor="let order of orders">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div *ngIf="isRequiringAction(order)" class="content">
+            <fa-icon class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+          </div>
+
+          <div class="content product-title">
+            {{ order.sale.product.name }}
+          </div>
+
+          <div id="order-date" class="content has-text-right discreet-text">
+            {{ order.createdAt | date:'dd-MM-yyyy'}}
+          </div>
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+
+        </mat-panel-description>
+        <div *ngIf="isRequiringAction(order)" class="content warning has-text-centered">
+          <fa-icon class="notification-icon" [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+          Vous avez une action à effectuer pour cette vente
+        </div>
+
+        <h2 class="subtitle announce has-text-centered">
+          <span class="accepted">{{ order.buyer.userProfile.firstname }} {{ order.buyer.userProfile.lastname | slice:0:1 }}.</span> a acheté votre produit !
+        </h2>
+
+        <div class="columns">
+          <div class="column has-text-centered-mobile">
+            <div class="content">
+              Prix : <span class="bold">{{ order.amountPrice | currency:'full' }}€</span>
+            </div>
+
+            <div class="content">
+              N° de commande : <span class="bold">{{ order.id }}</span>
+            </div>
+          </div>
+
+          <div class="column has-text-centered-mobile">
+            <div class="content">
+              Date de commande : <span class="bold">{{ order.transaction.createdAt | date:'dd-MM-yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="is-divider"></div>
+
+        <!-- If delivery note has been generated -->
+        <div *ngIf="isRelayDelivery(order) && isDeliveryNoteGenerated(order)" class="content">
+          <div class="content has-text-centered">
+            <button class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'box']"></fa-icon>
+              Confirmer l'envoi du colis
+            </button>
+          </div>
+
+          <div class="content has-text-centered">
+            <button class="button no-overflow has-text-success">
+              <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
+              Générer à nouveau mon bon d'envoi
+            </button>
+          </div>
+        </div>
+
+        <!-- If delivery note has not been generated yet -->
+        <div *ngIf="isRelayDelivery(order) && !isDeliveryNoteGenerated(order)" class="content">
+          <div class="content">
+            <h2 class="subtitle announce has-text-centered">
+              L'acheteur souhaite se faire livrer par<br>
+              <span class="accepted">{{ order.shipMethod | delivery}}</span>
+            </h2>
+          </div>
+
+          <div class="content has-text-centered">
+            <button routerLink="/user/dashboard/dispatch-note" class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'box']"></fa-icon>
+              Générer mon étiquette d'expédition
+            </button>
+          </div>
+        </div>
+
+        <!-- If hand delivery has been chosen -->
+        <div *ngIf="isHandDelivery(order)" class="content">
+          <div class="content">
+            <h2 class="subtitle announce has-text-centered">
+              L'acheteur souhaite se faire livrer par<br>
+              <span class="accepted">{{ order.shipMethod | delivery}}</span>
+            </h2>
+          </div>
+
+          <div class="content has-text-centered">
+            <button class="button is-success no-overflow has-text-white">
+              <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
+              Contacter l'acheteur pour convenir d'un rendez-vous
+            </button>
+          </div>
+        </div>
+        <a class="product-page" (click)="goToProductPage(order.sale.productSlug, order.sale.id)">Accéder à la page du produit</a>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

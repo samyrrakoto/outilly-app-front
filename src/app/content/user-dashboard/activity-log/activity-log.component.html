@@ -1,18 +1,42 @@
 <div id="under-tabs" class="tabs is-boxed is-centered is-small">
   <ul>
+
+    <!-- Sales -->
     <li id="user-sales" class="is-active" (click)="setFocus(activityTabs, 'user-sales')">
-      <a routerLink="/user/dashboard/activity-log/sales">
+      <a (click)="goToSales('running')">
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
-        <span>Ventes</span>
+        <span>Ventes en cours</span>
       </a>
     </li>
+    <li id="user-sales-confirmed" (click)="setFocus(activityTabs, 'user-sales-confirmed')">
+      <a (click)="goToSales('confirmed')">
+        <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
+        <span>Ventes confirmées</span>
+        <fa-icon id="notification-icon" *ngIf="requireAction" [icon]="['fas', 'bell']"></fa-icon>
+      </a>
+    </li>
+
+    <li><a id="blank"></a></li>
+
+    <!-- Purchases -->
     <li id="user-purchases" (click)="setFocus(activityTabs, 'user-purchases')">
-      <a routerLink="/user/dashboard/activity-log/purchases">
+      <a (click)="goToPurchases('running')">
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
-        <span>Achats</span>
+        <span>Achats en cours</span>
+      </a>
+    </li>
+    <li id="user-purchases-confirmed" (click)="setFocus(activityTabs, 'user-purchases-confirmed')">
+      <a (click)="goToPurchases('confirmed')">
+        <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
+        <span>Achats confirmés</span>
       </a>
     </li>
   </ul>
 </div>
 
-<router-outlet></router-outlet>
+<app-user-sales *ngIf="currentSection === 'sales'"
+  [saleStatus]="saleStatus">
+</app-user-sales>
+<app-user-purchases *ngIf="currentSection === 'purchases'"
+  [purchaseStatus]="purchaseStatus">
+</app-user-purchases>

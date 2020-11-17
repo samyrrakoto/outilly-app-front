@@ -50,10 +50,6 @@ fa-icon {
   margin-right: 10px;
 }
 
-.pointed {
-  cursor: pointer;
-}
-
 .subtitle {
   text-align: left;
   font-weight: bold;
@@ -88,7 +84,7 @@ mat-panel-title {
 
 mat-expansion-panel {
   border: none;
-  border-left: solid 4px var(--KTKP-GREEN);
+  border-left: solid 4px var(--KTKP-GREY-DARKER);
   box-shadow: unset;
   margin-bottom: 10px;
 }
@@ -173,21 +169,21 @@ mat-panel-description {
   margin-top: 10px;
 }
 
-.accepted {
-  color: var(--KTKP-GREEN);
-  font-weight: bold;
-}
-
-.declined {
-  color: var(--KTKP-RED);
-  font-weight: bold;
-}
-
-.counter-offer {
-  color: var(--KTKP-BLUE-DARKER);
-  font-weight: bold;
-}
-
 .product-page {
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .tabs ul {
+    flex-direction: column;
+  }
+
+  .tabs li {
+    width: 80%;
+    border-radius: 50px;
+  }
+
+  .tabs li a {
+    text-align: left;
+  }
 }

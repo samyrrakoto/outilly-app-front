@@ -120,8 +120,4 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     }
     return -1;
   }
-
-  test() {
-    console.log("test");
-  }
 }

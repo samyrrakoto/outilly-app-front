@@ -2,7 +2,25 @@
   color: var(--MAT-GREY);
 }
 
+fa-icon {
+  color: var(--MAT-GREY);
+}
+
+#blank {
+  cursor: auto;
+}
+
+#blank:hover {
+  background: none;
+}
+
 #under-tabs .is-active a {
   background-color: var(--KTKP-GREEN);
   color: white;
+}
+
+#notification-icon {
+  font-size: 1.2em;
+  color: var(--KTKP-RED);
+  margin-left: 10px;
 }

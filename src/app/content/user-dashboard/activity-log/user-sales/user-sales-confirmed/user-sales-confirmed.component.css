@@ -1,0 +1,57 @@
+.button {
+  width: 100%;
+}
+
+.announce {
+  font-size: 1.3em;
+  border: none;
+  margin-top: 2px !important;
+  padding-top: 2px;
+}
+
+.content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.column {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+#redo {
+  color: var(--KTKP-GREEN);
+}
+
+#order-date {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50px
+}
+
+.product-title {
+  width: 70%;
+}
+
+.warning {
+  border: solid 2px var(--KTKP-RED);
+  background: var(--KTKP-RED);
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.warning fa-icon {
+  color: white;
+}
+
+.notification-icon {
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--KTKP-RED);
+}

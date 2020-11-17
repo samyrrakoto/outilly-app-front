@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Modals } from 'src/app/models/modals';
 import { Bid } from 'src/app/models/bid';
@@ -16,6 +16,7 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
   styleUrls: ['../../user-dashboard.component.css', './user-purchases.component.css']
 })
 export class UserPurchasesComponent extends ActivityLogComponent implements OnInit {
+  @Input() purchaseStatus: string;
   modals: Modals;
   purchases: Array<Purchase>;
   currentBid: Bid;

@@ -2,7 +2,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log.component';
 import { Location } from '@angular/common';
 import { Bid } from 'src/app/models/bid';
@@ -17,10 +17,13 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['../../user-dashboard.component.css', './user-sales.component.css']
 })
 export class UserSalesComponent extends ActivityLogComponent implements OnInit {
-  sales: Array<Sale>;
-  currentBid: Bid;
-  counterOfferAmount: number;
-  modals: Modals;
+  @Input() saleStatus: string;
+  public sales: Array<Sale>;
+  public runningSales: Array<Sale>;
+  public currentBid: Bid;
+  public counterOfferAmount: number;
+  public modals: Modals;
+  public isLoaded: boolean;
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -29,7 +32,8 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     public saleManager: SaleManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
-    protected location: Location) {
+    protected location: Location)
+  {
     super(request, auth, router, route);
     this.sales = [];
     this.currentBid = new Bid();
@@ -38,49 +42,32 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.modals.addModal('acceptOffer');
     this.modals.addModal('counterOffer');
     this.modals.addModal('counterOfferConfirmation');
+    this.isLoaded = false;
   }
 
   ngOnInit(): void {
-    this.route.url.subscribe((url: any) => {
-      this.url = url[0].path;
-
-      if (this.url === 'sales') {
-        this.setFocus(this.activityTabs, 'user-sales');
-      }
-    });
-    this.getUserSales()
-      .then(() => {
-        console.log(this.sales);
-      });
+    this.auth.getLogStatus()
+      .then(() => { return this.checkLogin() })
+      .then(() => { return this.getUrl() })
+      .then(() => { this.isLoaded = true })
+      .catch(() => this.errorHandle() );
   }
 
-  private getUserSalesId(saleId: number): Promise<any> {
+  private getUrl(): Promise<any> {
     return new Promise((resolve) => {
-      const request: any = this.request.getData(this.request.uri.SALE, [saleId.toString()]);
+      this.route.url.subscribe((url: any) => {
+        this.url = url[0].path;
 
-      request.subscribe((sale: Sale) => {
-        this.sales.push(sale);
-        console.log(sale);
+        if (this.url === 'sales') {
+          this.setFocus(this.activityTabs, 'user-sales');
+        }
         resolve();
       });
     });
   }
 
-  private getUserSales(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.request.getData(this.request.uri.GET_USER).subscribe({
-        next: (value) => {
-          for (const sale of value.sales) {
-            this.getUserSalesId(sale.id);
-          }
-          resolve();
-        },
-        error: () => {
-          this.errorHandle();
-          reject();
-        }
-      });
-    });
+  private checkLogin(): Promise<any> {
+    return this.auth.logged && this.auth.accessToken === 'good' ? Promise.resolve() : Promise.reject();
   }
 
   public offerAcceptanceConfirmation(choice: string): void {
@@ -126,16 +113,16 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   private refresh(message: string): void {
     this.notification.display(message, 'notifications');
     setTimeout(() => window.location.reload(), 3000);
-
   }
 
   private errorHandle(): void {
-    this.auth.logout();
-    sessionStorage.setItem('redirect_after_login', this.location.path());
+    const path: string = this.location.path();
+
     this.router.navigate(['/login']);
+    sessionStorage.setItem('redirect_after_login', path);
   }
 
-  public goToProductPage(sale: Sale): void {
-    this.router.navigate(['/product', sale.product.slug, sale.id]);
+  public goToProductPage(slug: string, saleId: number): void {
+    this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
   }
 }

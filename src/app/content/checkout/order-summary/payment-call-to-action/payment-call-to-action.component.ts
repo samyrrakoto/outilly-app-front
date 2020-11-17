@@ -109,6 +109,5 @@ export class PaymentCallToActionComponent implements OnInit {
   }
 
   private handleUnknownError(): void {
-    console.error('Unknown error');
   }
 }

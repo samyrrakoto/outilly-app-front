@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 export class Uri {
   readonly BASE: string;
@@ -14,6 +14,10 @@ export class Uri {
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
   readonly SALE_CREATE: string = 'secure/sale/create';
+  readonly GET_SALES_BY_IDS: string = 'secure/sales'
+  readonly GET_SALES_SOLD: string = 'secure/sales/sold';
+  readonly GET_SALES_ONLINE: string = 'secure/sales/online';
+  readonly GET_SALES_NEW: string = 'secure/sales/new';
   readonly GET_SALE: string = 'sale/';
   readonly GET_SALE_AVAILABILITY: string = 'sale/availability'
   readonly GET_BIDS_AND_SALES = 'secure/bids/sales';
@@ -37,6 +41,7 @@ export class Uri {
   readonly GET_TRANSACTION_DATA: string = 'secure/mangopay/transaction/check';
   readonly CREATE_ORDER: string = 'secure/order/create';
   readonly GET_ORDER: string = 'secure/order';
+  readonly GET_USER_ORDERS: string = 'secure/orders/validated';
   readonly PREREGISTER: string = 'secure/mangopay/user/card/preregister';
   readonly UPDATE_REGISTRATION: string = 'secure/mangopay/user/card/update-registration';
   readonly PREAUTH: string = 'secure/mangopay/preauth';
@@ -47,7 +52,7 @@ export class Uri {
     this.path = '';
   }
 
-  setUri(ressource: string, params: Array<string>) {
+  public setUri(ressource: string, params: Array<string>): void {
     this.path = this.BASE + ressource;
 
     for (const param of params) {

@@ -16,6 +16,8 @@ export class Order {
   collMethod: string;
   paymentAttempts: number;
   recipient: Recipient;
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor() {
     this.id = 0;
@@ -32,5 +34,7 @@ export class Order {
     this.collMethod = '';
     this.paymentAttempts = null;
     this.recipient = new Recipient();
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 }

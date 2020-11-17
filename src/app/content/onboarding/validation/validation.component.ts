@@ -32,13 +32,10 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
 
     if (isOk)
       this.router.navigate(['onboarding/confirmation']);
-    else
-      console.log("ERROR");
   }
 
   public submit(): void {
     const user: any = this.createPayload();
-    console.log(JSON.stringify(user));
     const response: any = this.request.createUser(user);
 
     response.subscribe((res: HttpResponse<User>) => {

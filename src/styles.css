@@ -37,6 +37,10 @@
   font-weight: bold;
 }
 
+.pointed {
+  cursor: pointer;
+}
+
 .wrapped {
   word-break: break-all;
 }
@@ -83,6 +87,11 @@
 .counter-offer {
   color: var(--KTKP-BLUE-DARKER);
   font-weight: bold;
+}
+
+.mat-expansion-panel-header {
+  min-height: 48px;
+  height: auto !important;
 }
 
 a:link, a:visited {
