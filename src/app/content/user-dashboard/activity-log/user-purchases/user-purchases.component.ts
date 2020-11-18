@@ -41,17 +41,23 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   }
 
   ngOnInit(): void {
-    this.route.url.subscribe((url: any) => {
-      this.url = url[0].path;
+    this.getUrl()
+      .then(() => this.getPurchases())
+      .then((purchases: Array<Purchase>) => { this.purchases = purchases });
+  }
 
-      if (this.url === 'purchases') {
-        this.setFocus(this.activityTabs, 'user-purchases');
-      }
-    });
-    this.getPurchases()
-      .then((purchases: Array<Purchase>) => {
-        this.purchases = purchases;
+  private getUrl(): Promise<any> {
+    return new Promise((resolve) => {
+      this.route.url.subscribe((url: any) => {
+        this.url = url[0].path;
+
+        if (this.url === 'purchases') {
+          this.setFocus(this.activityTabs, 'user-purchases');
+        }
+        resolve();
       });
+    });
+
   }
 
   private getPurchases(): Promise<Purchase[]> {

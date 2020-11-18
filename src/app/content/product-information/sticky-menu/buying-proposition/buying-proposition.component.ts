@@ -33,9 +33,6 @@ export class BuyingPropositionComponent implements OnInit {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
-    this.sticky.maxPrice /= 100;
-    this.sticky.minPrice /= 100;
-    this.sticky.proposedPrice /= 100;
     this.sticky.proposedPrice -= 5;
     this.purchases = [];
     this.currentPurchase = null;
@@ -44,11 +41,17 @@ export class BuyingPropositionComponent implements OnInit {
   ngOnInit(): void {}
 
   public placeBid(amount: number): void {
-    this.bidManager.place(amount * 100, this.sale.id);
-    this.notification.display('Votre offre a bien été envoyée', 'proposition');
+    if (this.checkBidValue(amount)) {
+      this.bidManager.place(amount * 100, this.sale.id);
+      this.notification.display('Votre offre a bien été envoyée', 'proposition');
+    }
   }
 
   public goToSales(): void {
     this.router.navigate(['/user/dashboard/activity-log/purchases']);
+  }
+
+  private checkBidValue(amount: number): boolean {
+    return amount >= this.sticky.minPrice && amount <= this.sticky.maxPrice;
   }
 }

@@ -33,7 +33,6 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
       if (this.url === 'activity-log') {
         this.setFocus(this.menuTabs, 'activities');
       }
-      this.goToSales('running');
     });
   }
 
