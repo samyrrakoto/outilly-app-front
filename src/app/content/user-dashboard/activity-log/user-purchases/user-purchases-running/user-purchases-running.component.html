@@ -13,7 +13,7 @@
     <mat-expansion-panel *ngFor="let purchase of purchases">
         <mat-expansion-panel-header>
         <mat-panel-title>
-          <fa-icon class="section-icon" [icon]="['fas', 'tools']"></fa-icon>
+          <fa-icon *ngIf="purchaseManager.requireAction(purchase)" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
           {{ purchase.productName }}
         </mat-panel-title>
         </mat-expansion-panel-header>

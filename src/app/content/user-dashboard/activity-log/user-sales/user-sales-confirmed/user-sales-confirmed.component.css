@@ -49,9 +49,3 @@
 .warning fa-icon {
   color: white;
 }
-
-.notification-icon {
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--KTKP-RED);
-}

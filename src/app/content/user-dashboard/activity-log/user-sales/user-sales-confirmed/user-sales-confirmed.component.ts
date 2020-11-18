@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-user-sales-confirmed',
   templateUrl: './user-sales-confirmed.component.html',
-  styleUrls: ['../../../user-dashboard.component.css', './user-sales-confirmed.component.css']
+  styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-sales-confirmed.component.css']
 })
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
