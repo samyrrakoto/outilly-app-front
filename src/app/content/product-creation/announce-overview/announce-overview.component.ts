@@ -80,7 +80,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "id": product.id,
         "strId": product.strId,
         "name": product.name,
-        "description": product.description,
+        "description": btoa(product.description),
+        "isDescriptionBase64": true,
+        "isDescriptionHtml": false,
         "quality": product.quality,
         "isBundle": product.isBundle,
         "buyingOption": product.buyingOption,
@@ -96,6 +98,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "productMedias": product.productMedias
       }
     };
+    console.log(JSON.stringify(payload));
     return payload;
   }
 
@@ -125,6 +128,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
             this.productUrl = '/product/' + sale.body.product.slug + '/' + sale.body.id;
             localStorage.removeItem('strId');
             localStorage.removeItem('id');
+            sessionStorage.removeItem('current_product');
           }
           else {
             this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
