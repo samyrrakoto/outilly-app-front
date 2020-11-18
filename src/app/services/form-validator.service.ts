@@ -1,3 +1,4 @@
+import { ProductMedia } from 'src/app/models/product-media';
 import { ProductType } from './../models/product-type';
 import { ProductCategory } from './../models/product-category';
 import { Brand } from './../models/brand';
@@ -20,6 +21,31 @@ export class FormValidatorService {
     this.errorMessages = [];
   }
 
+  /* ERROR MESSAGES */
+  private isMessageExisting(message: string): boolean {
+    for (const errorMessage of this.errorMessages) {
+      if (message === errorMessage) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public addErrorMessage(message: string): void {
+    if (!this.isMessageExisting(message)) {
+      this.errorMessages.push(message);
+    }
+  }
+
+  private removeErrorMessage(message: string): void {
+    for (let i=0; i<this.errorMessages.length; i++) {
+      if (message === this.errorMessages[i]) {
+        this.errorMessages.splice(i, 1);
+      }
+    }
+  }
+
+  /* FIELD CONSTRAINTS */
   isEmpty(field: any): boolean {
     const message: string = this.REQUIRED;
     const index: number = this.errorMessages.indexOf(message);
@@ -39,6 +65,17 @@ export class FormValidatorService {
       return true;
     }
     this.errorMessages.splice(index);
+    return false;
+  }
+
+  hasNotEnoughElements(field: Array<any>, nb: number = 2): boolean {
+    const message: string = "Vous devez sélectionner au moins " + nb + " éléments";
+
+    if (field.length < nb) {
+      this.addErrorMessage(message);
+      return true;
+    }
+    this.removeErrorMessage(message);
     return false;
   }
 
@@ -408,9 +445,11 @@ export class FormValidatorService {
   }
 
   mediaUploadVerify(data: FormDataService): boolean {
+    const medias: Array<ProductMedia> = data.product.productMedias;
+    const notEnoughElements: boolean = this.hasNotEnoughElements(medias, 3);
+
     //TODO fixbug
     /*let mediaUpload: Array<ProductMedia> = data.product.productMedias;
-    const empty: boolean = this.isEmpty(mediaUpload);
     let wrongFormat: boolean = false;
 
     for (const media of data.product.productMedias) {
@@ -422,6 +461,9 @@ export class FormValidatorService {
     if (wrongFormat) {
       return false;
     }*/
+    if (notEnoughElements) {
+      return false;
+    }
     return true;
   }
 
