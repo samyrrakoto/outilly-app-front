@@ -21,8 +21,9 @@
         (openState)="getOpenState($event)"></side-information>
     </div>
 
-    <sticky-menu *ngIf="!isSeller() && sale.id !== 0 && isAvailable"
+    <sticky-menu *ngIf="!isSeller && sale.id !== 0 && isAvailable"
       [sale]="sale"
+      [isSeller]="isSeller"
       [isLogged]="auth.logged"
       [accessToken]="auth.accessToken"
       [errorMsg]="errorMsg"

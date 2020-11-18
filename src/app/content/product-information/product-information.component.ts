@@ -17,6 +17,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   accessToken: string;
   isLogged: boolean;
   isAvailable: boolean;
+  isSeller: boolean;
   id: number;
   vendorProducts: string;
   descriptionFlag: boolean;
@@ -65,6 +66,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => this.getProductById(this.id.toString()))
       .then(() => this.getGenericQuestions())
       .then(() => this.getSalesId())
+      .then(() => this.isUserSeller())
       .then(() => this.handleSaleStatus())
       .catch((error: any) => this.handlingErrors(error));
   }
@@ -83,14 +85,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
       // If user logged and token is not expired
       if (this.auth.logged && this.auth.getTokenStatus() === 'good') {
-        this.request.getUserInfos().subscribe({
-          next: (user: any) => {
+        this.request.getUserInfos().subscribe(
+          (user: any) => {
             for (const sale of user.sales) {
               this.sales.push(sale);
             }
             resolve();
           }
-        });
+        );
       }
       else {
         resolve();
@@ -98,16 +100,16 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
-  public isSeller(): boolean {
+  public isUserSeller(): Promise<any> {
     for (const sale of this.sales) {
       if (sale.id === this.id) {
-        return true;
+        this.isSeller = true;
       }
     }
-    return false;
+    return Promise.resolve();
   }
 
-  sortByMediaType(): void {
+  private sortByMediaType(): void {
     const imgMedias: Array<ProductMedia> = [];
     const videoMedias: Array<ProductMedia> = [];
 
@@ -139,7 +141,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private handleSaleStatus(): Promise<any> {
-    if (this.sale.status === 'new' && !this.isSeller()) {
+    if (this.sale.status === 'new' && !this.isSeller) {
       this.router.navigate(['/error404']);
       return Promise.reject('SaleStatus');
     }
@@ -157,7 +159,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
-  displayDescription(): void {
+  public displayDescription(): void {
     this.descriptionFlag ? this.descriptionFlag = false : this.descriptionFlag = true;
   }
 

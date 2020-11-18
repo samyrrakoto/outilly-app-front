@@ -1,23 +1,23 @@
-<div *ngIf="!isSeller()" class="box has-text-centered is-hidden-mobile">
-    <buying-call-2-action
-      [sale]="sale"
-      [isAvailable]="isAvailable"
-      (openState)="emitOpenState($event)">
-    </buying-call-2-action>
+<div *ngIf="!isSeller" class="box has-text-centered is-hidden-mobile">
+  <buying-call-2-action
+    [sale]="sale"
+    [isAvailable]="isAvailable"
+    (openState)="emitOpenState($event)">
+  </buying-call-2-action>
 </div>
 
 <div class="box has-text-centered has-background-grey-lighter">
-    <author-information [sale]="sale"></author-information>
+  <author-information [sale]="sale"></author-information>
 </div>
 
 <div class="box has-text-centered is-hidden-mobile">
-    <question-to-vendor></question-to-vendor>
+  <question-to-vendor></question-to-vendor>
 </div>
 
 <div class="box has-text-centered">
-    <payment-information></payment-information>
+  <payment-information></payment-information>
 </div>
 
 <div class="box has-text-centered">
-    <selling-call-2-action></selling-call-2-action>
+  <selling-call-2-action></selling-call-2-action>
 </div>
