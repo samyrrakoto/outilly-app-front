@@ -18,7 +18,7 @@ export class ActivityDomainComponent extends ProductCreationComponent implements
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.product.activityDomains = [new ActivityDomain('mecanique')];
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "activityDomain";
     this.stepNb = 4;
     this.stepName = "Choisissez un domaine d'activité.";

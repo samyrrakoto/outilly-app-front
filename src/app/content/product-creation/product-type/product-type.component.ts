@@ -23,7 +23,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productType";
     this.stepNb = 7;
     this.stepName = "Quel est le type du produit que vous vendez ?";

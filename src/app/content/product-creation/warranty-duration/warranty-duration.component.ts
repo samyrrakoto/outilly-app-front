@@ -16,7 +16,7 @@ export class WarrantyDurationComponent extends ProductCreationComponent implemen
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "warrantyDuration";
     this.stepNb = 15;
     this.stepName = "Combien de mois garantissez-vous le produit ?";

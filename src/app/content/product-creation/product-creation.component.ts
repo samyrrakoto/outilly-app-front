@@ -1,7 +1,7 @@
-import { RequestService } from './../../services/request.service';
+import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Path } from 'src/app/models/Path/path';
-import { Product } from './../../models/product';
+import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +24,10 @@ export class ProductCreationComponent implements OnInit {
   previousOn: boolean;
   readonly rootUri = 'product/create/';
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidator: FormValidatorService)
+  constructor(public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidator: FormValidatorService)
   {
     this.product = new Product();
     this.stepNb = 0;

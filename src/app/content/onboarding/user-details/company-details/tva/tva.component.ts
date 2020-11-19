@@ -14,7 +14,7 @@ export class TvaComponent extends StatusComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "tva";
     this.stepName = "Quel est votre numéro de TVA communautaire ?";
     this.formDataService.path.previous = "6/status/siret";

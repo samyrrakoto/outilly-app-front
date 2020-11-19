@@ -16,7 +16,7 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "videoUpload";
     this.stepNb = 16;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";

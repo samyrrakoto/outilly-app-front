@@ -22,7 +22,7 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "batchChoice";
     this.stepNb = 1;
     this.stepName = "Vendez-vous un lot de plusieurs pièces ?";
@@ -51,9 +51,8 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
   }
 
   private createProduct(): void {
-    const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
-
-    response.subscribe((res) => {
+    this.request.postData('', this.request.uri.PRODUCT_CREATION).subscribe(
+      (res) => {
         localStorage.setItem('id', res.body.id);
         localStorage.setItem('strId', res.body.strId);
     });

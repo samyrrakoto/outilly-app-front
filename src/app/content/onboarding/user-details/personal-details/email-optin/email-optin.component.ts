@@ -14,7 +14,7 @@ export class EmailOptinComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "emailOptin";
     this.stepNb = 15;
     this.stepName = "Souhaitez-vous recevoir notre newsletter ?";

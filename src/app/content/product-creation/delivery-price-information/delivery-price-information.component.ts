@@ -15,7 +15,7 @@ export class DeliveryPriceInformationComponent extends ProductCreationComponent 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "deliveryPriceInformation";
     this.stepNb = 13;
     this.stepName = "Avec notre partenaire Mondial Relay, votre colis coûtera 12.95€ à l'acheteur.";

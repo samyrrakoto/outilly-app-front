@@ -15,7 +15,7 @@ export class ZipcodeComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "zipcode";
     this.stepNb = 9;
     this.stepName = "Quel est votre code postal ?";

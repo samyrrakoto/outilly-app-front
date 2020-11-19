@@ -15,7 +15,7 @@ export class AnnounceKindComponent extends ProductCreationComponent implements O
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announceKind";
     this.stepNb = 17;
     this.stepName = "Comment souhaitez-vous vendre votre produit ?";

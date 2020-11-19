@@ -14,7 +14,7 @@ export class GenderComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "gender";
     this.user = formDataService.user;
     this.stepNb = 5;

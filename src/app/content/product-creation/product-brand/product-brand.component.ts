@@ -23,7 +23,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";

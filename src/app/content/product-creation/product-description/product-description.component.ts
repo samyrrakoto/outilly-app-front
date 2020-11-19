@@ -12,11 +12,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class ProductDescriptionComponent extends ProductCreationComponent implements OnInit {
   @ViewChild("description") description: ElementRef;
+  readonly maxLength: number = 650;
+  readonly minLength: number = 20;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDescription";
     this.stepNb = 9;
     this.stepName = "Description de votre annonce";

@@ -15,7 +15,7 @@ export class PseudoComponent extends OnboardingComponent implements OnInit, OnCh
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "userName";
     this.user = formDataService.user;
     this.stepNb = 1;

@@ -1,28 +1,28 @@
 @import "./assets/css/bulma-custom.css";
 
 :root {
-    --KTKP-RED: #E35557;
-    --KTKP-BLUE: #F9F9FE;
-    --KTKP-BLUE-DARKER: #3A4984;
-    --KTKP-GREEN: #7DD2B3;
-    --KTKP-YELLOW: #F6A933;
-    --KTKP-GREY: #F5F5F5;
-    --KTKP-GREY-DARKER: #DEDEDE;
-    --KTKP-BLACK: rgb(42, 41, 41);
+  --KTKP-RED: #E35557;
+  --KTKP-BLUE: #F9F9FE;
+  --KTKP-BLUE-DARKER: #3A4984;
+  --KTKP-GREEN: #7DD2B3;
+  --KTKP-YELLOW: #F6A933;
+  --KTKP-GREY: #F5F5F5;
+  --KTKP-GREY-DARKER: #DEDEDE;
+  --KTKP-BLACK: rgb(42, 41, 41);
 
-    --GREY-LIGHT: #DBDBDB;
-    --FAKE-WHITE: rgba(248, 248, 248, 0.865);
-    --MAT-GREY: rgb(80, 80, 80);
+  --GREY-LIGHT: #DBDBDB;
+  --FAKE-WHITE: rgba(248, 248, 248, 0.865);
+  --MAT-GREY: rgb(80, 80, 80);
 }
 
 .brandName
 {
-    color: var(--KTKP-RED);
+  color: var(--KTKP-RED);
 }
 
 .sold {
-    text-decoration: line-through;
-    text-decoration-color: var(--KTKP-RED);
+  text-decoration: line-through;
+  text-decoration-color: var(--KTKP-RED);
 }
 
 .overline {
@@ -35,6 +35,10 @@
 
 .bold {
   font-weight: bold;
+}
+
+.error {
+  color: var(--KTKP-RED);
 }
 
 .pointed {

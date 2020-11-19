@@ -5,7 +5,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class QualityPipe implements PipeTransform {
 
-  transform(quality: string): string {
+  transform(quality: string, param?: string): string {
+    switch (param) {
+      case 'description':
+        return this.getQualityDescription(quality);
+      default:
+        return this.getQuality(quality);
+    }
+  }
+
+  private getQuality(quality: string): string {
     switch(quality) {
       case 'forparts':
         return 'Pour pièces';
@@ -20,4 +29,18 @@ export class QualityPipe implements PipeTransform {
     }
   }
 
+  private getQualityDescription(quality: string) {
+    switch(quality) {
+      case 'forparts':
+        return 'Produit non fonctionnel vendu pour pièces';
+      case 'acceptable':
+        return 'Produit présentant de l\'usure et/ou des défauts mais encore utilisable';
+      case 'good':
+        return 'Produit bien utilisé mais qui a encore de l\'avenir';
+      case 'excellent':
+        return 'Produit utilisé mais conservant toutes ses qualités premières';
+      case 'new':
+        return 'Produit quasiment jamais utilisé'
+    }
+  }
 }

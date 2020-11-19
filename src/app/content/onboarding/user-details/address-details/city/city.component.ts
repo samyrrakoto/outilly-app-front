@@ -15,7 +15,7 @@ export class CityComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'city';
     this.stepNb = 10;
     this.stepName = 'Quelle est votre ville ?';

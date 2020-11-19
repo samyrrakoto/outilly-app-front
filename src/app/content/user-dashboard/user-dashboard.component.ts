@@ -30,13 +30,13 @@ export class UserDashboardComponent implements OnInit {
   ngAfterViewChecked(): void {}
 
   protected getUserInfos() {
-    this.request.getUserInfos().subscribe({
-      next: (value: any) => this.userMapping(value),
-      error: () => {
+    this.request.getUserInfos().subscribe(
+      (value: any) => this.userMapping(value),
+      () => {
         this.auth.logout();
         this.router.navigate(['/login']);
       }
-    });
+    );
   }
 
   protected userMapping(userRes: any): void {
