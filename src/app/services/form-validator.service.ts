@@ -13,70 +13,44 @@ import { HttpResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FormValidatorService {
-  errorMessages: Array<string>;
   isValid: boolean;
   iexist : boolean;
 
   constructor(public request: RequestService,
   public constraintManager: FormConstraintService)
   {
-    this.errorMessages = [];
   }
 
-  /* ERROR MESSAGES */
-  private isMessageExisting(message: string): boolean {
-    for (const errorMessage of this.errorMessages) {
-      if (message === errorMessage) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // TODO: finish implementation of user existence checking
+  // checkUsernameExists(response: HttpResponse<any>): boolean {
+  //   const hasExists: boolean = response.body.exists === true;
+  //   const message: string = "Cet utilisateur existe déjà !";
+  //   const index = this.errorMessages.indexOf(message);
 
-  public addErrorMessage(message: string): void {
-    if (!this.isMessageExisting(message)) {
-      this.errorMessages.push(message);
-    }
-  }
+  //   if (hasExists === true) {
+  //     this.errorMessages.push(message);
+  //     return true;
+  //   }
+  //   this.errorMessages.splice(index);
+  //   return false;
+  // }
 
-  private removeErrorMessage(message: string): void {
-    for (let i=0; i<this.errorMessages.length; i++) {
-      if (message === this.errorMessages[i]) {
-        this.errorMessages.splice(i, 1);
-      }
-    }
-  }
-
-  //TODO : finish implementation of user existence checking
-  checkUsernameExists(response: HttpResponse<any>): boolean {
-    const hasExists: boolean = response.body.exists === true;
-    const message: string = "Cet utilisateur existe déjà !";
-    const index = this.errorMessages.indexOf(message);
-
-    if (hasExists === true) {
-      this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  //TODO : finish implementation of user existence checking
-  isUsernameExists(userData: FormDataService): boolean {
-    let data = JSON.stringify(
-      {
-        "entity": "user",
-        "field" : "username",
-        "value" : userData.user.username
-      }
-    );
-    let response = this.request.checkUsernameExistsCall(data);
-    let userNameExists : boolean;
-    response.subscribe((res: HttpResponse<any>) => {
-      userNameExists = this.checkUsernameExists(res);
-    });
-    return userNameExists;
-  }
+  // TODO: finish implementation of user existence checking
+  // isUsernameExists(userData: FormDataService): boolean {
+  //   let data = JSON.stringify(
+  //     {
+  //       "entity": "user",
+  //       "field" : "username",
+  //       "value" : userData.user.username
+  //     }
+  //   );
+  //   let response = this.request.checkUsernameExistsCall(data);
+  //   let userNameExists : boolean;
+  //   response.subscribe((res: HttpResponse<any>) => {
+  //     userNameExists = this.checkUsernameExists(res);
+  //   });
+  //   return userNameExists;
+  // }
 
   userNameVerify(data: FormDataService): boolean {
     const username: string = data.user.username;
@@ -345,7 +319,7 @@ export class FormValidatorService {
   productDescriptionVerify(data: FormDataService): boolean {
     const productDescription: string = data.product.description;
     const minLength: boolean = this.constraintManager.minLength(productDescription, 20);
-    const maxLength: boolean = this.constraintManager.maxLength(productDescription, 1500);
+    const maxLength: boolean = this.constraintManager.maxLength(productDescription, 650);
 
     if (minLength || maxLength) {
       return false;
