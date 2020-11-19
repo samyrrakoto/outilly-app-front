@@ -16,7 +16,7 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announcementTitle";
     this.stepNb = 2;
     this.stepName = "Donnez un titre à votre annonce";

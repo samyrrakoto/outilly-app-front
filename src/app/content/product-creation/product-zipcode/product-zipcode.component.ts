@@ -17,7 +17,7 @@ export class ProductZipcodeComponent extends ProductCreationComponent implements
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productZipcode";
     this.stepNb = 10;
     this.stepName = "Indiquez votre code postal";

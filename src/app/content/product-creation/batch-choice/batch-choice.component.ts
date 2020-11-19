@@ -22,7 +22,7 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
     {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "batchChoice";
     this.stepNb = 1;
     this.stepName = "Vendez-vous un lot de plusieurs pièces ?";

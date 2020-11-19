@@ -72,10 +72,32 @@ export class FormConstraintService {
     return false;
   }
 
-  public wrongLength(field: string, length: number = 10) {
+  public minLength(field: string, nbChar: number): boolean {
+    const message: string = 'Le champ doit faire au moins ' + nbChar + ' caractères';
+
+    if (field.length < nbChar) {
+      this.errorMessageManager.addErrorMessage(message);
+      return true;
+    }
+    this.errorMessageManager.removeErrorMessage(message);
+    return false;
+  }
+
+  public maxLength(field: string, nbChar: number): boolean {
+    const message: string = 'Le champ doit faire moins de ' + nbChar + ' caractères';
+
+    if (field.length > nbChar) {
+      this.errorMessageManager.addErrorMessage(message);
+      return true;
+    }
+    this.errorMessageManager.removeErrorMessage(message);
+    return false;
+  }
+
+  public wrongLength(field: string, length: number = 10): boolean {
     const message: string = "Le champ doit faire " + length + " caractères !";
 
-    if (field.length != length) {
+    if (field.length !== length) {
       this.errorMessageManager.addErrorMessage(message);
       return true;
     }
@@ -152,6 +174,18 @@ export class FormConstraintService {
     const message: string = "Les mots de passe sont différents !";
 
     if (pwd !== pwdConfirmation) {
+      this.errorMessageManager.addErrorMessage(message);
+      return true;
+    }
+    this.errorMessageManager.removeErrorMessage(message);
+    return false;
+  }
+
+  public maxWeight(weight: number, weightUnity: string, maxWeight: number) {
+    const message: string = "Le poids du colis ne doit pas dépasser " + maxWeight + " kg";
+    maxWeight = weightUnity === 'kg' ? maxWeight : maxWeight * 1000;
+
+    if (weight > maxWeight) {
       this.errorMessageManager.addErrorMessage(message);
       return true;
     }

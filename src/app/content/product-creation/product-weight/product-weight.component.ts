@@ -18,7 +18,7 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productWeight";
     this.stepNb = 12;
     this.stepName = "Combien pèse votre colis emballé (en kg) ?";

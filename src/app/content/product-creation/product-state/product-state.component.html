@@ -44,8 +44,8 @@
   </div>
 </div>
 
-<div *ngIf="currentStateDescription" class="box has-text-left">
-  <fa-icon id="info" [icon]="['fas', 'info-circle']"></fa-icon>{{ currentStateDescription }}
+<div *ngIf="product.quality" class="box has-text-centered">
+  <fa-icon id="info" [icon]="['fas', 'info-circle']"></fa-icon>{{ product.quality | quality:'description' }}
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

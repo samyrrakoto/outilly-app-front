@@ -11,19 +11,11 @@ import { Component } from '@angular/core';
   styleUrls: ['../product-creation.component.css', './product-state.component.css']
 })
 export class ProductStateComponent extends ProductCreationComponent {
-  readonly statesDescription: any = {
-    'new': "Produit quasiment jamais utilisé",
-    'excellent': "Produit utilisé mais conservant toutes ses qualités premières",
-    'good': "Produit bien utilisé mais qui a encore de l'avenir",
-    'acceptable': "Produit présentant de l'usure et/ou des défauts mais encore utilisable",
-    'forparts': "Produit non fonctionnel vendu pour pièces"
-  };
-  currentStateDescription: string;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productState";
     this.stepNb = 8;
     this.stepName = "Dans quel état se trouve le produit ?";
@@ -42,6 +34,5 @@ export class ProductStateComponent extends ProductCreationComponent {
         document.getElementById(tile).classList.remove('chosen-tile');
       }
     }
-    this.currentStateDescription = this.statesDescription[id];
   }
 }

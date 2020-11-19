@@ -37,6 +37,10 @@
   font-weight: bold;
 }
 
+.error {
+  color: var(--KTKP-RED);
+}
+
 .pointed {
   cursor: pointer;
 }

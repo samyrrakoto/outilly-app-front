@@ -16,7 +16,7 @@ export class ReservePriceComponent extends ProductCreationComponent implements O
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "reservePrice";
     this.stepNb = 18;
     this.stepName = "Quel est votre prix (en €) ?";

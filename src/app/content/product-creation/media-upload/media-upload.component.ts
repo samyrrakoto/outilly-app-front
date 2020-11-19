@@ -20,10 +20,10 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     public router: Router,
     public formValidatorService: FormValidatorService,
     public http: HttpClient)
-    {
+  {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 3;
     this.stepName = "Téléchargez au moins 3 photos. (.jpg, .png uniquement)";

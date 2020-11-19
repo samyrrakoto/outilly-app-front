@@ -255,19 +255,6 @@ export class FormValidatorService {
     return true;
   }
 
-  maxWeight(weight: number, weightUnity: string, maxWeight: number) {
-    const message: string = "Le poids du colis ne doit pas dépasser " + maxWeight + " kg";
-    const index: number = this.errorMessages.indexOf(message);
-    maxWeight = weightUnity === 'kg' ? maxWeight : maxWeight * 1000;
-
-    if (weight > maxWeight) {
-      this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
   batchChoiceVerify(data: FormDataService): boolean {
     const batchChoice: boolean = data.product.isBundle;
     const empty: boolean = this.constraintManager.isEmpty(batchChoice);
@@ -356,19 +343,32 @@ export class FormValidatorService {
   }
 
   productDescriptionVerify(data: FormDataService): boolean {
-    const productState: string = data.product.description;
-    const empty: boolean = this.constraintManager.isEmpty(productState);
+    const productDescription: string = data.product.description;
+    const minLength: boolean = this.constraintManager.minLength(productDescription, 20);
+    const maxLength: boolean = this.constraintManager.maxLength(productDescription, 1500);
 
-    if (empty)
+    if (minLength || maxLength) {
       return false;
+    }
+    return true;
+  }
+
+  reservePriceVerify(data: FormDataService): boolean {
+    const reservePrice: number = data.product.reservePrice;
+    const empty: boolean = this.constraintManager.isEmpty(reservePrice);
+
+    if (empty) {
+      return false;
+    }
     return true;
   }
 
   productZipcodeVerify(data: FormDataService): boolean {
     const locality: string = data.product.locality;
     const empty: boolean = this.constraintManager.isEmpty(locality);
+    const isNotNum: boolean = this.constraintManager.isNotNum(locality);
 
-    if (empty)
+    if (empty || isNotNum)
       return false;
     return true;
   }
@@ -386,7 +386,7 @@ export class FormValidatorService {
     const productWeight: number = data.product.weight;
     const weightUnity: string = data.product.weightUnity;
     const empty: boolean = this.constraintManager.isEmpty(productWeight);
-    const maxWeight: boolean = this.maxWeight(productWeight, weightUnity, 30);
+    const maxWeight: boolean = this.constraintManager.maxWeight(productWeight, weightUnity, 30);
 
     if (empty || maxWeight)
       return false;
@@ -415,10 +415,6 @@ export class FormValidatorService {
   }
 
   announceKindVerify(data: FormDataService): boolean {
-    return true;
-  }
-
-  reservePriceVerify(data: FormDataService): boolean {
     return true;
   }
 
