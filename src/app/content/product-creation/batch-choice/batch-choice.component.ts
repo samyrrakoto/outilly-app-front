@@ -51,9 +51,8 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
   }
 
   private createProduct(): void {
-    const response = this.request.postData('', this.request.uri.PRODUCT_CREATION);
-
-    response.subscribe((res) => {
+    this.request.postData('', this.request.uri.PRODUCT_CREATION).subscribe(
+      (res) => {
         localStorage.setItem('id', res.body.id);
         localStorage.setItem('strId', res.body.strId);
     });
