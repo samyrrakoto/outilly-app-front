@@ -15,7 +15,7 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDelivery";
     this.stepNb = 11;
     this.stepName = "Acceptez-vous de faire livrer votre produit ?";
