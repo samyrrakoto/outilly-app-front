@@ -41,7 +41,8 @@ export class Uri {
   readonly GET_TRANSACTION_DATA: string = 'secure/mangopay/transaction/check';
   readonly CREATE_ORDER: string = 'secure/order/create';
   readonly GET_ORDER: string = 'secure/order';
-  readonly GET_USER_ORDERS: string = 'secure/orders/validated';
+  readonly GET_SELLER_ORDERS: string = 'secure/orders/validated/seller';
+  readonly GET_BUYER_ORDERS: string = 'secure/orders/validated/buyer';
   readonly PREREGISTER: string = 'secure/mangopay/user/card/preregister';
   readonly UPDATE_REGISTRATION: string = 'secure/mangopay/user/card/update-registration';
   readonly PREAUTH: string = 'secure/mangopay/preauth';

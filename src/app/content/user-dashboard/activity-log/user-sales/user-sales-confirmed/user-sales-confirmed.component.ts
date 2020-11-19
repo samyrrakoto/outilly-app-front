@@ -36,7 +36,7 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
 
   private getOrders(): Promise<any> {
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_USER_ORDERS).subscribe(
+      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
         (orders: any) =>  {
           this.orders = orders;
           resolve();

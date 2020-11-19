@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./user-purchases-confirmed.component.css']
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
+  public orders: Array<any>;
 
   constructor(public request: RequestService,
     public router: Router,
@@ -26,6 +27,17 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
   }
 
   ngOnInit(): void {
+    this.getOrders();
   }
 
+  private getOrders(): Promise<any> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
+        (orders: any) => {
+          this.orders = orders;
+          resolve();
+        }
+      );
+    });
+  }
 }
