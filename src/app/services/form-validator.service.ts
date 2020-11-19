@@ -1,3 +1,4 @@
+import { FormConstraintService } from './form-constraint.service';
 import { ProductMedia } from 'src/app/models/product-media';
 import { ProductType } from './../models/product-type';
 import { ProductCategory } from './../models/product-category';
@@ -15,9 +16,10 @@ export class FormValidatorService {
   errorMessages: Array<string>;
   isValid: boolean;
   iexist : boolean;
-  readonly REQUIRED: string = "Ce champ est requis !";
 
-  constructor(public request: RequestService) {
+  constructor(public request: RequestService,
+  public constraintManager: FormConstraintService)
+  {
     this.errorMessages = [];
   }
 
@@ -43,155 +45,6 @@ export class FormValidatorService {
         this.errorMessages.splice(i, 1);
       }
     }
-  }
-
-  /* FIELD CONSTRAINTS */
-  isEmpty(field: any): boolean {
-    const message: string = this.REQUIRED;
-    const index: number = this.errorMessages.indexOf(message);
-    const messageUnexists: boolean = this.errorMessages.indexOf(message) === -1;
-    const emptyErrors: boolean = this.errorMessages.length === 0;
-    let hasError: boolean;
-
-    // Depending on the type we set a null value
-    if (typeof(field) === "string") hasError = field === "";
-    else if (field instanceof Date) hasError = field === null;
-    else if (field instanceof Array) hasError = field.length === 0;
-    else if (typeof(field) === "boolean") hasError = field === null;
-
-    if (hasError) {
-      if (messageUnexists && emptyErrors)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  hasNotEnoughElements(field: Array<any>, nb: number = 2): boolean {
-    const message: string = "Vous devez sélectionner au moins " + nb + " éléments";
-
-    if (field.length < nb) {
-      this.addErrorMessage(message);
-      return true;
-    }
-    this.removeErrorMessage(message);
-    return false;
-  }
-
-  isNotNum(field: string) {
-    const message: string = "Le champ doit contenir uniquement des chiffres !";
-    const index: number = this.errorMessages.indexOf(message);
-    const regex: RegExp = /^[0-9]+$/;
-
-    if (!field.match(regex)) {
-      if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isTooShort(field: string, minLength: number = 4): boolean {
-    const message: string = "Le champ doit faire au moins " + minLength + " caractères !";
-    const index: number = this.errorMessages.indexOf(message);
-
-    if (field.length < minLength) {
-      if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  maxNb(field: Array<any>, maxNb: number): boolean {
-    const message: string = "Vous ne pouvez prendre que 2 domaines d'activité au maximum";
-    const index: number = this.errorMessages.indexOf(message);
-
-    if (field.length > maxNb) {
-      if (this.errorMessages.indexOf(message) == -1 && field.length > 0) {
-        this.errorMessages.push(message);
-      }
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  wrongLength(field: string, length: number = 10) {
-    const message: string = "Le champ doit faire " + length + " caractères !";
-    const index: number = this.errorMessages.indexOf(message);
-
-    if (field.length != length) {
-      if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
-  isWrongFormat(file: string, extensions: Array<string>) {
-    let message: string = 'Tous les fichiers doivent être du ou des format(s) suivant(s) : ';
-
-    for (const extension of extensions) {
-      message += extension + ' ';
-    }
-
-    for (const extension of extensions) {
-      if (file.endsWith(extension)) {
-        return false;
-      }
-    }
-
-    this.errorMessages.push(message);
-    return true;
-  }
-
-  isMailConform(field: string): boolean {
-    const regex: RegExp = /^[a-z0-9-._]+@[a-z-]+\.[a-z]+$/;
-    const message: string = "L'adresse n'est pas conforme";
-
-    if (field.match(regex))
-      return true;
-    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-      this.errorMessages.push(message);
-    return false;
-  }
-
-  isNameConform(field: string): boolean {
-    const regex: RegExp = /^[a-zA-Z-éèâ' ]+$/;
-    const message: string = "Le nom n'est pas conforme";
-
-    if (field.match(regex))
-      return true;
-    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-      this.errorMessages.push(message);
-    return false;
-  }
-
-  isCityConform(field: string): boolean {
-    const regex: RegExp = /^[a-zA-Z-' ]+$/;
-    const message: string = "Le nom n'est pas conforme";
-
-    if (field.match(regex))
-      return true;
-    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-      this.errorMessages.push(message);
-    return false;
-  }
-
-  isStreetConform(field: string): boolean {
-    const regex: RegExp = /^[1-9][0-9]{0,3}[ ](bis |ter )?(rue|avenue|av|boulevard|bd|villa|passage)[ ][a-zA-Z]+$/;
-    const message: string = "L'adresse n'est pas conforme";
-
-    if (field.match(regex))
-      return true;
-    if (this.errorMessages.indexOf(message) == -1 && field.length > 0)
-      this.errorMessages.push(message);
-    return false;
   }
 
   //TODO : finish implementation of user existence checking
@@ -227,8 +80,8 @@ export class FormValidatorService {
 
   userNameVerify(data: FormDataService): boolean {
     const username: string = data.user.username;
-    const empty: boolean = this.isEmpty(username);
-    const tooShort: boolean = this.isTooShort(username);
+    const empty: boolean = this.constraintManager.isEmpty(username);
+    const tooShort: boolean = this.constraintManager.isTooShort(username);
 
     if (empty || tooShort)
       return false;
@@ -237,8 +90,8 @@ export class FormValidatorService {
 
   emailVerify(data: FormDataService): boolean {
     const email: string = data.user.userProfile.email;
-    const empty: boolean = this.isEmpty(email);
-    const mailConform: boolean = this.isMailConform(email);
+    const empty: boolean = this.constraintManager.isEmpty(email);
+    const mailConform: boolean = this.constraintManager.isMailConform(email);
 
     if (empty || mailConform == false)
       return false;
@@ -247,7 +100,7 @@ export class FormValidatorService {
 
   emailOptinVerify(data: FormDataService): boolean {
     const emailOptin: boolean = data.user.userProfile.emailOptin;
-    const empty: boolean = this.isEmpty(emailOptin);
+    const empty: boolean = this.constraintManager.isEmpty(emailOptin);
 
     if (empty)
       return false;
@@ -256,27 +109,27 @@ export class FormValidatorService {
 
   firstnameVerify(data: FormDataService): boolean {
     const firstname: string = data.user.userProfile.firstname;
-    const empty: boolean = this.isEmpty(firstname);
-    const nameConform: boolean = this.isNameConform(firstname);
+    const empty: boolean = this.constraintManager.isEmpty(firstname);
+    const nameNotConform: boolean = this.constraintManager.isNameNotConform(firstname);
 
-    if (empty || nameConform == false)
+    if (empty || nameNotConform)
       return false;
     return true;
   }
 
   lastnameVerify(data: FormDataService): boolean {
     const lastname: string = data.user.userProfile.lastname;
-    const empty: boolean = this.isEmpty(lastname);
-    const nameConform: boolean = this.isNameConform(lastname);
+    const empty: boolean = this.constraintManager.isEmpty(lastname);
+    const nameNotConform: boolean = this.constraintManager.isNameNotConform(lastname);
 
-    if (empty || nameConform == false)
+    if (empty || nameNotConform)
       return false;
     return true;
   }
 
   genderVerify(data: FormDataService): boolean {
     const gender:string = data.user.userProfile.gender;
-    const empty: boolean = this.isEmpty(gender);
+    const empty: boolean = this.constraintManager.isEmpty(gender);
 
     if (empty)
       return false;
@@ -285,7 +138,7 @@ export class FormValidatorService {
 
   statusVerify(data: FormDataService): boolean {
     const status: string = data.user.userProfile.type;
-    const empty: boolean = this.isEmpty(status);
+    const empty: boolean = this.constraintManager.isEmpty(status);
 
     if (empty)
       return false;
@@ -294,7 +147,7 @@ export class FormValidatorService {
 
   birthdateVerify(data: FormDataService): boolean {
     const birthdate: number = data.user.userProfile.birthdate;
-    const empty: boolean = this.isEmpty(birthdate);
+    const empty: boolean = this.constraintManager.isEmpty(birthdate);
 
     if (empty)
       return false;
@@ -303,7 +156,7 @@ export class FormValidatorService {
 
   countryVerify(data: FormDataService): boolean {
     const country: string = data.user.userProfile.mainAddress.country.isoCode;
-    const empty: boolean = this.isEmpty(country);
+    const empty: boolean = this.constraintManager.isEmpty(country);
 
     if (empty)
       return false;
@@ -312,8 +165,8 @@ export class FormValidatorService {
 
   zipcodeVerify(data: FormDataService): boolean {
     const zipcode: string = data.user.userProfile.mainAddress.zipcode;
-    const empty: boolean = this.isEmpty(zipcode);
-    const notNum: boolean = this.isNotNum(zipcode);
+    const empty: boolean = this.constraintManager.isEmpty(zipcode);
+    const notNum: boolean = this.constraintManager.isNotNum(zipcode);
     let length: number;
 
     switch (data.user.userProfile.mainAddress.country.isoCode) {
@@ -327,7 +180,7 @@ export class FormValidatorService {
         break;
     }
 
-    const wrongLength: boolean = this.wrongLength(zipcode, length);
+    const wrongLength: boolean = this.constraintManager.wrongLength(zipcode, length);
 
     if (empty || notNum || wrongLength)
       return false;
@@ -336,7 +189,7 @@ export class FormValidatorService {
 
   cityVerify(data: FormDataService): boolean {
     const city: string = data.user.userProfile.mainAddress.city;
-    const empty: boolean = this.isEmpty(city);
+    const empty: boolean = this.constraintManager.isEmpty(city);
 
     if (empty)
       return false;
@@ -345,7 +198,7 @@ export class FormValidatorService {
 
   streetVerify(data: FormDataService): boolean {
     const street: string = data.user.userProfile.mainAddress.line1;
-    const empty: boolean = this.isEmpty(street);
+    const empty: boolean = this.constraintManager.isEmpty(street);
 
     if (empty)
       return false;
@@ -354,38 +207,27 @@ export class FormValidatorService {
 
   phoneNumberVerify(data: FormDataService): boolean {
     const phoneNumber: string = data.user.userProfile.phone1;
-    const empty: boolean = this.isEmpty(phoneNumber);
+    const empty: boolean = this.constraintManager.isEmpty(phoneNumber);
 
+    if (empty)
+      return false;
     return true;
   }
 
   pwdVerify(data: FormDataService): boolean {
     const pwd: string = data.user.password;
-    const empty: boolean = this.isEmpty(pwd);
-    const tooShort: boolean = this.isTooShort(pwd, 6);
+    const empty: boolean = this.constraintManager.isEmpty(pwd);
+    const tooShort: boolean = this.constraintManager.isTooShort(pwd, 6);
 
     if (empty || tooShort)
       return false;
     return true;
   }
 
-  isPwdConfirmationDifferent(pwd: string, pwdConfirmation: string): boolean {
-    const message: string = "Les mots de passe sont différents !";
-    const index: number = this.errorMessages.indexOf(message);
-
-    if (pwd != pwdConfirmation) {
-      if (this.errorMessages.indexOf(message) == -1)
-        this.errorMessages.push(message);
-      return true;
-    }
-    this.errorMessages.splice(index);
-    return false;
-  }
-
   pwdConfirmationVerify(data: FormDataService): boolean {
     const pwd: string = data.user.password;
     const pwdConfirmation: string = data.user.passwordConfirmation;
-    const different: boolean = this.isPwdConfirmationDifferent(pwd, pwdConfirmation);
+    const different: boolean = this.constraintManager.isPwdConfirmationDifferent(pwd, pwdConfirmation);
 
     if (different)
       return false;
@@ -394,9 +236,9 @@ export class FormValidatorService {
 
   siretVerify(data: FormDataService): boolean {
     const siret: string = data.user.userProfile.company.siret;
-    const empty: boolean = this.isEmpty(siret);
-    const wrongLength: boolean = this.wrongLength(siret, 14);
-    const notNum: boolean = this.isNotNum(siret);
+    const empty: boolean = this.constraintManager.isEmpty(siret);
+    const wrongLength: boolean = this.constraintManager.wrongLength(siret, 14);
+    const notNum: boolean = this.constraintManager.isNotNum(siret);
 
     if (empty || notNum || wrongLength)
       return false;
@@ -405,8 +247,8 @@ export class FormValidatorService {
 
   tvaVerify(data: FormDataService): boolean {
     const tva: string = data.user.userProfile.company.tvanumber;
-    const empty: boolean = this.isEmpty(tva);
-    const notNum: boolean = this.isNotNum(tva);
+    const empty: boolean = this.constraintManager.isEmpty(tva);
+    const notNum: boolean = this.constraintManager.isNotNum(tva);
 
     if (empty || notNum)
       return false;
@@ -428,7 +270,7 @@ export class FormValidatorService {
 
   batchChoiceVerify(data: FormDataService): boolean {
     const batchChoice: boolean = data.product.isBundle;
-    const empty: boolean = this.isEmpty(batchChoice);
+    const empty: boolean = this.constraintManager.isEmpty(batchChoice);
 
     if (empty)
       return false;
@@ -437,7 +279,7 @@ export class FormValidatorService {
 
   announcementTitleVerify(data: FormDataService): boolean {
     const announcementTitle: string = data.product.name;
-    const empty: boolean = this.isEmpty(announcementTitle);
+    const empty: boolean = this.constraintManager.isEmpty(announcementTitle);
 
     if (empty)
       return false;
@@ -446,14 +288,14 @@ export class FormValidatorService {
 
   mediaUploadVerify(data: FormDataService): boolean {
     const medias: Array<ProductMedia> = data.product.productMedias;
-    const notEnoughElements: boolean = this.hasNotEnoughElements(medias, 3);
+    const notEnoughElements: boolean = this.constraintManager.hasNotEnoughElements(medias, 3);
 
     //TODO fixbug
     /*let mediaUpload: Array<ProductMedia> = data.product.productMedias;
     let wrongFormat: boolean = false;
 
     for (const media of data.product.productMedias) {
-      if (this.isWrongFormat(media.path, ['.jpg', '.png'])) {
+      if (this.constraintManager.isWrongFormat(media.path, ['.jpg', '.png'])) {
         wrongFormat = true;
       }
     }
@@ -469,8 +311,8 @@ export class FormValidatorService {
 
   activityDomainVerify(data: FormDataService): boolean {
     const activityDomain: Array<ActivityDomain> = data.product.activityDomains;
-    const empty: boolean = this.isEmpty(activityDomain);
-    const maxNb: boolean = this.maxNb(activityDomain, 2);
+    const empty: boolean = this.constraintManager.isEmpty(activityDomain);
+    const maxNb: boolean = this.constraintManager.maxNb(activityDomain, 2);
 
     if (empty || maxNb)
       return false;
@@ -479,7 +321,7 @@ export class FormValidatorService {
 
   productBrandVerify(data: FormDataService): boolean {
     const productBrand: Array<Brand> = data.product.brands;
-    const empty: boolean = this.isEmpty(productBrand);
+    const empty: boolean = this.constraintManager.isEmpty(productBrand);
 
     if (empty)
       return false;
@@ -488,7 +330,7 @@ export class FormValidatorService {
 
   productCategoryVerify(data: FormDataService): boolean {
     const productCategories: Array<ProductCategory> = data.product.productCategories;
-    const empty: boolean = this.isEmpty(productCategories);
+    const empty: boolean = this.constraintManager.isEmpty(productCategories);
 
     if (empty)
       return false;
@@ -497,7 +339,7 @@ export class FormValidatorService {
 
   productTypeVerify(data: FormDataService): boolean {
     const productType: Array<ProductType> = data.product.productTypes;
-    const empty: boolean = this.isEmpty(productType);
+    const empty: boolean = this.constraintManager.isEmpty(productType);
 
     if (empty)
       return false;
@@ -506,7 +348,7 @@ export class FormValidatorService {
 
   productStateVerify(data: FormDataService): boolean {
     const productState: string = data.product.quality;
-    const empty: boolean = this.isEmpty(productState);
+    const empty: boolean = this.constraintManager.isEmpty(productState);
 
     if (empty)
       return false;
@@ -515,7 +357,7 @@ export class FormValidatorService {
 
   productDescriptionVerify(data: FormDataService): boolean {
     const productState: string = data.product.description;
-    const empty: boolean = this.isEmpty(productState);
+    const empty: boolean = this.constraintManager.isEmpty(productState);
 
     if (empty)
       return false;
@@ -524,7 +366,7 @@ export class FormValidatorService {
 
   productZipcodeVerify(data: FormDataService): boolean {
     const locality: string = data.product.locality;
-    const empty: boolean = this.isEmpty(locality);
+    const empty: boolean = this.constraintManager.isEmpty(locality);
 
     if (empty)
       return false;
@@ -533,7 +375,7 @@ export class FormValidatorService {
 
   productDeliveryVerify(data: FormDataService): boolean {
     const isWarrantied: boolean = data.product.isWarrantied;
-    const empty: boolean = this.isEmpty(isWarrantied);
+    const empty: boolean = this.constraintManager.isEmpty(isWarrantied);
 
     if (empty)
       return false;
@@ -543,7 +385,7 @@ export class FormValidatorService {
   productWeightVerify(data: FormDataService): boolean {
     const productWeight: number = data.product.weight;
     const weightUnity: string = data.product.weightUnity;
-    const empty: boolean = this.isEmpty(productWeight);
+    const empty: boolean = this.constraintManager.isEmpty(productWeight);
     const maxWeight: boolean = this.maxWeight(productWeight, weightUnity, 30);
 
     if (empty || maxWeight)
@@ -561,7 +403,7 @@ export class FormValidatorService {
 
   warrantyDurationVerify(data: FormDataService): boolean {
     const warrantyDuration: number = data.product.warrantyDuration;
-    const empty: boolean = this.isEmpty(warrantyDuration);
+    const empty: boolean = this.constraintManager.isEmpty(warrantyDuration);
 
     if (empty)
       return false;

@@ -15,7 +15,7 @@ export class PasswordComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "pwd";
     this.stepNb = 13;
     this.stepName = "Créez un mot de passe sécurisé";

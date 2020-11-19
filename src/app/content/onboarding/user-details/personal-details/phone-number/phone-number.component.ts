@@ -15,7 +15,7 @@ export class PhoneNumberComponent extends OnboardingComponent {
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.errorMessages;
+    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "phoneNumber";
     this.stepNb = 12;
     this.stepName = "Quel est votre numéro de téléphone ?";

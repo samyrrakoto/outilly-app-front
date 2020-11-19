@@ -98,7 +98,6 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "productMedias": product.productMedias
       }
     };
-    console.log(JSON.stringify(payload));
     return payload;
   }
 
