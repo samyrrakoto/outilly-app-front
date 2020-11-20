@@ -109,6 +109,9 @@ const routes: Routes = [
         component: ActivityLogComponent,
         children: [
           {
+            path: '', redirectTo: 'sales', pathMatch:'full'
+          },
+          {
             path: 'sales',
             component: UserSalesComponent,
             children: [

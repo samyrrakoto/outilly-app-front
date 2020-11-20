@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-user-sales-confirmed',
   templateUrl: './user-sales-confirmed.component.html',
-  styleUrls: ['../../../user-dashboard.component.css', './user-sales-confirmed.component.css']
+  styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-sales-confirmed.component.css']
 })
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
@@ -36,7 +36,7 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
 
   private getOrders(): Promise<any> {
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_USER_ORDERS).subscribe(
+      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
         (orders: any) =>  {
           this.orders = orders;
           resolve();

@@ -14,6 +14,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 })
 export class SideInformationComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
+  @Input() isSeller: boolean;
   @Input() isAvailable: boolean;
   @Output() openState = new EventEmitter<boolean>();
 

@@ -41,4 +41,10 @@ export class PurchaseManagerService {
       resolve(purchases);
     });
   }
+
+  public requireAction(purchase: Purchase): boolean {
+    if (purchase.isClosed) {
+      return true;
+    }
+  }
 }

@@ -19,8 +19,6 @@ fa-icon {
   color: white;
 }
 
-#notification-icon {
-  font-size: 1.2em;
+.notification-icon {
   color: var(--KTKP-RED);
-  margin-left: 10px;
 }

@@ -71,6 +71,8 @@ export class PaymentCallToActionComponent implements OnInit {
   private getPayload() {
     delete this.order.id;
     delete this.order.billingAddressId;
+    delete this.order.createdAt;
+    delete this.order.updatedAt;
     this.order.saleId = this.sale.id;
     this.bid.id ? this.order.bidId = this.bid.id : delete this.order.bidId;
     this.order.shippingAddressId = this.user.userProfile.mainAddress.id;
