@@ -6,14 +6,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Location } from '@angular/common';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-user-purchases-confirmed',
   templateUrl: './user-purchases-confirmed.component.html',
-  styleUrls: ['./user-purchases-confirmed.component.css']
+  styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-confirmed.component.css']
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
   public orders: Array<any>;
+  public currentOrder: any;
 
   constructor(public request: RequestService,
     public router: Router,
@@ -24,6 +26,9 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
     public location: Location)
   {
     super(request, router, route, auth, purchaseManager, bidManager, location);
+    this.modals = new Modals();
+    this.modals.addModal('order-overview');
+    this.currentOrder = null;
   }
 
   ngOnInit(): void {
@@ -39,5 +44,21 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
         }
       );
     });
+  }
+
+  public getCommissionFees(order: any): number {
+    return order.amountPrice * 0.06;
+  }
+
+  public getShippingFees(): number {
+    return 690;
+  }
+
+  public getTotalPrice(order: any): number {
+    return order.amountPrice + this.getCommissionFees(order) + this.getShippingFees();
+  }
+
+  public goToProductPage(order): void {
+    this.router.navigate(["/product/" + order.sale.productSlug + "/" + order.sale.id]);
   }
 }

@@ -20,14 +20,7 @@
   color: var(--KTKP-RED);
 }
 
-.sold {
-  text-decoration: line-through;
-  text-decoration-color: var(--KTKP-RED);
-}
-
-.overline {
-  border-top: solid 2px var(--FAKE-WHITE);
-}
+/* General style effects */
 
 .underline {
   text-decoration: underline;
@@ -35,6 +28,41 @@
 
 .bold {
   font-weight: bold;
+}
+
+.overline {
+  border-top: solid 2px var(--FAKE-WHITE);
+}
+
+.overline-thick {
+  border-top: solid 4px black;
+}
+
+/* Tags definition */
+
+.small-title {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.medium-title {
+  font-weight: bold;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.big-title {
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Helpers */
+
+.sold {
+  text-decoration: line-through;
+  text-decoration-color: var(--KTKP-RED);
 }
 
 .error {
@@ -96,6 +124,10 @@
 .mat-expansion-panel-header {
   min-height: 48px;
   height: auto !important;
+}
+
+.link-normal {
+  text-decoration: underline;
 }
 
 a:link, a:visited {

@@ -1,0 +1,44 @@
+.panel-title {
+  color: var(--KTKP-GREEN);
+  font-weight: bold;
+}
+
+.icon {
+  font-size: 1.5em;
+}
+
+.seller-info fa-icon {
+  color: black;
+}
+
+.column {
+  vertical-align: middle;
+}
+
+.product-title {
+  width: 70%;
+}
+
+.order-date {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50px
+}
+
+.order-reception, .order-reception fa-icon {
+  color: white
+}
+
+@media (max-width: 780px) {
+  .modal .columns {
+    margin-bottom: 20px;
+  }
+
+  .modal .column {
+    margin-bottom: 2px;
+    margin-top: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}
