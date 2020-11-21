@@ -7,13 +7,14 @@
 }
 
 .tile {
+  display: flex;
   color: black;
   font-size: 0.9em;
   font-weight: 500;
   border: solid 2px #DEDEDE;
   border-radius: 10px;
-  height: 150px;
-  margin: 20px;
+  height: 100px;
+  width: 100px;
   padding: 10px;
   cursor: pointer;
   justify-content: center;

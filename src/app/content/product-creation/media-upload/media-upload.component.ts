@@ -28,7 +28,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.stepNb = 3;
     this.stepName = "Téléchargez au moins 3 photos. (.jpg, .png uniquement)";
     this.formData.path.previous = "announcement-title";
-    this.formData.path.next = "product-brand";
+    this.formData.path.next = "product-category";
     this.isMandatory = false;
     this.previews = [];
   }
@@ -59,9 +59,10 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   private getFormData(files: FileList): FormData {
     const formData: FormData = new FormData();
 
+    formData.append('mediaFile', files.item(0), files.item(0).name);
     formData.append('productId', localStorage.getItem('id'));
     formData.append('productStrId', localStorage.getItem('strId'));
-    formData.append('mediaFile', files.item(0), files.item(0).name);
+    formData.append('mediaType', 'image');
 
     return formData;
   }
@@ -76,7 +77,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
 
   private sendMedia(data: FormData): void {
     this.request.uploadMedia(data).subscribe(
-      () => {}
+      (res) => { console.log(res) }
     );
   }
 

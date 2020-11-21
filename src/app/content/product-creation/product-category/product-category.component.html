@@ -10,30 +10,13 @@
       [stepName]=stepName>
     </app-step-label>
 
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option #matOption *ngFor="let option of filteredOptions | async" [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-autocomplete>
-
-    <p class="control has-icons-right">
-      <input #category class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
-      <span id="caret-down" class="icon is-right">
-        <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
-      </span>
-    </p>
-  </div>
-  <button class="button is-success" (click)="addCategory()" style="margin-bottom: 10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une catégorie</button>
-
-  <nav class="level new-element" id="{{ category.label }}" *ngFor="let category of product.productCategories">
-    <div class="level-left">
-      {{ category.label }}
+    <div class="columns is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+      <div class="column" *ngFor="let category of categories">
+        <div class="content tile" id="{{ category.label }}" (click)="setFocus(category)">
+          {{ category.label }}
+        </div>
+      </div>
     </div>
-
-    <div class="level-right">
-      <button (click)="removeCategory(category.label)" class="button cross"><fa-icon [icon]="['fas', 'times-circle']"></fa-icon></button>
-    </div>
-  </nav>
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

@@ -1,12 +1,9 @@
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from './../../../services/form-data.service';
 import { RequestService } from './../../../services/request.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductType } from 'src/app/models/product-type';
 
 @Component({
@@ -15,109 +12,78 @@ import { ProductType } from 'src/app/models/product-type';
   styleUrls: ['../product-creation.component.css', './product-type.component.css']
 })
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("matOption") matOption: ElementRef;
-  myControl = new FormControl();
-  types: Array<string>;
-  filteredOptions: Observable<Array<string>>;
+  types: Array<any>;
+  private chosenTypes: number;
+  readonly maxTypes: number = 2;
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+  constructor(public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService)
+  {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productType";
-    this.stepNb = 7;
+    this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
-    this.formData.path.previous = "product-category";
+    this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";
     this.types = [];
+    this.chosenTypes = 0;
   }
 
   ngOnInit(): void {
-    this.getTypes()
-      .then(() => this.filterTreatment());
-  }
-
-  ngAfterViewInit(): void {
-    if (this.matOption) {
-      this.matOption.nativeElement.openPanel();
-    }
-  }
-
-  private filterTreatment(): void {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.types.filter(type => type.toLowerCase().includes(filterValue)).sort();
+    this.getTypes();
   }
 
   private getTypes(): Promise<any> {
-    return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.TYPES);
-
-      response.subscribe((res) => {
-        for (const elem of res) {
-          this.types.push(elem.label);
-        }
-        resolve();
+    return new Promise(
+      (resolve) => {
+        const response = this.request.getData(this.request.uri.TYPES).subscribe((types) => {
+          for (const type of types) {
+            this.types.push({'label': type.label, 'id': type.id});
+          }
+          resolve();
       });
     });
   }
 
-  public addType(): void {
-    if (!this.hasType() && this.isTypeExist()) {
-      const typeId: number = this.getId();
-
-      this.product.productTypes.push(new ProductType(typeId, this.myControl.value));
+  public setFocus(type: any): void {
+    if (document.getElementById(type.label).classList.contains('chosen-tile')) {
+      document.getElementById(type.label).classList.remove('chosen-tile');
+      this.removeProductCategory(type.label);
     }
-    this.filterTreatment();
-  }
-
-  public removeType(typeLabel: string): void {
-    let i: number = 0;
-
-    for (const productType of this.product.productTypes) {
-      if (typeLabel === productType.label) {
-        this.product.productTypes.splice(i, 1);
-      }
-      i++;
-    }
-  }
-
-  private hasType(): boolean {
-    for (const productType of this.product.productTypes) {
-      if (productType.label === this.myControl.value) {
-        return true;
+    else {
+      if (this.chosenTypes < this.maxTypes) {
+        document.getElementById(type.label).classList.add('chosen-tile');
+        this.addProductCategory(type);
       }
     }
-    return false;
-  }
+}
 
-  private isTypeExist(): boolean {
-    for (const type of this.types) {
-      if (this.myControl.value === type) {
-        return true;
-      }
+private addProductCategory(type: any): void {
+  this.product.productTypes.push(new ProductType(type.label, type.id));
+  this.chosenTypes++;
+}
+
+private removeProductCategory(type: string): void {
+  const pos: number = this.findType(type);
+
+  this.chosenTypes--;
+  this.product.productTypes.splice(pos, 1);
+}
+
+private findType(type: string): number {
+  let i: number = 0;
+
+  for (const elem of this.product.productTypes) {
+    if (elem.label === type) {
+      return i;
     }
-    return false;
+    i++;
   }
-
-  private getId(): number {
-    let i: number = 0;
-
-    for (const type of this.types) {
-      if (this.myControl.value === type) {
-        return i + 1;
-      }
-      i++;
-    }
-    return -1;
-  }
+  return -1;
+}
 }

@@ -242,16 +242,12 @@ const routes: Routes = [
         component: MediaUploadComponent
       },
       {
-        path: 'activity-domain',
-        component: ActivityDomainComponent
+        path: 'product-category',
+        component: ProductCategoryComponent
       },
       {
         path: 'product-brand',
         component: ProductBrandComponent
-      },
-      {
-        path: 'product-category',
-        component: ProductCategoryComponent
       },
       {
         path: 'product-type',
