@@ -1,3 +1,5 @@
+import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
+import { ProductReference } from './models/product-reference';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
@@ -58,7 +60,6 @@ import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
-import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
@@ -252,6 +253,10 @@ const routes: Routes = [
       {
         path: 'product-type',
         component: ProductTypeComponent
+      },
+      {
+        path: 'product-reference',
+        component: ProductReferenceComponent
       },
       {
         path: 'product-state',

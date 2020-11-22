@@ -1,0 +1,38 @@
+<div class="content has-text-left">
+  <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [nbStep]=nbStep>
+    </app-step-progress>
+
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
+
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option #matOption *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <p class="control has-icons-right">
+      <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
+      <span id="caret-down" class="icon is-right">
+        <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+      </span>
+    </p>
+  </div>
+  {{ product.productReference.label }}
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

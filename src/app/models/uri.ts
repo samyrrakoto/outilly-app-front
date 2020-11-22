@@ -25,6 +25,7 @@ export class Uri {
   readonly BRANDS: string = 'brands';
   readonly CATEGORIES: string = 'product/categories/all';
   readonly TYPES: string = 'product/types/all';
+  readonly REFERENCES: string = 'product/refs/categories';
   readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
   readonly GET_USER: string = 'secure/user';
   readonly UPDATE_USER: string = 'secure/user/update';

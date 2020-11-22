@@ -68,7 +68,6 @@ import { ProductCreationComponent } from './content/product-creation/product-cre
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
-import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
 import { ProductCategoryComponent } from './content/product-creation/product-category/product-category.component';
 import { ProductTypeComponent } from './content/product-creation/product-type/product-type.component';
@@ -121,6 +120,7 @@ import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activi
 import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { DeliveryPipe } from './pipes/delivery.pipe';
+import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
 
 @NgModule({
   declarations: [
@@ -180,9 +180,9 @@ import { DeliveryPipe } from './pipes/delivery.pipe';
     BatchChoiceComponent,
     AnnouncementTitleComponent,
     MediaUploadComponent,
-    ActivityDomainComponent,
     ProductBrandComponent,
     ProductCategoryComponent,
+    ProductReferenceComponent,
     ProductTypeComponent,
     ProductStateComponent,
     ProductDescriptionComponent,
