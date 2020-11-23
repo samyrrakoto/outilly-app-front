@@ -105,7 +105,7 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
   }
 
   public addReference(): void {
-    if (!this.hasType() && this.isReferenceExist()) {
+    if (!this.hasType() && this.isReferenceExist() && this.product.productReferences.length < 5) {
       const referenceId: number = this.getId();
       this.product.productReferences.push(new ProductReference(this.myControl.value, referenceId));
     }
