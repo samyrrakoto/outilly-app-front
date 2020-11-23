@@ -25,9 +25,9 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productCategory";
-    this.stepNb = 4;
+    this.stepNb = 5;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
-    this.formData.path.previous = "media-upload";
+    this.formData.path.previous = "product-consumable";
     this.formData.path.next = "product-brand";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];

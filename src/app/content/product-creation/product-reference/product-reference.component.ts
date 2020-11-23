@@ -64,7 +64,8 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
 
   private getParams(): string[] {
     const params: string[] = [];
-    const categories: ProductCategory[] = this.product.productCategories === null ? this.product.productCategories : [new ProductCategory(null, 1)];
+    const categories: ProductCategory[] = this.product.productCategories;
+    categories.length === 0 ? categories.push(new ProductCategory(null, 1)) : null;
     const isConsumable: boolean = this.product.isConsumable;
 
     categories.length === 1 ?
@@ -85,6 +86,7 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
             for (const reference of references) {
               this.references.push(reference.label);
             }
+            console.log(this.references);
             resolve();
           });
       });

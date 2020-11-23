@@ -1,10 +1,10 @@
-import { RequestService } from './../../../services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-batch-choice',
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class BatchChoiceComponent extends ProductCreationComponent implements OnInit {
   private isLogged: boolean;
+  private tiles: string[] = ['bundled', 'not-bundled'];
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -67,11 +68,9 @@ export class BatchChoiceComponent extends ProductCreationComponent implements On
   }
 
   public setFocus(id: string): void {
-    const tiles = ['bundled', 'not-bundled'];
-
     document.getElementById(id).classList.add('chosen-tile');
 
-    for (const tile of tiles) {
+    for (const tile of this.tiles) {
       if (tile !== id) {
         document.getElementById(tile).classList.remove('chosen-tile');
       }

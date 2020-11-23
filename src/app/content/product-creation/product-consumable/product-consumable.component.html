@@ -1,0 +1,38 @@
+<div class="content has-text-left">
+  <div class="field">
+      <app-step-progress
+        [stepNb]=stepNb
+        [nbStep]=nbStep>
+
+      </app-step-progress>
+      <app-step-label class="has-text-centered"
+        [stepNb]=stepNb
+        [stepName]=stepName>
+      </app-step-label>
+
+      <div class="columns is-vcentered has-text-centered">
+        <div class="column">
+          <div class="tile"  id="yes" (click)="product.isConsumable = true; setFocus('yes')">
+            Oui
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="tile" id="no" (click)="product.isConsumable = false; setFocus('no')">
+            Non
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div *ngFor="let error of errorMessages" class="content error has-text-left">
+  {{ error }}
+</div>
+
+<app-navigation
+  [data]=formData
+  [rootUri]=rootUri
+  [previousOn]=previousOn
+  [nextOn]=nextOn>
+</app-navigation>

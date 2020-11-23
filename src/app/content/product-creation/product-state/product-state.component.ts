@@ -19,7 +19,7 @@ export class ProductStateComponent extends ProductCreationComponent {
     this.formData.fieldName = "productState";
     this.stepNb = 8;
     this.stepName = "Dans quel état se trouve le produit ?";
-    this.formData.path.previous = "product-type";
+    this.formData.path.previous = "product-reference";
     this.formData.path.next = "product-description";
     this.product.quality = '';
   }

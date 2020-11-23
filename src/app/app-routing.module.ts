@@ -66,6 +66,7 @@ import { ProductUnavailableComponent } from './content/product-unavailable/produ
 import { Error404Component } from './content/error404/error404.component';
 import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
+import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 
 const routes: Routes = [
   {
@@ -241,6 +242,10 @@ const routes: Routes = [
       {
         path: 'media-upload',
         component: MediaUploadComponent
+      },
+      {
+        path: 'product-consumable',
+        component: ProductConsumableComponent
       },
       {
         path: 'product-category',

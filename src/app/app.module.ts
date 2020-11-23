@@ -121,6 +121,7 @@ import { UserPurchasesRunningComponent } from './content/user-dashboard/activity
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { DeliveryPipe } from './pipes/delivery.pipe';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
+import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 
 @NgModule({
   declarations: [
@@ -232,7 +233,8 @@ import { ProductReferenceComponent } from './content/product-creation/product-re
     UserPurchasesConfirmedComponent,
     UserPurchasesRunningComponent,
     DispatchNoteComponent,
-    DeliveryPipe
+    DeliveryPipe,
+    ProductConsumableComponent
   ],
   imports: [
     HttpClientModule,

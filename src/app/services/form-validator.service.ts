@@ -270,6 +270,15 @@ export class FormValidatorService {
     return true;
   }
 
+  productConsumableVerify(data: FormDataService) {
+    const productConsumable: boolean = data.product.isConsumable;
+    const empty: boolean = this.constraintManager.isEmpty(productConsumable);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
   activityDomainVerify(data: FormDataService): boolean {
     const activityDomain: Array<ActivityDomain> = data.product.activityDomains;
     const empty: boolean = this.constraintManager.isEmpty(activityDomain);
