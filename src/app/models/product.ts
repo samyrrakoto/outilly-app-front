@@ -12,7 +12,7 @@ export class Product {
   reservePrice: number;
   isConsumable: boolean;
   productCategories: Array<ProductCategory>;
-  productReference: ProductReference;
+  productReferences: ProductReference[];
   quality: string;
   weight: number;
   weightUnity: string;
@@ -38,7 +38,7 @@ export class Product {
     this.reservePrice = 0;
     this.isConsumable = false;
     this.productCategories = [];
-    this.productReference = new ProductReference;
+    this.productReferences = [];
     this.quality = '';
     this.weight = 0;
     this.weightUnity = 'kg';

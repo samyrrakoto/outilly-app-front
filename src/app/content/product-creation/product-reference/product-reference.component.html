@@ -11,7 +11,7 @@
     </app-step-label>
 
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option (click)="chooseReference()" #matOption *ngFor="let option of filteredOptions | async" [value]="option">
+      <mat-option #matOption *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option }}
       </mat-option>
     </mat-autocomplete>
@@ -23,6 +23,17 @@
       </span>
     </p>
   </div>
+  <button class="button is-success" (click)="addReference()" style="margin-bottom:10px;"><fa-icon [icon]="['fas', 'plus']" style="margin-right: 10px;"></fa-icon>Ajouter une marque</button>
+
+  <nav class="level new-element" id="{{ reference.label }}" *ngFor="let reference of product.productReferences">
+    <div class="level-left">
+      {{ reference.label }}
+    </div>
+
+    <div class="level-right">
+      <button (click)="removeReference(reference.label)" class="button cross"><fa-icon [icon]="['fas', 'times-circle']"></fa-icon></button>
+    </div>
+  </nav>
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
 import { ProductInformationComponent } from '../../product-information.component';
@@ -14,6 +15,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 })
 export class MediaGalleryComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(request: RequestService,
     route: ActivatedRoute,

@@ -5,7 +5,7 @@
     <div class="columns is-gapless is-centered is-mobile">
       <div *ngFor="let media of sale.product.productMedias; index as i">
         <div *ngIf="i < 3" class="column is-narrow">
-          <img class="top-thumbnail" src="{{ media.path }}" (click)="openGalleryMedia(i, media.type)">
+          <img class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, media.type)">
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
   <div id="side-preview" class="column is-3 has-text-centered is-hidden-mobile">
     <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
       <figure *ngIf="i > 2 && media.type === 'image'" class="image">
-        <img src="{{ media.path }}" (click)="openGalleryMedia(i, 'image')">
+        <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
       </figure>
 
       <figure *ngIf="i > 2 && media.type === 'video'">
@@ -32,12 +32,12 @@
     <div class="box has-background-black">
       <!-- media -->
       <figure *ngIf="media.type === 'image'" class="image">
-        <img src="{{ media.path }}">
+        <img src="{{ mediaBaseUri + media.path }}">
       </figure>
 
       <figure class="video" *ngIf="media.type === 'video'">
         <video id="demoVideo" controls autoplay>
-          <source src="{{ media.path }}" type="video/mp4">
+          <source src="{{ mediaBaseUri + media.path }}" type="video/mp4">
         </video>
       </figure>
 

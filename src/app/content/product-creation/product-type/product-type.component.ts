@@ -14,7 +14,7 @@ import { ProductType } from 'src/app/models/product-type';
 export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
   types: Array<any>;
   private chosenTypes: number;
-  readonly maxTypes: number = 2;
+  readonly maxTypes: number = 100;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -43,7 +43,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       (resolve) => {
         const response = this.request.getData(this.request.uri.TYPES).subscribe((types) => {
           for (const type of types) {
-            if (type.label !== 'Consommable & accessoires') {
+            if (type.id !== 7) {
               this.types.push({'label': type.label, 'id': type.id});
             }
           }

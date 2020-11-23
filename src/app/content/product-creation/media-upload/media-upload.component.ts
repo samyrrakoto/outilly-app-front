@@ -76,9 +76,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
   }
 
   private sendMedia(data: FormData): void {
-    this.request.uploadMedia(data).subscribe(
-      (res) => { console.log(res) }
-    );
+    this.request.uploadMedia(data).subscribe();
   }
 
   public removeMedia(fileName: string): void {

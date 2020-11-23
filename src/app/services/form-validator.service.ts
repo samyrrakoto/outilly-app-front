@@ -308,8 +308,8 @@ export class FormValidatorService {
   }
 
   productReferenceVerify(data: FormDataService): boolean {
-    const productReference: ProductReference = data.product.productReference;
-    const empty: boolean = this.constraintManager.isEmpty(productReference);
+    const productReferences: ProductReference[] = data.product.productReferences;
+    const empty: boolean = this.constraintManager.isEmpty(productReferences);
 
     if (empty)
       return false;

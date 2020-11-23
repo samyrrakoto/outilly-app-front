@@ -13,7 +13,7 @@ import { ProductReference } from 'src/app/models/product-reference';
 @Component({
   selector: 'app-product-reference',
   templateUrl: './product-reference.component.html',
-  styleUrls: ['./product-reference.component.css']
+  styleUrls: ['../product-creation.component.css', './product-reference.component.css']
 })
 export class ProductReferenceComponent extends ProductCreationComponent implements OnInit {
   @ViewChild("matOption") matOption: ElementRef;
@@ -96,18 +96,61 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
       });
   }
 
-  public chooseReference(): void {
-    const referenceId: number = this.getReferenceId();
-
-    this.product.productReference = new ProductReference(this.myControl.value, referenceId);
-    this.filterTreatment();
-  }
-
   private getReferenceId(): number {
     for (const reference of this.references) {
       if (this.myControl.value === reference.label) {
         return reference.id;
       }
     }
+  }
+
+  public addReference(): void {
+    if (!this.hasType() && this.isReferenceExist()) {
+      const referenceId: number = this.getId();
+      this.product.productReferences.push(new ProductReference(this.myControl.value, referenceId));
+    }
+    this.filterTreatment();
+  }
+
+  public removeReference(referenceName: string): void {
+    let i: number = 0;
+
+    for (const reference of this.product.productReferences) {
+      if (referenceName === reference.label) {
+        this.product.productReferences.splice(i, 1);
+      }
+      i++;
+    }
+    this.filterTreatment();
+  }
+
+  private hasType(): boolean {
+    for (const reference of this.product.productReferences) {
+      if (reference.label === this.myControl.value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private isReferenceExist(): boolean {
+    for (const reference of this.references) {
+      if (this.myControl.value === reference.label) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private getId(): number {
+    let i: number = 0;
+
+    for (const reference of this.references) {
+      if (this.myControl.value === reference) {
+        return i + 1;
+      }
+      i++;
+    }
+    return -1;
   }
 }

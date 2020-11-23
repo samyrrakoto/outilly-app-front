@@ -1,7 +1,7 @@
+import { environment } from 'src/environments/environment';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
-import { OrderSummaryComponent } from './../order-summary.component';
-import { Component, Input, OnInit, resolveForwardRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { Sale } from 'src/app/models/sale';
@@ -14,6 +14,7 @@ import { Sale } from 'src/app/models/sale';
 export class ProductSummaryComponent implements OnInit, OnChanges {
   @Input() sale: Sale;
   @Input() priceToPay: number;
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
   thumbnail: string;
 
   constructor(public request: RequestService,
@@ -36,7 +37,7 @@ export class ProductSummaryComponent implements OnInit, OnChanges {
   private getFirstPicture(): void {
     for (const media of this.sale.product.productMedias) {
       if (media.type === 'image') {
-        this.thumbnail = media.path;
+        this.thumbnail = this.mediaBaseUri + media.path;
         break;
       }
     }
