@@ -63,10 +63,10 @@ export class ProductInformationComponent extends GenericComponent implements OnI
           resolve();
         });
       })
-      .then(() => this.getProductById(this.id.toString()))
-      .then(() => this.getGenericQuestions())
       .then(() => this.getSalesId())
       .then(() => this.isUserSeller())
+      .then(() => this.getProductById(this.id.toString()))
+      .then(() => this.getGenericQuestions())
       .then(() => this.handleSaleStatus())
       .catch((error: any) => this.handlingErrors(error));
   }
@@ -122,7 +122,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getProductById(id: string): Promise<any> {
     return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.SALE, [id]);
+      const response = this.isSeller ? this.request.getData(this.request.uri.GET_SALE_VENDOR, [id]) : this.request.getData(this.request.uri.SALE, [id]);
 
       response.subscribe((sale: any) => {
         this.sale = sale;

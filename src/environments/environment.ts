@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUri: 'http://ktkp.api/',
+  mediaBaseUri: 'http://ekipr-media.local',
   mondialBrand: 'BDTEST13'
 };
 

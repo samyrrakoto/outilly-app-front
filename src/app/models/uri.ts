@@ -19,12 +19,14 @@ export class Uri {
   readonly GET_SALES_ONLINE: string = 'secure/sales/online';
   readonly GET_SALES_NEW: string = 'secure/sales/new';
   readonly GET_SALE: string = 'sale/';
+  readonly GET_SALE_VENDOR: string = 'secure/sale'
   readonly GET_SALE_AVAILABILITY: string = 'sale/availability'
   readonly GET_BIDS_AND_SALES = 'secure/bids/sales';
   readonly ACTIVITY_DOMAINS: string = 'activity-domains';
   readonly BRANDS: string = 'brands';
   readonly CATEGORIES: string = 'product/categories/all';
   readonly TYPES: string = 'product/types/all';
+  readonly REFERENCES: string = 'product/refs/categories';
   readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
   readonly GET_USER: string = 'secure/user';
   readonly UPDATE_USER: string = 'secure/user/update';

@@ -1,10 +1,7 @@
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductCategory } from 'src/app/models/product-category';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -15,107 +12,76 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
 export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("matOption") matOption: ElementRef;
-  myControl = new FormControl();
-  categories: Array<string>;
-  filteredOptions: Observable<Array<string>>;
+  public categories: Array<any>;
+  private chosenCategories: number;
+  readonly maxCategories: number = 2;
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
+  constructor(public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService)
+  {
     super(request, formData, router, formValidatorService);
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productCategory";
-    this.stepNb = 6;
+    this.stepNb = 5;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
-    this.formData.path.previous = "product-brand";
-    this.formData.path.next = "product-type";
+    this.stepSubtitle = 'Vous pouvez choisir jusqu\'à 2 catégories';
+    this.formData.path.previous = "product-consumable";
+    this.formData.path.next = "product-brand";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];
-    this.matOption = null;
+    this.chosenCategories = 0;
   }
 
   ngOnInit(): void {
-    this.getCategories()
-      .then(() => this.filterTreatment());
-  }
-
-  ngAfterViewInit(): void {
-    if (this.matOption) {
-      this.matOption.nativeElement.openPanel();
-    }
-  }
-
-  private filterTreatment(): void {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue: string = value.toLowerCase();
-
-    return this.categories.filter(categorie => categorie.toLowerCase().includes(filterValue)).sort();
+    this.getCategories();
   }
 
   private getCategories(): Promise<any> {
     return new Promise((resolve) => {
-      const response: any = this.request.getData(this.request.uri.CATEGORIES);
-
-      response.subscribe((categories: any) => {
-        for (const category of categories) {
-          this.categories.push(category.label);
-        }
-        resolve();
-      });
+      this.request.getData(this.request.uri.CATEGORIES).subscribe(
+        (categories: any) => {
+          for (const category of categories) {
+            this.categories.push({'label': category.label, 'id': category.id});
+          }
+          resolve();
+        });
     });
   }
 
-  public addCategory(): void {
-    if (!this.hasCategory() && this.isCategoryExist()) {
-      const categoryId: number = this.getId();
-
-      this.product.productCategories.push(new ProductCategory(categoryId, this.myControl.value));
-    }
-    this.filterTreatment();
+  public setFocus(category: any): void {
+      if (document.getElementById(category.label).classList.contains('chosen-tile')) {
+        document.getElementById(category.label).classList.remove('chosen-tile');
+        this.removeProductCategory(category.label);
+      }
+      else {
+        if (this.chosenCategories < this.maxCategories) {
+          document.getElementById(category.label).classList.add('chosen-tile');
+          this.addProductCategory(category);
+        }
+      }
   }
 
-  public removeCategory(categoryName: string): void {
+  private addProductCategory(category: any): void {
+    this.product.productCategories.push(new ProductCategory(category.label, category.id));
+    this.chosenCategories++;
+  }
+
+  private removeProductCategory(category: string): void {
+    const pos: number = this.findCategory(category);
+
+    this.chosenCategories--;
+    this.product.productCategories.splice(pos, 1);
+  }
+
+  private findCategory(category: string): number {
     let i: number = 0;
 
-    for (const category of this.product.productCategories) {
-      if (categoryName === category.label) {
-        this.product.productCategories.splice(i, 1);
-      }
-      i++;
-    }
-  }
-
-  private hasCategory(): boolean {
-    for (const category of this.product.productCategories) {
-      if (category.label === this.myControl.value) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private isCategoryExist(): boolean {
-    for (const category of this.categories) {
-      if (this.myControl.value === category) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  getId(): number {
-    let i: number = 0;
-
-    for (const category of this.categories) {
-      if (this.myControl.value === category) {
-        return i + 1;
+    for (const elem of this.product.productCategories) {
+      if (elem.label === category) {
+        return i;
       }
       i++;
     }

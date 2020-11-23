@@ -27,8 +27,8 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
-    this.formData.path.previous = "media-upload";
-    this.formData.path.next = "product-category";
+    this.formData.path.previous = "product-category";
+    this.formData.path.next = "product-type";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }

@@ -1,3 +1,5 @@
+import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
+import { ProductReference } from './models/product-reference';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
@@ -58,13 +60,13 @@ import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
 import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
-import { ActivityDomainComponent } from './content/product-creation/activity-domain/activity-domain.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 import { Error404Component } from './content/error404/error404.component';
 import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
+import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 
 const routes: Routes = [
   {
@@ -242,20 +244,24 @@ const routes: Routes = [
         component: MediaUploadComponent
       },
       {
-        path: 'activity-domain',
-        component: ActivityDomainComponent
-      },
-      {
-        path: 'product-brand',
-        component: ProductBrandComponent
+        path: 'product-consumable',
+        component: ProductConsumableComponent
       },
       {
         path: 'product-category',
         component: ProductCategoryComponent
       },
       {
+        path: 'product-brand',
+        component: ProductBrandComponent
+      },
+      {
         path: 'product-type',
         component: ProductTypeComponent
+      },
+      {
+        path: 'product-reference',
+        component: ProductReferenceComponent
       },
       {
         path: 'product-state',

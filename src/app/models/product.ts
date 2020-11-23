@@ -1,3 +1,4 @@
+import { ProductReference } from './product-reference';
 import { ProductCategory } from './product-category';
 import { ProductType } from './product-type';
 import { Brand } from './brand';
@@ -9,7 +10,9 @@ export class Product {
   slug: string;
   name: string;
   reservePrice: number;
+  isConsumable: boolean;
   productCategories: Array<ProductCategory>;
+  productReferences: ProductReference[];
   quality: string;
   weight: number;
   weightUnity: string;
@@ -33,7 +36,9 @@ export class Product {
     this.slug = '';
     this.name = '';
     this.reservePrice = 0;
+    this.isConsumable = false;
     this.productCategories = [];
+    this.productReferences = [];
     this.quality = '';
     this.weight = 0;
     this.weightUnity = 'kg';
