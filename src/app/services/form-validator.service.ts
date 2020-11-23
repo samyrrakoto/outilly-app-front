@@ -1,3 +1,4 @@
+import { ProductReference } from './../models/product-reference';
 import { FormConstraintService } from './form-constraint.service';
 import { ProductMedia } from 'src/app/models/product-media';
 import { ProductType } from './../models/product-type';
@@ -279,16 +280,6 @@ export class FormValidatorService {
     return true;
   }
 
-  activityDomainVerify(data: FormDataService): boolean {
-    const activityDomain: Array<ActivityDomain> = data.product.activityDomains;
-    const empty: boolean = this.constraintManager.isEmpty(activityDomain);
-    const maxNb: boolean = this.constraintManager.maxNb(activityDomain, 2);
-
-    if (empty || maxNb)
-      return false;
-    return true;
-  }
-
   productBrandVerify(data: FormDataService): boolean {
     const productBrand: Array<Brand> = data.product.brands;
     const empty: boolean = this.constraintManager.isEmpty(productBrand);
@@ -310,6 +301,15 @@ export class FormValidatorService {
   productTypeVerify(data: FormDataService): boolean {
     const productType: Array<ProductType> = data.product.productTypes;
     const empty: boolean = this.constraintManager.isEmpty(productType);
+
+    if (empty)
+      return false;
+    return true;
+  }
+
+  productReferenceVerify(data: FormDataService): boolean {
+    const productReference: ProductReference = data.product.productReference;
+    const empty: boolean = this.constraintManager.isEmpty(productReference);
 
     if (empty)
       return false;

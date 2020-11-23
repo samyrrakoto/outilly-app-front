@@ -11,7 +11,7 @@
     </app-step-label>
 
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option #matOption *ngFor="let option of filteredOptions | async" [value]="option">
+      <mat-option (click)="chooseReference()" #matOption *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option }}
       </mat-option>
     </mat-autocomplete>
@@ -23,7 +23,6 @@
       </span>
     </p>
   </div>
-  {{ product.productReference.label }}
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

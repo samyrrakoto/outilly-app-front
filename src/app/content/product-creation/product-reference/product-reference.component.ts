@@ -8,6 +8,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ProductCategory } from 'src/app/models/product-category';
+import { ProductReference } from 'src/app/models/product-reference';
 
 @Component({
   selector: 'app-product-reference',
@@ -17,7 +18,7 @@ import { ProductCategory } from 'src/app/models/product-category';
 export class ProductReferenceComponent extends ProductCreationComponent implements OnInit {
   @ViewChild("matOption") matOption: ElementRef;
   myControl = new FormControl();
-  references: string[];
+  references: any[];
   filteredOptions: Observable<Array<string>>;
 
   constructor(public request: RequestService,
@@ -58,8 +59,12 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
 
   private _filter(value: string): string[] {
     const filterValue: string = value.toLowerCase();
+    const labels: string[] = [];
 
-    return this.references.filter(references => references.toLowerCase().includes(filterValue)).sort();
+    for (const reference of this.references) {
+      labels.push(reference.label);
+    }
+    return labels.filter(references => references.toLowerCase().includes(filterValue)).sort();
   }
 
   private getParams(): string[] {
@@ -82,17 +87,27 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     return new Promise(
       (resolve) => {
         this.request.getData(this.request.uri.REFERENCES, params).subscribe(
-          (references) => {
+          (references: any) => {
             for (const reference of references) {
-              this.references.push(reference.label);
+              this.references.push({'label': reference.label, 'id': reference.id});
             }
-            console.log(this.references);
             resolve();
           });
       });
   }
 
   public chooseReference(): void {
+    const referenceId: number = this.getReferenceId();
+
+    this.product.productReference = new ProductReference(this.myControl.value, referenceId);
     this.filterTreatment();
+  }
+
+  private getReferenceId(): number {
+    for (const reference of this.references) {
+      if (this.myControl.value === reference.label) {
+        return reference.id;
+      }
+    }
   }
 }
