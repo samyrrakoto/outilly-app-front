@@ -16,6 +16,7 @@ export class ProductCreationComponent implements OnInit {
   nbStep: number = 19;
   stepNb: number;
   stepName: string;
+  stepSubtitle: string;
   placeholder: string;
   path: Path;
   isMandatory: boolean;
@@ -32,6 +33,7 @@ export class ProductCreationComponent implements OnInit {
     this.product = new Product();
     this.stepNb = 0;
     this.stepName = '';
+    this.stepSubtitle = '';
     this.placeholder = 'Ecrivez ici';
     this.path = new Path();
     this.isMandatory = true;

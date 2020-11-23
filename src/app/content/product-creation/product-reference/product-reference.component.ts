@@ -32,6 +32,7 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
     this.stepName = "Quelle est la référence de votre produit ?";
+    this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5';
     this.formData.path.previous = "product-type";
     this.formData.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'une référence et sélectionnez-la";

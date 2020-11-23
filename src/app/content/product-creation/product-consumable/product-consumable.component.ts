@@ -26,6 +26,7 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     this.formData.fieldName = "productConsumable";
     this.stepNb = 4;
     this.stepName = "Votre produit est-il un consommable ?";
+    this.stepSubtitle = 'Par consommable nous entendons un produit dont l\'utilisation est unique, contrairement à un outil';
     this.formData.path.previous = "media-upload";
     this.formData.path.next = "product-category";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";

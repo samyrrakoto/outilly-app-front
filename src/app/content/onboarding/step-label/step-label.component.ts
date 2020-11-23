@@ -8,11 +8,13 @@ import { Component, Input } from '@angular/core';
 export class StepLabelComponent {
   @Input() stepNb: number;
   @Input() stepName: string;
+  @Input() stepSubtitle: string;
   @Input() isMandatory: boolean;
 
   constructor() {
     this.stepNb = 0;
     this.stepName = '';
+    this.stepSubtitle = '';
     this.isMandatory = true;
   }
 }

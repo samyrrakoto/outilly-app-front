@@ -27,6 +27,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     this.formData.fieldName = "productType";
     this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
+    this.stepSubtitle = 'Vous pouvez en sélectionner autant que vous le souhaitez';
     this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-reference";
     this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";
