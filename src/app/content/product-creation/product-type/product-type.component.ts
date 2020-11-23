@@ -43,11 +43,18 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       (resolve) => {
         const response = this.request.getData(this.request.uri.TYPES).subscribe((types) => {
           for (const type of types) {
-            this.types.push({'label': type.label, 'id': type.id});
+            if (type.label !== 'Consommable & accessoires') {
+              this.types.push({'label': type.label, 'id': type.id});
+            }
           }
+          this.types.sort((a, b) => this.compareType(a, b));
           resolve();
       });
     });
+  }
+
+  private compareType(a: ProductType, b: ProductType): number {
+    return a.label < b.label ? -1 : 1;
   }
 
   public setFocus(type: any): void {
