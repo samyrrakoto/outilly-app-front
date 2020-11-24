@@ -12,9 +12,48 @@
     padding: 30px;
 }
 
+.dropdown-trigger button {
+  font-size: 0.8em;
+  height: 50px;
+  border-width: 3px;
+  border-color: var(--KTKP-GREY-DARKER);
+}
+
+.dropdown-trigger button:hover {
+  border-color: var(--KTKP-GREEN);
+}
+
+.search {
+  height: 50px;
+}
+
+.angle-down {
+  margin-left: 5px;
+  font-size: 1.5em;
+}
+
+#current-filters button:hover {
+  background-color: var(--KTKP-RED);
+  color: white;
+}
+
 @media only screen and (max-width: 768px) {
     #searchHeader {
         border-radius: 60px;
+    }
+
+    .dropdown-trigger button {
+      width: 150px;
+      height: 60px;
+    }
+
+    .angle-down {
+      font-size: 2.2em;
+    }
+
+    .search {
+      width: 95%;
+      height: 60px;
     }
 }
 
