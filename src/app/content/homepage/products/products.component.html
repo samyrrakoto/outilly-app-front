@@ -1,50 +1,37 @@
 <div class="columns has-text-centered is-centered">
-  <div class="column is-two-thirds has-text-centered">
-    <div class="columns has-text-centered">
-      <div class="column">
-        <div class="card is-shady">
+  <div class="column is-12 has-text-centered">
+      <div class="in-line" *ngFor="let img of testImg">
+        <div class="card">
           <div class="card-content">
-            <img src="assets/img/product/tool1.jpg">
-            <h2 class="subtitle is-5">Titre du produit</h2>
-          </div>
-        </div>
-      </div>
+            <img [src]=img.path>
+            <h2 class="subtitle is-5">{{ img.productName }}</h2>
 
-      <div class="column">
-        <div class="card is-shady">
-          <div class="card-content">
-            <img src="assets/img/product/tool2.jpg">
-            <h2 class="subtitle is-5">Titre du produit</h2>
-          </div>
-        </div>
-      </div>
+            <div class="columns is-vcentered">
+              <div class="column declined">
+                152€
+              </div>
 
-      <div class="column">
-        <div class="card is-shady">
-          <div class="card-content">
-            <img src="assets/img/product/tool3.jpg">
-            <h2 class="subtitle is-5">Titre du produit</h2>
-          </div>
-        </div>
-      </div>
+              <div class="column has-text-left">
+                <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                22
+              </div>
+            </div>
 
-      <div class="column">
-        <div class="card is-shady">
-          <div class="card-content">
-            <img src="assets/img/product/tool4.jpg">
-            <h2 class="subtitle is-5">Titre du produit</h2>
-          </div>
-        </div>
-      </div>
+            <div class="columns is-vcentered">
+              <div class="column">
+                Mode de remise :
+              </div>
 
-      <div class="column">
-        <div class="card is-shady">
-          <div class="card-content">
-            <img src="assets/img/product/tool5.jpg">
-            <h2 class="subtitle is-5">Titre du produit</h2>
+              <div class="column has-text-left">
+                <fa-icon [icon]="['fas', 'people-carry']" title="Remise en mains propres"></fa-icon>
+              </div>
+            </div>
+
+            <button class="button is-danger product-link">
+              Voir le produit
+            </button>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
