@@ -311,11 +311,14 @@
       <button class="button search is-danger">Rechercher</button>
     </div>
 
-  <div id="current-filters" class="content has-text-left">
-    <span class="underline medium-left-margin">Filtres activés</span> :
-    <button class="button" *ngFor="let a of [1, 2, 3]">
-      <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-      lol
-    </button>
-  </div>
+    <div class="content has-text-centered">
+      <span class="underline">Filtres activés</span> :
+    </div>
+
+    <div id="current-filters" class="columns is-vcentered has-text-centered">
+      <button *ngFor="let elem of ['filtre 1', 'filtre 2', 'filtre 3']" class="button medium-right-margin">
+        <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
+        {{ elem }}
+      </button>
+    </div>
 </div>
