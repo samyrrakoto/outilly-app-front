@@ -22,7 +22,7 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label)">
+              <a *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label); getReferences()">
                 {{ category.label }}
               </a>
             </div>
@@ -62,7 +62,9 @@
 
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
-
+            <a *ngFor="let reference of references" class="dropdown-item">
+              {{ reference.label }}
+            </a>
           </div>
         </div>
       </div>
@@ -101,7 +103,7 @@
   </div>
 
   <div id="current-filters" class="columns is-vcentered has-text-centered">
-    <button (click)='removeFilter(filter.type, filter.value)' *ngFor="let filter of filters" class="button medium-right-margin">
+    <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
       <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
       {{ filter.type | productFilter }}: {{ filter.value }}
     </button>

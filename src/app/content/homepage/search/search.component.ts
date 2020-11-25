@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 
@@ -21,7 +22,8 @@ export class SearchComponent implements OnInit {
     this.references = [];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public addFilter(type: string, value: string): void {
     if (!this.hasFilter(type, value)) {
@@ -54,13 +56,62 @@ export class SearchComponent implements OnInit {
     return false;
   }
 
-  private getReferences(): Promise<any> {
+  private getValuesFromType(type: string): string[] {
+    const filterValues: string[] = [];
+
+    for (const filter of this.filters) {
+      if (filter.type === type) {
+        filterValues.push(filter.value);
+      }
+    }
+    return filterValues;
+  }
+
+  private getCategoryIds(category: string): string {
+    const categoryValues: string[] = this.getValuesFromType('category');
+    let categoryIds: string = '';
+
+    for (const categoryValue of categoryValues) {
+      for (const category of this.allCategories) {
+        if (categoryValue === category.label && categoryValue !== 'Consommable') {
+          categoryIds += categoryIds.length > 0 ? '-' : '';
+          categoryIds += category.id;
+        }
+      }
+    }
+    return categoryIds;
+  }
+
+  private getReferencesPayload(): any {
+    let payload: HttpParams = new HttpParams();
+
+    payload = this.hasFilter('category', 'Consommable') ? payload.append('isConsumable', '1') : payload.append('isConsumable', '0');
+    return payload;
+  }
+
+  public getReferences(): Promise<any> {
+    const payload: HttpParams = this.getReferencesPayload();
+    const requestName: string = this.request.uri.REFERENCES + '/' + this.getCategoryIds('category') + '?' + payload.toString();
+
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.REFERENCES).subscribe(
+      this.request.getData(requestName).subscribe(
         (references: any) => {
           this.references = references;
+          this.references.sort((a, b) => this.compare(a, b, 'label'));
         }
       );
     });
+  }
+
+  private getFilterValue(filterType: string): string {
+    for (const filter of this.filters) {
+      if (filter.type === filterType) {
+        return filter.value;
+      }
+    }
+  }
+
+  private compare(a: any, b: any, field: string): number {
+    return a[field] < b[field] ? -1 : 1;
   }
 }
