@@ -62,6 +62,9 @@
 
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
+            <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
+              Choisissez des catégories pour voir la liste des produits
+            </a>
             <a *ngFor="let reference of references" class="dropdown-item">
               {{ reference.label }}
             </a>
