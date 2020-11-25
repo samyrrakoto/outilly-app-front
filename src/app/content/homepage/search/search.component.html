@@ -80,10 +80,10 @@
 
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
+            <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
               Oui
             </a>
-            <a class="dropdown-item">
+            <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
               Non
             </a>
           </div>
@@ -103,7 +103,7 @@
   <div id="current-filters" class="columns is-vcentered has-text-centered">
     <button (click)='removeFilter(filter.type, filter.value)' *ngFor="let filter of filters" class="button medium-right-margin">
       <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-      {{ filter.value }}
+      {{ filter.type | productFilter }}: {{ filter.value }}
     </button>
   </div>
 </div>

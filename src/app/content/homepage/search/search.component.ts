@@ -21,12 +21,16 @@ export class SearchComponent implements OnInit {
     this.references = [];
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public addFilter(type: string, value: string): void {
     if (!this.hasFilter(type, value)) {
-      this.filters.push({'type': type, 'value': value});
+      if (type === 'decreasingPrice' && value === 'Non') {
+        this.removeFilter(type, 'Oui');
+      }
+      else {
+        this.filters.push({'type': type, 'value': value});
+      }
     }
   }
 
