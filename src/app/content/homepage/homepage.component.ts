@@ -11,12 +11,14 @@ export class HomepageComponent implements OnInit {
   allTypes: any[];
   decreasingPrice: boolean;
   sales: any;
+  loadMore: number;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
     this.allTypes = [];
     this.decreasingPrice = false;
     this.sales = null;
+    this.loadMore = 0;
   }
 
   ngOnInit(): void {
@@ -51,11 +53,16 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  private compare(a: any, b: any, field: string): number {
+    return a[field] < b[field] ? -1 : 1;
+  }
+
+  // Output Getters
   public getSales(sales: any) {
     this.sales = sales;
   }
 
-  private compare(a: any, b: any, field: string): number {
-    return a[field] < b[field] ? -1 : 1;
+  public getLoadMore(loadMore: number) {
+    this.loadMore = loadMore;
   }
 }

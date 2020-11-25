@@ -1,5 +1,5 @@
 import { environment } from './../../../../environments/environment';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -11,36 +11,25 @@ export class ProductsComponent implements OnInit {
   testImg: any[];
   @Input() sales: any;
   results: any[];
+  currentPage: number;
+  @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
   readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(private request: RequestService) {
-    this.testImg = [
-      {'path': 'assets/img/product/tool1.jpg', 'productName': 'Outil 1'},
-      {'path': 'assets/img/product/tool2.jpg', 'productName': 'Outil 2'},
-      {'path': 'assets/img/product/tool3.jpg', 'productName': 'Outil 3'},
-      {'path': 'assets/img/product/tool4.jpg', 'productName': 'Outil 4'},
-      {'path': 'assets/img/product/tool5.jpg', 'productName': 'Outil 5'}
-    ];
     this.sales = [];
+    this.currentPage = 1;
   }
 
   ngOnInit(): void {}
 
-  ngOnChanges() {
-    if (this.sales) {
-      this.results = this.sales.results;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.sales && changes.sales.currentValue) {
+      this.results = changes.sales.currentValue.results;
     }
   }
 
-  public displayThumbnail(imgPath: string): void {
-    const thumbnail: HTMLElement = document.getElementById(imgPath);
-
-    thumbnail.style.visibility = 'visible';
-  }
-
-  public hideThumbnail(imgPath: string): void {
-    const thumbnail: HTMLElement = document.getElementById(imgPath);
-
-    thumbnail.style.visibility = 'hidden';
+  public sendLoadMore(): void {
+    this.loadMoreEmitter.emit(this.currentPage);
+    this.currentPage++;
   }
 }

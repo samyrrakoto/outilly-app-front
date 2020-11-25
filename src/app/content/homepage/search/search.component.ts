@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -11,10 +11,12 @@ export class SearchComponent implements OnInit {
   @Input() allCategories: any[];
   @Input() allTypes: any[];
   @Input() decreasingPrice: boolean;
+  @Input() loadMore: number;
   @Output() salesEmitter: EventEmitter<any> = new EventEmitter<any>();
   filters: any[];
   references: any[];
   sales: any;
+  currentPage: number = 1;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
@@ -22,10 +24,18 @@ export class SearchComponent implements OnInit {
     this.decreasingPrice = false;
     this.filters = [];
     this.references = [];
-    this.sales = [];
+    this.sales = {'results': [], 'meta': {}};
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.loadMore && changes.loadMore.currentValue) {
+      if (changes.loadMore.currentValue < this.sales.meta.totalPages) {
+        this.getSales();
+        this.loadMore = 0;
+      }
+    }
   }
 
   public addFilter(type: string, value: string): void {
@@ -144,6 +154,7 @@ export class SearchComponent implements OnInit {
     this.getReferenceIds('reference') !== '' ? payload = payload.append('refs', this.getReferenceIds('reference')) : null;
     this.hasFilter('category', 'Consommable') ? payload = payload.append('isConsumable', '1') : null;
     this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('sort', 'desc') : null;
+    payload = payload.append('page', this.currentPage.toString());
     return payload;
   }
 
@@ -151,12 +162,12 @@ export class SearchComponent implements OnInit {
     const payload: HttpParams = this.getSalesPayload();
     const requestname: string = this.request.uri.SALES + '?' + payload.toString();
 
-    console.log(requestname);
     return new Promise((resolve) => {
       this.request.getData(requestname).subscribe(
         (sales: any) => {
           this.sales = sales;
-          this.salesEmitter.emit(sales);
+          this.salesEmitter.emit(this.sales);
+          this.currentPage++;
           resolve();
         }
       );
