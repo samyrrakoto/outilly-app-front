@@ -3,7 +3,7 @@
       <div class="in-line" *ngFor="let img of testImg">
         <div class="card">
           <div class="card-content">
-            <img [src]=img.path>
+            <img (mouseover)="displayThumbnail(img.path)" (mouseout)="hideThumbnail(img.path)" [src]=img.path>
             <h2 class="subtitle is-5">{{ img.productName }}</h2>
 
             <div class="columns is-vcentered">
@@ -11,7 +11,7 @@
                 152€
               </div>
 
-              <div class="column has-text-left">
+              <div class="column has-text-left has-text-centered-mobile">
                 <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
                 22
               </div>
@@ -22,7 +22,7 @@
                 Mode de remise :
               </div>
 
-              <div class="column has-text-left">
+              <div class="column has-text-left has-text-centered-mobile">
                 <fa-icon [icon]="['fas', 'people-carry']" title="Remise en mains propres"></fa-icon>
               </div>
             </div>
@@ -31,6 +31,9 @@
               Voir le produit
             </button>
           </div>
+        </div>
+        <div>
+          <img [id]=img.path class="thumbnail" [src]=img.path>
         </div>
     </div>
   </div>

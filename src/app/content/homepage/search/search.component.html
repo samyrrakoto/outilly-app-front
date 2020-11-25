@@ -22,17 +22,8 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item">
-                Jardin
-              </a>
-              <a class="dropdown-item">
-                Bricolage
-              </a>
-              <a href="#" class="dropdown-item">
-                Mécanique
-              </a>
-              <a href="#" class="dropdown-item">
-                Autre
+              <a *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label)">
+                {{ category.label }}
               </a>
             </div>
           </div>
@@ -51,29 +42,8 @@
 
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
-                75 - Paris
-            </a>
-            <a class="dropdown-item">
-                77 - Seine-et-Marne
-            </a>
-            <a href="#" class="dropdown-item">
-                78 - Yvelines
-            </a>
-            <a href="#" class="dropdown-item">
-                91 - Essonne
-            </a>
-            <a href="#" class="dropdown-item">
-                92 - Hauts-de-Seine
-            </a>
-            <a href="#" class="dropdown-item">
-                93 - Seine-Saint-Denis
-            </a>
-            <a href="#" class="dropdown-item">
-                94 - Val-de-Marne
-            </a>
-            <a href="#" class="dropdown-item">
-                95 - Val-d'Oise
+            <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
+              {{ type.label }}
             </a>
           </div>
         </div>
@@ -92,30 +62,7 @@
 
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
-                75 - Paris
-            </a>
-            <a class="dropdown-item">
-                77 - Seine-et-Marne
-            </a>
-            <a href="#" class="dropdown-item">
-                78 - Yvelines
-            </a>
-            <a href="#" class="dropdown-item">
-                91 - Essonne
-            </a>
-            <a href="#" class="dropdown-item">
-                92 - Hauts-de-Seine
-            </a>
-            <a href="#" class="dropdown-item">
-                93 - Seine-Saint-Denis
-            </a>
-            <a href="#" class="dropdown-item">
-                94 - Val-de-Marne
-            </a>
-            <a href="#" class="dropdown-item">
-                95 - Val-d'Oise
-            </a>
+
           </div>
         </div>
       </div>
@@ -149,14 +96,14 @@
     </div>
   </div>
 
-  <div class="content has-text-left">
-    <span class="underline">Filtres activés</span> :
+  <div *ngIf="filters.length > 0" class="content has-text-left">
+    <span class="underline">Filtres choisis</span> :
   </div>
 
   <div id="current-filters" class="columns is-vcentered has-text-centered">
-    <button *ngFor="let elem of ['filtre 1', 'filtre 2', 'filtre 3']" class="button medium-right-margin">
+    <button (click)='removeFilter(filter.type, filter.value)' *ngFor="let filter of filters" class="button medium-right-margin">
       <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-      {{ elem }}
+      {{ filter.value }}
     </button>
   </div>
 </div>
@@ -312,7 +259,7 @@
     </div>
 
     <div class="content has-text-centered">
-      <span class="underline">Filtres activés</span> :
+      <span class="underline">Filtres choisis</span> :
     </div>
 
     <div id="current-filters" class="columns is-vcentered has-text-centered">

@@ -1,6 +1,10 @@
 <div id="homepage">
   <app-herobody></app-herobody>
-  <app-search></app-search>
+  <app-search id="search"
+    [allCategories]=allCategories
+    [allTypes]=allTypes
+    [decreasingPrice]=decreasingPrice>
+  </app-search>
   <app-incentive class="is-hidden-mobile"></app-incentive>
   <app-products></app-products>
   <app-incentive class="is-hidden-tablet"></app-incentive>

@@ -19,3 +19,8 @@ img
 .product-link {
   width: 100%;
 }
+
+.thumbnail {
+  visibility: hidden;
+  z-index: 1;
+}

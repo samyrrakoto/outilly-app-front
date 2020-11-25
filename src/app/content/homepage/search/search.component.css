@@ -32,29 +32,13 @@
   font-size: 1.5em;
 }
 
+#current-filters button {
+  font-size: 0.6em;
+}
+
 #current-filters button:hover {
   background-color: var(--KTKP-RED);
   color: white;
-}
-
-@media only screen and (max-width: 768px) {
-    #searchHeader {
-        border-radius: 60px;
-    }
-
-    .dropdown-trigger button {
-      width: 150px;
-      height: 60px;
-    }
-
-    .angle-down {
-      font-size: 2.2em;
-    }
-
-    .search {
-      width: 95%;
-      height: 60px;
-    }
 }
 
 #leftborder, #rightborder {
@@ -75,4 +59,24 @@
 .form
 {
     margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  #searchHeader {
+      border-radius: 60px;
+  }
+
+  .dropdown-trigger button {
+    width: 150px;
+    height: 60px;
+  }
+
+  .angle-down {
+    font-size: 2.2em;
+  }
+
+  .search {
+    width: 95%;
+    height: 60px;
+  }
 }
