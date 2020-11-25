@@ -1,0 +1,9 @@
+.incentive .subtitle {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.incentive fa-icon {
+  color: var(--KTKP-GREEN);
+  font-size: 2.2em;
+}

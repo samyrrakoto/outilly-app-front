@@ -83,12 +83,36 @@
   height: auto;
 }
 
+.small-left-margin {
+  margin-left: 5px;
+}
+
+.medium-left-margin {
+  margin-left: 10px;
+}
+
+.small-right-margin {
+  margin-right: 5px;
+}
+
+.medium-right-margin {
+  margin-right: 10px;
+}
+
+.addspaceabove {
+  margin-top: 20px;
+}
+
 .addspacebelow {
   margin-bottom: 20px;
 }
 
 .removespacebelow {
   margin-bottom: 5px;
+}
+
+.left {
+  text-align: left;
 }
 
 .shortline {

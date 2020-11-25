@@ -122,6 +122,8 @@ import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/di
 import { DeliveryPipe } from './pipes/delivery.pipe';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
+import { IncentiveComponent } from './content/homepage/incentive/incentive.component';
+import { ProductFilterPipe } from './pipes/product-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -234,7 +236,9 @@ import { ProductConsumableComponent } from './content/product-creation/product-c
     UserPurchasesRunningComponent,
     DispatchNoteComponent,
     DeliveryPipe,
-    ProductConsumableComponent
+    ProductConsumableComponent,
+    IncentiveComponent,
+    ProductFilterPipe
   ],
   imports: [
     HttpClientModule,
