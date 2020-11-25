@@ -1,19 +1,19 @@
 <div class="columns has-text-centered is-centered">
   <div class="column is-12 has-text-centered">
-      <div class="in-line" *ngFor="let img of testImg">
+      <div class="in-line" *ngFor="let sale of results">
         <div class="card">
           <div class="card-content">
-            <img (mouseover)="displayThumbnail(img.path)" (mouseout)="hideThumbnail(img.path)" [src]=img.path>
-            <h2 class="subtitle is-5">{{ img.productName }}</h2>
+            <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+            <h2 class="subtitle is-5">{{ sale.product.name }}</h2>
 
             <div class="columns is-vcentered">
               <div class="column declined">
-                152€
+                {{ sale.product.reservePrice | currency:'full' }}€
               </div>
 
               <div class="column has-text-left has-text-centered-mobile">
                 <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
-                22
+                {{ sale.product.locality }}
               </div>
             </div>
 
@@ -23,7 +23,15 @@
               </div>
 
               <div class="column has-text-left has-text-centered-mobile">
-                <fa-icon [icon]="['fas', 'people-carry']" title="Remise en mains propres"></fa-icon>
+                <nav class="level">
+                  <div *ngIf="sale.product.toDeliver" class="level-item">
+                    <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                  </div>
+
+                  <div class="level-item">
+                    <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                  </div>
+                </nav>
               </div>
             </div>
 
@@ -31,9 +39,6 @@
               Voir le produit
             </button>
           </div>
-        </div>
-        <div>
-          <img [id]=img.path class="thumbnail" [src]=img.path>
         </div>
     </div>
   </div>

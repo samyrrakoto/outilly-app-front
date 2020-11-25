@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -11,8 +11,10 @@ export class SearchComponent implements OnInit {
   @Input() allCategories: any[];
   @Input() allTypes: any[];
   @Input() decreasingPrice: boolean;
+  @Output() salesEmitter: EventEmitter<any> = new EventEmitter<any>();
   filters: any[];
   references: any[];
+  sales: any;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
@@ -20,6 +22,7 @@ export class SearchComponent implements OnInit {
     this.decreasingPrice = false;
     this.filters = [];
     this.references = [];
+    this.sales = [];
   }
 
   ngOnInit(): void {
@@ -82,7 +85,37 @@ export class SearchComponent implements OnInit {
     return categoryIds;
   }
 
-  private getReferencesPayload(): any {
+  private getTypeIds(type: string): string {
+    const typeValues: string[] = this.getValuesFromType('type');
+    let typeIds: string = '';
+
+    for (const typeValue of typeValues) {
+      for (const type of this.allTypes) {
+        if (typeValue === type.label) {
+          typeIds += typeIds.length > 0 ? '-' : '';
+          typeIds += type.id;
+        }
+      }
+    }
+    return typeIds;
+  }
+
+  private getReferenceIds(reference: string): string {
+    const referenceValues: string[] = this.getValuesFromType('reference');
+    let referenceIds: string = '';
+
+    for (const referenceValue of referenceValues) {
+      for (const reference of this.references) {
+        if (referenceValue === reference.label) {
+          referenceIds += referenceIds.length > 0 ? '-' : '';
+          referenceIds += reference.id;
+        }
+      }
+    }
+    return referenceIds;
+  }
+
+  private getReferencesPayload(): HttpParams {
     let payload: HttpParams = new HttpParams();
 
     payload = this.hasFilter('category', 'Consommable') ? payload.append('isConsumable', '1') : payload.append('isConsumable', '0');
@@ -98,6 +131,33 @@ export class SearchComponent implements OnInit {
         (references: any) => {
           this.references = references;
           this.references.sort((a, b) => this.compare(a, b, 'label'));
+        }
+      );
+    });
+  }
+
+  private getSalesPayload(): HttpParams {
+    let payload: HttpParams = new HttpParams();
+
+    this.getTypeIds('type') !== '' ? payload = payload.append('types', this.getTypeIds('type')) : null;
+    this.getCategoryIds('category') !== '' ? payload = payload.append('categories', this.getCategoryIds('category')) : null;
+    this.getReferenceIds('reference') !== '' ? payload = payload.append('refs', this.getReferenceIds('reference')) : null;
+    this.hasFilter('category', 'Consommable') ? payload = payload.append('isConsumable', '1') : null;
+    this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('sort', 'desc') : null;
+    return payload;
+  }
+
+  public getSales(): Promise<any> {
+    const payload: HttpParams = this.getSalesPayload();
+    const requestname: string = this.request.uri.SALES + '?' + payload.toString();
+
+    console.log(requestname);
+    return new Promise((resolve) => {
+      this.request.getData(requestname).subscribe(
+        (sales: any) => {
+          this.sales = sales;
+          this.salesEmitter.emit(sales);
+          resolve();
         }
       );
     });

@@ -3,9 +3,12 @@
   <app-search id="search"
     [allCategories]=allCategories
     [allTypes]=allTypes
-    [decreasingPrice]=decreasingPrice>
+    [decreasingPrice]=decreasingPrice
+    (salesEmitter)="getSales($event)">
   </app-search>
   <app-incentive class="is-hidden-mobile"></app-incentive>
-  <app-products></app-products>
+  <app-products
+    [sales]=sales>
+  </app-products>
   <app-incentive class="is-hidden-tablet"></app-incentive>
 </div>

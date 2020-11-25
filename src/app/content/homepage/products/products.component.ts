@@ -1,5 +1,5 @@
-import { ProductType } from './../../../models/product-type';
-import { Component, OnInit } from '@angular/core';
+import { environment } from './../../../../environments/environment';
+import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -9,6 +9,9 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class ProductsComponent implements OnInit {
   testImg: any[];
+  @Input() sales: any;
+  results: any[];
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(private request: RequestService) {
     this.testImg = [
@@ -18,9 +21,15 @@ export class ProductsComponent implements OnInit {
       {'path': 'assets/img/product/tool4.jpg', 'productName': 'Outil 4'},
       {'path': 'assets/img/product/tool5.jpg', 'productName': 'Outil 5'}
     ];
+    this.sales = [];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges() {
+    if (this.sales) {
+      this.results = this.sales.results;
+    }
   }
 
   public displayThumbnail(imgPath: string): void {

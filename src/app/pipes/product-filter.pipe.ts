@@ -13,6 +13,8 @@ export class ProductFilterPipe implements PipeTransform {
         return 'Type';
       case 'decreasingPrice':
         return 'Prix décroissant';
+      case 'reference':
+        return 'Référence';
     };
   }
 

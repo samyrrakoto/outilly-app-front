@@ -65,7 +65,7 @@
             <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
               Choisissez des catégories pour voir la liste des produits
             </a>
-            <a *ngFor="let reference of references" class="dropdown-item">
+            <a *ngFor="let reference of references" class="dropdown-item" (click)="addFilter('reference', reference.label)">
               {{ reference.label }}
             </a>
           </div>
@@ -97,7 +97,7 @@
     </div>
 
     <div class="column">
-      <button class="button is-danger search">Rechercher</button>
+      <button class="button is-danger search" (click)="getSales()">Rechercher</button>
     </div>
   </div>
 

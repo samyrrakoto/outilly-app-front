@@ -10,11 +10,13 @@ export class HomepageComponent implements OnInit {
   allCategories: any[];
   allTypes: any[];
   decreasingPrice: boolean;
+  sales: any;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
     this.allTypes = [];
     this.decreasingPrice = false;
+    this.sales = null;
   }
 
   ngOnInit(): void {
@@ -47,6 +49,10 @@ export class HomepageComponent implements OnInit {
         }
       );
     });
+  }
+
+  public getSales(sales: any) {
+    this.sales = sales;
   }
 
   private compare(a: any, b: any, field: string): number {
