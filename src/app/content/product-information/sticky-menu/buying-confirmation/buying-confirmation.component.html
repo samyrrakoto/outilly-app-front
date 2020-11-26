@@ -5,15 +5,15 @@
         <table class="table">
           <tr>
             <td><span class="has-text-weight-bold">Le prix du produit</span> :</td>
-            <td>{{ priceToPay | currency:'full' }}€</td>
+            <td>{{ priceToPay | currency:'full' | number:'1.2-2'}}€</td>
           </tr>
           <tr>
             <td><span class="has-text-weight-bold">Nos frais de sécurisation (6%)</span> :</td>
-            <td>{{ securisationFees | currency:'full' }}€</td>
+            <td>{{ securisationFees | currency:'full' | number:'1.2-2' }}€</td>
           </tr>
           <tr>
             <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ deliveryName }}</span></span> :</td>
-            <td>{{ deliveryFees | currency:'full' }}€</td>
+            <td>{{ deliveryFees | currency:'full' | number:'1.2-2' }}€</td>
           </tr>
         </table>
       </div>
