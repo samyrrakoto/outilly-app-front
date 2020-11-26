@@ -16,6 +16,15 @@ img
   vertical-align: top;
 }
 
+.card-content {
+  transition: 0.5s;
+}
+
+.card-content:hover {
+  box-shadow: 0 0 20px grey;
+  margin-top: -10px;
+}
+
 .product-link {
   width: 100%;
 }

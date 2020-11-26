@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BatchChoiceComponent } from './batch-choice.component';
+import { SloganComponent } from './slogan.component';
 
-describe('BatchChoiceComponent', () => {
-  let component: BatchChoiceComponent;
-  let fixture: ComponentFixture<BatchChoiceComponent>;
+describe('SloganComponent', () => {
+  let component: SloganComponent;
+  let fixture: ComponentFixture<SloganComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BatchChoiceComponent ]
+      declarations: [ SloganComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BatchChoiceComponent);
+    fixture = TestBed.createComponent(SloganComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

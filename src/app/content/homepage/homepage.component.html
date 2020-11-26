@@ -1,5 +1,7 @@
 <div id="homepage">
   <app-herobody></app-herobody>
+  <app-slogan></app-slogan>
+  <app-incentive class="is-hidden-mobile"></app-incentive>
   <app-search id="search"
     [allCategories]=allCategories
     [allTypes]=allTypes
@@ -7,7 +9,6 @@
     [loadMore]=loadMore
     (salesEmitter)="getSales($event)">
   </app-search>
-  <app-incentive class="is-hidden-mobile"></app-incentive>
   <app-products
     [sales]=sales
     (loadMoreEmitter)="getLoadMore($event)">

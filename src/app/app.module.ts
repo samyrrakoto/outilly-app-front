@@ -65,7 +65,6 @@ import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { CheckoutComponent } from './content/checkout/checkout.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
-import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
 import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
@@ -124,6 +123,7 @@ import { ProductReferenceComponent } from './content/product-creation/product-re
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 import { IncentiveComponent } from './content/homepage/incentive/incentive.component';
 import { ProductFilterPipe } from './pipes/product-filter.pipe';
+import { SloganComponent } from './content/homepage/slogan/slogan.component';
 
 @NgModule({
   declarations: [
@@ -180,7 +180,6 @@ import { ProductFilterPipe } from './pipes/product-filter.pipe';
     UserDashboardComponent,
     CheckoutComponent,
     ProductCreationComponent,
-    BatchChoiceComponent,
     AnnouncementTitleComponent,
     MediaUploadComponent,
     ProductBrandComponent,
@@ -238,7 +237,8 @@ import { ProductFilterPipe } from './pipes/product-filter.pipe';
     DeliveryPipe,
     ProductConsumableComponent,
     IncentiveComponent,
-    ProductFilterPipe
+    ProductFilterPipe,
+    SloganComponent
   ],
   imports: [
     HttpClientModule,

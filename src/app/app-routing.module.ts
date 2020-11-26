@@ -59,7 +59,6 @@ import { ProductInformationComponent } from './content/product-information/produ
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
-import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
@@ -229,11 +228,7 @@ const routes: Routes = [
     component: ProductCreationComponent,
     children: [
       {
-        path: '', redirectTo: 'batch-choice', pathMatch: 'full'
-      },
-      {
-        path: 'batch-choice',
-        component: BatchChoiceComponent
+        path: '', redirectTo: 'announcement-title', pathMatch: 'full'
       },
       {
         path: 'announcement-title',
