@@ -8,7 +8,8 @@
       <div class="card">
         <div class="card-content">
           <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
-          <h2 class="subtitle is-5">{{ sale.product.name }}</h2>
+          <h2 *ngIf="sale.product.name.length < 12" class="subtitle is-5">{{ sale.product.name }}</h2>
+          <h2 *ngIf="sale.product.name.length > 12" class="subtitle is-5" [title]=sale.product.name>{{ sale.product.name | slice:0:12 }}...</h2>
 
           <div class="columns is-vcentered">
             <div class="column declined">
