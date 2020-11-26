@@ -14,13 +14,15 @@
   <!-- Side pictures -->
   <div id="side-preview" class="column is-3 has-text-centered is-hidden-mobile">
     <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
-      <figure *ngIf="i > 2 && media.type === 'image'" class="image">
-        <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
-      </figure>
+      <div *ngIf="i > 2 && i < 6">
+        <figure *ngIf="media.type === 'image'" class="image">
+          <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
+        </figure>
 
-      <figure *ngIf="i > 2 && media.type === 'video'">
-        <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
-      </figure>
+        <figure *ngIf="media.type === 'video'">
+          <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
+        </figure>
+      </div>
     </div>
   </div>
 </div>
