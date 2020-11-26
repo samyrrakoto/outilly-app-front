@@ -65,7 +65,6 @@ import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { CheckoutComponent } from './content/checkout/checkout.component';
 import { ProductCreationComponent } from './content/product-creation/product-creation.component';
-import { BatchChoiceComponent } from './content/product-creation/batch-choice/batch-choice.component';
 import { AnnouncementTitleComponent } from './content/product-creation/announcement-title/announcement-title.component';
 import { MediaUploadComponent } from './content/product-creation/media-upload/media-upload.component';
 import { ProductBrandComponent } from './content/product-creation/product-brand/product-brand.component';
@@ -180,7 +179,6 @@ import { ProductFilterPipe } from './pipes/product-filter.pipe';
     UserDashboardComponent,
     CheckoutComponent,
     ProductCreationComponent,
-    BatchChoiceComponent,
     AnnouncementTitleComponent,
     MediaUploadComponent,
     ProductBrandComponent,

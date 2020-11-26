@@ -25,7 +25,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
-    this.stepNb = 3;
+    this.stepNb = 2;
     this.stepName = "Téléchargez au moins 3 photos";
     this.stepSubtitle = '(.jpg, .png uniquement)';
     this.formData.path.previous = "announcement-title";

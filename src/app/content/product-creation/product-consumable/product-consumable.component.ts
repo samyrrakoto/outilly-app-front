@@ -24,7 +24,7 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productConsumable";
-    this.stepNb = 4;
+    this.stepNb = 3;
     this.stepName = "Votre produit est-il un consommable ?";
     this.stepSubtitle = 'Par consommable nous entendons un produit dont l\'utilisation est unique, contrairement à un outil';
     this.formData.path.previous = "media-upload";
