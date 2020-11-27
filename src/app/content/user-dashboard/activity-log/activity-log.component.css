@@ -22,3 +22,13 @@ fa-icon {
 .notification-icon {
   color: var(--KTKP-RED);
 }
+
+#separation {
+  background-color: var(--KTKP-BLACK);
+  border-radius: 30px;
+}
+
+#separation fa-icon {
+  color: white;
+  margin: auto;
+}

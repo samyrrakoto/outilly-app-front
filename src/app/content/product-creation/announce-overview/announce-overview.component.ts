@@ -100,7 +100,6 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "productMedias": product.productMedias
       }
     };
-    console.log(payload);
     return payload;
   }
 

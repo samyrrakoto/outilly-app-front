@@ -16,7 +16,10 @@
       </a>
     </li>
 
-    <li><a id="blank"></a></li>
+    <li id="separation">
+      <a class="is-hidden-mobile" id="blank"><fa-icon [icon]="['fas', 'grip-vertical']"></fa-icon></a>
+      <a class="is-hidden-tablet" id="blank"><fa-icon [icon]="['fas', 'grip-horizontal']"></fa-icon></a>
+    </li>
 
     <!-- Purchases -->
     <li id="user-purchases" (click)="setFocus(activityTabs, 'user-purchases')">

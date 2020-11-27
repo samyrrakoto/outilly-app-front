@@ -161,7 +161,7 @@
             </div>
 
             <div class="column has-text-right-tablet has-text-centered-mobile">
-              {{ getShippingFees() | currency:'full' | number:'1.2-2' }}€
+              {{ getShippingFees(currentOrder) | currency:'full' | number:'1.2-2' }}€
             </div>
           </div>
 
