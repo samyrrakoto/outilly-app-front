@@ -39,6 +39,16 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.getCategories();
   }
 
+  ngAfterViewChecked(): void {
+    for (const category of this.categories) {
+      for (const chosenCategory of this.product.productCategories) {
+        if (category.label === chosenCategory.label) {
+          document.getElementById(category.label).classList.add('chosen-tile');
+        }
+      }
+    }
+  }
+
   private getCategories(): Promise<any> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.CATEGORIES).subscribe(
@@ -57,7 +67,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
         this.removeProductCategory(category.label);
       }
       else {
-        if (this.chosenCategories < this.maxCategories) {
+        if (this.chosenCategories < this.maxCategories && !this.hasCategory(category.label)) {
           document.getElementById(category.label).classList.add('chosen-tile');
           this.addProductCategory(category);
         }
@@ -86,5 +96,14 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       i++;
     }
     return -1;
+  }
+
+  private hasCategory(currentCategory: string): boolean {
+    for (const category of this.product.productCategories) {
+      if (category.label === currentCategory) {
+        return true;
+      }
+    }
+    return false;
   }
 }

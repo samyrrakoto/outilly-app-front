@@ -39,6 +39,16 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     this.getTypes();
   }
 
+  ngAfterViewChecked(): void {
+    for (const type of this.types) {
+      for (const chosenTypes of this.product.productTypes) {
+        if (type.label === chosenTypes.label) {
+          document.getElementById(type.label).classList.add('chosen-tile');
+        }
+      }
+    }
+  }
+
   private getTypes(): Promise<any> {
     return new Promise(
       (resolve) => {
@@ -64,34 +74,42 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
       this.removeProductCategory(type.label);
     }
     else {
-      if (this.chosenTypes < this.maxTypes) {
+      if (this.chosenTypes < this.maxTypes && !this.hasType(type.label)) {
         document.getElementById(type.label).classList.add('chosen-tile');
         this.addProductCategory(type);
       }
     }
-}
-
-private addProductCategory(type: any): void {
-  this.product.productTypes.push(new ProductType(type.label, type.id));
-  this.chosenTypes++;
-}
-
-private removeProductCategory(type: string): void {
-  const pos: number = this.findType(type);
-
-  this.chosenTypes--;
-  this.product.productTypes.splice(pos, 1);
-}
-
-private findType(type: string): number {
-  let i: number = 0;
-
-  for (const elem of this.product.productTypes) {
-    if (elem.label === type) {
-      return i;
-    }
-    i++;
   }
-  return -1;
-}
+
+  private addProductCategory(type: any): void {
+    this.product.productTypes.push(new ProductType(type.label, type.id));
+    this.chosenTypes++;
+  }
+
+  private removeProductCategory(type: string): void {
+    const pos: number = this.findType(type);
+
+    this.chosenTypes--;
+    this.product.productTypes.splice(pos, 1);
+  }
+
+  private findType(type: string): number {
+    let i: number = 0;
+
+    for (const elem of this.product.productTypes) {
+      if (elem.label === type) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+  }
+  private hasType(currentType: string): boolean {
+    for (const type of this.product.productTypes) {
+      if (type.label === currentType) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
