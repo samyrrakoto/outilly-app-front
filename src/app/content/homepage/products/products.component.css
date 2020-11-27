@@ -4,10 +4,6 @@ img
   height: 120px;
 }
 
-.card-content {
-  padding: 0px;
-}
-
 .in-line {
   display: inline-block;
   width: 180px;
@@ -17,6 +13,8 @@ img
 }
 
 .card-content {
+  padding: 0px;
+  padding-top: 5px;
   transition: 0.5s;
 }
 
