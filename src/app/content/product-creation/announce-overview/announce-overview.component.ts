@@ -1,3 +1,4 @@
+import { EncodingService } from './../../../services/encoding.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -24,6 +25,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     public router: Router,
     public formValidator: FormValidatorService,
     public auth: AuthService,
+    public encoding: EncodingService,
     public location: Location)
     {
       super(request, formData, router, formValidator);
@@ -80,7 +82,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "id": product.id,
         "strId": product.strId,
         "name": product.name,
-        "description": btoa(product.description),
+        "description": this.encoding.base64Encoder(product.description),
         "isDescriptionBase64": true,
         "isDescriptionHtml": false,
         "quality": product.quality,
@@ -98,6 +100,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "productMedias": product.productMedias
       }
     };
+    console.log(payload);
     return payload;
   }
 
