@@ -15,13 +15,16 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 export class GeneralInformationComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
   @Input() genericQuestions: Array<string>;
+  isShortenable: boolean;
+  readonly maxVisibleLength: number = 255;
 
-  constructor(request: RequestService,
-    router: Router,
+  constructor(public request: RequestService,
+    public router: Router,
     route: ActivatedRoute,
-    bidManager: BidManagerService,
-    auth: AuthService,
-    public saleManager: SaleManagerService) {
+    public bidManager: BidManagerService,
+    public auth: AuthService,
+    public saleManager: SaleManagerService)
+  {
     super(request, router, route, bidManager, saleManager, auth);
   }
 

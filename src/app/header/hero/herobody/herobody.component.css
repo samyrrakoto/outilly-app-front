@@ -9,6 +9,10 @@
   padding-left: 0px;
 }
 
+#brand-logo {
+  height: 75px;
+}
+
 #personal-space .level-right {
   background-color: white;
   font-size: 12px;

@@ -1,6 +1,16 @@
+#brand-logo {
+  margin-left: 30px;
+  height: 100px;
+  width: auto;
+}
+
 .navbar
 {
     margin-bottom: 20px;
+}
+
+.navbar-item img {
+  max-height: 3.5rem;
 }
 
 .navbar-item a
