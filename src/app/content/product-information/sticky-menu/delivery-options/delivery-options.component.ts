@@ -136,12 +136,7 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   public nextAltStep() {
-    if (this.sticky.deliveryName !== '') {
-      this.sticky.nextAltStep();
-    }
-    else {
-      this.errorMsg = 'Veuillez choisir votre mode de remise pour passer à l\'étape suivante';
-    }
+    this.sticky.nextAltStep();
   }
 
   public goToLogin(): void {
