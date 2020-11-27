@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderSummaryComponent } from '../order-summary.component';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Bid } from 'src/app/models/bid';
 
 @Component({
   selector: 'app-price-summary',
@@ -39,12 +40,12 @@ export class PriceSummaryComponent extends OrderSummaryComponent implements OnIn
 
   private getPriceToPay(): Promise<any> {
     return new Promise((resolve) => {
-      if (this.bid.counterOfferAmount > 0) {
-        this.priceToPay = this.bid.counterOfferAmount;
+      if (this.sale.bids[0].counterOfferAmount > 0) {
+        this.priceToPay = this.sale.bids[0].counterOfferAmount;
       }
       else {
-        if (this.bid.isAccepted) {
-          this.priceToPay = this.bid.amount;
+        if (this.sale.bids[0].isAccepted === true) {
+          this.priceToPay = this.sale.bids[0].amount;
         }
         else {
           this.priceToPay = this.sale.product.reservePrice;
