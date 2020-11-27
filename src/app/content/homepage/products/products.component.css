@@ -23,6 +23,11 @@ img
   margin-top: -10px;
 }
 
+.product-title {
+  height: 20px;
+  font-size: 0.9em;
+}
+
 .product-link {
   width: 100%;
 }
