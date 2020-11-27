@@ -16,12 +16,12 @@
       <h2 class="subtitle has-text-weight-bold">Description</h2>
 
       <div class="content is-size-6">
-        <span *ngIf="!descriptionFlag" [innerHTML]="sale.product.description.slice(0, 255) + ' ...'"></span>
-        <span *ngIf="descriptionFlag" [innerHTML]="sale.product.description"></span>
-    </div>
+        <span *ngIf="!descriptionFlag && this.sale.product.description.length > this.maxVisibleLength" [innerHTML]="sale.product.description.slice(0, maxVisibleLength) + '<span class=\'declined\'>...</span>'"></span>
+        <span *ngIf="descriptionFlag || !(this.sale.product.description.length > this.maxVisibleLength)" [innerHTML]="sale.product.description"></span>
+     </div>
 
       <div class="content has-text-centered">
-        <button class="button is-danger is-outlined" (click)="displayDescription()">
+        <button *ngIf="this.sale.product.description.length > this.maxVisibleLength" class="button is-danger is-outlined" (click)="displayDescription()">
           <span *ngIf="!descriptionFlag">Lire la suite</span>
           <span *ngIf="descriptionFlag">Raccourcir</span>
         </button>
