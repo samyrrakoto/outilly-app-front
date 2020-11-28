@@ -3,7 +3,7 @@
   <div id="notifications"></div>
 
   <div *ngIf="isLoaded">
-    <div class="content" *ngIf="runningSales.length === 0">
+    <div class="content" *ngIf="runningSales && runningSales.length === 0">
       Vous n'avez posté aucune annonce pour le moment :'-(
 
       <div class="content">
@@ -11,11 +11,11 @@
       </div>
     </div>
 
-    <mat-accordion *ngIf="runningSales.length > 0">
+    <mat-accordion *ngIf="runningSales && runningSales.length > 0">
       <mat-expansion-panel *ngFor="let sale of runningSales">
           <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'circle']"></fa-icon>
+            <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
             {{ sale.product.name }}
           </mat-panel-title>
           </mat-expansion-panel-header>

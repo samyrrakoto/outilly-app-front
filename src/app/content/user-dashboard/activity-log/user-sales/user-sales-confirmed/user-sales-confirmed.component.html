@@ -2,7 +2,7 @@
   <h2 class="subtitle">Mes ventes confirmées</h2>
   <div id="notifications"></div>
 
-  <div class="content" *ngIf="isLoaded && orders.length === 0">
+  <div class="content" *ngIf="isLoaded && sellerOrders.length === 0">
     Vous n'avez posté aucune annonce pour le moment :'-(
 
     <div class="content">
@@ -10,8 +10,8 @@
     </div>
   </div>
 
-  <mat-accordion *ngIf="isLoaded && orders.length > 0">
-    <mat-expansion-panel *ngFor="let order of orders">
+  <mat-accordion *ngIf="isLoaded && sellerOrders.length > 0">
+    <mat-expansion-panel *ngFor="let order of sellerOrders">
         <mat-expansion-panel-header>
         <mat-panel-title>
           <div *ngIf="isRequiringAction(order)" class="content">

@@ -32,3 +32,9 @@ fa-icon {
   color: white;
   margin: auto;
 }
+
+fa-icon.bell {
+  margin: 0px;
+  font-weight: bold;
+  color: var(--KTKP-RED);
+}

@@ -1,3 +1,4 @@
+import { PurchaseManagerService } from './../../../../services/purchase-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,8 +19,9 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   @Input() saleStatus: string;
+  @Input() runningSales: Array<Sale>;
+  @Input() sellerOrders: Array<any>;
   public sales: Array<Sale>;
-  public runningSales: Array<Sale>;
   public currentBid: Bid;
   public counterOfferAmount: number;
   public modals: Modals;
@@ -28,13 +30,14 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   constructor(public request: RequestService,
     public auth: AuthService,
     public router: Router,
+    public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
     protected location: Location)
   {
-    super(request, auth, router, route);
+    super(request, auth, router, route, purchaseManager, location, saleManager);
     this.sales = [];
     this.currentBid = new Bid();
     this.modals = new Modals();
@@ -49,11 +52,10 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     this.auth.getLogStatus()
       .then(() => { return this.checkLogin() })
       .then(() => { return this.getUrl() })
-      .then(() => { this.isLoaded = true })
-      .catch(() => this.errorHandle() );
+      .then(() => { this.isLoaded = true });
   }
 
-  private getUrl(): Promise<any> {
+  public getUrl(): Promise<any> {
     return new Promise((resolve) => {
       this.route.url.subscribe((url: any) => {
         this.url = url[0].path;
@@ -113,13 +115,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   private refresh(message: string): void {
     this.notification.display(message, 'notifications');
     setTimeout(() => window.location.reload(), 3000);
-  }
-
-  private errorHandle(): void {
-    const path: string = this.location.path();
-
-    this.router.navigate(['/login']);
-    sessionStorage.setItem('redirect_after_login', path);
   }
 
   public goToProductPage(slug: string, saleId: number): void {

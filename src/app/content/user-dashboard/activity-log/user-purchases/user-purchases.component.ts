@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { Modals } from 'src/app/models/modals';
 import { Bid } from 'src/app/models/bid';
@@ -9,6 +9,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-user-purchases',
@@ -17,20 +18,23 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
 })
 export class UserPurchasesComponent extends ActivityLogComponent implements OnInit {
   @Input() purchaseStatus: string;
-  modals: Modals;
-  purchases: Array<Purchase>;
+  @Output() requiresEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Input() purchases: Array<Purchase>;
+  @Input() buyerOrders: Array<any>;
   currentBid: Bid;
   bidderId: number;
+  modals: Modals;
 
   constructor(public request: RequestService,
     public router: Router,
     public route: ActivatedRoute,
     public auth: AuthService,
     public purchaseManager: PurchaseManagerService,
+    public saleManager: SaleManagerService,
     public bidManager: BidManagerService,
     public location: Location)
   {
-    super(request, auth, router, route);
+    super(request, auth, router, route, purchaseManager, location, saleManager);
     this.modals = new Modals();
     this.modals.addModal('purchase-explanation');
     this.modals.addModal('acceptOffer');
@@ -41,12 +45,10 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   }
 
   ngOnInit(): void {
-    this.getUrl()
-      .then(() => this.getPurchases())
-      .then((purchases: Array<Purchase>) => { this.purchases = purchases });
+    this.getUrl();
   }
 
-  private getUrl(): Promise<any> {
+  public getUrl(): Promise<any> {
     return new Promise((resolve) => {
       this.route.url.subscribe((url: any) => {
         this.url = url[0].path;
@@ -57,23 +59,6 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
         resolve();
       });
     });
-
-  }
-
-  private getPurchases(): Promise<Purchase[]> {
-    return new Promise((resolve) => {
-      this.purchaseManager.getPurchases()
-        .then((purchases: Array<Purchase>) => {
-          this.purchaseManager.addSales(purchases);
-          resolve(purchases);
-        })
-        .catch(() => { this.errorHandle() })
-    })
-  }
-
-  private errorHandle(): void {
-    sessionStorage.setItem('redirect_after_login', this.location.path());
-    this.auth.logout();
   }
 
   public createBid(bidId: number): Bid {

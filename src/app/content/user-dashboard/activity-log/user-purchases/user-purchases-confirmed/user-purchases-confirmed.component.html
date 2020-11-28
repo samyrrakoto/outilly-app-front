@@ -1,7 +1,7 @@
 <div class="content">
   <h2 class="subtitle">Mes offres confirmées</h2>
 
-  <div class="content" *ngIf="orders && orders.length === 0">
+  <div class="content" *ngIf="buyerOrders && buyerOrders.length === 0">
     Vous n'avez acheté aucun produit pour le moment :'-(
 
     <div class="content">
@@ -9,8 +9,8 @@
     </div>
   </div>
 
-  <mat-accordion *ngIf="orders && orders.length > 0">
-    <mat-expansion-panel *ngFor="let order of orders">
+  <mat-accordion *ngIf="buyerOrders && buyerOrders.length > 0">
+    <mat-expansion-panel *ngFor="let order of buyerOrders">
         <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="content product-title">

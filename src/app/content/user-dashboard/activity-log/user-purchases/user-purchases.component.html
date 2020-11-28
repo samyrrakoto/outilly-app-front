@@ -4,7 +4,8 @@
       [purchases]="purchases">
     </app-user-purchases-running>
 
-    <app-user-purchases-confirmed *ngIf="purchaseStatus === 'confirmed'">
+    <app-user-purchases-confirmed *ngIf="purchaseStatus === 'confirmed'"
+      [buyerOrders]=buyerOrders>
     </app-user-purchases-confirmed>
   </div>
 </div>

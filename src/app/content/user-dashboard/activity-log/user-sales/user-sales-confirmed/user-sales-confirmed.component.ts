@@ -7,6 +7,7 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Location } from '@angular/common';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 
 @Component({
   selector: 'app-user-sales-confirmed',
@@ -15,35 +16,35 @@ import { Location } from '@angular/common';
 })
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
-  public orders: Array<any>;
+  @Input() sellerOrders: Array<any>;
 
   constructor(public request: RequestService,
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    public purchaseManager: PurchaseManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
     protected location: Location)
   {
-    super(request, auth, router, bidManager, saleManager, route, notification, location);
-    this.orders = [];
+    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location);
+    this.sellerOrders = [];
   }
 
   ngOnInit(): void {
-    this.getOrders();
   }
 
-  private getOrders(): Promise<any> {
-    return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
-        (orders: any) =>  {
-          this.orders = orders;
-          resolve();
-        }
-      );
-    });
-  }
+  // private getOrders(): Promise<any> {
+  //   return new Promise((resolve) => {
+  //     this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
+  //       (orders: any) =>  {
+  //         this.orders = orders;
+  //         resolve();
+  //       }
+  //     );
+  //   });
+  // }
 
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
