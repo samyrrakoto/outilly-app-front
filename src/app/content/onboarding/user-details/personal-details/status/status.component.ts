@@ -16,6 +16,7 @@ export class StatusComponent extends OnboardingComponent {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "status";
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 6;
     this.stepName = "Quel est votre statut ?";

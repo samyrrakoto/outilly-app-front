@@ -16,9 +16,11 @@ export class FirstNameComponent extends OnboardingComponent implements OnChanges
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "firstname";
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 3;
     this.stepName = "Quel est votre prénom ?";
+    this.formDataService.path.current = "3/firstname";
     this.formDataService.path.previous = "2/email";
     this.formDataService.path.next = "4/lastname";
     this.placeholder = "(ex : Jean Marc)";

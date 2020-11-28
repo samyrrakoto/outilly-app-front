@@ -16,9 +16,11 @@ export class EmailComponent extends OnboardingComponent {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "email";
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 2;
     this.stepName = "Quelle est votre adresse e-mail ?";
+    this.formDataService.path.current = "2/email";
     this.formDataService.path.previous = "1/username";
     this.formDataService.path.next = "3/firstname";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";

@@ -14,12 +14,14 @@ export class PhoneNumberComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "phoneNumber";
     this.stepNb = 12;
     this.stepName = "Quel est votre numéro de téléphone ?";
     this.isMandatory = false;
+    this.formDataService.path.current = '12/phonenumber';
     this.formDataService.path.previous = "11/street";
     this.formDataService.path.next = "13/password";
     this.placeholder = "(ex : 0701020304)";

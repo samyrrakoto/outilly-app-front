@@ -16,9 +16,11 @@ export class GenderComponent extends OnboardingComponent {
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "gender";
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 5;
     this.stepName = "Quel est votre genre ?";
+    this.formDataService.path.current = "5/gender";
     this.formDataService.path.previous = "4/lastname";
     this.formDataService.path.next = "6/status";
   }

@@ -41,10 +41,12 @@ export class NavigationComponent implements OnChanges {
   }
 
   next(): void {
-    const path = this.rootUri + this.formData.path.next;
+    const path: string = this.rootUri + this.formData.path.next;
 
     // Verifying that the field matches the constraints before going further
     if (this.formValidator.verify(this.formData)) {
+      localStorage.setItem('formData', JSON.stringify(this.formData));
+
       if (this.formData.path.current === '6/status' && this.formData.user.userProfile.type === 'professional') {
         this.goTo('6/status/siret');
       }
@@ -55,19 +57,23 @@ export class NavigationComponent implements OnChanges {
   }
 
   backToProductRecap(): void {
-    const path = this.rootUri + "announce-overview";
+    const path: string = this.rootUri + "announce-overview";
 
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formData)) {
+      localStorage.setItem('formData', JSON.stringify(this.formData));
+
       this.router.navigateByUrl(path);
     }
   }
 
   backToAccountRecap(): void {
-    const path = "onboarding/validation";
+    const path: string = "onboarding/validation";
 
     // Verifying that the field matches the constraints it gets before going further
     if (this.formValidator.verify(this.formData)) {
+      localStorage.setItem('formData', JSON.stringify(this.formData));
+
       this.router.navigateByUrl(path);
     }
   }

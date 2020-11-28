@@ -14,11 +14,13 @@ export class BirthdateComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "birthdate";
     this.stepNb = 7;
     this.stepName = "Quelle est votre date de naissance ?";
+    this.formDataService.path.current = "7/birthdate";
     this.formDataService.path.previous = "6/status";
     this.formDataService.path.next = "8/country";
   }

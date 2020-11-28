@@ -17,15 +17,20 @@ export class PseudoComponent extends OnboardingComponent implements OnInit, OnCh
     super(formDataService, router, formValidatorService);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "userName";
-    this.user = formDataService.user;
+    this.user = this.formDataService.user;
     this.stepNb = 1;
     this.stepName = "Créez un identifiant de connexion";
+    this.formDataService.path.current = "1/username";
     this.formDataService.path.previous = "1/username";
     this.formDataService.path.next = "2/email";
     this.placeholder = "(ex : JeanMarc78)";
   }
 
-  ngOnChanges() {}
+  ngOnChanges() {
+    if (this.formDataService) {
+      !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    }
+  }
 
   ngOnInit() {
   }

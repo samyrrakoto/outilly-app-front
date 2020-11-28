@@ -13,11 +13,13 @@ export class CountryComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = this.formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'country';
     this.stepNb = 8;
     this.stepName = 'Quel est votre pays ?';
+    this.formDataService.path.current = "8/country";
     this.formDataService.path.previous = '7/birthdate';
     this.formDataService.path.next = '9/zipcode';
   }
