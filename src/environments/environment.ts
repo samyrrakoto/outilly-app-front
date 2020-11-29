@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUri: 'http://ktkp.api/',
-  mediaBaseUri: 'http://ekipr-media.local',
+  apiBaseUri: 'http://outilly.api/',
+  mediaBaseUri: 'http://media.outilly.api/',
   mondialBrand: 'BDTEST13'
 };
 

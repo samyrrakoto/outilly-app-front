@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  apiBaseUri: 'https://ekipr-api-staging.loutillerie.com/',
-  mediaBaseUri: 'http://ekipr-media-staging.loutillerie.com/',
+  apiBaseUri: 'https://api-staging.outilly.com/',
+  mediaBaseUri: 'https://media-staging.outilly.com/',
   mondialBrand: 'BDTEST13'
 
 };

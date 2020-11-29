@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUri: 'http://ekipr-api.loutillerie.com/',
-  mediaBaseUri: 'http://ekipr-media.loutillerie.com/',
+  apiBaseUri: 'http://www.outilly.com/',
+  mediaBaseUri: 'http://media.outilly.com/',
   mondialBrand: 'CC21IBBI'
 };
