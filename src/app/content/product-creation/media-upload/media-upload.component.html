@@ -15,7 +15,7 @@
 </div>
 
 <input accept=".png, .jpg" type="file" id="product-pictures" multiple name="product-pictures" (change)="handleFile()" style="display: none;">
-<button *ngIf="!isLoading" (click)="isLoading = true; openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+<button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
 <button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
