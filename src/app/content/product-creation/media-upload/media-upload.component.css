@@ -1,3 +1,6 @@
+element {
+}
+
 .previews {
   width: 180px;
   margin: auto;
@@ -5,25 +8,32 @@
 }
 
 .preview-container {
+  --spacing: 23%;
   position: relative;
   width: 300px;
   margin: auto;
 }
 
-.delete-button {
+.action-button {
   position: absolute;
   top: 8px;
-  right: 23%;
-  width: 10px;
+  /* width: 10px; */
+  padding: 6px;
   font-size: 0.6em;
+  transition: 0.3s;
+}
+
+.action-button:hover {
+  font-size: 1em;
+  padding: 10px;
+}
+
+.delete-button {
+  right: var(--spacing);
 }
 
 .gallery-button {
-  position: absolute;
-  top: 8px;
-  left: 23%;
-  width: 10px;
-  font-size: 0.6em;
+  left: var(--spacing);
 }
 
 /* On mobile devices */
