@@ -1,0 +1,19 @@
+.previews {
+  width: 150px;
+  margin: auto;
+  border: solid 3px var(--KTKP-GREY);
+}
+
+.preview-container {
+  position: relative;
+  width: 300px;
+  margin: auto;
+}
+
+.delete-button {
+  position: absolute;
+  top: 8px;
+  right: 4%;
+  width: 10px;
+  font-size: 0.6em;
+}

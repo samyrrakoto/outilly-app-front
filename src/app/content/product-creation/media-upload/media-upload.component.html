@@ -24,14 +24,14 @@
 
 <div id="displayed-medias">
   <div class="content" *ngFor="let media of product.productMedias">
-    <div class="preview-container">
+    <div *ngIf="media.type === 'image'" class="preview-container">
       <img class="previews" src="{{ mediaBaseUri + media.path }}">
 
-      <button (click)="cancelMedia(media)" class="button is-danger is-small delete-button">
+      <button (click)="cancelMedia(media)" title="Supprimer cette photo" class="button is-danger is-small delete-button">
         <fa-icon [icon]="['fas', 'times']"></fa-icon>
       </button>
 
-      <button (click)="currentMedia = media; modals.open('picture-preview')" class="button is-light is-small gallery-button">
+      <button (click)="currentMedia = media; modals.open('picture-preview')" title="Agrandir l'image" class="button is-light is-small gallery-button">
         <fa-icon [icon]="['fas', 'expand']"></fa-icon>
       </button>
     </div>

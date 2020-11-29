@@ -95,7 +95,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     });
   }
 
-  private removemedia(currentMedia: ProductMedia): void {
+  private removeMedia(currentMedia: ProductMedia): void {
     let i: number = 0;
 
     for (const media of this.product.productMedias) {
@@ -111,16 +111,12 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     const productId: string = localStorage.getItem('id');
     const productStrId: string = localStorage.getItem('strId');
 
-    this.request.deleteData(this.request.uri.DELETE_MEDIA, null, [productId, productStrId, media.id]).subscribe(
+    this.request.deleteData(this.request.uri.DELETE_MEDIA, null, [productId, productStrId, media.id.toString()]).subscribe(
       (res: any) => {
         if (res.deleted) {
-          this.removemedia(media);
+          this.removeMedia(media);
         }
       }
     )
-  }
-
-  test() {
-    console.log("coucou");
   }
 }
