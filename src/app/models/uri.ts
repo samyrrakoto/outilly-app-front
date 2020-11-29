@@ -28,6 +28,7 @@ export class Uri {
   readonly TYPES: string = 'product/types/all';
   readonly REFERENCES: string = 'product/refs/categories';
   readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
+  readonly DELETE_MEDIA: string = 'product/media';
   readonly GET_USER: string = 'secure/user';
   readonly UPDATE_USER: string = 'secure/user/update';
   readonly UPDATE_PWD: string = 'secure/pwd-reset';

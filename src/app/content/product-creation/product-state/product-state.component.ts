@@ -14,17 +14,28 @@ export class ProductStateComponent extends ProductCreationComponent {
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productState";
     this.stepNb = 8;
     this.stepName = "Dans quel état se trouve le produit ?";
+    this.formData.path.current = "product-state";
     this.formData.path.previous = "product-reference";
     this.formData.path.next = "product-description";
-    this.product.quality = '';
   }
 
-  setFocus(id: string): void {
+  ngAfterViewChecked(): void {
+    const stateId: HTMLElement = document.getElementById(this.product.quality);
+
+    if (stateId !== null) {
+      stateId.classList.add('chosen-tile');
+    }
+  }
+
+  public setFocus(id: string): void {
     const tiles: Array<string> = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 
     document.getElementById(id).classList.add('chosen-tile');

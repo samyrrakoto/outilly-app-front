@@ -22,12 +22,16 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     public formValidatorService: FormValidatorService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productType";
     this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
     this.stepSubtitle = 'Vous pouvez en sélectionner autant que vous le souhaitez';
+    this.formData.path.current = "product-type";
     this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-reference";
     this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";

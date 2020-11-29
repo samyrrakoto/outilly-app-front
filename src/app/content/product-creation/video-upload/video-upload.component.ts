@@ -15,6 +15,9 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "videoUpload";
@@ -50,36 +53,13 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
 
   private sendMedia(data: any): void {
     this.request.uploadMedia(data).subscribe(
-      () => {},
-      () => {
-        this.errorMessages.push('Une erreur lors de l\'upload est survenue');
+      (video: any) => {
+        this.addMedia(video);
       }
-      );
+    );
   }
 
-  private addMedia(file: File): void {
-    if (!this.isMediaPresent(file.name)) {
-      this.product.productMedias.push(new ProductMedia(file, 'video'));
-    }
-  }
-
-  public removeMedia(fileName: string): void {
-    let i: number = 0;
-
-    for (const media of this.product.productMedias) {
-      if (media.file.name === fileName) {
-        this.product.productMedias.splice(i, 1);
-      }
-      i++;
-    }
-  }
-
-  private isMediaPresent(fileName: string): boolean {
-    for (const media of this.product.productMedias) {
-      if (media.file.name === fileName) {
-        return true;
-      }
-    }
-    return false;
+  private addMedia(media: any): void {
+    this.product.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted));
   }
 }

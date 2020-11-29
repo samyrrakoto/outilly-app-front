@@ -11,6 +11,12 @@ fa-icon {
   width: 100%;
 }
 
+.tile {
+  width: 120px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
 .subtitle {
   text-align: left;
   font-weight: bold;

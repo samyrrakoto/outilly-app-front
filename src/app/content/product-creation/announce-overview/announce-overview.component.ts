@@ -19,6 +19,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   public isLogged: boolean;
   public isSaleCreated: boolean;
   public productUrl: string;
+  public isLoading: boolean;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -31,6 +32,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       super(request, formData, router, formValidator);
       this.product = formData.product;
       this.isSaleCreated = false;
+      this.isLoading = false;
     }
 
   ngOnInit(): void {

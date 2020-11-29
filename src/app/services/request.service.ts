@@ -45,7 +45,7 @@ export class RequestService {
   deleteData(ressource: string, data: any, params: Array<string> = []): Observable<any> {
     this.uri.setUri(ressource, params);
 
-    return this.http.delete<any>(this.uri.path, data)
+    return data === null ? this.http.delete<any>(this.uri.path) : this.http.delete<any>(this.uri.path, data);
   }
 
   login(data: any): Observable<HttpResponse<AccessToken>> {

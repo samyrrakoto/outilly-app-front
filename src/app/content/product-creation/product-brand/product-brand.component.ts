@@ -22,11 +22,15 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
+    this.formData.path.current = "product-brand";
     this.formData.path.previous = "product-category";
     this.formData.path.next = "product-type";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";

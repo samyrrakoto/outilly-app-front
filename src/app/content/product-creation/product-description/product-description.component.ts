@@ -17,18 +17,21 @@ export class ProductDescriptionComponent extends ProductCreationComponent implem
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDescription";
     this.stepNb = 9;
     this.stepName = "Description de votre annonce";
+    this.formData.path.current = "product-description";
     this.formData.path.previous = "product-state";
     this.formData.path.next = "product-zipcode";
     this.placeholder = "(ex :  Tondeuse en parfait état de marche...)";
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.description.nativeElement.focus();

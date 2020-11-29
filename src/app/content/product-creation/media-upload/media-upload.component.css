@@ -1,5 +1,38 @@
 .previews {
-  width: 250px;
+  width: 180px;
   margin: auto;
-  border: solid 3px var(--KTKP-GREEN);
+  border: solid 3px var(--KTKP-GREY);
+}
+
+.preview-container {
+  position: relative;
+  width: 300px;
+  margin: auto;
+}
+
+.delete-button {
+  position: absolute;
+  top: 8px;
+  right: 23%;
+  width: 10px;
+  font-size: 0.6em;
+}
+
+.gallery-button {
+  position: absolute;
+  top: 8px;
+  left: 23%;
+  width: 10px;
+  font-size: 0.6em;
+}
+
+/* On mobile devices */
+@media (max-width: 768px) {
+  .delete-button {
+    right: 23%;
+  }
+
+  .gallery-button {
+    left: 23%;
+  }
 }
