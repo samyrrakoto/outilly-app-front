@@ -72,9 +72,36 @@ export class BidManagerService {
     return bid.isClosed !== null;
   }
 
-  public sortBidsByAmount(bids: Array<Bid>): Array<Bid> {
+  public sortBidsByAmount(bids: Array<Bid>, order: string = 'decreasing'): Array<Bid> {
     return bids.sort((a,b) => {
-      return b.amount - a.amount;
+      switch(order) {
+        case 'decreasing':
+          return b.amount - a.amount;
+        case 'increasing':
+          return a.amount - b.amount;
+      }
     });
+  }
+
+  public sortBidsByDate(bids: Array<Bid>, order: string = 'decreasing'): Array<Bid> {
+    return bids.sort((a,b) => {
+      switch(order) {
+        case 'decreasing':
+          return b.createdAt.getTime() - a.createdAt.getTime();
+        case 'increasing':
+          return a.createdAt.getTime() - b.createdAt.getTime();
+      }
+    });
+  }
+
+  public getLatestBid(bids: Array<Bid>): Bid {
+    let latestBid: Bid = new Bid();
+
+    for (const bid of bids) {
+      if (latestBid.createdAt.getTime() < bid.createdAt.getTime()) {
+        latestBid = bid;
+      }
+    }
+    return latestBid;
   }
 }

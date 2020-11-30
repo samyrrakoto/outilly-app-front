@@ -93,7 +93,7 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
 
   private getRunningSales(): void {
     this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
-      (sales: any) => { this.runningSales = sales }
+      (sales: any) => { this.runningSales = sales; console.log(sales) }
     );
   }
 
