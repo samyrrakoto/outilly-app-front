@@ -42,3 +42,15 @@ fa-icon.bell {
 .actions {
   justify-content: center;
 }
+
+.action {
+  transition: 0.5s;
+}
+
+.action fa-icon {
+  color: white;
+}
+
+.bid-date fa-icon {
+  margin-right: 2px;
+}

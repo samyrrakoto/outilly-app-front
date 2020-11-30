@@ -38,12 +38,12 @@
                     </button>
                   </p>
                   <p class="control choice">
-                    <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow" title="Faire une contre-offre">
+                    <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow action" title="Faire une contre-offre">
                       <fa-icon [icon]="['fas', 'share']"></fa-icon>Contre-offre
                     </button>
                   </p>
                   <p class="control choice">
-                    <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red" title="Refuser l'offre">
+                    <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red action" title="Refuser l'offre">
                       <fa-icon [icon]="['fas', 'times']"></fa-icon>Refuser
                     </button>
                   </p>
@@ -61,7 +61,11 @@
                     En attente d'une décision de l'acheteur.
                   </div>
                 </div>
-                Proposé le {{ bid.createdAt | date:'dd/MM/yyyy' }} à {{ bid.createdAt | date:'hh:mm' }}
+
+                <div class="content bid-date has-text-left discreet-text">
+                  <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                  {{ bid.createdAt | date:'dd/MM/yyyy' }} à {{ bid.createdAt | date:'hh:mm' }}
+                </div>
               </div>
             </div>
 
