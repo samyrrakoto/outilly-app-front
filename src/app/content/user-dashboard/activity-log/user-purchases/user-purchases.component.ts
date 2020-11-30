@@ -73,4 +73,15 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   public goToProductPage(purchase: Purchase): void {
     this.router.navigate(['/product', purchase.slug, purchase.sale.id]);
   }
+
+  public getRunningPurchases(): Purchase[] {
+    const purchases: Purchase[] = [];
+
+    for (const purchase of this.purchases) {
+      if (purchase.sale.status === 'online') {
+        purchases.push(purchase);
+      }
+    }
+    return purchases;
+  }
 }
