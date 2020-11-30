@@ -85,11 +85,14 @@ export class BidManagerService {
 
   public sortBidsByDate(bids: Array<Bid>, order: string = 'decreasing'): Array<Bid> {
     return bids.sort((a,b) => {
+      const c: number = new Date(a.createdAt).getTime();
+      const d: number = new Date(b.createdAt).getTime();
+
       switch(order) {
         case 'decreasing':
-          return b.createdAt.getTime() - a.createdAt.getTime();
+          return d - c;
         case 'increasing':
-          return a.createdAt.getTime() - b.createdAt.getTime();
+          return c - d;
       }
     });
   }

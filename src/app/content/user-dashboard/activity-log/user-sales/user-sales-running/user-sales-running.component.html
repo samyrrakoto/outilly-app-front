@@ -26,7 +26,7 @@
 
           <!-- Displayed when sale is running -->
           <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
-            <div class="content bid" *ngFor="let bid of bidManager.sortBidsByAmount(sale.bids)">
+            <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
               <div class="content">
                 <fa-icon class="offer-icon" [icon]="['fas', 'hand-holding-usd']"></fa-icon>
                   Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | currency:'full' }}€</span>
@@ -61,7 +61,7 @@
                     En attente d'une décision de l'acheteur.
                   </div>
                 </div>
-                Proposé le {{ bid.createdAt }}
+                Proposé le {{ bid.createdAt | date:'dd/MM/yyyy' }} à {{ bid.createdAt | date:'hh:mm' }}
               </div>
             </div>
 
