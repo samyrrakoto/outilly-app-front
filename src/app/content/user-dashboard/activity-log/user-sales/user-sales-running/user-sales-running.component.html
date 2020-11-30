@@ -32,19 +32,19 @@
                   Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | currency:'full' }}€</span>
 
                 <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
-                  <p class="control">
+                  <p class="control choice">
                     <button (click)="modals.open('acceptOffer'); currentBid = bid" class="button is-dark is-small green action" title="Accepter l'offre">
-                      <fa-icon class="choice" [icon]="['fas', 'check']"></fa-icon>Accepter
+                      <fa-icon [icon]="['fas', 'check']"></fa-icon>Accepter
                     </button>
                   </p>
-                  <p class="control">
+                  <p class="control choice">
                     <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow" title="Faire une contre-offre">
-                      <fa-icon class="choice" [icon]="['fas', 'share']"></fa-icon>Contre-offre
+                      <fa-icon [icon]="['fas', 'share']"></fa-icon>Contre-offre
                     </button>
                   </p>
-                  <p class="control">
+                  <p class="control choice">
                     <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red" title="Refuser l'offre">
-                      <fa-icon class="choice" [icon]="['fas', 'times']"></fa-icon>Refuser
+                      <fa-icon [icon]="['fas', 'times']"></fa-icon>Refuser
                     </button>
                   </p>
                 </div>

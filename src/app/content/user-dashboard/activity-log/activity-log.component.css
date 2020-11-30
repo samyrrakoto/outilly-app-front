@@ -38,3 +38,7 @@ fa-icon.bell {
   font-weight: bold;
   color: var(--KTKP-RED);
 }
+
+.actions {
+  justify-content: center;
+}
