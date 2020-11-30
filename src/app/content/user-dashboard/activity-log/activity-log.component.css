@@ -20,7 +20,7 @@ fa-icon {
 }
 
 .notification-icon {
-  color: var(--KTKP-RED);
+  color: var(--KTKP-RED) !important;
 }
 
 #separation {

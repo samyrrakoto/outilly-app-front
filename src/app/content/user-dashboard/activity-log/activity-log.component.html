@@ -4,7 +4,7 @@
     <!-- Sales -->
     <li id="user-sales" class="is-active" (click)="setFocus(activityTabs, 'user-sales')">
       <a (click)="goToSales('running')">
-        <fa-icon id="notification-icon" class="blinking-slow" *ngIf="requiresAction['runningSales']" [icon]="['fas', 'bell']"></fa-icon>
+        <fa-icon class="notification-icon blinking-slow" *ngIf="requiresAction['runningSales']" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Ventes en cours</span>
       </a>
@@ -24,7 +24,7 @@
     <!-- Purchases -->
     <li id="user-purchases" (click)="setFocus(activityTabs, 'user-purchases')">
       <a (click)="goToPurchases('running')">
-        <fa-icon id="notification-icon" class="blinking-slow" *ngIf="requiresAction['runningPurchases']" [icon]="['fas', 'bell']"></fa-icon>
+        <fa-icon class="notification-icon blinking-slow" *ngIf="requiresAction['runningPurchases']" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Achats en cours</span>
       </a>

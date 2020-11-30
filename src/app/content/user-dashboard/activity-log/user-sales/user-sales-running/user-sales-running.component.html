@@ -114,11 +114,11 @@
   <div class="modal-background" (click)="modals.close('counterOffer')"></div>
   <div class="modal-content">
     <div class="box">
-      <h2 class="subtitle">Combien proposez-vous comme contre-offre ?</h2>
+      <h2 class="subtitle">Quelle est votre contre-offre ?</h2>
 
       <input class="input" type="number" [(ngModel)]="counterOfferAmount">
 
-      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer cette contre-offre</button>
+      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
 
     </div>
   </div>
