@@ -64,7 +64,7 @@ export class DeliveryOptionsComponent implements OnInit {
 
   private getCurrentPurchase(): Purchase {
     for (const purchase of this.purchases) {
-      if (purchase.saleId === this.id) {
+      if (purchase.sale.id === this.id) {
         return purchase;
       }
     }
@@ -100,7 +100,7 @@ export class DeliveryOptionsComponent implements OnInit {
 
   public hasBidded(): boolean {
     for (const purchase of this.purchases) {
-      if (purchase.saleId === this.id) {
+      if (purchase.sale.id === this.id) {
         return true;
       }
     }

@@ -1,6 +1,6 @@
 import { Sale } from './sale';
 export class Purchase {
-  saleId: number;
+  sale: any;
   slug: string;
   startDate: Date;
   endDate: Date;
@@ -13,7 +13,7 @@ export class Purchase {
   isAccepted: boolean;
 
   constructor(purchase: any) {
-    this.saleId = purchase.sale.id;
+    this.sale = purchase.sale;
     this.slug = '';
     this.startDate = purchase.sale.startDate;
     this.endDate = purchase.sale.endDate;

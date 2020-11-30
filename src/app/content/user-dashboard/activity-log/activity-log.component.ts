@@ -93,7 +93,7 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
 
   private getRunningSales(): void {
     this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
-      (sales: any) => { this.runningSales = sales; console.log(sales) }
+      (sales: any) => { this.runningSales = sales }
     );
   }
 
@@ -115,7 +115,7 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
 
   private checkRunningPurchasesNotification() {
     for (const purchase of this.purchases) {
-      if (purchase.isClosed) {
+      if (purchase.isClosed && purchase.sale.status !== 'sold') {
         this.requiresAction['runningPurchases'] = true;
         return;
       }

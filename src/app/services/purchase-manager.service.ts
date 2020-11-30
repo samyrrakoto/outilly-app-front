@@ -32,7 +32,7 @@ export class PurchaseManagerService {
   public addSales(purchases: Array<Purchase>): Promise<Purchase[]> {
     return new Promise((resolve) => {
       for (const purchase of purchases) {
-        this.request.getSaleCall(purchase.saleId.toString()).subscribe({
+        this.request.getSaleCall(purchase.sale.id.toString()).subscribe({
           next: (sale: Sale) => {
             purchase.slug = sale.product.slug;
           }

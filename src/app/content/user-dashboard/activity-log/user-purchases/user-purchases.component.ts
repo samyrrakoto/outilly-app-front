@@ -66,11 +66,11 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   }
 
   public goToRelayPoint(purchase: Purchase): void {
-    localStorage.setItem('saleId', purchase.saleId.toString());
+    localStorage.setItem('saleId', purchase.sale.id.toString());
     this.router.navigate(['/checkout/delivery-information']);
   }
 
   public goToProductPage(purchase: Purchase): void {
-    this.router.navigate(['/product', purchase.slug, purchase.saleId]);
+    this.router.navigate(['/product', purchase.slug, purchase.sale.id]);
   }
 }
