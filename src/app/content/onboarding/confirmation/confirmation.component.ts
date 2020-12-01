@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { FormDataService } from 'src/app/services/form-data.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -8,13 +10,14 @@ import { Router } from '@angular/router';
 })
 export class ConfirmationComponent implements OnInit {
 
-  constructor(public router: Router) { }
+  constructor(private formData: FormDataService, public router: Router) {
+    localStorage.removeItem('formData');
+  }
 
   ngOnInit(): void {
   }
 
-  backToLogin()
-  {
+  public backToLogin(): void {
     this.router.navigate(['login']);
   }
 

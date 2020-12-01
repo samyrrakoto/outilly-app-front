@@ -22,12 +22,16 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     public formValidatorService: FormValidatorService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productCategory";
     this.stepNb = 4;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
     this.stepSubtitle = 'Vous pouvez choisir jusqu\'à 2 catégories';
+    this.formData.path.current = "product-category";
     this.formData.path.previous = "product-consumable";
     this.formData.path.next = "product-brand";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
@@ -37,6 +41,16 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
 
   ngOnInit(): void {
     this.getCategories();
+  }
+
+  ngAfterViewChecked(): void {
+    for (const category of this.categories) {
+      for (const chosenCategory of this.product.productCategories) {
+        if (category.label === chosenCategory.label) {
+          document.getElementById(category.label).classList.add('chosen-tile');
+        }
+      }
+    }
   }
 
   private getCategories(): Promise<any> {
@@ -57,7 +71,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
         this.removeProductCategory(category.label);
       }
       else {
-        if (this.chosenCategories < this.maxCategories) {
+        if (this.chosenCategories < this.maxCategories && !this.hasCategory(category.label)) {
           document.getElementById(category.label).classList.add('chosen-tile');
           this.addProductCategory(category);
         }
@@ -86,5 +100,14 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
       i++;
     }
     return -1;
+  }
+
+  private hasCategory(currentCategory: string): boolean {
+    for (const category of this.product.productCategories) {
+      if (category.label === currentCategory) {
+        return true;
+      }
+    }
+    return false;
   }
 }

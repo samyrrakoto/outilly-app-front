@@ -8,6 +8,8 @@ export class Bid {
   counterOfferAmount: number;
   isAccepted: boolean;
   isClosed: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor(id: number = 0) {
     this.id = id;
@@ -17,5 +19,7 @@ export class Bid {
     this.counterOfferAmount = 0;
     this.isAccepted = null;
     this.isClosed = null;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 }

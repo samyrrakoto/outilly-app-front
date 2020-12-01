@@ -14,11 +14,13 @@ export class CityComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'city';
     this.stepNb = 10;
     this.stepName = 'Quelle est votre ville ?';
+    this.formDataService.path.current = '10/city';
     this.formDataService.path.previous = '9/zipcode';
     this.formDataService.path.next = '11/street';
     this.placeholder = '(ex : Jouy-en-Josas)';

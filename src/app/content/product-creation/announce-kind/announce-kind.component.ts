@@ -14,6 +14,9 @@ export class AnnounceKindComponent extends ProductCreationComponent implements O
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announceKind";
@@ -24,8 +27,8 @@ export class AnnounceKindComponent extends ProductCreationComponent implements O
     this.placeholder = "(ex : jeanmarc78@aol.fr )";
   }
 
-  setFocus(id: string): void {
-    const tiles = ['classic-announce', 'hybrid-announce'];
+  public setFocus(id: string): void {
+    const tiles = ['classic', 'hybrid'];
 
     document.getElementById(id).classList.add('chosen-tile');
 
@@ -36,7 +39,11 @@ export class AnnounceKindComponent extends ProductCreationComponent implements O
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  ngAfterViewInit(): void {
+    if (this.product.buyingOption !== null) {
+      document.getElementById(this.product.buyingOption).classList.add('chosen-tile');
+    }
+  }
 }

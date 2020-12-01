@@ -2,7 +2,7 @@
   <h2 class="subtitle">Mes ventes confirmées</h2>
   <div id="notifications"></div>
 
-  <div class="content" *ngIf="isLoaded && orders.length === 0">
+  <div class="content" *ngIf="isLoaded && sellerOrders.length === 0">
     Vous n'avez posté aucune annonce pour le moment :'-(
 
     <div class="content">
@@ -10,8 +10,8 @@
     </div>
   </div>
 
-  <mat-accordion *ngIf="isLoaded && orders.length > 0">
-    <mat-expansion-panel *ngFor="let order of orders">
+  <mat-accordion *ngIf="isLoaded && sellerOrders.length > 0">
+    <mat-expansion-panel *ngFor="let order of sellerOrders">
         <mat-expansion-panel-header>
         <mat-panel-title>
           <div *ngIf="isRequiringAction(order)" class="content">
@@ -52,7 +52,7 @@
 
           <div class="column has-text-centered-mobile">
             <div class="content">
-              Date de commande : <span class="bold">{{ order.transaction.createdAt | date:'dd-MM-yyyy' }}</span>
+              Date de commande : <span *ngIf="order.transaction !== null" class="bold">{{ order.transaction.createdAt | date:'dd-MM-yyyy' }}</span>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
           </div>
 
           <div class="content has-text-centered">
-            <button class="button is-success no-overflow has-text-white">
+            <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
               <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
               Contacter l'acheteur pour convenir d'un rendez-vous
             </button>
@@ -112,4 +112,41 @@
         <a class="product-page" (click)="goToProductPage(order.sale.productSlug, order.sale.id)">Accéder à la page du produit</a>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+
+<!-- ##### MODALS ##### -->
+
+<!-- Offer acceptance -->
+<div class="modal {{ modals.get('buyer-contact') }}">
+  <div class="modal-background" (click)="modals.close('buyer-contact')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Infos de l'acheteur</h2>
+
+      <div id="buyer-contact" class="content">
+        <div class="content">
+          <div class="content has-text-left-tablet has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'user']"></fa-icon>
+            {{ currentBuyer.firstname }} {{ currentBuyer.lastname | slice:0:1 }}.
+          </div>
+
+          <div *ngIf="currentBuyer.phone1 !== ''" class="content has-text-left-tablet has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
+            {{ currentBuyer.phone1 | phone }}
+          </div>
+
+          <div class="content has-text-left-tablet has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+            {{ currentBuyer.email }}
+          </div>
+
+          <div *ngIf="currentBuyer.zipcode !== ''" class="content has-text-left-tablet has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'house-user']"></fa-icon>
+            {{ currentBuyer.mainAddress.zipcode }} {{ currentBuyer.mainAddress.city }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('buyer-contact')"></button>
 </div>

@@ -14,6 +14,7 @@ export class ProductsComponent implements OnInit {
   currentPage: number;
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly maxTitleSize: number = 42;
 
   constructor(private request: RequestService) {
     this.sales = [];

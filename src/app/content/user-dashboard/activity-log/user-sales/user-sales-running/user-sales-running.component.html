@@ -3,7 +3,7 @@
   <div id="notifications"></div>
 
   <div *ngIf="isLoaded">
-    <div class="content" *ngIf="runningSales.length === 0">
+    <div class="content" *ngIf="runningSales && runningSales.length === 0">
       Vous n'avez posté aucune annonce pour le moment :'-(
 
       <div class="content">
@@ -11,11 +11,11 @@
       </div>
     </div>
 
-    <mat-accordion *ngIf="runningSales.length > 0">
+    <mat-accordion *ngIf="runningSales && runningSales.length > 0">
       <mat-expansion-panel *ngFor="let sale of runningSales">
           <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'circle']"></fa-icon>
+            <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
             {{ sale.product.name }}
           </mat-panel-title>
           </mat-expansion-panel-header>
@@ -26,25 +26,25 @@
 
           <!-- Displayed when sale is running -->
           <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
-            <div class="content bid" *ngFor="let bid of bidManager.sortBidsByAmount(sale.bids)">
+            <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
               <div class="content">
                 <fa-icon class="offer-icon" [icon]="['fas', 'hand-holding-usd']"></fa-icon>
                   Offre de <span class="bidder">{{ bid.bidder.username }}</span> à <span class="amount">{{ bid.amount | currency:'full' }}€</span>
 
                 <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
-                  <p class="control">
+                  <p class="control choice">
                     <button (click)="modals.open('acceptOffer'); currentBid = bid" class="button is-dark is-small green action" title="Accepter l'offre">
-                      <fa-icon class="choice" [icon]="['fas', 'check']"></fa-icon>Accepter
+                      <fa-icon [icon]="['fas', 'check']"></fa-icon>Accepter
                     </button>
                   </p>
-                  <p class="control">
-                    <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow" title="Faire une contre-offre">
-                      <fa-icon class="choice" [icon]="['fas', 'share']"></fa-icon>Contre-offre
+                  <p class="control choice">
+                    <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow action" title="Faire une contre-offre">
+                      <fa-icon [icon]="['fas', 'share']"></fa-icon>Contre-offre
                     </button>
                   </p>
-                  <p class="control">
-                    <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red" title="Refuser l'offre">
-                      <fa-icon class="choice" [icon]="['fas', 'times']"></fa-icon>Refuser
+                  <p class="control choice">
+                    <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red action" title="Refuser l'offre">
+                      <fa-icon [icon]="['fas', 'times']"></fa-icon>Refuser
                     </button>
                   </p>
                 </div>
@@ -60,6 +60,11 @@
                     <span class="counter-offer">Contre proposition</span> à <span class="amount">{{ bid.counterOfferAmount | currency:'full' }}€</span>. <br>
                     En attente d'une décision de l'acheteur.
                   </div>
+                </div>
+
+                <div class="content bid-date has-text-left discreet-text">
+                  <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                  {{ bid.createdAt | date:'dd/MM/yyyy' }} à {{ bid.createdAt | date:'hh:mm' }}
                 </div>
               </div>
             </div>
@@ -114,11 +119,11 @@
   <div class="modal-background" (click)="modals.close('counterOffer')"></div>
   <div class="modal-content">
     <div class="box">
-      <h2 class="subtitle">Combien proposez-vous comme contre-offre ?</h2>
+      <h2 class="subtitle">Quelle est votre contre-offre ?</h2>
 
       <input class="input" type="number" [(ngModel)]="counterOfferAmount">
 
-      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer cette contre-offre</button>
+      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
 
     </div>
   </div>

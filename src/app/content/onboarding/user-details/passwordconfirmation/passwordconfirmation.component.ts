@@ -14,11 +14,13 @@ export class PasswordconfirmationComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "pwdConfirmation";
     this.stepNb = 14;
     this.stepName = "Confirmez votre mot de passe";
+    this.formDataService.path.current = "14/passwordconfirmation";
     this.formDataService.path.previous = "13/password";
     this.formDataService.path.next = "15/emailoptin";
   }

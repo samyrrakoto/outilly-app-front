@@ -13,24 +13,29 @@
   </div>
 </div>
 
-<input type="file" accept=".mp4, .avi" id="product-video" name="product-video" (change)="getFile()" class="button is-success" style="display: none">
-<button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
+<input type="file" accept=".mp4, .avi" id="product-video" multiple name="product-video" (change)="handleFile()" class="button is-success" style="display: none">
+<button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
+<button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
 
-<div *ngFor="let media of product.productMedias">
-  <nav class="level" *ngIf="media.type === 'video'">
-    <div class="level-left">
-      {{ media.file.name }}
-    </div>
-    <div class="level-right">
-      <button class="button is-dark" (click)="removeMedia(media.file.name)">
-        <fa-icon [icon]="['fas', 'times']"></fa-icon>
-      </button>
-    </div>
-  </nav>
+<div *ngIf="isLoading" class="content">
+  Votre fichier est en cours d'upload...
+</div>
+
+<div class="content" *ngFor="let media of product.productMedias">
+  <div *ngIf="media.type === 'video'" class="preview-container">
+    <!-- <img class="previews" src="/assets/img/logo/play.png"> -->
+    <video id="{{ media.path }}" controls>
+      <source src="{{ mediaBaseUri + media.path }}" type="video/mp4">
+    </video>
+
+    <button (click)="cancelMedia(media)" title="Supprimer cette vidéo" class="button is-danger is-small action-button delete-button">
+      <fa-icon [icon]="['fas', 'times']"></fa-icon>
+    </button>
+  </div>
 </div>
 
 <app-navigation

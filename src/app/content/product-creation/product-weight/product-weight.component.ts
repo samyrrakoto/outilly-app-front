@@ -17,6 +17,9 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productWeight";

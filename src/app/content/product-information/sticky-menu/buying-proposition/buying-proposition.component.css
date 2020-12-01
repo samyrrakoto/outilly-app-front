@@ -16,3 +16,11 @@
   color: var(--KTKP-BLUE-DARKER);
   font-weight: bold;
 }
+
+#proposition-price {
+  width: 100px;
+}
+
+#proposition-price fa-icon {
+  font-size: 0.8em;
+}

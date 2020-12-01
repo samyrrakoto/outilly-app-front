@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { RequestService } from './../../../services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -5,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductMedia } from 'src/app/models/product-media';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-video-upload',
@@ -12,9 +14,16 @@ import { ProductMedia } from 'src/app/models/product-media';
   styleUrls: ['../product-creation.component.css', './video-upload.component.css']
 })
 export class VideoUploadComponent extends ProductCreationComponent implements OnInit {
+  isLoading: boolean;
+  currentMedia: ProductMedia;
+  modals: Modals;
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "videoUpload";
@@ -22,64 +31,87 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
     this.formData.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
     this.formData.path.next = "announce-kind";
+    this.isLoading = false;
+    this.currentMedia = new ProductMedia();
+    this.modals = new Modals();
+    this.modals.addModal('video-preview');
   }
 
   ngOnInit(): void {}
 
-  public getFile(): void {
+  public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
-    const formData: FormData = this.getFormData(files);
+    this.isLoading = true;
 
-    this.addMedia(files[0]);
-    this.sendMedia(formData);
+    for (let i = 0; i < files.length; i++) {
+      this.getFormData(files[i])
+        .then((formData) => this.sendMedia(formData))
+        .then(() => { setTimeout(() => {}, 500) });
+    }
   }
 
-  private getFormData(files: FileList): FormData {
-    const formData: FormData = new FormData();
+  private getFormData(file: File): Promise<FormData> {
+    return new Promise((resolve) => {
+      const formData: FormData = new FormData();
 
-    formData.append('productId', localStorage.getItem('id'));
-    formData.append('productStrId', localStorage.getItem('strId'));
-    formData.append('mediaFile', files.item(0), files.item(0).name);
-
-    return formData;
+      formData.append('mediaFile', file);
+      formData.append('productId', localStorage.getItem('id'));
+      formData.append('productStrId', localStorage.getItem('strId'));
+      formData.append('mediaType', 'image');
+      resolve(formData);
+    });
   }
 
   public openImgPicker(): void {
     document.getElementById("product-video").click();
   }
 
-  private sendMedia(data: any): void {
-    this.request.uploadMedia(data).subscribe(
-      () => {},
-      () => {
-        this.errorMessages.push('Une erreur lors de l\'upload est survenue');
-      }
+  private sendMedia(data: FormData): Promise<any> {
+    return new Promise((resolve) => {
+      this.request.uploadMedia(data).subscribe(
+        (media: any) => {
+          this.isLoading = false;
+          this.addMedia(media);
+          resolve();
+        }
       );
+    });
   }
 
-  private addMedia(file: File): void {
-    if (!this.isMediaPresent(file.name)) {
-      this.product.productMedias.push(new ProductMedia(file, 'video'));
-    }
+  private addMedia(media: any): void {
+    this.product.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted));
   }
 
-  public removeMedia(fileName: string): void {
+  private removeMedia(currentMedia: ProductMedia): void {
     let i: number = 0;
 
     for (const media of this.product.productMedias) {
-      if (media.file.name === fileName) {
+      if (currentMedia.path === media.path) {
         this.product.productMedias.splice(i, 1);
+        return;
       }
       i++;
     }
   }
 
-  private isMediaPresent(fileName: string): boolean {
-    for (const media of this.product.productMedias) {
-      if (media.file.name === fileName) {
-        return true;
+  public cancelMedia(media: ProductMedia): void {
+    const productId: string = localStorage.getItem('id');
+    const productStrId: string = localStorage.getItem('strId');
+
+    this.request.deleteData(this.request.uri.DELETE_MEDIA, null, [productId, productStrId, media.id.toString()]).subscribe(
+      (res: any) => {
+        if (res.deleted) {
+          this.removeMedia(media);
+        }
       }
+    )
+  }
+
+  public pauseVideo(videoId: string): void {
+    const video: any = document.getElementById(videoId);
+
+    if (video !== null) {
+      video.pause();
     }
-    return false;
   }
 }

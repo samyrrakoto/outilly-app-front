@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProductCreationComponent } from '../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -6,6 +7,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ProductMedia } from 'src/app/models/product-media';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-media-upload',
@@ -14,6 +16,10 @@ import { ProductMedia } from 'src/app/models/product-media';
 })
 export class MediaUploadComponent extends ProductCreationComponent implements OnInit, OnChanges {
   previews: Array<any>;
+  isLoading: boolean;
+  modals: Modals;
+  currentMedia: ProductMedia;
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -22,96 +28,95 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     public http: HttpClient)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 2;
     this.stepName = "Téléchargez au moins 3 photos";
     this.stepSubtitle = '(.jpg, .png uniquement)';
+    this.formData.path.current = "media-upload";
     this.formData.path.previous = "announcement-title";
     this.formData.path.next = "product-consumable";
     this.isMandatory = false;
     this.previews = [];
+    this.isLoading = false;
+    this.currentMedia = new ProductMedia();
+    this.modals = new Modals();
+    this.modals.addModal('picture-preview');
   }
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    if (this.product.productMedias.length > 0) {
-      for (const media of this.product.productMedias) {
-        if (media.type === 'image') {
-          this.displayPreview(media.file);
-        }
-      }
-    }
-  }
-
+  ngAfterViewInit(): void {}
   ngOnChanges(): void {}
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
-    const formData: FormData = this.getFormData(files);
+    this.isLoading = true;
 
-    this.addMedia(files[0]);
-    this.sendMedia(formData);
-    this.displayPreview(files[0]);
+    for (let i = 0; i < files.length; i++) {
+      this.getFormData(files[i])
+        .then((formData) => this.sendMedia(formData))
+        .then(() => { setTimeout(() => {}, 500) });
+    }
   }
 
-  private getFormData(files: FileList): FormData {
-    const formData: FormData = new FormData();
+  private getFormData(file: File): Promise<FormData> {
+    return new Promise((resolve) => {
+      const formData: FormData = new FormData();
 
-    formData.append('mediaFile', files.item(0), files.item(0).name);
-    formData.append('productId', localStorage.getItem('id'));
-    formData.append('productStrId', localStorage.getItem('strId'));
-    formData.append('mediaType', 'image');
-
-    return formData;
+      formData.append('mediaFile', file);
+      formData.append('productId', localStorage.getItem('id'));
+      formData.append('productStrId', localStorage.getItem('strId'));
+      formData.append('mediaType', 'image');
+      resolve(formData);
+    });
   }
 
   public openImgPicker(): void {
     document.getElementById("product-pictures").click();
   }
 
-  private addMedia(file: File): void {
-    this.product.productMedias.push(new ProductMedia(file));
+  private addMedia(media: any): void {
+    this.product.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted));
   }
 
-  private sendMedia(data: FormData): void {
-    this.request.uploadMedia(data).subscribe();
+  private sendMedia(data: FormData): Promise<any> {
+    return new Promise((resolve) => {
+      this.request.uploadMedia(data).subscribe(
+        (media: any) => {
+          this.isLoading = false;
+          this.addMedia(media);
+          resolve();
+        }
+      );
+    });
   }
 
-  public removeMedia(fileName: string): void {
+  private removeMedia(currentMedia: ProductMedia): void {
     let i: number = 0;
 
     for (const media of this.product.productMedias) {
-      if (media.file.name === fileName) {
+      if (currentMedia.path === media.path) {
         this.product.productMedias.splice(i, 1);
-        this.previews.splice(i, 1);
+        return;
       }
       i++;
     }
   }
 
-  private displayPreview(file: File): void {
-    const reader: FileReader = new FileReader();
-    const img: any = this.constructPreview(file);
+  public cancelMedia(media: ProductMedia): void {
+    const productId: string = localStorage.getItem('id');
+    const productStrId: string = localStorage.getItem('strId');
 
-    reader.onload = (e) => {
-      img.src = e.target.result;
-    }
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-
-  private constructPreview(file: any): any {
-    const img: any = document.createElement('img');
-
-    img.file = file;
-    img.name = file.name;
-    this.previews.push(img);
-
-    return img;
+    this.request.deleteData(this.request.uri.DELETE_MEDIA, null, [productId, productStrId, media.id.toString()]).subscribe(
+      (res: any) => {
+        if (res.deleted) {
+          this.removeMedia(media);
+        }
+      }
+    )
   }
 }

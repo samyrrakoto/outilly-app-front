@@ -21,16 +21,27 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     private auth: AuthService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productConsumable";
     this.stepNb = 3;
     this.stepName = "Votre produit est-il un consommable ?";
     this.stepSubtitle = 'Par consommable nous entendons un produit dont l\'utilisation est unique, contrairement à un outil';
+    this.formData.path.current = "product-consumable";
     this.formData.path.previous = "media-upload";
     this.formData.path.next = "product-category";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";
-    this.product.isConsumable = null;
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.product.isConsumable !== null) {
+      const consumableId: string = this.product.isConsumable ? 'yes' : 'no';
+
+      document.getElementById(consumableId).classList.add('chosen-tile');
+    }
   }
 
   public setFocus(id: string): void {

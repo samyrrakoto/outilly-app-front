@@ -94,5 +94,7 @@
         <td class="has-text-right"><button routerLink="/onboarding/12/phonenumber" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
     </table>
-    <button class="button is-success" (click)="submit()">On valide !</button>
+
+    <button *ngIf="loading" class="button is-light is-loading"></button>
+    <button *ngIf="!loading" class="button is-success" (click)="loading = true; submit()">On valide !</button>
 </div>

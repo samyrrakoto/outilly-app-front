@@ -1,31 +1,31 @@
 <div class="level is-mobile">
-    <div class="level-left">
-        <p *ngIf="formData.path.previous" class="control">
-            <button class="button nav-arrow is-large has-icons-left" type="button" (click)="previous()">
+  <div class="level-left">
+    <p *ngIf="data.path.previous !== ''" class="control">
+      <button class="button nav-arrow is-large has-icons-left" type="button" (click)="previous()">
 
-                <div class="icon is-left">
-                    <fa-icon [icon]="['fas', 'arrow-circle-left']"></fa-icon>
-                </div>
-            </button>
-        </p>
-    </div>
+        <div class="icon is-left">
+          <fa-icon [icon]="['fas', 'arrow-circle-left']"></fa-icon>
+        </div>
+      </button>
+    </p>
+  </div>
 
-    <div *ngIf="data.isAccountComplete && rootUri === 'onboarding/'" class="level-item">
-      <button (click)="backToAccountRecap()" class="button is-success">Retourner au récapitulatif</button>
-    </div>
+  <div *ngIf="data.isAccountComplete && rootUri === 'onboarding/'" class="level-item">
+    <button (click)="backToAccountRecap()" class="button is-success">Retourner au récapitulatif</button>
+  </div>
 
-    <div *ngIf="data.isProductComplete && rootUri === 'product/create/'" class="level-item">
-      <button (click)="backToProductRecap()" class="button is-success">Retourner au récapitulatif</button>
-    </div>
+  <div *ngIf="data.isProductComplete && rootUri === 'product/create/'" class="level-item">
+    <button (click)="backToProductRecap()" class="button is-success">Retourner au récapitulatif</button>
+  </div>
 
-    <div class="level-right">
-        <p class="control">
-            <button class="button nav-arrow is-large has-icons-right" type="button" (click)="next()">
+  <div class="level-right">
+    <p class="control">
+      <button class="button nav-arrow is-large has-icons-right" type="button" (click)="next()">
 
-                <div class="icon is-right">
-                    <fa-icon [icon]="['fas', 'arrow-circle-right']"></fa-icon>
-                </div>
-            </button>
-        </p>
-    </div>
+        <div class="icon is-right">
+          <fa-icon [icon]="['fas', 'arrow-circle-right']"></fa-icon>
+        </div>
+      </button>
+    </p>
+  </div>
 </div>

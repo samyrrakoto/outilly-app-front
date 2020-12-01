@@ -13,6 +13,7 @@ export class SiretComponent extends StatusComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "siret";

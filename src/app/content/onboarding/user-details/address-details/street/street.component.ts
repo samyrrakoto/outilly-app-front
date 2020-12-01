@@ -14,11 +14,13 @@ export class StreetComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = this.formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "street";
     this.stepNb = 11;
     this.stepName = "Quelle est votre adresse postale ?";
+    this.formDataService.path.current = '11/street';
     this.formDataService.path.previous = "10/city";
     this.formDataService.path.next = "12/phonenumber";
     this.placeholder = "(ex : 123 bis rue des acacias)";

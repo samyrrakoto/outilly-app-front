@@ -22,11 +22,15 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
     public formValidatorService: FormValidatorService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announcementTitle";
     this.stepNb = 1;
     this.stepName = "Donnez un titre à votre annonce";
+    this.formData.path.current = "announcement-title";
     this.formData.path.previous = "";
     this.formData.path.next = "media-upload";
     this.placeholder = "(ex :  Tondeuse à gazon Milwaukee 750-ZF)";

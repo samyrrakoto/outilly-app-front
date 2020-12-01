@@ -38,6 +38,10 @@
   border-top: solid 4px black;
 }
 
+.no-margin {
+  margin: 0px;
+}
+
 /* Tags definition */
 
 .small-title {
@@ -150,6 +154,26 @@
   font-weight: bold;
 }
 
+/* Animations */
+.blinking {
+  animation: blinker 3s linear infinite;
+}
+
+.blinking-slow {
+  animation: blinker 5s linear infinite;
+}
+
+.blinking-slower {
+  animation: blinker 8s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* General */
 .mat-expansion-panel-header {
   min-height: 48px;
   height: auto !important;

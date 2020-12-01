@@ -6,9 +6,19 @@ fa-icon {
   color: white;
 }
 
+li {
+  list-style-type: disc;
+}
+
 .table {
   margin: auto;
   width: 100%;
+}
+
+.tile {
+  width: 120px;
+  height: 80px;
+  margin-bottom: 20px;
 }
 
 .subtitle {
@@ -16,4 +26,15 @@ fa-icon {
   font-weight: bold;
   border-bottom: solid 3px var(--KTKP-GREEN);
   padding: 10px;
+}
+
+.media {
+  width: 70px;
+  margin-bottom: 5px;
+  transition: 0.5s;
+  border: solid 4px var(--KTKP-GREY);
+}
+
+img.media:hover {
+  width: 150px;
 }

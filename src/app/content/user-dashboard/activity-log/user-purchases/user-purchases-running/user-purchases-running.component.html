@@ -10,7 +10,7 @@
   </div>
 
   <mat-accordion *ngIf="purchases.length > 0">
-    <mat-expansion-panel *ngFor="let purchase of purchases">
+    <mat-expansion-panel *ngFor="let purchase of getRunningPurchases()">
         <mat-expansion-panel-header>
         <mat-panel-title>
           <fa-icon *ngIf="purchaseManager.requireAction(purchase)" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
@@ -58,7 +58,7 @@
           En attente d'une réponse de la part du vendeur.
         </div>
         <a class="product-page" (click)="goToProductPage(purchase)">Accéder à la page du produit</a>
-    </mat-expansion-panel>
+      </mat-expansion-panel>
   </mat-accordion>
 </div>
 

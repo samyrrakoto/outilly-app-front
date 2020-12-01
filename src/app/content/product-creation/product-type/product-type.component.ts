@@ -22,12 +22,16 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     public formValidatorService: FormValidatorService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productType";
     this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
     this.stepSubtitle = 'Vous pouvez en sélectionner autant que vous le souhaitez';
+    this.formData.path.current = "product-type";
     this.formData.path.previous = "product-brand";
     this.formData.path.next = "product-reference";
     this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";
@@ -37,6 +41,16 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
 
   ngOnInit(): void {
     this.getTypes();
+  }
+
+  ngAfterViewChecked(): void {
+    for (const type of this.types) {
+      for (const chosenTypes of this.product.productTypes) {
+        if (type.label === chosenTypes.label) {
+          document.getElementById(type.label).classList.add('chosen-tile');
+        }
+      }
+    }
   }
 
   private getTypes(): Promise<any> {
@@ -61,37 +75,45 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
   public setFocus(type: any): void {
     if (document.getElementById(type.label).classList.contains('chosen-tile')) {
       document.getElementById(type.label).classList.remove('chosen-tile');
-      this.removeProductCategory(type.label);
+      this.removeProductType(type.label);
     }
     else {
-      if (this.chosenTypes < this.maxTypes) {
+      if (this.chosenTypes < this.maxTypes && !this.hasType(type.label)) {
         document.getElementById(type.label).classList.add('chosen-tile');
-        this.addProductCategory(type);
+        this.addProductType(type);
       }
     }
-}
-
-private addProductCategory(type: any): void {
-  this.product.productTypes.push(new ProductType(type.label, type.id));
-  this.chosenTypes++;
-}
-
-private removeProductCategory(type: string): void {
-  const pos: number = this.findType(type);
-
-  this.chosenTypes--;
-  this.product.productTypes.splice(pos, 1);
-}
-
-private findType(type: string): number {
-  let i: number = 0;
-
-  for (const elem of this.product.productTypes) {
-    if (elem.label === type) {
-      return i;
-    }
-    i++;
   }
-  return -1;
-}
+
+  private addProductType(type: any): void {
+    this.product.productTypes.push(new ProductType(type.label, type.id));
+    this.chosenTypes++;
+  }
+
+  private removeProductType(type: string): void {
+    const pos: number = this.findType(type);
+
+    this.chosenTypes--;
+    this.product.productTypes.splice(pos, 1);
+  }
+
+  private findType(type: string): number {
+    let i: number = 0;
+
+    for (const elem of this.product.productTypes) {
+      if (elem.label === type) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+  }
+  private hasType(currentType: string): boolean {
+    for (const type of this.product.productTypes) {
+      if (type.label === currentType) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

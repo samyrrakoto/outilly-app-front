@@ -27,13 +27,17 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     public formValidatorService: FormValidatorService)
   {
     super(request, formData, router, formValidatorService);
+    if (JSON.parse(localStorage.getItem('formData'))) {
+      !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
+    }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
     this.stepName = "Quelle est la référence de votre produit ?";
     this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5';
-    this.formData.path.previous = "product-type";
+    this.formData.path.current = "product-reference";
+    this.formData.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
     this.formData.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'une référence et sélectionnez-la";
     this.references = [];

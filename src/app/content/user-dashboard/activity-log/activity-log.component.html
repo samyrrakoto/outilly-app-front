@@ -4,6 +4,7 @@
     <!-- Sales -->
     <li id="user-sales" class="is-active" (click)="setFocus(activityTabs, 'user-sales')">
       <a (click)="goToSales('running')">
+        <fa-icon class="notification-icon blinking-slow" *ngIf="requiresAction['runningSales']" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Ventes en cours</span>
       </a>
@@ -12,15 +13,18 @@
       <a (click)="goToSales('confirmed')">
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Ventes confirmées</span>
-        <fa-icon id="notification-icon" *ngIf="requireAction" [icon]="['fas', 'bell']"></fa-icon>
       </a>
     </li>
 
-    <li><a id="blank"></a></li>
+    <li id="separation">
+      <a class="is-hidden-mobile" id="blank"><fa-icon [icon]="['fas', 'grip-vertical']"></fa-icon></a>
+      <a class="is-hidden-tablet" id="blank"><fa-icon [icon]="['fas', 'grip-horizontal']"></fa-icon></a>
+    </li>
 
     <!-- Purchases -->
     <li id="user-purchases" (click)="setFocus(activityTabs, 'user-purchases')">
       <a (click)="goToPurchases('running')">
+        <fa-icon class="notification-icon blinking-slow" *ngIf="requiresAction['runningPurchases']" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Achats en cours</span>
       </a>
@@ -34,9 +38,17 @@
   </ul>
 </div>
 
+<div class="content discreet-text">
+  Lorsque l'un de vos achats/ventes se met à jour une notification (<fa-icon class="bell" [icon]="['fas', 'bell']"></fa-icon>) apparaît dans l'onglet concerné et devant le nom du produit.
+</div>
+
 <app-user-sales *ngIf="currentSection === 'sales'"
-  [saleStatus]="saleStatus">
+  [runningSales]=runningSales
+  [sellerOrders]=sellerOrders
+  [saleStatus]=saleStatus>
 </app-user-sales>
 <app-user-purchases *ngIf="currentSection === 'purchases'"
-  [purchaseStatus]="purchaseStatus">
+  [purchases]=purchases
+  [buyerOrders]=buyerOrders
+  [purchaseStatus]=purchaseStatus>
 </app-user-purchases>

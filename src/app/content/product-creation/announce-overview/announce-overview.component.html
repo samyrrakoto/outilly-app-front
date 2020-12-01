@@ -20,18 +20,36 @@
     <td class="has-text-right"><button routerLink="/product/create/reserve-price" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
+    <td class="field-name">Consommable</td>
+    <td *ngIf="formData.product.isConsumable">Oui</td>
+    <td *ngIf="!formData.product.isConsumable">Non</td>
+    <td class="has-text-right"><button routerLink="/product/create/product-consumable" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+  </tr>
+  <tr>
     <td class="field-name">Marques</td>
-    <td><p *ngFor="let brand of formData.product.brands">{{ brand.name }}</p></td>
+    <td>
+      <ul>
+        <li *ngFor="let brand of formData.product.brands">{{ brand.name }}</li>
+      </ul>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/product-brand" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Catégories</td>
-    <td><p *ngFor="let category of formData.product.productCategories">{{ category.label }}</p></td>
+    <td>
+      <ul>
+        <li *ngFor="let category of formData.product.productCategories">{{ category.label }}</li>
+      </ul>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/product-category" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Types</td>
-    <td><p *ngFor="let type of formData.product.productTypes">{{ type.label }}</p></td>
+    <td>
+      <ul>
+        <li *ngFor="let type of formData.product.productTypes">{{ type.label }}</li>
+      </ul>
+    </td>
     <td class="has-text-right"><button routerLink="/product/create/product-type" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
@@ -43,22 +61,24 @@
     <td colspan="3"><h2 class="subtitle">Médias</h2></td>
   </tr>
   <tr>
-    <td *ngIf="formData.product.productMedias" class="field-name">Images uploadées</td>
+    <td *ngIf="formData.product.productMedias" class="field-name">Images uploadées ({{ getNbMedia('image') }})</td>
     <td>
       <div *ngFor="let media of formData.product.productMedias">
         <div *ngIf="media.type === 'image'">
-          {{ media.file.name }}
+          <img class="media" src="{{ mediaBaseUri + media.path }}">
         </div>
       </div>
     </td>
     <td class="has-text-right"><button routerLink="/product/create/media-upload" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td *ngIf="formData.product.productMedias" class="field-name">Vidéo uploadée</td>
+    <td *ngIf="formData.product.productMedias" class="field-name">Vidéos uploadées ({{ getNbMedia('video') }})</td>
     <td>
       <div *ngFor="let media of formData.product.productMedias">
         <div *ngIf="media.type === 'video'">
-          {{ media.file.name }}
+          <video id="{{ media.path }}" controls>
+            <source src="{{ mediaBaseUri + media.path }}" type="video/mp4">
+          </video>
         </div>
       </div>
     </td>
@@ -104,7 +124,11 @@
   </tr>
 </table>
 <hr/>
-<button *ngIf="isLogged && !isSaleCreated" class="button is-success is-large" style="margin-top: 20px;" (click)="submitProduct()">Confirmer</button>
+
+<div *ngIf="isLogged && !isSaleCreated">
+  <button *ngIf="!isLoading" class="button is-success is-large" style="margin-top: 20px;" (click)="isLoading = true; submitProduct()">Confirmer</button>
+  <button *ngIf="isLoading" class="button is-light is-large is-loading" style="margin-top: 20px;"></button>
+</div>
 
 <div *ngIf="isSaleCreated" class="content">
   <div class="content">

@@ -14,26 +14,43 @@
   </div>
 </div>
 
-<input accept=".png, .jpg" type="file" id="product-pictures" name="product-pictures" (change)="handleFile()" style="display: none;">
-<button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+<input accept=".png, .jpg" type="file" id="product-pictures" multiple name="product-pictures" (change)="handleFile()" style="display: none;">
+<button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+<button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
 
 <div id="displayed-medias">
-  <div class="content" *ngFor="let preview of previews">
-    <nav class="level">
-      <div class="level-left">
-        <img class="previews" [src]=preview.src>
-      </div>
+  <div class="content" *ngFor="let media of product.productMedias">
+    <div *ngIf="media.type === 'image'" class="preview-container">
+      <img class="previews" src="{{ mediaBaseUri + media.path }}">
 
-      <div class="level-right">
-        <button (click)="removeMedia(preview.name)" class="button has-background-black has-text-white">
-          <fa-icon [icon]="['fas', 'times']"></fa-icon>
-        </button>
+      <button (click)="cancelMedia(media)" title="Supprimer cette photo" class="button is-danger is-small action-button delete-button">
+        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+      </button>
+
+      <button (click)="currentMedia = media; modals.open('picture-preview')" title="Agrandir l'image" class="button is-light is-small action-button gallery-button">
+        <fa-icon [icon]="['fas', 'expand']"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Media Modal -->
+    <div class="modal {{ modals.get('picture-preview') }}">
+      <div class="modal-background" (click)="modals.close('picture-preview')"></div>
+      <div class="modal-content">
+        <div class="box has-background-black">
+
+          <!-- media -->
+          <figure class="image">
+            <img src="{{ mediaBaseUri + currentMedia.path }}">
+          </figure>
+
+        </div>
       </div>
-    </nav>
+      <button class="modal-close is-large" aria-label="close" (click)="modals.close('picture-preview')"></button>
+    </div>
   </div>
 </div>
 

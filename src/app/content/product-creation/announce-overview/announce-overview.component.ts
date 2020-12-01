@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { EncodingService } from './../../../services/encoding.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,6 +20,10 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   public isLogged: boolean;
   public isSaleCreated: boolean;
   public productUrl: string;
+  public isLoading: boolean;
+  public nbPictures: number;
+  public nbVideos: number;
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -31,6 +36,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       super(request, formData, router, formValidator);
       this.product = formData.product;
       this.isSaleCreated = false;
+      this.isLoading = false;
     }
 
   ngOnInit(): void {
@@ -100,7 +106,6 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "productMedias": product.productMedias
       }
     };
-    console.log(payload);
     return payload;
   }
 
@@ -145,5 +150,16 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
 
   public goToProduct(): void {
     this.router.navigate([this.productUrl]);
+  }
+
+  public getNbMedia(mediaType: string = 'image') {
+    let nb: number = 0;
+
+    for (const media of this.formData.product.productMedias) {
+      if (media.type === mediaType) {
+        nb++;
+      }
+    }
+    return nb;
   }
 }

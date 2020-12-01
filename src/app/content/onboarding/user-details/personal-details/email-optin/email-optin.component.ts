@@ -13,12 +13,14 @@ export class EmailOptinComponent extends OnboardingComponent {
 
   constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "emailOptin";
     this.stepNb = 15;
     this.stepName = "Souhaitez-vous recevoir notre newsletter ?";
     this.isMandatory = false;
+    this.formDataService.path.previous = "15/emailoptin";
     this.formDataService.path.previous = "14/passwordconfirmation";
     this.formDataService.path.next = "validation";
     this.formDataService.user.userProfile.emailOptin = false;

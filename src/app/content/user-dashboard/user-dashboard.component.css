@@ -124,14 +124,17 @@ mat-panel-description {
 
 .green {
   border-top: solid 4px var(--KTKP-GREEN);
+  transition: 0.5s;
 }
 
 .yellow {
   border-top: solid 4px var(--KTKP-BLUE-DARKER);
+  transition: 0.5s;
 }
 
 .red {
   border-top: solid 4px var(--KTKP-RED);
+  transition: 0.5s;
 }
 
 .green:hover {

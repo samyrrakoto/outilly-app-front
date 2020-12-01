@@ -14,10 +14,13 @@ import { UserProfile } from 'src/app/models/user-profile';
   styleUrls: ['./validation.component.css']
 })
 export class ValidationComponent extends OnboardingComponent implements OnInit {
+  public loading: boolean;
 
   constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
+    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = this.formDataService.user;
+    this.loading = false;
   }
 
   ngOnInit() {

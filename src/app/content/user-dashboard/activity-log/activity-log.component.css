@@ -20,5 +20,37 @@ fa-icon {
 }
 
 .notification-icon {
+  color: var(--KTKP-RED) !important;
+}
+
+#separation {
+  background-color: var(--KTKP-BLACK);
+  border-radius: 30px;
+}
+
+#separation fa-icon {
+  color: white;
+  margin: auto;
+}
+
+fa-icon.bell {
+  margin: 0px;
+  font-weight: bold;
   color: var(--KTKP-RED);
+}
+
+.actions {
+  justify-content: center;
+}
+
+.action {
+  transition: 0.5s;
+}
+
+.action fa-icon {
+  color: white;
+}
+
+.bid-date fa-icon {
+  margin-right: 2px;
 }

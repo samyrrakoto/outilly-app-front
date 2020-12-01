@@ -1,5 +1,5 @@
 import { UserPurchasesComponent } from './../user-purchases.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +7,7 @@ import { PurchaseManagerService } from 'src/app/services/purchase-manager.servic
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Location } from '@angular/common';
 import { Purchase } from 'src/app/models/purchase';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 
 @Component({
   selector: 'app-user-purchases-running',
@@ -22,12 +23,10 @@ export class UserPurchasesRunningComponent extends UserPurchasesComponent implem
     public auth: AuthService,
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
+    public saleManager: SaleManagerService,
     public location: Location)
   {
-    super(request, router, route, auth, purchaseManager, bidManager, location);
+    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location);
     this.purchases = [];
   }
-
-  ngOnInit(): void {}
-
 }

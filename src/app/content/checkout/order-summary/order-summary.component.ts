@@ -43,29 +43,34 @@ export class OrderSummaryComponent implements OnInit {
     this.saleId = localStorage.getItem('saleId');
 
     return new Promise((resolve) => {
-      this.auth.getLogStatus();
-
-      if (this.auth.logged && this.auth.accessToken === 'good') {
-        this.getSale()
-          .then(() => this.saleManager.getSaleAvailability(this.saleId))
-          .then((isSaleAvailable: boolean) => {
-            if (isSaleAvailable) {
-              this.getBid();
-            }
-            else {
-              this.router.navigate(['/product-unavailable']);
-            }
-          })
-          .then(() => {
-            this.checkDeliveryMethod();
-            resolve();
-          })
-          .catch((error: any) => this.errorHandle(error) );
-      }
-      else {
-        sessionStorage.setItem('redirect_after_login', this.location.path());
-        this.router.navigate(['/login']);
-      }
+      this.auth.getLogStatus()
+        .then(() => {
+          if (this.auth.logged && this.auth.accessToken === 'good') {
+            this.getSale()
+              .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
+              .then((isSaleAvailable: boolean) => {
+                return new Promise((resolve) => {
+                  if (isSaleAvailable) {
+                    this.getBid()
+                      .then(() => resolve());
+                  }
+                  else {
+                    this.router.navigate(['/product-unavailable']);
+                  }
+                });
+              })
+              .then(() => this.getPriceToPay())
+              .then(() => {
+                this.checkDeliveryMethod();
+                resolve();
+              })
+              .catch((error: any) => this.errorHandle(error) );
+          }
+          else {
+            sessionStorage.setItem('redirect_after_login', this.location.path());
+            this.router.navigate(['/login']);
+          }
+        });
     });
   }
 
@@ -101,6 +106,19 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
+  private getPriceToPay(): Promise<any> {
+    return new Promise((resolve) => {
+
+      if (this.bid.counterOfferAmount > 0) {
+        this.priceToPay = this.bid.counterOfferAmount;
+      }
+      else {
+        this.priceToPay = this.bid.isAccepted === true ? this.bid.amount : this.sale.product.reservePrice;
+      }
+      resolve();
+    });
+  }
+
   public getUser(user: User): void {
     this.user = user;
   }
@@ -110,11 +128,15 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   private bidMapping(value: any) {
-    this.bid.id = value.id;
-    this.bid.amount = value.amount
-    this.bid.counterOfferAmount = value.counterOfferAmount;
-    this.bid.isAccepted = value.isAccepted;
-    this.bid.isClosed = value.isClosed;
+    const tempBid: Bid = new Bid();
+
+    tempBid.id = value.id;
+    tempBid.amount = value.amount
+    tempBid.counterOfferAmount = value.counterOfferAmount;
+    tempBid.isAccepted = value.isAccepted;
+    tempBid.isClosed = value.isClosed;
+
+    this.bid = tempBid;
   }
 
   private deconnect(): Promise<string> {
@@ -156,10 +178,8 @@ export class OrderSummaryComponent implements OnInit {
       }
       else {
         this.relayId = localStorage.getItem('relayId');
-        this.relayCountry = localStorage.getItem('relayCountry');      }
-    }
-    else {
-
+        this.relayCountry = localStorage.getItem('relayCountry');
+      }
     }
   }
 
