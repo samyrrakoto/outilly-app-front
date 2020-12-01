@@ -1,5 +1,5 @@
 import { UserSalesComponent } from './../user-sales.component';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Location } from '@angular/common';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-user-sales-confirmed',
@@ -17,6 +18,8 @@ import { PurchaseManagerService } from 'src/app/services/purchase-manager.servic
 export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
   @Input() isLoaded: boolean;
   @Input() sellerOrders: Array<any>;
+  modals: Modals;
+  currentBuyer: any;
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -30,21 +33,14 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   {
     super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location);
     this.sellerOrders = [];
+    this.modals = new Modals();
+    this.modals.addModal('buyer-contact');
+    this.currentBuyer = {};
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  // private getOrders(): Promise<any> {
-  //   return new Promise((resolve) => {
-  //     this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
-  //       (orders: any) =>  {
-  //         this.orders = orders;
-  //         resolve();
-  //       }
-  //     );
-  //   });
-  // }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;

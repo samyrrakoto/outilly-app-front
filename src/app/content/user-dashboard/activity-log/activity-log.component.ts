@@ -91,10 +91,15 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
     });
   }
 
-  private getRunningSales(): void {
-    this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
-      (sales: any) => { this.runningSales = sales }
-    );
+  private getRunningSales(): Promise<any> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
+        (sales: any) => {
+          this.runningSales = sales;
+          resolve();
+        }
+      );
+    });
   }
 
   private getSellerOrders(): Promise<any> {
