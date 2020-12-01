@@ -42,7 +42,6 @@ export class AnnounceKindComponent extends ProductCreationComponent implements O
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    console.log(this.product.buyingOption);
     if (this.product.buyingOption !== null) {
       document.getElementById(this.product.buyingOption).classList.add('chosen-tile');
     }

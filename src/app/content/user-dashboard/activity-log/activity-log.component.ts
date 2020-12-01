@@ -74,7 +74,6 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
         .then((purchases: Array<Purchase>) => {
           this.purchaseManager.addSales(purchases);
           this.purchases = purchases;
-          console.log(purchases);
           resolve();
         })
         .catch(() => { this.errorHandle() })
