@@ -75,22 +75,22 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
   public setFocus(type: any): void {
     if (document.getElementById(type.label).classList.contains('chosen-tile')) {
       document.getElementById(type.label).classList.remove('chosen-tile');
-      this.removeProductCategory(type.label);
+      this.removeProductType(type.label);
     }
     else {
       if (this.chosenTypes < this.maxTypes && !this.hasType(type.label)) {
         document.getElementById(type.label).classList.add('chosen-tile');
-        this.addProductCategory(type);
+        this.addProductType(type);
       }
     }
   }
 
-  private addProductCategory(type: any): void {
+  private addProductType(type: any): void {
     this.product.productTypes.push(new ProductType(type.label, type.id));
     this.chosenTypes++;
   }
 
-  private removeProductCategory(type: string): void {
+  private removeProductType(type: string): void {
     const pos: number = this.findType(type);
 
     this.chosenTypes--;
