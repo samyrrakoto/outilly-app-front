@@ -32,6 +32,10 @@ img
   width: 100%;
 }
 
+.load-more {
+  margin-bottom: 40px;
+}
+
 .thumbnail {
   visibility: hidden;
   z-index: 1;
@@ -40,4 +44,9 @@ img
 .delivery-icon {
   width: 25px;
   height: auto;
+}
+
+.category-icon {
+  font-size: 2em;
+  color: var(--KTKP-GREEN);
 }

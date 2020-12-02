@@ -11,6 +11,7 @@ export class Uri {
   readonly EXISTS: string = 'exists';
   readonly SALE: string = 'sale';
   readonly SALES: string = 'sales';
+  readonly PRODUCT_BY_CATEGORY: string = 'product/category'
   readonly GENERIC_QUESTIONS: string = 'questions/generic';
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';

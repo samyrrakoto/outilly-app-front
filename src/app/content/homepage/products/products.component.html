@@ -4,51 +4,287 @@
       Allez-vous craquer pour les derniers produits en vente ?
     </h2>
 
-    <div class="in-line" *ngFor="let sale of results">
-      <div class="card">
-        <div class="card-content">
-          <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
-          <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
-          <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
+    <!-- Static sales -->
+    <div *ngIf="filtersNb === 0" id="static-sales">
 
-          <div class="columns is-vcentered">
-            <div class="column declined">
-              {{ sale.product.reservePrice | currency:'full' }}€
-            </div>
+      <!-- Mecanic sales -->
+      <div id="mecanic">
+        <fa-icon class="category-icon" [icon]="['fas', 'wrench']"></fa-icon>
+        <h2 class="subtitle">
+          Mécanique
+        </h2>
 
-            <div class="column has-text-left has-text-centered-mobile">
-              <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
-              {{ sale.product.locality }}
-            </div>
-          </div>
+        <div class="content discreet-text">Lorem ipsum dolorsit amet, consectetur adipiscing elit</div>
+        <div class="in-line" *ngFor="let sale of mecanicProducts | async">
+          <div class="card">
+            <div class="card-content">
+              <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+              <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+              <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
 
-          <div class="columns is-vcentered">
-            <div class="column">
-              Mode de remise :
-            </div>
-
-            <div class="column has-text-left has-text-centered-mobile">
-              <nav class="level">
-                <div *ngIf="sale.product.toDeliver" class="level-item">
-                  <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+              <div class="columns is-vcentered">
+                <div class="column declined">
+                  {{ sale.product.reservePrice | currency:'full' }}€
                 </div>
 
-                <div class="level-item">
-                  <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                <div class="column has-text-left has-text-centered-mobile">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                  {{ sale.product.locality }}
                 </div>
-              </nav>
+              </div>
+
+              <div class="columns is-vcentered">
+                <div class="column">
+                  Mode de remise :
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <nav class="level">
+                    <div *ngIf="sale.product.toDeliver" class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                    </div>
+
+                    <div class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <button class="button is-danger product-link">
+                Voir le produit
+              </button>
             </div>
           </div>
+        </div>
 
-          <button class="button is-danger product-link">
-            Voir le produit
-          </button>
+        <div class="content has-text-centered">
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('1')">Voir d'autres produits</button>
+        </div>
+      </div>
+
+      <div class="is-divider"></div>
+
+      <!-- Diy sales -->
+      <div id="diy">
+        <fa-icon class="category-icon" [icon]="['fas', 'hammer']"></fa-icon>
+        <h2 class="subtitle">
+          Bricolage
+        </h2>
+
+        <div class="content discreet-text">Lorem ipsum dolorsit amet, consectetur adipiscing elit</div>
+        <div class="in-line" *ngFor="let sale of diyProducts | async">
+          <div class="card">
+            <div class="card-content">
+              <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+              <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+              <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
+
+              <div class="columns is-vcentered">
+                <div class="column declined">
+                  {{ sale.product.reservePrice | currency:'full' }}€
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                  {{ sale.product.locality }}
+                </div>
+              </div>
+
+              <div class="columns is-vcentered">
+                <div class="column">
+                  Mode de remise :
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <nav class="level">
+                    <div *ngIf="sale.product.toDeliver" class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                    </div>
+
+                    <div class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <button class="button is-danger product-link">
+                Voir le produit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-centered">
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('2')">Voir d'autres produits</button>
+        </div>
+      </div>
+
+      <div class="is-divider"></div>
+
+      <!-- Workshop -->
+      <div id="workshop">
+        <fa-icon class="category-icon" [icon]="['fas', 'warehouse']"></fa-icon>
+        <h2 class="subtitle">
+          Atelier
+        </h2>
+
+        <div class="content discreet-text">Lorem ipsum dolorsit amet, consectetur adipiscing elit</div>
+        <div class="in-line" *ngFor="let sale of workshopProducts | async">
+          <div class="card">
+            <div class="card-content">
+              <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+              <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+              <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
+
+              <div class="columns is-vcentered">
+                <div class="column declined">
+                  {{ sale.product.reservePrice | currency:'full' }}€
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                  {{ sale.product.locality }}
+                </div>
+              </div>
+
+              <div class="columns is-vcentered">
+                <div class="column">
+                  Mode de remise :
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <nav class="level">
+                    <div *ngIf="sale.product.toDeliver" class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                    </div>
+
+                    <div class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <button class="button is-danger product-link">
+                Voir le produit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-centered">
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('3')">Voir d'autres produits</button>
+        </div>
+      </div>
+
+      <div class="is-divider"></div>
+
+      <!-- Garden -->
+      <div id="garden">
+        <fa-icon class="category-icon" [icon]="['fas', 'seedling']"></fa-icon>
+        <h2 class="subtitle">
+          Jardin
+        </h2>
+
+        <div class="content discreet-text">Lorem ipsum dolorsit amet, consectetur adipiscing elit</div>
+        <div class="in-line" *ngFor="let sale of gardenProducts | async">
+          <div class="card">
+            <div class="card-content">
+              <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+              <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+              <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
+
+              <div class="columns is-vcentered">
+                <div class="column declined">
+                  {{ sale.product.reservePrice | currency:'full' }}€
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                  {{ sale.product.locality }}
+                </div>
+              </div>
+
+              <div class="columns is-vcentered">
+                <div class="column">
+                  Mode de remise :
+                </div>
+
+                <div class="column has-text-left has-text-centered-mobile">
+                  <nav class="level">
+                    <div *ngIf="sale.product.toDeliver" class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                    </div>
+
+                    <div class="level-item">
+                      <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <button class="button is-danger product-link">
+                Voir le produit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-centered">
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('4')">Voir d'autres produits</button>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="content has-text-centered">
-  <button class="button is-danger is-outlined no-overflow" (click)="sendLoadMore()">Voir d'autres produits</button>
+    <!-- Filtered products -->
+    <div *ngIf="filtersNb > 0">
+      <div class="in-line" *ngFor="let sale of results">
+        <div class="card">
+          <div class="card-content">
+            <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
+            <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+            <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
+
+            <div class="columns is-vcentered">
+              <div class="column declined">
+                {{ sale.product.reservePrice | currency:'full' }}€
+              </div>
+
+              <div class="column has-text-left has-text-centered-mobile">
+                <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                {{ sale.product.locality }}
+              </div>
+            </div>
+
+            <div class="columns is-vcentered">
+              <div class="column">
+                Mode de remise :
+              </div>
+
+              <div class="column has-text-left has-text-centered-mobile">
+                <nav class="level">
+                  <div *ngIf="sale.product.toDeliver" class="level-item">
+                    <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                  </div>
+
+                  <div class="level-item">
+                    <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                  </div>
+                </nav>
+              </div>
+            </div>
+
+            <button class="button is-danger product-link">
+              Voir le produit
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="content has-text-centered">
+        <button class="button is-danger is-outlined no-overflow" (click)="sendLoadMore()">Voir d'autres produits</button>
+      </div>
+    </div>
+  </div>
 </div>

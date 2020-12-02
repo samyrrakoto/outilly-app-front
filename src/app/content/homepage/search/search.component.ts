@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   @Input() decreasingPrice: boolean;
   @Input() loadMore: number;
   @Output() salesEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() filtersEmitter: EventEmitter<any> = new EventEmitter<any>();
   filters: any[];
   references: any[];
   sales: any;
@@ -167,6 +168,7 @@ export class SearchComponent implements OnInit {
         (sales: any) => {
           this.sales = sales;
           this.salesEmitter.emit(this.sales);
+          this.filtersEmitter.emit(this.filters);
           this.currentPage++;
           resolve();
         }

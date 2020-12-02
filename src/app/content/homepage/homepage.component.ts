@@ -11,6 +11,7 @@ export class HomepageComponent implements OnInit {
   allTypes: any[];
   decreasingPrice: boolean;
   sales: any;
+  filtersNb: number;
   loadMore: number;
 
   constructor(private request: RequestService) {
@@ -25,6 +26,10 @@ export class HomepageComponent implements OnInit {
     this.getCategories()
       .then(() => this.getTypes())
       .then(() => {});
+  }
+
+  public getFilters(filters: any[]): void {
+    this.filtersNb = filters.length;
   }
 
   private getCategories(): Promise<any> {
