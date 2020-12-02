@@ -7,10 +7,12 @@
     [allTypes]=allTypes
     [decreasingPrice]=decreasingPrice
     [loadMore]=loadMore
-    (salesEmitter)="getSales($event)">
+    (filtersEmitter)=getFilters($event)
+    (salesEmitter)=getSales($event)>
   </app-search>
   <app-products
     [sales]=sales
+    [filtersNb]=filtersNb
     (loadMoreEmitter)="getLoadMore($event)">
   </app-products>
   <app-incentive class="is-hidden-tablet"></app-incentive>
