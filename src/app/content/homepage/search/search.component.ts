@@ -155,7 +155,7 @@ export class SearchComponent implements OnInit {
     this.getCategoryIds('category') !== '' ? payload = payload.append('categories', this.getCategoryIds('category')) : null;
     this.getReferenceIds('reference') !== '' ? payload = payload.append('refs', this.getReferenceIds('reference')) : null;
     this.hasFilter('category', 'Consommable') ? payload = payload.append('isConsumable', '1') : null;
-    this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('sort', 'desc') : null;
+    this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('orderBy', 'price') : null;
     payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
     return payload;
   }

@@ -16,11 +16,5 @@ export class FilteredProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(typeof this.sales);
   }
-
-  // public sendLoadMore(): void {
-  //   this.loadMoreEmitter.emit(this.currentPage);
-  //   this.currentPage++;
-  // }
 }
