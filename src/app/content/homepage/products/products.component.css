@@ -51,11 +51,21 @@ img
   color: var(--KTKP-GREEN);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .in-line {
     display: flex;
     width: 90%;
+    height: auto;
     margin: auto;
     margin-bottom: 60px;
+  }
+
+  .inline-mobile {
+    display: inline;
+  }
+
+  .inline-mobile img {
+    vertical-align: middle;
+    margin-left: 5px;
   }
 }
