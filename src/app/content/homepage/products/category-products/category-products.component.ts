@@ -21,4 +21,7 @@ export class CategoryProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public getProductRoute(sale: any): string {
+    return '/product/' + sale.product.slug + '/' + sale.id;
+  }
 }
