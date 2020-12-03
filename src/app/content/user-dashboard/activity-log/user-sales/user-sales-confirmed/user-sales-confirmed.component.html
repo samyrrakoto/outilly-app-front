@@ -116,8 +116,7 @@
 
 <!-- ##### MODALS ##### -->
 
-<!-- Offer acceptance -->
-<div class="modal {{ modals.get('buyer-contact') }}">
+<div *ngIf="currentBuyer" class="modal {{ modals.get('buyer-contact') }}">
   <div class="modal-background" (click)="modals.close('buyer-contact')"></div>
   <div class="modal-content">
     <div class="box">

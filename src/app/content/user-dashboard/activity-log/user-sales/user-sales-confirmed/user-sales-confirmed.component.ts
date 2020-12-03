@@ -35,7 +35,13 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     this.sellerOrders = [];
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');
-    this.currentBuyer = {};
+    this.currentBuyer = {
+      'phone1': '',
+      'mainAddress': {
+        'zipcode': '',
+        'city': ''
+      }
+    };
   }
 
   ngOnInit(): void {}
