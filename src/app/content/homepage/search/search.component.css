@@ -9,6 +9,13 @@
   border-color: var(--KTKP-GREEN);
 }
 
+.dropdown-content {
+  max-height: 14em;
+  max-width: 25em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .search {
   height: 50px;
 }
@@ -64,5 +71,9 @@
   .search {
     width: 95%;
     height: 60px;
+  }
+
+  .chosen-filters {
+    margin-bottom: 10px;
   }
 }

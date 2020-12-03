@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   references: any[];
   sales: any;
   currentPage: number = 1;
+  readonly resultsPerPage: number = 5;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
@@ -61,7 +62,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  private hasFilter(type: string, value: string): boolean {
+  public hasFilter(type: string, value: string): boolean {
     for (const filter of this.filters) {
       if (filter.type === type && filter.value === value) {
         return true;
@@ -93,7 +94,7 @@ export class SearchComponent implements OnInit {
         }
       }
     }
-    return categoryIds;
+    return categoryIds.length === 0 ? '1-2-3-4' : categoryIds;
   }
 
   private getTypeIds(type: string): string {
@@ -154,8 +155,8 @@ export class SearchComponent implements OnInit {
     this.getCategoryIds('category') !== '' ? payload = payload.append('categories', this.getCategoryIds('category')) : null;
     this.getReferenceIds('reference') !== '' ? payload = payload.append('refs', this.getReferenceIds('reference')) : null;
     this.hasFilter('category', 'Consommable') ? payload = payload.append('isConsumable', '1') : null;
-    this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('sort', 'desc') : null;
-    payload = payload.append('page', this.currentPage.toString());
+    this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('orderBy', 'price') : null;
+    payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
     return payload;
   }
 

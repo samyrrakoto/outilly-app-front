@@ -1,5 +1,6 @@
 img
 {
+  object-fit: cover;
   width: 95%;
   height: 120px;
 }
@@ -38,7 +39,6 @@ img
 
 .thumbnail {
   visibility: hidden;
-  z-index: 1;
 }
 
 .delivery-icon {
@@ -49,4 +49,27 @@ img
 .category-icon {
   font-size: 2em;
   color: var(--KTKP-GREEN);
+}
+
+@media screen and (max-width: 768px) {
+  .in-line {
+    display: flex;
+    width: 90%;
+    height: auto;
+    margin: auto;
+    margin-bottom: 60px;
+  }
+
+  .inline-mobile {
+    display: inline;
+  }
+
+  .inline-mobile img {
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+
+  .card {
+    width: 100%;
+  }
 }

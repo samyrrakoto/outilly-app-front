@@ -10,7 +10,7 @@ export class HomepageComponent implements OnInit {
   allCategories: any[];
   allTypes: any[];
   decreasingPrice: boolean;
-  sales: any;
+  sales: any[];
   filtersNb: number;
   loadMore: number;
 
@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
     this.allCategories = [];
     this.allTypes = [];
     this.decreasingPrice = false;
-    this.sales = null;
+    this.sales = [];
     this.loadMore = 0;
   }
 
@@ -64,7 +64,7 @@ export class HomepageComponent implements OnInit {
 
   // Output Getters
   public getSales(sales: any) {
-    this.sales = sales;
+    this.sales = sales.results;
   }
 
   public getLoadMore(loadMore: number) {
