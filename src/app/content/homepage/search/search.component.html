@@ -20,90 +20,90 @@
             </div>
           </div>
         </div>
-    </div>
+      </div>
 
-    <div class="column">
-      <!-- Type -->
-      <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-            <span>Type</span>
-            <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
-          </button>
-        </div>
+      <div class="column">
+        <!-- Type -->
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span>Type</span>
+              <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
+            </button>
+          </div>
 
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
-              {{ type.label }}
-            </a>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
+                {{ type.label }}
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="column">
-      <!-- Produit -->
-      <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-            <span>Produit</span>
-            <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
-          </button>
-        </div>
+      <div class="column">
+        <!-- Produit -->
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span>Produit</span>
+              <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
+            </button>
+          </div>
 
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
-              Choisissez des catégories pour voir la liste des produits
-            </a>
-            <a *ngFor="let reference of references" class="dropdown-item" (click)="addFilter('reference', reference.label)">
-              {{ reference.label }}
-            </a>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
+                Choisissez des catégories pour voir la liste des produits
+              </a>
+              <a *ngFor="let reference of references" class="dropdown-item" (click)="addFilter('reference', reference.label)">
+                {{ reference.label }}
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="column">
-      <!-- Decreasing Price -->
-      <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-            <span>Prix décroissant</span>
-            <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
-          </button>
-        </div>
+      <div class="column">
+        <!-- Decreasing Price -->
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span>Prix décroissant</span>
+              <fa-icon class="angle-down" [icon]="['fas', 'angle-down']"></fa-icon>
+            </button>
+          </div>
 
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
-              Oui
-            </a>
-            <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
-              Non
-            </a>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
+                Oui
+              </a>
+              <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
+                Non
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="column">
+        <button class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
+      </div>
     </div>
 
-    <div class="column">
-      <button class="button is-danger search" (click)="getSales()">Rechercher</button>
+    <div *ngIf="filters.length > 0" class="content has-text-left">
+      <span class="underline">Filtres choisis</span> :
+    </div>
+
+    <div id="current-filters" class="columns is-vcentered has-text-centered">
+      <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
+        <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
+        {{ filter.type | productFilter }}: {{ filter.value }}
+      </button>
     </div>
   </div>
-
-  <div *ngIf="filters.length > 0" class="content has-text-left">
-    <span class="underline">Filtres choisis</span> :
-  </div>
-
-  <div id="current-filters" class="columns is-vcentered has-text-centered">
-    <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
-      <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-      {{ filter.type | productFilter }}: {{ filter.value }}
-    </button>
-  </div>
-</div>
 </div>
 
 <!-- MOBILE Version -->

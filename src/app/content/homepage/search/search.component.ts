@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   references: any[];
   sales: any;
   currentPage: number = 1;
+  readonly resultsPerPage: number = 5;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
@@ -155,7 +156,7 @@ export class SearchComponent implements OnInit {
     this.getReferenceIds('reference') !== '' ? payload = payload.append('refs', this.getReferenceIds('reference')) : null;
     this.hasFilter('category', 'Consommable') ? payload = payload.append('isConsumable', '1') : null;
     this.hasFilter('decreasingPrice', 'Oui') ? payload = payload.append('sort', 'desc') : null;
-    payload = payload.append('page', this.currentPage.toString());
+    payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
     return payload;
   }
 

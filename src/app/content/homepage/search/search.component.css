@@ -9,6 +9,11 @@
   border-color: var(--KTKP-GREEN);
 }
 
+.dropdown-content {
+  max-height: 13em;
+  overflow: auto;
+}
+
 .search {
   height: 50px;
 }
