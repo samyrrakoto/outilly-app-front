@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  private hasFilter(type: string, value: string): boolean {
+  public hasFilter(type: string, value: string): boolean {
     for (const filter of this.filters) {
       if (filter.type === type && filter.value === value) {
         return true;

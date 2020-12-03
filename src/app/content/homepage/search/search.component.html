@@ -33,10 +33,18 @@
           </div>
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
+            <div *ngIf="!hasFilter('category', 'Consommable')" class="dropdown-content">
               <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
                 {{ type.label }}
               </a>
+            </div>
+
+            <div *ngIf="hasFilter('category', 'Consommable')" class="dropdown-content">
+              <div *ngFor="let type of allCategories">
+                <a *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
+                  {{ type.label }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -147,13 +155,22 @@
           </div>
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
+            <div *ngIf="!hasFilter('category', 'Consommable')" class="dropdown-content">
               <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
                 {{ type.label }}
               </a>
             </div>
+
+            <div *ngIf="hasFilter('category', 'Consommable')" class="dropdown-content">
+              <div *ngFor="let type of allCategories">
+                <a *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
+                  {{ type.label }}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
