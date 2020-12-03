@@ -72,4 +72,8 @@
     width: 95%;
     height: 60px;
   }
+
+  .chosen-filters {
+    margin-bottom: 10px;
+  }
 }

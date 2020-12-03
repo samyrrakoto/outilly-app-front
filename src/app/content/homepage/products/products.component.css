@@ -68,4 +68,8 @@ img
     vertical-align: middle;
     margin-left: 5px;
   }
+
+  .card {
+    width: 100%;
+  }
 }
