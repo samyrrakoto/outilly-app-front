@@ -1,5 +1,6 @@
 img
 {
+  object-fit: cover;
   width: 95%;
   height: 120px;
 }
@@ -48,4 +49,13 @@ img
 .category-icon {
   font-size: 2em;
   color: var(--KTKP-GREEN);
+}
+
+@media (max-width: 768px) {
+  .in-line {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 60px;
+  }
 }
