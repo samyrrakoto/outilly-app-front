@@ -125,6 +125,8 @@ import { IncentiveComponent } from './content/homepage/incentive/incentive.compo
 import { ProductFilterPipe } from './pipes/product-filter.pipe';
 import { SloganComponent } from './content/homepage/slogan/slogan.component';
 import { SplitPipe } from './pipes/split.pipe';
+import { FilteredProductsComponent } from './content/homepage/products/filtered-products/filtered-products.component';
+import { CategoryProductsComponent } from './content/homepage/products/category-products/category-products.component';
 
 @NgModule({
   declarations: [
@@ -240,7 +242,9 @@ import { SplitPipe } from './pipes/split.pipe';
     IncentiveComponent,
     ProductFilterPipe,
     SloganComponent,
-    SplitPipe
+    SplitPipe,
+    FilteredProductsComponent,
+    CategoryProductsComponent
   ],
   imports: [
     HttpClientModule,

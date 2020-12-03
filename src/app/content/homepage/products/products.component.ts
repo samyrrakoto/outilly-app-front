@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  @Input() sales: any;
+  @Input() sales: any[];
   @Input() filtersNb: number;
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
   results: any[];
@@ -25,6 +25,8 @@ export class ProductsComponent implements OnInit {
   readonly resultsPerPage: number = 5;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly maxTitleSize: number = 42;
+  readonly categoryTitle: string[] = ['Mécanique', 'Bricolage', 'Jardin', 'Atelier'];
+  readonly categoryIcons: string[] = ['wrench', 'hammer', 'seedling', 'warehouse'];
 
   constructor(private request: RequestService) {
     this.sales = [];

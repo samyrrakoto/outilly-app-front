@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit {
         }
       }
     }
-    return categoryIds;
+    return categoryIds.length === 0 ? '1-2-3-4' : categoryIds;
   }
 
   private getTypeIds(type: string): string {
