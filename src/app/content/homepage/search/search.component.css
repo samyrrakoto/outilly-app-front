@@ -10,8 +10,10 @@
 }
 
 .dropdown-content {
-  max-height: 13em;
-  overflow: auto;
+  max-height: 14em;
+  max-width: 25em;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .search {
