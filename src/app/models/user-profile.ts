@@ -11,6 +11,7 @@ export class UserProfile {
   phone1Optin: boolean;
   phone2: string;
   gender: string;
+  civility: string;
   birthdate: number;
   type: string;
   company: Company;
@@ -29,6 +30,7 @@ export class UserProfile {
     this.phone1Optin = false;
     this.phone2;
     this.gender = 'female';
+    this.civility = 'MR';
     this.birthdate = 0;
     this.type= 'individual';
     this.company = new Company();
