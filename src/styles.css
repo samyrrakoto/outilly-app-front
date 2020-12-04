@@ -179,6 +179,10 @@
   height: auto !important;
 }
 
+.button.is-success {
+  color: white;
+}
+
 .link-normal {
   text-decoration: underline;
 }

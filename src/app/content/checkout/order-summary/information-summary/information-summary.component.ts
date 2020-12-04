@@ -35,7 +35,7 @@ export class InformationSummaryComponent implements OnInit {
   }
 
   private recipientMapping() {
-    this.recipient.civility = this.user.userProfile.gender;
+    this.recipient.civility = this.user.userProfile.civility;
     this.recipient.firstname = this.user.userProfile.firstname;
     this.recipient.lastname = this.user.userProfile.lastname;
     this.recipient.addLine1 = this.user.userProfile.mainAddress.line1;

@@ -14,7 +14,7 @@ export class UserDashboardComponent implements OnInit {
   user: User;
   birthdate: string;
   url: string;
-  menuTabs: Array<string> = ['information', 'activities', 'sell'];
+  readonly menuTabs: Array<string> = ['information', 'activities', 'sell'];
 
   constructor(protected request: RequestService,
     protected auth: AuthService,

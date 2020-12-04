@@ -40,7 +40,9 @@ export class Uri {
   readonly ACCEPT_OFFER: string = 'secure/bid/update-acceptance';
   readonly DECLINE_OFFER: string = 'secure/bid/update-acceptance';
   readonly COUNTER_OFFER: string = 'secure/bid/place/counter-offer';
-  readonly GET_RELAY_POINT: string = 'mondialrelay/relaypoint'
+  readonly GET_RELAY_POINT: string = 'mondialrelay/relaypoint';
+  readonly CREATE_RELAY_EXPEDITION: string ='secure/mondialrelay/expedition';
+  readonly GET_DISPATCH_NOTE: string = 'secure/mondialrelay/etiquette';
   readonly GET_PREAUTH_DATA: string = 'secure/mangopay/preauth/check';
   readonly GET_TRANSACTION_DATA: string = 'secure/mangopay/transaction/check';
   readonly CREATE_ORDER: string = 'secure/order/create';

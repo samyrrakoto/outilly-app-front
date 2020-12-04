@@ -35,7 +35,13 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     this.sellerOrders = [];
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');
-    this.currentBuyer = {};
+    this.currentBuyer = {
+      'phone1': '',
+      'mainAddress': {
+        'zipcode': '',
+        'city': ''
+      }
+    };
   }
 
   ngOnInit(): void {}
@@ -61,5 +67,10 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     else {
       return !this.isDeliveryNoteGenerated(order);
     }
+  }
+
+  public goToDispatch(order: any): void {
+    localStorage.setItem('order', JSON.stringify(order));
+    this.router.navigate(['/user/dashboard/dispatch-note']);
   }
 }

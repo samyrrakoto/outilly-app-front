@@ -1,1 +1,138 @@
-<p>dispatch-note works!</p>
+<div class="columns">
+  <div class="column is-2">
+    <button routerLink="/user/dashboard/activity-log/sales" id="back" class="button is-text no-overflow">
+      <fa-icon id="left-arrow" [icon]="['fas', 'arrow-alt-circle-left']"></fa-icon>
+      Retour à l'étape précédente
+    </button>
+  </div>
+  <div class="column is-8">
+    <h1 class="title has-text-centered">Générer mon bon d'envoi</h1>
+  </div>
+  <div class="column is-2">
+
+  </div>
+</div>
+
+<div class="columns is-centered">
+  <div class="column is-8">
+    <div class="box has-text-centered">
+      <div class="columns">
+
+        <!-- Seller info -->
+        <div id="seller-information" class="column is-4">
+          <h2 class="subtitle bold">Vos coordonnées</h2>
+
+          <div class="content field has-text-left has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'user']"></fa-icon>
+            {{ user.userProfile.firstname }} {{ user.userProfile.lastname }}
+          </div>
+
+          <div class="content field has-text-left has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'phone-alt']"></fa-icon>
+            {{ user.userProfile.phone1 }}
+          </div>
+
+          <div class="content field has-text-left has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+            {{ user.userProfile.email }}
+          </div>
+
+          <div class="content field has-text-left has-text-centered-mobile">
+            <fa-icon [icon]="['fas', 'home']"></fa-icon>
+            {{ user.userProfile.mainAddress.line1 }}<br>
+            {{ user.userProfile.mainAddress.zipcode }} {{ user.userProfile.mainAddress.city }}
+          </div>
+
+          <div id="modify" class="content">
+            <button (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
+          </div>
+
+          <div class="content discreet-text">
+            Notre partenaire Mondial Relay a besoin de ces informations pour l'envoi du colis,
+            mais pas d'inquiétudes : elles restent confidentielles.
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <!-- Order info -->
+          <div id="order-info" class="column is-4">
+            <h2 class="subtitle bold">Le colis à envoyer</h2>
+
+            <div class="content field has-text-left has-text-centered-mobile">
+              <fa-icon [icon]="['fas', 'search']"></fa-icon>
+              {{ order.sale.product.name }}
+
+              <div class="content field has-text-left has-text-centered-mobile">
+                <fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon>
+                {{ order.sale.product.weight | weight:'value' }}{{ order.sale.product.weight | weight:'unity' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Destination -->
+          <div id="destination-info" class="column is-8">
+            <h2 class="subtitle bold">Destination</h2>
+
+            <div class="content has-text-centered">
+              <fa-icon [icon]="['fas', 'box']"></fa-icon>
+              <fa-icon [icon]="['fas', 'long-arrow-alt-right']"></fa-icon>
+              <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+            </div>
+
+            <div id="relay-point" class="content">
+              <h2 class="subtitle">
+                {{ relayPoint.addLine1 }}<br>
+              </h2>
+
+              <div class="discreet-text">
+                {{ relayPoint.addLine3 }}<br>
+                <span *ngIf="relayPoint.addLine4">{{ relayPoint.addLine4 }}<br></span>
+                {{ relayPoint.zipcode }}<br>
+                {{ relayPoint.city }}
+              </div>
+            </div>
+          </div>
+
+          <div id="buttons" class="column">
+            <div class="content">
+              <button *ngIf="!agreement" (click)="agreement = true" class="button is-danger is-outlined">Je confirme que mes informations sont correctes</button>
+            </div>
+
+            <div class="content">
+              <button *ngIf="!agreement" class="button is-light">Je génère mon bon d'expédition</button>
+              <button *ngIf="agreement" class="button is-success">Je génère mon bon d'expédition</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Order Overview -->
+<div class="modal {{ modals.get('modify-information') }}">
+  <div class="modal-background" (click)="modals.close('modify-information')"></div>
+  <div class="modal-content">
+    <div *ngIf="newInformation" class="box">
+      <h2 class="subtitle">Modifier mes coordonnées</h2>
+
+      <div class="field">
+        <label class="label">
+          <fa-icon [icon]="['fas', 'phone-alt']" class="icon is-small"></fa-icon>
+          Téléphone
+        </label>
+        <div class="control has-icons-centered">
+          <input class="input is-success" type="text" placeholder="0601020304" [(ngModel)]="newInformation.phoneNumber">
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button (click)="modals.close('modify-information')" class="button is-success is-small no-overflow">Je change mes coordonnées</button>
+        <button (click)="prepareNewInformation(); modals.close('modify-information')" class="button is-danger is-small no-overflow">Je conserve mes données par défaut</button>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('modify-information')"></button>
+</div>

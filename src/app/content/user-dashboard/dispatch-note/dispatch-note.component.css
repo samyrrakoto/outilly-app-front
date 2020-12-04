@@ -1,0 +1,54 @@
+button#back {
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+fa-icon#left-arrow {
+  margin-right: 5px;
+  font-size: 1.5em;
+}
+
+#destination-info fa-icon {
+  font-size: 1.5em;
+}
+
+.field {
+  margin-bottom: 5px;
+}
+
+.field fa-icon {
+  margin-right: 5px;
+}
+
+#modify {
+  margin-top: 20px;
+}
+
+#relay-point h2 {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+#recipient h2 {
+  font-size: 0.8em;
+}
+
+#buttons {
+  align-self: flex-end;
+}
+
+.buttons {
+  justify-content: center;
+}
+
+.modal .control {
+  text-align: center;
+}
+
+.modal .field .label {
+  text-align: center;
+}
+
+.modal .input {
+  width: 120px;
+}
