@@ -1,4 +1,4 @@
-<div class="in-line" *ngFor="let sale of sales">
+<div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales">
   <div class="card">
     <div class="card-content">
       <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="columns is-vcentered">
-        <div class="column inline-mobile">
+        <div class="column inline-mobile delivery-method">
           Mode de remise :
         </div>
 
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <button [routerLink]="getProductRoute(sale)" class="button is-danger product-link">
+      <button class="button is-danger product-link">
         Voir le produit
       </button>
     </div>
