@@ -1,5 +1,4 @@
-.hero-body
-{
+.hero-body {
   background-image: url("/assets/img/background/latelier-darkened.jpg");
   background-position: center;
   margin-bottom: 50px;
@@ -32,38 +31,31 @@
   font-weight: bold;
 }
 
-.container
-{
+#how-it-works {
+  margin-top: 30px;
+}
+
+.container {
   padding: 30px
 }
 
-.box
-{
+.box {
   background: rgba(0,0,0,0);
   color: white;
 }
 
-.title
-{
+.title {
   font-size: 50px;
 }
 
-.subtitle
-{
+.subtitle {
   font-size: 30px;
 }
 
-.title, .subtitle, p, a
-{
+.title, .subtitle, p, a {
   color: white;
 }
 
-#brandName
-{
-  color:#E35557;
-}
-
-p
-{
+p {
   font-size: 22px;
 }
