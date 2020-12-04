@@ -68,4 +68,9 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
       return !this.isDeliveryNoteGenerated(order);
     }
   }
+
+  public goToDispatch(order: any): void {
+    localStorage.setItem('order', JSON.stringify(order));
+    this.router.navigate(['/user/dashboard/dispatch-note']);
+  }
 }

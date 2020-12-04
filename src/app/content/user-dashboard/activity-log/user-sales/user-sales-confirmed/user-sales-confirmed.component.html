@@ -86,7 +86,7 @@
           </div>
 
           <div class="content has-text-centered">
-            <button routerLink="/user/dashboard/dispatch-note" class="button is-success no-overflow has-text-white">
+            <button (click)="goToDispatch(order)" class="button is-success no-overflow has-text-white">
               <fa-icon [icon]="['fas', 'box']"></fa-icon>
               Générer mon étiquette d'expédition
             </button>

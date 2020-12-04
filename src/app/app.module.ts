@@ -127,6 +127,7 @@ import { SloganComponent } from './content/homepage/slogan/slogan.component';
 import { SplitPipe } from './pipes/split.pipe';
 import { FilteredProductsComponent } from './content/homepage/products/filtered-products/filtered-products.component';
 import { CategoryProductsComponent } from './content/homepage/products/category-products/category-products.component';
+import { AnonymizePipe } from './pipes/anonymize.pipe';
 
 @NgModule({
   declarations: [
@@ -244,7 +245,8 @@ import { CategoryProductsComponent } from './content/homepage/products/category-
     SloganComponent,
     SplitPipe,
     FilteredProductsComponent,
-    CategoryProductsComponent
+    CategoryProductsComponent,
+    AnonymizePipe
   ],
   imports: [
     HttpClientModule,
