@@ -252,19 +252,6 @@ export class FormValidatorService {
     const medias: Array<ProductMedia> = data.product.productMedias;
     const notEnoughElements: boolean = this.constraintManager.hasNotEnoughElements(medias, 3);
 
-    //TODO fixbug
-    /*let mediaUpload: Array<ProductMedia> = data.product.productMedias;
-    let wrongFormat: boolean = false;
-
-    for (const media of data.product.productMedias) {
-      if (this.constraintManager.isWrongFormat(media.path, ['.jpg', '.png'])) {
-        wrongFormat = true;
-      }
-    }
-
-    if (wrongFormat) {
-      return false;
-    }*/
     if (notEnoughElements) {
       return false;
     }

@@ -23,6 +23,7 @@ export class NotificationService {
 
     notif.classList.add('notification', notifStyle, 'is-small');
     notif.id = 'notification';
+    notif.style.color = 'white';
     notif.style.marginTop = '20px';
     notif.innerHTML = message;
     content.appendChild(notif);

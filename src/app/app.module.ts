@@ -246,7 +246,7 @@ import { AnonymizePipe } from './pipes/anonymize.pipe';
     SplitPipe,
     FilteredProductsComponent,
     CategoryProductsComponent,
-    AnonymizePipe
+    AnonymizePipe,
   ],
   imports: [
     HttpClientModule,
