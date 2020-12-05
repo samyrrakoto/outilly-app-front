@@ -10,6 +10,8 @@ fa-icon#left-arrow {
 
 #destination-info fa-icon {
   font-size: 1.5em;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .field {
@@ -37,6 +39,10 @@ fa-icon#left-arrow {
   align-self: flex-end;
 }
 
+.full-width {
+  width: 80%;
+}
+
 .buttons {
   justify-content: center;
 }
@@ -45,10 +51,35 @@ fa-icon#left-arrow {
   text-align: center;
 }
 
+.modal .field {
+  margin-bottom: 20px;
+}
+
 .modal .field .label {
   text-align: center;
 }
 
 .modal .input {
-  width: 120px;
+  width: 180px;
+}
+
+.notification {
+  color: var(--KTKP-GREEN);
+}
+
+#notification {
+  color: white;
+  text-align: center;
+}
+
+#download fa-icon {
+  margin-right: 5px;
+}
+
+.is-invalid .input {
+  border-color: var(--KTKP-RED);
+}
+
+.is-invalid.error {
+  color: var(--KTKP-RED);
 }

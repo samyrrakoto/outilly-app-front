@@ -43,6 +43,8 @@
             {{ user.userProfile.mainAddress.zipcode }} {{ user.userProfile.mainAddress.city }}
           </div>
 
+          <div id="notification"></div>
+
           <div id="modify" class="content">
             <button (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
           </div>
@@ -95,12 +97,33 @@
 
           <div id="buttons" class="column">
             <div class="content">
-              <button *ngIf="!agreement" (click)="agreement = true" class="button is-danger is-outlined">Je confirme que mes informations sont correctes</button>
+              <button *ngIf="!agreement" (click)="agreement = true" class="button full-width is-danger is-outlined no-overflow">Je confirme que mes informations sont correctes</button>
             </div>
 
-            <div class="content">
-              <button *ngIf="!agreement" class="button is-light">Je génère mon bon d'expédition</button>
-              <button *ngIf="agreement" class="button is-success">Je génère mon bon d'expédition</button>
+            <div *ngIf="!generated" class="content">
+              <button *ngIf="!agreement" class="button full-width is-light no-overflow">Je génère mon bon d'expédition</button>
+              <button (click)="loading = true; generateDispatchNote()" *ngIf="!loading && agreement" class="button full-width is-success no-overflow">Je génère mon bon d'expédition</button>
+              <button *ngIf="loading && agreement" class="button full-width is-light is-loading no-overflow"></button>
+            </div>
+
+            <div *ngIf="generated">
+              <div class="content notification">
+                <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+                Le bon d'expédition a bien été créé
+              </div>
+
+              <div id="download" class="content">
+                <div class="buttons">
+                  <a [href]="dispatchNoteA4" class="button is-success full-width no-overflow" download>
+                    <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
+                    Télécharger le bon d'expédition au format A4
+                  </a>
+                  <a [href]="dispatchNoteA5" class="button is-success full-width no-overflow" download>
+                    <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
+                    Télécharger le bon d'expédition au format A5
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -113,26 +136,95 @@
 
 <!-- Order Overview -->
 <div class="modal {{ modals.get('modify-information') }}">
-  <div class="modal-background" (click)="modals.close('modify-information')"></div>
+  <div class="modal-background" (click)="modals.close('modify-information'); resetNewInformation()"></div>
   <div class="modal-content">
     <div *ngIf="newInformation" class="box">
       <h2 class="subtitle">Modifier mes coordonnées</h2>
 
-      <div class="field">
-        <label class="label">
-          <fa-icon [icon]="['fas', 'phone-alt']" class="icon is-small"></fa-icon>
-          Téléphone
-        </label>
-        <div class="control has-icons-centered">
-          <input class="input is-success" type="text" placeholder="0601020304" [(ngModel)]="newInformation.phoneNumber">
-        </div>
-      </div>
+      <form *ngIf="form" [formGroup]="form" (submit)=onSubmit()>
+        <!-- Phone number -->
+        <div *ngIf="form && form.contains('phoneNumber')" class="field">
+          <label class="label">
+            <fa-icon [icon]="['fas', 'phone-alt']" class="icon is-small"></fa-icon>
+            Téléphone
+          </label>
+          <div class="control has-icons-centered" [ngClass]="{'is-invalid': submitted && controls.phoneNumber.errors }">
+            <input class="input is-success" type="text" placeholder="0601020304" formControlName="phoneNumber">
+          </div>
 
-      <div class="buttons">
-        <button (click)="modals.close('modify-information')" class="button is-success is-small no-overflow">Je change mes coordonnées</button>
-        <button (click)="prepareNewInformation(); modals.close('modify-information')" class="button is-danger is-small no-overflow">Je conserve mes données par défaut</button>
-      </div>
+          <div *ngIf="submitted && controls.phoneNumber.errors" class="invalid-feedback" [ngClass]="{'is-invalid': submitted && controls.phoneNumber.errors }">
+            <div class="error" *ngIf="controls.phoneNumber.errors.required">Le numéro de téléphone est requis</div>
+            <div class="error" *ngIf="controls.phoneNumber.errors.pattern">Le numéro de téléphone est invalide</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div *ngIf="form && form.contains('mail')" class="field">
+          <label class="label">
+            <fa-icon [icon]="['fas', 'envelope']" class="icon is-small"></fa-icon>
+            Email
+          </label>
+          <div class="control" [ngClass]="{'is-invalid': submitted && controls.mail.errors }">
+            <input class="input is-success" type="email" placeholder="dupont@email.fr" formControlName="mail">
+          </div>
+
+          <div *ngIf="submitted && controls.mail.errors" class="invalid-feedback" [ngClass]="{'is-invalid': submitted && controls.mail.errors }">
+            <div class="error" *ngIf="controls.mail.errors.required">L'email est requis</div>
+            <div class="error" *ngIf="controls.mail.errors.email">L'email est invalide</div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div *ngIf="form && form.contains('line1')"class="field">
+          <label class="label">
+            <fa-icon [icon]="['fas', 'home']" class="icon is-small"></fa-icon>
+            Voie
+          </label>
+          <div class="control" [ngClass]="{'is-invalid': submitted && controls.line1.errors }">
+            <input class="input is-success" type="text" placeholder="34 rue des abeilles" formControlName="line1">
+          </div>
+
+          <div *ngIf="submitted && controls.line1.errors" class="invalid-feedback" [ngClass]="{'is-invalid': submitted && controls.line1.errors }">
+            <div class="error" *ngIf="controls.line1.errors.required">La voie est requise</div>
+          </div>
+        </div>
+
+        <div *ngIf="form && form.contains('zipcode')" class="field">
+          <label class="label">
+            <fa-icon [icon]="['fas', 'home']" class="icon is-small"></fa-icon>
+            Code postal
+          </label>
+          <div class="control" [ngClass]="{'is-invalid': submitted && controls.zipcode.errors }">
+            <input class="input is-success" type="text" placeholder="75000" formControlName="zipcode">
+          </div>
+
+          <div *ngIf="submitted && controls.zipcode.errors" class="invalid-feedback" [ngClass]="{'is-invalid': submitted && controls.zipcode.errors }">
+            <div class="error" *ngIf="controls.zipcode.errors.required">Le code postal est requis</div>
+            <div class="error" *ngIf="controls.zipcode.errors.pattern">Le code postal est invalide</div>
+          </div>
+        </div>
+
+        <div *ngIf="form && form.contains('city')" class="field">
+          <label class="label">
+            <fa-icon [icon]="['fas', 'home']" class="icon is-small"></fa-icon>
+            Ville
+          </label>
+          <div class="control" [ngClass]="{'is-invalid': submitted && controls.city.errors }">
+            <input class="input is-success" type="text" placeholder="Paris" formControlName="city">
+          </div>
+
+          <div *ngIf="submitted && controls.city.errors" class="invalid-feedback" [ngClass]="{'is-invalid': submitted && controls.city.errors }">
+            <div class="error" *ngIf="controls.city.errors.required">La ville est requise</div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button *ngIf="!form.invalid" class="button is-success is-small no-overflow">Je change mes coordonnées</button>
+          <button *ngIf="form.invalid" [disabled] class="button is-light is-small no-overflow">Je change mes coordonnées</button>
+          <button (click)="resetNewInformation()" class="button is-danger is-small no-overflow">Je conserve mes données par défaut</button>
+        </div>
+      </form>
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="modals.close('modify-information')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('modify-information'); resetNewInformation()"></button>
 </div>

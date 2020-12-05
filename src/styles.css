@@ -179,7 +179,7 @@
   height: auto !important;
 }
 
-.button.is-success {
+.button.is-success, .button.is-success:hover {
   color: white;
 }
 

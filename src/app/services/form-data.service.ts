@@ -2,6 +2,7 @@ import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Path } from '../models/Path/path';
+import { Recipient } from '../models/recipient';
 
 @Injectable({
   providedIn: 'root'
