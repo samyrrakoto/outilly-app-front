@@ -4,7 +4,7 @@
 </h2>
 
 <div class="content discreet-text">Lorem ipsum dolorsit amet, consectetur adipiscing elit</div>
-<div class="in-line" *ngFor="let sale of sales | async">
+<div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales | async">
   <div class="card">
     <div class="card-content">
       <img *ngIf="sale.product.mainImage" [src]="mediaBaseUri + sale.product.mainImage.path">
@@ -22,8 +22,8 @@
         </div>
       </div>
 
-      <div class="columns is-vcentered">
-        <div class="column inline-mobile">
+      <div class="columns is-vcentered delivery-method">
+        <div class="column is-6 inline-mobile has-text-right">
           Mode de remise :
         </div>
 
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <button [routerLink]="getProductRoute(sale)" class="button is-danger product-link">
+      <button class="button is-danger product-link">
         Voir le produit
       </button>
     </div>

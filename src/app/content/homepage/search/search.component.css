@@ -1,3 +1,22 @@
+.in-line {
+  display: inline-block;
+  margin: auto;
+  margin-right: 2px;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+#filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#search-container, #search-container-mobile {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .dropdown-trigger button {
   font-size: 0.8em;
   height: 50px;
@@ -25,7 +44,12 @@
   font-size: 1.5em;
 }
 
+#filter-display {
+  margin-bottom: 5px;
+}
+
 #current-filters button {
+  margin-top: 5px;
   font-size: 0.6em;
 }
 

@@ -2,7 +2,12 @@
   <app-herobody></app-herobody>
   <app-slogan></app-slogan>
   <app-incentive class="is-hidden-mobile"></app-incentive>
-  <app-search id="search"
+
+  <h2 class="subtitle has-text-centered">
+    Allez-vous craquer pour les derniers produits en vente ?
+  </h2>
+
+  <app-search
     [allCategories]=allCategories
     [allTypes]=allTypes
     [decreasingPrice]=decreasingPrice
@@ -10,6 +15,7 @@
     (filtersEmitter)=getFilters($event)
     (salesEmitter)=getSales($event)>
   </app-search>
+
   <app-products
     [sales]=sales
     [filtersNb]=filtersNb

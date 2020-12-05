@@ -13,6 +13,10 @@ img
   vertical-align: top;
 }
 
+.delivery-method {
+  font-size: 0.6em;
+}
+
 .card-content {
   padding: 0px;
   padding-top: 5px;
@@ -26,7 +30,7 @@ img
 
 .product-title {
   height: 20px;
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 
 .product-link {
@@ -71,5 +75,9 @@ img
 
   .card {
     width: 100%;
+  }
+
+  .delivery-method {
+    font-size: 0.8em;
   }
 }
