@@ -183,6 +183,14 @@
   color: white;
 }
 
+button.modal-close {
+  background: black;
+}
+
+button.modal-close:hover {
+  background: var(--KTKP-RED);
+}
+
 .link-normal {
   text-decoration: underline;
 }
