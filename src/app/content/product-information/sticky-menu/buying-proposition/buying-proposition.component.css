@@ -18,9 +18,29 @@
 }
 
 #proposition-price {
+  display: inline-flex;
+  margin-left: 10px;
   width: 100px;
 }
 
 #proposition-price fa-icon {
   font-size: 0.8em;
+}
+
+fa-icon.return {
+  margin-right: 5px;
+}
+
+#info {
+  background-color: var(--KTKP-BLUE);
+  padding: 10px;
+  color: var(--KTKP-BLUE-DARKER);
+}
+
+#info fa-icon {
+  margin-right: 5px;
+}
+
+#devise {
+  color: black;
 }

@@ -10,7 +10,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 @Component({
   selector: 'author-information',
   templateUrl: './author-information.component.html',
-  styleUrls: ['./author-information.component.css']
+  styleUrls: ['../../product-information.component.css', './author-information.component.css']
 })
 export class AuthorInformationComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;

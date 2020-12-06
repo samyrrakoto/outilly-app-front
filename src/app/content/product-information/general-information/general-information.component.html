@@ -3,7 +3,12 @@
 </media-gallery>
 
 <h1 id="product-name" class="title is-2 has-text-weight-bold">{{ sale.product.name }}</h1>
-<h2 id="brands" class="subtitle is-6">Marques : <span *ngFor="let brand of sale.product.brands" class="has-text-danger has-text-weight-bold">{{ brand.name }} </span></h2>
+<h2 id="brands" class="subtitle is-6">
+  Marques :
+  <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
+    {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
+  </span>
+</h2>
 
 <!-- General information -->
 <div class="box">
@@ -13,7 +18,7 @@
 
     <!-- description -->
     <div class="column">
-      <h2 class="subtitle has-text-weight-bold">Description</h2>
+      <h2 class="subtitle has-text-weight-bold">Description du vendeur</h2>
 
       <div class="content is-size-6">
         <span *ngIf="!descriptionFlag && this.sale.product.description.length > this.maxVisibleLength" [innerHTML]="sale.product.description.slice(0, maxVisibleLength) + '<span class=\'declined\'>...</span>'"></span>
@@ -36,22 +41,24 @@
       <div class="content is-centered">
         <table class="table">
           <tr>
-            <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat du produit :</td>
-            <td>{{ this.sale.product.quality | quality }} <a class="has-text-danger" (click)="openModal(knowMore)">(en savoir plus) <fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
+            <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat</td>
+            <td>{{ this.sale.product.quality | quality }} <a class="has-text-danger" (click)="openModal(knowMore)"><fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
           </tr>
           <tr>
-            <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids total : </td>
-            <td>{{ this.sale.product.weight | weight:'value' }}{{ this.sale.product.weight | weight:'unity' }}</td>
+            <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids</td>
+            <td>{{ this.sale.product.weight | weight:'value' }} {{ this.sale.product.weight | weight:'unity' }}</td>
           </tr>
           <tr>
-            <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Localisation : </td>
-            <td>{{ this.sale.product.locality }}</td>
+            <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Où ?</td>
+            <td><a [href]="getMapUrl()" rel="noopener" target="_blank">{{ this.sale.product.locality }}</a></td>
           </tr>
         </table>
       </div>
     </div>
   </div>
 </div>
+
+<app-product-information-incentives></app-product-information-incentives>
 
 <div id="predefined-questions" class="content">
   <predefined-question

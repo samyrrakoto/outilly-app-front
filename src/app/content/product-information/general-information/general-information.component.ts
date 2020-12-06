@@ -10,12 +10,13 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 @Component({
   selector: 'general-information',
   templateUrl: './general-information.component.html',
-  styleUrls: ['./general-information.component.css']
+  styleUrls: ['../product-information.component.css', './general-information.component.css']
 })
 export class GeneralInformationComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
   @Input() genericQuestions: Array<string>;
   isShortenable: boolean;
+  mapUrl: string = '';
   readonly maxVisibleLength: number = 255;
 
   constructor(public request: RequestService,
@@ -29,4 +30,8 @@ export class GeneralInformationComponent extends ProductInformationComponent imp
   }
 
   ngOnInit(): void {}
+
+  public getMapUrl(): string {
+    return 'http://google.fr/maps/place/' + this.sale.product.locality;
+  }
 }

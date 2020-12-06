@@ -11,7 +11,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 @Component({
   selector: 'media-gallery',
   templateUrl: './media-gallery.component.html',
-  styleUrls: ['./media-gallery.component.scss']
+  styleUrls: ['../../product-information.component.css', './media-gallery.component.scss']
 })
 export class MediaGalleryComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;

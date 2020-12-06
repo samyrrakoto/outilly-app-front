@@ -3,8 +3,8 @@
   <!-- Top pictures -->
   <div id="top-container" class="column">
     <div class="columns is-gapless is-centered is-mobile">
-      <div *ngFor="let media of sale.product.productMedias; index as i">
-        <div *ngIf="i < 3" class="column is-narrow">
+      <div *ngFor="let media of sale.product.productMedias.slice(0,3); index as i">
+        <div class="column is-narrow">
           <img class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, media.type)">
         </div>
       </div>
@@ -13,16 +13,14 @@
 
   <!-- Side pictures -->
   <div id="side-preview" class="column is-3 has-text-centered is-hidden-mobile">
-    <div *ngFor="let media of sale.product.productMedias; index as i" class="content">
-      <div *ngIf="i > 2 && i < 6">
-        <figure *ngIf="media.type === 'image'" class="image">
-          <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
-        </figure>
+    <div *ngFor="let media of sale.product.productMedias.slice(2,5); index as i" class="content">
+      <figure *ngIf="media.type === 'image'" class="image">
+        <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
+      </figure>
 
-        <figure *ngIf="media.type === 'video'">
-          <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
-        </figure>
-      </div>
+      <figure *ngIf="media.type === 'video'">
+        <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, 'video')">
+      </figure>
     </div>
   </div>
 </div>

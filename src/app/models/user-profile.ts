@@ -4,7 +4,9 @@ import { Company } from './company';
 export class UserProfile {
   id: number;
   firstname: string;
+  anonFirstName: string;
   lastname: string;
+  anonLastName: string;
   email: string;
   emailOptin: boolean;
   phone1: string;
@@ -23,7 +25,9 @@ export class UserProfile {
   constructor() {
     this.id = 0;
     this.firstname = '';
+    this.anonFirstName = '';
     this.lastname = '';
+    this.anonLastName = '';
     this.email = '';
     this.emailOptin = false;
     this.phone1 = '';

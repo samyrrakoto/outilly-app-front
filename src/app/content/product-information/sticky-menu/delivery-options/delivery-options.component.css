@@ -1,0 +1,37 @@
+.buy {
+  width: 150px;
+  font-size: 1.3em;
+}
+
+#delivery-tiles {
+  display: flex;
+  justify-content: center;
+}
+
+#delivery-tiles .content {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#hand, #mondial {
+  font-size: 0.7em;
+}
+
+#hand fa-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+#hand .content {
+  margin-top: 15px;
+}
+
+#mondial img {
+  height: 30px;
+  width: auto;
+  margin-bottom: 2px;
+}
+
+#mondial .content {
+  margin-top: 2px;
+}
