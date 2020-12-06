@@ -69,7 +69,7 @@
           </div>
 
           <div class="content has-text-centered">
-            <button class="button no-overflow has-text-success">
+            <button (click)="generateDispatchNote(order)" class="button no-overflow has-text-success">
               <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
               Générer à nouveau mon bon d'envoi
             </button>
@@ -144,8 +144,28 @@
             {{ currentBuyer.mainAddress.zipcode }} {{ currentBuyer.mainAddress.city }}
           </div>
         </div>
+    </div>
+  </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('buyer-contact')"></button>
+</div>
+
+<!-- Etiquette download -->
+<div class="modal {{ modals.get('etiquette-download') }}">
+  <div class="modal-background" (click)="modals.close('etiquette-download')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <div class="buttons">
+        <a [href]="dispatchNoteA4" class="button is-success is-small no-overflow" download>
+          <fa-icon [icon]="['fas', 'download']"></fa-icon>
+          Télécharger mon bon au format A4
+        </a>
+        <a [href]="dispatchNoteA5" class="button is-success is-small no-overflow" download>
+          <fa-icon [icon]="['fas', 'download']"></fa-icon>
+          Télécharger mon bon au format A5
+        </a>
       </div>
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="modals.close('buyer-contact')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('etiquette-download')"></button>
 </div>
