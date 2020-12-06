@@ -26,8 +26,8 @@ export class DispatchNoteComponent implements OnInit {
   modals: Modals;
   loading: boolean = false;
   generated: boolean = false;
-  dispatchNoteA4: string = '';
-  dispatchNoteA5: string = '';
+  dispatchNoteA4: string = null;
+  dispatchNoteA5: string = null;
   form: FormGroup;
   submitted: boolean = true;
   readonly nbAttempts: number = 3;
