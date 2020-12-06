@@ -114,14 +114,17 @@
 
               <div id="download" class="content">
                 <div class="buttons">
-                  <a [href]="dispatchNoteA4" class="button is-success full-width no-overflow" download>
+                  <a *ngIf="dispatchNoteA4" [href]="dispatchNoteA4" class="button is-success full-width no-overflow" download>
                     <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
                     Télécharger le bon d'expédition au format A4
                   </a>
-                  <a [href]="dispatchNoteA5" class="button is-success full-width no-overflow" download>
+                  <a *ngIf="dispatchNoteA5" [href]="dispatchNoteA5" class="button is-success full-width no-overflow" download>
                     <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
                     Télécharger le bon d'expédition au format A5
                   </a>
+                  <div *ngIf="!dispatchNoteA4 && !dispatchNoteA5" class="content">
+                    Une erreur est survenue, veuillez retenter en rechargeant la page.
+                  </div>
                 </div>
               </div>
             </div>

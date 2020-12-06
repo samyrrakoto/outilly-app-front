@@ -31,6 +31,7 @@ export class DispatchNoteComponent implements OnInit {
   errorMessages: string[];
   form: FormGroup;
   submitted: boolean = true;
+  readonly nbAttempts: number = 3;
 
   constructor(
     private request: RequestService,
@@ -174,7 +175,7 @@ export class DispatchNoteComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  private createDispatchNote(): Promise<any> {
+  private createDispatchNote(times: number): Promise<any> {
     return new Promise((resolve) => {
       const payload: any = {
         'orderId': this.order.id
@@ -182,7 +183,12 @@ export class DispatchNoteComponent implements OnInit {
 
       this.request.postData(payload, this.request.uri.CREATE_RELAY_EXPEDITION).subscribe(
         (relayRes: any) => {
-          resolve();
+          if ((relayRes.URL_Etiquette_A4 === null || relayRes.URL_Etiquette_A4 === null) && this.nbAttempts > 0) {
+            this.createDispatchNote(times--);
+          }
+          else {
+            resolve();
+          }
         }
       )
     });
@@ -193,7 +199,7 @@ export class DispatchNoteComponent implements OnInit {
       'orderId': this.order.id
     };
 
-    this.createDispatchNote()
+    this.createDispatchNote(this.nbAttempts)
       .then(() => {
         this.request.postData(payload, this.request.uri.GET_DISPATCH_NOTE).subscribe(
           (relayRes: any) => {
