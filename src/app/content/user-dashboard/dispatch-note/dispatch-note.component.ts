@@ -203,7 +203,7 @@ export class DispatchNoteComponent implements OnInit {
       .then(() => {
         this.request.postData(payload, this.request.uri.GET_DISPATCH_NOTE).subscribe(
           (relayRes: any) => {
-            if ((relayRes.URL_Etiquette_A4 === null || relayRes.URL_Etiquette_A4 === null) && this.nbAttempts > 0) {
+            if ((relayRes.body.URL_Etiquette_A4 === null || relayRes.body.URL_Etiquette_A4 === null) && this.nbAttempts > 0) {
               this.generateDispatchNote(times--);
             }
             else {

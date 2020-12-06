@@ -20,8 +20,9 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   @Input() sellerOrders: Array<any>;
   modals: Modals;
   currentBuyer: any;
-  dispatchNoteA4: string = '';
-  dispatchNoteA5: string = '';
+  dispatchNoteA4: string = null;
+  dispatchNoteA5: string = null;
+  readonly nbAttempts: number = 3;
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -77,15 +78,20 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     this.router.navigate(['/user/dashboard/dispatch-note']);
   }
 
-  public generateDispatchNote(order: any): void {
+  public generateDispatchNote(order: any, times: number = this.nbAttempts): void {
     const payload: any = {
       'orderId': order.id
     };
 
     this.request.postData(payload, this.request.uri.GET_DISPATCH_NOTE).subscribe(
       (relayRes: any) => {
-        this.dispatchNoteA4 = relayRes.body.URL_Etiquette_A4;
-        this.dispatchNoteA5 = relayRes.body.URL_Etiquette_A5;
+        if ((relayRes.body.URL_Etiquette_A4 === null || relayRes.body.URL_Etiquette_A5 === null) && this.nbAttempts > 0) {
+          this.generateDispatchNote(order, times--);
+        }
+        else {
+          this.dispatchNoteA4 = relayRes.body.URL_Etiquette_A4;
+          this.dispatchNoteA5 = relayRes.body.URL_Etiquette_A5;
+        }
         this.modals.open('etiquette-download');
       }
     );
