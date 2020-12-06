@@ -46,7 +46,7 @@
           <div id="notification"></div>
 
           <div id="modify" class="content">
-            <button (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
+            <button *ngIf="!agreement" (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
           </div>
 
           <div class="content discreet-text">
