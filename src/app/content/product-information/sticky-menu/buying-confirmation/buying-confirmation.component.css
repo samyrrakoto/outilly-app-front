@@ -9,3 +9,7 @@
 .table td {
   text-align: right;
 }
+
+fa-icon.return {
+  margin-right: 5px;
+}

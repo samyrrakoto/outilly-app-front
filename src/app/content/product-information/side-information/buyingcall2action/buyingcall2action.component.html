@@ -1,12 +1,12 @@
-<h1 class="title is-3 has-font-weight-bold">Achetez ce produit en toute sécurité</h1>
+<h1 class="title call is-3 has-font-weight-bold">Achetez ce produit en toute sécurité</h1>
 <h1 class="title is-2">{{ sale.product.reservePrice | currency:'full' }}€</h1>
 
-<div class="content">
-    <button *ngIf="isAvailable" class="button is-danger is-large" (click)="open = !open; emitOpenState()">Acheter</button>
-    <button *ngIf="!isAvailable" class="button is-light is-large has-text-danger">Vendu</button>
+<div class="content call">
+  <button *ngIf="isAvailable" class="button is-danger is-large" (click)="open = !open; emitOpenState()">Acheter</button>
+  <button *ngIf="!isAvailable" class="button product-sold is-large has-text-danger">Oups, déjà vendu !</button>
 </div>
 
-<div class="content is-size-6">
+<div class="content is-size-7">
     Ce prix ne tient pas compte des frais de port.<br>
     Livraison à partir de <span class="has-text-weight-bold">6,90€</span> en France métropolitaine.
 </div>

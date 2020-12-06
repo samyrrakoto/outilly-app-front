@@ -1,0 +1,4 @@
+.box {
+  box-shadow: none;
+  border: solid 3px var(--KTKP-GREY);
+}

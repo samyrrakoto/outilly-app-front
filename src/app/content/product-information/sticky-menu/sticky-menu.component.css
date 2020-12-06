@@ -43,7 +43,7 @@ mat-panel-title .title {
 }
 
 #menu-content-desktop {
-  width: 40%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -56,8 +56,8 @@ mat-panel-title .title {
   color: var(--MAT-GREY);
   font-size: 0.85em;
   border: solid 1px var(--MAT-GREY);
-  height: 70px;
-  width: 70px;
+  height: 85px;
+  width: 85px;
   margin: auto;
   margin-bottom: 10px;
   padding: 20px;

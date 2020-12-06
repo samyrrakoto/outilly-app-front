@@ -5,19 +5,27 @@
     <div class="column has-text-centered">
       <h3 class="subtitle is-6">Choisissez votre mode de remise</h3>
 
-      <div class="columns">
-        <div class="column">
+      <div id="delivery-tiles" class="content">
+        <div class="content">
           <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 690)">
-              MONDIAL RELAY<br><br>
+            <img src="/assets/img/logo/mondial-relay-logo.png">
+
+            <div class="content">
+              MONDIAL RELAY<br>
               <span class="price">6,90€</span><br><br>
+            </div>
           </div>
-          <span class="delay">4-5 jours ouvrés</span>
+          <span class="delay discreet-text">4-5 jours ouvrés</span>
         </div>
 
-        <div class="column">
+        <div class="content">
           <div id="hand" class="content remise" (click)="sticky.setDelivery('hand', 'Remise en main propre', 0)">
-            MAINS PROPRES<br><br>
-            <span class="price">GRATUIT</span>
+            <fa-icon [icon]="['fas', 'hands-wash']"></fa-icon><br>
+
+            <div class="content">
+              MAINS PROPRES<br>
+              <span class="price">GRATUIT</span>
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +45,7 @@
           <!-- If a counter-offer has been made -->
           <div *ngIf="isCounterOffer()" class="content">
             <div class="content">
-              <button class="button is-danger" (click)="nextStep()">
+              <button class="button buy is-danger" (click)="nextStep()">
                 Acheter au prix de {{ priceTopay | currency:'full' }}€
               </button>
             </div>
@@ -50,7 +58,7 @@
           <!-- If an offer has been accepted -->
           <div *ngIf="isAccepted()" class="content">
             <div class="content">
-              <button class="button is-danger" (click)="nextStep()">
+              <button class="button buy is-danger" (click)="nextStep()">
                 Acheter au prix de {{ priceTopay | currency:'full' }}€
               </button>
             </div>
@@ -63,7 +71,7 @@
           <!-- If an offer has been declined -->
           <div *ngIf="isDeclined()" class="content">
             <div class="content">
-              <button class="button is-danger" (click)="nextStep()">
+              <button class="button buy is-danger" (click)="nextStep()">
                 Acheter à prix coûtant
               </button>
             </div>
@@ -77,7 +85,7 @@
           <!-- If a bid is pending -->
           <div *ngIf="isPending()" class="content">
             <div class="content">
-              <button class="button is-danger" (click)="nextStep()">
+              <button class="button buy is-danger" (click)="nextStep()">
                 Acheter
               </button>
             </div>
@@ -94,7 +102,7 @@
           <!-- If no bid has been made -->
           <div *ngIf="!hasBidded()" class="content">
             <div class="content">
-              <button class="button is-danger" (click)="nextStep()">
+              <button class="button buy is-danger" (click)="nextStep()">
                 Acheter
               </button>
             </div>
@@ -111,16 +119,16 @@
       <!-- When login fails -->
       <div *ngIf="isLogged === false || accessToken !== 'good'" class="content">
         <div class="content">
-          <button class="button is-light">
-            Acheter
+          <button (click)="goToLogin()" class="button is-light">
+            Se connecter pour acheter
           </button>
         </div>
 
-        <div class="content">
+        <!-- <div class="content">
           <button (click)="goToLogin()" class="button is-text">
             Veuillez-vous connecter ou créer un compte pour acheter ou faire une offre :)
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

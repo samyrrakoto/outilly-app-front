@@ -127,7 +127,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       response.subscribe((sale: any) => {
         this.sale = sale;
         this.proposedPrice = this.sale.product.reservePrice / 100;
-        this.minPrice = (this.sale.product.reservePrice / 100) * 0.8;
+        this.minPrice = Math.round((this.sale.product.reservePrice / 100) * 0.72);
         this.maxPrice = (this.sale.product.reservePrice / 100) - 1;
         this.errorMsg = {
           delivery: 'Veuillez choisir un mode de livraison',

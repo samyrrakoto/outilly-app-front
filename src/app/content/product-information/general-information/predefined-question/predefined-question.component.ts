@@ -10,7 +10,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 @Component({
   selector: 'predefined-question',
   templateUrl: './predefined-question.component.html',
-  styleUrls: ['./predefined-question.component.scss']
+  styleUrls: ['../../product-information.component.css', './predefined-question.component.scss']
 })
 export class PredefinedQuestionComponent extends ProductInformationComponent implements OnInit {
   @Input() sale: Sale;
