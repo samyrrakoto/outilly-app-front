@@ -20,6 +20,9 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   @Input() sellerOrders: Array<any>;
   modals: Modals;
   currentBuyer: any;
+  dispatchNoteA4: string = null;
+  dispatchNoteA5: string = null;
+  readonly nbAttempts: number = 3;
 
   constructor(public request: RequestService,
     public auth: AuthService,
@@ -35,6 +38,7 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     this.sellerOrders = [];
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');
+    this.modals.addModal('etiquette-download');
     this.currentBuyer = {
       'phone1': '',
       'mainAddress': {
@@ -72,5 +76,24 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
   public goToDispatch(order: any): void {
     localStorage.setItem('order', JSON.stringify(order));
     this.router.navigate(['/user/dashboard/dispatch-note']);
+  }
+
+  public generateDispatchNote(order: any, times: number = this.nbAttempts): void {
+    const payload: any = {
+      'orderId': order.id
+    };
+
+    this.request.postData(payload, this.request.uri.GET_DISPATCH_NOTE).subscribe(
+      (relayRes: any) => {
+        if ((relayRes.body.URL_Etiquette_A4 === null || relayRes.body.URL_Etiquette_A5 === null) && this.nbAttempts > 0) {
+          this.generateDispatchNote(order, times--);
+        }
+        else {
+          this.dispatchNoteA4 = relayRes.body.URL_Etiquette_A4;
+          this.dispatchNoteA5 = relayRes.body.URL_Etiquette_A5;
+        }
+        this.modals.open('etiquette-download');
+      }
+    );
   }
 }

@@ -21,16 +21,16 @@ export class DispatchNoteComponent implements OnInit {
   user: User;
   order: any;
   relayPoint: RelayPoint;
-  agreement: boolean;
+  agreement: boolean = false;
+  mrExpedition: number = null;
   modals: Modals;
-  newInformation: any;
-  loading: boolean;
-  generated: boolean;
-  dispatchNoteA4: string;
-  dispatchNoteA5: string;
-  errorMessages: string[];
+  loading: boolean = false;
+  generated: boolean = false;
+  dispatchNoteA4: string = null;
+  dispatchNoteA5: string = null;
   form: FormGroup;
   submitted: boolean = true;
+  readonly nbAttempts: number = 3;
 
   constructor(
     private request: RequestService,
@@ -42,14 +42,8 @@ export class DispatchNoteComponent implements OnInit {
   {
     this.user = new User();
     this.relayPoint = new RelayPoint();
-    this.agreement = false;
-    this.newInformation = {};
     this.modals = new Modals();
     this.modals.addModal('modify-information');
-    this.loading = false;
-    this.generated = false;
-    this.dispatchNoteA4 = '';
-    this.dispatchNoteA5 = '';
   }
 
   ngOnInit(): void {
@@ -58,6 +52,7 @@ export class DispatchNoteComponent implements OnInit {
       this.redirectToLogin();
     }
     this.order = JSON.parse(localStorage.getItem('order'));
+    this.getOrder();
     this.getUserInfo()
       .then(() => this.getForm());
     this.getRelayPoint();
@@ -70,6 +65,17 @@ export class DispatchNoteComponent implements OnInit {
       line1: [this.user.userProfile.mainAddress.line1, [Validators.required]],
       zipcode: [this.user.userProfile.mainAddress.zipcode, [Validators.required, Validators.pattern(this.regexTemplate.ZIPCODE)]],
       city: [this.user.userProfile.mainAddress.city, [Validators.required]]
+    });
+  }
+
+  private getOrder(): Promise<any> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_ORDER, [this.order.id]).subscribe(
+        (order: any) => {
+          this.mrExpedition = order.mrExpedition;
+          resolve();
+        }
+      )
     });
   }
 
@@ -188,7 +194,7 @@ export class DispatchNoteComponent implements OnInit {
     });
   }
 
-  public generateDispatchNote(): void {
+  public generateDispatchNote(times: number): void {
     const payload: any = {
       'orderId': this.order.id
     };
@@ -197,10 +203,15 @@ export class DispatchNoteComponent implements OnInit {
       .then(() => {
         this.request.postData(payload, this.request.uri.GET_DISPATCH_NOTE).subscribe(
           (relayRes: any) => {
-            this.dispatchNoteA4 = relayRes.body.URL_Etiquette_A4;
-            this.dispatchNoteA5 = relayRes.body.URL_Etiquette_A5;
-            this.loading = false;
-            this.generated = true;
+            if ((relayRes.body.URL_Etiquette_A4 === null || relayRes.body.URL_Etiquette_A4 === null) && this.nbAttempts > 0) {
+              this.generateDispatchNote(times--);
+            }
+            else {
+              this.dispatchNoteA4 = relayRes.body.URL_Etiquette_A4;
+              this.dispatchNoteA5 = relayRes.body.URL_Etiquette_A5;
+              this.loading = false;
+              this.generated = true;
+            }
           }
         )
       });

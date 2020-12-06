@@ -45,8 +45,8 @@
 
           <div id="notification"></div>
 
-          <div id="modify" class="content">
-            <button (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
+          <div *ngIf="mrExpedition === null" id="modify" class="content">
+            <button *ngIf="!agreement" (click)="modals.open('modify-information')" class="button is-danger is-outlined no-overflow">Modifier mes coordonnées</button>
           </div>
 
           <div class="content discreet-text">
@@ -95,14 +95,14 @@
             </div>
           </div>
 
-          <div id="buttons" class="column">
+          <div *ngIf="mrExpedition === null" id="buttons" class="column">
             <div class="content">
               <button *ngIf="!agreement" (click)="agreement = true" class="button full-width is-danger is-outlined no-overflow">Je confirme que mes informations sont correctes</button>
             </div>
 
             <div *ngIf="!generated" class="content">
               <button *ngIf="!agreement" class="button full-width is-light no-overflow">Je génère mon bon d'expédition</button>
-              <button (click)="loading = true; generateDispatchNote()" *ngIf="!loading && agreement" class="button full-width is-success no-overflow">Je génère mon bon d'expédition</button>
+              <button (click)="loading = true; generateDispatchNote(nbAttempts)" *ngIf="!loading && agreement" class="button full-width is-success no-overflow">Je génère mon bon d'expédition</button>
               <button *ngIf="loading && agreement" class="button full-width is-light is-loading no-overflow"></button>
             </div>
 
@@ -114,14 +114,17 @@
 
               <div id="download" class="content">
                 <div class="buttons">
-                  <a [href]="dispatchNoteA4" class="button is-success full-width no-overflow" download>
+                  <a *ngIf="dispatchNoteA4" [href]="dispatchNoteA4" class="button is-success full-width no-overflow" download>
                     <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
                     Télécharger le bon d'expédition au format A4
                   </a>
-                  <a [href]="dispatchNoteA5" class="button is-success full-width no-overflow" download>
+                  <a *ngIf="dispatchNoteA5" [href]="dispatchNoteA5" class="button is-success full-width no-overflow" download>
                     <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
                     Télécharger le bon d'expédition au format A5
                   </a>
+                  <div *ngIf="!dispatchNoteA4 && !dispatchNoteA5" class="content">
+                    Une erreur est survenue, veuillez retenter en rechargeant la page.
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,7 +141,7 @@
 <div class="modal {{ modals.get('modify-information') }}">
   <div class="modal-background" (click)="modals.close('modify-information'); resetNewInformation()"></div>
   <div class="modal-content">
-    <div *ngIf="newInformation" class="box">
+    <div class="box">
       <h2 class="subtitle">Modifier mes coordonnées</h2>
 
       <form *ngIf="form" [formGroup]="form" (submit)=onSubmit()>
