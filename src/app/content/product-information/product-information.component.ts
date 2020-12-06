@@ -7,6 +7,7 @@ import { ProductMedia } from 'src/app/models/product-media';
 import { GenericComponent } from 'src/app/models/generic-component';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-information',
@@ -19,11 +20,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   isAvailable: boolean;
   isSeller: boolean;
   id: number;
-  vendorProducts: string;
-  descriptionFlag: boolean;
-  shortDescription: string;
-  knowMore: string;
-  localisation: string;
   sale: Sale;
   sales: Array<Sale>;
   inputProperties: Array<string>;
@@ -33,21 +29,19 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   maxPrice: number;
   errorMsg: any;
   openMenuState: boolean;
+  pageTitle: string = 'Outilly | ';
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public router: Router,
     private route: ActivatedRoute,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
-    public auth: AuthService) {
+    public auth: AuthService,
+    private title: Title)
+  {
     super();
     this.sale = new Sale();
-    this.vendorProducts = '';
-    this.descriptionFlag = false;
-    this.knowMore = '';
-    this.modals = {
-      knowMore: ''
-    };
     this.genericQuestions = [];
     this.openMenuState = false;
     this.sales = [];
@@ -66,7 +60,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => this.getSalesId())
       .then(() => this.isUserSeller())
       .then(() => this.getProductById(this.id.toString()))
-      .then(() => this.getGenericQuestions())
       .then(() => this.handleSaleStatus())
       .catch((error: any) => this.handlingErrors(error));
   }
@@ -126,6 +119,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
       response.subscribe((sale: any) => {
         this.sale = sale;
+        this.title.setTitle(this.pageTitle + this.sale.product.name);
         this.proposedPrice = this.sale.product.reservePrice / 100;
         this.minPrice = Math.round((this.sale.product.reservePrice / 100) * 0.72);
         this.maxPrice = (this.sale.product.reservePrice / 100) - 1;
@@ -146,44 +140,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       return Promise.reject('SaleStatus');
     }
     return Promise.resolve();
-  }
-
-  private getGenericQuestions(): Promise<any> {
-    return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
-
-      response.subscribe((res: any) => {
-        this.genericQuestions = res;
-        resolve();
-      });
-    });
-  }
-
-  public displayDescription(): void {
-    this.descriptionFlag ? this.descriptionFlag = false : this.descriptionFlag = true;
-  }
-
-  openGalleryMedia(mediaIndex: number, mediaType: string): void {
-    this.media.index = mediaIndex;
-    this.media.path = this.sale.product.productMedias[mediaIndex].path;
-    this.media.type = mediaType;
-    this.media.modal = 'is-active';
-  }
-
-  previousMedia(): void {
-    const lastIndex = this.sale.product.productMedias.length - 1;
-
-    this.media.index === 0 ? this.media.index = lastIndex : this.media.index -= 1;
-    this.media.type = this.sale.product.productMedias[this.media.index].type;
-    this.media.path = this.sale.product.productMedias[this.media.index].path;
-  }
-
-  nextMedia(): void {
-    const lastIndex = this.sale.product.productMedias.length - 1;
-
-    this.media.index === lastIndex ? this.media.index = 0 : this.media.index++;
-    this.media.type = this.sale.product.productMedias[this.media.index].type;
-    this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
 
   getOpenState(state: boolean): void {

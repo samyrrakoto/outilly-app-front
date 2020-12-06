@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,11 +11,15 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
+  readonly pageTitle: string = 'Outilly | Connexion';
 
-  constructor(private auth: AuthService,
-    private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private title: Title) {}
 
   ngOnInit() {
+    this.title.setTitle(this.pageTitle);
     const accessToken: string = this.auth.getTokenStatus();
 
     if (accessToken === 'good') {

@@ -11,13 +11,14 @@ import { Sale } from 'src/app/models/sale';
 import { Modals } from 'src/app/models/modals';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-sales',
   templateUrl: './user-sales.component.html',
   styleUrls: ['../../user-dashboard.component.css', './user-sales.component.css']
 })
-export class UserSalesComponent extends ActivityLogComponent implements OnInit {
+export class UserSalesComponent implements OnInit {
   @Input() saleStatus: string;
   @Input() runningSales: Array<Sale>;
   @Input() sellerOrders: Array<any>;
@@ -35,9 +36,9 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     public saleManager: SaleManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
-    protected location: Location)
+    protected location: Location,
+    public title: Title)
   {
-    super(request, auth, router, route, purchaseManager, location, saleManager);
     this.sales = [];
     this.currentBid = new Bid();
     this.modals = new Modals();
@@ -51,21 +52,7 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
   ngOnInit(): void {
     this.auth.getLogStatus()
       .then(() => { return this.checkLogin() })
-      .then(() => { return this.getUrl() })
       .then(() => { this.isLoaded = true });
-  }
-
-  public getUrl(): Promise<any> {
-    return new Promise((resolve) => {
-      this.route.url.subscribe((url: any) => {
-        this.url = url[0].path;
-
-        if (this.url === 'sales') {
-          this.setFocus(this.activityTabs, 'user-sales');
-        }
-        resolve();
-      });
-    });
   }
 
   private checkLogin(): Promise<any> {
@@ -78,7 +65,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     if (choice === 'yes') {
       this.bidManager.acceptOffer(this.currentBid.id);
       this.modals.close('acceptOffer');
-      this.refresh(message);
     }
     else if (choice === 'no') {
       this.modals.close('acceptOffer');
@@ -91,7 +77,6 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
     if (choice === 'yes') {
       this.bidManager.declineOffer(this.currentBid.id);
       this.modals.close('declineOffer');
-      this.refresh(message);
     }
     else if (choice === 'no') {
       this.modals.close('declineOffer');
@@ -105,16 +90,10 @@ export class UserSalesComponent extends ActivityLogComponent implements OnInit {
       this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount * 100);
       this.modals.close('counterOfferConfirmation');
       this.modals.close('counterOffer');
-      this.refresh(message);
     }
     else if (choice === 'no') {
       this.modals.close('counterOfferConfirmation');
     }
-  }
-
-  private refresh(message: string): void {
-    this.notification.display(message, 'notifications');
-    setTimeout(() => window.location.reload(), 3000);
   }
 
   public goToProductPage(slug: string, saleId: number): void {

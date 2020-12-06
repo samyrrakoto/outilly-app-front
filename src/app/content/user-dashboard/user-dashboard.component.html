@@ -1,16 +1,23 @@
 <div class="columns is-centered">
   <div class="column has-text-centered">
-    <h1 class="title">Bienvenue <span id="username">{{ user.username }}</span> !</h1>
+    <h1 class="title">Bienvenue <span id="username">{{ user.userProfile.firstname }}</span> !</h1>
 
     <div id="tabs" class="tabs is-toggle is-toggle-rounded is-centered" style="margin-top: 20px;">
       <ul>
-        <li id="information" class="is-active" (click)="setFocus(menuTabs, 'information')" routerLink="/user/dashboard/information"><a>Mes informations</a></li>
-        <li id="activities" (click)="setFocus(menuTabs, 'activities')" routerLink="/user/dashboard/activity-log"><a>Mon activité</a></li>
+        <li id="information" class="is-active" (click)="dashboardTab = 'information'; setFocus(menuTabs, 'information')"><a>Mes informations</a></li>
+        <li id="activities" (click)="dashboardTab = 'activities'; setFocus(menuTabs, 'activities')" routerLink="/user/dashboard/activity-log"><a>Mon activité</a></li>
         <li id="sell" (click)="setFocus(menuTabs, 'sell')"><a>Vendre</a></li>
       </ul>
     </div>
 
-    <router-outlet></router-outlet>
+    <app-information *ngIf="dashboardTab === 'information'"
+      [url]=url
+      [user]=user>
+    </app-information>
+
+    <app-activity-log *ngIf="dashboardTab === 'activities'"
+      [url]=url>
+    </app-activity-log>
 
     <button class="button is-danger is-light" (click)="logOut()" style="margin-top: 20px;">Déconnexion</button>
   </div>

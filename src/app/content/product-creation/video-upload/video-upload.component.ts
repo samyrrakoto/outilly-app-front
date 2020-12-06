@@ -7,6 +7,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-upload',
@@ -19,8 +20,14 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
   modals: Modals;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
-    super(request, formData, router, formValidatorService);
+  constructor(
+    public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public title: Title)
+  {
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

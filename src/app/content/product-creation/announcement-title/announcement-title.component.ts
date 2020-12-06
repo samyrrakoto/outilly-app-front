@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-announcement-title',
@@ -12,16 +13,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
 export class AnnouncementTitleComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("title") title: ElementRef;
+  @ViewChild("fieldTitle") fieldTitle: ElementRef;
   isLogged: boolean;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     private auth: AuthService,
-    public formValidatorService: FormValidatorService)
+    public formValidatorService: FormValidatorService,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -51,7 +53,7 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
   }
 
   ngAfterViewInit(): void {
-    this.title.nativeElement.focus();
+    this.fieldTitle.nativeElement.focus();
   }
 
   ngOnDestroy(): void {

@@ -8,6 +8,7 @@ import { PurchaseManagerService } from 'src/app/services/purchase-manager.servic
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Location } from '@angular/common';
 import { Modals } from 'src/app/models/modals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-purchases-confirmed',
@@ -25,9 +26,10 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
-    public location: Location)
+    public location: Location,
+    public title: Title)
   {
-    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location);
+    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location, title);
     this.modals = new Modals();
     this.modals.addModal('order-overview');
     this.currentOrder = null;

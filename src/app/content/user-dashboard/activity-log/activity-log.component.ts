@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserDashboardComponent } from './../user-dashboard.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Purchase } from 'src/app/models/purchase';
@@ -8,13 +8,15 @@ import { PurchaseManagerService } from 'src/app/services/purchase-manager.servic
 import { Location } from '@angular/common';
 import { Sale } from 'src/app/models/sale';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-activity-log',
   templateUrl: './activity-log.component.html',
   styleUrls: ['../user-dashboard.component.css', './activity-log.component.css']
 })
-export class ActivityLogComponent extends UserDashboardComponent implements OnInit {
+export class ActivityLogComponent implements OnInit {
+  @Input() url: string;
   readonly activityTabs: Array<string> = ['user-sales', 'user-sales-confirmed', 'user-purchases', 'user-purchases-confirmed'];
   public currentSection: string;
   public saleStatus: string;
@@ -31,9 +33,9 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
     protected route: ActivatedRoute,
     protected purchaseManager: PurchaseManagerService,
     protected location: Location,
-    protected saleManager: SaleManagerService)
+    protected saleManager: SaleManagerService,
+    public title: Title)
   {
-    super(request, auth, router);
     this.currentSection = 'sales';
     this.saleStatus = 'running';
     this.purchases = [];
@@ -50,22 +52,9 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
       .then(() => this.getRunningSales())
       .then(() => this.getSellerOrders())
       .then(() => this.getBuyerOrders())
-      .then(() => this.getUrl())
       .then(() => this.checkNotifications())
       .then(() => {
-        if (this.url === 'activity-log') {
-          this.setFocus(this.menuTabs, 'activities');
-        }
       });
-  }
-
-  public getUrl(): Promise<any> {
-    return new Promise((resolve) => {
-      this.route.url.subscribe((url: any) => {
-        this.url = url[0].path;
-        resolve();
-      });
-    });
   }
 
   private getPurchases(): Promise<Purchase[]> {
@@ -134,6 +123,16 @@ export class ActivityLogComponent extends UserDashboardComponent implements OnIn
         return;
       }
     }
+  }
+
+  public setFocus(tabs: Array<string>, id: string): void {
+    for (const tab of tabs) {
+      if (tab !== id) {
+        document.getElementById(tab).classList.remove('is-active');
+      }
+    }
+
+    document.getElementById(id).classList.add('is-active');
   }
 
   private errorHandle(): void {

@@ -8,6 +8,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Recipient } from 'src/app/models/recipient';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order-summary',
@@ -26,12 +27,14 @@ export class OrderSummaryComponent implements OnInit {
   deliveryMethod: string;
   areConditionsAccepted: boolean;
   priceToPay: number;
+  readonly pageTitle: string = 'Outilly | Récapitulatif de commande';
 
   constructor(public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location,
-    public saleManager: SaleManagerService)
+    public saleManager: SaleManagerService,
+    private title: Title)
   {
     this.bid = new Bid();
     this.sale = new Sale();
@@ -40,6 +43,7 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): Promise<any> {
+    this.title.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
 
     return new Promise((resolve) => {

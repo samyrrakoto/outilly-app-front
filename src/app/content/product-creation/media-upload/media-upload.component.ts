@@ -8,6 +8,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-media-upload',
@@ -25,9 +26,10 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    public http: HttpClient)
+    public http: HttpClient,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

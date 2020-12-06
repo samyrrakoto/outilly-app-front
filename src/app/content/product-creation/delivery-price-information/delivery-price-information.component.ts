@@ -4,6 +4,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-delivery-price-information',
@@ -12,8 +13,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeliveryPriceInformationComponent extends ProductCreationComponent implements OnInit {
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
-    super(request, formData, router, formValidatorService);
+  constructor(
+    public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public title: Title)
+  {
+    super(request, formData, router, formValidatorService, title);
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "deliveryPriceInformation";

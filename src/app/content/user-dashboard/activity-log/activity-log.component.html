@@ -47,7 +47,9 @@
   [sellerOrders]=sellerOrders
   [saleStatus]=saleStatus>
 </app-user-sales>
+
 <app-user-purchases *ngIf="currentSection === 'purchases'"
+  [url]=url
   [purchases]=purchases
   [buyerOrders]=buyerOrders
   [purchaseStatus]=purchaseStatus>
