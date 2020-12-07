@@ -4,15 +4,16 @@
       <div class="content">
         <table class="table">
           <tr>
-            <td><span class="has-text-weight-bold">Le prix du produit</span> :</td>
+            <td><span class="has-text-weight-bold">Prix du produit</span></td>
             <td>{{ priceToPay | currency:'full' | number:'1.2-2'}}€</td>
           </tr>
           <tr>
-            <td><span class="has-text-weight-bold">Nos frais de sécurisation (6%)</span> :</td>
+            <td><span class="has-text-weight-bold">Frais de sécurisation</span></td>
             <td>{{ securisationFees | currency:'full' | number:'1.2-2' }}€</td>
           </tr>
           <tr>
-            <td><span class="has-text-weight-bold">Les frais de port avec <span class="warning">{{ deliveryName }}</span></span> :</td>
+            <td *ngIf="deliveryName === 'Mondial Relay'"><span class="has-text-weight-bold">Livraison <span class="warning">{{ deliveryName }}</span></span></td>
+            <td *ngIf="deliveryName === 'Remise en main propre'"><span class="has-text-weight-bold"><span class="warning">Remise en mains propres</span></span></td>
             <td>{{ deliveryFees | currency:'full' | number:'1.2-2' }}€</td>
           </tr>
         </table>
