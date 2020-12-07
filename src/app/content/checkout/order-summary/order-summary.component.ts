@@ -26,8 +26,8 @@ export class OrderSummaryComponent implements OnInit {
   relayId: string;
   relayCountry: string;
   deliveryMethod: string;
-  areConditionsAccepted: boolean;
-  priceToPay: number;
+  areConditionsAccepted: boolean = false;
+  priceToPay: number = 0;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly pageTitle: string = 'Récapitulatif de commande';
 
@@ -40,56 +40,37 @@ export class OrderSummaryComponent implements OnInit {
   {
     this.bid = new Bid();
     this.sale = new Sale();
-    this.areConditionsAccepted = false;
-    this.priceToPay = 0;
   }
 
-  ngOnInit(): Promise<any> {
+  ngOnInit(): void {
     this.pageNameManager.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
 
-    return new Promise((resolve) => {
-      this.auth.getLogStatus()
-        .then(() => {
-          if (this.auth.logged && this.auth.accessToken === 'good') {
-            this.getSale()
-              .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
-              .then((isSaleAvailable: boolean) => {
-                return new Promise((resolve) => {
-                  if (isSaleAvailable) {
-                    this.getBid()
-                      .then(() => resolve());
-                  }
-                  else {
-                    this.router.navigate(['/product-unavailable']);
-                  }
-                });
-              })
-              .then(() => this.getPriceToPay())
-              .then(() => {
-                this.checkDeliveryMethod();
-                resolve();
-              })
-              .catch((error: any) => this.errorHandle(error) );
-          }
-          else {
-            sessionStorage.setItem('redirect_after_login', this.location.path());
-            this.router.navigate(['/login']);
-          }
-        });
+    this.auth.getLogStatus()
+      .then(() => {
+        if (this.auth.logged && this.auth.accessToken === 'good') {
+          this.getSale()
+            .then(() =>  { return this.saleManager.getSaleAvailability(this.saleId) })
+            .then((isSaleAvailable: boolean) => this.saleAvailableHandler(isSaleAvailable))
+            .then(() => this.getPriceToPay())
+            .then(() => this.checkDeliveryMethod())
+            .catch((error: any) => this.errorHandle(error));
+        }
+        else {
+          sessionStorage.setItem('redirect_after_login', this.location.path());
+          this.router.navigate(['/login']);
+        }
     });
   }
 
+  /*
+  ** Data Getters
+  */
   protected getSale(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getSaleCall(this.saleId).subscribe({
-        next: (sale: Sale) => {
-          this.sale = sale;
-          resolve();
-        },
-        error: () => {
-          reject('sale');
-        }
+        next: (sale: Sale) => { this.sale = sale; resolve()},
+        error: () => reject('sale')
       });
     })
   }
@@ -97,24 +78,21 @@ export class OrderSummaryComponent implements OnInit {
   private getBid(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.GET_BIDS_AND_SALES).subscribe({
-        next: (value: any) => {
-          for (const elem of value) {
-            if (elem.sale.id === parseInt(this.saleId)) {
-              this.bidMapping(elem);
+        next: (bidsAndSales: any) => {
+          for (const bidAndSale of bidsAndSales) {
+            if (bidAndSale.sale.id === parseInt(this.saleId)) {
+              this.bidMapping(bidAndSale);
             }
           }
           resolve();
         },
-        error: () => {
-          reject('bid');
-        }
+        error: () => reject('bid')
       });
     });
   }
 
   private getPriceToPay(): Promise<any> {
     return new Promise((resolve) => {
-
       if (this.bid.counterOfferAmount > 0) {
         this.priceToPay = this.bid.counterOfferAmount;
       }
@@ -125,14 +103,6 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
-  public getUser(user: User): void {
-    this.user = user;
-  }
-
-  public getRecipient(recipient: Recipient): void {
-    this.recipient = recipient;
-  }
-
   private bidMapping(value: any) {
     const tempBid: Bid = new Bid();
 
@@ -141,8 +111,22 @@ export class OrderSummaryComponent implements OnInit {
     tempBid.counterOfferAmount = value.counterOfferAmount;
     tempBid.isAccepted = value.isAccepted;
     tempBid.isClosed = value.isClosed;
-
     this.bid = tempBid;
+  }
+
+  /*
+  ** Error Handling
+  */
+  private saleAvailableHandler(isSaleAvailable: boolean): Promise<any> {
+    return new Promise((resolve) => {
+      if (isSaleAvailable) {
+        this.getBid()
+          .then(() => resolve());
+      }
+      else {
+        this.router.navigate(['/product-unavailable']);
+      }
+    });
   }
 
   private deconnect(): Promise<string> {
@@ -162,14 +146,6 @@ export class OrderSummaryComponent implements OnInit {
         this.deconnect();
         break;
     }
-  }
-
-  public checkConditionsAccepted(conditions: boolean): void {
-    this.areConditionsAccepted = conditions;
-  }
-
-  public getRealPriceToPay(priceToPay: number): void {
-    this.priceToPay = priceToPay;
   }
 
   private checkDeliveryMethod(): void {
@@ -201,5 +177,24 @@ export class OrderSummaryComponent implements OnInit {
 
   private isEmpty(value: any): boolean {
     return [null, 'undefined'].includes(value);
+  }
+
+  /*
+  ** Emitters Getters
+  */
+  public getUser(user: User): void {
+    this.user = user;
+  }
+
+  public getRecipient(recipient: Recipient): void {
+    this.recipient = recipient;
+  }
+
+  public getRealPriceToPay(priceToPay: number): void {
+    this.priceToPay = priceToPay;
+  }
+
+  public checkConditionsAccepted(conditions: boolean): void {
+    this.areConditionsAccepted = conditions;
   }
 }
