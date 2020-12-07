@@ -5,6 +5,8 @@ import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 
 @Component({
   selector: 'app-product-creation',
@@ -23,12 +25,16 @@ export class ProductCreationComponent implements OnInit {
   errorMessages: Array<string>;
   nextOn: boolean;
   previousOn: boolean;
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly rootUri = 'product/create/';
+  readonly pageTitle: string = 'Création d\'annonce';
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
-    public formValidator: FormValidatorService)
+    public formValidator: FormValidatorService,
+    public title: Title)
   {
     this.product = new Product();
     this.stepNb = 0;
@@ -41,6 +47,7 @@ export class ProductCreationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pageNameManager.setTitle(this.pageTitle);
     this.previousOn = false;
     this.nextOn = false;
   }

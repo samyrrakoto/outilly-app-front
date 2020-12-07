@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Sale } from 'src/app/models/sale';
@@ -28,9 +29,10 @@ export class UserSalesRunningComponent extends UserSalesComponent implements OnI
     public purchaseManager: PurchaseManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
-    protected location: Location)
+    protected location: Location,
+    public title: Title)
   {
-    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location);
+    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location, title);
     this.runningSales = [];
   }
 

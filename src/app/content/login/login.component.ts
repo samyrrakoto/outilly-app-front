@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,11 +12,16 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Connexion';
 
-  constructor(private auth: AuthService,
-    private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private title: Title) {}
 
   ngOnInit() {
+    this.pageNameManager.setTitle(this.pageTitle);
     const accessToken: string = this.auth.getTokenStatus();
 
     if (accessToken === 'good') {

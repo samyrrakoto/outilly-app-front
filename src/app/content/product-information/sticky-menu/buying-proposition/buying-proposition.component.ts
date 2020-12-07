@@ -22,6 +22,7 @@ export class BuyingPropositionComponent implements OnInit {
   purchases: Array<Purchase>;
   currentPurchase: Purchase;
   id: number;
+  bidPlaced: boolean = false;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute,
@@ -40,9 +41,13 @@ export class BuyingPropositionComponent implements OnInit {
   ngOnInit(): void {}
 
   public placeBid(amount: number): void {
+    const message: string = 'Votre offre de ' + amount + '€ a bien été envoyée';
+    const classes: string[] = ['confirmation-notification'];
+
     if (this.checkBidValue(amount)) {
       this.bidManager.place(amount * 100, this.sale.id);
-      this.notification.display('Votre offre a bien été envoyée', 'proposition');
+      this.bidPlaced = true;
+      this.notification.display(message, 'proposition', classes, -1);
     }
   }
 

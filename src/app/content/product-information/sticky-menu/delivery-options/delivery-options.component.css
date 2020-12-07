@@ -26,10 +26,18 @@
   margin-top: 15px;
 }
 
+#mondial img, #hand img {
+  width: auto;
+}
+
 #mondial img {
   height: 30px;
-  width: auto;
   margin-bottom: 2px;
+}
+
+#hand img {
+  height: 20px;
+  margin-bottom: -5px;
 }
 
 #mondial .content {

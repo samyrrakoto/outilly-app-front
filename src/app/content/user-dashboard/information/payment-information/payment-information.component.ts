@@ -4,6 +4,7 @@ import { RequestService } from './../../../../services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InformationComponent } from './../information.component';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-information',
@@ -17,8 +18,10 @@ export class PaymentInformationComponent extends InformationComponent implements
   constructor(protected request: RequestService,
     protected auth: AuthService,
     protected router: Router,
-    protected route: ActivatedRoute) {
-    super(request, auth, router, route);
+    protected route: ActivatedRoute,
+    public title: Title)
+  {
+    super(request, auth, router, route, title);
     this.modals = new Modals();
     this.modals.addModal('card');
     this.url = '';

@@ -9,6 +9,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { Location } from '@angular/common';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { Modals } from 'src/app/models/modals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-sales-confirmed',
@@ -32,9 +33,10 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     public purchaseManager: PurchaseManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
-    protected location: Location)
+    protected location: Location,
+    public title: Title)
   {
-    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location);
+    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location, title);
     this.sellerOrders = [];
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');

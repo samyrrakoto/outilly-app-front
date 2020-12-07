@@ -9,6 +9,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { ProductReference } from 'src/app/models/product-reference';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-reference',
@@ -21,12 +22,14 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
   references: any[];
   filteredOptions: Observable<Array<string>>;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
-    public formValidatorService: FormValidatorService)
+    public formValidatorService: FormValidatorService,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

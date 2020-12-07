@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -18,9 +19,10 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    private auth: AuthService)
+    private auth: AuthService,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

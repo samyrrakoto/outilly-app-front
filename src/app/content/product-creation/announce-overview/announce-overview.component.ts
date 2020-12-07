@@ -9,6 +9,7 @@ import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Product } from 'src/app/models/product';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-announce-overview',
@@ -31,13 +32,14 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     public formValidator: FormValidatorService,
     public auth: AuthService,
     public encoding: EncodingService,
-    public location: Location)
-    {
-      super(request, formData, router, formValidator);
-      this.product = formData.product;
-      this.isSaleCreated = false;
-      this.isLoading = false;
-    }
+    public location: Location,
+    public title: Title)
+  {
+    super(request, formData, router, formValidator, title);
+    this.product = formData.product;
+    this.isSaleCreated = false;
+    this.isLoading = false;
+  }
 
   ngOnInit(): void {
     this.auth.getLogStatus()

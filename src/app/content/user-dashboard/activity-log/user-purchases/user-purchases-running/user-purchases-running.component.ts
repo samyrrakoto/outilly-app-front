@@ -8,6 +8,7 @@ import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Location } from '@angular/common';
 import { Purchase } from 'src/app/models/purchase';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-purchases-running',
@@ -24,9 +25,10 @@ export class UserPurchasesRunningComponent extends UserPurchasesComponent implem
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
-    public location: Location)
+    public location: Location,
+    public title: Title)
   {
-    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location);
+    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location, title);
     this.purchases = [];
   }
 }

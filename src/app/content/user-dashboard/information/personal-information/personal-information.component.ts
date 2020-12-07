@@ -1,21 +1,26 @@
 import { DashboardValidatorService } from 'src/app/services/dashboard-validator.service';
 import { Address } from 'src/app/models/address';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InformationComponent } from '../information.component';
 import { Modals } from 'src/app/models/modals';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Title } from '@angular/platform-browser';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css']
 })
-export class PersonalInformationComponent extends InformationComponent implements OnInit {
+export class PersonalInformationComponent implements OnInit {
   idNames: Array<string>;
   nextIndex: number;
+  @Input() url: string;
+  @Input() user: User;
+  @Input() birthdate: string;
   readonly genders: Array<string> = ['male', 'female', 'other'];
   readonly genderNames: Array<string> = ['Homme', 'Femme', 'Autre'];
   readonly isoCodes: Array<string> = ['FR', 'CH', 'LU', 'BE'];
@@ -31,8 +36,9 @@ export class PersonalInformationComponent extends InformationComponent implement
     protected router: Router,
     public dashboardValidator: DashboardValidatorService,
     public notification: NotificationService,
-    public route: ActivatedRoute) {
-    super(request, auth, router, route);
+    public route: ActivatedRoute,
+    public title: Title)
+  {
     this.idNames = [];
     this.nextIndex = 0;
     this.modals = new Modals();
@@ -43,16 +49,7 @@ export class PersonalInformationComponent extends InformationComponent implement
     this.idMedias = [];
   }
 
-  ngOnInit(): void {
-    this.route.url.subscribe((url: any) => {
-      this.url = url[0].path;
-
-      if (this.url === 'personal-information') {
-        this.setFocus(this.informationTabs, 'personal-information');
-      }
-    });
-    this.getUserInfos();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
     this.getInputId('input');
@@ -111,7 +108,7 @@ export class PersonalInformationComponent extends InformationComponent implement
           this.notification.display('Vos information de contact ont bien été modifiées', 'contact-information');
         },
         error: () => {
-          this.notification.display('Une erreur est survenue', 'contact-information', 'error');
+          this.notification.display('Une erreur est survenue', 'contact-information', ['is-danger']);
         }
       })
     }
@@ -170,7 +167,7 @@ export class PersonalInformationComponent extends InformationComponent implement
         this.notification.display('L\'adresse a bien été modifiée', 'addresses');
       },
       error: () => {
-        this.notification.display('Une erreur est survenue', 'addresses', 'error');
+        this.notification.display('Une erreur est survenue', 'addresses', ['is-danger']);
       }
     })
   }
@@ -192,7 +189,7 @@ export class PersonalInformationComponent extends InformationComponent implement
         this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
       },
       error: () => {
-        this.notification.display('Le mot de passe actuel est erroné !', 'security', 'error');
+        this.notification.display('Le mot de passe actuel est erroné !', 'security', ['is-danger']);
       }
     });
   }

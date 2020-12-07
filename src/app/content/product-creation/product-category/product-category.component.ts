@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductCategory } from 'src/app/models/product-category';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-category',
@@ -16,12 +17,14 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
   private chosenCategories: number;
   readonly maxCategories: number = 2;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
-    public formValidatorService: FormValidatorService)
+    public formValidatorService: FormValidatorService,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

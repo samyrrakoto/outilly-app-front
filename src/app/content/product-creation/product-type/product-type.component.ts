@@ -5,6 +5,7 @@ import { FormDataService } from './../../../services/form-data.service';
 import { RequestService } from './../../../services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductType } from 'src/app/models/product-type';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-type',
@@ -16,12 +17,14 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
   private chosenTypes: number;
   readonly maxTypes: number = 100;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
-    public formValidatorService: FormValidatorService)
+    public formValidatorService: FormValidatorService,
+    public title: Title)
   {
-    super(request, formData, router, formValidatorService);
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

@@ -10,13 +10,15 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-purchases',
   templateUrl: './user-purchases.component.html',
   styleUrls: ['../../user-dashboard.component.css', './user-purchases.component.css']
 })
-export class UserPurchasesComponent extends ActivityLogComponent implements OnInit {
+export class UserPurchasesComponent implements OnInit {
+  @Input() url: string;
   @Input() purchaseStatus: string;
   @Output() requiresEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Input() purchases: Array<Purchase>;
@@ -32,9 +34,9 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
     public purchaseManager: PurchaseManagerService,
     public saleManager: SaleManagerService,
     public bidManager: BidManagerService,
-    public location: Location)
+    public location: Location,
+    public title: Title)
   {
-    super(request, auth, router, route, purchaseManager, location, saleManager);
     this.modals = new Modals();
     this.modals.addModal('purchase-explanation');
     this.modals.addModal('acceptOffer');
@@ -45,20 +47,6 @@ export class UserPurchasesComponent extends ActivityLogComponent implements OnIn
   }
 
   ngOnInit(): void {
-    this.getUrl();
-  }
-
-  public getUrl(): Promise<any> {
-    return new Promise((resolve) => {
-      this.route.url.subscribe((url: any) => {
-        this.url = url[0].path;
-
-        if (this.url === 'purchases') {
-          this.setFocus(this.activityTabs, 'user-purchases');
-        }
-        resolve();
-      });
-    });
   }
 
   public createBid(bidId: number): Bid {

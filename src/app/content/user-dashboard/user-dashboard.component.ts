@@ -1,9 +1,11 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { User } from './../../models/user';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Address } from 'src/app/models/address';
+import { Title } from '@angular/platform-browser';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -11,23 +13,41 @@ import { Address } from 'src/app/models/address';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-  user: User;
-  birthdate: string;
-  url: string;
+  url: string = '';
+  birthdate: string = '';
+  user: User = new User();
+  dashboardTab: string = 'information';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly menuTabs: Array<string> = ['information', 'activities', 'sell'];
+  readonly pageTitle: string = 'Tableau de bord';
 
-  constructor(protected request: RequestService,
+  constructor(
+    protected request: RequestService,
     protected auth: AuthService,
-    protected router: Router) {
-    this.user = new User();
-    this.birthdate = '';
-    this.url = '';
-  }
+    protected router: Router,
+    public title: Title)
+  {}
 
   ngOnInit(): void {
+    this.pageNameManager.setTitle(this.pageTitle);
+    this.getUserInfos();
   }
 
   ngAfterViewChecked(): void {}
+
+  public logOut(): void {
+    this.auth.logout();
+  }
+
+  public setFocus(tabs: Array<string>, id: string): void {
+    for (const tab of tabs) {
+      if (tab !== id) {
+        document.getElementById(tab).classList.remove('is-active');
+      }
+    }
+
+    document.getElementById(id).classList.add('is-active');
+  }
 
   protected getUserInfos() {
     this.request.getUserInfos().subscribe(
@@ -73,19 +93,5 @@ export class UserDashboardComponent implements OnInit {
       this.user.userProfile.addresses[i] = address;
       i++;
     }
-  }
-
-  public logOut(): void {
-    this.auth.logout();
-  }
-
-  public setFocus(tabs: Array<string>, id: string): void {
-    for (const tab of tabs) {
-      if (tab !== id) {
-        document.getElementById(tab).classList.remove('is-active');
-      }
-    }
-
-    document.getElementById(id).classList.add('is-active');
   }
 }

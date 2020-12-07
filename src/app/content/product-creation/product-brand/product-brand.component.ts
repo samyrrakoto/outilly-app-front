@@ -8,6 +8,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } fr
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-brand',
@@ -20,8 +21,14 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
   brands: Array<string>;
   filteredOptions: Observable<Array<string>>;
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
-    super(request, formData, router, formValidatorService);
+  constructor(
+    public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public title: Title)
+  {
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

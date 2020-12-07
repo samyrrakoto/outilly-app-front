@@ -4,6 +4,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-is-warrantied',
@@ -12,8 +13,14 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 })
 export class IsWarrantiedComponent extends ProductCreationComponent implements OnInit {
 
-  constructor(public request: RequestService, public formData: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
-    super(request, formData, router, formValidatorService);
+  constructor(
+    public request: RequestService,
+    public formData: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public title: Title)
+  {
+    super(request, formData, router, formValidatorService, title);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

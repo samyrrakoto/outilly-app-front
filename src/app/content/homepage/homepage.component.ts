@@ -1,4 +1,6 @@
+import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
@@ -13,8 +15,13 @@ export class HomepageComponent implements OnInit {
   sales: any[];
   filtersNb: number;
   loadMore: number;
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Accueil';
 
-  constructor(private request: RequestService) {
+  constructor(
+    private request: RequestService,
+    private title: Title)
+  {
     this.allCategories = [];
     this.allTypes = [];
     this.decreasingPrice = false;
@@ -23,6 +30,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pageNameManager.setTitle(this.pageTitle);
     this.getCategories()
       .then(() => this.getTypes())
       .then(() => {});
