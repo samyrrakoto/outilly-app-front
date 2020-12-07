@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { Modals } from 'src/app/models/modals';
 import { Sale } from 'src/app/models/sale';
-import { prices } from 'src/app/superglobal';
+import { prices } from 'src/app/parameters';
 
 @Component({
   selector: 'buying-confirmation',

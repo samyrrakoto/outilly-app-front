@@ -1,4 +1,4 @@
-import { prices } from 'src/app/superglobal';
+import { prices } from 'src/app/parameters';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';

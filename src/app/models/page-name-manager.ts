@@ -1,4 +1,4 @@
-import { pageInfo } from 'src/app/superglobal';
+import { pageInfo } from 'src/app/parameters';
 import { Title } from '@angular/platform-browser';
 
 export class PageNameManager {
