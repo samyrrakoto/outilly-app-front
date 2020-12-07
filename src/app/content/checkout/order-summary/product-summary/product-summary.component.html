@@ -12,7 +12,9 @@
 
       <div class="content desktop-field has-text-left">
         <fa-icon [icon]="['fas', 'tag']"></fa-icon>&nbsp;<span class="bold">Marque</span>&nbsp;:
-        <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+        <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
+          {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
+        </span>
       </div>
 
       <div class="content desktop-field has-text-left">
@@ -46,7 +48,9 @@
           <fa-icon [icon]="['fas', 'tag']"></fa-icon><span class="bold">&nbsp;Marque</span>
         </div>
         <div class="content tablet-field">
-          <span *ngFor="let brand of sale.product.brands">{{ brand.name }}</span>
+          <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
+            {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
+          </span>
         </div>
       </div>
 
