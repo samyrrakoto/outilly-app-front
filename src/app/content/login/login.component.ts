@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
-  readonly pageTitle: string = 'Outilly | Connexion';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Connexion';
 
   constructor(
     private auth: AuthService,
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
     private title: Title) {}
 
   ngOnInit() {
-    this.title.setTitle(this.pageTitle);
+    this.pageNameManager.setTitle(this.pageTitle);
     const accessToken: string = this.auth.getTokenStatus();
 
     if (accessToken === 'good') {

@@ -1,3 +1,4 @@
+import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RequestService } from 'src/app/services/request.service';
@@ -14,7 +15,8 @@ export class HomepageComponent implements OnInit {
   sales: any[];
   filtersNb: number;
   loadMore: number;
-  readonly pageTitle: string = 'Outilly | Accueil';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Accueil';
 
   constructor(
     private request: RequestService,
@@ -28,7 +30,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.pageTitle);
+    this.pageNameManager.setTitle(this.pageTitle);
     this.getCategories()
       .then(() => this.getTypes())
       .then(() => {});

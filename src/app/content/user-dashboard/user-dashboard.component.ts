@@ -5,6 +5,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Address } from 'src/app/models/address';
 import { Title } from '@angular/platform-browser';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -16,8 +17,9 @@ export class UserDashboardComponent implements OnInit {
   birthdate: string = '';
   user: User = new User();
   dashboardTab: string = 'information';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly menuTabs: Array<string> = ['information', 'activities', 'sell'];
-  readonly pageTitle: string = 'Outilly | Tableau de bord';
+  readonly pageTitle: string = 'Tableau de bord';
 
   constructor(
     protected request: RequestService,
@@ -27,7 +29,7 @@ export class UserDashboardComponent implements OnInit {
   {}
 
   ngOnInit(): void {
-    this.title.setTitle(this.pageTitle);
+    this.pageNameManager.setTitle(this.pageTitle);
     this.getUserInfos();
   }
 

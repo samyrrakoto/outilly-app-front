@@ -1,3 +1,4 @@
+import { prices } from 'src/app/superglobal';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -8,6 +9,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Title } from '@angular/platform-browser';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 
 @Component({
   selector: 'app-product-information',
@@ -29,7 +31,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   maxPrice: number;
   errorMsg: any;
   openMenuState: boolean;
-  pageTitle: string = 'Outilly | ';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
 
   constructor(
     public request: RequestService,
@@ -119,9 +121,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
       response.subscribe((sale: any) => {
         this.sale = sale;
-        this.title.setTitle(this.pageTitle + this.sale.product.name);
+        this.pageNameManager.setTitle(sale.product.name);
         this.proposedPrice = this.sale.product.reservePrice / 100;
-        this.minPrice = Math.round((this.sale.product.reservePrice / 100) * 0.72);
+        this.minPrice = Math.round((this.sale.product.reservePrice / 100) * prices.MIN_PRICE_FACTOR);
         this.maxPrice = (this.sale.product.reservePrice / 100) - 1;
         this.errorMsg = {
           delivery: 'Veuillez choisir un mode de livraison',

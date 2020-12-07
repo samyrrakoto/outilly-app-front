@@ -8,6 +8,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Sale } from 'src/app/models/sale';
 import { Title } from '@angular/platform-browser';
+import { PageNameManager } from 'src/app/models/page-name-manager';
 
 @Component({
   selector: 'app-payment-details',
@@ -29,7 +30,8 @@ export class PaymentDetailsComponent implements OnInit {
   cardCvx: string;
   saleId: string;
   loading: boolean;
-  readonly pageTitle: string = 'Outilly | Paiement';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Paiement';
 
   constructor(private request: RequestService,
     private router: Router,
@@ -49,7 +51,7 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.pageTitle);
+    this.pageNameManager.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
     this.auth.getLogStatus();
     this.saleManager.getSaleAvailability(this.saleId)

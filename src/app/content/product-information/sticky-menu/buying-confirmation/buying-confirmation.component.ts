@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { Modals } from 'src/app/models/modals';
 import { Sale } from 'src/app/models/sale';
+import { prices } from 'src/app/superglobal';
 
 @Component({
   selector: 'buying-confirmation',
@@ -27,7 +28,9 @@ export class BuyingConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.securisationFees = this.priceToPay * 0.06;
+    this.securisationFees = this.priceToPay * prices.SECURISATION_FEES_FACTOR > prices.SECURISATION_FEES_MINIMUM
+    ? this.priceToPay * prices.SECURISATION_FEES_FACTOR
+    : prices.SECURISATION_FEES_MINIMUM;
   }
 
   public goToCheckout(): void {

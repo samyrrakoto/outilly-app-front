@@ -1,3 +1,4 @@
+import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -27,7 +28,8 @@ export class OrderSummaryComponent implements OnInit {
   deliveryMethod: string;
   areConditionsAccepted: boolean;
   priceToPay: number;
-  readonly pageTitle: string = 'Outilly | Récapitulatif de commande';
+  pageNameManager: PageNameManager = new PageNameManager(this.title);
+  readonly pageTitle: string = 'Récapitulatif de commande';
 
   constructor(public request: RequestService,
     public router: Router,
@@ -43,7 +45,7 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): Promise<any> {
-    this.title.setTitle(this.pageTitle);
+    this.pageNameManager.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
 
     return new Promise((resolve) => {
