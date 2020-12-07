@@ -98,6 +98,10 @@
   word-break: break-all;
 }
 
+.break-word {
+  word-break: break-word !important;
+}
+
 .no-overflow {
   white-space: normal;
   padding: 8px;

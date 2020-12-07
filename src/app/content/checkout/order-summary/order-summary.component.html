@@ -7,7 +7,8 @@
     <app-product-summary
       [sale]=sale
       [priceToPay]=priceToPay>
-  </app-product-summary>
+    </app-product-summary>
+
     <app-delivery-summary *ngIf="deliveryMethod === 'mondial-relay'"
       [relayId]=relayId
       [relayCountry]=relayCountry>
@@ -18,6 +19,7 @@
   <!-- Side information -->
   <div class="column is-3">
     <app-information-summary
+      [deliveryMethod]=deliveryMethod
       (userEmitter)=getUser($event)
       (recipientEmitter)=getRecipient($event)>
     </app-information-summary>

@@ -10,7 +10,7 @@ export class AnonymizePipe implements PipeTransform {
     let i: number = 0;
 
     for (const char of str) {
-      result += i <= min ? char : '*';
+      result += i < min ? char : '*';
       i++;
     }
     return result;

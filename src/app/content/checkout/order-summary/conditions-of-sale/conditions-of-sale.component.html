@@ -1,7 +1,7 @@
 <div id="conditions-of-sale" class="content has-text-centered">
   <label class="checkbox">
     <input (click)="addNewItem()" type="checkbox">
-    J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGU</span> et les <span (click)="modals.open('conditions-of-sale')" class="underline brandName">CGV</span>.
+    J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGVU</span>.
   </label>
 </div>
 
@@ -14,14 +14,4 @@
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('conditions-of-use')"></button>
-</div>
-
-<div class="modal {{ modals.get('conditions-of-sale') }}">
-  <div class="modal-background" (click)="modals.close('conditions-of-sale')"></div>
-  <div class="modal-content">
-    <div class="box">
-      Nos conditions de vente !
-    </div>
-  </div>
-  <button class="modal-close is-large" aria-label="close" (click)="modals.close('conditions-of-sale')"></button>
 </div>

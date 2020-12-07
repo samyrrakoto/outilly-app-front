@@ -1,5 +1,14 @@
+.box {
+  margin-top: 20px;
+}
+
 #hands-icon {
   font-size: 2em;
   font-weight: bold;
   color: var(--KTKP-GREEN);
+}
+
+#hand-logo {
+  height: 20px;
+  width: auto;
 }

@@ -7,7 +7,7 @@
 }
 
 #product-image-desktop {
-  width: 200px;
+  min-width: 200px;
   height: auto;
 }
 

@@ -23,7 +23,6 @@ export class NotificationService {
 
   private addClasses(elem: HTMLDivElement, HtmlClasses: string[]): void {
     for (const HtmlClass of HtmlClasses) {
-      console.log(HtmlClass);
       elem.classList.add(HtmlClass);
     }
   }

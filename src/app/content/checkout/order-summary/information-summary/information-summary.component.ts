@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +13,7 @@ import { Modals } from 'src/app/models/modals';
   styleUrls: ['../order-summary.component.css', './information-summary.component.css']
 })
 export class InformationSummaryComponent implements OnInit {
+  @Input() deliveryMethod: string;
   user: User;
   recipient: Recipient;
   modals: Modals;
@@ -53,10 +54,6 @@ export class InformationSummaryComponent implements OnInit {
           this.user = value;
           this.userEmitter.emit(this.user);
           resolve();
-        },
-        error: () => {
-          this.errorHandle('');
-          reject();
         }
       });
     });
@@ -77,23 +74,4 @@ export class InformationSummaryComponent implements OnInit {
     this.user.userProfile.email = this.recipient.email;
     this.recipientEmitter.emit(this.recipient);
   }
-
-  protected errorHandle(type: string): void {
-    switch (type) {
-      case 'bid':
-      case 'sale':
-        this.deconnect()
-          .then(() => sessionStorage.setItem('redirect_after_login', 'checkout/order-summary'));
-          break;
-      default:
-        this.deconnect();
-        break;
-    }
-  }
-
-    private deconnect(): Promise<string> {
-      return new Promise (() => {
-        this.auth.logout();
-      });
-    }
 }
