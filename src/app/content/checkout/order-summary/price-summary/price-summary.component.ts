@@ -7,6 +7,7 @@ import { OrderSummaryComponent } from '../order-summary.component';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { Sale } from 'src/app/models/sale';
+import { prices } from 'src/app/parameters';
 
 @Component({
   selector: 'app-price-summary',
@@ -41,7 +42,9 @@ export class PriceSummaryComponent implements OnInit {
   }
 
   private getFees(): void {
-    this.commissionFees = this.priceToPay * 0.06;
+    this.commissionFees = this.priceToPay * prices.SECURISATION_FEES_FACTOR > prices.SECURISATION_FEES_MINIMUM
+    ? this.priceToPay * prices.SECURISATION_FEES_FACTOR
+    : prices.SECURISATION_FEES_MINIMUM;
     this.deliveryFees = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
     this.totalPrice = this.priceToPay + this.commissionFees + this.deliveryFees;
   }
