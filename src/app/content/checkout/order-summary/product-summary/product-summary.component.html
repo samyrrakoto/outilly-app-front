@@ -29,11 +29,6 @@
         <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>&nbsp;&nbsp;<span class="bold">Localisation</span> :
         {{ sale.product.locality }}
       </div>
-
-      <div id="product-price" class="content has-text-centered">
-        Prix : <span *ngIf="sale.product.reservePrice !== priceToPay" class="price sold">{{ sale.product.reservePrice | currency:'full'}}€</span>&nbsp;
-        <span class="price">{{ priceToPay | currency:'full'}}€</span>
-      </div>
     </div>
   </div>
 
@@ -83,11 +78,6 @@
           {{ sale.product.locality }}
         </div>
       </div>
-    </div>
-
-    <div id="product-price" class="content has-text-centered">
-      Prix : <span *ngIf="sale.product.reservePrice !== priceToPay" class="price sold">{{ sale.product.reservePrice | currency:'full'}}€</span>&nbsp;
-      <span class="price">{{ priceToPay | currency:'full'}}€</span>
     </div>
   </div>
 </div>
