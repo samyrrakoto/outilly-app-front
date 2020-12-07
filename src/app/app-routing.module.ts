@@ -1,3 +1,4 @@
+import { ProductEditionComponent } from './content/product-edition/product-edition.component';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
 import { ProductReference } from './models/product-reference';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
@@ -311,6 +312,10 @@ const routes: Routes = [
         component: AnnounceOverviewComponent
       }
     ]
+  },
+  {
+    path: 'product/edition/:saleId',
+    component: ProductEditionComponent
   },
   {
     path: 'product/:slug/:id',

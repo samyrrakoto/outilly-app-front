@@ -130,6 +130,7 @@ import { CategoryProductsComponent } from './content/homepage/products/category-
 import { AnonymizePipe } from './pipes/anonymize.pipe';
 import { ProductInformationIncentivesComponent } from './content/product-information/general-information/product-information-incentives/product-information-incentives.component';
 import { FormStepComponent } from './models/form-step/form-step.component';
+import { ProductEditionComponent } from './content/product-edition/product-edition.component';
 
 @NgModule({
   declarations: [
@@ -251,6 +252,7 @@ import { FormStepComponent } from './models/form-step/form-step.component';
     AnonymizePipe,
     ProductInformationIncentivesComponent,
     FormStepComponent,
+    ProductEditionComponent,
   ],
   imports: [
     HttpClientModule,
