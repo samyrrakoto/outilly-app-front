@@ -1,39 +1,41 @@
 <div id="proposition" class="content">
 
-  <div class="content">
-    <h2 class="subtitle">Quel montant souhaitez-vous proposer au vendeur ?</h2>
+  <div *ngIf="!bidPlaced">
+    <div class="content">
+      <h2 class="subtitle">Quel montant souhaitez-vous proposer au vendeur ?</h2>
 
-    <p id="info" class="content warning">
-      <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
-      Vous ne pouvez négocier qu'une seule fois et n'aurez pas la possibilité de négocier de nouveau avec le vendeur.
-      Ne laissez pas passer votre chance si le prix est intéressant. :-)
-    </p>
+      <p id="info" class="content warning">
+        <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+        Vous ne pouvez négocier qu'une seule fois et n'aurez pas la possibilité de négocier de nouveau avec le vendeur.
+        Ne laissez pas passer votre chance si le prix est intéressant. :-)
+      </p>
 
-    <div class="columns is-vcentered">
-      <div class="column has-text-weight-bold">
-        Montant :
+      <div class="columns is-vcentered">
+        <div class="column has-text-weight-bold">
+          Montant :
 
-        <div id="proposition-price" class="control has-icons-right">
-          <input class="input has-text-centered-mobile" type="number" placeholder="{{ sale.product.reservePrice | currency:'full' }}" [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
-          <span id="devise" class="icon is-small is-right">
-            <fa-icon [icon]="['fas', 'euro-sign']"></fa-icon>
-          </span>
+          <div id="proposition-price" class="control has-icons-right">
+            <input class="input no-border has-text-centered-mobile" type="number" placeholder="{{ sale.product.reservePrice | currency:'full' }}" [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
+            <span id="devise" class="icon is-small is-right">
+              <fa-icon [icon]="['fas', 'euro-sign']"></fa-icon>
+            </span>
+          </div>
+        </div>
+
+        <div class="column">
+          <button class="button is-danger" (click)="placeBid(sticky.proposedPrice)">Envoyer ma proposition</button>
         </div>
       </div>
-
-      <div class="column">
-        <button class="button is-danger" (click)="placeBid(sticky.proposedPrice)">Envoyer ma proposition</button>
-      </div>
     </div>
-  </div>
 
-  <div class="content">
-    <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
-    <span *ngIf="sticky.proposedPrice > sticky.maxPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.highPrice }}€.</span>
-  </div>
+    <div class="content">
+      <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
+      <span *ngIf="sticky.proposedPrice > sticky.maxPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.highPrice }}€.</span>
+    </div>
 
-  <button class="button normal" (click)="sticky.previousStep()">
-    <fa-icon class="return" [icon]="['fas', 'chevron-left']"></fa-icon>
-    Revenir au prix initial
-  </button>
+    <button class="button normal" (click)="sticky.previousStep()">
+      <fa-icon class="return" [icon]="['fas', 'chevron-left']"></fa-icon>
+      Revenir au prix initial
+    </button>
+  </div>
 </div>

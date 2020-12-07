@@ -108,7 +108,7 @@ export class PersonalInformationComponent implements OnInit {
           this.notification.display('Vos information de contact ont bien été modifiées', 'contact-information');
         },
         error: () => {
-          this.notification.display('Une erreur est survenue', 'contact-information', 'error');
+          this.notification.display('Une erreur est survenue', 'contact-information', ['is-danger']);
         }
       })
     }
@@ -167,7 +167,7 @@ export class PersonalInformationComponent implements OnInit {
         this.notification.display('L\'adresse a bien été modifiée', 'addresses');
       },
       error: () => {
-        this.notification.display('Une erreur est survenue', 'addresses', 'error');
+        this.notification.display('Une erreur est survenue', 'addresses', ['is-danger']);
       }
     })
   }
@@ -189,7 +189,7 @@ export class PersonalInformationComponent implements OnInit {
         this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
       },
       error: () => {
-        this.notification.display('Le mot de passe actuel est erroné !', 'security', 'error');
+        this.notification.display('Le mot de passe actuel est erroné !', 'security', ['is-danger']);
       }
     });
   }
