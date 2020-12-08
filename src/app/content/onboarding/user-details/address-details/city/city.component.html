@@ -1,25 +1,31 @@
 <div class="content has-text-left">
-    <div class="field">
-        <app-step-label
-        [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+  <div class="field">
+    <app-step-label
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
 
-        <p class="control has-icons-left">
-            <input #city class="input" type="text" placeholder="{{ this.placeholder }}" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.mainAddress.city">
-            <span class="icon is-left">
-                <fa-icon [icon]="['fas', 'globe-europe']"></fa-icon>
-            </span>
-        </p>
-    </div>
+    <form [formGroup]="form">
+      <p class="control">
+        <input id="city" class="input" type="text" placeholder="{{ this.placeholder }}"
+        (keydown)="onKey($event)"
+        [(ngModel)]="user.userProfile.mainAddress.city"
+        formControlName="city">
+      </p>
+    </form>
+  </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
+<!-- Errors display -->
+<div *ngIf="controls.city.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.city.errors }">
+  <div class="error" *ngIf="controls.city.errors.required">La ville est requise</div>
 </div>
 
 <app-navigation
-  [data]=formDataService
-  [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.city.errors
+  [data]="formDataService"
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>

@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './last-name.component.css']
 })
 export class LastNameComponent extends StepForm {
-  readonly root: string = 'onboarding/';
+  readonly root: string = '/onboarding/';
   user: User;
   form: FormGroup;
 

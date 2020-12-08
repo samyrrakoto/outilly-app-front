@@ -6,23 +6,25 @@
         [isMandatory]=isMandatory></app-step-label>
 
         <label class="radio">
-            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value=true>
+            <input type="radio" id="yes"
+            (keydown)="onKey($event)"
+            [(ngModel)]="user.userProfile.emailOptin" value=true>
             Oui
         </label>
         <label class="radio">
-            <input type="radio" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.emailOptin" value=false>
+            <input type="radio" id="no"
+            (keydown)="onKey($event)"
+            [(ngModel)]="user.userProfile.emailOptin" value=false>
             Non
         </label>
     </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
-</div>
-
 <app-navigation
-  [data]=formDataService
-  [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.emailOptin.errors
+  [data]="formDataService"
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>
