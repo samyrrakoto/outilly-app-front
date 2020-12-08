@@ -1,6 +1,6 @@
-<div class="level is-mobile">
+<div class="level is-mobile" [ngStyle]="{'margin-bottom': '0px'}">
   <div class="level-left">
-    <p *ngIf="data.path.previous !== ''" class="control">
+    <p *ngIf="path.previous !== ''" class="control">
       <button class="button nav-arrow is-large has-icons-left" type="button" (click)="previous()">
 
         <div class="icon is-left">
@@ -19,7 +19,6 @@
   </div>
 
   <div class="level-right">
-    <p class="control">
       <button class="button nav-arrow is-large has-icons-right"
       type="button"
       (click)="next()"
@@ -28,6 +27,15 @@
           <fa-icon [icon]="['fas', 'arrow-circle-right']"></fa-icon>
         </div>
       </button>
-    </p>
+  </div>
+</div>
+
+<div *ngIf="!disabledEnterKey" class="level is-hidden-mobile" [ngStyle]="{'margin-top': '5px'}">
+  <div class="level-left">
+  </div>
+
+  <div class="level-right">
+    <img id="enter-key" src="/assets/img/icon/keyboard-key-enter-icon.png"
+    [ngClass]="{'is-invalid': controls !== null }">
   </div>
 </div>

@@ -10,6 +10,8 @@ export class StepForm {
   isMandatory: boolean = true;
   nextOn: boolean = false;
   previousOn: boolean = false;
+  disabledEnterKey: boolean = false;
+  disabledNgCheck: boolean = false;
 
   // Keyboard shortcuts
   public onKey(event: KeyboardEvent): void {

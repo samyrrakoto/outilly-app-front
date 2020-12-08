@@ -10,3 +10,16 @@
 .is-invalid {
   color: var(--KTKP-GREY);
 }
+
+.is-invalid:hover {
+  color: var(--KTKP-GREY);
+}
+
+#enter-key {
+  height: 20px;
+  padding-right: 20px;
+}
+
+.is-invalid#enter-key {
+  opacity: 0.5;
+}

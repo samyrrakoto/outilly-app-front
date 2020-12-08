@@ -12,8 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './email.component.css']
 })
 export class EmailComponent extends StepForm {
-  @ViewChild('email') email: ElementRef;
-  readonly root: string = 'onboarding/';
+  readonly root: string = '/onboarding/';
   user: User = new User();
   form: FormGroup;
 
@@ -29,9 +28,9 @@ export class EmailComponent extends StepForm {
     this.user = formDataService.user;
     this.stepNb = 1;
     this.stepName = "Quelle est votre adresse e-mail ?";
-    this.formDataService.path.current = "1/email";
-    this.formDataService.path.previous = "";
-    this.formDataService.path.next = "3/firstname";
+    this.path.current = "1/email";
+    this.path.previous = "";
+    this.path.next = "2/firstname";
     this.placeholder = "jeanmarc78@aol.fr";
   }
 

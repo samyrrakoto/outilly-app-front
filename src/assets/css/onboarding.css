@@ -1,0 +1,52 @@
+.input, .input:focus, .input:enabled {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  color: #727272;
+  border-left: solid 3px var(--KTKP-GREEN);
+}
+
+.control fa-icon {
+color: black;
+}
+
+.columns {
+  margin-top: 100px;
+}
+
+.label {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.asterisque {
+  font-weight: bold;
+  color: #E35557;
+}
+
+.error {
+  color: #E35557;
+}
+
+.select, select {
+  width: 100%;
+}
+
+.is-invalid.input {
+border-left-color: var(--MAT-GREY);
+}
+
+.is-invalid.error {
+color: var(--KTKP-RED);
+}
+
+@media screen and (max-width: 768px) {
+  .field {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .error {
+    padding-left: 25px;
+  }
+}
