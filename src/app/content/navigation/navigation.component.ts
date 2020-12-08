@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Path } from 'src/app/models/Path/path';
 
 @Component({
   selector: 'app-navigation',
@@ -10,11 +12,15 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 })
 export class NavigationComponent implements OnChanges {
   @Input() data: FormDataService;
+  @Input() disabledEnterKey: boolean;
+  @Input() path: Path;
   @Input() rootUri: string;
   @Input() previousOn: boolean;
   @Input() nextOn: boolean;
+  @Input() controls: ValidationErrors;
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     public formValidator: FormValidatorService)
   {
     this.nextOn = false;
@@ -43,14 +49,14 @@ export class NavigationComponent implements OnChanges {
   }
 
   public next(): void {
-    const path: string = this.rootUri + this.data.path.next;
+    const path: string = this.rootUri + this.path.next;
 
     // Verifying that the field matches the constraints before going further
-    if (this.formValidator.verify(this.data)) {
+    if (this.controls === null) {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
-      if (this.data.path.current === '6/status' && this.data.user.userProfile.type === 'professional') {
-        this.goTo('6/status/siret');
+      if (this.path.current === '5/status' && this.data.user.userProfile.type === 'professional') {
+        this.goTo('5/status/siret');
       }
       else {
         this.router.navigateByUrl(path);
@@ -59,7 +65,7 @@ export class NavigationComponent implements OnChanges {
   }
 
   public previous(): void {
-    const path: string = this.rootUri + this.data.path.previous;
+    const path: string = this.rootUri + this.path.previous;
 
     this.router.navigateByUrl(path);
   }

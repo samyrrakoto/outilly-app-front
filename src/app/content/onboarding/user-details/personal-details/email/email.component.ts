@@ -1,32 +1,60 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { StepForm } from './../../../../../models/step-form';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { User } from 'src/app/models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
   styleUrls: ['../../../onboarding.component.css', './email.component.css']
 })
-export class EmailComponent extends OnboardingComponent {
-  @ViewChild('email') email: ElementRef;
+export class EmailComponent extends StepForm {
+  readonly root: string = '/onboarding/';
+  user: User = new User();
+  form: FormGroup;
 
-  constructor(public formDataService: FormDataService, public router: Router, public formValidatorService: FormValidatorService) {
-    super(formDataService, router, formValidatorService);
+  constructor(
+    public formDataService: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public formBuilder: FormBuilder)
+  {
+    super();
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "email";
-    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = 2;
+    this.stepNb = 1;
     this.stepName = "Quelle est votre adresse e-mail ?";
-    this.formDataService.path.current = "2/email";
-    this.formDataService.path.previous = "1/username";
-    this.formDataService.path.next = "3/firstname";
-    this.placeholder = "(ex : jeanmarc78@aol.fr )";
+    this.path.current = "1/email";
+    this.path.previous = "";
+    this.path.next = "2/firstname";
+    this.placeholder = "jeanmarc78@aol.fr";
+  }
+
+  ngOnInit(): void {
+    this.getForm();
   }
 
   ngAfterViewInit(): void {
-    this.email.nativeElement.focus();
+    document.getElementById('email').focus();
+  }
+
+  ngOnChanges() {
+    if (this.formDataService) {
+      !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    }
+  }
+
+  public getForm(): void {
+    this.form = this.formBuilder.group({
+      mail: [this.user.userProfile.email, [Validators.required, Validators.email]],
+    });
+  }
+
+  public get controls() {
+    return this.form.controls;
   }
 }

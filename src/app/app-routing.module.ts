@@ -143,42 +143,38 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path: '', redirectTo: '1/username', pathMatch: 'full'
+        path: '', redirectTo: '1/email', pathMatch: 'full'
       },
       {
-        path: '1/username',
-        component: PseudoComponent
-      },
-      {
-        path: '2/email',
+        path: '1/email',
         component: EmailComponent
       },
       {
-        path: '3/firstname',
+        path: '2/firstname',
         component: FirstNameComponent
       },
       {
-        path: '4/lastname',
+        path: '3/lastname',
         component: LastNameComponent
       },
       {
-        path: '5/gender',
+        path: '4/gender',
         component: GenderComponent
       },
       {
-        path: '6/status',
+        path: '5/status',
         component: StatusComponent,
       },
       {
-        path: '6/status/siret',
+        path: '5/status/siret',
         component: SiretComponent
       },
       {
-        path: '6/status/tva',
+        path: '5/status/tva',
         component: TvaComponent
       },
       {
-        path: '7/birthdate',
+        path: '6/birthdate',
         component: BirthdateComponent
       },
       {

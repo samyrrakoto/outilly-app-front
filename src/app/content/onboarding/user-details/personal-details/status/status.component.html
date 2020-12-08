@@ -1,31 +1,31 @@
 <div class="content has-text-left">
-    <div class="field">
-        <app-step-label
+  <div class="field">
+      <app-step-label
         [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+        [stepName]=stepName>
+      </app-step-label>
 
-        <div class="control has-icons-left">
-            <div #status class="select is-hovered">
-                <select [(ngModel)]="user.userProfile.type">
-                    <option value="individual">Particulier</option>
-                    <option value="professional">Professionnel</option>
-                </select>
-            </div>
-
-            <div class="icon is-small is-left">
-                <fa-icon [icon]="['fas', 'laptop-house']"></fa-icon>
-            </div>
+      <div class="control has-icons-left">
+        <div class="select is-hovered">
+          <select id="status" [(ngModel)]="user.userProfile.type">
+            <option value="individual">Particulier</option>
+            <option value="professional">Professionnel</option>
+          </select>
         </div>
-    </div>
-</div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
+        <div class="icon is-small is-left">
+          <fa-icon [icon]="['fas', 'laptop-house']"></fa-icon>
+        </div>
+      </div>
+  </div>
 </div>
 
 <app-navigation
-  [data]=formDataService
-  [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.status.errors
+  [data]="formDataService"
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>

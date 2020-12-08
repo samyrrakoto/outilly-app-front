@@ -1,7 +1,9 @@
 <label class="label">
-    {{ stepNb }} <fa-icon class="icon" [icon]="['fas', 'long-arrow-alt-right']"></fa-icon> {{ stepName }}<span class="asterisque" *ngIf="isMandatory === true">*</span>
+  <div class="field-title">
+    {{ stepNb }} <fa-icon class="icon" [icon]="['fas', 'long-arrow-alt-right']"></fa-icon> <span class="stepName">{{ stepName }}</span><span class="asterisque" *ngIf="isMandatory === true">*</span>
+  </div>
 
-    <div *ngIf="stepSubtitle" class="content discreet-text">
-      {{ stepSubtitle }}
-    </div>
+  <div *ngIf="stepSubtitle" class="content discreet-text">
+    {{ stepSubtitle }}
+  </div>
 </label>

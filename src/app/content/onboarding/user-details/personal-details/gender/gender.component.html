@@ -1,32 +1,32 @@
 <div class="content has-text-left">
-    <div class="field">
-        <app-step-label
-        [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+  <div class="field">
+    <app-step-label
+      [stepNb]=stepNb
+      [stepName]=stepName>
+  </app-step-label>
 
-        <div class="control has-icons-left has-icons-right">
-            <div class="select is-hovered">
-                <select class="select" [(ngModel)]="user.userProfile.gender">
-                    <option value="female">Femme</option>
-                    <option value="male">Homme</option>
-                    <option value="other">Autre</option>
-                </select>
-            </div>
+  <div class="control has-icons-left has-icons-right">
+      <div class="select is-hovered">
+        <select id="gender" class="select" keydown="onKey($event)" [(ngModel)]="user.userProfile.gender">
+          <option value="female">Femme</option>
+          <option value="male">Homme</option>
+          <option value="other">Autre</option>
+        </select>
+      </div>
 
-            <div class="icon is-small is-left">
-                <fa-icon [icon]="['fas', 'venus-mars']"></fa-icon>
-            </div>
-        </div>
+      <div class="icon is-small is-left">
+        <fa-icon [icon]="['fas', 'venus-mars']"></fa-icon>
+      </div>
     </div>
-</div>
-
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
+  </div>
 </div>
 
 <app-navigation
-  [data]=formDataService
-  [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.gender.errors
+  [data]="formDataService"
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>

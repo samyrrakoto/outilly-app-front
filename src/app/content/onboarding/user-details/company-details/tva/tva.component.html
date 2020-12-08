@@ -1,20 +1,35 @@
 <div class="content has-text-left">
-    <div class="field">
-        <app-step-label
-        [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+  <div class="field">
+    <app-step-label
+      [stepNb]=stepNb
+      [stepName]=stepName>
+  </app-step-label>
 
-        <input class="input" type="text" placeholder="{{ this.placeholder}}" (keydown)="onKey($event)" [(ngModel)]="user.userProfile.company.tvanumber">
-    </div>
+  <form *ngIf="form" [formGroup]="form">
+    <p class="control">
+      <input id="tva" class="input no-border"
+        type="text"
+        (keydown)="onKey($event)"
+        placeholder="{{ placeholder }}"
+        [(ngModel)]="user.userProfile.company.tvanumber"
+        formControlName="tva"
+        [ngClass]="{'is-invalid': controls.tva.errors }">
+    </p>
+  </form>
+  </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
+<!-- Errors display -->
+<div *ngIf="controls.tva.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.tva.errors }">
+  <div class="error" *ngIf="controls.tva.errors.required">Le numéro de TVA est requis</div>
+  <div class="error" *ngIf="controls.tva.errors.pattern">Le numéro de TVA est invalide</div>
 </div>
 
 <app-navigation
+  [controls]=controls.tva.errors
   [data]=formDataService
+  [path]=path
   [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
