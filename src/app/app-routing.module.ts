@@ -143,14 +143,10 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path: '', redirectTo: '1/username', pathMatch: 'full'
+        path: '', redirectTo: '1/email', pathMatch: 'full'
       },
       {
-        path: '1/username',
-        component: PseudoComponent
-      },
-      {
-        path: '2/email',
+        path: '1/email',
         component: EmailComponent
       },
       {

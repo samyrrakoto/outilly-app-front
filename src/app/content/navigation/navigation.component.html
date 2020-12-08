@@ -20,8 +20,10 @@
 
   <div class="level-right">
     <p class="control">
-      <button class="button nav-arrow is-large has-icons-right" type="button" (click)="next()">
-
+      <button class="button nav-arrow is-large has-icons-right"
+      type="button"
+      (click)="next()"
+      [ngClass]="{'is-invalid': controls !== null }">
         <div class="icon is-right">
           <fa-icon [icon]="['fas', 'arrow-circle-right']"></fa-icon>
         </div>

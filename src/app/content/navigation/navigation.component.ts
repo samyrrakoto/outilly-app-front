@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +14,7 @@ export class NavigationComponent implements OnChanges {
   @Input() rootUri: string;
   @Input() previousOn: boolean;
   @Input() nextOn: boolean;
+  @Input() controls: ValidationErrors;
 
   constructor(public router: Router,
     public formValidator: FormValidatorService)
@@ -46,7 +48,7 @@ export class NavigationComponent implements OnChanges {
     const path: string = this.rootUri + this.data.path.next;
 
     // Verifying that the field matches the constraints before going further
-    if (this.formValidator.verify(this.data)) {
+    if (this.controls === null) {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
       if (this.data.path.current === '6/status' && this.data.user.userProfile.type === 'professional') {

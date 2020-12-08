@@ -1,6 +1,10 @@
 .label {
-  margin-top: 100px;
+  margin-top: 0px;
   margin-bottom: 30px;
+}
+
+.field-title {
+  font-size: 1.5em;
 }
 
 .asterisque {

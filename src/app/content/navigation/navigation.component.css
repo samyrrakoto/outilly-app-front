@@ -1,8 +1,12 @@
 .nav-arrow {
-    color: var(--GREY-LIGHT);
+    color: var(--MAT-GREY);
     border: none;
 }
 
 .nav-arrow:hover {
     color: var(--KTKP-RED);
+}
+
+.is-invalid {
+  color: var(--KTKP-GREY);
 }
