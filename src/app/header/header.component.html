@@ -1,2 +1,13 @@
-<app-notice></app-notice>
-<app-herohead></app-herohead>
+<app-notice *ngIf="toDisplay">
+</app-notice>
+
+<app-herohead *ngIf="toDisplay">
+</app-herohead>
+
+<nav class="navbar" *ngIf="!toDisplay">
+  <div class="navbar-brand">
+    <a routerLink="/home" class="navbar-item">
+      <img id="brand-logo" src="/assets/img/logo/outilly-logo.png">
+    </a>
+  </div>
+</nav>

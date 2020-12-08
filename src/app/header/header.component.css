@@ -1,0 +1,31 @@
+#brand-logo {
+  margin-left: 30px;
+  height: 250px;
+  width: auto;
+}
+
+.navbar
+{
+  margin-bottom: 20px;
+}
+
+.navbar-item img {
+  max-height: 7rem;
+}
+
+.navbar-item a
+{
+  font-size: 14px;
+  color: grey;
+}
+
+.navbar-item a:hover
+{
+  color: black;
+  font-weight: bold;
+}
+
+.navbar-item .button
+{
+  color: white;
+}
