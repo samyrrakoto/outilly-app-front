@@ -1,24 +1,21 @@
 <div class="content has-text-left">
-    <div class="field">
-        <app-step-label
-        [stepNb]=stepNb
-        [stepName]=stepName></app-step-label>
+  <div class="field">
+    <app-step-label
+      [stepNb]=stepNb
+      [stepName]=stepName>
+    </app-step-label>
 
-        <div class="control has-icons-left">
-            <div class="select is-hovered">
-                <select [(ngModel)]="user.userProfile.mainAddress.country.isoCode">
-                    <option value="FR" selected>France</option>
-                    <option value="BE">Belgique</option>
-                    <option value="CH">Suisse</option>
-                    <option value="LU">Luxembourg</option>
-                </select>
-            </div>
-
-            <div class="icon is-small is-left">
-                <fa-icon [icon]="['fas', 'globe-europe']"></fa-icon>
-            </div>
-        </div>
-    </div>
+    <form [formGroup]="form">
+      <div class="select is-hovered">
+        <select id="country" [(ngModel)]="user.userProfile.mainAddress.country.isoCode" formControlName="country">
+          <option value="FR" selected>France</option>
+          <option value="BE">Belgique</option>
+          <option value="CH">Suisse</option>
+          <option value="LU">Luxembourg</option>
+        </select>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
@@ -26,8 +23,10 @@
 </div>
 
 <app-navigation
-  [data]=formDataService
-  [rootUri]=root
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.country.errors
+  [data]="formDataService"
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>

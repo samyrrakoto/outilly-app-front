@@ -178,35 +178,35 @@ const routes: Routes = [
         component: BirthdateComponent
       },
       {
-        path: '8/country',
+        path: '7/country',
         component: CountryComponent
       },
       {
-        path: '9/zipcode',
+        path: '8/zipcode',
         component: ZipcodeComponent
       },
       {
-        path: '10/city',
+        path: '9/city',
         component: CityComponent
       },
       {
-        path: '11/street',
+        path: '10/street',
         component: StreetComponent
       },
       {
-        path: '12/phonenumber',
+        path: '11/phonenumber',
         component: PhoneNumberComponent
       },
       {
-        path: '13/password',
+        path: '12/password',
         component: PasswordComponent
       },
       {
-        path: '14/passwordconfirmation',
+        path: '13/passwordconfirmation',
         component: PasswordconfirmationComponent
       },
       {
-        path: '15/emailoptin',
+        path: '14/emailoptin',
         component: EmailOptinComponent
       },
       {

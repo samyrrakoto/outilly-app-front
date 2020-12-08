@@ -29,7 +29,7 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
 
   checkResponse(response: HttpResponse<User>) {
     const status201: boolean = response.status === 201;
-    const matchingUsername: boolean = response.body.username === this.formDataService.user.username;
+    const matchingUsername: boolean = response.body.username === this.formDataService.user.userProfile.email;
     const existingId: boolean = response.body.id !== 0;
     const isOk: boolean = status201 && matchingUsername && existingId;
 
@@ -49,7 +49,7 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   private createPayload(): any {
     const userPayload: any = {
       "user": {
-        "username": this.formDataService.user.username,
+        "username": this.formDataService.user.userProfile.email,
         "password": this.formDataService.user.password,
         "passwordConfirmation": this.formDataService.user.passwordConfirmation,
         "userProfile": this.createUserProfilePayload()
