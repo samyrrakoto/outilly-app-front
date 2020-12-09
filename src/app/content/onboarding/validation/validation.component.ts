@@ -86,7 +86,7 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   private createCompanyPayload(): string {
     if (this.formDataService.user.userProfile.type === 'professionnal') {
       const companyPayload: any = {
-        "name": this.formDataService.user.userProfile.lastname,
+        "name": this.formDataService.user.userProfile.company.name,
         "siret": this.formDataService.user.userProfile.company.siret,
         "tva": this.formDataService.user.userProfile.company.tvanumber
       };

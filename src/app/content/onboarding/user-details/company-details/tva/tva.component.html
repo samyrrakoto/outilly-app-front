@@ -22,7 +22,7 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.tva.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.tva.errors }">
-  <div class="error" *ngIf="controls.tva.errors.pattern">Le numéro de TVA est invalide</div>
+  <div class="error" *ngIf="controls.tva.errors.notCorrect">Le numéro de TVA est invalide</div>
 </div>
 
 <app-navigation

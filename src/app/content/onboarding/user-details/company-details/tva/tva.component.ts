@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { RegexTemplateService } from 'src/app/services/regex-template.service';
 
 @Component({
@@ -47,8 +47,32 @@ export class TvaComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      tva: [this.user.userProfile.company.tvanumber, [Validators.pattern(this.regexTemplate.TVA_FRANCE)]],
+      tva: [this.user.userProfile.company.tvanumber, [this.validRegex()]],
     });
+  }
+
+  private validRegex(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        const verifications: boolean = this.checkRegex(control.value);
+        return verifications ? null : {notCorrect: control.value};
+      }
+  }
+
+  private checkRegex(value: any): boolean {
+    const allRegex: RegExp[] = [
+      this.regexTemplate.TVA.FRANCE,
+      this.regexTemplate.TVA.BELGIUM,
+      this.regexTemplate.TVA.SWITZERLAND,
+      this.regexTemplate.TVA.LUXEMBOURG
+    ];
+
+    for (const regex of allRegex) {
+      if (value.match(regex)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public get controls() {
