@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormDataService } from '../../../../../services/form-data.service';
 import { Router } from '@angular/router';
-import { StatusComponent } from '../../personal-details/status/status.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -31,6 +30,7 @@ export class TvaComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "tva";
     this.stepName = "Votre numéro de TVA communautaire ?";
+    this.stepSubtitle = "Si vous n'en avez pas (auto-entrepreneur par exemple), vous pouvez passer à la suite";
     this.stepNb = 5;
     this.path.previous = "5/status/siret";
     this.path.current = "5/status/tva";
@@ -47,7 +47,7 @@ export class TvaComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      tva: [this.user.userProfile.company.tvanumber, [Validators.required, Validators.pattern(this.regexTemplate.TVA_FRANCE)]],
+      tva: [this.user.userProfile.company.tvanumber, [Validators.pattern(this.regexTemplate.TVA_FRANCE)]],
     });
   }
 
