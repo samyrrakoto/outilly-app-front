@@ -15,7 +15,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
   styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
 export class AnnouncementTitleComponent extends StepForm implements OnInit {
-  readonly root: string = 'product/create';
+  readonly root: string = 'product/create/';
   isLogged: boolean;
   product: Product;
   form: FormGroup;
@@ -38,9 +38,9 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
     this.formData.fieldName = "announcementTitle";
     this.stepNb = 1;
     this.stepName = "Donnez un titre à votre annonce";
-    this.formData.path.current = "announcement-title";
-    this.formData.path.previous = "";
-    this.formData.path.next = "media-upload";
+    this.path.current = "announcement-title";
+    this.path.previous = "";
+    this.path.next = "media-upload";
     this.placeholder = "Tondeuse à gazon Milwaukee 750-ZF";
     this.isLogged = false;
   }

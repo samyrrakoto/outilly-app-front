@@ -22,7 +22,7 @@
       <button class="button nav-arrow is-large has-icons-right"
       type="button"
       (click)="next()"
-      [ngClass]="{'is-invalid': controls !== null }">
+      [ngClass]="{'is-invalid': !nextCondition }">
         <div class="icon is-right">
           <fa-icon [icon]="['fas', 'arrow-circle-right']"></fa-icon>
         </div>
@@ -36,6 +36,6 @@
 
   <div class="level-right">
     <img id="enter-key" src="/assets/img/icon/keyboard-key-enter-icon.png"
-    [ngClass]="{'is-invalid': controls !== null }">
+    [ngClass]="{'is-invalid': !nextCondition }">
   </div>
 </div>

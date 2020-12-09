@@ -1,4 +1,5 @@
-import { environment } from './../../../../environments/environment';
+import { Product } from './../../../models/product';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProductCreationComponent } from '../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -9,27 +10,35 @@ import { RequestService } from 'src/app/services/request.service';
 import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-media-upload',
   templateUrl: './media-upload.component.html',
   styleUrls: ['../product-creation.component.css', './media-upload.component.css']
 })
-export class MediaUploadComponent extends ProductCreationComponent implements OnInit, OnChanges {
+export class MediaUploadComponent extends StepForm implements OnInit, OnChanges {
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly root: string = 'product/create/';
+  form: FormGroup;
+  product: Product;
   previews: Array<any>;
   isLoading: boolean;
   modals: Modals;
   currentMedia: ProductMedia;
-  readonly mediaBaseUri: string = environment.mediaBaseUri;
+  additionalControls: boolean = false;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
     public http: HttpClient,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -37,11 +46,11 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 2;
-    this.stepName = "Téléchargez au moins 3 photos";
+    this.stepName = "Sur Outilly, on n'est pas radin : c'est 3 photos minimum… puis (presque) autant que vous voulez !";
     this.stepSubtitle = '(.jpg, .png uniquement)';
-    this.formData.path.current = "media-upload";
-    this.formData.path.previous = "announcement-title";
-    this.formData.path.next = "product-consumable";
+    this.path.current = "media-upload";
+    this.path.previous = "announcement-title";
+    this.path.next = "product-consumable";
     this.isMandatory = false;
     this.previews = [];
     this.isLoading = false;
@@ -50,7 +59,19 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     this.modals.addModal('picture-preview');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.additionalControls = this.checkAdditionalControls();
+  }
+
+  private checkAdditionalControls(): boolean {
+    if (this.product.productMedias.length >= 3 && this.product.productMedias.length <= 10) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   ngAfterViewInit(): void {}
   ngOnChanges(): void {}
 
@@ -83,6 +104,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
 
   private addMedia(media: any): void {
     this.product.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted));
+    this.additionalControls = this.checkAdditionalControls();
   }
 
   private sendMedia(data: FormData): Promise<any> {
@@ -103,6 +125,7 @@ export class MediaUploadComponent extends ProductCreationComponent implements On
     for (const media of this.product.productMedias) {
       if (currentMedia.path === media.path) {
         this.product.productMedias.splice(i, 1);
+        this.additionalControls = this.checkAdditionalControls();
         return;
       }
       i++;

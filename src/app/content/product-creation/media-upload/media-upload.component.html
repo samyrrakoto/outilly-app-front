@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -18,8 +14,18 @@
 <button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
 <button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-  {{ error }}
+<app-navigation
+  [data]="formData"
+  [disabledEnterKey]=true
+  [additionalControls]=additionalControls
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
+</app-navigation>
+
+<div *ngIf="!additionalControls" class="error">
+  Vous devez sélectionner entre 3 et 10 photos
 </div>
 
 <div id="displayed-medias">
@@ -53,10 +59,3 @@
     </div>
   </div>
 </div>
-
-<app-navigation
-  [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
-</app-navigation>
