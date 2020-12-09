@@ -5,15 +5,16 @@
       [stepName]=stepName>
     </app-step-label>
 
-      <form *ngIf="form" [formGroup]="form">
-        <p class="control has-icons-left">
-          <input id="zipcode" class="input" type="text" placeholder="{{ this.placeholder }}"
-          (keydown)="onKey($event)"
-          [(ngModel)]="user.userProfile.mainAddress.zipcode"
-          formControlName="zipcode">
-        </p>
-      </form>
-    </div>
+    <form *ngIf="form" [formGroup]="form">
+      <p class="control">
+        <input id="zipcode" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
+        (keydown)="onKey($event)"
+        [(ngModel)]="user.userProfile.mainAddress.zipcode"
+        formControlName="zipcode"
+        [ngClass]="{'is-invalid': controls.zipcode.errors }">
+      </p>
+    </form>
+  </div>
 </div>
 
 <!-- Errors display -->

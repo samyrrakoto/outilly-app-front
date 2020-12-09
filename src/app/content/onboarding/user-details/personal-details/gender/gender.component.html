@@ -3,19 +3,25 @@
     <app-step-label
       [stepNb]=stepNb
       [stepName]=stepName>
-  </app-step-label>
+    </app-step-label>
 
-  <div class="control has-icons-left has-icons-right">
-      <div class="select is-hovered">
-        <select id="gender" class="select" keydown="onKey($event)" [(ngModel)]="user.userProfile.gender">
-          <option value="female">Femme</option>
-          <option value="male">Homme</option>
-          <option value="other">Autre</option>
-        </select>
+    <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+      <div class="column">
+        <div class="content tile" id="male" (click)="user.userProfile.gender='male'; nextOn=true">
+          Homme
+        </div>
       </div>
 
-      <div class="icon is-small is-left">
-        <fa-icon [icon]="['fas', 'venus-mars']"></fa-icon>
+      <div class="column">
+        <div class="content tile" id="female" (click)="user.userProfile.gender='female'; nextOn=true">
+          Femme
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content tile" id="other" (click)="user.userProfile.gender='other'; nextOn=true">
+          Ne se prononce pas
+        </div>
       </div>
     </div>
   </div>

@@ -29,7 +29,7 @@ export class BirthdateComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "birthdate";
     this.stepNb = 6;
-    this.stepName = "Quelle est votre date de naissance ?";
+    this.stepName = "Votre date de naissance ?";
     this.path.current = "6/birthdate";
     this.path.previous = "5/status";
     this.path.next = "7/country";

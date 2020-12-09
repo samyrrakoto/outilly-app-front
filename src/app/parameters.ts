@@ -8,3 +8,24 @@ export const prices = {
   SECURISATION_FEES_FACTOR: 0.06,
   SECURISATION_FEES_MINIMUM: 150
 }
+
+export const g_country = {
+  COUNTRIES_ACCEPTED: [
+    {
+      isocode: 'FR',
+      label: 'France',
+    },
+    {
+      isocode: 'LU',
+      label: 'Luxembourg'
+    },
+    {
+      isocode: 'BE',
+      label: 'Belgique'
+    },
+    {
+      isocode: 'CH',
+      label: 'Suisse'
+    }
+  ]
+}

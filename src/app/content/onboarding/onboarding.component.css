@@ -4,6 +4,7 @@
     background-color: white;
     color: #727272;
     border-left: solid 3px var(--KTKP-GREEN);
+    font-size: 1.5em;
 }
 
 .control fa-icon {
@@ -32,6 +33,8 @@
     width: 100%;
 }
 
+/* Error */
+
 .is-invalid.input {
   border-left-color: var(--MAT-GREY);
 }
@@ -39,6 +42,39 @@
 .is-invalid.error {
   color: var(--KTKP-RED);
 }
+
+/* TILES */
+.tiles {
+  margin-top: 20px;
+}
+
+.tile {
+  display: inline-flex;
+  color: black;
+  font-size: 0.9em;
+  font-weight: 500;
+  border: solid 2px #DEDEDE;
+  border-radius: 10px;
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.tile:hover {
+  background: var(--KTKP-GREY);
+  border-color: var(--KTKP-GREY);
+}
+
+.chosen-tile {
+  background: var(--KTKP-GREEN) !important;
+  border-color: var(--KTKP-GREEN);
+  color: white;
+}
+
 
 @media screen and (max-width: 768px) {
   .field {

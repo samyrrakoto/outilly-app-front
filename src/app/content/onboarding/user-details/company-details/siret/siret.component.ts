@@ -30,7 +30,8 @@ export class SiretComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "siret";
-    this.stepName = "Quel est votre numéro SIRET ?";
+    this.stepName = "Votre numéro de SIRET ?";
+    this.stepSubtitle = "Il s'agit d'un numéro d'identification à 14 chiffres";
     this.stepNb = 5;
     this.path.previous = "5/status";
     this.path.current = "5/status/siret";

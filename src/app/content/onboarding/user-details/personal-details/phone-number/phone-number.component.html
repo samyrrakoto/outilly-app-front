@@ -2,18 +2,20 @@
   <div class="field">
     <app-step-label
       [stepNb]=stepNb
-      [stepName]=stepName>
+      [stepName]=stepName
+      [stepSubtitle]=stepSubtitle>
     </app-step-label>
 
     <form [formGroup]="form">
       <p class="control">
-        <input id="phone" class="input" type="text" placeholder="{{ this.placeholder }}"
+        <input id="phone" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.phone1"
-        formControlName="phone">
+        formControlName="phone"
+        [ngClass]="{'is-invalid': controls.phone.errors }">
       </p>
     </form>
-    </div>
+  </div>
 </div>
 
 <!-- Errors display -->

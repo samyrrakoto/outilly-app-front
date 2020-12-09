@@ -5,16 +5,17 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="control has-icons-left">
-        <div class="select is-hovered">
-          <select id="status" [(ngModel)]="user.userProfile.type">
-            <option value="individual">Particulier</option>
-            <option value="professional">Professionnel</option>
-          </select>
+      <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+        <div class="column">
+          <div class="content tile" id="individual" (click)="user.userProfile.type='individual'; nextOn=true">
+            Particulier
+          </div>
         </div>
 
-        <div class="icon is-small is-left">
-          <fa-icon [icon]="['fas', 'laptop-house']"></fa-icon>
+        <div class="column">
+          <div class="content tile" id="professional" (click)="user.userProfile.type='professional'; nextOn=true">
+            Professionnel
+          </div>
         </div>
       </div>
   </div>

@@ -1,27 +1,30 @@
 <div class="content has-text-left">
-    <div class="control">
-        <app-step-label
-        [stepNb]=stepNb
-        [stepName]=stepName
-        [isMandatory]=isMandatory></app-step-label>
+  <div class="control">
+  <app-step-label
+    [stepNb]=stepNb
+    [stepName]=stepName
+    [isMandatory]=isMandatory>
+  </app-step-label>
 
-        <label class="radio">
-            <input type="radio" id="yes"
-            (keydown)="onKey($event)"
-            [(ngModel)]="user.userProfile.emailOptin" value=true>
-            Oui
-        </label>
-        <label class="radio">
-            <input type="radio" id="no"
-            (keydown)="onKey($event)"
-            [(ngModel)]="user.userProfile.emailOptin" value=false>
-            Non
-        </label>
+    <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+      <div class="column">
+        <div class="content tile" id="yes" (click)="user.userProfile.emailOptin=true; nextOn=true">
+          Oui
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content tile" id="no" (click)="user.userProfile.emailOptin=false; nextOn=true">
+          Non
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <app-navigation
   [controls]=controls.emailOptin.errors
+  [disabledEnterKey]=true
   [data]="formDataService"
   [path]=path
   [rootUri]="root"

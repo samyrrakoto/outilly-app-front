@@ -5,15 +5,16 @@
       [stepName]=stepName>
     </app-step-label>
 
-      <form [formGroup]="form">
-        <p class="control">
-          <input id="line1" class="input" type="text" placeholder="{{ this.placeholder }}"
-          (keydown)="onKey($event)"
-          [(ngModel)]="user.userProfile.mainAddress.line1"
-          formControlName="line1">
-        </p>
-      </form>
-    </div>
+    <form [formGroup]="form">
+      <p class="control">
+        <input id="line1" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
+        (keydown)="onKey($event)"
+        [(ngModel)]="user.userProfile.mainAddress.line1"
+        formControlName="line1"
+        [ngClass]="{'is-invalid': controls.line1.errors }">
+      </p>
+    </form>
+  </div>
 </div>
 
 <!-- Errors display -->

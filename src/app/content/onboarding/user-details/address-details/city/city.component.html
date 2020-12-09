@@ -7,10 +7,11 @@
 
     <form [formGroup]="form">
       <p class="control">
-        <input id="city" class="input" type="text" placeholder="{{ this.placeholder }}"
+        <input id="city" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.mainAddress.city"
-        formControlName="city">
+        formControlName="city"
+        [ngClass]="{'is-invalid': controls.city.errors }">
       </p>
     </form>
   </div>

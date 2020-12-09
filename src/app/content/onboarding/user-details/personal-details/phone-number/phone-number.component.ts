@@ -31,7 +31,8 @@ export class PhoneNumberComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "phoneNumber";
     this.stepNb = 11;
-    this.stepName = "Quel est votre numéro de téléphone ?";
+    this.stepName = "Votre numéro de téléphone ?";
+    this.stepSubtitle = "Celui-ci sera nécessaire pour contacter vos acheteurs et/ou vendeurs";
     this.isMandatory = false;
     this.path.current = '11/phonenumber';
     this.path.previous = "10/street";

@@ -27,7 +27,8 @@ export class EmailComponent extends StepForm {
     this.formDataService.fieldName = "email";
     this.user = formDataService.user;
     this.stepNb = 1;
-    this.stepName = "Quelle est votre adresse e-mail ?";
+    this.stepName = "Votre adresse e-mail ?";
+    this.stepSubtitle = 'Elle vous permettra de vous connecter';
     this.path.current = "1/email";
     this.path.previous = "";
     this.path.next = "2/firstname";
