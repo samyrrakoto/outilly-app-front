@@ -1,8 +1,7 @@
-import { specialCharacters } from './../../../../parameters';
+import { specialCharacters } from 'src/app/parameters';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';

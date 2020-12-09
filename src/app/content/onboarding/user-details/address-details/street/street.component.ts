@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -29,7 +28,7 @@ export class StreetComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "street";
     this.stepNb = 10;
-    this.stepName = "Votre adresse postale ?";
+    this.stepName = "Adresse postale complète ?";
     this.path.current = '10/street';
     this.path.previous = "9/city";
     this.path.next = "11/phonenumber";
@@ -46,7 +45,7 @@ export class StreetComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      line1: [this.user.userProfile.mainAddress.line1, [Validators.required]],
+      line1: [this.user.userProfile.mainAddress.line1, [Validators.required, Validators.minLength(3)]],
     });
   }
 
