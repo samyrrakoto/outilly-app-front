@@ -1,3 +1,7 @@
+#recap {
+  margin-top: 0px;
+}
+
 .content {
     margin-top: 100px;
 }
@@ -28,4 +32,15 @@ fa-icon {
   font-weight: bold;
   border-bottom: solid 3px var(--KTKP-GREEN);
   padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  #recap {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .edit {
+    font-size: 0.6em;
+  }
 }
