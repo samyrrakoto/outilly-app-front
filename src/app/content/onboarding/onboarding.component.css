@@ -4,6 +4,7 @@
     background-color: white;
     color: #727272;
     border-left: solid 3px var(--KTKP-GREEN);
+    font-size: 1.5em;
 }
 
 .control fa-icon {
