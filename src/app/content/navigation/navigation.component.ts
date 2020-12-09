@@ -56,7 +56,7 @@ export class NavigationComponent implements OnChanges {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
       if (this.path.current === '5/status' && this.data.user.userProfile.type === 'professional') {
-        this.goTo('5/status/siret');
+        this.goTo('5/status/company-name');
       }
       else {
         this.router.navigateByUrl(path);
