@@ -6,16 +6,13 @@
     </app-step-label>
 
     <form *ngIf="form" [formGroup]="form">
-      <p class="control has-icons-left">
-          <input id="birthdate"
-          class="input"
+      <p class="control">
+        <input id="birthdate"
+          class="input no-border"
           type="date"
           formControlName="birthdate"
-          (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate">
-
-        <span class="icon is-small is-left">
-          <fa-icon [icon]="['fas', 'birthday-cake']"></fa-icon>
-        </span>
+          (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate"
+          [ngClass]="{'is-invalid': controls.birthdate.errors }">
       </p>
     </form>
   </div>
@@ -23,7 +20,7 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.birthdate.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.birthdate.errors }">
-  <div class="error" *ngIf="controls.birthdate.errors.required">La date de naissance est requis</div>
+  <div class="error" *ngIf="controls.birthdate.errors.required">La date de naissance est requise</div>
   <div class="error" *ngIf="controls.birthdate.errors.notMajor">Vous devez être majeur</div>
 </div>
 

@@ -5,16 +5,12 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="control has-icons-left">
+      <div class="control">
         <div class="select is-hovered">
           <select id="status" [(ngModel)]="user.userProfile.type">
             <option value="individual">Particulier</option>
             <option value="professional">Professionnel</option>
           </select>
-        </div>
-
-        <div class="icon is-small is-left">
-          <fa-icon [icon]="['fas', 'laptop-house']"></fa-icon>
         </div>
       </div>
   </div>

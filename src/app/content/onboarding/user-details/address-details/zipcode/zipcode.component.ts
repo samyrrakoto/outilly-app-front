@@ -35,7 +35,7 @@ export class ZipcodeComponent extends StepForm {
     this.path.current = "8/zipcode";
     this.path.previous = "7/country";
     this.path.next = "9/city";
-    this.placeholder = "ex : 78350";
+    this.placeholder = "78350";
   }
 
   ngOnInit(): void {

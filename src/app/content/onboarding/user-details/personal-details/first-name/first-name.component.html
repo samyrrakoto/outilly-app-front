@@ -5,7 +5,7 @@
       [stepName]=stepName></app-step-label>
 
       <form *ngIf="form" [formGroup]="form">
-        <p class="control has-icons-left">
+        <p class="control">
           <input id="firstname" class="input no-border"
           type="text"
           (keydown)="onKey($event)"
@@ -13,9 +13,6 @@
           [(ngModel)]="user.userProfile.firstname"
           formControlName="firstname"
           [ngClass]="{'is-invalid': controls.firstname.errors }">
-            <span class="icon is-left">
-                <fa-icon [icon]="['fas', 'id-card']"></fa-icon>
-            </span>
         </p>
       </form>
 
