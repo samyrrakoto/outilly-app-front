@@ -19,7 +19,8 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.line1.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.line1.errors }">
-  <div class="error" *ngIf="controls.line1.errors.required">La voie est requise</div>
+  <div class="error" *ngIf="controls.line1.errors.required">L'adresse est requise</div>
+  <div class="error" *ngIf="controls.line1.errors.minlength">L'adresse est incomplète</div>
 </div>
 
 <app-navigation
