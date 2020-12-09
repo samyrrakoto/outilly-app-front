@@ -131,6 +131,7 @@ import { AnonymizePipe } from './pipes/anonymize.pipe';
 import { ProductInformationIncentivesComponent } from './content/product-information/general-information/product-information-incentives/product-information-incentives.component';
 import { FormStepComponent } from './models/form-step/form-step.component';
 import { CountryPipe } from './pipes/country.pipe';
+import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 
 @NgModule({
   declarations: [
@@ -253,6 +254,7 @@ import { CountryPipe } from './pipes/country.pipe';
     ProductInformationIncentivesComponent,
     FormStepComponent,
     CountryPipe,
+    CompanyNameComponent,
   ],
   imports: [
     HttpClientModule,

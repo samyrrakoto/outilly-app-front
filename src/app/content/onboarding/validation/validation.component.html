@@ -38,6 +38,11 @@
         <td class="has-text-right"><button routerLink="/onboarding/5/status" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
+        <td class="field-name">Nom d'entreprise</td>
+        <td>{{ formDataService.user.userProfile.company.name }}</td>
+        <td class="has-text-right"><button routerLink="/onboarding/5/status/company-name" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+      </tr>
+      <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
         <td class="field-name">SIRET</td>
         <td>{{ formDataService.user.userProfile.company.siret }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/5/status/siret" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>

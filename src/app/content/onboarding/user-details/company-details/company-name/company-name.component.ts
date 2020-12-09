@@ -8,11 +8,11 @@ import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
 
 @Component({
-  selector: 'app-siret',
-  templateUrl: './siret.component.html',
-  styleUrls: ['../../../onboarding.component.css', './siret.component.css']
+  selector: 'app-company-name',
+  templateUrl: './company-name.component.html',
+  styleUrls: ['../../../onboarding.component.css', './company-name.component.css']
 })
-export class SiretComponent extends StepForm {
+export class CompanyNameComponent extends StepForm {
   readonly root: string = '/onboarding/';
   user: User;
   form: FormGroup;
@@ -28,13 +28,12 @@ export class SiretComponent extends StepForm {
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
-    this.formDataService.fieldName = "siret";
-    this.stepName = "Votre numéro de SIRET ?";
-    this.stepSubtitle = "Il s'agit d'un numéro d'identification à 14 chiffres";
+    this.formDataService.fieldName = "companyName";
+    this.stepName = "Le nom de votre entreprise ?";
     this.stepNb = 5;
-    this.path.previous = "5/status/company-name";
-    this.path.current = "5/status/siret";
-    this.path.next = "5/status/tva";
+    this.path.previous = "5/status";
+    this.path.current = "5/status/company-name";
+    this.path.next = "5/status/siret";
   }
 
   ngOnInit(): void {
@@ -42,12 +41,12 @@ export class SiretComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('siret').focus();
+    document.getElementById('companyName').focus();
   }
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      siret: [this.user.userProfile.company.siret, [Validators.required, Validators.pattern(this.regexTemplate.SIRET)]],
+      companyName: [this.user.userProfile.company.name, [Validators.required]],
     });
   }
 

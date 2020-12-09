@@ -1,3 +1,4 @@
+import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
 import { ProductReference } from './models/product-reference';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
@@ -164,6 +165,10 @@ const routes: Routes = [
       {
         path: '5/status',
         component: StatusComponent,
+      },
+      {
+        path: '5/status/company-name',
+        component: CompanyNameComponent
       },
       {
         path: '5/status/siret',
