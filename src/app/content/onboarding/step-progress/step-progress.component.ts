@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./step-progress.component.css']
 })
 export class StepProgressComponent implements OnInit {
+  @Input() totalNbSteps: number;
   @Input() stepNb: number;
-  @Input() nbStep: number;
 
   constructor() { }
 
