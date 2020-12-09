@@ -67,12 +67,15 @@ export class TvaComponent extends StepForm {
       this.regexTemplate.TVA.LUXEMBOURG
     ];
 
-    for (const regex of allRegex) {
-      if (value.match(regex)) {
-        return true;
+    if (value !== '') {
+      for (const regex of allRegex) {
+        if (value.match(regex)) {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
+    return true;
   }
 
   public get controls() {

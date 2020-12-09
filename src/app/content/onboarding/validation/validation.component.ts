@@ -55,7 +55,6 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
         "userProfile": this.createUserProfilePayload()
       }
     };
-
     return userPayload;
   }
 
@@ -84,13 +83,12 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   }
 
   private createCompanyPayload(): string {
-    if (this.formDataService.user.userProfile.type === 'professionnal') {
+    if (this.formDataService.user.userProfile.type === 'professional') {
       const companyPayload: any = {
         "name": this.formDataService.user.userProfile.company.name,
         "siret": this.formDataService.user.userProfile.company.siret,
-        "tva": this.formDataService.user.userProfile.company.tvanumber
+        "tvanumber": this.formDataService.user.userProfile.company.tvanumber
       };
-
       return companyPayload;
     }
     return null;
