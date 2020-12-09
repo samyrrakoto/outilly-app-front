@@ -33,7 +33,7 @@ export class UserProfile {
     this.phone1 = '';
     this.phone1Optin = false;
     this.phone2;
-    this.gender = 'female';
+    this.gender = 'male';
     this.civility = 'MR';
     this.birthdate = 0;
     this.type= 'individual';
