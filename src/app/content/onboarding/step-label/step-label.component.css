@@ -7,6 +7,12 @@
   font-size: 1.5em;
 }
 
+.field-title fa-icon {
+  font-size: 0.7em;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .asterisque {
   font-weight: bold;
   color: #E35557;
