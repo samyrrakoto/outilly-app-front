@@ -29,7 +29,7 @@ export class StatusComponent extends StepForm {
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 5;
-    this.stepName = "Quel est votre statut ?";
+    this.stepName = "Particulier ou professionnel ?";
     this.path.current = "5/status";
     this.path.previous = "4/gender";
     this.path.next = "6/birthdate";

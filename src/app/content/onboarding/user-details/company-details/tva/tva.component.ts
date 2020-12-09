@@ -30,7 +30,7 @@ export class TvaComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "tva";
-    this.stepName = "Quel est votre numéro de TVA communautaire ?";
+    this.stepName = "Votre numéro de TVA communautaire ?";
     this.stepNb = 5;
     this.path.previous = "5/status/siret";
     this.path.current = "5/status/tva";

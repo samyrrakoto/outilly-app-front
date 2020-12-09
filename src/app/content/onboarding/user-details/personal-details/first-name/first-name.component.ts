@@ -28,7 +28,8 @@ export class FirstNameComponent extends StepForm {
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 2;
-    this.stepName = "Quel est votre prénom ?";
+    this.stepName = "Votre prénom ?";
+    this.stepSubtitle = 'Car vous n\'êtes pas un numéro';
     this.path.current = "2/firstname";
     this.path.previous = "1/email";
     this.path.next = "3/lastname";

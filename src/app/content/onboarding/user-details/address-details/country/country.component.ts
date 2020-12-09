@@ -30,7 +30,7 @@ export class CountryComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'country';
     this.stepNb = 8;
-    this.stepName = 'Quel est votre pays ?';
+    this.stepName = 'Votre pays ?';
     this.path.current = "7/country";
     this.path.previous = '6/birthdate';
     this.path.next = '8/zipcode';

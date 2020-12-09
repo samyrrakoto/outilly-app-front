@@ -3,6 +3,7 @@ import { Path } from './Path/path';
 export class StepForm {
   fieldName: string = '';
   stepNb: number = 0;
+  stepSubtitle: string = '';
   errorMessages: string[] = [];
   stepName: string = '';
   placeholder: string = '';
