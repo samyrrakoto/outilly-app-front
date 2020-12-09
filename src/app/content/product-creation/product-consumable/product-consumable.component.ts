@@ -15,7 +15,7 @@ import { ProductCreationComponent } from '../product-creation.component';
   templateUrl: './product-consumable.component.html',
   styleUrls: ['../product-creation.component.css', './product-consumable.component.css']
 })
-export class ProductConsumableComponent extends StepForm implements OnInit {
+export class ProductConsumableComponent extends StepForm {
   readonly tiles: string[] = ['yes', 'no'];
   readonly root: string = 'product/create/';
   form: FormGroup;
