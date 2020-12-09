@@ -9,7 +9,7 @@ export const prices = {
   SECURISATION_FEES_MINIMUM: 150
 }
 
-export const g_country = {
+export const country = {
   COUNTRIES_ACCEPTED: [
     {
       isocode: 'FR',
@@ -29,3 +29,5 @@ export const g_country = {
     }
   ]
 }
+
+export const specialCharacters: string = "&!@#-_+~/.?"

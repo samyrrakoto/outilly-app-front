@@ -1,3 +1,4 @@
+import { specialCharacters } from './../../../../parameters';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from '../../../../services/form-data.service';
 import { Router } from '@angular/router';
@@ -14,6 +15,7 @@ import { User } from 'src/app/models/user';
 })
 export class PasswordComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly acceptedSpecialCharacters: string = specialCharacters;
   user: User;
   form: FormGroup;
 
@@ -61,8 +63,9 @@ export class PasswordComponent extends StepForm {
         const containsUpper: boolean = this.containsUpper(control.value);
         const containsLower: boolean = this.containsLower(control.value);
         const containsDigit: boolean = this.containsDigit(control.value);
+        const containsSpecialCharacter: boolean = this.containsSpecial(control.value);
 
-        const verifications: boolean = longEnough && containsUpper && containsLower && containsDigit;
+        const verifications: boolean = longEnough && containsUpper && containsLower && containsDigit && containsSpecialCharacter;
         return verifications ? null : {notCorrect: control.value};
       }
   }
@@ -89,6 +92,17 @@ export class PasswordComponent extends StepForm {
     for (const c of str) {
       if (c.charCodeAt(0) >= "0".charCodeAt(0) && c.charCodeAt(0) <= "9".charCodeAt(0)) {
         return true;
+      }
+    }
+    return false;
+  }
+
+  private containsSpecial(str: string): boolean {
+    for (const c of str) {
+      for (const specialChar of specialCharacters) {
+        if (c === specialChar) {
+          return true;
+        }
       }
     }
     return false;

@@ -1,5 +1,5 @@
-import { g_country } from 'src/app/parameters';
 import { Component } from '@angular/core';
+import { country } from 'src/app/parameters';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -16,7 +16,7 @@ export class CountryComponent extends StepForm {
   readonly root: string = '/onboarding/';
   user: User;
   form: FormGroup;
-  countriesAccepted: any[] = g_country.COUNTRIES_ACCEPTED;
+  countriesAccepted: any[] = country.COUNTRIES_ACCEPTED;
 
   constructor(
     public formDataService: FormDataService,
