@@ -5,12 +5,17 @@
         [stepName]=stepName>
       </app-step-label>
 
-      <div class="control">
-        <div class="select is-hovered">
-          <select id="status" [(ngModel)]="user.userProfile.type">
-            <option value="individual">Particulier</option>
-            <option value="professional">Professionnel</option>
-          </select>
+      <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+        <div class="column">
+          <div class="content tile" id="individual" (click)="user.userProfile.type='individual'; nextOn=true">
+            Particulier
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content tile" id="professionnal" (click)="user.userProfile.type='professionnal'; nextOn=true">
+            Professionnel
+          </div>
         </div>
       </div>
   </div>

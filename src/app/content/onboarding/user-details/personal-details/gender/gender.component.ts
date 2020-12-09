@@ -16,6 +16,7 @@ export class GenderComponent extends StepForm {
   readonly root: string = '/onboarding/';
   user: User;
   form: FormGroup;
+  readonly tiles: string[] = ['male', 'female'];
 
   constructor(
     public formDataService: FormDataService,
@@ -40,7 +41,7 @@ export class GenderComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('gender').focus();
+    this.setFocus(this.user.userProfile.gender);
   }
 
   public getForm(): void {
@@ -51,5 +52,11 @@ export class GenderComponent extends StepForm {
 
   public get controls() {
     return this.form.controls;
+  }
+
+  public setFocus(tileId: string): void {
+    if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
+      document.getElementById(tileId).classList.add('chosen-tile');
+    }
   }
 }

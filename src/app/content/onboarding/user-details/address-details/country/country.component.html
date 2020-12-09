@@ -6,20 +6,15 @@
     </app-step-label>
 
     <form [formGroup]="form">
-      <div class="select is-hovered">
-        <select id="country" [(ngModel)]="user.userProfile.mainAddress.country.isoCode" formControlName="country">
-          <option value="FR" selected>France</option>
-          <option value="BE">Belgique</option>
-          <option value="CH">Suisse</option>
-          <option value="LU">Luxembourg</option>
-        </select>
+      <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+        <div *ngFor="let country of countriesAccepted" class="column">
+          <div class="content tile" id="{{ country.label }}" (click)="setCountry(country); nextOn=true">
+            {{ country.label }}
+          </div>
+        </div>
       </div>
     </form>
   </div>
-</div>
-
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-    {{ error }}
 </div>
 
 <app-navigation

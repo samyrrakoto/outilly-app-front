@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class StatusComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly tiles: string[] = ['individual', 'professionnal'];
   user: User;
   form: FormGroup;
 
@@ -39,7 +40,7 @@ export class StatusComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('status').focus();
+    this.setFocus(this.user.userProfile.type);
   }
 
   public getForm(): void {
@@ -50,5 +51,11 @@ export class StatusComponent extends StepForm {
 
   public get controls() {
     return this.form.controls;
+  }
+
+  public setFocus(tileId: string): void {
+    if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
+      document.getElementById(tileId).classList.add('chosen-tile');
+    }
   }
 }

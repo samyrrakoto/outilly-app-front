@@ -1,7 +1,7 @@
+import { g_country } from 'src/app/parameters';
 import { Component } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -16,6 +16,7 @@ export class CountryComponent extends StepForm {
   readonly root: string = '/onboarding/';
   user: User;
   form: FormGroup;
+  countriesAccepted: any[] = g_country.COUNTRIES_ACCEPTED;
 
   constructor(
     public formDataService: FormDataService,
@@ -40,7 +41,7 @@ export class CountryComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('country').focus();
+    this.setFocus(this.user.userProfile.mainAddress.country.name);
   }
 
   public getForm(): void {
@@ -51,5 +52,16 @@ export class CountryComponent extends StepForm {
 
   public get controls() {
     return this.form.controls;
+  }
+
+  public setCountry(country: any) {
+    this.user.userProfile.mainAddress.country.name = country.label;
+    this.user.userProfile.mainAddress.country.isoCode = country.isocode;
+  }
+
+  public setFocus(tileId: string): void {
+    if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
+      document.getElementById(tileId).classList.add('chosen-tile');
+    }
   }
 }
