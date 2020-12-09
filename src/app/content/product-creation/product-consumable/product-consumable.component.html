@@ -1,10 +1,6 @@
 <div class="content has-text-left">
   <div class="field">
-      <app-step-progress
-        [stepNb]=stepNb
-        [nbStep]=nbStep>
 
-      </app-step-progress>
       <app-step-label class="has-text-centered"
         [stepNb]=stepNb
         [stepName]=stepName
@@ -13,13 +9,13 @@
 
       <div class="columns is-vcentered has-text-centered">
         <div class="column">
-          <div class="tile" id="yes" (click)="product.isConsumable = true; setFocus('yes')">
+          <div class="tile" id="yes" (click)="product.isConsumable = true; nextOn=true">
             Oui
           </div>
         </div>
 
         <div class="column">
-          <div class="tile" id="no" (click)="product.isConsumable = false; setFocus('no')">
+          <div class="tile" id="no" (click)="product.isConsumable = false; nextOn=true">
             Non
           </div>
         </div>
@@ -32,8 +28,10 @@
 </div>
 
 <app-navigation
-  [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [data]="formData"
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]="root"
+  [nextOn]="nextOn"
+  [previousOn]="previousOn">
 </app-navigation>
