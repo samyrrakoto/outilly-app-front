@@ -1,29 +1,34 @@
-import { RequestService } from './../../../services/request.service';
+import { Product } from './../../../models/product';
+import { RequestService } from 'src/app/services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-weight',
   templateUrl: './product-weight.component.html',
   styleUrls: ['../product-creation.component.css', './product-weight.component.css']
 })
-export class ProductWeightComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("weight") weight: ElementRef;
-  @ViewChild("unity") unity: ElementRef;
+export class ProductWeightComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
   maxValue: string = '30';
+  form: FormGroup;
+  product: Product;
 
   constructor(
     public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -32,19 +37,33 @@ export class ProductWeightComponent extends ProductCreationComponent implements 
     this.formData.fieldName = "productWeight";
     this.stepNb = 12;
     this.stepName = "Combien pèse votre colis emballé (en kg) ?";
-    this.formData.path.previous = "product-delivery";
-    this.formData.path.current = 'product-weight';
-    this.formData.path.next = "delivery-price-information";
-    this.placeholder = '(ex : 10kg)';
+    this.path.previous = "product-delivery";
+    this.path.current = 'product-weight';
+    this.path.next = "is-warrantied";
+    this.placeholder = '10kg';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getForm();
+  }
 
   ngAfterViewInit(): void {
-    this.weight.nativeElement.focus();
+    document.getElementById('weight').focus();
   }
 
-  weightChange(): void {
-    this.maxValue = this.unity.nativeElement.value === 'kg' ? '30' : '999';
+  public getForm(): void {
+    this.form = this.formBuilder.group({
+      weight: [this.product.weight, [Validators.required, Validators.min(0), Validators.max(30), this.isNotEmpty()]],
+    });
+  }
+
+  private isNotEmpty(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null =>
+      control.value !== 0 ? null : {isEmpty: control.value}
+    ;
+  }
+
+  public get controls() {
+    return this.form.controls;
   }
 }

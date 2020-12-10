@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -11,11 +7,11 @@
     </app-step-label>
 
     <div class="content tile" id="yes" (click)="product.isWarrantied = true; setFocus('yes'); handleWarranty()">
-      <span class="choice-symbol">A</span> Oui.
+      Oui.
     </div>
 
     <div class="content tile" id="no" (click)="product.isWarrantied = false; setFocus('no'); handleWarranty()">
-      <span class="choice-symbol">B</span> Non, pas de garantie.
+      Non, pas de garantie.
     </div>
   </div>
 </div>
@@ -26,7 +22,9 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
