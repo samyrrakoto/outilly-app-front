@@ -7,6 +7,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-description',
@@ -16,16 +17,17 @@ import { StepForm } from 'src/app/models/step-form';
 export class ProductDescriptionComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   product: Product;
-  @ViewChild("description") description: ElementRef;
   readonly maxLength: number = 650;
   readonly minLength: number = 20;
+  form: FormGroup;
 
   constructor(
     public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder)
   {
     super();
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -43,10 +45,12 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
     this.placeholder = "Tondeuse en parfait état de marche...";
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getForm();
+  }
 
   ngAfterViewInit(): void {
-    this.description.nativeElement.focus();
+    document.getElementById('description').focus();
   }
 
   public removeAllSpaces(str: string): string {
@@ -56,5 +60,32 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
       str = str.replace(' ', '');
     }
     return str;
+  }
+
+  private getForm(): void {
+    this.form = this.formBuilder.group({
+      description: [this.product.description, [Validators.required, this.validDescription()]],
+    });
+  }
+
+  private validDescription(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        const value: string = this.removeUselessSpaces(control.value);
+        const longEnough: boolean = this.removeAllSpaces(value).length >= 20;
+        const verifications: boolean = longEnough;
+
+        return verifications ? null : {notValid: control.value};
+      }
+  }
+
+  private removeUselessSpaces(str: string): string {
+    str = str.trim();
+
+    return str;
+  }
+
+  public get controls() {
+    return this.form.controls;
   }
 }

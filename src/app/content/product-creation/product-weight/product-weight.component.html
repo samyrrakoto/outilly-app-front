@@ -14,7 +14,8 @@
             placeholder="{{ placeholder }}"
             (keydown)="onKey($event)"
             [(ngModel)]="product.weight"
-            formControlName="weight">
+            formControlName="weight"
+            [ngClass]="{'is-invalid': controls.weight.errors}">
           </form>
         </div>
       </div>

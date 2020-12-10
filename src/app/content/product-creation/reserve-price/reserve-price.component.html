@@ -12,6 +12,7 @@
           <input id="reservePrice" class="input no-border" type="number"
           (keydown)="onKey($event)"
           [(ngModel)]="product.reservePrice"
+          [ngClass]="{'is-invalid': controls.reservePrice.errors}"
           formControlName="reservePrice">
         </form>
       </div>
