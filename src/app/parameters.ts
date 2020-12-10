@@ -31,3 +31,4 @@ export const country = {
 }
 
 export const specialCharacters: string = "&!@#-_+~/.?"
+export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];

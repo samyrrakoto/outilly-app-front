@@ -1,12 +1,9 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
+      [stepSubtitle]=stepSubtitle
       [stepName]=stepName>
     </app-step-label>
 
@@ -15,8 +12,7 @@
         <textarea #description class="textarea" rows="10" placeholder="{{ placeholder }}" [(ngModel)]="product.description"></textarea>
       </div>
     </div>
-    <span *ngIf="product.description.length >= minLength && product.description.length < maxLength" class="discreet-text">{{ product.description.length }} / {{ maxLength }}</span>
-    <span *ngIf="product.description.length < minLength || product.description.length > maxLength" class="discreet-text error">{{ product.description.length }} / {{ maxLength }}</span>
+    <span [ngClass]="{'error': removeAllSpaces(product.description).length < minLength || removeAllSpaces(product.description).length > maxLength}">{{ removeAllSpaces(product.description).length }} / {{ maxLength }}</span>
   </div>
 </div>
 
@@ -26,7 +22,9 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

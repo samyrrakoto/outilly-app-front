@@ -1,17 +1,24 @@
-import { RequestService } from './../../../services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
+import { Product } from 'src/app/models/product';
+import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
+import { staticStates } from 'src/app/parameters';
 
 @Component({
   selector: 'app-product-state',
   templateUrl: './product-state.component.html',
   styleUrls: ['../product-creation.component.css', './product-state.component.css']
 })
-export class ProductStateComponent extends ProductCreationComponent {
+export class ProductStateComponent extends StepForm {
+  readonly root: string = 'product/create/';
+  product: Product;
+  currentState: string;
+  stateDescription: boolean = false;
+  staticStates: string[] = staticStates;
 
   constructor(
     public request: RequestService,
@@ -20,7 +27,7 @@ export class ProductStateComponent extends ProductCreationComponent {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -29,9 +36,9 @@ export class ProductStateComponent extends ProductCreationComponent {
     this.formData.fieldName = "productState";
     this.stepNb = 8;
     this.stepName = "Dans quel état se trouve le produit ?";
-    this.formData.path.current = "product-state";
-    this.formData.path.previous = "product-reference";
-    this.formData.path.next = "product-description";
+    this.path.current = "product-state";
+    this.path.previous = "product-reference";
+    this.path.next = "product-description";
   }
 
   ngAfterViewChecked(): void {
@@ -43,11 +50,9 @@ export class ProductStateComponent extends ProductCreationComponent {
   }
 
   public setFocus(id: string): void {
-    const tiles: Array<string> = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
-
     document.getElementById(id).classList.add('chosen-tile');
 
-    for (const tile of tiles) {
+    for (const tile of this.staticStates) {
       if (tile !== id) {
         document.getElementById(tile).classList.remove('chosen-tile');
       }
