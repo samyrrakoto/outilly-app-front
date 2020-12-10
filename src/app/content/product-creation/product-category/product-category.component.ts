@@ -1,3 +1,4 @@
+import { Product } from './../../../models/product';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
@@ -6,13 +7,16 @@ import { ProductCategory } from 'src/app/models/product-category';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
   styleUrls: ['../product-creation.component.css', './product-category.component.css']
 })
-export class ProductCategoryComponent extends ProductCreationComponent implements OnInit {
+export class ProductCategoryComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
+  product: Product;
   public categories: Array<any>;
   private chosenCategories: number;
   readonly maxCategories: number = 2;
@@ -24,7 +28,7 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -34,12 +38,12 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
     this.stepNb = 4;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
     this.stepSubtitle = 'Vous pouvez choisir jusqu\'à 2 catégories';
-    this.formData.path.current = "product-category";
-    this.formData.path.previous = "product-consumable";
-    this.formData.path.next = "product-brand";
+    this.path.current = "product-category";
+    this.path.previous = "product-consumable";
+    this.path.next = "product-brand";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
     this.categories = [];
-    this.chosenCategories = 0;
+    this.chosenCategories = this.product.productCategories.length;
   }
 
   ngOnInit(): void {
@@ -77,6 +81,9 @@ export class ProductCategoryComponent extends ProductCreationComponent implement
         if (this.chosenCategories < this.maxCategories && !this.hasCategory(category.label)) {
           document.getElementById(category.label).classList.add('chosen-tile');
           this.addProductCategory(category);
+          if (this.chosenCategories === this.maxCategories) {
+            this.nextOn = true;
+          }
         }
       }
   }

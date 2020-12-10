@@ -1,6 +1,9 @@
+import { Product } from './../../../models/product';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { StepForm } from 'src/app/models/step-form';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -12,8 +15,11 @@ import { ProductCreationComponent } from '../product-creation.component';
   templateUrl: './product-consumable.component.html',
   styleUrls: ['../product-creation.component.css', './product-consumable.component.css']
 })
-export class ProductConsumableComponent extends ProductCreationComponent implements OnInit {
+export class ProductConsumableComponent extends StepForm {
   readonly tiles: string[] = ['yes', 'no'];
+  readonly root: string = 'product/create/';
+  form: FormGroup;
+  product: Product;
 
   constructor(public request: RequestService,
     public formData: FormDataService,
@@ -22,7 +28,7 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     private auth: AuthService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -32,9 +38,9 @@ export class ProductConsumableComponent extends ProductCreationComponent impleme
     this.stepNb = 3;
     this.stepName = "Votre produit est-il un consommable ?";
     this.stepSubtitle = 'Par consommable nous entendons un produit dont l\'utilisation est unique, contrairement à un outil';
-    this.formData.path.current = "product-consumable";
-    this.formData.path.previous = "media-upload";
-    this.formData.path.next = "product-category";
+    this.path.current = "product-consumable";
+    this.path.previous = "media-upload";
+    this.path.next = "product-category";
     this.placeholder = "(ex : jeanmarc78@aol.fr )";
   }
 

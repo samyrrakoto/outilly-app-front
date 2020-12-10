@@ -1,29 +1,35 @@
-import { RequestService } from './../../../services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
+import { Product } from 'src/app/models/product';
+import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-announcement-title',
   templateUrl: './announcement-title.component.html',
   styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
-export class AnnouncementTitleComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("fieldTitle") fieldTitle: ElementRef;
+export class AnnouncementTitleComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
   isLogged: boolean;
+  product: Product;
+  form: FormGroup;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     private auth: AuthService,
     public formValidatorService: FormValidatorService,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -32,14 +38,15 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
     this.formData.fieldName = "announcementTitle";
     this.stepNb = 1;
     this.stepName = "Donnez un titre à votre annonce";
-    this.formData.path.current = "announcement-title";
-    this.formData.path.previous = "";
-    this.formData.path.next = "media-upload";
-    this.placeholder = "(ex :  Tondeuse à gazon Milwaukee 750-ZF)";
+    this.path.current = "announcement-title";
+    this.path.previous = "";
+    this.path.next = "media-upload";
+    this.placeholder = "Tondeuse à gazon Milwaukee 750-ZF";
     this.isLogged = false;
   }
 
   ngOnInit(): void {
+    this.getForm();
     if (localStorage.getItem('id') === null || localStorage.getItem('strId') === null) {
       this.createProduct();
     }
@@ -53,7 +60,7 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
   }
 
   ngAfterViewInit(): void {
-    this.fieldTitle.nativeElement.focus();
+    document.getElementById('announceTitle').focus();
   }
 
   ngOnDestroy(): void {
@@ -63,17 +70,54 @@ export class AnnouncementTitleComponent extends ProductCreationComponent impleme
 
   private createProduct(): void {
     this.request.postData('', this.request.uri.PRODUCT_CREATION).subscribe(
-      (res) => {
+      (res: any) => {
         localStorage.setItem('id', res.body.id);
         localStorage.setItem('strId', res.body.strId);
     });
   }
 
   private getUser(): void {
-    const response = this.request.getData(this.request.uri.GET_USER);
-
-    response.subscribe((res) => {
-      this.formData.product.locality = res.userProfile.addresses[0].zipcode;
+    this.request.getData(this.request.uri.GET_USER).subscribe({
+      next: (res) => this.formData.product.locality = res.userProfile.addresses[0].zipcode
     });
+  }
+
+  private getForm(): void {
+    this.form = this.formBuilder.group({
+      announceTitle: [this.product.name, [Validators.required, this.validDescription()]],
+    });
+  }
+
+  private validDescription(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        const value: string = this.removeUselessSpaces(control.value);
+        const longEnough: boolean = this.removeAllSpaces(value).length >= 8;
+        const minWordsNb: boolean = this.minWordsNb(value);
+        const verifications: boolean = longEnough && minWordsNb;
+
+        return verifications ? null : {notValid: control.value};
+      }
+  }
+
+  private minWordsNb(value: string): boolean {
+    return value.split(' ').length >= 2;
+  }
+
+  private removeUselessSpaces(str: string): string {
+    str = str.trim();
+
+    return str;
+  }
+
+  private removeAllSpaces(str: string): string {
+    while (str.indexOf(' ') !== -1) {
+      str = str.replace(' ', '');
+    }
+    return str;
+  }
+
+  public get controls() {
+    return this.form.controls;
   }
 }

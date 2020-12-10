@@ -1,14 +1,18 @@
 .previews {
-  width: 180px;
+  width: 130px;
   margin: auto;
   border: solid 3px var(--KTKP-GREY);
 }
 
 .preview-container {
-  --spacing: 23%;
+  --spacing: 32%;
   position: relative;
   width: 300px;
   margin: auto;
+}
+
+#displayed-media .content {
+  display: inline-flex;
 }
 
 .action-button {
@@ -35,10 +39,10 @@
 /* On mobile devices */
 @media (max-width: 768px) {
   .delete-button {
-    right: 23%;
+    right: 32%;
   }
 
   .gallery-button {
-    left: 23%;
+    left: 32%;
   }
 }

@@ -17,7 +17,9 @@ export class NavigationComponent implements OnChanges {
   @Input() rootUri: string;
   @Input() previousOn: boolean;
   @Input() nextOn: boolean;
-  @Input() controls: ValidationErrors;
+  @Input() controls: ValidationErrors = null;
+  @Input() additionalControls: boolean = undefined;
+  nextCondition: boolean = false;
 
   constructor(
     public router: Router,
@@ -27,6 +29,12 @@ export class NavigationComponent implements OnChanges {
     this.previousOn = false;
   }
 
+  ngOnInit() {
+    this.nextCondition = this.additionalControls === undefined
+    ? this.controls === null
+    : this.controls === null && this.additionalControls;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
@@ -34,13 +42,25 @@ export class NavigationComponent implements OnChanges {
           case 'nextOn': {
             if (changes.nextOn.currentValue === !changes.nextOn.previousValue) {
               this.next();
-            };
+            }
             break;
           }
           case 'previousOn': {
             if (changes.previousOn.currentValue === !changes.previousOn.previousValue) {
               this.previous();
-            };
+            }
+            break;
+          }
+          case 'controls': {
+            this.nextCondition = this.additionalControls === undefined
+            ? this.controls === null
+            : this.controls === null && this.additionalControls;
+            break;
+          }
+          case 'additionalControls': {
+            this.nextCondition = this.additionalControls === undefined
+            ? this.controls === null
+            : this.controls === null && this.additionalControls;
             break;
           }
         }
@@ -51,8 +71,12 @@ export class NavigationComponent implements OnChanges {
   public next(): void {
     const path: string = this.rootUri + this.path.next;
 
+    this.nextCondition = this.additionalControls === undefined
+    ? this.controls === null
+    : this.controls === null && this.additionalControls;
+
     // Verifying that the field matches the constraints before going further
-    if (this.controls === null) {
+    if (this.nextCondition) {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
       if (this.path.current === '5/status' && this.data.user.userProfile.type === 'professional') {
