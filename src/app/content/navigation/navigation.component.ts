@@ -52,15 +52,11 @@ export class NavigationComponent implements OnChanges {
             break;
           }
           case 'controls': {
-            this.nextCondition = this.additionalControls === undefined
-            ? this.controls === null
-            : this.controls === null && this.additionalControls;
+            this.nextCondition = this.getNextCondition();
             break;
           }
           case 'additionalControls': {
-            this.nextCondition = this.additionalControls === undefined
-            ? this.controls === null
-            : this.controls === null && this.additionalControls;
+            this.nextCondition = this.getNextCondition();
             break;
           }
         }
@@ -71,9 +67,7 @@ export class NavigationComponent implements OnChanges {
   public next(): void {
     const path: string = this.rootUri + this.path.next;
 
-    this.nextCondition = this.additionalControls === undefined
-    ? this.controls === null
-    : this.controls === null && this.additionalControls;
+    this.nextCondition = this.getNextCondition();
 
     // Verifying that the field matches the constraints before going further
     if (this.nextCondition) {
@@ -97,8 +91,10 @@ export class NavigationComponent implements OnChanges {
   public backToProductRecap(): void {
     const path: string = this.rootUri + "announce-overview";
 
+    this.nextCondition = this.getNextCondition();
+
     // Verifying that the field matches the constraints it gets before going further
-    if (this.formValidator.verify(this.data)) {
+    if (this.nextCondition) {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
       this.router.navigateByUrl(path);
@@ -108,8 +104,10 @@ export class NavigationComponent implements OnChanges {
   public backToAccountRecap(): void {
     const path: string = "onboarding/validation";
 
+    this.nextCondition = this.getNextCondition();
+
     // Verifying that the field matches the constraints it gets before going further
-    if (this.formValidator.verify(this.data)) {
+    if (this.nextCondition) {
       localStorage.setItem('formData', JSON.stringify(this.data));
 
       this.router.navigateByUrl(path);
@@ -120,5 +118,11 @@ export class NavigationComponent implements OnChanges {
     const path: string = this.rootUri + route;
 
     this.router.navigateByUrl(path);
+  }
+
+  private getNextCondition(): boolean {
+    return this.additionalControls === undefined
+    ? this.controls === null
+    : this.controls === null && this.additionalControls;
   }
 }

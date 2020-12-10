@@ -42,9 +42,7 @@ export class ProductDeliveryComponent extends StepForm implements OnInit {
 
   ngAfterViewChecked(): void {
     if (this.product.todeliver !== null) {
-      const deliveryId: string = this.product.todeliver ? 'yes' : 'no';
-
-      document.getElementById(deliveryId).classList.add('chosen-tile');
+      this.product.todeliver === true ? this.setFocus('yes') : this.setFocus('no');
     }
     this.handleDelivery();
   }

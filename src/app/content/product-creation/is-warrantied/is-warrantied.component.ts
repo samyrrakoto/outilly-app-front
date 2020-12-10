@@ -41,9 +41,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
 
   ngAfterViewChecked(): void {
     if (this.product.isWarrantied !== null) {
-      const warrantyId: string = this.product.isWarrantied ? 'yes' : 'no';
-
-      document.getElementById(warrantyId).classList.add('chosen-tile');
+      this.product.isWarrantied === true ? this.setFocus('yes') : this.setFocus('no');
     }
     this.handleWarranty();
   }

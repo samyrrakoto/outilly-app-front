@@ -6,12 +6,18 @@
       [stepName]=stepName>
     </app-step-label>
 
-    <div class="content tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery(); nextOn = true">
-      J'accepte la livraison ET la remise en mains propres
-    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery(); nextOn = true">
+          J'accepte la livraison <span class="bold">ET</span> la remise en mains propres
+        </div>
+      </div>
 
-    <div class="content tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery(); nextOn = true">
-      Je n'accepte pas de faire livrer mon produit
+      <div class="column">
+        <div class="tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery(); nextOn = true">
+          Je n'accepte pas de faire livrer mon produit
+        </div>
+      </div>
     </div>
   </div>
 </div>

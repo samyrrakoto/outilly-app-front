@@ -27,3 +27,7 @@
 .delete-button {
   right: var(--spacing);
 }
+
+#free-tag {
+  margin-top: -25px;
+}

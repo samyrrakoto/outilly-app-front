@@ -39,6 +39,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     this.formData.fieldName = "videoUpload";
     this.stepNb = 15;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
+    this.stepSubtitle = "Si vous ne voulez pas ajouter de vidéo, passez à l'étape suivante";
     this.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
     this.path.next = "reserve-price";
     this.isLoading = false;

@@ -10,7 +10,13 @@
     <div class="columns is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column" *ngFor="let category of categories">
         <div class="content tile" id="{{ category.label }}" (click)="setFocus(category)">
-          {{ category.label }}
+          <div [ngSwitch]="category.label">
+            <fa-icon *ngSwitchCase="'Mécanique'" [icon]="['fas', 'car']"></fa-icon>
+            <fa-icon *ngSwitchCase="'Bricolage'" [icon]="['fas', 'hammer']"></fa-icon>
+            <fa-icon *ngSwitchCase="'Jardin'" [icon]="['fas', 'seedling']"></fa-icon>
+            <fa-icon *ngSwitchCase="'Atelier'" [icon]="['fas', 'warehouse']"></fa-icon>
+          </div>
+          {{ category.label | category }}
         </div>
       </div>
     </div>

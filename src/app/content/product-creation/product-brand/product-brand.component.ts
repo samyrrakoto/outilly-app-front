@@ -76,7 +76,6 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   private getBrands(): Promise<any> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.BRANDS).subscribe((res) => {
-        this.brands.push('#Autre');
         for (const elem of res) {
           this.brands.push(elem.name);
         }

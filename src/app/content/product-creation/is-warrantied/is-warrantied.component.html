@@ -6,12 +6,18 @@
       [stepName]=stepName>
     </app-step-label>
 
-    <div class="content tile" id="yes" (click)="product.isWarrantied = true; setFocus('yes'); handleWarranty(); nextOn = true">
-      Oui.
-    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="tile" id="yes" (click)="product.isWarrantied = true; setFocus('yes'); handleWarranty(); nextOn = true">
+          Oui.
+        </div>
+      </div>
 
-    <div class="content tile" id="no" (click)="product.isWarrantied = false; setFocus('no'); handleWarranty(); nextOn = true">
-      Non, pas de garantie.
+      <div class="column">
+        <div class="tile" id="no" (click)="product.isWarrantied = false; setFocus('no'); handleWarranty(); nextOn = true">
+          Non, pas de garantie.
+        </div>
+      </div>
     </div>
   </div>
 </div>

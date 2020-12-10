@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { EncodingService } from './../../../services/encoding.service';
+import { EncodingService } from 'src/app/services/encoding.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
