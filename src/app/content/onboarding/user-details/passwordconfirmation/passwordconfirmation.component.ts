@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -30,9 +29,11 @@ export class PasswordconfirmationComponent extends StepForm {
     this.formDataService.fieldName = "pwdConfirmation";
     this.stepNb = 13;
     this.stepName = "Confirmez votre mot de passe";
+    this.stepSubtitle = "Au cas où vous l'auriez oublié.";
     this.path.current = "13/passwordconfirmation";
     this.path.previous = "12/password";
     this.path.next = "14/emailoptin";
+    this.placeholder = "•••••••";
   }
 
   ngOnInit(): void {

@@ -32,6 +32,7 @@ export class ZipcodeComponent extends StepForm {
     this.formDataService.fieldName = "zipcode";
     this.stepNb = 8;
     this.stepName = "Votre code postal ?";
+    this.stepSubtitle = "Cela restera confidentiel. ;-)";
     this.path.current = "8/zipcode";
     this.path.previous = "7/country";
     this.path.next = "9/city";

@@ -2,7 +2,8 @@
   <div class="field">
     <app-step-label
       [stepNb]=stepNb
-      [stepName]=stepName>
+      [stepName]=stepName
+      [stepSubtitle]=stepSubtitle>
     </app-step-label>
 
     <form *ngIf="form" [formGroup]="form">
@@ -19,7 +20,7 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.zipcode.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.zipcode.errors }">
-  <div class="error" *ngIf="controls.zipcode.errors.required">Le code postal est requis</div>
+  <div class="error" *ngIf="controls.zipcode.errors.required">Le code postal est requis pour compléter votre adresse</div>
   <div class="error" *ngIf="controls.zipcode.errors.pattern">Le code postal est invalide</div>
 </div>
 

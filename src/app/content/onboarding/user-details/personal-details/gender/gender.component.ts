@@ -30,7 +30,7 @@ export class GenderComponent extends StepForm {
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 4;
-    this.stepName = "Votre sexe ?";
+    this.stepName = "Vous êtes un(e)...";
     this.path.current = "4/gender";
     this.path.previous = "3/lastname";
     this.path.next = "5/status";

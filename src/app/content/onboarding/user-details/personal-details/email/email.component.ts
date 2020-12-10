@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EmailComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = 19;
   user: User = new User();
   form: FormGroup;
 
@@ -28,7 +29,7 @@ export class EmailComponent extends StepForm {
     this.user = formDataService.user;
     this.stepNb = 1;
     this.stepName = "Votre adresse e-mail ?";
-    this.stepSubtitle = 'Elle vous permettra de vous connecter';
+    this.stepSubtitle = 'Elle vous servira pour vous connecter.';
     this.path.current = "1/email";
     this.path.previous = "";
     this.path.next = "2/firstname";

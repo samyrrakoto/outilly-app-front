@@ -1,5 +1,10 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
+
     <app-step-label
       [stepNb]=stepNb
       [stepName]=stepName
@@ -19,7 +24,7 @@
     </form>
 
     <!-- Errors display -->
-    <div *ngIf="controls.mail.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.mail.errors }">
+    <div *ngIf="controls.mail.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.mail.errors }">
       <div class="error" *ngIf="controls.mail.errors.required">L'email est requis</div>
       <div class="error" *ngIf="controls.mail.errors.email">L'email est invalide</div>
     </div>

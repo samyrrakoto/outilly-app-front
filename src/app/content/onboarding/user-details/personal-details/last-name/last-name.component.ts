@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -29,8 +28,7 @@ export class LastNameComponent extends StepForm {
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
     this.stepNb = 3;
-    this.stepName = "Votre nom ?";
-    this.stepSubtitle = 'Car vous n\'êtes pas un numéro';
+    this.stepName = "Et votre nom ?";
     this.path.current = "3/lastname";
     this.path.previous = "2/firstname";
     this.path.next = "4/gender";

@@ -19,7 +19,7 @@
       </form>
 
       <!-- Errors display -->
-      <div *ngIf="controls.firstname.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.firstname.errors }">
+      <div *ngIf="controls.firstname.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.firstname.errors }">
         <div class="error" *ngIf="controls.firstname.errors.required">Le prénom est requis</div>
       </div>
     </div>

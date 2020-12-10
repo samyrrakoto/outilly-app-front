@@ -31,10 +31,11 @@ export class PasswordComponent extends StepForm {
     this.formDataService.fieldName = "pwd";
     this.stepNb = 12;
     this.stepName = "Créez un mot de passe sécurisé";
+    this.stepSubtitle = "Au moins 7 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.";
     this.path.current = "12/password";
     this.path.previous = "11/phonenumber";
     this.path.next = "13/passwordconfirmation";
-    this.placeholder = "AuMoins7Caracteres";
+    this.placeholder = "•••••••";
   }
 
   ngOnInit(): void {

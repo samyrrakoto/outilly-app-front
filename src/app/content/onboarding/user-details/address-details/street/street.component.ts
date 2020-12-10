@@ -28,7 +28,8 @@ export class StreetComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "street";
     this.stepNb = 10;
-    this.stepName = "Adresse postale complète ?";
+    this.stepName = "Complétez votre adresse...";
+    this.stepSubtitle = "Cela restera (encore plus) confidentiel. ;-)";
     this.path.current = '10/street';
     this.path.previous = "9/city";
     this.path.next = "11/phonenumber";

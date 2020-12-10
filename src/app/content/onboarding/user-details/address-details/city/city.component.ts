@@ -30,6 +30,7 @@ export class CityComponent extends StepForm {
     this.formDataService.fieldName = 'city';
     this.stepNb = 9;
     this.stepName = 'Votre ville ?';
+    this.stepSubtitle = "Cela restera (toujours) confidentiel. ;-)";
     this.path.current = '9/city';
     this.path.previous = '8/zipcode';
     this.path.next = '10/street';

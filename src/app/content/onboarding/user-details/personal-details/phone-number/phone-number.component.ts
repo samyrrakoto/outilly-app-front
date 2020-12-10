@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -32,7 +31,7 @@ export class PhoneNumberComponent extends StepForm {
     this.formDataService.fieldName = "phoneNumber";
     this.stepNb = 11;
     this.stepName = "Votre numéro de téléphone ?";
-    this.stepSubtitle = "Celui-ci sera nécessaire pour contacter vos acheteurs et/ou vendeurs";
+    this.stepSubtitle = "Utile pour contacter vos futurs acheteurs et/ou vendeurs, n'est-ce pas ? ";
     this.isMandatory = false;
     this.path.current = '11/phonenumber';
     this.path.previous = "10/street";
