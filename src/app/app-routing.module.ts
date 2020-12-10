@@ -292,10 +292,6 @@ const routes: Routes = [
         component: VideoUploadComponent
       },
       {
-        path: 'announce-kind',
-        component: AnnounceKindComponent
-      },
-      {
         path: 'reserve-price',
         component: ReservePriceComponent
       },
