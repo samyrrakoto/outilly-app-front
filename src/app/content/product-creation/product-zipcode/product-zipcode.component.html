@@ -13,6 +13,7 @@
           (keydown)="onKey($event)"
           placeholder="{{ placeholder }}"
           [(ngModel)]="product.locality"
+          [ngClass]="{'is-invalid': controls.zipcode.errors}"
           formControlName="zipcode">
         </form>
       </div>

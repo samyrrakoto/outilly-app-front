@@ -12,7 +12,8 @@
           <input id="warrantyDuration" class="input" type="number"
           [(ngModel)]="product.warrantyDuration"
           (keydown)="onKey($event)"
-          formControlName="warrantyDuration">
+          formControlName="warrantyDuration"
+          [ngClass]="{'is-invalid': controls.warrantyDuration.errors}">
         </form>
       </div>
     </div>

@@ -9,7 +9,13 @@
 
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
-        <textarea #description class="textarea" rows="10" placeholder="{{ placeholder }}" [(ngModel)]="product.description"></textarea>
+        <form *ngIf="form" [formGroup]="form">
+          <textarea id="description" class="textarea" rows="10" placeholder="{{ placeholder }}"
+          [(ngModel)]="product.description"
+          [ngClass]="{'is-invalid': controls.description.errors}"
+          formControlName="description">
+        </textarea>
+        </form>
       </div>
     </div>
     <span [ngClass]="{'error': removeAllSpaces(product.description).length < minLength || removeAllSpaces(product.description).length > maxLength}">{{ removeAllSpaces(product.description).length }} / {{ maxLength }}</span>
@@ -22,6 +28,7 @@
 
 <app-navigation
   [data]=formData
+  [controls]=controls.description.errors
   [disabledEnterKey]=true
   [path]=path
   [rootUri]=root
