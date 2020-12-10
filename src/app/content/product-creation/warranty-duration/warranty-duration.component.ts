@@ -34,7 +34,7 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "warrantyDuration";
-    this.stepNb = 15;
+    this.stepNb = 14;
     this.stepName = "Combien de mois garantissez-vous le produit ?";
     this.path.previous = "is-warrantied";
     this.path.next = "video-upload";
