@@ -1,28 +1,35 @@
-import { UserProfile } from './../../../models/user-profile';
-import { RequestService } from './../../../services/request.service';
+import { Product } from './../../../models/product';
+import { RequestService } from 'src/app/services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegexTemplateService } from 'src/app/services/regex-template.service';
 
 @Component({
   selector: 'app-product-zipcode',
   templateUrl: './product-zipcode.component.html',
   styleUrls: ['../product-creation.component.css', './product-zipcode.component.css']
 })
-export class ProductZipcodeComponent extends ProductCreationComponent implements OnInit {
-  @ViewChild("zipcode") zipcode: ElementRef;
+export class ProductZipcodeComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
+  product: Product;
+  form: FormGroup;
 
   constructor(
     public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder,
+    public regexTemplate: RegexTemplateService)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -31,15 +38,27 @@ export class ProductZipcodeComponent extends ProductCreationComponent implements
     this.formData.fieldName = "productZipcode";
     this.stepNb = 10;
     this.stepName = "Indiquez votre code postal";
-    this.formData.path.current = "product-zipcode";
-    this.formData.path.previous = "product-description";
-    this.formData.path.next = "product-delivery";
-    this.placeholder = "(ex :  93500)";
+    this.path.current = "product-zipcode";
+    this.path.previous = "product-description";
+    this.path.next = "product-delivery";
+    this.placeholder = "93500";
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getForm();
+  }
 
   ngAfterViewInit(): void {
-    this.zipcode.nativeElement.focus();
+    document.getElementById('zipcode').focus();
+  }
+
+  public getForm(): void {
+    this.form = this.formBuilder.group({
+      zipcode: [this.product.locality, [Validators.required, Validators.pattern(this.regexTemplate.ZIPCODE)]],
+    });
+  }
+
+  public get controls() {
+    return this.form.controls;
   }
 }

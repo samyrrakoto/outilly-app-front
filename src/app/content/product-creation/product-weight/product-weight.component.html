@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -12,31 +8,34 @@
 
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
-        <div class="field has-addons">
-          <p class="control">
-            <input #weight type="number" max="{{ maxValue }}" class="input" placeholder="{{ placeholder }}" [(ngModel)]="product.weight">
-          </p>
-          <p class="control">
-            <span class="select">
-              <select [(ngModel)]="product.weightUnity" (change)="weightChange()" #unity id="unity" name="unity">
-                <option value="kg" selected>kg</option>
-                <option value="g">g</option>
-              </select>
-            </span>
-          </p>
+        <div class="field">
+          <form *ngIf="form" [formGroup]="form">
+            <input id="weight" type="number" max="{{ maxValue }}" min="0" class="input"
+            placeholder="{{ placeholder }}"
+            (keydown)="onKey($event)"
+            [(ngModel)]="product.weight"
+            formControlName="weight">
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-  {{ error }}
+<!-- Errors display -->
+<div *ngIf="controls.weight.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.weight.errors }">
+  <div class="error" *ngIf="controls.weight.errors.required">Le poids est requis</div>
+  <div class="error" *ngIf="controls.weight.errors.isEmpty">Le poids est requis</div>
+  <div class="error" *ngIf="controls.weight.errors.min">Le poids ne peut pas être négatif</div>
+  <div class="error" *ngIf="controls.weight.errors.max">Le poids ne doit pas dépasser 30kg</div>
 </div>
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.weight.errors
+  [disabledEnterKey]=false
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

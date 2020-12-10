@@ -1,21 +1,17 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
       [stepName]=stepName>
     </app-step-label>
 
-    <div class="content tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery()">
-      <span class="choice-symbol">A</span> Oui.
+    <div class="content tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery(); nextOn = true">
+      J'accepte la livraison ET la remise en mains propres
     </div>
 
-    <div class="content tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery()">
-      <span class="choice-symbol">B</span> Non, pas de livraison.
+    <div class="content tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery(); nextOn = true">
+      Je n'accepte pas de faire livrer mon produit
     </div>
   </div>
 </div>
@@ -26,7 +22,9 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

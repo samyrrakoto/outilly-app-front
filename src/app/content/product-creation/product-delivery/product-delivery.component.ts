@@ -1,17 +1,21 @@
-import { RequestService } from './../../../services/request.service';
+import { Product } from './../../../models/product';
+import { RequestService } from 'src/app/services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-product-delivery',
   templateUrl: './product-delivery.component.html',
   styleUrls: ['../product-creation.component.css', './product-delivery.component.css']
 })
-export class ProductDeliveryComponent extends ProductCreationComponent implements OnInit {
+export class ProductDeliveryComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
+  product: Product;
 
   constructor(
     public request: RequestService,
@@ -20,7 +24,7 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -28,10 +32,10 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDelivery";
     this.stepNb = 11;
-    this.stepName = "Acceptez-vous de faire livrer votre produit ?";
-    this.formData.path.current = "product-delivery";
-    this.formData.path.previous = "product-zipcode";
-    this.formData.path.next = "product-weight";
+    this.stepName = "Concernant la livraison...";
+    this.path.current = "product-delivery";
+    this.path.previous = "product-zipcode";
+    this.path.next = "product-weight";
   }
 
   ngOnInit(): void {}
@@ -46,7 +50,7 @@ export class ProductDeliveryComponent extends ProductCreationComponent implement
   }
 
   public handleDelivery(): void {
-    this.formData.path.next = this.product.todeliver ? 'product-weight' : 'is-warrantied';
+    this.path.next = this.product.todeliver ? 'product-weight' : 'is-warrantied';
   }
 
   public setFocus(id: string): void {

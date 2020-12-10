@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -11,41 +7,13 @@
     </app-step-label>
 
     <div class="columns is-multiline is-mobile is-narrow has-text-centered">
-      <div class="column">
-        <div class="tile" id="new" (click)="product.quality = 'new'; setFocus('new')">
-          Jamais ouvert
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="tile" id="excellent" (click)="product.quality = 'excellent'; setFocus('excellent')">
-          Excellent
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="tile" id="good" (click)="product.quality = 'good'; setFocus('good')">
-          Bon
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="tile" id="acceptable" (click)="product.quality = 'acceptable'; setFocus('acceptable')">
-          Acceptable
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="tile" id="forparts" (click)="product.quality = 'forparts'; setFocus('forparts')">
-          Pour pièces
+      <div *ngFor="let state of staticStates" class="column">
+        <div class="tile" id="{{ state }}" (mouseover)="currentState = state; stateDescription = true" (mouseleave)="stateDescription = false;" (click)="product.quality = state; setFocus(state); nextOn = true">
+          {{ state | quality }}
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="product.quality" class="box has-text-centered">
-  <fa-icon id="info" [icon]="['fas', 'info-circle']"></fa-icon>{{ product.quality | quality:'description' }}
 </div>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
@@ -54,7 +22,13 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
+
+<div *ngIf="stateDescription" class="box has-text-centered">
+  <fa-icon id="info" [icon]="['fas', 'info-circle']"></fa-icon>{{ currentState | quality:'description' }}
+</div>

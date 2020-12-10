@@ -1,22 +1,26 @@
+import { Product } from './../../../models/product';
 import { Observable } from 'rxjs';
-import { FormValidatorService } from './../../../services/form-validator.service';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
-import { FormDataService } from './../../../services/form-data.service';
-import { RequestService } from './../../../services/request.service';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { RequestService } from 'src/app/services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
 import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-product-brand',
   templateUrl: './product-brand.component.html',
   styleUrls: ['../product-creation.component.css', './product-brand.component.css']
 })
-export class ProductBrandComponent extends ProductCreationComponent implements OnInit {
+export class ProductBrandComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
   @ViewChild("matOption") matOption: ElementRef;
+  product: Product;
   myControl = new FormControl();
   brands: Array<string>;
   filteredOptions: Observable<Array<string>>;
@@ -28,7 +32,7 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -37,9 +41,9 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
-    this.formData.path.current = "product-brand";
-    this.formData.path.previous = "product-category";
-    this.formData.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
+    this.path.current = "product-brand";
+    this.path.previous = "product-category";
+    this.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }
@@ -71,9 +75,8 @@ export class ProductBrandComponent extends ProductCreationComponent implements O
 
   private getBrands(): Promise<any> {
     return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.BRANDS);
-
-      response.subscribe((res) => {
+      this.request.getData(this.request.uri.BRANDS).subscribe((res) => {
+        this.brands.push('#Autre');
         for (const elem of res) {
           this.brands.push(elem.name);
         }
