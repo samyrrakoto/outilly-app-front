@@ -280,10 +280,6 @@ const routes: Routes = [
         component: ProductWeightComponent
       },
       {
-        path: 'delivery-price-information',
-        component: DeliveryPriceInformationComponent
-      },
-      {
         path: 'is-warrantied',
         component: IsWarrantiedComponent
       },

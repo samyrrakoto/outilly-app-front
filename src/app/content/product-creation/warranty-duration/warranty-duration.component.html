@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -12,19 +8,32 @@
 
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
-        <input #warranty class="input" type="number" [(ngModel)]="product.warrantyDuration">
+        <form *ngIf="form" [formGroup]="form">
+          <input id="warrantyDuration" class="input" type="number"
+          [(ngModel)]="product.warrantyDuration"
+          (keydown)="onKey($event)"
+          formControlName="warrantyDuration">
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-  {{ error }}
+<!-- Errors display -->
+<div *ngIf="controls.warrantyDuration.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.warrantyDuration.errors }">
+  <div class="error" *ngIf="controls.warrantyDuration.errors.required">Le poids est requis</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.isEmpty">Le poids est requis</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.min">Le poids ne peut pas être négatif</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.max">Le poids ne doit pas dépasser 30kg</div>
 </div>
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [controls]=controls.warrantyDuration.errors
+  [disabledEnterKey]=false
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
+
