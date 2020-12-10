@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -36,13 +32,17 @@
   </nav>
 </div>
 
+<button *ngIf="product.productReferences.length === 0" (click)="nextOn = true" class="button is-small is-light">Je ne connais pas la référence de mon produit</button>
+
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
 </div>
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

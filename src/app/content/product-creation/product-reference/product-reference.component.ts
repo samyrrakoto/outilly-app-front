@@ -1,3 +1,4 @@
+import { Product } from './../../../models/product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ProductCreationComponent } from './../product-creation.component';
@@ -10,14 +11,17 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { ProductReference } from 'src/app/models/product-reference';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-product-reference',
   templateUrl: './product-reference.component.html',
   styleUrls: ['../product-creation.component.css', './product-reference.component.css']
 })
-export class ProductReferenceComponent extends ProductCreationComponent implements OnInit {
+export class ProductReferenceComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
   @ViewChild("matOption") matOption: ElementRef;
+  product: Product;
   myControl = new FormControl();
   references: any[];
   filteredOptions: Observable<Array<string>>;
@@ -29,7 +33,7 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -37,11 +41,11 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
-    this.stepName = "Quelle est la référence de votre produit ?";
+    this.stepName = "Quel est le nom de votre produit ?";
     this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5';
-    this.formData.path.current = "product-reference";
-    this.formData.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
-    this.formData.path.next = "product-state";
+    this.path.current = "product-reference";
+    this.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
+    this.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'une référence et sélectionnez-la";
     this.references = [];
   }
@@ -116,6 +120,9 @@ export class ProductReferenceComponent extends ProductCreationComponent implemen
     if (!this.hasType() && this.isReferenceExist() && this.product.productReferences.length < 5) {
       const referenceId: number = this.getId();
       this.product.productReferences.push(new ProductReference(this.myControl.value, referenceId));
+    }
+    if (this.product.productReferences.length === 5) {
+      this.nextOn = true;
     }
     this.filterTreatment();
   }
