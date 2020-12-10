@@ -1,3 +1,24 @@
+<div *ngIf="!isLogged" class="content has-text-centered">
+  <h4>Avez-vous un compte sur Ekipr ?</h4>
+  <div class="columns">
+    <div class="column" id="yes" (click)="signInOrUp(true)">
+      <div class="content tile">
+        Oui.
+      </div>
+    </div>
+    <div class="column" id="no" (click)="signInOrUp(false)">
+      <div class="content tile">
+        Non, je crée un compte.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLogged && !isSaleCreated">
+  <button *ngIf="!isLoading" class="button is-success is-large" style="margin-bottom: 20px;" (click)="isLoading = true; submitProduct()">On valide</button>
+  <button *ngIf="isLoading" class="button is-light is-large is-loading" style="margin-bottom: 20px;"></button>
+</div>
+
 <h1 class="title">Récapitulatif de votre annonce</h1>
 
 <table *ngIf="!isSaleCreated" class="table">
@@ -38,7 +59,7 @@
     <td class="field-name">Catégories</td>
     <td>
       <ul>
-        <li *ngFor="let category of formData.product.productCategories">{{ category.label }}</li>
+        <li *ngFor="let category of formData.product.productCategories">{{ category.label | category }}</li>
       </ul>
     </td>
     <td class="has-text-right"><button routerLink="/product/create/product-category" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
@@ -117,16 +138,11 @@
     <td>{{ formData.product.warrantyDuration }} mois</td>
     <td class="has-text-right"><button routerLink="/product/create/warranty-duration" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr>
-    <td class="field-name">Type d'annonce</td>
-    <td>{{ formData.product.buyingOption | announce }}</td>
-    <td class="has-text-right"><button routerLink="/product/create/announce-kind" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
 </table>
 <hr/>
 
 <div *ngIf="isLogged && !isSaleCreated">
-  <button *ngIf="!isLoading" class="button is-success is-large" style="margin-top: 20px;" (click)="isLoading = true; submitProduct()">Confirmer</button>
+  <button *ngIf="!isLoading" class="button is-success is-large" style="margin-top: 20px;" (click)="isLoading = true; submitProduct()">On valide</button>
   <button *ngIf="isLoading" class="button is-light is-large is-loading" style="margin-top: 20px;"></button>
 </div>
 
@@ -137,17 +153,5 @@
 
   <div class="content">
     <button *ngIf="isSaleCreated" class="button is-danger is-large" style="margin-top: 20px;" (click)="goToProduct()">Aller à la page produit</button>
-  </div>
-</div>
-
-<div *ngIf="!isLogged" class="content has-text-left">
-  <h4>Avez-vous un compte sur Ekipr ?</h4>
-  <div class="field">
-    <div class="content tile" id="yes" (click)="signInOrUp(true)">
-      <span class="choice-symbol">A</span> Oui.
-    </div>
-    <div class="content tile" id="no" (click)="signInOrUp(false)">
-      <span class="choice-symbol">B</span> Non, pas encore.
-    </div>
   </div>
 </div>

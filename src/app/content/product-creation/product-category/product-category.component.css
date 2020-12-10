@@ -5,3 +5,12 @@
 #caret-down fa-icon {
   color: black;
 }
+
+.tile {
+  height: 130px;
+  width: 130px;
+}
+
+.tile fa-icon {
+  font-size: 1.5em;
+}

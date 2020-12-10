@@ -1,7 +1,8 @@
 .tile {
-  width: 50%;
+  width: 200px;
+  height: 100px;
   margin: auto;
   margin-bottom: 10px;
-  height: 45px;
-  justify-content: left;
+  padding: 10px;
+  text-align: center;
 }

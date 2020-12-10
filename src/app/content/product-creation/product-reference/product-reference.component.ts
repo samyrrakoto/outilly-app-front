@@ -100,7 +100,6 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
       (resolve) => {
         this.request.getData(this.request.uri.REFERENCES, params).subscribe(
           (references: any) => {
-            this.references.push({'label': '#Autres', 'id': 0})
             for (const reference of references) {
               this.references.push({'label': reference.label, 'id': reference.id});
             }

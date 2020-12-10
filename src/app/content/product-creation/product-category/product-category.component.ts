@@ -1,5 +1,4 @@
-import { Product } from './../../../models/product';
-import { ProductCreationComponent } from './../product-creation.component';
+import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';

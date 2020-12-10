@@ -1,15 +1,15 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
       [stepName]=stepName
+      [stepSubtitle]=stepSubtitle
       [isMandatory]=isMandatory>
     </app-step-label>
+    <div id="free-tag" class="content has-text-centered">
+      <span class="tag is-success has-text-white">Gratuit</span>
+    </div>
   </div>
 </div>
 
@@ -40,7 +40,9 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

@@ -1,6 +1,6 @@
+import { Product } from './../../../models/product';
 import { environment } from 'src/environments/environment';
-import { RequestService } from './../../../services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
+import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -8,17 +8,20 @@ import { Component, OnInit } from '@angular/core';
 import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-video-upload',
   templateUrl: './video-upload.component.html',
   styleUrls: ['../product-creation.component.css', './video-upload.component.css']
 })
-export class VideoUploadComponent extends ProductCreationComponent implements OnInit {
+export class VideoUploadComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
+  readonly mediaBaseUri: string = environment.mediaBaseUri;
+  product: Product;
   isLoading: boolean;
   currentMedia: ProductMedia;
   modals: Modals;
-  readonly mediaBaseUri: string = environment.mediaBaseUri;
 
   constructor(
     public request: RequestService,
@@ -27,17 +30,18 @@ export class VideoUploadComponent extends ProductCreationComponent implements On
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "videoUpload";
-    this.stepNb = 16;
+    this.stepNb = 15;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
-    this.formData.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
-    this.formData.path.next = "announce-kind";
+    this.stepSubtitle = "Si vous ne voulez pas ajouter de vidéo, passez à l'étape suivante";
+    this.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
+    this.path.next = "reserve-price";
     this.isLoading = false;
     this.currentMedia = new ProductMedia();
     this.modals = new Modals();
