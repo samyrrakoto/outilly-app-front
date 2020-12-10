@@ -1,19 +1,23 @@
+import { Product } from './../../../models/product';
 import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
-import { FormDataService } from './../../../services/form-data.service';
-import { RequestService } from './../../../services/request.service';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductType } from 'src/app/models/product-type';
 import { Title } from '@angular/platform-browser';
+import { StepForm } from 'src/app/models/step-form';
 
 @Component({
   selector: 'app-product-type',
   templateUrl: './product-type.component.html',
   styleUrls: ['../product-creation.component.css', './product-type.component.css']
 })
-export class ProductTypeComponent extends ProductCreationComponent implements OnInit {
+export class ProductTypeComponent extends StepForm implements OnInit {
+  readonly root: string = 'product/create/';
   types: Array<any>;
+  product: Product;
   private chosenTypes: number;
   readonly maxTypes: number = 100;
 
@@ -24,7 +28,7 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super(request, formData, router, formValidatorService, title);
+    super();
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -33,10 +37,10 @@ export class ProductTypeComponent extends ProductCreationComponent implements On
     this.formData.fieldName = "productType";
     this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
-    this.stepSubtitle = 'Vous pouvez en sélectionner autant que vous le souhaitez';
-    this.formData.path.current = "product-type";
-    this.formData.path.previous = "product-brand";
-    this.formData.path.next = "product-reference";
+    this.stepSubtitle = 'Vous ne savez pas ? Passez à l\'étape suivante';
+    this.path.current = "product-type";
+    this.path.previous = "product-brand";
+    this.path.next = "product-reference";
     this.placeholder = "Commencez à écrire le nom d'un type de produit et sélectionnez-la";
     this.types = [];
     this.chosenTypes = 0;

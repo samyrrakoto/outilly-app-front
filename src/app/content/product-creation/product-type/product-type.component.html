@@ -1,9 +1,5 @@
 <div class="content has-text-left">
   <div class="field">
-    <app-step-progress
-      [stepNb]=stepNb
-      [nbStep]=nbStep>
-    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -26,7 +22,9 @@
 
 <app-navigation
   [data]=formData
-  [rootUri]=rootUri
-  [previousOn]=previousOn
-  [nextOn]=nextOn>
+  [disabledEnterKey]=true
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
