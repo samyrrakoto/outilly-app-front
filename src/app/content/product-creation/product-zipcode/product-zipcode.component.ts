@@ -1,6 +1,5 @@
-import { Product } from './../../../models/product';
+import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -37,7 +36,8 @@ export class ProductZipcodeComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productZipcode";
     this.stepNb = 10;
-    this.stepName = "Indiquez votre code postal";
+    this.stepName = "Votre code postal ?";
+    this.stepSubtitle = "Pour savoir où se trouve le produit."
     this.path.current = "product-zipcode";
     this.path.previous = "product-description";
     this.path.next = "product-delivery";

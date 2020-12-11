@@ -3,7 +3,8 @@
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
-      [stepName]=stepName>
+      [stepName]=stepName
+      [stepSubtitle]=stepSubtitle>
     </app-step-label>
 
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -13,7 +14,7 @@
     </mat-autocomplete>
 
     <p class="control has-icons-right">
-      <input class="input" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
+      <input id="product-brand" class="input no-border" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
       <span id="caret-down" class="icon is-right">
         <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
       </span>

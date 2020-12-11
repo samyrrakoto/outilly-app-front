@@ -133,6 +133,7 @@ import { FormStepComponent } from './models/form-step/form-step.component';
 import { CountryPipe } from './pipes/country.pipe';
 import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { CategoryPipe } from './pipes/category.pipe';
+import { TypeDescriptionPipe } from './pipes/type-description.pipe';
 
 @NgModule({
   declarations: [
@@ -257,6 +258,7 @@ import { CategoryPipe } from './pipes/category.pipe';
     CountryPipe,
     CompanyNameComponent,
     CategoryPipe,
+    TypeDescriptionPipe,
   ],
   imports: [
     HttpClientModule,

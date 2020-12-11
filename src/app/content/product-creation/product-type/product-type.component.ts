@@ -37,7 +37,7 @@ export class ProductTypeComponent extends StepForm implements OnInit {
     this.formData.fieldName = "productType";
     this.stepNb = 6;
     this.stepName = "Quel est le type du produit que vous vendez ?";
-    this.stepSubtitle = 'Vous ne savez pas ? Passez à l\'étape suivante';
+    this.stepSubtitle = 'Vous ne savez pas ? Passez à l\'étape suivante.';
     this.path.current = "product-type";
     this.path.previous = "product-brand";
     this.path.next = "product-reference";

@@ -46,8 +46,8 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 2;
-    this.stepName = "Sur Outilly, on n'est pas radin : c'est 3 photos minimum… puis (presque) autant que vous voulez !";
-    this.stepSubtitle = '(.jpg, .png uniquement)';
+    this.stepName = "Téléchargez vos photos";
+    this.stepSubtitle = "Sur Outilly, on n'est pas radin : c'est 3 photos minimum… et jusqu'à 10 ! (.jpeg, .jpg, .png)";
     this.path.current = "media-upload";
     this.path.previous = "announcement-title";
     this.path.next = "product-consumable";
