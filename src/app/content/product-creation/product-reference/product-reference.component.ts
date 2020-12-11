@@ -1,7 +1,6 @@
-import { Product } from './../../../models/product';
+import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ProductCreationComponent } from './../product-creation.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
@@ -42,7 +41,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
     this.stepName = "Quel est le nom de votre produit ?";
-    this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5';
+    this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5.';
     this.path.current = "product-reference";
     this.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
     this.path.next = "product-state";
@@ -59,6 +58,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     if (this.matOption) {
       this.matOption.nativeElement.openPanel();
     }
+    document.getElementById('product-reference').focus();
   }
 
   private filterTreatment(): void {
@@ -124,7 +124,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     if (this.product.productReferences.length === 5) {
       this.nextOn = true;
     }
-    this.filterTreatment();
+    document.getElementById('product-reference').focus();
   }
 
   public removeReference(referenceName: string): void {
@@ -136,7 +136,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
       }
       i++;
     }
-    this.filterTreatment();
+    document.getElementById('product-reference').focus();
   }
 
   private hasType(): boolean {

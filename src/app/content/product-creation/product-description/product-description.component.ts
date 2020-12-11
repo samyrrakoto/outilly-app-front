@@ -1,10 +1,9 @@
-import { Product } from './../../../models/product';
+import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -37,12 +36,12 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDescription";
     this.stepNb = 9;
-    this.stepName = "Description de votre annonce";
-    this.stepSubtitle = "Expliquez avec le plus de détails possibles ce que vous vendez. N'oubliez pas que l'acheteur compte sur ces détails pour motiver son achat !";
+    this.stepName = "Apportez des précisions à votre annonce";
+    this.stepSubtitle = "Expliquez avec le plus de détails possibles ce que vous vendez pour éviter les mauvaises surprises. N'oubliez pas que l'acheteur compte sur ces détails pour se décider à acheter !";
     this.path.current = "product-description";
     this.path.previous = "product-state";
     this.path.next = "product-zipcode";
-    this.placeholder = "Tondeuse en parfait état de marche...";
+    this.placeholder = "";
   }
 
   ngOnInit(): void {

@@ -25,7 +25,7 @@ export class QualityPipe implements PipeTransform {
       case 'excellent':
         return 'Excellent';
       case 'new':
-        return 'Jamais ouvert'
+        return 'Comme neuf'
     }
   }
 
@@ -40,7 +40,7 @@ export class QualityPipe implements PipeTransform {
       case 'excellent':
         return 'Produit utilisé mais conservant toutes ses qualités premières';
       case 'new':
-        return 'Produit quasiment jamais utilisé'
+        return 'Produit quasiment jamais utilisé, voire neuf'
     }
   }
 }

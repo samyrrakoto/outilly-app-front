@@ -11,6 +11,9 @@
       <div class="column" *ngFor="let type of types">
         <div class="content tile" id="{{ type.label }}" (click)="setFocus(type)">
           {{ type.label }}
+          <div class="discreet-text addlittlespaceabove">
+            {{ type.label | typeDescription }}
+          </div>
         </div>
       </div>
     </div>

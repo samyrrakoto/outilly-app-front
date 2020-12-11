@@ -1,5 +1,5 @@
 import { Product } from './../../../models/product';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from '../product-creation.component';
 
 @Component({
   selector: 'app-product-consumable',
@@ -36,8 +35,8 @@ export class ProductConsumableComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productConsumable";
     this.stepNb = 3;
-    this.stepName = "Votre produit est-il un consommable ?";
-    this.stepSubtitle = 'Par consommable nous entendons un produit dont l\'utilisation est unique, contrairement à un outil';
+    this.stepName = "Que souhaitez-vous vendre ?";
+    this.stepSubtitle = '';
     this.path.current = "product-consumable";
     this.path.previous = "media-upload";
     this.path.next = "product-category";

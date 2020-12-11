@@ -41,9 +41,10 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
+    this.stepSubtitle = "Choisissez #Autre si votre marque n'apparaît pas.";
     this.path.current = "product-brand";
     this.path.previous = "product-category";
-    this.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
+    this.path.next = this.formData.product.isConsumable ? "product-type" : "product-reference";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }
@@ -57,6 +58,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     if (this.matOption) {
       this.matOption.nativeElement.openPanel();
     }
+    document.getElementById('product-brand').focus();
   }
 
   private filterTreatment(): void {
@@ -89,7 +91,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
     }
-    this.filterTreatment();
+    document.getElementById('product-brand').focus();
   }
 
   public removeBrand(brandName: string): void {
@@ -101,7 +103,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
       }
       i++;
     }
-    this.filterTreatment();
+    document.getElementById('product-brand').focus();
   }
 
   private hasType(): boolean {

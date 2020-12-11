@@ -15,8 +15,8 @@
   font-weight: 500;
   border: solid 2px #DEDEDE;
   border-radius: 10px;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   padding: 10px;
   cursor: pointer;
   justify-content: center;
@@ -82,4 +82,15 @@
 
 #caret-down fa-icon {
   color: black;
+}
+
+@media screen and (max-width: 768px) {
+  .field {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .error {
+    padding-left: 25px;
+  }
 }
