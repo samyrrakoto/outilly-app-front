@@ -1,3 +1,4 @@
+import { productOnboarding } from './../../../onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
@@ -16,6 +17,7 @@ import { StepForm } from 'src/app/models/step-form';
 export class ProductCategoryComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   product: Product;
+  additionalControls: boolean;
   public categories: Array<any>;
   private chosenCategories: number;
   readonly maxCategories: number = 2;
@@ -27,11 +29,12 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.productCategories.length !== 0;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productCategory";
     this.stepNb = 4;
@@ -59,7 +62,7 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
     }
   }
 
-  private getCategories(): Promise<any> {
+  private getCategories(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.CATEGORIES).subscribe(
         (categories: any) => {
@@ -81,7 +84,11 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
           document.getElementById(category.label).classList.add('chosen-tile');
           this.addProductCategory(category);
           if (this.chosenCategories === this.maxCategories) {
+            this.additionalControls = true;
             this.nextOn = true;
+          }
+          if (this.product.productCategories.length > 0) {
+            this.additionalControls = true;
           }
         }
       }
@@ -97,6 +104,9 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
 
     this.chosenCategories--;
     this.product.productCategories.splice(pos, 1);
+    if (this.product.productCategories.length === 0) {
+      this.additionalControls = false;
+    }
   }
 
   private findCategory(category: string): number {

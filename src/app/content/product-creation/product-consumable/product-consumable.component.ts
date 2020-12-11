@@ -1,4 +1,5 @@
-import { Product } from './../../../models/product';
+import { productOnboarding } from './../../../onboardings';
+import { Product } from 'src/app/models/product';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { RequestService } from 'src/app/services/request.service';
 export class ProductConsumableComponent extends StepForm {
   readonly tiles: string[] = ['yes', 'no'];
   readonly root: string = 'product/create/';
+  additionalControls: boolean;
   form: FormGroup;
   product: Product;
 
@@ -27,11 +29,12 @@ export class ProductConsumableComponent extends StepForm {
     private auth: AuthService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.isConsumable !== null;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productConsumable";
     this.stepNb = 3;

@@ -7,3 +7,8 @@ fa-icon {
   margin-right: 10px;
   color: var(--KTKP-GREEN);
 }
+
+.tile {
+  height: 120px;
+  width: 120px;
+}

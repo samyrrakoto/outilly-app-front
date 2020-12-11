@@ -1,3 +1,4 @@
+import { productOnboarding } from './../../../onboardings';
 import { Product } from './../../../models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { ProductCreationComponent } from './../product-creation.component';
@@ -15,6 +16,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class ProductDeliveryComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
+  additionalControls: boolean;
   product: Product;
 
   constructor(
@@ -24,11 +26,12 @@ export class ProductDeliveryComponent extends StepForm implements OnInit {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.todeliver !== null ? true : false;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDelivery";
     this.stepNb = 11;
@@ -40,7 +43,7 @@ export class ProductDeliveryComponent extends StepForm implements OnInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     if (this.product.todeliver !== null) {
       this.product.todeliver === true ? this.setFocus('yes') : this.setFocus('no');
     }
