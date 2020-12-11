@@ -48,7 +48,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     this.path.current = "product-reference";
     this.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
     this.path.next = "product-state";
-    this.placeholder = "Commencez à écrire le nom d'un produit et sélectionnez-la";
+    this.placeholder = "Commencez à écrire le nom d'un produit et sélectionnez-le";
     this.references = [];
   }
 

@@ -90,7 +90,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   }
 
   public addBrand(): void {
-    if (!this.hasType() && this.isBrandExist() && this.product.brands.length < this.maxBrands) {
+    if (!this.hasType() && this.doesBrandExist() && this.product.brands.length < this.maxBrands) {
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
       this.additionalControls = true;
@@ -122,7 +122,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     return false;
   }
 
-  private isBrandExist(): boolean {
+  private doesBrandExist(): boolean {
     for (const brand of this.brands) {
       if (this.myControl.value === brand) {
         return true;
