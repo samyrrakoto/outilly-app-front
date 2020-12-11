@@ -40,7 +40,7 @@ export class ProductWeightComponent extends StepForm implements OnInit {
     this.path.previous = "product-delivery";
     this.path.current = 'product-weight';
     this.path.next = "is-warrantied";
-    this.placeholder = '10kg';
+    this.placeholder = '10';
   }
 
   ngOnInit(): void {

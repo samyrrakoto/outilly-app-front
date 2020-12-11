@@ -1,4 +1,4 @@
-import { Product } from './../../../models/product';
+import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -39,7 +39,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     this.formData.fieldName = "videoUpload";
     this.stepNb = 15;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
-    this.stepSubtitle = "Si vous ne voulez pas ajouter de vidéo, passez à l'étape suivante";
+    this.stepSubtitle = "Pas de vidéo ? Passez à l'étape suivante.";
     this.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
     this.path.next = "reserve-price";
     this.isLoading = false;
