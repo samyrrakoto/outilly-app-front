@@ -36,6 +36,7 @@ export class CompanyNameComponent extends StepForm {
     this.path.current = accountOnboarding[this.stepNb - 1];
     this.path.previous = accountOnboarding[this.stepNb - 2];
     this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb = this.findAccountStepNb('status');
   }
 
   ngOnInit(): void {

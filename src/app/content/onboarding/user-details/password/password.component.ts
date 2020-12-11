@@ -1,3 +1,4 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { specialCharacters } from 'src/app/parameters';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -14,6 +15,7 @@ import { User } from 'src/app/models/user';
 })
 export class PasswordComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   readonly acceptedSpecialCharacters: string = specialCharacters;
   user: User;
   form: FormGroup;
@@ -29,12 +31,13 @@ export class PasswordComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "pwd";
-    this.stepNb = 12;
+    this.stepNb = this.findAccountStepNb('password');
     this.stepName = "Créez un mot de passe sécurisé";
     this.stepSubtitle = "Au moins 7 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.";
-    this.path.current = "12/password";
-    this.path.previous = "11/phonenumber";
-    this.path.next = "13/passwordconfirmation";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('password');
     this.placeholder = "•••••••";
   }
 

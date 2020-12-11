@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class BirthdateComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -28,11 +29,12 @@ export class BirthdateComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "birthdate";
-    this.stepNb = 6;
+    this.stepNb = this.findAccountStepNb('birthdate');
     this.stepName = "Votre date de naissance ?";
-    this.path.current = "6/birthdate";
-    this.path.previous = "5/status";
-    this.path.next = "7/country";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = this.user.userProfile.type === 'professional' ? accountOnboarding[this.stepNb - 2] : accountOnboarding[this.stepNb - 5];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('birthdate');
   }
 
   ngOnInit(): void {

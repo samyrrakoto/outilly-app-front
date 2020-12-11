@@ -14,7 +14,7 @@ export const accountOnboarding = [
   'street',
   'phonenumber',
   'password',
-  'passwordonfirmation',
+  'passwordconfirmation',
   'emailoptin',
   'validation',
   'confirmation'

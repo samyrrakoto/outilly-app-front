@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -14,6 +15,7 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
 })
 export class PhoneNumberComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -29,13 +31,14 @@ export class PhoneNumberComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "phoneNumber";
-    this.stepNb = 11;
+    this.stepNb = this.findAccountStepNb('phonenumber');
     this.stepName = "Votre numéro de téléphone ?";
     this.stepSubtitle = "Utile pour contacter vos futurs acheteurs et/ou vendeurs, n'est-ce pas ? ";
     this.isMandatory = false;
-    this.path.current = '11/phonenumber';
-    this.path.previous = "10/street";
-    this.path.next = "12/password";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('phonenumber');
     this.placeholder = "0601020304";
   }
 

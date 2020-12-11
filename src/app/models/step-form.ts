@@ -36,4 +36,17 @@ export class StepForm {
       i++;
     }
   }
+
+  public findSubStepsNb(stepName: string): number {
+    let nbSubSteps: number = 0;
+
+    for (const step of accountOnboarding) {
+      if (step.includes('/')) {
+        nbSubSteps++;
+      }
+      if (step === stepName) {
+        return nbSubSteps;
+      }
+    }
+  }
 }

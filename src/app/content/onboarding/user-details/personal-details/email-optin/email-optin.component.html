@@ -1,10 +1,15 @@
 <div class="content has-text-left">
   <div class="control">
-  <app-step-label
-    [stepNb]=stepNb
-    [stepName]=stepName
-    [isMandatory]=isMandatory>
-  </app-step-label>
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
+
+    <app-step-label
+      [stepNb]=stepNb
+      [stepName]=stepName
+      [isMandatory]=isMandatory>
+    </app-step-label>
 
     <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column">
