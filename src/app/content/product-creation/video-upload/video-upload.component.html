@@ -1,15 +1,15 @@
 <div class="content has-text-left">
   <div class="field">
 
+    <div id="free-tag" class="content has-text-centered">
+      GRATUIT
+    </div>
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
       [stepName]=stepName
       [stepSubtitle]=stepSubtitle
       [isMandatory]=isMandatory>
     </app-step-label>
-    <div id="free-tag" class="content has-text-centered">
-      <span class="tag is-success has-text-white">Gratuit</span>
-    </div>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
 </div>
 
 <div *ngIf="isLoading" class="content">
-  Votre fichier est en cours d'upload...
+  Votre fichier est en cours d'envoi...
 </div>
 
 <div class="content" *ngFor="let media of product.productMedias">

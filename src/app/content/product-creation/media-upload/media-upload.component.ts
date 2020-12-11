@@ -1,7 +1,7 @@
-import { Product } from './../../../models/product';
+import { productOnboarding } from './../../../onboardings';
+import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ProductCreationComponent } from '../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -11,7 +11,7 @@ import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-media-upload',
@@ -38,7 +38,7 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     public title: Title,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

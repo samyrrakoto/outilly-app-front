@@ -1,11 +1,11 @@
-import { Product } from './../../../models/product';
+import { productOnboarding } from './../../../onboardings';
+import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
-import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
@@ -19,7 +19,9 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class ProductBrandComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
+  readonly maxBrands: number = 5;
   @ViewChild("matOption") matOption: ElementRef;
+  additionalControls: boolean;
   product: Product;
   myControl = new FormControl();
   brands: Array<string>;
@@ -32,11 +34,12 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.brands.length !== 0;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
@@ -75,7 +78,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     return this.brands.filter(brands => brands.toLowerCase().includes(filterValue)).sort();
   }
 
-  private getBrands(): Promise<any> {
+  private getBrands(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.BRANDS).subscribe((res) => {
         for (const elem of res) {
@@ -87,9 +90,10 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   }
 
   public addBrand(): void {
-    if (!this.hasType() && this.isBrandExist()) {
+    if (!this.hasType() && this.doesBrandExist() && this.product.brands.length < this.maxBrands) {
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
+      this.additionalControls = true;
     }
     document.getElementById('product-brand').focus();
   }
@@ -103,6 +107,9 @@ export class ProductBrandComponent extends StepForm implements OnInit {
       }
       i++;
     }
+    if (this.product.brands.length < 1) {
+      this.additionalControls = false;
+    }
     document.getElementById('product-brand').focus();
   }
 
@@ -115,7 +122,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     return false;
   }
 
-  private isBrandExist(): boolean {
+  private doesBrandExist(): boolean {
     for (const brand of this.brands) {
       if (this.myControl.value === brand) {
         return true;

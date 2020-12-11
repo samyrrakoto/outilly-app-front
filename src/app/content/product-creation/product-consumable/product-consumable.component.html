@@ -1,5 +1,9 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
 
       <app-step-label class="has-text-centered"
         [stepNb]=stepNb
@@ -9,7 +13,7 @@
 
       <div class="columns is-vcentered has-text-centered">
         <div class="column">
-          <div class="tile" id="yes" (click)="product.isConsumable = true; nextOn=true">
+          <div class="tile" id="yes" (click)="product.isConsumable = true; additionalControls = true; nextOn=true">
             <fa-icon [icon]="['fas', 'hammer']"></fa-icon>
             Outillage / <br>
             Machines
@@ -22,7 +26,7 @@
         </div>
 
         <div class="column">
-          <div class="tile" id="no" (click)="product.isConsumable = false; nextOn=true">
+          <div class="tile" id="no" (click)="product.isConsumable = false; additionalControls = true; nextOn=true">
             <fa-icon [icon]="['fas', 'fill-drip']"></fa-icon>
             Matériaux /<br>Fin de chantier
           </div>
@@ -42,6 +46,7 @@
 
 <app-navigation
   [data]="formData"
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]="root"

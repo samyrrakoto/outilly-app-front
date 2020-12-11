@@ -33,26 +33,26 @@ export class Product {
 
   constructor() {
     this.id = 0;
+    this.strId = '';
     this.slug = '';
     this.name = '';
-    this.reservePrice = 0;
-    this.isConsumable = false;
+    this.description = '';
+    this.reservePrice = null;
+    this.isConsumable = null;
     this.productCategories = [];
     this.productReferences = [];
+    this.productTypes = [];
+    this.brands = [];
     this.quality = '';
-    this.weight = 0;
+    this.weight = null;
     this.weightUnity = 'kg';
     this.locality = '';
-    this.productTypes = [];
-    this.description = '';
-    this.isWarrantied = true;
-    this.todeliver = true;
+    this.isWarrantied = null;
+    this.todeliver = null;
     this.buyingOption = "classic";
-    this.warrantyDuration = 0;
-    this.strId = '';
-    this.priceOfNew = 0;
+    this.warrantyDuration = null;
+    this.priceOfNew = null;
     this.isBundle = false;
-    this.brands = [];
     this.productMedias = [];
     this.activityDomains = [];
   }

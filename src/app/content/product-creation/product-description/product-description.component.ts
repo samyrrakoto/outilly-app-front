@@ -1,3 +1,4 @@
+import { productOnboarding } from './../../../onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -28,7 +29,7 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
     public title: Title,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

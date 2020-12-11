@@ -16,6 +16,10 @@ export class StepForm {
   disabledEnterKey: boolean = false;
   disabledNgCheck: boolean = false;
 
+  constructor(onboardingName: string[] = []) {
+    this.totalNbSteps = this.getTotalNbSteps(onboardingName);
+  }
+
   // Keyboard shortcuts
   public onKey(event: KeyboardEvent): void {
     if (event.shiftKey && event.key === 'ArrowLeft') {
@@ -48,5 +52,16 @@ export class StepForm {
         return nbSubSteps;
       }
     }
+  }
+
+  private getTotalNbSteps(onboarding: string[]): number {
+    let nbSteps: number = 0;
+
+    for (const step of onboarding) {
+      if (!step.includes('/')) {
+        nbSteps++;
+      }
+    }
+    return nbSteps;
   }
 }

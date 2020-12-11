@@ -19,3 +19,23 @@ export const accountOnboarding = [
   'validation',
   'confirmation'
 ]
+
+export const productOnboarding = [
+  'announcement-title',
+  'media-upload',
+  'product-consumable',
+  'product-category',
+  'product-brand',
+  'product-type',
+  'product-reference',
+  'product-state',
+  'product-description',
+  'product-zipcode',
+  'product-delivery',
+  'product-weight',
+  'is-warrantied',
+  'warranty-duration',
+  'video-upload',
+  'reserve-price',
+  'announce-overview'
+]

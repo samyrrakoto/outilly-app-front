@@ -1,5 +1,9 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -8,13 +12,13 @@
 
     <div class="columns">
       <div class="column">
-        <div class="tile" id="yes" (click)="product.todeliver = true; setFocus('yes'); handleDelivery(); nextOn = true">
+        <div class="tile" id="yes" (click)="product.todeliver = true; additionalControls = true; nextOn = true">
           J'accepte la livraison <span class="bold">ET</span> la remise en mains propres
         </div>
       </div>
 
       <div class="column">
-        <div class="tile" id="no" (click)="product.todeliver = false; setFocus('no'); handleDelivery(); nextOn = true">
+        <div class="tile" id="no" (click)="product.todeliver = false; handleDelivery(); additionalControls = true; nextOn = true">
           Je n'accepte pas de faire livrer mon produit
         </div>
       </div>
@@ -28,6 +32,7 @@
 
 <app-navigation
   [data]=formData
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]=root

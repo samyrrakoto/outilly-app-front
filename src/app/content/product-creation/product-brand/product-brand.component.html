@@ -1,5 +1,9 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -21,18 +25,16 @@
     </p>
   </div>
 
-  <nav class="level new-element" id="{{ brand.name }}" *ngFor="let brand of product.brands">
-    <div class="level-left">
-      {{ brand.name }}
+  <div class="tags">
+    <div *ngFor="let brand of product.brands" title="{{ brand.name }}" class="tag is-danger is-medium">
+      <span *ngIf="brand.name.length > 20">{{ brand.name | slice:0:20 }}...</span>
+      <span *ngIf="brand.name.length <= 20">{{ brand.name }}</span>
+      <button (click)="removeBrand(brand.name)" class="delete is-small"></button>
     </div>
-
-    <div class="level-right">
-      <button (click)="removeBrand(brand.name)" class="button cross"><fa-icon [icon]="['fas', 'times-circle']"></fa-icon></button>
-    </div>
-  </nav>
+  </div>
 </div>
 
-<button *ngIf="product.brands.length === 0" (click)="nextOn = true" class="button is-small is-light">Je ne connais pas la marque de mon produit</button>
+<button *ngIf="product.brands.length === 0" (click)="additionalControls = true; nextOn = true" class="button is-small is-light">Je ne connais pas la marque de mon produit</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
@@ -40,6 +42,7 @@
 
 <app-navigation
   [data]=formData
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]=root

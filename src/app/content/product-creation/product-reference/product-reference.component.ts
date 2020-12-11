@@ -1,3 +1,4 @@
+import { productOnboarding } from './../../../onboardings';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -19,6 +20,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class ProductReferenceComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
+  additionalControls: boolean;
   @ViewChild("matOption") matOption: ElementRef;
   product: Product;
   myControl = new FormControl();
@@ -32,11 +34,12 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.productReferences.length !== 0;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
@@ -45,7 +48,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     this.path.current = "product-reference";
     this.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
     this.path.next = "product-state";
-    this.placeholder = "Commencez à écrire le nom d'une référence et sélectionnez-la";
+    this.placeholder = "Commencez à écrire le nom d'un produit et sélectionnez-le";
     this.references = [];
   }
 
@@ -93,8 +96,9 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     return params;
   }
 
-  private getReferences(): Promise<any> {
+  private getReferences(): Promise<void> {
     const params: string[] = this.getParams();
+    console.log(params);
 
     return new Promise(
       (resolve) => {
@@ -108,14 +112,6 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
       });
   }
 
-  private getReferenceId(): number {
-    for (const reference of this.references) {
-      if (this.myControl.value === reference.label) {
-        return reference.id;
-      }
-    }
-  }
-
   public addReference(): void {
     if (!this.hasType() && this.isReferenceExist() && this.product.productReferences.length < 5) {
       const referenceId: number = this.getId();
@@ -123,6 +119,9 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     }
     if (this.product.productReferences.length === 5) {
       this.nextOn = true;
+    }
+    if (this.product.productReferences.length > 0) {
+      this.additionalControls = true;
     }
     document.getElementById('product-reference').focus();
   }
@@ -135,6 +134,9 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
         this.product.productReferences.splice(i, 1);
       }
       i++;
+    }
+    if (this.product.productReferences.length < 1) {
+      this.additionalControls = false;
     }
     document.getElementById('product-reference').focus();
   }
