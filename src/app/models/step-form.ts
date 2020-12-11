@@ -1,3 +1,4 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { Path } from './Path/path';
 
 export class StepForm {
@@ -22,6 +23,17 @@ export class StepForm {
     }
     else if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
       this.nextOn = !this.nextOn;
+    }
+  }
+
+  public findAccountStepNb(stepName: string): number {
+    let i: number = 1;
+
+    for (const step of accountOnboarding) {
+      if (stepName === step) {
+        return i;
+      }
+      i++;
     }
   }
 }

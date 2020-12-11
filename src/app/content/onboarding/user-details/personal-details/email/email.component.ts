@@ -1,6 +1,7 @@
-import { StepForm } from './../../../../../models/step-form';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { StepForm } from 'src/app/models/step-form';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EmailComponent extends StepForm {
   readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = 19;
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User = new User();
   form: FormGroup;
 
@@ -27,12 +28,12 @@ export class EmailComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "email";
     this.user = formDataService.user;
-    this.stepNb = 1;
+    this.stepNb = this.findAccountStepNb('email');
     this.stepName = "Votre adresse e-mail ?";
     this.stepSubtitle = 'Elle vous servira pour vous connecter.';
-    this.path.current = "1/email";
+    this.path.current = accountOnboarding[this.stepNb - 1];
     this.path.previous = "";
-    this.path.next = "2/firstname";
+    this.path.next = accountOnboarding[this.stepNb];
     this.placeholder = "jeanmarc78@aol.fr";
   }
 

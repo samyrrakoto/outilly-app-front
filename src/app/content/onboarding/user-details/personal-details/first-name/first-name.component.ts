@@ -1,3 +1,4 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { StepForm } from 'src/app/models/step-form';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FirstNameComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -27,12 +29,12 @@ export class FirstNameComponent extends StepForm {
     this.formDataService.fieldName = "firstname";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = 2;
+    this.stepNb = this.findAccountStepNb('firstname');
     this.stepName = "Votre prénom ?";
     this.stepSubtitle = 'Car vous n\'êtes pas un numéro. ;-)';
-    this.path.current = "2/firstname";
-    this.path.previous = "1/email";
-    this.path.next = "3/lastname";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
     this.placeholder = "Jean Marc";
   }
 

@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class GenderComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
   readonly tiles: string[] = ['male', 'female'];
@@ -29,11 +30,11 @@ export class GenderComponent extends StepForm {
     this.formDataService.fieldName = "gender";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = 4;
+    this.stepNb = this.findAccountStepNb('gender');
     this.stepName = "Vous êtes un(e)...";
-    this.path.current = "4/gender";
-    this.path.previous = "3/lastname";
-    this.path.next = "5/status";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
   }
 
   ngOnInit(): void {

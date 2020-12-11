@@ -144,74 +144,74 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path: '', redirectTo: '1/email', pathMatch: 'full'
+        path: '', redirectTo: 'email', pathMatch: 'full'
       },
       {
-        path: '1/email',
+        path: 'email',
         component: EmailComponent
       },
       {
-        path: '2/firstname',
+        path: 'firstname',
         component: FirstNameComponent
       },
       {
-        path: '3/lastname',
+        path: 'lastname',
         component: LastNameComponent
       },
       {
-        path: '4/gender',
+        path: 'gender',
         component: GenderComponent
       },
       {
-        path: '5/status',
+        path: 'status',
         component: StatusComponent,
       },
       {
-        path: '5/status/company-name',
+        path: 'status/company-name',
         component: CompanyNameComponent
       },
       {
-        path: '5/status/siret',
+        path: 'status/siret',
         component: SiretComponent
       },
       {
-        path: '5/status/tva',
+        path: 'status/tva',
         component: TvaComponent
       },
       {
-        path: '6/birthdate',
+        path: 'birthdate',
         component: BirthdateComponent
       },
       {
-        path: '7/country',
+        path: 'country',
         component: CountryComponent
       },
       {
-        path: '8/zipcode',
+        path: 'zipcode',
         component: ZipcodeComponent
       },
       {
-        path: '9/city',
+        path: 'city',
         component: CityComponent
       },
       {
-        path: '10/street',
+        path: 'street',
         component: StreetComponent
       },
       {
-        path: '11/phonenumber',
+        path: 'phonenumber',
         component: PhoneNumberComponent
       },
       {
-        path: '12/password',
+        path: 'password',
         component: PasswordComponent
       },
       {
-        path: '13/passwordconfirmation',
+        path: 'passwordconfirmation',
         component: PasswordconfirmationComponent
       },
       {
-        path: '14/emailoptin',
+        path: 'emailoptin',
         component: EmailOptinComponent
       },
       {

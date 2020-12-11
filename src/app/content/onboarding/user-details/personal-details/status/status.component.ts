@@ -1,5 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
@@ -28,11 +29,11 @@ export class StatusComponent extends StepForm {
     this.formDataService.fieldName = "status";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = 5;
+    this.stepNb = this.findAccountStepNb('status');
     this.stepName = "Particulier ou professionnel ?";
-    this.path.current = "5/status";
-    this.path.previous = "4/gender";
-    this.path.next = "6/birthdate";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb + 3];
   }
 
   ngOnInit(): void {
@@ -57,5 +58,9 @@ export class StatusComponent extends StepForm {
     if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
       document.getElementById(tileId).classList.add('chosen-tile');
     }
+  }
+
+  public handleStatus(): void {
+    this.user.userProfile.type === 'professional' ? this.path.next = accountOnboarding[this.stepNb] : null;
   }
 }

@@ -1,7 +1,8 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { RegexTemplateService } from 'src/app/services/regex-template.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
@@ -14,6 +15,7 @@ import { User } from 'src/app/models/user';
 })
 export class CompanyNameComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -30,10 +32,10 @@ export class CompanyNameComponent extends StepForm {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "companyName";
     this.stepName = "Le nom de votre entreprise ?";
-    this.stepNb = 5;
-    this.path.previous = "5/status";
-    this.path.current = "5/status/company-name";
-    this.path.next = "5/status/siret";
+    this.stepNb = this.findAccountStepNb('status/company-name');
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
   }
 
   ngOnInit(): void {
