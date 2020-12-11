@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CityComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -28,12 +29,13 @@ export class CityComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'city';
-    this.stepNb = 9;
+    this.stepNb = this.findAccountStepNb('city');
     this.stepName = 'Votre ville ?';
     this.stepSubtitle = "Cela restera (toujours) confidentiel. ;-)";
-    this.path.current = '9/city';
-    this.path.previous = '8/zipcode';
-    this.path.next = '10/street';
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('city');
     this.placeholder = 'Jouy-en-Josas';
   }
 

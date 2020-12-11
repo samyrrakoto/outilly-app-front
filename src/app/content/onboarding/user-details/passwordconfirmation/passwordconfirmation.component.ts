@@ -1,3 +1,4 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
@@ -13,6 +14,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class PasswordconfirmationComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -27,12 +29,13 @@ export class PasswordconfirmationComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "pwdConfirmation";
-    this.stepNb = 13;
+    this.stepNb = this.findAccountStepNb('passwordconfirmation');
     this.stepName = "Confirmez votre mot de passe";
     this.stepSubtitle = "Au cas où vous l'auriez oublié.";
-    this.path.current = "13/passwordconfirmation";
-    this.path.previous = "12/password";
-    this.path.next = "14/emailoptin";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('passwordconfirmation');
     this.placeholder = "•••••••";
   }
 

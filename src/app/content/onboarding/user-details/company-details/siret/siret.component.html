@@ -1,22 +1,27 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
+
     <app-step-label
       [stepNb]=stepNb
       [stepName]=stepName
       [stepSubtitle]=stepSubtitle>
-  </app-step-label>
+    </app-step-label>
 
-  <form *ngIf="form" [formGroup]="form">
-    <p class="control">
-      <input id="siret" class="input no-border"
-        type="text"
-        (keydown)="onKey($event)"
-        placeholder="{{ placeholder }}"
-        [(ngModel)]="user.userProfile.company.siret"
-        formControlName="siret"
-        [ngClass]="{'is-invalid': controls.siret.errors }">
-    </p>
-  </form>
+    <form *ngIf="form" [formGroup]="form">
+      <p class="control">
+        <input id="siret" class="input no-border"
+          type="text"
+          (keydown)="onKey($event)"
+          placeholder="{{ placeholder }}"
+          [(ngModel)]="user.userProfile.company.siret"
+          formControlName="siret"
+          [ngClass]="{'is-invalid': controls.siret.errors }">
+      </p>
+    </form>
   </div>
 </div>
 

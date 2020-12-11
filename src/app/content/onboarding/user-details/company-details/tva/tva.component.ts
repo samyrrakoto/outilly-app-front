@@ -1,5 +1,6 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
@@ -14,6 +15,7 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
 })
 export class TvaComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -31,10 +33,11 @@ export class TvaComponent extends StepForm {
     this.formDataService.fieldName = "tva";
     this.stepName = "Votre numéro de TVA communautaire ?";
     this.stepSubtitle = "Si vous n'en avez pas (auto-entrepreneur par exemple), vous pouvez passer à la suite";
-    this.stepNb = 5;
-    this.path.previous = "5/status/siret";
-    this.path.current = "5/status/tva";
-    this.path.next = "6/birthdate";
+    this.stepNb = this.findAccountStepNb('status/tva');
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb = this.findAccountStepNb('status');
   }
 
   ngOnInit(): void {

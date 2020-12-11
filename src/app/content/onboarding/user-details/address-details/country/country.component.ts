@@ -1,3 +1,4 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { country } from 'src/app/parameters';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -14,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CountryComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
   countriesAccepted: any[] = country.COUNTRIES_ACCEPTED;
@@ -29,11 +31,12 @@ export class CountryComponent extends StepForm {
     this.user = this.formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'country';
-    this.stepNb = 8;
+    this.stepNb = this.findAccountStepNb('country');
     this.stepName = 'Votre pays ?';
-    this.path.current = "7/country";
-    this.path.previous = '6/birthdate';
-    this.path.next = '8/zipcode';
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('country');
   }
 
   ngOnInit(): void {

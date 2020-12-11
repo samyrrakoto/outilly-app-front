@@ -1,7 +1,8 @@
+import { accountOnboarding } from 'src/app/onboardings';
 import { RegexTemplateService } from 'src/app/services/regex-template.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
@@ -14,6 +15,7 @@ import { User } from 'src/app/models/user';
 })
 export class SiretComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length
   user: User;
   form: FormGroup;
 
@@ -31,10 +33,11 @@ export class SiretComponent extends StepForm {
     this.formDataService.fieldName = "siret";
     this.stepName = "Votre numéro de SIRET ?";
     this.stepSubtitle = "Il s'agit d'un numéro d'identification à 14 chiffres";
-    this.stepNb = 5;
-    this.path.previous = "5/status/company-name";
-    this.path.current = "5/status/siret";
-    this.path.next = "5/status/tva";
+    this.stepNb = this.findAccountStepNb('status/siret');
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb = this.findAccountStepNb('status');
   }
 
   ngOnInit(): void {

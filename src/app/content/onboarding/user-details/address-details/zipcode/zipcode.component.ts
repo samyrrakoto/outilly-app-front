@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormDataService } from '../../../../../services/form-data.service';
+import { accountOnboarding } from 'src/app/onboardings';
+import { Component } from '@angular/core';
+import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
-import { OnboardingComponent } from '../../../onboarding.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,7 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
 })
 export class ZipcodeComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -30,12 +31,13 @@ export class ZipcodeComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "zipcode";
-    this.stepNb = 8;
+    this.stepNb = this.findAccountStepNb('zipcode');
     this.stepName = "Votre code postal ?";
     this.stepSubtitle = "Cela restera confidentiel. ;-)";
-    this.path.current = "8/zipcode";
-    this.path.previous = "7/country";
-    this.path.next = "9/city";
+    this.path.current = accountOnboarding[this.stepNb - 1];
+    this.path.previous = accountOnboarding[this.stepNb - 2];
+    this.path.next = accountOnboarding[this.stepNb];
+    this.stepNb -= this.findSubStepsNb('zipcode');
     this.placeholder = "78350";
   }
 
