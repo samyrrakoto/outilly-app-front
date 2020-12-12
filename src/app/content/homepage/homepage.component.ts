@@ -40,7 +40,7 @@ export class HomepageComponent implements OnInit {
     this.filtersNb = filters.length;
   }
 
-  private getCategories(): Promise<any> {
+  private getCategories(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.CATEGORIES).subscribe(
         (categories: any) => {
@@ -53,7 +53,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  private getTypes(): Promise<any> {
+  private getTypes(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.TYPES).subscribe(
         (types: any) => {

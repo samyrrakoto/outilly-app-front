@@ -1,7 +1,8 @@
-import { environment } from './../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +29,10 @@ export class ProductsComponent implements OnInit {
   readonly categoryTitle: string[] = ['Mécanique', 'Bricolage', 'Jardin', 'Atelier'];
   readonly categoryIcons: string[] = ['wrench', 'hammer', 'seedling', 'warehouse'];
 
-  constructor(private request: RequestService) {
+  constructor(
+    private request: RequestService,
+    private router: Router)
+  {
     this.sales = [];
     this.currentPage = 1;
     this.mecanicPage = 1;
@@ -91,5 +95,9 @@ export class ProductsComponent implements OnInit {
     const categoryName: string = this.getCategoryName(categoryId);
 
     this[categoryName + 'Products'] = this.getProductsByCategory(categoryId);
+  }
+
+  public launchCategorySearch(categoryId: number): void {
+    this.router.navigate(['product-results', {category: categoryId}]);
   }
 }

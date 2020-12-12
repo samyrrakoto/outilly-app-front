@@ -54,7 +54,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => { this.getId() })
       .then(() => this.saleManager.getSaleAvailability(this.id.toString()))
       .then((isAvailable: boolean) => {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
           this.isAvailable = isAvailable
           resolve();
         });
@@ -66,7 +66,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .catch((error: any) => this.handlingErrors(error));
   }
 
-  private getId(): Promise<any> {
+  private getId(): Promise<void> {
     return new Promise((resolve) => {
       this.route.params.subscribe((params: any) => {
         this.id = parseInt(params.id);

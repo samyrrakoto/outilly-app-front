@@ -14,11 +14,11 @@ export class SearchComponent implements OnInit {
   @Input() loadMore: number;
   @Output() salesEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() filtersEmitter: EventEmitter<any> = new EventEmitter<any>();
+  readonly resultsPerPage: number = 5;
   filters: any[];
   references: any[];
   sales: any;
   currentPage: number = 1;
-  readonly resultsPerPage: number = 5;
 
   constructor(private request: RequestService) {
     this.allCategories = [];
@@ -134,7 +134,7 @@ export class SearchComponent implements OnInit {
     return payload;
   }
 
-  public getReferences(): Promise<any> {
+  public getReferences(): Promise<void> {
     const payload: HttpParams = this.getReferencesPayload();
     const requestName: string = this.request.uri.REFERENCES + '/' + this.getCategoryIds('category') + '?' + payload.toString();
 
@@ -143,6 +143,7 @@ export class SearchComponent implements OnInit {
         (references: any) => {
           this.references = references;
           this.references.sort((a, b) => this.compare(a, b, 'label'));
+          resolve();
         }
       );
     });
@@ -160,7 +161,7 @@ export class SearchComponent implements OnInit {
     return payload;
   }
 
-  public getSales(): Promise<any> {
+  public getSales(): Promise<void> {
     const payload: HttpParams = this.getSalesPayload();
     const requestname: string = this.request.uri.SALES + '?' + payload.toString();
 

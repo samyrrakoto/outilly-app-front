@@ -1,6 +1,6 @@
+import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
 import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
-import { ProductReference } from './models/product-reference';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './content/checkout/payment-process/payment-failed/payment-failed.component';
@@ -18,7 +18,6 @@ import { AccountRequestComponent } from './content/product-creation/account-requ
 import { ReservePriceComponent } from './content/product-creation/reserve-price/reserve-price.component';
 import { AnnounceKindComponent } from './content/product-creation/announce-kind/announce-kind.component';
 import { VideoUploadComponent } from './content/product-creation/video-upload/video-upload.component';
-import { DeliveryPriceInformationComponent } from './content/product-creation/delivery-price-information/delivery-price-information.component';
 import { WarrantyDurationComponent } from './content/product-creation/warranty-duration/warranty-duration.component';
 import { IsWarrantiedComponent } from './content/product-creation/is-warrantied/is-warrantied.component';
 import { ProductWeightComponent } from './content/product-creation/product-weight/product-weight.component';
@@ -76,6 +75,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent
+  },
+  {
+    path: 'product-results',
+    component: ProductResultsComponent
   },
   {
     path: 'login',
