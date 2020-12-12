@@ -13,14 +13,20 @@
 
     <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column">
-        <div class="content tile" id="yes" (click)="user.userProfile.emailOptin=true; nextOn=true">
+        <div class="content tile" id="yes" (click)="user.userProfile.emailOptin=true; additionalControls = true; nextOn=true">
           Oui
+          <div class="discreet-text addlittlespaceabove">
+            Promis, on ne va pas vous spammer ;-)
+          </div>
         </div>
       </div>
 
       <div class="column">
-        <div class="content tile" id="no" (click)="user.userProfile.emailOptin=false; nextOn=true">
+        <div class="content tile" id="no" (click)="user.userProfile.emailOptin=false; additionalControls = true; nextOn=true">
           Non
+          <div class="discreet-text addlittlespaceabove">
+            Vous viendrez donc nous voir plus souvent !
+          </div>
         </div>
       </div>
     </div>
@@ -28,7 +34,6 @@
 </div>
 
 <app-navigation
-  [controls]=controls.emailOptin.errors
   [disabledEnterKey]=true
   [data]="formDataService"
   [path]=path

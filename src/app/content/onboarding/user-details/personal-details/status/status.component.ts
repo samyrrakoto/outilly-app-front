@@ -16,6 +16,7 @@ export class StatusComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
   readonly tiles: string[] = ['individual', 'professionnal'];
+  additionalControls: boolean;
   user: User;
   form: FormGroup;
 
@@ -30,6 +31,7 @@ export class StatusComponent extends StepForm {
     this.formDataService.fieldName = "status";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
+    this.additionalControls = this.user.userProfile.type !== null ? true : false;
     this.stepNb = this.findAccountStepNb('status');
     this.stepName = "Particulier ou professionnel ?";
     this.path.current = accountOnboarding[this.stepNb - 1];
@@ -42,7 +44,9 @@ export class StatusComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    this.setFocus(this.user.userProfile.type);
+    if (this.user.userProfile.type !== null) {
+      this.setFocus(this.user.userProfile.type);
+    }
   }
 
   public getForm(): void {

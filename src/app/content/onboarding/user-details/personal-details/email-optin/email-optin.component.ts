@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmailOptinComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
+  additionalControls: boolean;
   user: User;
   form: FormGroup;
 
@@ -29,6 +30,7 @@ export class EmailOptinComponent extends StepForm {
     this.user = formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "emailOptin";
+    this.additionalControls = this.user.userProfile.emailOptin !== null ? true : false;
     this.stepNb = this.findAccountStepNb('emailoptin');
     this.stepName = "Souhaitez-vous recevoir notre newsletter ?";
     this.isMandatory = false;
@@ -36,25 +38,15 @@ export class EmailOptinComponent extends StepForm {
     this.path.previous = accountOnboarding[this.stepNb - 2];
     this.path.next = accountOnboarding[this.stepNb];
     this.stepNb -= this.findSubStepsNb('emailoptin');
-    this.user.userProfile.emailOptin = false;
   }
 
   ngOnInit(): void {
-    this.getForm();
   }
 
   ngAfterViewInit(): void {
-    this.user.userProfile.emailOptin ? this.setFocus('yes') : this.setFocus('no');
-  }
-
-  public getForm(): void {
-    this.form = this.formBuilder.group({
-      emailOptin: [this.user.userProfile.emailOptin, []],
-    });
-  }
-
-  public get controls() {
-    return this.form.controls;
+    if (this.user.userProfile.emailOptin !== null) {
+      this.user.userProfile.emailOptin ? this.setFocus('yes') : this.setFocus('no');
+    }
   }
 
   public setFocus(tileId: string): void {

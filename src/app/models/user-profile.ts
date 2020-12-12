@@ -29,14 +29,14 @@ export class UserProfile {
     this.lastname = '';
     this.anonLastName = '';
     this.email = '';
-    this.emailOptin = false;
+    this.emailOptin = null;
     this.phone1 = '';
     this.phone1Optin = false;
     this.phone2;
-    this.gender = 'male';
+    this.gender = null;
     this.civility = 'MR';
     this.birthdate = 0;
-    this.type= 'individual';
+    this.type= null;
     this.company = new Company();
     this.addresses = [];
     this.mainAddress = new Address();

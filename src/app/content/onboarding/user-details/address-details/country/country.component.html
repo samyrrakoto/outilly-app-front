@@ -10,20 +10,18 @@
       [stepName]=stepName>
     </app-step-label>
 
-    <form [formGroup]="form">
-      <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
-        <div *ngFor="let country of countriesAccepted" class="column">
-          <div class="content tile" id="{{ country.label }}" (click)="setCountry(country); nextOn=true">
-            {{ country.label }}
-          </div>
+    <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+      <div *ngFor="let country of countriesAccepted" class="column">
+        <div class="content tile" id="{{ country.label }}" (click)="setCountry(country); additionalControls = true; nextOn=true">
+          {{ country.label }}
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
 <app-navigation
-  [controls]=controls.country.errors
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [data]="formDataService"
   [path]=path
