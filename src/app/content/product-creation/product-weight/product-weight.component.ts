@@ -1,10 +1,10 @@
-import { productOnboarding } from './../../../onboardings';
-import { Product } from './../../../models/product';
+import { productOnboarding } from 'src/app/onboardings';
+import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';

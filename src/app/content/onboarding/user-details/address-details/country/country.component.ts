@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CountryComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
+  additionalControls: boolean;
   user: User;
   form: FormGroup;
   countriesAccepted: any[] = country.COUNTRIES_ACCEPTED;
@@ -31,6 +32,7 @@ export class CountryComponent extends StepForm {
     this.user = this.formDataService.user;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = 'country';
+    this.additionalControls = this.user.userProfile.mainAddress.country.name !== null ? true : false;
     this.stepNb = this.findAccountStepNb('country');
     this.stepName = 'Votre pays ?';
     this.path.current = accountOnboarding[this.stepNb - 1];
@@ -44,7 +46,9 @@ export class CountryComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    this.setFocus(this.user.userProfile.mainAddress.country.name);
+    if (this.user.userProfile.mainAddress.country.name !== null) {
+      this.setFocus(this.user.userProfile.mainAddress.country.name);
+    }
   }
 
   public getForm(): void {

@@ -3,7 +3,7 @@ export class Country {
   isoCode: string;
 
   constructor() {
-    this.name = 'France';
-    this.isoCode = 'FR';
+    this.name = null;
+    this.isoCode = null;
   }
 }

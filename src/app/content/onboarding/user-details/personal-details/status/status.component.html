@@ -12,13 +12,13 @@
 
     <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column">
-        <div class="content tile" id="individual" (click)="user.userProfile.type='individual'; nextOn=true">
+        <div class="content tile" id="individual" (click)="user.userProfile.type='individual'; additionalControls = true; nextOn=true">
           Particulier
         </div>
       </div>
 
       <div class="column">
-        <div class="content tile" id="professional" (click)="user.userProfile.type='professional'; nextOn=true">
+        <div class="content tile" id="professional" (click)="user.userProfile.type='professional'; additionalControls = true; nextOn=true">
           Professionnel
         </div>
       </div>
@@ -27,8 +27,8 @@
 </div>
 
 <app-navigation
-  [controls]=controls.status.errors
   [data]="formDataService"
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]="root"

@@ -12,19 +12,19 @@
 
     <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column">
-        <div class="content tile" id="male" (click)="user.userProfile.gender='male'; nextOn=true">
+        <div class="content tile" id="male" (click)="user.userProfile.gender='male'; additionalControls = true; nextOn=true">
           Homme
         </div>
       </div>
 
       <div class="column">
-        <div class="content tile" id="female" (click)="user.userProfile.gender='female'; nextOn=true">
+        <div class="content tile" id="female" (click)="user.userProfile.gender='female'; additionalControls = true; nextOn=true">
           Femme
         </div>
       </div>
 
       <div class="column">
-        <div class="content tile" id="other" (click)="user.userProfile.gender='other'; nextOn=true">
+        <div class="content tile" id="other" (click)="user.userProfile.gender='other'; additionalControls = true; nextOn=true">
           Ne se prononce pas
         </div>
       </div>
@@ -33,8 +33,8 @@
 </div>
 
 <app-navigation
-  [controls]=controls.gender.errors
   [data]="formDataService"
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]="root"

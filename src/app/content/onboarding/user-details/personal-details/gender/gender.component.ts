@@ -14,6 +14,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class GenderComponent extends StepForm {
   readonly root: string = '/onboarding/';
+  additionalControls: boolean;
   readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
@@ -30,6 +31,7 @@ export class GenderComponent extends StepForm {
     this.formDataService.fieldName = "gender";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
+    this.additionalControls = this.user.userProfile.gender !== null ? true : false;
     this.stepNb = this.findAccountStepNb('gender');
     this.stepName = "Vous êtes un(e)...";
     this.path.current = accountOnboarding[this.stepNb - 1];
@@ -38,21 +40,12 @@ export class GenderComponent extends StepForm {
   }
 
   ngOnInit(): void {
-    this.getForm();
   }
 
   ngAfterViewInit(): void {
-    this.setFocus(this.user.userProfile.gender);
-  }
-
-  public getForm(): void {
-    this.form = this.formBuilder.group({
-      gender: [this.user.userProfile.gender, [Validators.required]],
-    });
-  }
-
-  public get controls() {
-    return this.form.controls;
+    if (this.user.userProfile.gender !== null) {
+      this.setFocus(this.user.userProfile.gender);
+    }
   }
 
   public setFocus(tileId: string): void {
