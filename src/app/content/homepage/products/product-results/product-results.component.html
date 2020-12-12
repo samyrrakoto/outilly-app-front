@@ -5,11 +5,11 @@
   </h2>
 
   <div class="content discreet-text">
-    Lorem ipsum dolorsit amet, consectetur adipiscing elit
+    {{ categoryId | category:"description" }}
   </div>
 
   <div class="content">
-    <div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales.results">
+    <div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales">
       <div class="card">
         <div class="card-content">
           <div class="img-container" *ngIf="sale.product.mainImage" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImage.path) }"></div>
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <button class="button is-danger">
-    Voir plus
+  <button (click)="getSales()" class="button is-danger">
+    Voir {{ resultsPerPage }} de plus
   </button>
 </div>

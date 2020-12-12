@@ -84,7 +84,6 @@ export class ProductsComponent implements OnInit {
 
       this.request.getData(this.request.uri.SALES + getParams).subscribe(
         (sales: any) => {
-
           observer.next(sales.results);
           observer.complete();
           this[categoryName + 'Page']++;
