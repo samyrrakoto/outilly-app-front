@@ -1,4 +1,4 @@
-<div class="columns has-text-centered is-centered">
+<div *ngIf="loaded" class="columns has-text-centered is-centered">
   <div class="column is-12 has-text-centered">
 
     <!-- Static sales -->
@@ -9,12 +9,12 @@
         <app-category-products
           [sales]=mecanicProducts
           [maxTitleSize]=maxTitleSize
-          [title]=categoryTitle[0]
+          [categoryId]=1
           [categoryIcon]=categoryIcons[0]>
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('1')">Voir plus de produits</button>
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="launchCategorySearch(1)">Voir plus de produits de cette catégorie</button>
         </div>
       </div>
 
@@ -25,12 +25,12 @@
         <app-category-products
           [sales]=diyProducts
           [maxTitleSize]=maxTitleSize
-          [title]=categoryTitle[1]
+          [categoryId]=2
           [categoryIcon]=categoryIcons[1]>
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('2')">Voir plus de produits</button>
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="launchCategorySearch(2)">Voir plus de produits de cette catégorie</button>
         </div>
       </div>
 
@@ -41,12 +41,12 @@
         <app-category-products
           [sales]=workshopProducts
           [maxTitleSize]=maxTitleSize
-          [title]=categoryTitle[3]
+          [categoryId]=4
           [categoryIcon]=categoryIcons[3]>
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('4')">Voir plus de produits</button>
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="launchCategorySearch(4)">Voir plus de produits de cette catégorie</button>
         </div>
       </div>
 
@@ -57,12 +57,12 @@
         <app-category-products
           [sales]=gardenProducts
           [maxTitleSize]=maxTitleSize
-          [title]=categoryTitle[2]
+          [categoryId]=3
           [categoryIcon]=categoryIcons[2]>
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreCategory('3')">Voir plus de produits</button>
+          <button class="button is-danger is-outlined load-more no-overflow" (click)="launchCategorySearch(3)">Voir plus de produits de cette catégorie</button>
         </div>
       </div>
     </div>
@@ -73,14 +73,14 @@
         [sales]=sales
         [maxTitleSize]=maxTitleSize>
       </app-filtered-products>
-    </div>
 
-    <div *ngIf="sales.length !== 0" class="content has-text-centered">
-      <button class="button is-danger is-outlined load-more no-overflow" (click)="sendLoadMore()">Voir plus de produits</button>
-    </div>
+      <div *ngIf="sales.length !== 0" class="content has-text-centered">
+        <button class="button is-danger is-outlined load-more no-overflow" (click)="sendLoadMore()">Voir plus de produits</button>
+      </div>
 
-    <div *ngIf="sales.length === 0" class="content has-text-centered">
-      Aucun produit ne correspond (pour l'instant) à votre recherche
+      <div *ngIf="sales.length === 0" class="content has-text-centered">
+        Aucun produit ne correspond (pour l'instant) à votre recherche
+      </div>
     </div>
   </div>
 </div>

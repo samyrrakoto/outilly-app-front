@@ -1,8 +1,10 @@
-img
+.img-container
 {
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
   width: 95%;
   height: 120px;
+  margin: auto;
 }
 
 .in-line {
@@ -11,6 +13,11 @@ img
   height: 400px;
   margin: 1em;
   vertical-align: top;
+  outline: none;
+}
+
+.in-line:enabled {
+  outline: none;
 }
 
 .delivery-method {

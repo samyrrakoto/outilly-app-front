@@ -1,4 +1,4 @@
-import { environment } from '../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class CategoryProductsComponent implements OnInit {
   @Input() sales: Observable<any>;
   @Input() maxTitleSize: number;
-  @Input() title: string;
+  @Input() categoryId: number;
   @Input() categoryIcon: string;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
 
@@ -23,5 +23,9 @@ export class CategoryProductsComponent implements OnInit {
 
   public getProductRoute(sale: any): string {
     return '/product/' + sale.product.slug + '/' + sale.id;
+  }
+
+  public getBackgroundImgUrl(path: string): string {
+    return "url('" + this.mediaBaseUri + path + "')";
   }
 }

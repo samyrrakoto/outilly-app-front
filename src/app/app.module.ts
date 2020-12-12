@@ -134,6 +134,7 @@ import { CountryPipe } from './pipes/country.pipe';
 import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { CategoryPipe } from './pipes/category.pipe';
 import { TypeDescriptionPipe } from './pipes/type-description.pipe';
+import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
 
 @NgModule({
   declarations: [
@@ -259,6 +260,7 @@ import { TypeDescriptionPipe } from './pipes/type-description.pipe';
     CompanyNameComponent,
     CategoryPipe,
     TypeDescriptionPipe,
+    ProductResultsComponent,
   ],
   imports: [
     HttpClientModule,
