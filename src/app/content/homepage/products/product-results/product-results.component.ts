@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { RequestService } from 'src/app/services/request.service';
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -12,10 +13,10 @@ import { Component, OnInit } from '@angular/core';
 export class ProductResultsComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  readonly resultsPerPage: number = 10;
+  readonly resultsPerPage: number = 5;
   loaded: boolean = false;
   currentPage: number = 1;
-  sales: any;
+  sales: Observable<any>;
   categoryId: number;
 
   constructor(
@@ -23,12 +24,18 @@ export class ProductResultsComponent implements OnInit {
     private request: RequestService
     )
   {
-    this.sales = {'results': [], 'meta': {}};
   }
 
   ngOnInit(): void {
     this.getCategoryId()
       .then(() => this.getSales());
+  }
+
+  public getSales(): void {
+    this.getSalesByCriteria().subscribe(
+      (res: any) => {
+        this.sales = res;
+      });
   }
 
   private getCategoryId(): Promise<void> {
@@ -48,24 +55,24 @@ export class ProductResultsComponent implements OnInit {
     return payload;
   }
 
-  public getSales(): Promise<void> {
+  public getSalesByCriteria(): Observable<any> {
     const payload: HttpParams = this.getSalesPayload();
     const requestname: string = this.request.uri.SALES + '?' + payload.toString();
 
-    return new Promise((resolve) => {
+    return new Observable((observer) => {
       this.request.getData(requestname).subscribe(
         (sales: any) => {
-          this.sales.results = sales.results;
+          observer.next(sales.results);
+          observer.complete();
           this.currentPage++;
           this.loaded = true;
-          resolve();
         }
       );
     });
   }
 
   public getProductRoute(sale: any): string {
-    return '/product/' + sale.product.slug + '/' + sale.id;
+    return '/product/' + sale.productSlug + '/' + sale.id;
   }
 
   public getBackgroundImgUrl(path: string): string {

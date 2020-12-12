@@ -98,7 +98,6 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
 
   private getReferences(): Promise<void> {
     const params: string[] = this.getParams();
-    console.log(params);
 
     return new Promise(
       (resolve) => {
