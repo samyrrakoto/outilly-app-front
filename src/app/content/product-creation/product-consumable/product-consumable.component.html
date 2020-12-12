@@ -13,7 +13,7 @@
 
       <div class="columns is-vcentered has-text-centered">
         <div class="column">
-          <div class="tile" id="yes" (click)="product.isConsumable = true; additionalControls = true; nextOn=true">
+          <div class="tile" id="no" (click)="product.isConsumable = false; additionalControls = true; nextOn=true">
             <fa-icon [icon]="['fas', 'hammer']"></fa-icon>
             Outillage / <br>
             Machines
@@ -26,7 +26,7 @@
         </div>
 
         <div class="column">
-          <div class="tile" id="no" (click)="product.isConsumable = false; additionalControls = true; nextOn=true">
+          <div class="tile" id="yes" (click)="product.isConsumable = true; additionalControls = true; nextOn=true">
             <fa-icon [icon]="['fas', 'fill-drip']"></fa-icon>
             Matériaux /<br>Fin de chantier
           </div>

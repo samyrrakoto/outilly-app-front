@@ -16,7 +16,6 @@ import { InformationComponent } from './content/user-dashboard/information/infor
 import { AnnounceOverviewComponent } from './content/product-creation/announce-overview/announce-overview.component';
 import { AccountRequestComponent } from './content/product-creation/account-request/account-request.component';
 import { ReservePriceComponent } from './content/product-creation/reserve-price/reserve-price.component';
-import { AnnounceKindComponent } from './content/product-creation/announce-kind/announce-kind.component';
 import { VideoUploadComponent } from './content/product-creation/video-upload/video-upload.component';
 import { WarrantyDurationComponent } from './content/product-creation/warranty-duration/warranty-duration.component';
 import { IsWarrantiedComponent } from './content/product-creation/is-warrantied/is-warrantied.component';
