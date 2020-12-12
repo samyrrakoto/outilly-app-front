@@ -15,6 +15,7 @@ import { StepForm } from 'src/app/models/step-form';
 })
 export class IsWarrantiedComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
+  additionalControls: boolean;
   product: Product;
 
   constructor(
@@ -29,6 +30,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.isWarrantied !== null ? true : false;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "isWarrantied";
     this.stepNb = 13;
@@ -39,7 +41,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     if (this.product.isWarrantied !== null) {
       this.product.isWarrantied === true ? this.setFocus('yes') : this.setFocus('no');
     }
@@ -51,7 +53,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
     this.path.previous = this.product.todeliver ? 'product-weight' : 'product-delivery';
   }
 
-  setFocus(id: string): void {
+  public setFocus(id: string): void {
     const tiles = ['yes', 'no'];
 
     document.getElementById(id).classList.add('chosen-tile');

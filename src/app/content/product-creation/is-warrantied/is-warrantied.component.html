@@ -1,5 +1,9 @@
 <div class="content has-text-left">
   <div class="field">
+    <app-step-progress
+      [stepNb]=stepNb
+      [totalNbSteps]=totalNbSteps>
+    </app-step-progress>
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
@@ -8,13 +12,13 @@
 
     <div class="columns">
       <div class="column">
-        <div class="tile" id="yes" (click)="product.isWarrantied = true; setFocus('yes'); handleWarranty(); nextOn = true">
+        <div class="tile" id="yes" (click)="product.isWarrantied = true; additionalControls = true; handleWarranty(); nextOn = true">
           Oui.
         </div>
       </div>
 
       <div class="column">
-        <div class="tile" id="no" (click)="product.isWarrantied = false; setFocus('no'); handleWarranty(); nextOn = true">
+        <div class="tile" id="no" (click)="product.isWarrantied = false; additionalControls = true; handleWarranty(); nextOn = true">
           Non, pas de garantie.
         </div>
       </div>
@@ -28,6 +32,7 @@
 
 <app-navigation
   [data]=formData
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]=root

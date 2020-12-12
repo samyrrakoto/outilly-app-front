@@ -15,11 +15,12 @@
 </div>
 
 <div *ngIf="isLogged && !isSaleCreated">
+  <h1 class="title">Félicitations !</h1>
   <button *ngIf="!isLoading" class="button is-success is-large" style="margin-bottom: 20px;" (click)="isLoading = true; submitProduct()">On valide</button>
   <button *ngIf="isLoading" class="button is-light is-large is-loading" style="margin-bottom: 20px;"></button>
 </div>
 
-<h1 class="title">Récapitulatif de votre annonce</h1>
+<h1 *ngIf="!isSaleCreated" class="title">Récapitulatif de votre annonce</h1>
 
 <table *ngIf="!isSaleCreated" class="table">
   <tr>
