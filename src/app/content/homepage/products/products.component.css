@@ -11,6 +11,11 @@ img
   height: 400px;
   margin: 1em;
   vertical-align: top;
+  outline: none;
+}
+
+.in-line:enabled {
+  outline: none;
 }
 
 .delivery-method {
