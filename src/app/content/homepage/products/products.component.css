@@ -1,8 +1,10 @@
-img
+.img-container
 {
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
   width: 95%;
   height: 120px;
+  margin: auto;
 }
 
 .in-line {

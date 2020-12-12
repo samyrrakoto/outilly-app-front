@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
   @Input() sales: any[];
   @Input() filtersNb: number;
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
+  loaded: boolean = false;
   results: any[];
   currentPage: number;
   mecanicPage: number;
@@ -47,6 +48,7 @@ export class ProductsComponent implements OnInit {
     this.diyProducts = this.getProductsByCategory('2');
     this.gardenProducts = this.getProductsByCategory('3');
     this.workshopProducts = this.getProductsByCategory('4');
+    this.loaded = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {

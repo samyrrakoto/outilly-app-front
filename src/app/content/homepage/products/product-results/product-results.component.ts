@@ -13,6 +13,7 @@ export class ProductResultsComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly resultsPerPage: number = 10;
+  loaded: boolean = false;
   currentPage: number = 1;
   sales: any;
   categoryId: number;
@@ -56,6 +57,7 @@ export class ProductResultsComponent implements OnInit {
         (sales: any) => {
           this.sales.results = sales.results;
           this.currentPage++;
+          this.loaded = true;
           resolve();
         }
       );
@@ -64,5 +66,9 @@ export class ProductResultsComponent implements OnInit {
 
   public getProductRoute(sale: any): string {
     return '/product/' + sale.product.slug + '/' + sale.id;
+  }
+
+  public getBackgroundImgUrl(path: string): string {
+    return "url('" + this.mediaBaseUri + path + "')";
   }
 }

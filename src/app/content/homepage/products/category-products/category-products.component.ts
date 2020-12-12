@@ -24,4 +24,8 @@ export class CategoryProductsComponent implements OnInit {
   public getProductRoute(sale: any): string {
     return '/product/' + sale.product.slug + '/' + sale.id;
   }
+
+  public getBackgroundImgUrl(path: string): string {
+    return "url('" + this.mediaBaseUri + path + "')";
+  }
 }
