@@ -1,3 +1,4 @@
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
 import { RequestService } from 'src/app/services/request.service';
@@ -30,7 +31,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     public formValidatorService: FormValidatorService,
     public title: Title)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

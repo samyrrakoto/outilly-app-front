@@ -1,11 +1,11 @@
+import { productOnboarding } from './../../../onboardings';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Product } from './../../../models/product';
+import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 
@@ -27,7 +27,7 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
     public title: Title,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }

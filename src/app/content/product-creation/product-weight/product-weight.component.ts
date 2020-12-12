@@ -1,6 +1,6 @@
+import { productOnboarding } from './../../../onboardings';
 import { Product } from './../../../models/product';
 import { RequestService } from 'src/app/services/request.service';
-import { ProductCreationComponent } from './../product-creation.component';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -28,7 +28,7 @@ export class ProductWeightComponent extends StepForm implements OnInit {
     public title: Title,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(productOnboarding);
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
