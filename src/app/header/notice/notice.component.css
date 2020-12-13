@@ -10,6 +10,12 @@
     box-shadow: none;
 }
 
+#french-flag {
+  height: 15px;
+  width: auto;
+  vertical-align: middle;
+}
+
 a, a:link, a:visited {
     text-decoration: underline;
     color: var(--KTKP-BLUE-DARKER);
