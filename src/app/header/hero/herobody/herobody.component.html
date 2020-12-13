@@ -5,12 +5,21 @@
     </div>
 
     <div id="dashboard-item" class="level-right">
-      <div class="level is-mobile" id="personal-level">
+      <div *ngIf="logged" class="level is-mobile" id="personal-level">
         <div class="level-item dashboard has-text-centered">
           <a routerLink="/user/dashboard/activity-log">{{ "Mon activité" | uppercase }}</a>
         </div>
         <div class="level-item dashboard">
           <a routerLink="/user/dashboard/information">{{ "Mes informations" | uppercase }}</a>
+        </div>
+      </div>
+
+      <div *ngIf="!logged" class="level is-mobile" id="personal-level">
+        <div class="level-item dashboard has-text-centered">
+          <a routerLink="/login">{{ "Me connecter" | uppercase }}</a>
+        </div>
+        <div class="level-item dashboard has-text-centered">
+          <a routerLink="/onboarding" class="account">{{ "Créer un compte" | uppercase }}</a>
         </div>
       </div>
     </div>
@@ -20,13 +29,12 @@
     <h1 class="subtitle">Faites de la place,</h1>
     <h1 class="title">Revendez votre matériel.</h1>
     <p>
-      Sur Outilly,<br>
-      achetez et revendez du matériel de seconde main en toute sécurité.
+      Sur Outilly, achetez et revendez du matériel de seconde main en toute sécurité.
     </p>
   </div>
 
-  <div class="box has-text-centered">
-    <a routerLink="/product/create" class="button is-large is-success">Commencez à vendre</a>
+  <div class="box has-text-centered addhugespaceabove">
+    <a routerLink="/product/create" class="button is-large is-success">Commencer à vendre</a>
     <div id="how-it-works">
       <a href=""><u>Comment ça marche ?</u></a>
     </div>

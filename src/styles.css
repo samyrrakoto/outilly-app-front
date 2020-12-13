@@ -124,6 +124,10 @@
   margin-right: 10px;
 }
 
+.addhugespaceabove {
+  margin-top: 50px;
+}
+
 .addspaceabove {
   margin-top: 20px;
 }
@@ -136,8 +140,16 @@
   margin-bottom: 20px;
 }
 
+.addhugespacebelow {
+  margin-bottom: 50px;
+}
+
 .removespacebelow {
   margin-bottom: 5px;
+}
+
+.little-title {
+  font-size: 1.5em;
 }
 
 .left {

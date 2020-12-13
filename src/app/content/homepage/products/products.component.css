@@ -10,7 +10,6 @@
 .in-line {
   display: inline-block;
   width: 180px;
-  height: 400px;
   margin: 1em;
   vertical-align: top;
   outline: none;
@@ -20,13 +19,11 @@
   outline: none;
 }
 
-.delivery-method {
-  font-size: 0.6em;
-}
-
 .card-content {
-  padding: 0px;
   padding-top: 5px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
   transition: 0.5s;
 }
 
@@ -35,13 +32,21 @@
   margin-top: -10px;
 }
 
+.product-content {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
 .product-title {
   height: 20px;
+  margin-top: 5px;
   font-size: 0.85em;
 }
 
 .product-link {
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 
 .load-more {
@@ -50,6 +55,13 @@
 
 .thumbnail {
   visibility: hidden;
+}
+
+.delivery-method {
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 0.6em;
+  height: 50px;
 }
 
 .delivery-icon {
@@ -86,5 +98,6 @@
 
   .delivery-method {
     font-size: 0.8em;
+    height: 20px;
   }
 }

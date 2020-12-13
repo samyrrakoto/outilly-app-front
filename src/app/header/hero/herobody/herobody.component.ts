@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-herobody',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./herobody.component.css']
 })
 export class HerobodyComponent implements OnInit {
+  @Input() logged: boolean;
 
   constructor() { }
 
