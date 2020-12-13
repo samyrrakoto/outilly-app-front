@@ -8,6 +8,7 @@
   <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
     {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
   </span>
+  <span *ngIf="sale.product.brands.length === 0">Aucune</span>
 </h2>
 
 <!-- General information -->
