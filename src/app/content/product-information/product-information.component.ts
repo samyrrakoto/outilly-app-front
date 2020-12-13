@@ -17,6 +17,7 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
   styleUrls: ['./product-information.component.css']
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
+  loaded: boolean = false;
   accessToken: string;
   isLogged: boolean;
   isAvailable: boolean;
@@ -63,6 +64,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       })
       .then(() => this.getProductById(this.id.toString()))
       .then(() => this.handleSaleStatus())
+      .then(() => this.loaded = true )
       .catch((error: any) => this.handlingErrors(error));
   }
 
@@ -123,7 +125,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
       response.subscribe((sale: any) => {
         this.sale = sale;
-        console.log(sale);
         this.pageNameManager.setTitle(sale.product.name);
         this.proposedPrice = this.sale.product.reservePrice / 100;
         this.minPrice = Math.round((this.sale.product.reservePrice / 100) * prices.MIN_PRICE_FACTOR);
