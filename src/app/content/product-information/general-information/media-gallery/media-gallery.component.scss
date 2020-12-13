@@ -40,11 +40,16 @@
 }
 
 .top-thumbnail {
-  height: 40vh;
+  height: 300px;
   opacity: 0.8;
   filter: brightness(0.95);
   object-fit: cover;
+  object-position: 50% 50%;
   transition: 1s;
+}
+
+.main-image {
+  display: inline-flex;
 }
 
 figure {

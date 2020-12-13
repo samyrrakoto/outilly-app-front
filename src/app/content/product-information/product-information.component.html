@@ -1,36 +1,38 @@
-<div *ngIf="sale.status === 'new'" class="notification is-danger has-text-centered">
-  <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
-  Ce produit est en cours de validation, seul vous pouvez la consulter pour l'instant.
-</div>
+<div id="product-information">
+  <div *ngIf="sale.status === 'new'" class="notification is-danger has-text-centered">
+    <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+    Ce produit est en cours de validation, seul vous pouvez la consulter pour l'instant.
+  </div>
 
-<div class="columns is-centered">
+  <div class="columns is-centered">
 
-    <!-- General information -->
-    <div class="column is-half">
-      <general-information
-        [sale]=sale>
-      </general-information>
-    </div>
+      <!-- General information -->
+      <div class="column is-half">
+        <general-information
+          [sale]=sale>
+        </general-information>
+      </div>
 
-    <!-- Side information -->
-    <div class="column is-one-quarter">
-      <side-information
-        [isSeller]=isSeller
+      <!-- Side information -->
+      <div class="column is-one-quarter">
+        <side-information
+          [isSeller]=isSeller
+          [sale]=sale
+          [isAvailable]=isAvailable
+          (openState)=getOpenState($event)>
+        </side-information>
+      </div>
+
+      <sticky-menu *ngIf="!isSeller && sale.id !== 0 && isAvailable"
         [sale]=sale
-        [isAvailable]=isAvailable
-        (openState)=getOpenState($event)>
-      </side-information>
-    </div>
-
-    <sticky-menu *ngIf="!isSeller && sale.id !== 0 && isAvailable"
-      [sale]=sale
-      [isSeller]=isSeller
-      [isLogged]=auth.logged
-      [accessToken]=auth.accessToken
-      [errorMsg]=errorMsg
-      [minPrice]=minPrice
-      [maxPrice]=maxPrice
-      [proposedPrice]=proposedPrice
-      [openState]=openMenuState>
-    </sticky-menu>
+        [isSeller]=isSeller
+        [isLogged]=auth.logged
+        [accessToken]=auth.accessToken
+        [errorMsg]=errorMsg
+        [minPrice]=minPrice
+        [maxPrice]=maxPrice
+        [proposedPrice]=proposedPrice
+        [openState]=openMenuState>
+      </sticky-menu>
+  </div>
 </div>

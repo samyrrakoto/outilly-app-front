@@ -2,3 +2,10 @@
   box-shadow: none;
   border: solid 3px var(--KTKP-GREY);
 }
+
+@media screen and (max-width: 768px) {
+  #product-information {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

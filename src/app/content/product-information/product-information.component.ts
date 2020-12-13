@@ -123,6 +123,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
       response.subscribe((sale: any) => {
         this.sale = sale;
+        console.log(sale);
         this.pageNameManager.setTitle(sale.product.name);
         this.proposedPrice = this.sale.product.reservePrice / 100;
         this.minPrice = Math.round((this.sale.product.reservePrice / 100) * prices.MIN_PRICE_FACTOR);
