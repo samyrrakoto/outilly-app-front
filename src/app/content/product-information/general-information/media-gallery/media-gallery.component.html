@@ -13,7 +13,7 @@
 
   <!-- Side pictures -->
   <div id="side-preview" class="column is-3 has-text-centered is-hidden-mobile">
-    <div *ngFor="let media of sale.product.productMedias.slice(2,5); index as i" class="content">
+    <div *ngFor="let media of sale.product.productMedias.slice(3,5); index as i" class="content">
       <figure *ngIf="media.type === 'image'" class="image">
         <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, 'image')">
       </figure>

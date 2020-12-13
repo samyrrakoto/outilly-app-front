@@ -1,7 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
-import { ProductInformationComponent } from '../../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
@@ -18,12 +17,10 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
 
-  constructor(request: RequestService,
-    route: ActivatedRoute,
-    router: Router,
-    bidManager: BidManagerService,
+  constructor(
     public auth: AuthService,
-    public saleManager: SaleManagerService) {
+    public saleManager: SaleManagerService)
+  {
     super();
   }
 
