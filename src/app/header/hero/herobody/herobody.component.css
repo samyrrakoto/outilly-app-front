@@ -59,3 +59,9 @@
 p {
   font-size: 22px;
 }
+
+.level-right {
+  background-color: #F9F9F9;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
