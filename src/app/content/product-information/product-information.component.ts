@@ -52,6 +52,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   ngOnInit(): void {
     this.auth.getLogStatus()
       .then(() => { this.getId() })
+      .then(() => this.getSalesId())
+      .then(() => this.isUserSeller())
       .then(() => this.saleManager.getSaleAvailability(this.id.toString()))
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve) => {
@@ -59,8 +61,6 @@ export class ProductInformationComponent extends GenericComponent implements OnI
           resolve();
         });
       })
-      .then(() => this.getSalesId())
-      .then(() => this.isUserSeller())
       .then(() => this.getProductById(this.id.toString()))
       .then(() => this.handleSaleStatus())
       .catch((error: any) => this.handlingErrors(error));
@@ -75,7 +75,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
-  private getSalesId(): Promise<any> {
+  private getSalesId(): Promise<void> {
     return new Promise((resolve) => {
 
       // If user logged and token is not expired
@@ -115,9 +115,11 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.sale.product.productMedias = videoMedias.concat(imgMedias);
   }
 
-  private getProductById(id: string): Promise<any> {
+  private getProductById(id: string): Promise<void> {
     return new Promise((resolve) => {
-      const response = this.isSeller ? this.request.getData(this.request.uri.GET_SALE_VENDOR, [id]) : this.request.getData(this.request.uri.SALE, [id]);
+      const response: any = this.isSeller
+      ? this.request.getData(this.request.uri.GET_SALE_VENDOR, [id])
+      : this.request.getData(this.request.uri.SALE, [id]);
 
       response.subscribe((sale: any) => {
         this.sale = sale;

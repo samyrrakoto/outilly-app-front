@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -25,7 +24,7 @@ export class GeneralInformationComponent extends GenericComponent implements OnI
 
   constructor(public request: RequestService,
     public router: Router,
-    route: ActivatedRoute,
+    private route: ActivatedRoute,
     public bidManager: BidManagerService,
     public auth: AuthService,
     public saleManager: SaleManagerService)

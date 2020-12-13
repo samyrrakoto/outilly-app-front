@@ -10,6 +10,9 @@ export class WeightPipe implements PipeTransform {
       case 'unity':
         return weight < 1000 ? 'g' : 'kg';
       case 'value':
+        if (weight === null) {
+          return '0';
+        }
         return weight < 1000 ? weight.toString() : (weight / 1000).toString();
     }
   }
