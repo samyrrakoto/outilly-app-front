@@ -3,13 +3,17 @@
 </head>
 
 <div id="homepage">
-  <app-herobody></app-herobody>
+  <app-herobody
+    [logged]=logged>
+  </app-herobody>
   <app-slogan></app-slogan>
   <app-incentive class="is-hidden-mobile"></app-incentive>
 
-  <h2 class="subtitle has-text-centered">
-    Allez-vous craquer pour les derniers produits en vente ?
-  </h2>
+  <div class="addhugespacebelow addhugespaceabove">
+    <h1 class="title has-text-centered bold">
+      Parcourir les annonces
+    </h1>
+  </div>
 
   <app-search
     [allCategories]=allCategories

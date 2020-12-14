@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -15,12 +16,14 @@ export class HomepageComponent implements OnInit {
   sales: any[];
   filtersNb: number;
   loadMore: number;
+  logged: boolean = false;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly pageTitle: string = 'Accueil';
 
   constructor(
     private request: RequestService,
-    private title: Title)
+    private title: Title,
+    private auth: AuthService)
   {
     this.allCategories = [];
     this.allTypes = [];
@@ -31,13 +34,24 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageNameManager.setTitle(this.pageTitle);
-    this.getCategories()
+    this.auth.getLogStatus()
+      .then(() => this.connectionStatus())
+      .then(() => this.getCategories())
       .then(() => this.getTypes())
       .then(() => {});
   }
 
   public getFilters(filters: any[]): void {
     this.filtersNb = filters.length;
+  }
+
+  private connectionStatus(): Promise<void> {
+    return new Promise((resolve) => {
+      if (this.auth.accessToken === 'good' && this.auth.logged) {
+        this.logged = true;
+      }
+      resolve();
+    });
   }
 
   private getCategories(): Promise<void> {

@@ -76,8 +76,13 @@ export class RequestService {
     return this.postData(data, this.uri.SALE_CREATE);
   }
 
-  uploadMedia(data: any): Observable<HttpResponse<any>>{
-    return this.postData(data, this.uri.PRODUCT_MEDIA_CREATE, [], null);
+  uploadMedia(data: any): Observable<any> {
+    return this.http.post(this.uri.BASE + this.uri.PRODUCT_MEDIA_CREATE, data,
+      {
+        headers: null,
+        reportProgress: true,
+        observe: 'events',
+    });
   }
 
   updateUser(data: any): Observable<HttpResponse<any>> {

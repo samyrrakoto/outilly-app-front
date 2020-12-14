@@ -1,5 +1,5 @@
 <media-gallery
-  [sale]="sale">
+  [sale]=sale>
 </media-gallery>
 
 <h1 id="product-name" class="title is-2 has-text-weight-bold">{{ sale.product.name }}</h1>
@@ -8,10 +8,11 @@
   <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
     {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
   </span>
+  <span *ngIf="sale.product.brands.length === 0">Aucune</span>
 </h2>
 
 <!-- General information -->
-<div class="box">
+<div *ngIf="sale" class="box">
   <h2 class="subtitle is-5 has-text-weight-bold has-text-centered">Informations générales</h2>
 
   <div class="columns">

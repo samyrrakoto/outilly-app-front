@@ -1,10 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Sale } from 'src/app/models/sale';
-import { ProductInformationComponent } from '../../product-information.component';
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
@@ -18,19 +14,17 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
 
-  constructor(request: RequestService,
-    route: ActivatedRoute,
-    router: Router,
-    bidManager: BidManagerService,
+  constructor(
     public auth: AuthService,
-    public saleManager: SaleManagerService) {
+    public saleManager: SaleManagerService)
+  {
     super();
   }
 
   ngOnInit(): void {}
 
   // Keyboard shortcuts
-  onKey(event: KeyboardEvent): void {
+  public onKey(event: KeyboardEvent): void {
     if (event.key === 'ArrowRight') {
       this.nextMedia();
     }
@@ -39,7 +33,7 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     }
   }
 
-  pauseVideo(videoId: string): void {
+  public pauseVideo(videoId: string): void {
     const video: any = document.getElementById(videoId);
 
     if (video !== null) {
@@ -47,14 +41,14 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     }
   }
 
-  openGalleryMedia(mediaIndex: number, mediaType: string): void {
+  public openGalleryMedia(mediaIndex: number, mediaType: string): void {
     this.media.index = mediaIndex;
     this.media.path = this.sale.product.productMedias[mediaIndex].path;
     this.media.type = mediaType;
     this.media.modal = 'is-active';
   }
 
-  previousMedia(): void {
+  public previousMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
     this.media.index === 0 ? this.media.index = lastIndex : this.media.index -= 1;
@@ -62,11 +56,15 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     this.media.path = this.sale.product.productMedias[this.media.index].path;
   }
 
-  nextMedia(): void {
+  public nextMedia(): void {
     const lastIndex = this.sale.product.productMedias.length - 1;
 
     this.media.index === lastIndex ? this.media.index = 0 : this.media.index++;
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
+  }
+
+  public getBackgroundImgUrl(path: string): string {
+    return "url('" + this.mediaBaseUri + path + "')";
   }
 }

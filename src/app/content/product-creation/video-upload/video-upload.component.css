@@ -38,3 +38,11 @@
   margin-top: 0px;
   padding: 2px;
 }
+
+.progress {
+  margin-top: 5px;
+}
+
+#percentage-value {
+  color: var(--KTKP-RED);
+}

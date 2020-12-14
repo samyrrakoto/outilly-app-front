@@ -1,8 +1,8 @@
 .in-line {
   display: inline-block;
   margin: auto;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: 16px;
+  margin-left: 16px;
   vertical-align: middle;
 }
 

@@ -1,4 +1,4 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -92,7 +92,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     params.push(categories[0].id.toString()) :
     params.push(categories[0].id.toString() + '-' + categories[1].id.toString());
 
-    isConsumable ? params[0] += '?isConsumable=1' : null;
+    params[0] += isConsumable ? '?isConsumable=1' : '?isConsumable=0';
     return params;
   }
 

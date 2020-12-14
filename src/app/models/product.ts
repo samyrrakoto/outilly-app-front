@@ -13,6 +13,7 @@ export class Product {
   isConsumable: boolean;
   productCategories: Array<ProductCategory>;
   productReferences: ProductReference[];
+  mainImage: any;
   quality: string;
   weight: number;
   weightUnity: string;
@@ -43,6 +44,10 @@ export class Product {
     this.productReferences = [];
     this.productTypes = [];
     this.brands = [];
+    this.mainImage = {
+      id: 0,
+      path: ''
+    };
     this.quality = '';
     this.weight = null;
     this.weightUnity = 'kg';

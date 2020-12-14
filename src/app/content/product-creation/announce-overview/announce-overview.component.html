@@ -15,7 +15,6 @@
 </div>
 
 <div *ngIf="isLogged && !isSaleCreated">
-  <h1 class="title">Félicitations !</h1>
   <button *ngIf="!isLoading" class="button is-success is-large" style="margin-bottom: 20px;" (click)="isLoading = true; submitProduct()">On valide</button>
   <button *ngIf="isLoading" class="button is-light is-large is-loading" style="margin-bottom: 20px;"></button>
 </div>
@@ -60,7 +59,7 @@
     <td class="field-name">Catégories</td>
     <td>
       <ul>
-        <li *ngFor="let category of formData.product.productCategories">{{ category.label | category }}</li>
+        <li *ngFor="let category of formData.product.productCategories">{{ category.id | category }}</li>
       </ul>
     </td>
     <td class="has-text-right"><button routerLink="/product/create/product-category" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
@@ -148,8 +147,14 @@
 </div>
 
 <div *ngIf="isSaleCreated" class="content">
+  <h1 class="title">Félicitations !</h1>
+
   <div class="content">
     Votre annonce a été soumise et est en cours de validation.
+  </div>
+
+  <div class="content">
+    Vous seul pouvez consulter votre annonce pour le moment. Elle sera visible pour vos futurs acheteurs dès validation !
   </div>
 
   <div class="content">

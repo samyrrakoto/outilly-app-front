@@ -10,6 +10,7 @@ import { ProductMedia } from 'src/app/models/product-media';
 import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-video-upload',
@@ -23,6 +24,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
   isLoading: boolean;
   currentMedia: ProductMedia;
   modals: Modals;
+  percentDone: number;
 
   constructor(
     public request: RequestService,
@@ -53,7 +55,6 @@ export class VideoUploadComponent extends StepForm implements OnInit {
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
-    this.isLoading = true;
 
     for (let i = 0; i < files.length; i++) {
       this.getFormData(files[i])
@@ -78,13 +79,19 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     document.getElementById("product-video").click();
   }
 
-  private sendMedia(data: FormData): Promise<any> {
+  private sendMedia(data: FormData): Promise<void> {
     return new Promise((resolve) => {
+      this.isLoading = true;
       this.request.uploadMedia(data).subscribe(
         (media: any) => {
-          this.isLoading = false;
-          this.addMedia(media);
-          resolve();
+          if (media.type === HttpEventType.UploadProgress) {
+            this.percentDone = Math.round(100 * media.loaded / media.total);
+          }
+          if (media.type === HttpEventType.Response) {
+            this.isLoading = false;
+            this.addMedia(media.body);
+            resolve()
+          }
         }
       );
     });

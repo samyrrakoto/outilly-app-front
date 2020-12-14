@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProductInformationComponent } from '../../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -29,21 +28,12 @@ export class PredefinedQuestionComponent extends GenericComponent implements OnI
   }
 
   ngOnInit(): void {
-    this.getGenericQuestions()
-      .then(() => {
-        for (const [index, question] of this.genericQuestions) {
-          if (question['answer'] === 'Je vends cet article') {
-            this.genericQuestions[index]['answer'] += ' ' + this.sale.product.reservePrice;
-          }
-        }
-      });
+    this.getGenericQuestions();
   }
 
-  private getGenericQuestions(): Promise<any> {
+  private getGenericQuestions(): Promise<void> {
     return new Promise((resolve) => {
-      const response = this.request.getData(this.request.uri.GENERIC_QUESTIONS);
-
-      response.subscribe((res: any) => {
+      this.request.getData(this.request.uri.GENERIC_QUESTIONS).subscribe((res: any) => {
         this.genericQuestions = res;
         resolve();
       });

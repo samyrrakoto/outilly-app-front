@@ -1,4 +1,4 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -47,7 +47,7 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     this.stepSubtitle = "Choisissez #Autre si votre marque n'apparaît pas.";
     this.path.current = "product-brand";
     this.path.previous = "product-category";
-    this.path.next = this.formData.product.isConsumable ? "product-type" : "product-reference";
+    this.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }
