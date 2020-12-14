@@ -40,7 +40,7 @@ export class ProductResultsComponent implements OnInit {
 
   private getCategoryId(): Promise<void> {
     return new Promise((resolve) => {
-      this.route.params.subscribe((params: any) => {
+      this.route.queryParams.subscribe((params: any) => {
         this.categoryId = parseInt(params.category);
         resolve();
       });

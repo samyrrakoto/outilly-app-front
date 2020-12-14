@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -99,6 +100,11 @@ export class ProductsComponent implements OnInit {
   }
 
   public launchCategorySearch(categoryId: number): void {
-    this.router.navigate(['product-results', {category: categoryId}]);
+    this.router.navigate(['/product-results'],
+    {
+      queryParams: {
+        category: categoryId.toString()
+      }
+    });
   }
 }
