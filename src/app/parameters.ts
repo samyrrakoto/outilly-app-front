@@ -33,7 +33,9 @@ export const country = {
 export const media = {
   MAX_UPLOAD_VIDEOS: 1,
   MAX_UPLOAD_PICTURES: 10,
-  MAX_UPLOAD_SIZE: 200
+  MAX_UPLOAD_SIZE: 200,
+  VIDEO_FORMAT_ACCEPTED: ".mp4, .avi, .mov",
+  PICTURES_FORMAT_ACCEPTED: ".jpg, .jpeg, .png"
 }
 
 export const specialCharacters: string = "&!@#-_+~/.?"

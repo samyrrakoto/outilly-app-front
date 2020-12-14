@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<input type="file" accept=".mp4, .avi" id="product-video" name="product-video" (change)="handleFile()" class="button is-success" style="display: none">
+<input type="file" accept="{{ videoFormatAccepted }}" id="product-video" name="product-video" (change)="handleFile()" class="button is-success" style="display: none">
 <button *ngIf="!isLoading && getNbUploadedVideo() < maxUploadVideos" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">

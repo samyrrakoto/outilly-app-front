@@ -1,7 +1,7 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -12,6 +12,7 @@ import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { media } from 'src/app/parameters';
 
 @Component({
   selector: 'app-media-upload',
@@ -20,7 +21,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class MediaUploadComponent extends StepForm implements OnInit, OnChanges {
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly picturesFormatAccepted: string = media.PICTURES_FORMAT_ACCEPTED;
   readonly root: string = 'product/create/';
+  uploaded: boolean = false;
+  percentDone: number = 0;
   form: FormGroup;
   product: Product;
   previews: Array<any>;
@@ -77,12 +81,13 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
-    this.isLoading = true;
 
-    for (let i = 0; i < files.length; i++) {
-      this.getFormData(files[i])
-        .then((formData) => this.sendMedia(formData))
-        .then(() => { setTimeout(() => {}, 500) });
+    if (files.length !== 0) {
+      for (let i = 0; i < files.length; i++) {
+        this.getFormData(files[i])
+          .then((formData) => this.sendMedia(formData))
+          .then(() => { setTimeout(() => {}, 500) });
+      }
     }
   }
 
@@ -107,13 +112,21 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     this.additionalControls = this.checkAdditionalControls();
   }
 
-  private sendMedia(data: FormData): Promise<any> {
+  private sendMedia(data: FormData): Promise<void> {
     return new Promise((resolve) => {
       this.request.uploadMedia(data).subscribe(
         (media: any) => {
-          this.isLoading = false;
-          this.addMedia(media);
-          resolve();
+          this.isLoading = true;
+
+          if (media.type === HttpEventType.UploadProgress) {
+            this.percentDone = Math.round(100 * media.loaded / media.total);
+          }
+          if (media.type === HttpEventType.Response) {
+            this.isLoading = false;
+            this.uploaded = true;
+            this.addMedia(media.body);
+            resolve()
+          }
         }
       );
     });
