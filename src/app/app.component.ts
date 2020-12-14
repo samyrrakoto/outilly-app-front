@@ -1,8 +1,11 @@
 import { AuthService } from './services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {isPlatformBrowser} from '@angular/common';
+import { pageInfo } from 'src/app/parameters';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +13,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular';
+  title = pageInfo.BRAND_NAME;
   faCoffee = faCoffee;
   logged: boolean;
   url: string = '';
@@ -18,11 +21,16 @@ export class AppComponent {
   toDisplayMenu: boolean = true;
   readonly noHeaderUrl: string[] = ['product/create', 'onboarding'];
   readonly noMenuUrl: string[]= ['home'];
+  static isBrowser = new BehaviorSubject<boolean>(null);
 
   constructor(
     private location: Location,
     private router: Router,
-    private auth: AuthService) {}
+    private auth: AuthService,
+    @Inject(PLATFORM_ID) private platformId: any)
+    {
+      AppComponent.isBrowser.next(isPlatformBrowser(platformId));
+    }
 
   ngOnInit(): void {
     this.auth.getLogStatus()
