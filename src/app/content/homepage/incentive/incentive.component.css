@@ -1,6 +1,7 @@
 .incentive .subtitle {
-  font-size: 1.5em;
+  font-size: 2vw;
   margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 .incentive fa-icon {
@@ -12,10 +13,12 @@
   min-height: 60px;
 }
 
-.incentive .subtitle {
-  font-size: 1.2em;
-}
-
 .incentive-description {
   margin-top: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .incentive .subtitle {
+    font-size: 1.2em;
+  }
 }
