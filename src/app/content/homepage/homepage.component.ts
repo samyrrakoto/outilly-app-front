@@ -49,8 +49,8 @@ export class HomepageComponent implements OnInit {
     return new Promise((resolve) => {
       if (this.auth.accessToken === 'good' && this.auth.logged) {
         this.logged = true;
-        resolve();
       }
+      resolve();
     });
   }
 
