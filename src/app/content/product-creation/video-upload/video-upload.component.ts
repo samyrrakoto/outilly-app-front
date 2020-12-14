@@ -11,6 +11,7 @@ import { Modals } from 'src/app/models/modals';
 import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { HttpEventType } from '@angular/common/http';
+import { media } from 'src/app/parameters';
 
 @Component({
   selector: 'app-video-upload',
@@ -20,8 +21,10 @@ import { HttpEventType } from '@angular/common/http';
 export class VideoUploadComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly maxUploadVideos: number = media.MAX_UPLOAD_VIDEOS;
   product: Product;
   isLoading: boolean;
+  uploaded: boolean = false;
   currentMedia: ProductMedia;
   modals: Modals;
   percentDone: number;
@@ -51,7 +54,8 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     this.modals.addModal('video-preview');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
@@ -59,7 +63,9 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     for (let i = 0; i < files.length; i++) {
       this.getFormData(files[i])
         .then((formData) => this.sendMedia(formData))
-        .then(() => { setTimeout(() => {}, 500) });
+        .then(() => {
+          setTimeout(() => {}, 500);
+        });
     }
   }
 
@@ -89,6 +95,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
           }
           if (media.type === HttpEventType.Response) {
             this.isLoading = false;
+            this.uploaded = true;
             this.addMedia(media.body);
             resolve()
           }
@@ -122,6 +129,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
         if (res.deleted) {
           this.removeMedia(media);
         }
+        this.uploaded = false;
       }
     )
   }
@@ -132,5 +140,16 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     if (video !== null) {
       video.pause();
     }
+  }
+
+  public getNbUploadedVideo(): number {
+    let nbUploadedVideos: number = 0;
+
+    for (const media of this.product.productMedias) {
+      if (media.type === 'video') {
+        nbUploadedVideos++;
+      }
+    }
+    return nbUploadedVideos;
   }
 }

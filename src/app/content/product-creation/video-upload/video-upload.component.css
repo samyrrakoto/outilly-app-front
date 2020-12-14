@@ -41,8 +41,15 @@
 
 .progress {
   margin-top: 5px;
+  animation: 2s loading infinite alternate
 }
 
 #percentage-value {
   color: var(--KTKP-RED);
+}
+
+/* ANIMATIONS */
+@keyframes loading {
+  from {opacity: 1;}
+  to {opacity: 0.5;}
 }
