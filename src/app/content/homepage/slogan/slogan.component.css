@@ -1,20 +1,20 @@
 #slogan-container
 {
-    margin-bottom: 30px;
-    margin-top: -100px;
-    position: relative;
-    z-index: 1;
+  margin-bottom: 30px;
+  margin-top: -100px;
+  position: relative;
+  z-index: 1;
 }
 
 #slogan-title {
-    background-color: white;
-    border-radius: 55px;
-    padding: 30px;
+  background-color: white;
+  border-radius: 55px;
+  padding: 30px;
 }
 
 #brand-logo {
   margin-left: 10px;
-  height: 80px;
+  height: 40px;
 }
 
 h1 {
