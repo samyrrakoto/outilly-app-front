@@ -23,7 +23,6 @@ export class AppComponent {
   readonly noMenuUrl: string[]= ['home'];
   static isBrowser = new BehaviorSubject<boolean>(null);
 
-
   constructor(
     private location: Location,
     private router: Router,
