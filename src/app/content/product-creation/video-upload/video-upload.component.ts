@@ -22,6 +22,7 @@ export class VideoUploadComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly maxUploadVideos: number = media.MAX_UPLOAD_VIDEOS;
+  readonly videoFormatAccepted: string = media.VIDEO_FORMAT_ACCEPTED;
   product: Product;
   isLoading: boolean;
   uploaded: boolean = false;
@@ -60,12 +61,14 @@ export class VideoUploadComponent extends StepForm implements OnInit {
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
 
-    for (let i = 0; i < files.length; i++) {
-      this.getFormData(files[i])
-        .then((formData) => this.sendMedia(formData))
-        .then(() => {
-          setTimeout(() => {}, 500);
-        });
+    if (files.length !== 0) {
+      for (let i = 0; i < files.length; i++) {
+        this.getFormData(files[i])
+          .then((formData) => this.sendMedia(formData))
+          .then(() => {
+            setTimeout(() => {}, 500);
+          });
+      }
     }
   }
 

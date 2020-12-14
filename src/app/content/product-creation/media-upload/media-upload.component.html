@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<input accept=".png, .jpg" type="file" id="product-pictures" multiple name="product-pictures" (change)="handleFile()" style="display: none;">
+<input accept="{{ picturesFormatAccepted }}" type="file" id="product-pictures" multiple name="product-pictures" (change)="handleFile()" style="display: none;">
 <button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
 <button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
@@ -30,6 +30,16 @@
 
 <div *ngIf="!additionalControls" class="error">
   3 photos minimum
+</div>
+
+<div *ngIf="isLoading" class="loading">
+  <span id="percentage-value">{{ percentDone }}</span>%
+  <progress class="progress is-small is-danger" value="{{ percentDone }}" max="100"></progress>
+
+  <div class="content">
+    Votre fichier est en cours d'envoi...<br>
+    Un petit café en attendant ?
+  </div>
 </div>
 
 <div id="displayed-medias">

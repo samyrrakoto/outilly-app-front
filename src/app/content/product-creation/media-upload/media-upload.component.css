@@ -36,6 +36,22 @@
   left: var(--spacing);
 }
 
+.progress {
+  margin-top: 5px;
+  animation: 2s loading infinite alternate;
+  margin-bottom: 20px;
+}
+
+#percentage-value {
+  color: var(--KTKP-RED);
+}
+
+/* ANIMATIONS */
+@keyframes loading {
+  from {opacity: 1;}
+  to {opacity: 0.5;}
+}
+
 /* On mobile devices */
 @media (max-width: 768px) {
   .delete-button {
