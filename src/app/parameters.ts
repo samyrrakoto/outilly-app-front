@@ -30,5 +30,11 @@ export const country = {
   ]
 }
 
+export const media = {
+  MAX_UPLOAD_VIDEOS: 1,
+  MAX_UPLOAD_PICTURES: 10,
+  MAX_UPLOAD_SIZE: 200
+}
+
 export const specialCharacters: string = "&!@#-_+~/.?"
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];

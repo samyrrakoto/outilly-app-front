@@ -17,8 +17,8 @@
   </div>
 </div>
 
-<input type="file" accept=".mp4, .avi" id="product-video" multiple name="product-video" (change)="handleFile()" class="button is-success" style="display: none">
-<button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
+<input type="file" accept=".mp4, .avi" id="product-video" name="product-video" (change)="handleFile()" class="button is-success" style="display: none">
+<button *ngIf="!isLoading && getNbUploadedVideo() < maxUploadVideos" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez une vidéo</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
@@ -32,6 +32,11 @@
     Votre fichier est en cours d'envoi...<br>
     Un petit café en attendant ?
   </div>
+</div>
+
+<div *ngIf="uploaded" class="notification is-success has-text-white">
+  <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+  Nous avons bien réceptionné votre fichier !
 </div>
 
 <div class="content" *ngFor="let media of product.productMedias">
