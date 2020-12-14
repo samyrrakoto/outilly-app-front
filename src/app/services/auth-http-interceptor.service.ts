@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpInterceptor } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -12,14 +13,19 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
       const authToken = localStorage.getItem('access_token');
       var url = new URL(req.url);
-      origin = url.origin + '/';
-      if(origin === environment.apiBaseUri){
-          req = req.clone({
-            setHeaders: {
-                Authorization: "Bearer " + authToken
-            }
-        });
+      AppComponent.isBrowser.subscribe(isBrowser => {
+        if (isBrowser) {
+          origin = url.origin + '/';
+          if(origin === environment.apiBaseUri){
+              req = req.clone({
+                setHeaders: {
+                    Authorization: "Bearer " + authToken
+                }
+            });
+        }
       }
+      });
+
       return next.handle(req);
   }
 }

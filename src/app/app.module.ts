@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -135,6 +134,7 @@ import { CompanyNameComponent } from './content/onboarding/user-details/company-
 import { CategoryPipe } from './pipes/category.pipe';
 import { TypeDescriptionPipe } from './pipes/type-description.pipe';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -278,6 +278,9 @@ import { ProductResultsComponent } from './content/homepage/products/product-res
           return localStorage.getItem('access_token');
         }
       }
+    }),
+    BrowserModule.withServerTransition({
+      appId: 'outilly'
     }),
   ],
   providers: [
