@@ -38,7 +38,7 @@
                     </button>
                   </p>
                   <p class="control choice">
-                    <button (click)="modals.open('counterOffer'); currentBid = bid; counterOfferAmount = bid.amount / 100" class="button is-dark is-small yellow action" title="Faire une contre-offre">
+                    <button (click)="modals.open('counterOffer'); currentBid = bid; currentSale = sale; counterOfferAmount = (bid.amount / 100) + 1" class="button is-dark is-small yellow action" title="Faire une contre-offre">
                       <fa-icon [icon]="['fas', 'share']"></fa-icon>Négocier
                     </button>
                   </p>
@@ -135,9 +135,10 @@
         la possibilité de baisser votre prix s'il ou elle la refuse, mais lui ou elle ne pourra vous faire de nouvelles propositions.
       </div>
 
-      <input class="input" type="number" oninput="this.value=(parseInt(this.value)||0)" [(ngModel)]="counterOfferAmount">
+      <input class="input" type="number" [(ngModel)]="counterOfferAmount">
 
-      <button (click)="modals.open('counterOfferConfirmation')" class="button is-success addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
+      <button *ngIf="currentSale && counterOfferStatus()" (click)="checkCounterOfferInput()" class="button is-success addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
+      <button *ngIf="currentSale && !counterOfferStatus()" class="button is-light addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
 
     </div>
   </div>

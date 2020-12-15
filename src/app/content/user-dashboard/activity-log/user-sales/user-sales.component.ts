@@ -1,10 +1,9 @@
-import { PurchaseManagerService } from './../../../../services/purchase-manager.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivityLogComponent } from '../activity-log.component';
 import { Location } from '@angular/common';
 import { Bid } from 'src/app/models/bid';
 import { Sale } from 'src/app/models/sale';
@@ -24,6 +23,7 @@ export class UserSalesComponent implements OnInit {
   @Input() sellerOrders: Array<any>;
   public sales: Array<Sale>;
   public currentBid: Bid;
+  public currentSale: Sale;
   public counterOfferAmount: number;
   public modals: Modals;
   public isLoaded: boolean;
@@ -85,9 +85,10 @@ export class UserSalesComponent implements OnInit {
 
   public counterOfferConfirmation(choice: string): void {
     const message: string = 'La contre-offre de ' + this.counterOfferAmount + '€ a bien été réalisée';
+    const validation: boolean = this.counterOfferAmount * 100 > this.currentBid.amount && this.counterOfferAmount * 100 < this.currentSale.product.reservePrice;
 
     if (choice === 'yes') {
-      if (this.counterOfferAmount <= this.currentBid.sale.product.reservePrice) {
+      if (validation) {
         this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount * 100);
         this.modals.close('counterOfferConfirmation');
         this.modals.close('counterOffer');
@@ -97,6 +98,26 @@ export class UserSalesComponent implements OnInit {
     else if (choice === 'no') {
       this.modals.close('counterOfferConfirmation');
     }
+  }
+
+  public checkCounterOfferInput() {
+    const realValue: number = this.counterOfferAmount * 100;
+
+    if (realValue > this.currentSale.product.reservePrice) {
+      this.counterOfferAmount = (this.currentSale.product.reservePrice / 100) - 1;
+    }
+    else if (realValue <= this.currentBid.amount) {
+      this.counterOfferAmount = (this.currentBid.amount / 100) + 1;
+    }
+    else {
+      this.modals.open('counterOfferConfirmation');
+    }
+  }
+
+  public counterOfferStatus(): boolean {
+    const realValue: number = this.counterOfferAmount * 100;
+
+    return (realValue < this.currentSale.product.reservePrice && realValue > this.currentBid.amount);
   }
 
   public goToProductPage(slug: string, saleId: number): void {
