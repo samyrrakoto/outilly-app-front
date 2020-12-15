@@ -135,7 +135,7 @@
         la possibilité de baisser votre prix s'il ou elle la refuse, mais lui ou elle ne pourra vous faire de nouvelles propositions.
       </div>
 
-      <input class="input" type="number" [(ngModel)]="counterOfferAmount">
+      <input class="input" type="number" oninput="this.value=parseInt(this.value)|0" [(ngModel)]="counterOfferAmount">
 
       <button *ngIf="currentSale && counterOfferStatus()" (click)="checkCounterOfferInput()" class="button is-success addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
       <button *ngIf="currentSale && !counterOfferStatus()" class="button is-light addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
