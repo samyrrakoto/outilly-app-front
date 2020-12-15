@@ -17,8 +17,9 @@
   border-bottom: solid 2px var(--KTKP-GREY);
 }
 
-.purchases .is-active a {
+.purchases.is-active a {
   background-color: var(--KTKP-RED) !important;
+  color: white;
 }
 
 fa-icon {
@@ -34,7 +35,7 @@ fa-icon {
 }
 
 .notification-icon {
-  color: var(--KTKP-RED) !important;
+  color: var(--KTKP-RED);
 }
 
 #separation {

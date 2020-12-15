@@ -11,7 +11,8 @@
 
     <app-information *ngIf="dashboardTab === 'information'"
       [url]=url
-      [user]=user>
+      [user]=user
+      [birthdate]=birthdate>
     </app-information>
 
     <app-activity-log *ngIf="dashboardTab === 'activities'"

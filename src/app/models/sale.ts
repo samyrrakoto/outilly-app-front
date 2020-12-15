@@ -5,6 +5,7 @@ import { Seller } from './seller';
 export class Sale {
     id: number;
     bids: Array<Bid>;
+    createdAt: Date;
     status: string;
     startDate: Date;
     endDate: Date;
@@ -14,6 +15,7 @@ export class Sale {
     constructor() {
         this.id = 0;
         this.bids = [];
+        this.createdAt = null;
         this.status = "new";
         this.startDate = null;
         this.endDate = null;

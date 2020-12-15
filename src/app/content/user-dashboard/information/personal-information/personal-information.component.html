@@ -12,11 +12,6 @@
 
             <table class="table is-narrow">
               <tr>
-                <td class="field-name">Nom d'utilisateur</td>
-                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.username" readonly></td>
-              </tr>
-
-              <tr>
                 <td class="field-name">Prénom</td>
                 <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.firstname" readonly></td>
               </tr>
@@ -35,7 +30,7 @@
 
               <tr>
                 <td class="field-name">Date de naissance</td>
-                <td><input type="date" class="input is-small not-editable" [(ngModel)]="birthdate" readonly></td>
+                <td><input type="date" class="input is-small not-editable" value="{{ birthdate }}" readonly></td>
               </tr>
 
               <tr>
@@ -57,7 +52,7 @@
             </table>
           </mat-panel-description>
 
-          <button class="button is-light is-small" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
+          <button class="button is-light is-small addspaceabove" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
 
           <div id="documents" class="content">
             <h2 class="subtitle">Vérifier mon profil</h2>

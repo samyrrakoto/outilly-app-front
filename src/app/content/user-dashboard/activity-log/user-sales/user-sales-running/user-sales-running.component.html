@@ -77,6 +77,12 @@
           </div>
 
           <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
+
+          <div class="content bid-date has-text-left discreet-text">
+            <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+            {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'hh:mm' }}
+          </div>
+
       </mat-expansion-panel>
     </mat-accordion>
   </div>
@@ -135,7 +141,7 @@
         la possibilité de baisser votre prix s'il ou elle la refuse, mais lui ou elle ne pourra vous faire de nouvelles propositions.
       </div>
 
-      <input class="input" type="number" [(ngModel)]="counterOfferAmount">
+      <input class="input" type="number" oninput="this.value=parseInt(this.value)|0" [(ngModel)]="counterOfferAmount">
 
       <button *ngIf="currentSale && counterOfferStatus()" (click)="checkCounterOfferInput()" class="button is-success addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>
       <button *ngIf="currentSale && !counterOfferStatus()" class="button is-light addlittlespaceabove">Proposer une contre-offre à {{ counterOfferAmount }}€</button>

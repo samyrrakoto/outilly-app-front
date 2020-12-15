@@ -1,7 +1,7 @@
 <div class="content">
   <h2 class="subtitle">Mes négociations</h2>
 
-  <div class="content bid" *ngIf="purchases.length === 0">
+  <div class="content" *ngIf="purchases.length === 0">
     Vous n'avez fait aucune offre pour le moment :'-(
 
     <div class="content">
@@ -29,11 +29,6 @@
 
           <div (click)="modals.open('purchase-explanation')" class="content pointed">
             <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
-          </div>
-
-          <div class="content bid-date has-text-left discreet-text">
-            <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-            {{ purchase.endDate | date:'dd/MM/yyyy' }} à {{ purchase.endDate | date:'hh:mm' }}
           </div>
         </div>
 
@@ -65,10 +60,15 @@
 
         <!-- When a counter offer is made -->
         <div *ngIf="purchase.isClosed === null" class="content bid">
-          <fa-icon class="choice waiting-icon" [icon]="['fas', 'stopwatch']"></fa-icon>
           Offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> envoyée !<br><br>
           En attente d'une réponse de la part du vendeur.
         </div>
+
+        <div class="content bid-date has-text-left discreet-text">
+          <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+          {{ purchase.createdAt | date:'dd/MM/yyyy' }} à {{ purchase.createdAt | date:'hh:mm' }}
+        </div>
+
         <a class="product-page" (click)="goToProductPage(purchase)">Accéder à la page du produit</a>
       </mat-expansion-panel>
   </mat-accordion>
