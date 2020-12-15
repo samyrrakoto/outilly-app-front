@@ -1,3 +1,4 @@
+import { SellerProductsComponent } from './content/products/seller-products/seller-products.component';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
 import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
@@ -351,6 +352,10 @@ const routes: Routes = [
         component: PaymentConfirmationComponent
       }
     ]
+  },
+  {
+    path: 'products/seller/:sellerId',
+    component: SellerProductsComponent
   },
   {
     path: 'product-unavailable',
