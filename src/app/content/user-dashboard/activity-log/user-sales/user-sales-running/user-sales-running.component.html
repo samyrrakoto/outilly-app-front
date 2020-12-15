@@ -77,6 +77,12 @@
           </div>
 
           <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
+
+          <div class="content bid-date has-text-left discreet-text">
+            <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+            {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'hh:mm' }}
+          </div>
+
       </mat-expansion-panel>
     </mat-accordion>
   </div>
