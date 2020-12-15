@@ -2,7 +2,6 @@ import { DashboardValidatorService } from 'src/app/services/dashboard-validator.
 import { Address } from 'src/app/models/address';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { InformationComponent } from '../information.component';
 import { Modals } from 'src/app/models/modals';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -163,7 +162,7 @@ export class PersonalInformationComponent implements OnInit {
     };
 
     this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe({
-      next: (value: any) => {
+      next: () => {
         this.notification.display('L\'adresse a bien été modifiée', 'addresses', ['accepted']);
       },
       error: () => {
