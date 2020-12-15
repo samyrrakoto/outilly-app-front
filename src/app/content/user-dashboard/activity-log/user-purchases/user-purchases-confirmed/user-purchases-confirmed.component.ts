@@ -1,6 +1,6 @@
-import { SaleManagerService } from './../../../../../services/sale-manager.service';
+import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { UserPurchasesComponent } from './../user-purchases.component';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';

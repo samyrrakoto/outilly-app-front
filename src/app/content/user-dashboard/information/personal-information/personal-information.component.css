@@ -20,10 +20,23 @@
   font-weight: 500;
 }
 
+.is-grouped {
+  justify-content: center;
+}
+
+.input {
+  height: 20px;
+}
+
+.select:enabled {
+  border: none;
+}
+
 select {
   border: none;
   border-bottom: solid 2px var(--KTKP-GREEN);
   background: transparent;
+  height: 20px;
 }
 
 select:active {
@@ -71,8 +84,9 @@ mat-panel-title {
 
 mat-expansion-panel {
   border: none;
+  border-bottom: solid 2px var(--KTKP-GREY);
   border-left: solid 4px var(--KTKP-GREEN);
-  box-shadow: unset;
+  box-shadow: none !important;
   margin-bottom: 10px;
 }
 
@@ -81,6 +95,20 @@ mat-expansion-panel {
   margin-top: 15px;
 }
 
+.kyc {
+  width: 100%;
+}
+
 #error-messages {
   margin-top: 20px;
+}
+
+#security {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .kyc {
+    width: 250px;
+  }
 }

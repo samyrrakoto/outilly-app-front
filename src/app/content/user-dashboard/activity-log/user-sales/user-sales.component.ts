@@ -87,9 +87,12 @@ export class UserSalesComponent implements OnInit {
     const message: string = 'La contre-offre de ' + this.counterOfferAmount + '€ a bien été réalisée';
 
     if (choice === 'yes') {
-      this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount * 100);
-      this.modals.close('counterOfferConfirmation');
-      this.modals.close('counterOffer');
+      if (this.counterOfferAmount <= this.currentBid.sale.product.reservePrice) {
+        this.bidManager.counterOffer(this.currentBid.id, this.counterOfferAmount * 100);
+        this.modals.close('counterOfferConfirmation');
+        this.modals.close('counterOffer');
+      }
+      return;
     }
     else if (choice === 'no') {
       this.modals.close('counterOfferConfirmation');

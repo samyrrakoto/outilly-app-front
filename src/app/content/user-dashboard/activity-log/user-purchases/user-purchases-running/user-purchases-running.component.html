@@ -1,11 +1,11 @@
 <div class="content">
-  <h2 class="subtitle">Mes offres en cours</h2>
+  <h2 class="subtitle">Mes négociations</h2>
 
-  <div class="content" *ngIf="purchases.length === 0">
+  <div class="content bid" *ngIf="purchases.length === 0">
     Vous n'avez fait aucune offre pour le moment :'-(
 
     <div class="content">
-      N'hésitez pas à <a routerLink="/home" class="accepted">consulter nos produits ici !</a>
+      <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
     </div>
   </div>
 
@@ -18,36 +18,48 @@
         </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-panel-description>
-          Prix de réserve : {{ purchase.reservePrice | currency:'full' }}€
+          Prix du produit : {{ purchase.reservePrice | currency:'full' }}€
         </mat-panel-description>
 
         <!-- When a bid is accepted -->
         <div *ngIf="purchase.isAccepted" class="content bid">
-          <fa-icon class="choice accepted" [icon]="['fas', 'check-circle']"></fa-icon>
-          Félicitations !<br><br>
-          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="accepted">acceptée</span>. ;-)<br>
-          Rendez-vous <a (click)="goToProductPage(purchase)" class="accepted">sur la page produit</a> pour finaliser la transaction.
+          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été acceptée. Félicitations !<br>
+
+          <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.bidAmount | currency:'full' }}€</button>
 
           <div (click)="modals.open('purchase-explanation')" class="content pointed">
-            <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>
+            <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
+          </div>
+
+          <div class="content bid-date has-text-left discreet-text">
+            <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+            {{ purchase.endDate | date:'dd/MM/yyyy' }} à {{ purchase.endDate | date:'hh:mm' }}
           </div>
         </div>
 
         <!-- When a bid is refused -->
         <div *ngIf="purchase.isAccepted === false" class="content bid">
-          <fa-icon class="choice declined" [icon]="['fas', 'times-circle']"></fa-icon>
-          Quel dommage !<br><br>
-          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="declined">refusée</span>. :-(<br>
-          Vous ne pouvez plus faire de proposition mais vous pouvez toujours acheter le produit au prix de réserve. :-)
+          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été refusée.<br>
+          Vous ne pouvez plus faire de proposition, mais ne laissez pas passer votre chance :
+
+          <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.reservePrice | currency:'full' }}€</button>
         </div>
+
         <div *ngIf="purchase.counterOfferAmount !== null" class="content bid">
-          <fa-icon class="choice counter-offer" [icon]="['fas', 'share']"></fa-icon>
-          On y arrive !<br><br>
-          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été <span class="counter-offer">contre-proposée à {{ purchase.counterOfferAmount | currency:'full' }}€</span>.<br>
-          Si elle vous convient, rendez-vous <a (click)="goToProductPage(purchase)" class="accepted">sur la page produit</a> pour finaliser la transaction.
+          Le vendeur ne peut pas accepter votre offre :<br>
+
+          <div class="content less-discreet-text italic">
+            "Bonjour, votre offre est malheureusement trop basse.<br>
+            Voici le montant que je serais prêt(e) à accepter :
+            <span class="declined">{{ purchase.counterOfferAmount | currency:'full' }}€</span><br>
+            Merci pour votre intérêt et à bientôt j'espère."
+          </div>
+
+          Si l'offre vous convient, rendez-vous sur la page produit :<br>
+          <button (click)="goToProductPage(purchase)" class="button is-danger addlittlespaceabove">Acheter au prix de {{ purchase.counterOfferAmount | currency:'full' }}€</button>
 
           <div (click)="modals.open('purchase-explanation')" class="content pointed">
-            <fa-icon class="info-icon" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">Comment ça se passe ?</span>
+            <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
           </div>
         </div>
 
@@ -69,11 +81,14 @@
   <div class="modal-background" (click)="modals.close('purchase-explanation')"></div>
   <div class="modal-content">
     <div class="box">
-      <h2 class="subtitle">Comment ça se passe pour finaliser mon achat ?</h2>
+      <h2 class="subtitle">Comment finaliser mon achat ?</h2>
 
       <div class="content">
-        Vos allez être redirigé vers une page récapitulative.<br>
-        Une fois que tout vous semblera bon, vous pourrez utiliser votre carte de crédit pour effectuer le paiement via notre partenaire MangoPay.
+        Si la proposition du vendeur vous convient, rendez-vous sur la page de son produit. En cliquant sur <span class="declined">Acheter</span>, vous obtiendrez le prix actualisé : vous n'avez plus qu'à finaliser votre vente.
+      </div>
+
+      <div class="content">
+        Une fois sur la page récapitulative de votre commande, vous pourrez vérifier que tout vous convient et procéder au paiement par carte de crédit.
       </div>
     </div>
   </div>

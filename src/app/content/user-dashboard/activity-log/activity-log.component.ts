@@ -57,7 +57,7 @@ export class ActivityLogComponent implements OnInit {
       });
   }
 
-  private getPurchases(): Promise<Purchase[]> {
+  private getPurchases(): Promise<void> {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
@@ -69,7 +69,7 @@ export class ActivityLogComponent implements OnInit {
     })
   }
 
-  private getBuyerOrders(): Promise<any> {
+  private getBuyerOrders(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
         (orders: any) => {
@@ -80,7 +80,7 @@ export class ActivityLogComponent implements OnInit {
     });
   }
 
-  private getRunningSales(): Promise<any> {
+  private getRunningSales(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
         (sales: any) => {
@@ -91,7 +91,7 @@ export class ActivityLogComponent implements OnInit {
     });
   }
 
-  private getSellerOrders(): Promise<any> {
+  private getSellerOrders(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
         (orders: any) =>  {

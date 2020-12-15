@@ -1,11 +1,11 @@
 <div class="content">
-  <h2 class="subtitle">Mes offres confirmées</h2>
+  <h2 class="subtitle">Mes achats</h2>
 
-  <div class="content" *ngIf="buyerOrders && buyerOrders.length === 0">
+  <div class="content bid" *ngIf="buyerOrders && buyerOrders.length === 0">
     Vous n'avez acheté aucun produit pour le moment :'-(
 
     <div class="content">
-      N'hésitez pas à <a routerLink="/home" class="accepted">consulter nos produits ici !</a>
+      <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
         </mat-panel-description>
 
         <!-- If Hand Delivery -->
-        <div *ngIf="order.shipMethod === 'HandDelivery'" class="content">
+        <div *ngIf="order.shipMethod === 'HandDelivery'" class="content bid">
           <h2 class="panel-title has-text-centered">Votre commande est validée !</h2>
 
           <div class="content has-text-centered">

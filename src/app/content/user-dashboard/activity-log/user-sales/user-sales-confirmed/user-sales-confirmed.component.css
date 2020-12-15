@@ -1,7 +1,3 @@
-.button {
-  width: 100%;
-}
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -10,6 +6,10 @@
 .buttons .button {
   color: white;
   width: 70%;
+}
+
+.left {
+  padding-left: 80px;
 }
 
 .announce {

@@ -1,5 +1,11 @@
 #under-tabs a {
   color: var(--MAT-GREY);
+  font-size: 1.15em;
+}
+
+#under-tabs li {
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 #under-tabs .is-active a {

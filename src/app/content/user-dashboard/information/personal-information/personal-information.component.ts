@@ -164,32 +164,32 @@ export class PersonalInformationComponent implements OnInit {
 
     this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe({
       next: (value: any) => {
-        this.notification.display('L\'adresse a bien été modifiée', 'addresses');
+        this.notification.display('L\'adresse a bien été modifiée', 'addresses', ['accepted']);
       },
       error: () => {
-        this.notification.display('Une erreur est survenue', 'addresses', ['is-danger']);
+        this.notification.display('Une erreur est survenue', 'addresses', ['declined']);
       }
     })
   }
 
   public updateUserPwd(): void {
-    const errorMessage: string = 'Les mots de passe ne correspondent pas';
+    const errorMessage: string = 'Les nouveaux mots de passe ne correspondent pas';
     const payload: any = {
       currentPwd: this.user.password,
       newPwd: this.user.newPassword
     };
 
     if (this.user.newPassword !== this.user.passwordConfirmation) {
-      this.dashboardValidator.addErrorMsg(errorMessage);
+      this.notification.display(errorMessage, 'security', ['declined']);
       return;
     }
     this.dashboardValidator.removeErrorMsg(errorMessage);
     this.request.putData(this.request.uri.UPDATE_PWD, payload).subscribe({
       next: () => {
-        this.notification.display('Votre mot de passe a bien été mis à jour !', 'security');
+        this.notification.display('Votre mot de passe a bien été mis à jour !', 'security', ['accepted']);
       },
       error: () => {
-        this.notification.display('Le mot de passe actuel est erroné !', 'security', ['is-danger']);
+        this.notification.display('Le mot de passe actuel est différent de celui que vous venez d\'indiquer', 'security', ['declined']);
       }
     });
   }
