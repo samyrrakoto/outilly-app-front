@@ -18,7 +18,7 @@ export class UserDashboardComponent implements OnInit {
   user: User = new User();
   dashboardTab: string = 'information';
   pageNameManager: PageNameManager = new PageNameManager(this.title);
-  readonly menuTabs: Array<string> = ['information', 'activities', 'sell'];
+  readonly menuTabs: Array<string> = ['information', 'activities'];
   readonly pageTitle: string = 'Tableau de bord';
 
   constructor(

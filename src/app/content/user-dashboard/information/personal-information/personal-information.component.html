@@ -10,7 +10,7 @@
           </mat-expansion-panel-header>
           <mat-panel-description>
 
-            <table class="table">
+            <table class="table is-narrow">
               <tr>
                 <td class="field-name">Nom d'utilisateur</td>
                 <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.username" readonly></td>
@@ -60,12 +60,26 @@
           <button class="button is-light is-small" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
 
           <div id="documents" class="content">
-            <h2 class="subtitle">Mes documents</h2>
+            <h2 class="subtitle">Vérifier mon profil</h2>
+
+            <div class="content discreet-text">
+              Ces informations vous permettent de bénéficier du statut <span class="accepted">Vérifié(e)</span> et de percevoir votre argent
+              lorsque vous réussissez une vente.
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
+              </div>
+
+              <div class="column">
+                <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter un RIB</button>
+              </div>
+            </div>
           </div>
 
           <div id="identity"></div>
 
-          <button class="button is-dark is-small" (click)="modals.open('id')"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une pièce d'identité</button>
       </mat-expansion-panel>
 
     <!-- ADDRESSES -->
@@ -89,9 +103,11 @@
             <tr>
               <td class="field-name">Pays</td>
               <td>
-                <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="select pointed">
+                <div class="select">
+                <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="pointed">
                   <option *ngFor="let isoCode of isoCodes" value="{{ isoCode }}">{{ getCountryName(isoCode) }}</option>
                 </select>
+                </div>
               </td>
             </tr>
 
@@ -127,7 +143,7 @@
 
         <div id="addresses"></div>
 
-        <button class="button is-info is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
+        <button class="button is-dark is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
 
     </mat-expansion-panel>
 
@@ -147,10 +163,12 @@
             <tr>
               <td class="field-name">Recevoir des actualités par mail</td>
               <td>
-                <select [(ngModel)]="user.userProfile.emailOptin" class="select pointed">
-                  <option value="1">Oui</option>
-                  <option value="0">Non</option>
-                </select>
+                <div class="select">
+                  <select [(ngModel)]="user.userProfile.emailOptin" class="pointed">
+                    <option value="1">Oui</option>
+                    <option value="0">Non</option>
+                  </select>
+                </div>
               </td>
             </tr>
 
@@ -162,17 +180,20 @@
             <tr>
               <td class="field-name">Recevoir des actualités par SMS</td>
               <td>
-                <select [(ngModel)]="user.userProfile.phone1Optin" class="select pointed">
-                  <option value="1">Oui</option>
-                  <option value="0">Non</option>
-                </select>
+
+                <div class="select">
+                  <select [(ngModel)]="user.userProfile.phone1Optin" class="pointed">
+                    <option value="1">Oui</option>
+                    <option value="0">Non</option>
+                  </select>
+                </div>
               </td>
             </tr>
           </table>
 
           <div id="contact-information"></div>
 
-          <button class="button is-info is-small" (click)="updateUserData()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
+          <button class="button is-dark is-small" (click)="updateUserData()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
     </mat-expansion-panel>
 
 
@@ -200,7 +221,7 @@
             </tr>
           </table>
 
-          <button class="button is-light is-small" (click)="updateUserPwd()">Mettre à jour le mot de passe</button>
+          <button class="button is-dark is-small" (click)="updateUserPwd()">Mettre à jour le mot de passe</button>
 
           <div id="security"></div>
     </mat-expansion-panel>
@@ -251,9 +272,19 @@
         <h2 class="subtitle">Modifier des informations</h2>
 
         <label class="label">Que souhaitez-vous changer ?</label>
+
+        <div class="content discreet-text">
+          Les changements d'identité sont soumis à la validation par notre équipe
+          afin de garantir leur conformité.
+        </div>
+
         <textarea class="textarea">
 
         </textarea>
+
+        <div class="content">
+          <button class="button is-success">Soumettre ma demande</button>
+        </div>
       </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('dataChanges')"></button>

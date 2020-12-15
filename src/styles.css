@@ -37,6 +37,10 @@
   font-weight: bold;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .overline {
   border-top: solid 2px var(--FAKE-WHITE);
 }
@@ -164,6 +168,11 @@
 .shortpadding {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.less-discreet-text {
+  font-size: 0.9em;
+  color: var(--MAT-GREY);
 }
 
 .discreet-text {
