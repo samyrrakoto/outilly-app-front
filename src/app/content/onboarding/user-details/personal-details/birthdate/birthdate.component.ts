@@ -47,7 +47,7 @@ export class BirthdateComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      birthdate: [this.user.userProfile.birthdate, [Validators.required, this.major()]],
+      birthdate: [this.user.userProfile.birthdate, [Validators.required, this.major(), this.notEmpty()]],
     });
   }
 
@@ -59,6 +59,13 @@ export class BirthdateComponent extends StepForm {
     return (control: AbstractControl): {[key: string]: any} | null =>
       {
         return this.getAge(control.value) >= 18 ? null : {notMajor: control.value};
+      }
+  }
+
+  private notEmpty(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        return this.user.userProfile.birthdate !== 0 ? null : {notNull: control.value};
       }
   }
 

@@ -25,7 +25,7 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.birthdate.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.birthdate.errors }">
-  <div class="error" *ngIf="controls.birthdate.errors.required">La date de naissance est requise</div>
+  <div class="error" *ngIf="controls.birthdate.errors.required || controls.birthdate.errors.notNull">La date de naissance est requise</div>
   <div class="error" *ngIf="controls.birthdate.errors.notMajor">Vous devez être majeur(e) pour vous inscrire</div>
 </div>
 
