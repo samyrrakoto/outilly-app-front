@@ -219,6 +219,24 @@
   }
 }
 
+.color-blinking {
+  animation: color-blinker 3s linear infinite;
+}
+
+.color-blinking-slow {
+  animation: color-blinker 5s linear infinite;
+}
+
+.color-blinking-slower {
+  animation: color-blinker 8s linear infinite;
+}
+
+@keyframes color-blinker {
+  50% {
+    color: white;
+  }
+}
+
 /* General */
 .mat-expansion-panel-header {
   min-height: 48px;
