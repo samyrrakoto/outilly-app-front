@@ -1,3 +1,5 @@
+import { Sale } from 'src/app/models/sale';
+import { Observable } from 'rxjs';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -9,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellerProductsComponent implements OnInit {
   sellerId: number;
+  sales: Sale[] = [];
+  currentPage: number = 1;
+  noMoreResults: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -17,7 +22,10 @@ export class SellerProductsComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    this.getSellerId();
+    this.getSellerId()
+      .then(() => this.getSales().subscribe(
+        (res: any) => { this.sales = res }
+      ));
   }
 
   private getSellerId(): Promise<void> {
@@ -28,5 +36,34 @@ export class SellerProductsComponent implements OnInit {
         resolve();
       });
     });
+  }
+
+  private getPayload(): string {
+    return '?page=' + this.currentPage;
+  }
+
+  private getSales(): Observable<any> {
+    return new Observable((observer) => {
+      this.request.getData(this.request.uri.SALES + this.getPayload()).subscribe(
+        (sales: any) => {
+          if (this.currentPage <= sales.meta.totalPages) {
+            this.currentPage++;
+            observer.next(sales.results);
+            observer.complete();
+          }
+          if (this.currentPage - 1 === sales.meta.totalPages) {
+            this.noMoreResults = true;
+          }
+        }
+      );
+    });
+  }
+
+  public loadMoreHandle(): void {
+    this.getSales().subscribe(
+      (res: any) => {
+        this.sales = this.sales.concat(res);
+      }
+    );
   }
 }
