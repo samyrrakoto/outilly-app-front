@@ -68,8 +68,7 @@ import { ProductConsumableComponent } from './content/product-creation/product-c
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomepageComponent
+    path: '', redirectTo: 'home', pathMatch: 'full'
   },
   {
     path: 'home',
