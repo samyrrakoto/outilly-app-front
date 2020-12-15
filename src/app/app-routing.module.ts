@@ -135,11 +135,11 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'dispatch-note',
-        component: DispatchNoteComponent
-      }
     ]
+  },
+  {
+    path: 'dispatch-note',
+    component: DispatchNoteComponent
   },
   {
     path: 'onboarding',
