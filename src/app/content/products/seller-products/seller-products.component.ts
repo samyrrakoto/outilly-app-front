@@ -13,6 +13,7 @@ export class SellerProductsComponent implements OnInit {
   sellerId: number;
   sales: Sale[] = [];
   currentPage: number = 1;
+  totalNbResults: number;
   noMoreResults: boolean = false;
 
   constructor(
@@ -39,7 +40,7 @@ export class SellerProductsComponent implements OnInit {
   }
 
   private getPayload(): string {
-    return '?page=' + this.currentPage;
+    return '?page=' + this.currentPage + '&sellers=' + this.sellerId.toString();
   }
 
   private getSales(): Observable<any> {
@@ -48,6 +49,7 @@ export class SellerProductsComponent implements OnInit {
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
             this.currentPage++;
+            this.totalNbResults = sales.meta.totalResults;
             observer.next(sales.results);
             observer.complete();
           }
