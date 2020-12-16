@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -140,6 +139,7 @@ import { SellerProductsComponent } from './content/products/seller-products/sell
 import { ProductsDisplayComponent } from './content/products/products-display/products-display.component';
 import { UserActivationComponent } from './content/user-activation/user-activation.component';
 import { ActivitationAccountWarningComponent } from './content/activitation-account-warning/activitation-account-warning.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -288,6 +288,9 @@ import { ActivitationAccountWarningComponent } from './content/activitation-acco
           return localStorage.getItem('access_token');
         }
       }
+    }),
+    BrowserModule.withServerTransition({
+      appId: 'outilly'
     }),
   ],
   providers: [
