@@ -1,22 +1,22 @@
 #connection-container {
-  border-top: solid 5px var(--KTKP-BLACK);
+  border-top: solid 5px var(--KTKP-BLUE);
   margin-bottom: 20px;
   color: white;
 }
 
 #connection-button {
-  background-color: var(--KTKP-BLACK);
+  background-color: var(--KTKP-BLUE);
   border-bottom-left-radius: 10px;
 }
 
 #connection-button div {
-  color: white;
+  color: var(--KTKP-BLUE-DARKER);
   outline: none;
+  font-size: 1em;
   transition: 0.3s;
 }
 
 #connection-button div:hover {
-  color: var(--KTKP-GREEN);
   padding-right: 35px;
 }
 
