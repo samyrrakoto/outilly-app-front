@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./connection-menu.component.css']
 })
 export class ConnectionMenuComponent implements OnInit {
-  @Input() logged: boolean;
 
-  constructor() { }
+  constructor(
+    public auth: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
