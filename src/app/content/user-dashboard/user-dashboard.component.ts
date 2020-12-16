@@ -14,6 +14,7 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 })
 export class UserDashboardComponent implements OnInit {
   url: string = '';
+  activated: boolean = false;
   birthdate: string = '';
   user: User = new User();
   dashboardTab: string = 'information';
@@ -30,6 +31,10 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageNameManager.setTitle(this.pageTitle);
+    this.auth.getLogStatus()
+      .then(() => {
+        this.activated = sessionStorage.getItem('userStatus') === 'activated';
+      });
     this.getUserInfos();
   }
 

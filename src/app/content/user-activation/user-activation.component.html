@@ -1,7 +1,9 @@
  <section class="section">
   <article *ngIf="expiredToken" class="message is-danger">
+    <div class="message-header">Erreur d'activation</div>
     <div class="message-body">
-      Le code d'activation a expiré ou est incorrect, veuillez en demander un autre.
+      Le code d'activation a expiré ou est incorrect.<br>
+      Veuillez en <span class="underline">demander un autre</span>.
     </div>
   </article>
  </section>

@@ -3,20 +3,19 @@
     <div class="login">
       <section *ngIf="loginFailed" class="section">
         <article class="message is-danger">
+          <div class="message-header">Erreur</div>
           <div class="message-body">
             Nom d'utilisateur ou mot de passe incorrect.
           </div>
         </article>
       </section>
 
-      <section *ngIf="activated" class="section">
+      <section #activation *ngIf="activated" class="section">
         <article class="message is-success">
-          <div class="message-body">
+          <div class="message-header">
             Bien joué ! Votre compte a été activé !
+            <button (click)="closeNotification(activation)" class="delete" aria-label="delete"></button>
           </div>
-        </article>
-
-        <article class="message is-light">
           <div class="message-body">
             Vous pouvez maintenant <span class="bold">faire des offres</span> et <span class="bold">vendre vos produits</span>.
           </div>
@@ -26,7 +25,7 @@
       <section class="section">
         <form (ngSubmit)="login()" #form="ngForm">
           <div class="field">
-            <label class="label">Nom d'utilisateur</label>
+            <label class="label">Adresse e-mail</label>
             <div class="control has-icons-right">
               <input id="username" class="input" type="text" name="username" [(ngModel)]="model.username" required />
                 <span class="icon is-small is-right">
