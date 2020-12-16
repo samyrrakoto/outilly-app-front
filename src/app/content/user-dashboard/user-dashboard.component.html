@@ -1,13 +1,6 @@
-<section *ngIf="!activated" class="section">
-  <article class="message is-danger">
-    <div class="message-header">Votre compte n'est pas encore activé</div>
-    <div class="message-body">
-      Vous ne pourrez pas <span class="bold">faire d'offres</span> ou <span class="bold">vendre vos produits</span> tant que votre compte ne sera pas activé.<br><br>
-
-      Pour ce faire, <a (click)="auth.sendActivationMail()">cliquez-ici</a> pour recevoir le mail d'activation et suivez le lien du coutenu.
-    </div>
-  </article>
-</section>
+<app-activitation-account-warning
+  [activated]=activated>
+</app-activitation-account-warning>
 
 <div class="columns is-centered">
   <div class="column has-text-centered">

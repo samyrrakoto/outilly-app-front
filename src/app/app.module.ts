@@ -139,6 +139,7 @@ import { ConnectionMenuComponent } from './header/hero/herohead/connection-menu/
 import { SellerProductsComponent } from './content/products/seller-products/seller-products.component';
 import { ProductsDisplayComponent } from './content/products/products-display/products-display.component';
 import { UserActivationComponent } from './content/user-activation/user-activation.component';
+import { ActivitationAccountWarningComponent } from './content/activitation-account-warning/activitation-account-warning.component';
 
 @NgModule({
   declarations: [
@@ -269,6 +270,7 @@ import { UserActivationComponent } from './content/user-activation/user-activati
     SellerProductsComponent,
     ProductsDisplayComponent,
     UserActivationComponent,
+    ActivitationAccountWarningComponent,
   ],
   imports: [
     HttpClientModule,
