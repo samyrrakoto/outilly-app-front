@@ -66,34 +66,6 @@
                 }
               ]
             },
-            "preprod": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.preprod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            },
             "staging": {
               "fileReplacements": [
                 {
@@ -120,9 +92,6 @@
           "configurations": {
             "production": {
               "browserTarget": "angular:build:production"
-            },
-            "preprod": {
-              "browserTarget": "angular:build:preprod"
             },
             "staging": {
               "browserTarget": "angular:build:staging"
@@ -202,17 +171,6 @@
               ],
               "sourceMap": false,
               "optimization": true
-            },
-            "preprod": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.preprod.ts"
-                }
-              ],
-              "sourceMap": false,
-              "optimization": true
             }
           }
         },
@@ -226,10 +184,6 @@
             "production": {
               "browserTarget": "angular:build:production",
               "serverTarget": "angular:server:production"
-            },
-            "preprod": {
-              "browserTarget": "angular:build:preprod",
-              "serverTarget": "angular:server:preprod"
             }
           }
         },
