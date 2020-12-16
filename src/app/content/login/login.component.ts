@@ -68,4 +68,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate([sessionStorage.getItem("redirect_after_login")]);
     }
   }
+
+  public closeNotification(notif: HTMLInputElement): void {
+    notif.remove();
+  }
 }
