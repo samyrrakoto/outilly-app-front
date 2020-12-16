@@ -213,6 +213,17 @@
               ],
               "sourceMap": false,
               "optimization": true
+            },
+            "preprod": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.preprod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
             }
           }
         },
