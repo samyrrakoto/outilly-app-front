@@ -18,6 +18,7 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   loaded: boolean = false;
+  activated: boolean = false;
   accessToken: string;
   isLogged: boolean;
   isAvailable: boolean;
@@ -52,6 +53,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   ngOnInit(): void {
     this.auth.getLogStatus()
+      .then(() => this.checkActivation())
       .then(() => { this.getId() })
       .then(() => this.getSalesId())
       .then(() => this.isUserSeller())
@@ -74,6 +76,13 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         this.id = parseInt(params.id);
         resolve();
       });
+    });
+  }
+
+  private checkActivation(): Promise<void> {
+    return new Promise((resolve) => {
+      this.activated = sessionStorage.getItem('userStatus') === 'activated';
+      resolve();
     });
   }
 

@@ -24,7 +24,7 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(
     protected request: RequestService,
-    protected auth: AuthService,
+    public auth: AuthService,
     protected router: Router,
     public title: Title)
   {}

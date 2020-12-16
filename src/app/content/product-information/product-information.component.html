@@ -1,4 +1,9 @@
 <div *ngIf="loaded" id="product-information">
+
+  <app-activitation-account-warning
+    [activated]=activated>
+  </app-activitation-account-warning>
+
   <div *ngIf="sale.status === 'new'" class="notification is-danger has-text-centered">
     <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
     Ce produit est en cours de validation, seul vous pouvez la consulter pour l'instant.

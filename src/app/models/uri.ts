@@ -7,6 +7,7 @@ export class Uri {
   readonly USER: string = 'user';
   readonly LOGIN: string = 'login/check';
   readonly USER_ACTIVATION: string = 'user/activate';
+  readonly SEND_ACTIVATION_MAIL: string = 'user/send-activation-token';
   readonly CHECK: string = 'check/';
   readonly CREATE: string = 'create';
   readonly EXISTS: string = 'exists';

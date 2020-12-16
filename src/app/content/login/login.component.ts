@@ -1,3 +1,4 @@
+import { RequestService } from './../../services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    private request: RequestService,
     private title: Title
   )
   {}
