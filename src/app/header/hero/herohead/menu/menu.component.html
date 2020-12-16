@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="">
+            <a routerLink="/home" class="navbar-item">
               <img id="brand-logo" src="/assets/img/logo/outilly-logo.png">
             </a>
             <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
@@ -14,7 +14,7 @@
         <div id="navBarMenu" #navBarMenu class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a href="">{{ "accueil" | uppercase }}</a>
+                    <a routerLink="/home">{{ "accueil" | uppercase }}</a>
                 </div>
 
                 <div class="navbar-item">
