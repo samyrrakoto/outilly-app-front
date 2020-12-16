@@ -6,7 +6,8 @@
 
 .navbar
 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  margin-top: 30px;
 }
 
 .navbar-item img {
@@ -17,12 +18,17 @@
 {
   font-size: 14px;
   color: grey;
+  transition: 0.15s;
 }
 
 .navbar-item a:hover
 {
-  color: black;
-  font-weight: bold;
+  color: var(--KTKP-GREEN);
+  border-bottom: solid 2px var(--KTKP-GREEN);
+}
+
+#start-to-sell a:hover {
+  color: white;
 }
 
 .navbar-item .button

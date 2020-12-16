@@ -4,9 +4,9 @@
 
   <div id="connection-button" class="level-right">
     <nav class="level is-mobile">
-      <div *ngIf="!logged" routerLink="/login" id="left-element" class="level-left pointed">
-        <fa-icon class="side-icon" [icon]="['fas', 'sign-in-alt']"></fa-icon>
-        Me connecter
+      <div *ngIf="logged" routerLink="user/dashboard" id="right-element" class="level-right pointed">
+        <fa-icon class="side-icon" [icon]="['fas', 'user']"></fa-icon>
+        Mes informations
       </div>
 
       <div *ngIf="logged" routerLink="/user/dashboard/activity-log" id="left-element" class="level-left pointed">
@@ -14,14 +14,14 @@
         Mon activité
       </div>
 
-      <div *ngIf="!logged" routerLink="/onboarding" id="right-element" class="level-right pointed">
-        <fa-icon class="side-icon" [icon]="['fas', 'pencil-alt']"></fa-icon>
-        Créer un compte
+      <div *ngIf="!logged" routerLink="/login" id="left-element" class="level-left pointed">
+        <fa-icon class="side-icon" [icon]="['fas', 'sign-in-alt']"></fa-icon>
+        Me connecter
       </div>
 
-      <div *ngIf="logged" routerLink="user/dashboard" id="right-element" class="level-right pointed">
-        <fa-icon class="side-icon" [icon]="['fas', 'user']"></fa-icon>
-        Mes informations
+      <div *ngIf="!logged" routerLink="/onboarding" id="right-element" class="level-right pointed bold">
+        <fa-icon class="side-icon" [icon]="['fas', 'pencil-alt']"></fa-icon>
+        Créer un compte
       </div>
     </nav>
   </div>
