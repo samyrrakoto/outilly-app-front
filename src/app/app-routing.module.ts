@@ -1,3 +1,4 @@
+import { UserActivationComponent } from './content/user-activation/user-activation.component';
 import { SellerProductsComponent } from './content/products/seller-products/seller-products.component';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
 import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
@@ -82,6 +83,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'user/activate/:userId/:token',
+    component: UserActivationComponent
   },
   {
     path: 'user/dashboard',

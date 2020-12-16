@@ -65,11 +65,14 @@ export class AuthService {
   }
 
   // After clearing localStorage redirect to login screen
-  public logout(): void {
+  public logout(params?: any): void {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], {
+      queryParams:
+        params
+    });
   }
 
   public getTokenStatus(): string {

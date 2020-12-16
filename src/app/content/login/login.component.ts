@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,16 +13,21 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loginFailed: boolean = false;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
+  activated: boolean = false;
   readonly pageTitle: string = 'Connexion';
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private title: Title) {}
+    private route: ActivatedRoute,
+    private title: Title
+  )
+  {}
 
   ngOnInit() {
     this.pageNameManager.setTitle(this.pageTitle);
     const accessToken: string = this.auth.getTokenStatus();
+    this.getParams();
 
     if (accessToken === 'good') {
       this.checkHasRedirectAfterLogin();
@@ -42,6 +47,17 @@ export class LoginComponent implements OnInit {
           this.loginFailed = true;
         }
     );
+  }
+
+  private getParams(): Promise<void> {
+    return new Promise((resolve) => {
+      this.route.queryParams.subscribe(
+        (params) => {
+          this.activated = params['activated'];
+          resolve();
+        }
+      )
+    });
   }
 
   private checkHasRedirectAfterLogin(): void{
