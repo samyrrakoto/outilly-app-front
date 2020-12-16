@@ -104,6 +104,16 @@ export class AuthService {
       sessionStorage.setItem('userStatus', token.status);
   }
 
+  public sendActivationMail(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.SEND_ACTIVATION_MAIL, [sessionStorage.getItem('userId')]).subscribe(
+        (res: any) => {
+          resolve();
+        }
+      );
+    });
+  }
+
   // Handle API errors
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
