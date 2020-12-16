@@ -1,7 +1,9 @@
 <app-notice *ngIf="toDisplay">
 </app-notice>
 
-<app-herohead *ngIf="toDisplay">
+<app-herohead *ngIf="toDisplay"
+  [toDisplayMenu]=toDisplayMenu
+  [logged]=logged>
 </app-herohead>
 
 <nav class="navbar" *ngIf="!toDisplay">

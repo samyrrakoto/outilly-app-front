@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,25 +12,28 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'angular';
   faCoffee = faCoffee;
+  logged: boolean;
   url: string = '';
   toDisplay: boolean = true;
+  toDisplayMenu: boolean = true;
   readonly noHeaderUrl: string[] = ['product/create', 'onboarding'];
+  readonly noMenuUrl: string[]= ['home'];
 
   constructor(
     private location: Location,
-    private router: Router) {}
+    private router: Router,
+    private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.auth.getLogStatus()
+      .then(() => {
+        this.logged = this.auth.accessToken === 'good' && this.auth.logged;
+      });
     this.router.events.subscribe({
       next: () => {
         this.getUrl();
-
-        if (this.isUrlDisablable()) {
-          this.disable();
-        }
-        else {
-          this.enable();
-        }
+        this.isUrlDisablable('noHeaderUrl') ? this.disable('toDisplay') : this.enable('toDisplay');
+        this.isUrlDisablable('noMenuUrl') ? this.disable('toDisplayMenu') : this.enable('toDisplayMenu');
       }
     });
   }
@@ -38,16 +42,16 @@ export class AppComponent {
     this.url = this.location.path();
   }
 
-  private disable(): void {
-    this.toDisplay = false;
+  private disable(urlsFlagName: string): void {
+    this[urlsFlagName] = false;
   }
 
-  private enable(): void {
-    this.toDisplay = true;
+  private enable(urlsFlagName: string): void {
+    this[urlsFlagName] = true;
   }
 
-  private isUrlDisablable(): boolean {
-    for (const url of this.noHeaderUrl) {
+  private isUrlDisablable(urlsListName: string): boolean {
+    for (const url of this[urlsListName]) {
       if (this.url.match(url)) {
         return true;
       }

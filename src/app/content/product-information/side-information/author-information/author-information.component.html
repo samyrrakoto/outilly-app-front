@@ -4,9 +4,9 @@
     <div class="media-content has-text-centered">
         <h2 class="subtitle is-6 has-text-weight-bold">{{ sale.seller.userProfile.anonFirstName }} {{ sale.seller.userProfile.anonLastName }}</h2>
 
-        <div class="content">
-            X articles mis en vente.<br>
-            <a id="vendor-products" class="has-text-danger" (click)="openModal('vendorProducts')">Voir les X articles à vendre</a>
+        <div *ngIf="sale.seller.nbOpenSales > 0" class="content">
+          Cet article vous plaît ? Ce vendeur en propose d'autres !<br><br>
+          <a id="vendor-products" (click)="goToSellerProducts()" class="has-text-danger">Voir les {{ sale.seller.nbOpenSales }} articles à vendre</a>
         </div>
     </div>
 </article>
@@ -18,28 +18,3 @@
         </div>
     </div>
 </article>
-
-<!-- [Modal] Vendor's other products -->
-<div class="modal {{ vendorProducts }}">
-    <div class="modal-background" (click)="closeModal('vendorProducts')"></div>
-    <div class="modal-content">
-        <div class="box">
-            <h2 class="subtitle has-text-weight-bold">Autres produits du vendeur</h2>
-
-            <article class="media" *ngFor="let media of [1, 2, 3]">
-                <figure class="media-left">
-                    <p class="image is-128x128">
-                        <img src="../../../../../assets/img/product/tool1.jpg">
-                    </p>
-                </figure>
-
-                <div class="media-content">
-                    <div class="content">
-                        Clé à molette FACOM
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-    <button class="modal-close is-large" aria-label="close" (click)="closeModal('vendorProducts')"></button>
-</div>

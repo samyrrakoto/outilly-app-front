@@ -77,7 +77,7 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
 
   public goToDispatch(order: any): void {
     localStorage.setItem('order', JSON.stringify(order));
-    this.router.navigate(['/user/dashboard/dispatch-note']);
+    this.router.navigate(['/dispatch-note']);
   }
 
   public generateDispatchNote(order: any, times: number = this.nbAttempts): void {

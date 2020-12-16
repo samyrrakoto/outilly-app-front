@@ -6,10 +6,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
-import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { FormDataService } from 'src/app/services/form-data.service';
-import { Recipient } from 'src/app/models/recipient';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -68,7 +65,7 @@ export class DispatchNoteComponent implements OnInit {
     });
   }
 
-  private getOrder(): Promise<any> {
+  private getOrder(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_ORDER, [this.order.id]).subscribe(
         (order: any) => {
@@ -83,7 +80,7 @@ export class DispatchNoteComponent implements OnInit {
     this.getForm();
   }
 
-  public updateUserAddress(): Promise<any> {
+  public updateUserAddress(): Promise<void> {
     return new Promise((resolve) => {
       const payload: any = {
         'address': {

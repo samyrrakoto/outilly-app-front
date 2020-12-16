@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,4 +7,6 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent {
   @Input() toDisplay: boolean;
+  @Input() toDisplayMenu: boolean;
+  @Input() logged: boolean;
 }
