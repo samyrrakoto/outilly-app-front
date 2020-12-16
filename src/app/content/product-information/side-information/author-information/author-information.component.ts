@@ -25,6 +25,6 @@ export class AuthorInformationComponent extends GenericComponent implements OnIn
   }
 
   public goToSellerProducts(): void {
-    this.router.navigate(['/seller-products/' + this.sale.seller.id]);
+    this.router.navigate(['/products/seller/' + this.sale.seller.id]);
   }
 }
