@@ -1,3 +1,12 @@
+<section *ngIf="!activated" class="section">
+  <article class="message is-danger">
+    <div class="message-header">Votre compte n'est pas encore activé</div>
+    <div class="message-body">
+      Vous ne pourrez pas <span class="bold">faire d'offres</span> ou <span class="bold">vendre vos produits</span> tant que votre compte ne sera pas activé.
+    </div>
+  </article>
+</section>
+
 <div class="columns is-centered">
   <div class="column has-text-centered">
     <h1 class="title">Bienvenue <span id="username">{{ user.userProfile.firstname }}</span> !</h1>

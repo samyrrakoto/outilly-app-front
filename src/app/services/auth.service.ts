@@ -101,6 +101,7 @@ export class AuthService {
 
       sessionStorage.setItem('username', token.username);
       sessionStorage.setItem('userId', token.userId);
+      sessionStorage.setItem('userStatus', token.status);
   }
 
   // Handle API errors
