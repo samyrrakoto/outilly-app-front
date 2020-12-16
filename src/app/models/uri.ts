@@ -6,6 +6,7 @@ export class Uri {
   readonly SECURE: string = "secure/"
   readonly USER: string = 'user';
   readonly LOGIN: string = 'login/check';
+  readonly USER_ACTIVATION: string = 'user/activate';
   readonly CHECK: string = 'check/';
   readonly CREATE: string = 'create';
   readonly EXISTS: string = 'exists';

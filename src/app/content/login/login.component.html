@@ -9,6 +9,20 @@
         </article>
       </section>
 
+      <section *ngIf="activated" class="section">
+        <article class="message is-success">
+          <div class="message-body">
+            Bien joué ! Votre compte a été activé !
+          </div>
+        </article>
+
+        <article class="message is-light">
+          <div class="message-body">
+            Vous pouvez maintenant <span class="bold">faire des offres</span> et <span class="bold">vendre vos produits</span>.
+          </div>
+        </article>
+      </section>
+
       <section class="section">
         <form (ngSubmit)="login()" #form="ngForm">
           <div class="field">

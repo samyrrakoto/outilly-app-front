@@ -189,6 +189,14 @@
   color: var(--MAT-GREY);
 }
 
+.error {
+  color: var(--KTKP-RED);
+}
+
+.success {
+  color: var(--KTKP-GREEN);
+}
+
 .accepted {
   color: var(--KTKP-GREEN);
   font-weight: bold;
