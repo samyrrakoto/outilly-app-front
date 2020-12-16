@@ -6,7 +6,7 @@
 
         <div *ngIf="sale.seller.nbOpenSales > 0" class="content">
           Cet article vous plaît ? Ce vendeur en propose d'autres !<br><br>
-          <a id="vendor-products" (click)="goToSellerProducts()" class="has-text-danger">Voir les {{ sale.seller.nbOpenSales }} articles à vendre</a>
+          <a id="vendor-products" (click)="goToSellerProducts()" class="has-text-danger">Voir les {{ sale.seller.nbOnlineSales }} articles à vendre</a>
         </div>
     </div>
 </article>
