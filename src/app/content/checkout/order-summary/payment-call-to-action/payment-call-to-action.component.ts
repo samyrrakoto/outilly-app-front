@@ -1,3 +1,4 @@
+import { prices } from './../../../../parameters';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Recipient } from 'src/app/models/recipient';
 import { Order } from 'src/app/models/order';
@@ -45,7 +46,7 @@ export class PaymentCallToActionComponent implements OnInit {
       this.getPayload();
       this.saleManager.getSaleAvailability(this.saleId)
         .then((isSaleAvailable: boolean) => {
-          return new Promise((resolve, reject) => {
+          return new Promise<void>((resolve, reject) => {
             if (isSaleAvailable) {
               this.createOrder();
               resolve();
@@ -77,7 +78,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.bid.id ? this.order.bidId = this.bid.id : delete this.order.bidId;
     this.order.shippingAddressId = this.user.userProfile.mainAddress.id;
     this.order.amountPrice = this.priceToPay;
-    this.order.amountFees = this.priceToPay * 0.06;
+    this.order.amountFees = this.calculateCommissionFees();
     this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
     this.order.amountTotal = this.order.amountPrice + this.order.amountFees + this.order.amountShipment;
     this.order.shipMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayShip' : 'HandDelivery';
@@ -87,7 +88,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.order.recipient = this.recipient;
   }
 
-  private createOrder(): Promise<any> {
+  private createOrder(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.request.postData(JSON.stringify(this.order), this.request.uri.CREATE_ORDER).subscribe({
         next: (value: any) => {
@@ -99,6 +100,12 @@ export class PaymentCallToActionComponent implements OnInit {
         }
       });
     });
+  }
+
+  private calculateCommissionFees(): number {
+    return this.priceToPay * prices.SECURISATION_FEES_FACTOR > prices.SECURISATION_FEES_MINIMUM
+    ? this.priceToPay * prices.SECURISATION_FEES_FACTOR
+    : prices.SECURISATION_FEES_MINIMUM;
   }
 
   /*

@@ -1,8 +1,8 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { PaymentValidatorService } from './../../../../services/payment-validator.service';
+import { PaymentValidatorService } from 'src/app/services/payment-validator.service';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
-import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -56,7 +56,7 @@ export class PaymentDetailsComponent implements OnInit {
     this.auth.getLogStatus();
     this.saleManager.getSaleAvailability(this.saleId)
       .then((isAvailable: boolean) => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
           if (!isAvailable) {
             reject('ProductUnavailable');
           }
@@ -66,7 +66,7 @@ export class PaymentDetailsComponent implements OnInit {
         });
       })
       .then(() => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
           this.auth.logged && this.auth.accessToken === 'good' ? resolve() : reject('Login');
         });
       })
@@ -97,7 +97,7 @@ export class PaymentDetailsComponent implements OnInit {
       .then(() => { return this.updateRegistration() })
       .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
       .then((isAvailable: boolean) => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
           if (!isAvailable) {
             reject('ProductUnavailable');
           }
@@ -113,7 +113,7 @@ export class PaymentDetailsComponent implements OnInit {
   /*
   ** 1 - Preregister
   */
-  private preregister(): Promise<any> {
+  private preregister(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
         next: (response: any) => {
@@ -130,7 +130,7 @@ export class PaymentDetailsComponent implements OnInit {
   /*
   ** 2 - Call to PayLine
   */
-  private payLineCall(): Promise<any> {
+  private payLineCall(): Promise<void> {
     const payload: HttpParams = new HttpParams()
       .set('data', sessionStorage.getItem('cardPreRegistrationData'))
       .set('accessKeyRef', sessionStorage.getItem('cardRegistrationAccessKey'))
@@ -164,7 +164,7 @@ export class PaymentDetailsComponent implements OnInit {
       'registrationData': sessionStorage.getItem('registrationData')
     };
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this.request.postData(payload, this.request.uri.UPDATE_REGISTRATION).subscribe(
         (response) => {
           sessionStorage.setItem('cardId', response.body.cardId);
@@ -185,7 +185,7 @@ export class PaymentDetailsComponent implements OnInit {
   /*
   ** 4 - Pre-Authorization
   */
-  private preauth(): Promise<any> {
+  private preauth(): Promise<void> {
     const payload: any = {
       'type': 'preauth-card',
       'orderId': sessionStorage.getItem('orderId'),

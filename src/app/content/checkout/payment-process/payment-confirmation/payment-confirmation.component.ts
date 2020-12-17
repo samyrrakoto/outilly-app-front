@@ -1,4 +1,4 @@
-import { RequestService } from './../../../../services/request.service';
+import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/models/order';
 import { Sale } from 'src/app/models/sale';
@@ -67,7 +67,7 @@ export class PaymentConfirmationComponent implements OnInit {
     });
   }
 
-  private getOrder(): Promise<any> {
+  private getOrder(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!sessionStorage.getItem('orderId')) {
         reject('orderMissing');
@@ -92,7 +92,7 @@ export class PaymentConfirmationComponent implements OnInit {
     });
   }
 
-  private getSale(): Promise<any> {
+  private getSale(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.order.saleId) {
         reject('orderMissing');

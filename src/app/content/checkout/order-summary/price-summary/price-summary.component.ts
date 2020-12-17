@@ -42,10 +42,14 @@ export class PriceSummaryComponent implements OnInit {
   }
 
   private getFees(): void {
-    this.commissionFees = this.priceToPay * prices.SECURISATION_FEES_FACTOR > prices.SECURISATION_FEES_MINIMUM
-    ? this.priceToPay * prices.SECURISATION_FEES_FACTOR
-    : prices.SECURISATION_FEES_MINIMUM;
+    this.commissionFees = this.calculateCommissionFees();
     this.deliveryFees = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
     this.totalPrice = this.priceToPay + this.commissionFees + this.deliveryFees;
+  }
+
+  private calculateCommissionFees(): number {
+    return this.priceToPay * prices.SECURISATION_FEES_FACTOR > prices.SECURISATION_FEES_MINIMUM
+    ? this.priceToPay * prices.SECURISATION_FEES_FACTOR
+    : prices.SECURISATION_FEES_MINIMUM;
   }
 }
