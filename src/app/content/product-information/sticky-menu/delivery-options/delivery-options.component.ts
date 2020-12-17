@@ -17,6 +17,7 @@ export class DeliveryOptionsComponent implements OnInit {
   @Input() isLogged: boolean;
   @Input() accessToken: string;
   @Input() sale: Sale;
+  @Input() priceToPay: number;
   @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
   priceTopay: number;
   id: number;

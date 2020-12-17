@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ProductInformationComponent } from '../product-information.component';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -17,6 +16,7 @@ export class SideInformationComponent extends GenericComponent implements OnInit
   @Input() sale: Sale;
   @Input() isSeller: boolean;
   @Input() isAvailable: boolean;
+  @Input() priceToPay: number;
   @Output() openState = new EventEmitter<boolean>();
 
   constructor(

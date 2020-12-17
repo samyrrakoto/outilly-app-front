@@ -33,6 +33,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   maxPrice: number;
   errorMsg: any;
   openMenuState: boolean;
+  priceToPay: number;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
 
   constructor(
@@ -157,8 +158,12 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     return Promise.resolve();
   }
 
-  getOpenState(state: boolean): void {
+  public getOpenState(state: boolean): void {
     this.openMenuState = state;
+  }
+
+  public getPriceToPay(priceToPay: number): void {
+    this.priceToPay = priceToPay;
   }
 
   /*

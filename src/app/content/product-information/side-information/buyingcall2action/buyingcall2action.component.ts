@@ -16,6 +16,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 export class Buyingcall2actionComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
   @Input() isAvailable: boolean;
+  @Input() priceToPay: number;
   @Output() openState = new EventEmitter<boolean>();
   open: boolean;
 

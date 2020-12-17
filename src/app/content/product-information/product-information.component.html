@@ -24,6 +24,7 @@
           [isSeller]=isSeller
           [sale]=sale
           [isAvailable]=isAvailable
+          [priceToPay]=priceToPay
           (openState)=getOpenState($event)>
         </side-information>
       </div>
@@ -37,7 +38,8 @@
         [minPrice]=minPrice
         [maxPrice]=maxPrice
         [proposedPrice]=proposedPrice
-        [openState]=openMenuState>
+        [openState]=openMenuState
+        (priceToPayEmitter)=getPriceToPay($event)>
       </sticky-menu>
   </div>
 </div>
