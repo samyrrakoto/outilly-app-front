@@ -1,0 +1,24 @@
+<div id="documents" class="content">
+  <h2 class="subtitle">Vérifier mon profil</h2>
+
+  <div class="content discreet-text">
+    Ces informations vous permettent de bénéficier du statut <span class="accepted">Vérifié(e)</span> et de percevoir votre argent
+    lorsque vous réussissez une vente.
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')">
+        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+        Ajouter une pièce d'identité
+      </button>
+    </div>
+
+    <div class="column">
+      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')">
+        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+        Ajouter un RIB
+    </button>
+    </div>
+  </div>
+</div>

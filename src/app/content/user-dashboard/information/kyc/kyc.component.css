@@ -1,0 +1,12 @@
+.kyc {
+  width: 100%;
+}
+
+#documents {
+  margin-top: 20px;
+}
+
+.subtitle {
+  padding-bottom: 10px;
+  border-bottom: solid 3px var(--KTKP-GREEN);
+}
