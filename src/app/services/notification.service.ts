@@ -1,3 +1,4 @@
+import { Order } from 'src/app/models/order';
 import { Purchase } from 'src/app/models/purchase';
 import { PurchaseManagerService } from './purchase-manager.service';
 import { SaleManagerService } from './sale-manager.service';
@@ -12,6 +13,8 @@ export class NotificationService {
   allSales: Sale[];
   runningSales: Sale[];
   runningPurchases: Purchase[];
+  confirmedSales: Order[];
+  confirmedPurchases: Order[];
   allSalesStatus: boolean = false;
   runningSalesStatus: boolean = false;
   runningPurchasesStatus: boolean = false;
@@ -65,9 +68,21 @@ export class NotificationService {
     });
   }
 
+  private getConfirmedSales(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
+        (orders: any) => {
+          this.confirmedSales = orders;
+          resolve();
+        }
+      )
+    });
+  }
+
   public checkAllNotifications(): void {
     this.checkRunningSalesNotification();
     this.checkRunningPurchasesNotification();
+    this.checkConfirmedSalesNotification();
   }
 
   public checkRunningSalesNotification(): void {
@@ -89,6 +104,19 @@ export class NotificationService {
         for (const purchase of this.runningPurchases) {
           if (this.purchaseManager.requireAction(purchase)) {
             this.runningPurchasesStatus = true;
+            this.allSalesStatus = true;
+            return;
+          }
+        }
+      });
+  }
+
+  public checkConfirmedSalesNotification(): void {
+    this.getConfirmedSales()
+      .then(() => {
+        for (const order of this.confirmedSales) {
+          if (order.shipMethod === 'RelayShip' && order.mrExpedition === null) {
+            this.confirmedSalesStatus = true;
             this.allSalesStatus = true;
             return;
           }

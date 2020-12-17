@@ -14,6 +14,8 @@ export class Order {
   amountTotal: number;
   shipMethod: string;
   collMethod: string;
+  isDelivered: boolean;
+  mrExpedition: boolean;
   paymentAttempts: number;
   recipient: Recipient;
   createdAt: Date;
@@ -32,6 +34,8 @@ export class Order {
     this.amountTotal = 0;
     this.shipMethod = '';
     this.collMethod = '';
+    this.isDelivered = false;
+    this.mrExpedition = null;
     this.paymentAttempts = null;
     this.recipient = new Recipient();
     this.createdAt = new Date();
