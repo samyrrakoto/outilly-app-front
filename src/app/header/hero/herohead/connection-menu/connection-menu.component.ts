@@ -15,7 +15,12 @@ export class ConnectionMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.notification.checkAllNotifications();
+    this.auth.getLogStatus()
+      .then(() => {
+        if (this.auth.accessToken === 'good' && this.auth.logged) {
+          this.notification.checkAllNotifications();
+        }
+      });
   }
 
 }
