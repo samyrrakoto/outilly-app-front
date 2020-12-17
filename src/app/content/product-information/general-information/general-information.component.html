@@ -5,10 +5,10 @@
 <h1 id="product-name" class="title is-2 has-text-weight-bold">{{ sale.product.name }}</h1>
 <h2 id="brands" class="subtitle is-6">
   Marques :
-  <span *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
+  <a (click)="goToBrandProduct(brand.id)" *ngFor="let brand of sale.product.brands; first as first; last as last" class="has-text-danger has-text-weight-bold">
     {{ brand.name }}<span *ngIf="!first"> </span><span *ngIf="!last" class="normal">,</span>
-  </span>
-  <span *ngIf="sale.product.brands.length === 0">Aucune</span>
+  </a>
+  <span *ngIf="sale.product.brands.length === 0">le vendeur ne connaît pas la marque de son produit</span>
 </h2>
 
 <!-- General information -->

@@ -141,6 +141,7 @@ import { UserActivationComponent } from './content/user-activation/user-activati
 import { ActivitationAccountWarningComponent } from './content/activitation-account-warning/activitation-account-warning.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { KycComponent } from './content/user-dashboard/information/kyc/kyc.component';
+import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
 
 @NgModule({
   declarations: [
@@ -273,6 +274,7 @@ import { KycComponent } from './content/user-dashboard/information/kyc/kyc.compo
     UserActivationComponent,
     ActivitationAccountWarningComponent,
     KycComponent,
+    BrandProductsComponent,
   ],
   imports: [
     HttpClientModule,
