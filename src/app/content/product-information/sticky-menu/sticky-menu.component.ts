@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -19,6 +19,7 @@ export class StickyMenuComponent implements OnInit {
   @Input() openState: boolean;
   @Input() isLogged: boolean;
   @Input() accessToken: string;
+  @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
   deliveryName: string;
   deliveryFees: number;
   stickyMenuSteps: any;
@@ -82,6 +83,7 @@ export class StickyMenuComponent implements OnInit {
   }
 
   public getRealPriceToPay(priceToPay: number): void {
+    this.priceToPayEmitter.emit(priceToPay);
     this.priceToPay = priceToPay;
   }
 }

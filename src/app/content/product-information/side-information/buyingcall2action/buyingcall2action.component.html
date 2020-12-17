@@ -1,5 +1,8 @@
 <h1 class="title call has-font-weight-bold">Achetez ce produit en toute sécurité</h1>
-<h1 class="title is-2">{{ sale.product.reservePrice | currency:'full' }}€</h1>
+<h1 class="title is-2">
+  <span *ngIf="priceToPay !== sale.product.reservePrice" class="sold">{{ sale.product.reservePrice | currency:'full' }}€</span>
+   {{ priceToPay | currency:'full' }}€
+</h1>
 
 <div class="content call">
   <button *ngIf="isAvailable" class="button is-danger is-large" (click)="open = !open; emitOpenState()">Acheter</button>
