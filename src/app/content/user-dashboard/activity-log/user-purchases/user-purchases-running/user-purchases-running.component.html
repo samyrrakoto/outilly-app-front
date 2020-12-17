@@ -1,77 +1,83 @@
-<div class="content">
-  <h2 class="subtitle">Mes négociations</h2>
-
-  <div class="content" *ngIf="purchases.length === 0">
-    Vous n'avez fait aucune offre pour le moment :'-(
-
+<div *ngIf="loaded" class="columns is-centered">
+  <div class="column is-6">
     <div class="content">
-      <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
+      <h2 class="subtitle">Mes négociations</h2>
+
+      <div class="content" *ngIf="runningPurchases.length === 0">
+        Vous n'avez fait aucune offre pour le moment :'-(
+
+        <div class="content">
+          <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
+        </div>
+      </div>
+
+      <mat-accordion *ngIf="runningPurchases.length > 0">
+        <mat-expansion-panel *ngFor="let purchase of runningPurchases">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+              <fa-icon *ngIf="purchaseManager.requireAction(purchase)" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+              {{ purchase.productName }}
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              Prix du produit : {{ purchase.reservePrice | currency:'full' }}€
+            </mat-panel-description>
+
+            <!-- When a bid is accepted -->
+            <div *ngIf="purchase.isAccepted" class="content bid">
+              Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été acceptée. Félicitations !<br>
+
+              <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.bidAmount | currency:'full' }}€</button>
+
+              <div (click)="modals.open('purchase-explanation')" class="content pointed">
+                <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
+              </div>
+            </div>
+
+            <!-- When a bid is refused -->
+            <div *ngIf="purchase.isAccepted === false" class="content bid">
+              <div class="content">
+                Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été refusée.<br>
+                Vous ne pouvez plus faire de proposition, mais ne laissez pas passer votre chance :
+              </div>
+
+              <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.reservePrice | currency:'full' }}€</button>
+            </div>
+
+            <div *ngIf="purchase.counterOfferAmount !== null" class="content bid">
+              Le vendeur ne peut pas accepter votre offre :<br>
+
+              <div class="content less-discreet-text italic">
+                "Bonjour, votre offre est malheureusement trop basse.<br>
+                Voici le montant que je serais prêt(e) à accepter :
+                <span class="declined">{{ purchase.counterOfferAmount | currency:'full' }}€</span><br>
+                Merci pour votre intérêt et à bientôt j'espère."
+              </div>
+
+              Si l'offre vous convient, rendez-vous sur la page produit :<br>
+              <button (click)="goToProductPage(purchase)" class="button is-danger addlittlespaceabove">Acheter au prix de {{ purchase.counterOfferAmount | currency:'full' }}€</button>
+
+              <div (click)="modals.open('purchase-explanation')" class="content pointed">
+                <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
+              </div>
+            </div>
+
+            <!-- When a counter offer is made -->
+            <div *ngIf="purchase.isClosed === null" class="content bid">
+              Offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> envoyée !<br><br>
+              En attente d'une réponse de la part du vendeur.
+            </div>
+
+            <div class="content bid-date has-text-left discreet-text">
+              <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+              {{ purchase.createdAt | date:'dd/MM/yyyy' }} à {{ purchase.createdAt | date:'hh:mm' }}
+            </div>
+
+            <a class="product-page" (click)="goToProductPage(purchase)">Accéder à la page du produit</a>
+          </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
-
-  <mat-accordion *ngIf="purchases.length > 0">
-    <mat-expansion-panel *ngFor="let purchase of getRunningPurchases()">
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          <fa-icon *ngIf="purchaseManager.requireAction(purchase)" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
-          {{ purchase.productName }}
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-panel-description>
-          Prix du produit : {{ purchase.reservePrice | currency:'full' }}€
-        </mat-panel-description>
-
-        <!-- When a bid is accepted -->
-        <div *ngIf="purchase.isAccepted" class="content bid">
-          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été acceptée. Félicitations !<br>
-
-          <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.bidAmount | currency:'full' }}€</button>
-
-          <div (click)="modals.open('purchase-explanation')" class="content pointed">
-            <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
-          </div>
-        </div>
-
-        <!-- When a bid is refused -->
-        <div *ngIf="purchase.isAccepted === false" class="content bid">
-          Votre offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> a été refusée.<br>
-          Vous ne pouvez plus faire de proposition, mais ne laissez pas passer votre chance :
-
-          <button (click)="goToProductPage(purchase)" class="button is-danger addspaceabove">Acheter au prix de {{ purchase.reservePrice | currency:'full' }}€</button>
-        </div>
-
-        <div *ngIf="purchase.counterOfferAmount !== null" class="content bid">
-          Le vendeur ne peut pas accepter votre offre :<br>
-
-          <div class="content less-discreet-text italic">
-            "Bonjour, votre offre est malheureusement trop basse.<br>
-            Voici le montant que je serais prêt(e) à accepter :
-            <span class="declined">{{ purchase.counterOfferAmount | currency:'full' }}€</span><br>
-            Merci pour votre intérêt et à bientôt j'espère."
-          </div>
-
-          Si l'offre vous convient, rendez-vous sur la page produit :<br>
-          <button (click)="goToProductPage(purchase)" class="button is-danger addlittlespaceabove">Acheter au prix de {{ purchase.counterOfferAmount | currency:'full' }}€</button>
-
-          <div (click)="modals.open('purchase-explanation')" class="content pointed">
-            <fa-icon class="info-icon accepted" [icon]="['fas', 'info-circle']"></fa-icon> <span style="text-decoration: underline;">J'ai besoin d'aide</span>
-          </div>
-        </div>
-
-        <!-- When a counter offer is made -->
-        <div *ngIf="purchase.isClosed === null" class="content bid">
-          Offre de <span class="amount">{{ purchase.bidAmount | currency:'full' }}€</span> envoyée !<br><br>
-          En attente d'une réponse de la part du vendeur.
-        </div>
-
-        <div class="content bid-date has-text-left discreet-text">
-          <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-          {{ purchase.createdAt | date:'dd/MM/yyyy' }} à {{ purchase.createdAt | date:'hh:mm' }}
-        </div>
-
-        <a class="product-page" (click)="goToProductPage(purchase)">Accéder à la page du produit</a>
-      </mat-expansion-panel>
-  </mat-accordion>
 </div>
 
 <!-- ##### MODALS ##### -->

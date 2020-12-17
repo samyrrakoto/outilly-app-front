@@ -1,122 +1,126 @@
-<div class="content">
-  <h2 class="subtitle">Mes achats</h2>
-
-  <div class="content" *ngIf="buyerOrders && buyerOrders.length === 0">
-    Vous n'avez acheté aucun produit pour le moment :'-(
-
+<div *ngIf="loaded" class="columns is-centered">
+  <div class="column is-6">
     <div class="content">
-      <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
+      <h2 class="subtitle">Mes achats</h2>
+
+      <div class="content" *ngIf="buyerOrders && buyerOrders.length === 0">
+        Vous n'avez acheté aucun produit pour le moment :'-(
+
+        <div class="content">
+          <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
+        </div>
+      </div>
+
+      <mat-accordion *ngIf="buyerOrders && buyerOrders.length > 0">
+        <mat-expansion-panel *ngFor="let order of buyerOrders">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="content product-title">
+                {{ order.sale.product.name }}
+              </div>
+
+              <div class="content order-date has-text-right discreet-text">
+                {{ order.createdAt | date:'dd-MM-yyyy'}}
+              </div>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              Commande N°{{ order.id }}
+            </mat-panel-description>
+
+            <!-- If Hand Delivery -->
+            <div *ngIf="order.shipMethod === 'HandDelivery'" class="content bid">
+              <h2 class="panel-title has-text-centered">Votre commande est validée !</h2>
+
+              <div class="content has-text-centered">
+                Il n'y a plus qu'à <span class="bold">contacter le vendeur</span> grâce aux informations ci-dessous :
+              </div>
+
+              <div class="seller-info box has-text-centered">
+                <div class="columns is-vcentered">
+                  <div class="column">
+                    <div class="content">
+                      <fa-icon class="icon" [icon]="['fas', 'user']"></fa-icon>
+                      {{ order.sale.seller.userProfile.lastname | uppercase }} {{ order.sale.seller.userProfile.firstname }}
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div class="content">
+                      <fa-icon class="icon" [icon]="['fas', 'envelope']"></fa-icon>
+                      {{ order.sale.seller.userProfile.email }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="columns">
+                  <div class="column">
+                    <div class="content">
+                      <fa-icon class="icon" [icon]="['fas', 'phone-alt']"></fa-icon>
+                      {{ order.sale.seller.userProfile.phone1 | phone }}
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div class="content">
+                      <fa-icon class="icon" [icon]="['fas', 'home']"></fa-icon>
+                      {{ order.sale.seller.userProfile.mainAddress.zipcode }} {{ order.sale.seller.userProfile.mainAddress.city }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content has-text-centered">
+                <button class="button order-reception is-success">
+                  <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
+                  Je confirme la réception du colis
+                </button>
+              </div>
+
+              <div class="columns">
+                <div class="column">
+                  <a class="link-normal" (click)="goToProductPage(order)">Voir le produit</a>
+                </div>
+
+                <div class="column">
+                  <a class="link-normal" (click)="currentOrder = order; modals.open('order-overview')">Voir le résumé de ma commande</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- If Mondial Delivery -->
+            <div *ngIf="order.shipMethod === 'RelayShip'" class="content">
+              <div class="columns has-text-centered">
+                <div class="column">
+                  <a class="link-normal" (click)="goToProductPage(order)">Voir le produit</a>
+                </div>
+
+                <div class="column">
+                  <a (click)="currentOrder = order; modals.open('order-overview')" class="link-normal">Voir le résumé de la commande</a>
+                </div>
+              </div>
+
+              <div class="content has-text-centered">
+                <h2 class="panel-title">Votre commande est validée !</h2>
+              </div>
+
+              <div class="content has-text-centered">
+                Il n'y a plus qu'à attendre son arrivée.
+              </div>
+
+              <div *ngIf="order.mrExpedition" class="content has-text-centered">
+                Votre numéro de suivi est le<br>
+                <span class="bold">{{ order.mrExpedition.ExpeditionNum }}</span>
+              </div>
+
+              <div class="content has-text-centered">
+                <a class="link-normal">Suivre mon colis</a>
+              </div>
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
-
-  <mat-accordion *ngIf="buyerOrders && buyerOrders.length > 0">
-    <mat-expansion-panel *ngFor="let order of buyerOrders">
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="content product-title">
-            {{ order.sale.product.name }}
-          </div>
-
-          <div class="content order-date has-text-right discreet-text">
-            {{ order.createdAt | date:'dd-MM-yyyy'}}
-          </div>
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-panel-description>
-          Commande N°{{ order.id }}
-        </mat-panel-description>
-
-        <!-- If Hand Delivery -->
-        <div *ngIf="order.shipMethod === 'HandDelivery'" class="content bid">
-          <h2 class="panel-title has-text-centered">Votre commande est validée !</h2>
-
-          <div class="content has-text-centered">
-            Il n'y a plus qu'à <span class="bold">contacter le vendeur</span> grâce aux informations ci-dessous :
-          </div>
-
-          <div class="seller-info box has-text-centered">
-            <div class="columns is-vcentered">
-              <div class="column">
-                <div class="content">
-                  <fa-icon class="icon" [icon]="['fas', 'user']"></fa-icon>
-                  {{ order.sale.seller.userProfile.lastname | uppercase }} {{ order.sale.seller.userProfile.firstname }}
-                </div>
-              </div>
-
-              <div class="column">
-                <div class="content">
-                  <fa-icon class="icon" [icon]="['fas', 'envelope']"></fa-icon>
-                  {{ order.sale.seller.userProfile.email }}
-                </div>
-              </div>
-            </div>
-
-            <div class="columns">
-              <div class="column">
-                <div class="content">
-                  <fa-icon class="icon" [icon]="['fas', 'phone-alt']"></fa-icon>
-                  {{ order.sale.seller.userProfile.phone1 | phone }}
-                </div>
-              </div>
-
-              <div class="column">
-                <div class="content">
-                  <fa-icon class="icon" [icon]="['fas', 'home']"></fa-icon>
-                  {{ order.sale.seller.userProfile.mainAddress.zipcode }} {{ order.sale.seller.userProfile.mainAddress.city }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content has-text-centered">
-            <button class="button order-reception is-success">
-              <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
-              Je confirme la réception du colis
-            </button>
-          </div>
-
-          <div class="columns">
-            <div class="column">
-              <a class="link-normal" (click)="goToProductPage(order)">Voir le produit</a>
-            </div>
-
-            <div class="column">
-              <a class="link-normal" (click)="currentOrder = order; modals.open('order-overview')">Voir le résumé de ma commande</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- If Mondial Delivery -->
-        <div *ngIf="order.shipMethod === 'RelayShip'" class="content">
-          <div class="columns has-text-centered">
-            <div class="column">
-              <a class="link-normal" (click)="goToProductPage(order)">Voir le produit</a>
-            </div>
-
-            <div class="column">
-              <a (click)="currentOrder = order; modals.open('order-overview')" class="link-normal">Voir le résumé de la commande</a>
-            </div>
-          </div>
-
-          <div class="content has-text-centered">
-            <h2 class="panel-title">Votre commande est validée !</h2>
-          </div>
-
-          <div class="content has-text-centered">
-            Il n'y a plus qu'à attendre son arrivée.
-          </div>
-
-          <div *ngIf="order.mrExpedition" class="content has-text-centered">
-            Votre numéro de suivi est le<br>
-            <span class="bold">{{ order.mrExpedition }}</span>
-          </div>
-
-          <div class="content has-text-centered">
-            <a class="link-normal">Suivre mon colis</a>
-          </div>
-        </div>
-    </mat-expansion-panel>
-  </mat-accordion>
 </div>
 
 <!-- MODALS -->

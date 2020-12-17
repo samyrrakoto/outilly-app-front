@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { Modals } from 'src/app/models/modals';
 import { Bid } from 'src/app/models/bid';
-import { ActivityLogComponent } from '../activity-log.component';
 import { Purchase } from 'src/app/models/purchase';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,11 +17,9 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../user-dashboard.component.css', './user-purchases.component.css']
 })
 export class UserPurchasesComponent implements OnInit {
-  @Input() url: string;
   @Input() purchaseStatus: string;
   @Output() requiresEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Input() purchases: Array<Purchase>;
-  @Input() buyerOrders: Array<any>;
+  purchases: Array<Purchase>;
   currentBid: Bid;
   bidderId: number;
   modals: Modals;

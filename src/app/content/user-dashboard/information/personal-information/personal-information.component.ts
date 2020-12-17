@@ -1,3 +1,4 @@
+import { UserManagerService } from 'src/app/services/user-manager.service';
 import { DashboardValidatorService } from 'src/app/services/dashboard-validator.service';
 import { Address } from 'src/app/models/address';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,8 +18,7 @@ import { User } from 'src/app/models/user';
 export class PersonalInformationComponent implements OnInit {
   idNames: Array<string>;
   nextIndex: number;
-  @Input() url: string;
-  @Input() user: User;
+  user: User;
   @Input() birthdate: string;
   readonly genders: Array<string> = ['male', 'female', 'other'];
   readonly genderNames: Array<string> = ['Homme', 'Femme', 'Autre'];
@@ -30,7 +30,9 @@ export class PersonalInformationComponent implements OnInit {
   addressIndexToDelete: number;
   idMedias: Array<any>;
 
-  constructor(protected request: RequestService,
+  constructor(
+    protected request: RequestService,
+    public userManager: UserManagerService,
     protected auth: AuthService,
     protected router: Router,
     public dashboardValidator: DashboardValidatorService,
@@ -48,7 +50,9 @@ export class PersonalInformationComponent implements OnInit {
     this.idMedias = [];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = this.userManager.user;
+  }
 
   ngAfterViewChecked(): void {
     this.getInputId('input');
@@ -103,7 +107,7 @@ export class PersonalInformationComponent implements OnInit {
 
     if (this.dashboardValidator.verify(this.user)) {
       this.request.updateUser(payload).subscribe({
-        next: (value: any) => {
+        next: () => {
           this.notification.display('Vos information de contact ont bien été modifiées', 'contact-information');
         },
         error: () => {
@@ -217,6 +221,42 @@ export class PersonalInformationComponent implements OnInit {
       }
     };
     return user;
+  }
+
+  protected userMapping(userRes: any): void {
+    this.user.id = userRes.id;
+    this.user.username = userRes.username;
+    this.user.userProfile.id = userRes.userProfile.id;
+    this.user.userProfile.firstname = userRes.userProfile.firstname;
+    this.user.userProfile.lastname = userRes.userProfile.lastname;
+    this.birthdateMapping(userRes);
+    this.user.userProfile.gender = userRes.userProfile.gender;
+    this.user.userProfile.type = userRes.userProfile.type;
+    this.user.userProfile.company = userRes.userProfile.company;
+    this.addressesMapping(userRes);
+    this.user.userProfile.email = userRes.userProfile.email;
+    this.user.userProfile.phone1 = userRes.userProfile.phone1;
+    this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
+    this.user.userProfile.phone2 = userRes.userProfile.phone2;
+  }
+
+  private birthdateMapping(userRes: any): void {
+    const userBirthdate: any = userRes.userProfile.birthdate *= 1000; // converting into milliseconds
+    const day: any = new Date(userBirthdate).getDate() < 10 ? '0' + new Date(userBirthdate).getDate() : new Date(userBirthdate).getDate();
+    const month: any = new Date(userBirthdate).getMonth() + 1 < 10 ? '0' + (new Date(userBirthdate).getMonth() + 1) : (new Date(userBirthdate).getMonth() + 1);
+    const year: any = new Date(userBirthdate).getFullYear()
+
+    this.birthdate = year + '-' + month + '-' + day;
+  }
+
+  private addressesMapping(userRes: any): void {
+    let i: number = 0;
+
+    for (const address of userRes.userProfile.addresses) {
+      this.user.userProfile.addresses.push(new Address());
+      this.user.userProfile.addresses[i] = address;
+      i++;
+    }
   }
 
   /*

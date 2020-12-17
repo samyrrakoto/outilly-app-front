@@ -1,90 +1,94 @@
-<div class="content">
-  <h2 class="subtitle">Mes annonces</h2>
-  <div id="notifications"></div>
+<div class="columns is-centered">
+  <div class="column is-6">
+    <div class="content">
+      <h2 class="subtitle">Mes annonces</h2>
+      <div id="notifications"></div>
 
-  <div *ngIf="isLoaded">
-    <div class="content" *ngIf="runningSales && runningSales.length === 0">
-      Vous n'avez posté aucune annonce pour le moment :'-(
+      <div *ngIf="loaded">
+        <div class="content" *ngIf="runningSales && runningSales.length === 0">
+          Vous n'avez posté aucune annonce pour le moment :'-(
 
-      <div class="content">
-        <a routerLink="/product/create" class="button is-success">Commencer à vendre</a>
-      </div>
-    </div>
+          <div class="content">
+            <a routerLink="/product/create" class="button is-success">Commencer à vendre</a>
+          </div>
+        </div>
 
-    <mat-accordion *ngIf="runningSales && runningSales.length > 0">
-      <mat-expansion-panel *ngFor="let sale of runningSales">
-          <mat-expansion-panel-header>
-          <mat-panel-title>
-            <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
-            {{ sale.product.name }}
-          </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-panel-description>
-            Prix de votre produit : {{ sale.product.reservePrice | currency:'full' }}€<br>
+        <mat-accordion *ngIf="runningSales && runningSales.length > 0">
+          <mat-expansion-panel *ngFor="let sale of runningSales">
+              <mat-expansion-panel-header>
+              <mat-panel-title>
+                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
+                {{ sale.product.name }}
+              </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-panel-description>
+                Prix de votre produit : {{ sale.product.reservePrice | currency:'full' }}€<br>
 
-          </mat-panel-description>
+              </mat-panel-description>
 
-          <!-- Displayed when sale is running -->
-          <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
-            <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
-              <div class="content">
-                  Vous avez reçu une offre d'achat de<br>
-                  <span class="amount">{{ bid.amount | currency:'full' }}€</span>
+              <!-- Displayed when sale is running -->
+              <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
+                <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
+                  <div class="content">
+                      Vous avez reçu une offre d'achat de<br>
+                      <span class="amount">{{ bid.amount | currency:'full' }}€</span>
 
-                <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
-                  <p class="control choice">
-                    <button (click)="modals.open('acceptOffer'); currentBid = bid" class="button is-dark is-small green action" title="Accepter l'offre">
-                      <fa-icon [icon]="['fas', 'check']"></fa-icon>Accepter
-                    </button>
-                  </p>
-                  <p class="control choice">
-                    <button (click)="modals.open('counterOffer'); currentBid = bid; currentSale = sale; counterOfferAmount = (bid.amount / 100) + 1" class="button is-dark is-small yellow action" title="Faire une contre-offre">
-                      <fa-icon [icon]="['fas', 'share']"></fa-icon>Négocier
-                    </button>
-                  </p>
-                  <p class="control choice">
-                    <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red action" title="Refuser l'offre">
-                      <fa-icon [icon]="['fas', 'times']"></fa-icon>Refuser
-                    </button>
-                  </p>
-                </div>
+                    <div *ngIf="!bidManager.isClosed(bid)" class="field has-addons has-text-centered actions">
+                      <p class="control choice">
+                        <button (click)="modals.open('acceptOffer'); currentBid = bid" class="button is-dark is-small green action" title="Accepter l'offre">
+                          <fa-icon [icon]="['fas', 'check']"></fa-icon>Accepter
+                        </button>
+                      </p>
+                      <p class="control choice">
+                        <button (click)="modals.open('counterOffer'); currentBid = bid; currentSale = sale; counterOfferAmount = (bid.amount / 100) + 1" class="button is-dark is-small yellow action" title="Faire une contre-offre">
+                          <fa-icon [icon]="['fas', 'share']"></fa-icon>Négocier
+                        </button>
+                      </p>
+                      <p class="control choice">
+                        <button (click)="modals.open('declineOffer'); currentBid = bid" class="button is-dark is-small red action" title="Refuser l'offre">
+                          <fa-icon [icon]="['fas', 'times']"></fa-icon>Refuser
+                        </button>
+                      </p>
+                    </div>
 
-                <div *ngIf="bidManager.isClosed(bid)" class="content">
-                  <div *ngIf="bidManager.isAccepted(bid)" class="content">
-                    Proposition <span class="accepted">acceptée</span>, en attente de paiement.
+                    <div *ngIf="bidManager.isClosed(bid)" class="content">
+                      <div *ngIf="bidManager.isAccepted(bid)" class="content">
+                        Proposition <span class="accepted">acceptée</span>, en attente de paiement.
+                      </div>
+                      <div *ngIf="bidManager.isDeclined(bid)" class="content">
+                        Proposition <span class="declined">refusée</span>.
+                      </div>
+                      <div *ngIf="bidManager.isCounterOffer(bid)" class="content">
+                        Votre <span class="counter-offer">contre-offre</span> de <span class="amount">{{ bid.counterOfferAmount | currency:'full' }}€</span> a bien été envoyée à l'acheteur.<br><br>
+                        L'acheteur a les cartes en main : il peut accepter votre offre ou la refuser.<br>
+                        S'il la refuse, pensez à lui faire une nouvelle contre-offre !
+                      </div>
+                    </div>
+
+                    <div class="content bid-date has-text-left discreet-text">
+                      <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                      {{ bid.updatedAt | date:'dd/MM/yyyy' }} à {{ bid.updatedAt | date:'hh:mm' }}
+                    </div>
                   </div>
-                  <div *ngIf="bidManager.isDeclined(bid)" class="content">
-                    Proposition <span class="declined">refusée</span>.
-                  </div>
-                  <div *ngIf="bidManager.isCounterOffer(bid)" class="content">
-                    Votre <span class="counter-offer">contre-offre</span> de <span class="amount">{{ bid.counterOfferAmount | currency:'full' }}€</span> a bien été envoyée à l'acheteur.<br><br>
-                    L'acheteur a les cartes en main : il peut accepter votre offre ou la refuser.<br>
-                    S'il la refuse, pensez à lui faire une nouvelle contre-offre !
-                  </div>
-                </div>
-
-                <div class="content bid-date has-text-left discreet-text">
-                  <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-                  {{ bid.createdAt | date:'dd/MM/yyyy' }} à {{ bid.createdAt | date:'hh:mm' }}
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- If no bid has been placed yet -->
-          <div *ngIf="!saleManager.hasBids(sale)"class="content bid">
-            Aucune proposition pour le moment. ='(
-          </div>
+              <!-- If no bid has been placed yet -->
+              <div *ngIf="!saleManager.hasBids(sale)"class="content bid">
+                Aucune proposition pour le moment. ='(
+              </div>
 
-          <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
+              <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
 
-          <div class="content bid-date has-text-left discreet-text">
-            <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-            {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'hh:mm' }}
-          </div>
+              <div class="content bid-date has-text-left discreet-text">
+                <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'hh:mm' }}
+              </div>
 
-      </mat-expansion-panel>
-    </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
   </div>
 </div>
 

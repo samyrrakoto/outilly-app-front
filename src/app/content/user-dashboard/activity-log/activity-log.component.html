@@ -2,15 +2,15 @@
   <ul>
 
     <!-- Sales -->
-    <li id="user-sales" class="is-active" (click)="setFocus(activityTabs, 'user-sales')">
-      <a (click)="goToSales('running')">
-        <fa-icon class="notification-icon blinking" *ngIf="requiresAction['runningSales']" [icon]="['fas', 'bell']"></fa-icon>
+    <li id="user-sales" class="is-active" (click)="setFocus('user-sales')">
+      <a routerLink="/user/dashboard/activity-log/sales/running">
+        <fa-icon *ngIf="notification.runningSalesStatus" class="notification-icon blinking" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Mes annonces</span>
       </a>
     </li>
-    <li id="user-sales-confirmed" (click)="setFocus(activityTabs, 'user-sales-confirmed')">
-      <a (click)="goToSales('confirmed')">
+    <li id="user-sales-confirmed" (click)="setFocus('user-sales-confirmed')">
+      <a routerLink="/user/dashboard/activity-log/sales/confirmed">
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Mes ventes</span>
       </a>
@@ -21,15 +21,15 @@
     </li>
 
     <!-- Purchases -->
-    <li id="user-purchases" class="purchases" (click)="setFocus(activityTabs, 'user-purchases')">
-      <a (click)="goToPurchases('running')">
-        <fa-icon class="notification-icon color-blinking" *ngIf="requiresAction['runningPurchases']" [icon]="['fas', 'bell']"></fa-icon>
+    <li id="user-purchases" class="purchases" (click)="setFocus('user-purchases')">
+      <a routerLink="/user/dashboard/activity-log/purchases/running">
+        <fa-icon *ngIf="notification.runningPurchasesStatus" class="notification-icon color-blinking" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Mes négociations</span>
       </a>
     </li>
-    <li id="user-purchases-confirmed" class="purchases" (click)="setFocus(activityTabs, 'user-purchases-confirmed')">
-      <a (click)="goToPurchases('confirmed')">
+    <li id="user-purchases-confirmed" class="purchases" (click)="setFocus('user-purchases-confirmed')">
+      <a routerLink="/user/dashboard/activity-log/purchases/confirmed">
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Mes achats</span>
       </a>
@@ -41,15 +41,4 @@
   Lorsque l'un de vos achats/ventes se met à jour une notification (<fa-icon class="bell" [icon]="['fas', 'bell']"></fa-icon>) apparaît dans l'onglet concerné et devant le nom du produit.
 </div>
 
-<app-user-sales *ngIf="currentSection === 'sales'"
-  [runningSales]=runningSales
-  [sellerOrders]=sellerOrders
-  [saleStatus]=saleStatus>
-</app-user-sales>
-
-<app-user-purchases *ngIf="currentSection === 'purchases'"
-  [url]=url
-  [purchases]=purchases
-  [buyerOrders]=buyerOrders
-  [purchaseStatus]=purchaseStatus>
-</app-user-purchases>
+<router-outlet></router-outlet>

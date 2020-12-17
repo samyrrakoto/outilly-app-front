@@ -1,6 +1,6 @@
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { UserPurchasesComponent } from './../user-purchases.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,10 +16,12 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-confirmed.component.css']
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
-  @Input() buyerOrders: Array<any>;
+  loaded: boolean = false;
+  buyerOrders: Array<any>;
   public currentOrder: any;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public router: Router,
     public route: ActivatedRoute,
     public auth: AuthService,
@@ -36,6 +38,19 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
   }
 
   ngOnInit(): void {
+    this.getBuyerOrders();
+  }
+
+  private getBuyerOrders(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
+        (orders: any) => {
+          this.buyerOrders = orders;
+          this.loaded = true;
+          resolve();
+        }
+      );
+    });
   }
 
   public getCommissionFees(order: any): number {

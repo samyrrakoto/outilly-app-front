@@ -8,7 +8,10 @@ import { Injectable } from '@angular/core';
 })
 export class SaleManagerService {
 
-  constructor(public bidManager: BidManagerService, private request: RequestService) { }
+  constructor(
+    public bidManager: BidManagerService,
+    private request: RequestService)
+  {}
 
   public isClosed(sale: Sale): boolean {
     return sale.status === 'closed';

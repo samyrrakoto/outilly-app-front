@@ -1,29 +1,6 @@
 <div class="hero-body">
-  <div class="level is-mobile" id="personal-space">
-    <div class="level-left">
-
-    </div>
-
-    <div id="dashboard-item" class="level-right">
-      <div *ngIf="logged" class="level is-mobile" id="personal-level">
-        <div class="level-item dashboard has-text-centered">
-          <a routerLink="/user/dashboard/activity-log">{{ "Mon activité" | uppercase }}</a>
-        </div>
-        <div class="level-item dashboard">
-          <a routerLink="/user/dashboard/information">{{ "Mes informations" | uppercase }}</a>
-        </div>
-      </div>
-
-      <div *ngIf="!logged" class="level is-mobile" id="personal-level">
-        <div class="level-item dashboard has-text-centered">
-          <a routerLink="/login">{{ "Me connecter" | uppercase }}</a>
-        </div>
-        <div class="level-item dashboard has-text-centered">
-          <a routerLink="/onboarding" class="account">{{ "Créer un compte" | uppercase }}</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-connection-menu>
+  </app-connection-menu>
 
   <div class="container has-text-centered">
     <h1 class="subtitle">Faites de la place,</h1>

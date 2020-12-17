@@ -12,8 +12,19 @@
   height: 75px;
 }
 
+.level-left, .level-right {
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#personal-space {
+  border-top: solid 4px var(--KTKP-BLUE);
+}
+
 #personal-space .level-right {
-  background-color: white;
+  background-color: var(--KTKP-BLUE);
   font-size: 12px;
 }
 
@@ -23,12 +34,14 @@
 }
 
 #personal-level a {
-  color: grey;
+  font-size: 1em;
+  color: var(--KTKP-BLUE-DARKER);
 }
 
 #personal-level a:hover {
   color: black;
   font-weight: bold;
+  padding-right: 35px;
 }
 
 #how-it-works {
@@ -63,7 +76,6 @@ p {
 .level-right {
   background-color: #F9F9F9;
   border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 .account {

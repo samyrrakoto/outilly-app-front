@@ -16,4 +16,7 @@ export class ActivitationAccountWarningComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public closeNotification(notif: HTMLInputElement): void {
+    notif.remove();
+  }
 }

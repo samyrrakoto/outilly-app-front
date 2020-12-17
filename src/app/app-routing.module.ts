@@ -1,3 +1,5 @@
+import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
+import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
 import { UserActivationComponent } from './content/user-activation/user-activation.component';
 import { SellerProductsComponent } from './content/products/seller-products/seller-products.component';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
@@ -118,25 +120,23 @@ const routes: Routes = [
         component: ActivityLogComponent,
         children: [
           {
-            path: '', redirectTo: 'sales', pathMatch:'full'
+            path: '', redirectTo: 'sales/running', pathMatch:'full'
           },
           {
-            path: 'sales',
-            component: UserSalesComponent,
-            children: [
-              {
-                path: 'sales-running',
-                component: UserSalesRunningComponent
-              },
-              {
-                path: 'sales-confirmed',
-                component: UserSalesConfirmedComponent
-              }
-            ]
+            path: 'sales/running',
+            component: UserSalesRunningComponent,
           },
           {
-            path: 'purchases',
-            component: UserPurchasesComponent
+            path: 'sales/confirmed',
+            component: UserSalesConfirmedComponent,
+          },
+          {
+            path: 'purchases/running',
+            component: UserPurchasesRunningComponent,
+          },
+          {
+            path: 'purchases/confirmed',
+            component: UserPurchasesConfirmedComponent,
           }
         ]
       },

@@ -1,11 +1,9 @@
 <div class="columns is-centered">
   <div class="column is-5">
-    <app-user-purchases-running *ngIf="purchaseStatus === 'running'"
-      [purchases]="purchases">
+    <app-user-purchases-running *ngIf="purchaseStatus === 'running'">
     </app-user-purchases-running>
 
-    <app-user-purchases-confirmed *ngIf="purchaseStatus === 'confirmed'"
-      [buyerOrders]=buyerOrders>
+    <app-user-purchases-confirmed *ngIf="purchaseStatus === 'confirmed'">
     </app-user-purchases-confirmed>
   </div>
 </div>

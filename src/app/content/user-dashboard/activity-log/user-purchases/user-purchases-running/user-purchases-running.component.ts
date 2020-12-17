@@ -1,5 +1,6 @@
-import { UserPurchasesComponent } from './../user-purchases.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Bid } from 'src/app/models/bid';
+import { Modals } from 'src/app/models/modals';
+import { Component } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,10 +16,14 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './user-purchases-running.component.html',
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-running.component.css']
 })
-export class UserPurchasesRunningComponent extends UserPurchasesComponent implements OnInit {
-  @Input() purchases: Array<Purchase>;
+export class UserPurchasesRunningComponent {
+  loaded: boolean = false;
+  runningPurchases: Array<Purchase>;
+  modals: Modals = new Modals();
+  currentBid: Bid;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public router: Router,
     public route: ActivatedRoute,
     public auth: AuthService,
@@ -28,7 +33,28 @@ export class UserPurchasesRunningComponent extends UserPurchasesComponent implem
     public location: Location,
     public title: Title)
   {
-    super(request, router, route, auth, purchaseManager, saleManager, bidManager, location, title);
-    this.purchases = [];
+    this.runningPurchases = [];
+    this.modals.addModal('purchase-explanation');
+    this.modals.addModal('acceptOffer');
+    this.modals.addModal('declineOffer');
+  }
+
+  ngOnInit(): void {
+    this.getRunningPurchases();
+  }
+
+  public getRunningPurchases(): Promise<void> {
+    return new Promise((resolve) => {
+      this.purchaseManager.getPurchases()
+        .then((purchases: Array<Purchase>) => {
+          this.runningPurchases = purchases;
+          this.loaded = true;
+          resolve();
+        });
+    });
+  }
+
+  public goToProductPage(purchase): void {
+
   }
 }

@@ -1,11 +1,10 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
-import { Purchase } from 'src/app/models/purchase';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { Location } from '@angular/common';
-import { Sale } from 'src/app/models/sale';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Title } from '@angular/platform-browser';
 
@@ -15,117 +14,58 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../user-dashboard.component.css', './activity-log.component.css']
 })
 export class ActivityLogComponent implements OnInit {
-  @Input() url: string;
   readonly activityTabs: Array<string> = ['user-sales', 'user-sales-confirmed', 'user-purchases', 'user-purchases-confirmed'];
+  private url: string;
+  private currentActivity: string;
   public currentSection: string;
   public saleStatus: string;
   public purchaseStatus: string;
-  public purchases: Array<Purchase>;
-  public runningSales: Array<Sale>;
-  public buyerOrders: Array<any>;
-  public sellerOrders: Array<any>;
-  public requiresAction: any;
 
-  constructor(protected request: RequestService,
+  constructor(
+    protected request: RequestService,
     protected auth: AuthService,
     protected router: Router,
     protected route: ActivatedRoute,
     protected purchaseManager: PurchaseManagerService,
     protected location: Location,
     protected saleManager: SaleManagerService,
+    public notification: NotificationService,
     public title: Title)
   {
     this.currentSection = 'sales';
-    this.saleStatus = 'running';
-    this.purchases = [];
-    this.requiresAction = {
-      'salesConfirmed': false,
-      'salesRunning': false,
-      'purchasesConfirmed': false,
-      'purchasesRunning': false
-    };
   }
 
   ngOnInit(): void {
-    this.getPurchases()
-      .then(() => this.getRunningSales())
-      .then(() => this.getSellerOrders())
-      .then(() => this.getBuyerOrders())
-      .then(() => this.checkNotifications())
-      .then(() => {
-      });
+
   }
 
-  private getPurchases(): Promise<void> {
-    return new Promise((resolve) => {
-      this.purchaseManager.getPurchases()
-        .then((purchases: Array<Purchase>) => {
-          this.purchaseManager.addSales(purchases);
-          this.purchases = purchases;
-          resolve();
-        })
-        .catch(() => { this.errorHandle() })
-    })
+  ngAfterViewInit(): void {
+    this.getUrl();
+    this.currentActivity = this.getCurrentActivity();
+    this.setFocus(this.currentActivity);
   }
 
-  private getBuyerOrders(): Promise<void> {
-    return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
-        (orders: any) => {
-          this.buyerOrders = orders;
-          resolve();
-        }
-      );
-    });
+  private getUrl(): void {
+    this.url = this.location.path();
   }
 
-  private getRunningSales(): Promise<void> {
-    return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
-        (sales: any) => {
-          this.runningSales = sales;
-          resolve();
-        }
-      );
-    });
-  }
-
-  private getSellerOrders(): Promise<void> {
-    return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
-        (orders: any) =>  {
-          this.sellerOrders = orders;
-          resolve();
-        }
-      );
-    });
-  }
-
-  private checkNotifications(): void {
-    this.checkRunningPurchasesNotification();
-    this.checkRunningSalesNotification();
-  }
-
-  private checkRunningPurchasesNotification() {
-    for (const purchase of this.purchases) {
-      if (purchase.isClosed && purchase.sale.status !== 'sold') {
-        this.requiresAction['runningPurchases'] = true;
-        return;
-      }
+  private getCurrentActivity(): string {
+    if (this.url.includes('/sales/confirmed')) {
+      return 'user-sales-confirmed';
+    }
+    else if (this.url.includes('/sales/running')) {
+      return 'user-sales';
+    }
+    else if (this.url.includes('/purchases/confirmed')) {
+      return 'user-purchases-confirmed';
+    }
+    else if (this.url.includes('/purchases/running')) {
+      return 'user-purchases';
     }
   }
 
-  private checkRunningSalesNotification() {
-    for (const sale of this.runningSales) {
-      if (this.saleManager.hasNonTreatedBids(sale)) {
-        this.requiresAction['runningSales'] = true;
-        return;
-      }
-    }
-  }
-
-  public setFocus(tabs: Array<string>, id: string): void {
-    for (const tab of tabs) {
+  public setFocus(id: string): void {
+    for (const tab of this.activityTabs) {
       if (tab !== id) {
         document.getElementById(tab).classList.remove('is-active');
       }
