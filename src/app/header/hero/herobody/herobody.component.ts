@@ -1,3 +1,4 @@
+import { pageInfo } from 'src/app/parameters';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./herobody.component.css']
 })
 export class HerobodyComponent implements OnInit {
+  readonly brandName: string = pageInfo.BRAND_NAME;
   @Input() logged: boolean;
 
   constructor() { }

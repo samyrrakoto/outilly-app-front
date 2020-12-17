@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { pageInfo } from 'src/app/parameters';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notice',
@@ -6,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./notice.component.css']
 })
 export class NoticeComponent implements OnInit {
+  readonly brandName: string = pageInfo.BRAND_NAME;
 
   constructor() { }
 

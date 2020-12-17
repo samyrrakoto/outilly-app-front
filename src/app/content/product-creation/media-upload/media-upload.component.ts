@@ -1,3 +1,4 @@
+import { pageInfo } from 'src/app/parameters';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
@@ -51,7 +52,7 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 2;
     this.stepName = "Téléchargez vos photos";
-    this.stepSubtitle = "Sur Outilly, on n'est pas radin : c'est 3 photos minimum… et jusqu'à 10 ! (.jpeg, .jpg, .png)";
+    this.stepSubtitle = "Sur " + pageInfo.BRAND_NAME + ", on n'est pas radin : c'est 3 photos minimum… et jusqu'à 10 ! (.jpeg, .jpg, .png)";
     this.path.current = "media-upload";
     this.path.previous = "announcement-title";
     this.path.next = "product-consumable";

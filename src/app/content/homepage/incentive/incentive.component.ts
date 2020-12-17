@@ -1,3 +1,4 @@
+import { pageInfo } from 'src/app/parameters';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./incentive.component.css']
 })
 export class IncentiveComponent implements OnInit {
+  readonly brandName: string = pageInfo.BRAND_NAME;
 
   constructor() { }
 
