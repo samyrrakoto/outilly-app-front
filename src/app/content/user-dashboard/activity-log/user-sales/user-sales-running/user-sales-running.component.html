@@ -19,6 +19,7 @@
               <mat-panel-title>
                 <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
                 {{ sale.product.name }}
+                <span class="info small-text" *ngIf="sale.status === 'new'">&nbsp;(En attente de validation)</span>
               </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-panel-description>
@@ -75,7 +76,13 @@
 
               <!-- If no bid has been placed yet -->
               <div *ngIf="!saleManager.hasBids(sale)"class="content bid">
-                Aucune proposition pour le moment. ='(
+                <div *ngIf="sale.status === 'new'" class="info bold">
+                  Votre annonce est en cours de validation.
+                </div>
+
+                <div *ngIf="sale.status !== 'new'">
+                  Aucune proposition pour le moment. ='(
+                </div>
               </div>
 
               <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
