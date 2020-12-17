@@ -1,5 +1,4 @@
-import { UserSalesComponent } from './../user-sales.component';
-import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,16 +15,17 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './user-sales-confirmed.component.html',
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-sales-confirmed.component.css']
 })
-export class UserSalesConfirmedComponent extends UserSalesComponent implements OnInit {
-  @Input() isLoaded: boolean;
-  @Input() sellerOrders: Array<any>;
+export class UserSalesConfirmedComponent implements OnInit {
+  loaded: boolean = false;
+  sellerOrders: Array<any>;
   modals: Modals;
   currentBuyer: any;
   dispatchNoteA4: string = null;
   dispatchNoteA5: string = null;
   readonly nbAttempts: number = 3;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
@@ -36,7 +36,6 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     protected location: Location,
     public title: Title)
   {
-    super(request, auth, router, purchaseManager, bidManager, saleManager, route, notification, location, title);
     this.sellerOrders = [];
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');
@@ -50,9 +49,9 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
     };
   }
 
-  ngOnInit(): void {}
-
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnInit(): void {
+    this.getSellerOrders();
+  }
 
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
@@ -97,5 +96,21 @@ export class UserSalesConfirmedComponent extends UserSalesComponent implements O
         this.modals.open('etiquette-download');
       }
     );
+  }
+
+  private getSellerOrders(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
+        (orders: any) =>  {
+          this.sellerOrders = orders;
+          this.loaded = true;
+          resolve();
+        }
+      );
+    });
+  }
+
+  public goToProductPage(productSlug: string, saleId: number): void {
+    this.router.navigate(['/product/' + productSlug + '/' + saleId.toString()]);
   }
 }

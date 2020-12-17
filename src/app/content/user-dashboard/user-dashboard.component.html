@@ -7,24 +7,23 @@
 <div class="columns is-centered">
   <div class="column has-text-centered">
 
-    <div id="tabs" class="tabs is-toggle is-toggle-rounded is-centered" style="margin-top: 20px;">
+    <div id="tabs" class="tabs is-toggle is-toggle-rounded is-centered addspaceabove">
       <ul>
-        <li id="information" class="is-active" (click)="dashboardTab = 'information'; setFocus(menuTabs, 'information')"><a>Mes informations</a></li>
-        <li id="activities" (click)="dashboardTab = 'activities'; setFocus(menuTabs, 'activities')" routerLink="/user/dashboard/activity-log"><a>Mon activité</a></li>
+        <li id="information" routerLink="/user/dashboard/information" (click)="setFocus('information')" class="is-active">
+          <a>Mes informations</a>
+        </li>
+        <li id="activities" routerLink="/user/dashboard/activity-log" (click)="setFocus('activities')">
+          <a>
+            <fa-icon *ngIf="notification.allSalesStatus" class="notification-icon blinking error" [icon]="['fas', 'bell']"></fa-icon>
+            Mon activité
+          </a>
+        </li>
       </ul>
     </div>
 
-    <app-information *ngIf="dashboardTab === 'information'"
-      [url]=url
-      [user]=user
-      [birthdate]=birthdate>
-    </app-information>
+    <router-outlet></router-outlet>
 
-    <app-activity-log *ngIf="dashboardTab === 'activities'"
-      [url]=url>
-    </app-activity-log>
-
-    <button class="button is-danger is-light" (click)="logOut()" style="margin-top: 20px;">
+    <button class="button is-danger is-light addspaceabove" (click)="logOut()">
       Déconnexion
     </button>
   </div>

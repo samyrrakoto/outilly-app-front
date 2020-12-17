@@ -188,7 +188,7 @@
 
           <div id="contact-information"></div>
 
-          <button class="button is-dark is-small" (click)="updateUserData()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
+          <button class="button is-dark is-small addspaceabove" (click)="updateUserData()"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
     </mat-expansion-panel>
 
 
@@ -253,7 +253,7 @@
         <div id="displayed-medias"></div>
 
         <input accept=".png, .jpg" type="file" id="product-pictures" name="product-pictures" (change)="handleFile()" style="display: none;">
-        <button (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+        <button (click)="openImgPicker()" id="file-select" class="button is-success addspacebelow">Sélectionnez des images</button>
       </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('id')"></button>

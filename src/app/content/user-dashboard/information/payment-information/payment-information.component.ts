@@ -1,8 +1,7 @@
-import { Modals } from './../../../../models/modals';
-import { AuthService } from './../../../../services/auth.service';
-import { RequestService } from './../../../../services/request.service';
+import { Modals } from 'src/app/models/modals';
+import { AuthService } from 'src/app/services/auth.service';
+import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InformationComponent } from './../information.component';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
@@ -11,7 +10,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './payment-information.component.html',
   styleUrls: ['./payment-information.component.css']
 })
-export class PaymentInformationComponent extends InformationComponent implements OnInit {
+export class PaymentInformationComponent implements OnInit {
   modals: Modals;
   url: string;
 
@@ -21,7 +20,6 @@ export class PaymentInformationComponent extends InformationComponent implements
     protected route: ActivatedRoute,
     public title: Title)
   {
-    super(request, auth, router, route, title);
     this.modals = new Modals();
     this.modals.addModal('card');
     this.url = '';
@@ -32,7 +30,6 @@ export class PaymentInformationComponent extends InformationComponent implements
       this.url = url[0].path;
 
       if (this.url === 'payment-information') {
-        this.setFocus(this.informationTabs, 'payment-information');
       }
     });
   }
