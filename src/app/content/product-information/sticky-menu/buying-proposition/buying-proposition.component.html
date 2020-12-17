@@ -38,4 +38,18 @@
       Revenir au prix initial
     </button>
   </div>
+
+  <div id="confirmation" *ngIf="bidPlaced">
+    <div class="notification is-success">
+      Votre offre de <span class="bold">{{ bidAmount }}€</span> a bien été envoyée !
+    </div>
+
+    <div class="content">
+      Le vendeur répondra à votre proposition lorsqu'il en aura pris connaissance.
+    </div>
+
+    <button routerLink="/user/dashboard/activity-log/purchases/running" class="button is-danger">
+      Consulter mes activités
+    </button>
+  </div>
 </div>
