@@ -1,3 +1,4 @@
+import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
 import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
 import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
 import { UserActivationComponent } from './content/user-activation/user-activation.component';
@@ -361,6 +362,10 @@ const routes: Routes = [
   {
     path: 'products/seller/:sellerId',
     component: SellerProductsComponent
+  },
+  {
+    path: 'products/brand/:brandId',
+    component: BrandProductsComponent
   },
   {
     path: 'product-unavailable',

@@ -43,4 +43,8 @@ export class GeneralInformationComponent extends GenericComponent implements OnI
   public getMapUrl(): string {
     return 'http://google.fr/maps/place/' + this.sale.product.locality;
   }
+
+  public goToBrandProduct(brandId: number): void {
+    this.router.navigate(['/products/brand/' + brandId.toString()]);
+  }
 }
