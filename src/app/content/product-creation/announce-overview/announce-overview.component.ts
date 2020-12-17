@@ -1,3 +1,4 @@
+import { pageInfo } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
 import { EncodingService } from 'src/app/services/encoding.service';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -25,6 +26,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   public nbPictures: number;
   public nbVideos: number;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly brandName: string = pageInfo.BRAND_NAME;
 
   constructor(public request: RequestService,
     public formData: FormDataService,

@@ -1,6 +1,6 @@
+import { pageInfo } from 'src/app/parameters';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
 import { FormDataService } from 'src/app/services/form-data.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
+  readonly brandName: string = pageInfo.BRAND_NAME;
 
   constructor(private formData: FormDataService, public router: Router) {
     localStorage.removeItem('formData');
