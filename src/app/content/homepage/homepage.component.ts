@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
   loadMore: number;
   logged: boolean = false;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
-  readonly pageTitle: string = 'Accueil';
+  readonly pageTitle: string = "Matériel de bricolage d'occasion - Achat et revente - Outillage, équipement et fin de chantier";
 
   constructor(
     private request: RequestService,

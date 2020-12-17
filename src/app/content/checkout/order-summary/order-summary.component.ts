@@ -66,7 +66,7 @@ export class OrderSummaryComponent implements OnInit {
   /*
   ** Data Getters
   */
-  protected getSale(): Promise<any> {
+  protected getSale(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.request.getSaleCall(this.saleId).subscribe({
         next: (sale: Sale) => { this.sale = sale; resolve()},
@@ -75,7 +75,7 @@ export class OrderSummaryComponent implements OnInit {
     })
   }
 
-  private getBid(): Promise<any> {
+  private getBid(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.GET_BIDS_AND_SALES).subscribe({
         next: (bidsAndSales: any) => {
@@ -91,7 +91,7 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
-  private getPriceToPay(): Promise<any> {
+  private getPriceToPay(): Promise<void> {
     return new Promise((resolve) => {
       if (this.bid.counterOfferAmount > 0) {
         this.priceToPay = this.bid.counterOfferAmount;
@@ -117,7 +117,7 @@ export class OrderSummaryComponent implements OnInit {
   /*
   ** Error Handling
   */
-  private saleAvailableHandler(isSaleAvailable: boolean): Promise<any> {
+  private saleAvailableHandler(isSaleAvailable: boolean): Promise<void> {
     return new Promise((resolve) => {
       if (isSaleAvailable) {
         this.getBid()
