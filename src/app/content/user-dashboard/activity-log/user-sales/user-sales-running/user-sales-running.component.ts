@@ -52,7 +52,6 @@ export class UserSalesRunningComponent implements OnInit {
         (sales: any) => {
           this.loaded = true;
           this.runningSales = sales;
-          console.log(sales);
           resolve();
         }
       );
