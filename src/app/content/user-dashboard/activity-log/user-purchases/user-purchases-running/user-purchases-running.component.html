@@ -17,6 +17,9 @@
             <mat-panel-title>
               <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
               {{ purchase.productName }}
+              <span *ngIf="purchase.isRead && purchase.isClosed === null" class="tag is-light small-text small-left-margin">
+                &nbsp;En attente
+              </span>
               <span *ngIf="purchase.isRead && purchase.isAccepted === false" class="tag is-danger is-light small-text small-left-margin">
                 &nbsp;Refusée
               </span>
