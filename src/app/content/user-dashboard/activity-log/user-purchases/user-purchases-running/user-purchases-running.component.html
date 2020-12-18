@@ -12,7 +12,7 @@
       </div>
 
       <mat-accordion *ngIf="runningPurchases.length > 0">
-        <mat-expansion-panel (click)="noteAsRead(purchase.bidId)" *ngFor="let purchase of runningPurchases">
+        <mat-expansion-panel (click)="noteAsRead(purchase)" *ngFor="let purchase of runningPurchases">
             <mat-expansion-panel-header>
             <mat-panel-title>
               <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>

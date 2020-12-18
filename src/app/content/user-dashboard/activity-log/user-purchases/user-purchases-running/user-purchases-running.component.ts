@@ -40,7 +40,8 @@ export class UserPurchasesRunningComponent {
   }
 
   ngOnInit(): void {
-    this.getRunningPurchases();
+    this.getRunningPurchases()
+      .then(() => this.loaded = true);
   }
 
   public getRunningPurchases(): Promise<void> {
@@ -48,7 +49,6 @@ export class UserPurchasesRunningComponent {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
           this.runningPurchases = purchases;
-          this.loaded = true;
           resolve();
         });
     });
@@ -58,11 +58,17 @@ export class UserPurchasesRunningComponent {
 
   }
 
-  public noteAsRead(bidId: number): void {
-    this.request.patchData(null, this.request.uri.READ_BID + bidId).subscribe(
-      (res: any) => {
-        console.log(res);
-      }
-    )
+  public noteAsRead(currentPurchase: Purchase): void {
+    if (currentPurchase.isRead === false) {
+      this.request.patchData(null, this.request.uri.READ_BID + currentPurchase.bidId).subscribe(
+        () => {
+          for (const purchase of this.runningPurchases) {
+            if (currentPurchase.bidId === purchase.bidId) {
+              currentPurchase.isRead = true;
+            }
+          }
+        }
+      )
+    }
   }
 }
