@@ -163,7 +163,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   public getPriceToPay(priceToPay: number): void {
-    this.priceToPay = priceToPay;
+    console.log('COUCOU');
+    this.priceToPay = priceToPay === 0 ? this.sale.product.reservePrice : priceToPay;
+    console.log(this.priceToPay);
   }
 
   /*

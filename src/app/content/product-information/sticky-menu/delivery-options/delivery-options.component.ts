@@ -61,6 +61,8 @@ export class DeliveryOptionsComponent implements OnInit {
           this.getPriceToPay();
       });
     }
+    this.priceToPay = this.sale.product.reservePrice;
+    this.priceToPayEmitter.emit(this.priceToPay);
   }
 
   private getCurrentPurchase(): Purchase {
@@ -72,7 +74,7 @@ export class DeliveryOptionsComponent implements OnInit {
     return null;
   }
 
-  private getId(): Promise<any> {
+  private getId(): Promise<void> {
     return new Promise((resolve) => {
       this.route.params.subscribe(params => {
         this.id = parseInt(params.id);
