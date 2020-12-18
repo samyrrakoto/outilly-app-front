@@ -102,7 +102,7 @@ export class NotificationService {
     this.getRunningPurchases()
       .then(() => {
         for (const purchase of this.runningPurchases) {
-          if (this.purchaseManager.requireAction(purchase)) {
+          if (this.purchaseManager.requireAction(purchase) && !purchase.isRead) {
             this.runningPurchasesStatus = true;
             this.allSalesStatus = true;
             return;
