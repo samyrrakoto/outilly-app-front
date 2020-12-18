@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
 import { Component } from '@angular/core';
@@ -30,6 +31,7 @@ export class UserPurchasesRunningComponent {
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    private notification: NotificationService,
     public location: Location,
     public title: Title)
   {
@@ -54,8 +56,9 @@ export class UserPurchasesRunningComponent {
     });
   }
 
-  public goToProductPage(purchase): void {
-
+  public goToProductPage(purchase: Purchase): void {
+    console.log(purchase);
+    this.router.navigate(['/product/' + purchase.productName + '/' + purchase.sale.id]);
   }
 
   public noteAsRead(currentPurchase: Purchase): void {
@@ -65,6 +68,7 @@ export class UserPurchasesRunningComponent {
           for (const purchase of this.runningPurchases) {
             if (currentPurchase.bidId === purchase.bidId) {
               currentPurchase.isRead = true;
+              this.notification.checkAllNotifications();
             }
           }
         }
