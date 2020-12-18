@@ -11,6 +11,7 @@
     </li>
     <li id="user-sales-confirmed" (click)="setFocus('user-sales-confirmed')">
       <a routerLink="/user/dashboard/activity-log/sales/confirmed">
+        <fa-icon *ngIf="notification.confirmedSalesStatus" class="notification-icon blinking" [icon]="['fas', 'bell']"></fa-icon>
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Mes ventes</span>
       </a>

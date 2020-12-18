@@ -47,11 +47,32 @@ export class UserSalesRunningComponent implements OnInit {
   }
 
   private getRunningSales(): Promise<void> {
+    return new Promise<void> ((resolve) => {
+      this.getRunningOnlineSales()
+      .then(() => this.getRunningNewSales())
+      .then(() => { resolve() })
+    });
+  }
+
+  private getRunningOnlineSales(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
-        (sales: any) => {
+        (onlineSales: any) => {
           this.loaded = true;
-          this.runningSales = sales;
+          this.runningSales = onlineSales;
+          resolve();
+        }
+      );
+    });
+  }
+
+  private getRunningNewSales(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_SALES_NEW).subscribe(
+        (newSales: any) => {
+          console.log(newSales);
+          this.loaded = true;
+          this.runningSales = this.runningSales.concat(newSales);
           resolve();
         }
       );

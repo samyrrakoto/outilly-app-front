@@ -57,4 +57,12 @@ export class UserPurchasesRunningComponent {
   public goToProductPage(purchase): void {
 
   }
+
+  public noteAsRead(bidId: number): void {
+    this.request.patchData(null, this.request.uri.READ_BID + bidId).subscribe(
+      (res: any) => {
+        console.log(res);
+      }
+    )
+  }
 }

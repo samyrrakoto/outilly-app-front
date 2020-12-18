@@ -10,6 +10,7 @@ export class Bid {
   isClosed: boolean;
   createdAt: Date;
   updatedAt: Date;
+  isRead: boolean;
 
   constructor(id: number = 0) {
     this.id = id;
@@ -21,5 +22,6 @@ export class Bid {
     this.isClosed = null;
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.isRead = false;
   }
 }

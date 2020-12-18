@@ -94,6 +94,10 @@
   color: var(--KTKP-RED);
 }
 
+.info {
+  color: var(--KTKP-BLUE-DARKER);
+}
+
 .pointed {
   cursor: pointer;
 }
@@ -176,6 +180,10 @@
 .shortpadding {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.small-text {
+  font-size: 0.8em;
 }
 
 .less-discreet-text {

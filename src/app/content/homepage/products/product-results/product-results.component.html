@@ -12,7 +12,7 @@
     <div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales">
       <div class="card">
         <div class="card-content">
-          <div class="img-container" *ngIf="sale.product.mainImage" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImage.path) }"></div>
+          <div class="img-container" *ngIf="sale.product.mainImage" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImageThumbnail.path) }"></div>
           <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
           <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
 

@@ -38,6 +38,7 @@ export class Uri {
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';
+  readonly READ_BID: string = 'secure/bid/read/';
   readonly PLACE_BID: string = 'secure/bid/place';
   readonly ACCEPT_OFFER: string = 'secure/bid/update-acceptance';
   readonly DECLINE_OFFER: string = 'secure/bid/update-acceptance';

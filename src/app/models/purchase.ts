@@ -12,6 +12,7 @@ export class Purchase {
   counterOfferAmount: number;
   isClosed: boolean;
   isAccepted: boolean;
+  isRead: boolean;
 
   constructor(purchase: any) {
     this.sale = purchase.sale;
@@ -26,5 +27,6 @@ export class Purchase {
     this.counterOfferAmount = purchase.counterOfferAmount;
     this.isClosed = purchase.isClosed;
     this.isAccepted = purchase.isAccepted;
+    this.isRead = purchase.isRead;
   }
 }
