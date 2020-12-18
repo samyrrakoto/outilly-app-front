@@ -50,6 +50,7 @@ export class UserPurchasesRunningComponent {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
+          console.log(purchases);
           this.runningPurchases = purchases;
           resolve();
         });
