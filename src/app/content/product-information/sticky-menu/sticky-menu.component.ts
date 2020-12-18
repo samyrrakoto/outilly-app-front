@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
@@ -11,15 +11,12 @@ import { Sale } from 'src/app/models/sale';
 })
 export class StickyMenuComponent implements OnInit {
   @Input() sale: Sale;
-  @Input() isSeller: boolean;
+  @Input() priceToPay: number;
   @Input() errorMsg: any;
   @Input() minPrice: number;
   @Input() maxPrice: number;
   @Input() proposedPrice: number;
   @Input() openState: boolean;
-  @Input() isLogged: boolean;
-  @Input() accessToken: string;
-  @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
   deliveryName: string;
   deliveryFees: number;
   stickyMenuSteps: any;
@@ -27,7 +24,6 @@ export class StickyMenuComponent implements OnInit {
   previous: string;
   next: string;
   nextAlt: string;
-  priceToPay: number;
 
   constructor(public request: RequestService,
     public route: ActivatedRoute) {
@@ -41,7 +37,6 @@ export class StickyMenuComponent implements OnInit {
     this.next = 'buyingConfirmation';
     this.deliveryName = '';
     this.deliveryFees = 0;
-    this.priceToPay = 0;
   }
 
   ngOnInit() {}
@@ -80,10 +75,5 @@ export class StickyMenuComponent implements OnInit {
         document.getElementById(remise).classList.remove('chosen-remise');
       }
     }
-  }
-
-  public getRealPriceToPay(priceToPay: number): void {
-    this.priceToPayEmitter.emit(priceToPay);
-    this.priceToPay = priceToPay;
   }
 }

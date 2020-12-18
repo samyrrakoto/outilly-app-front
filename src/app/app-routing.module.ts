@@ -13,7 +13,6 @@ import { PaymentDetailsComponent } from './content/checkout/payment-process/paym
 import { OrderSummaryComponent } from './content/checkout/order-summary/order-summary.component';
 import { MondialRelaySelectorComponent } from './content/checkout/delivery-information/mondial-relay-selector/mondial-relay-selector.component';
 import { DeliveryInformationComponent } from './content/checkout/delivery-information/delivery-information.component';
-import { UserPurchasesComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases.component';
 import { PaymentInformationComponent } from './content/user-dashboard/information/payment-information/payment-information.component';
 import { PersonalInformationComponent } from './content/user-dashboard/information/personal-information/personal-information.component';
 import { ActivityLogComponent } from './content/user-dashboard/activity-log/activity-log.component';
@@ -63,7 +62,6 @@ import { ProductInformationComponent } from './content/product-information/produ
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
-import { UserSalesComponent } from './content/user-dashboard/activity-log/user-sales/user-sales.component';
 import { PaymentReturnComponent } from './content/checkout/payment-process/payment-return/payment-return.component';
 import { ProductUnavailableComponent } from './content/product-unavailable/product-unavailable.component';
 import { Error404Component } from './content/error404/error404.component';

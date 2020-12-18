@@ -42,19 +42,19 @@
     <div class="column has-text-centered">
 
       <!-- When login succeeds -->
-      <div *ngIf="isLogged && accessToken === 'good'" class="content">
+      <div *ngIf="auth.isLogged()" class="content">
         <div class="content">
 
           <!-- If a counter-offer has been made -->
           <div *ngIf="isCounterOffer()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
-                Acheter au prix de {{ priceTopay | currency:'full' }}€
+                Acheter au prix de {{ priceToPay | currency:'full' }}€
               </button>
             </div>
 
             <div class="content">
-              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="counter-offer">contre-proposée à {{ currentPurchase.counterOfferAmount | currency:'full' }}€</span> !
+              Votre proposition de {{ bid.amount | currency:'full' }}€ a été <span class="counter-offer">contre-proposée à {{ bid.counterOfferAmount | currency:'full' }}€</span> !
             </div>
           </div>
 
@@ -62,12 +62,12 @@
           <div *ngIf="isAccepted()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
-                Acheter au prix de {{ priceTopay | currency:'full' }}€
+                Acheter au prix de {{ priceToPay | currency:'full' }}€
               </button>
             </div>
 
             <div class="content">
-              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="accepted">acceptée</span> !
+              Votre proposition de {{ bid.amount | currency:'full' }}€ a été <span class="accepted">acceptée</span> !
             </div>
           </div>
 
@@ -80,7 +80,7 @@
             </div>
 
             <div class="content">
-              Votre proposition de {{ currentPurchase.bidAmount | currency:'full' }}€ a été <span class="declined">refusée</span> :-(<br><br>
+              Votre proposition de {{ bid.amount | currency:'full' }}€ a été <span class="declined">refusée</span> :-(<br><br>
               Vous pouvez néanmoins toujours acheter le produit au prix coûtant ! :-)
             </div>
           </div>
@@ -94,7 +94,7 @@
             </div>
 
             <div class="content">
-              Votre proposition de <span class="bold">{{ currentPurchase.bidAmount | currency:'full' }}€</span> est en attente de traitement ;-)
+              Votre proposition de <span class="bold">{{ bid.amount | currency:'full' }}€</span> est en attente de traitement ;-)
             </div>
 
             <div class="content">
@@ -103,7 +103,7 @@
           </div>
 
           <!-- If no bid has been made -->
-          <div *ngIf="!hasBidded()" class="content">
+          <div *ngIf="!userManager.hasBidded(sale.id)" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter
@@ -120,18 +120,12 @@
       </div>
 
       <!-- When login fails -->
-      <div *ngIf="isLogged === false || accessToken !== 'good'" class="content">
+      <div *ngIf="!this.auth.isLogged()" class="content">
         <div class="content">
           <button (click)="goToLogin()" class="button is-light">
             Se connecter pour acheter
           </button>
         </div>
-
-        <!-- <div class="content">
-          <button (click)="goToLogin()" class="button is-text">
-            Veuillez-vous connecter ou créer un compte pour acheter ou faire une offre :)
-          </button>
-        </div> -->
       </div>
     </div>
   </div>

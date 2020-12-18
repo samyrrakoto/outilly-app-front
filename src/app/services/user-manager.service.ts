@@ -1,30 +1,40 @@
+import { Bid } from 'src/app/models/bid';
+import { Sale } from 'src/app/models/sale';
+import { Purchase } from 'src/app/models/purchase';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from './request.service';
 import { User } from 'src/app/models/user';
 import { Injectable } from '@angular/core';
-import { Address } from '../models/address';
+import { Address } from 'src/app/models/address';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagerService {
   user: User = new User();
+  activated: boolean;
   birthdate: string = '';
+  purchases: Purchase[];
+  sales: Sale[];
 
   constructor(
     private request: RequestService,
     private router: Router,
-    private auth: AuthService)
-  {
-    this.getUserInfos();
+    private auth: AuthService,
+    private purchaseManager: PurchaseManagerService)
+  {}
+
+  ngOnInit(): void {
   }
 
-  protected getUserInfos(): Promise<void> {
+  public getUserInfos(): Promise<void> {
     return new Promise((resolve)=> {
       this.request.getUserInfos().subscribe(
-        (value: any) => {
-          this.userMapping(value);
+        (user: any) => {
+          this.userMapping(user);
+          this.checkActivation();
           resolve()
         },
         () => {
@@ -35,7 +45,7 @@ export class UserManagerService {
     });
   }
 
-  protected userMapping(userRes: any): void {
+  private userMapping(userRes: any): void {
     this.user.id = userRes.id;
     this.user.username = userRes.username;
     this.user.userProfile.id = userRes.userProfile.id;
@@ -71,4 +81,52 @@ export class UserManagerService {
     }
   }
 
+  public getPurchases(): Promise<void> {
+    return new Promise((resolve) => {
+      this.purchaseManager.getPurchases()
+        .then((purchases) => {
+          this.purchases = purchases;
+          resolve();
+        })
+    });
+  }
+
+  public getBid(saleId: number): Bid {
+    const bid: Bid = new Bid();
+
+    for (const purchase of this.purchases) {
+      if (purchase.sale.id === saleId) {
+        bid.amount = purchase.bidAmount;
+        bid.counterOfferAmount = purchase.counterOfferAmount;
+        bid.isAccepted = purchase.isAccepted;
+        return bid;
+      }
+    }
+    return null;
+  }
+
+  public hasBidded(saleId: number): boolean {
+    for (const purchase of this.purchases) {
+      if (purchase.sale.id === saleId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public isUserSeller(saleId: number): boolean {
+    for (const sale of this.sales) {
+      if (sale.id === saleId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private checkActivation(): Promise<void> {
+    return new Promise((resolve) => {
+      this.activated = sessionStorage.getItem('userStatus') === 'activated';
+      resolve();
+    });
+  }
 }

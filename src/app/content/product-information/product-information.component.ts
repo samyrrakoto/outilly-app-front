@@ -1,3 +1,6 @@
+import { Bid } from 'src/app/models/bid';
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { prices } from 'src/app/parameters';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,14 +22,11 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   loaded: boolean = false;
   activated: boolean = false;
-  accessToken: string;
   isLogged: boolean;
   isAvailable: boolean;
   isSeller: boolean;
   id: number;
   sale: Sale;
-  sales: Array<Sale>;
-  inputProperties: Array<string>;
   genericQuestions: Array<string>;
   proposedPrice: number;
   minPrice: number;
@@ -40,8 +40,10 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     public request: RequestService,
     public router: Router,
     private route: ActivatedRoute,
+    public userManager: UserManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    public purchaseManager: PurchaseManagerService,
     public auth: AuthService,
     private title: Title)
   {
@@ -49,26 +51,16 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.sale = new Sale();
     this.genericQuestions = [];
     this.openMenuState = false;
-    this.sales = [];
   }
 
   ngOnInit(): void {
-    this.auth.getLogStatus()
-      .then(() => this.checkActivation())
-      .then(() => { this.getId() })
-      .then(() => this.getSalesId())
-      .then(() => this.isUserSeller())
-      .then(() => this.saleManager.getSaleAvailability(this.id.toString()))
-      .then((isAvailable: boolean) => {
-        return new Promise<void>((resolve) => {
-          this.isAvailable = isAvailable
-          resolve();
-        });
-      })
-      .then(() => this.getProductById(this.id.toString()))
-      .then(() => this.handleSaleStatus())
-      .then(() => this.loaded = true )
-      .catch((error: any) => this.handlingErrors(error));
+      this.getId()
+        .then(() => { return this.auth.isLogged() ? this.userManager.getPurchases() : null })
+        .then(() => this.getSaleAvailability(this.id))
+        .then(() => this.getProductById(this.id.toString()))
+        .then(() => this.handleSaleStatus())
+        .then(() => this.getPriceToPay())
+        .then(() => this.loaded = true );
   }
 
   private getId(): Promise<void> {
@@ -80,40 +72,14 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
-  private checkActivation(): Promise<void> {
-    return new Promise((resolve) => {
-      this.activated = sessionStorage.getItem('userStatus') === 'activated';
-      resolve();
+  private getSaleAvailability(saleId: number): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.saleManager.getSaleAvailability(this.id)
+        .then((isAvailable) => {
+          this.isAvailable = isAvailable;
+          resolve();
+        });
     });
-  }
-
-  private getSalesId(): Promise<void> {
-    return new Promise((resolve) => {
-
-      // If user logged and token is not expired
-      if (this.auth.logged && this.auth.getTokenStatus() === 'good') {
-        this.request.getUserInfos().subscribe(
-          (user: any) => {
-            for (const sale of user.sales) {
-              this.sales.push(sale);
-            }
-            resolve();
-          }
-        );
-      }
-      else {
-        resolve();
-      }
-    });
-  }
-
-  public isUserSeller(): Promise<any> {
-    for (const sale of this.sales) {
-      if (sale.id === this.id) {
-        this.isSeller = true;
-      }
-    }
-    return Promise.resolve();
   }
 
   private sortByMediaType(): void {
@@ -162,26 +128,22 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.openMenuState = state;
   }
 
-  public getPriceToPay(priceToPay: number): void {
-    console.log('COUCOU');
-    this.priceToPay = priceToPay === 0 ? this.sale.product.reservePrice : priceToPay;
-    console.log(this.priceToPay);
-  }
+  private getPriceToPay(): void {
+    if (this.auth.isLogged()) {
+      const bid: Bid = this.userManager.getBid(this.sale.id);
 
-  /*
-  ** ERROR HANDLING
-  */
-  private handlingErrors(errorName: string): void {
-    this['handle' + errorName + 'Error']();
-  }
-
-  private handleSaleIdError(): void {
-  }
-
-  private handleSaleStatusError(): void {
-  }
-
-  private handleProductUnavailableError(): void {
-
+      if (this.userManager.hasBidded(this.sale.id)) {
+        if (bid.counterOfferAmount > 0) {
+          this.priceToPay = bid.counterOfferAmount;
+        }
+        this.priceToPay = bid.isAccepted ? bid.amount : this.priceToPay = this.sale.product.reservePrice;
+      }
+      else {
+        this.priceToPay = this.sale.product.reservePrice;
+      }
+    }
+    else {
+      this.priceToPay = this.sale.product.reservePrice;
+    }
   }
 }

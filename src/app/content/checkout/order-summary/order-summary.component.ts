@@ -50,7 +50,7 @@ export class OrderSummaryComponent implements OnInit {
       .then(() => {
         if (this.auth.logged && this.auth.accessToken === 'good') {
           this.getSale()
-            .then(() =>  { return this.saleManager.getSaleAvailability(this.saleId) })
+            .then(() =>  { return this.saleManager.getSaleAvailability(parseInt(this.saleId)) })
             .then((isSaleAvailable: boolean) => this.saleAvailableHandler(isSaleAvailable))
             .then(() => this.getPriceToPay())
             .then(() => this.checkDeliveryMethod())

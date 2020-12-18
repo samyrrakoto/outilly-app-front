@@ -34,9 +34,9 @@ export class SaleManagerService {
     return false;
   }
 
-  public getSaleAvailability(saleId: string): Promise<any> {
+  public getSaleAvailability(saleId: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [saleId]).subscribe(
+      this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [saleId.toString()]).subscribe(
         (availability: any) => {
           resolve(availability.isSaleAvailable);
         },

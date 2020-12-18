@@ -1,9 +1,10 @@
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { Bid } from 'src/app/models/bid';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Sale } from 'src/app/models/sale';
-import { Purchase } from 'src/app/models/purchase';
 import { AuthService } from 'src/app/services/auth.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
 import { StickyMenuComponent } from '../sticky-menu.component';
@@ -14,15 +15,11 @@ import { StickyMenuComponent } from '../sticky-menu.component';
   styleUrls: ['../sticky-menu.component.css', './delivery-options.component.css']
 })
 export class DeliveryOptionsComponent implements OnInit {
-  @Input() isLogged: boolean;
   @Input() accessToken: string;
   @Input() sale: Sale;
   @Input() priceToPay: number;
   @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
-  priceTopay: number;
-  id: number;
-  purchases: Array<Purchase>;
-  currentPurchase: Purchase;
+  bid: Bid;
   deliveryName: string;
   deliveryFees: number;
   errorMsg: string;
@@ -33,100 +30,35 @@ export class DeliveryOptionsComponent implements OnInit {
     public router: Router,
     public location: Location,
     public sticky: StickyMenuComponent,
+    public userManager: UserManagerService,
     public purchaseManager: PurchaseManagerService) {
     this.sticky.current = 'deliveryOptions';
     this.sticky.previous = '';
     this.sticky.next = 'buyingConfirmation';
     this.sticky.nextAlt = 'buyingProposition';
-    this.id = 0;
-    this.purchases = [];
-    this.currentPurchase = null;
-    this.priceTopay = 0;
     this.deliveryFees = 0;
     this.deliveryName = '';
     this.errorMsg = '';
   }
 
   ngOnInit(): void {
-    if (this.isLogged && this.accessToken === 'good') {
-      this.getId()
-        .then(() => this.purchaseManager.getPurchases())
-        .then((purchases: Array<Purchase>) => {
-          this.purchases = purchases;
-
-          if (this.hasBidded()) {
-            this.currentPurchase = this.getCurrentPurchase();
-          }
-
-          this.getPriceToPay();
-      });
-    }
-    this.priceToPay = this.sale.product.reservePrice;
-    this.priceToPayEmitter.emit(this.priceToPay);
-  }
-
-  private getCurrentPurchase(): Purchase {
-    for (const purchase of this.purchases) {
-      if (purchase.sale.id === this.id) {
-        return purchase;
-      }
-    }
-    return null;
-  }
-
-  private getId(): Promise<void> {
-    return new Promise((resolve) => {
-      this.route.params.subscribe(params => {
-        this.id = parseInt(params.id);
-        resolve();
-      });
-    });
-  }
-
-  private getPriceToPay() {
-    if (this.hasBidded()) {
-      if (this.currentPurchase.counterOfferAmount > 0) {
-        this.priceTopay = this.currentPurchase.counterOfferAmount;
-      }
-      else if (this.currentPurchase.isAccepted) {
-        this.priceTopay = this.currentPurchase.bidAmount;
-      }
-      else {
-        this.priceTopay = this.sale.product.reservePrice;
-      }
-    }
-    else {
-      this.priceTopay = this.sale.product.reservePrice;
-    }
-    this.priceToPayEmitter.emit(this.priceTopay);
-  }
-
-  public hasBidded(): boolean {
-    for (const purchase of this.purchases) {
-      if (purchase.sale.id === this.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public isAccepted(): boolean {
-    return this.currentPurchase !== null ? this.currentPurchase.isAccepted : null;
-  }
-
-  public isDeclined(): boolean {
-    return this.currentPurchase !== null ? this.currentPurchase.isAccepted === false : null;
-  }
-
-  public isCounterOffer(): boolean {
-    return this.currentPurchase !== null ? this.currentPurchase.counterOfferAmount > 0 : null;
+    this.auth.isLogged() ? this.bid = this.userManager.getBid(this.sale.id) : null;
   }
 
   public isPending(): boolean {
-    if (this.hasBidded()) {
-      return this.currentPurchase.isClosed === null ? true : false;
-    }
-    return false;
+    return this.bid.isClosed === false;
+  }
+
+  public isAccepted(): boolean {
+    return this.bid !== null ? this.bid.isAccepted : null;
+  }
+
+  public isDeclined(): boolean {
+    return this.bid !== null ? this.bid.isAccepted === false : null;
+  }
+
+  public isCounterOffer(): boolean {
+    return this.bid !== null ? this.bid.counterOfferAmount > 0 : null;
   }
 
   public nextStep() {

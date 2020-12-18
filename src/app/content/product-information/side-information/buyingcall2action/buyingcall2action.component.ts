@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
-import { BidManagerService } from 'src/app/services/bid-manager.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
 
@@ -21,11 +17,6 @@ export class Buyingcall2actionComponent extends GenericComponent implements OnIn
   open: boolean;
 
   constructor(
-    request: RequestService,
-    router: Router,
-    route: ActivatedRoute,
-    bidManager: BidManagerService,
-    auth: AuthService,
     public saleManager: SaleManagerService)
   {
     super();
