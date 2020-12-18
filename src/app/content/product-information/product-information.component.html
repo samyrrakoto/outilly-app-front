@@ -28,7 +28,7 @@
         </side-information>
       </div>
 
-      <sticky-menu *ngIf="!isSeller && sale.id !== 0"
+      <sticky-menu *ngIf="!isSeller && sale.id !== 0 && sale.status !== 'sold'"
         [sale]=sale
         [priceToPay]=priceToPay
         [errorMsg]=errorMsg
