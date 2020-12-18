@@ -86,7 +86,7 @@
     <td>
       <div *ngFor="let media of formData.product.productMedias">
         <div *ngIf="media.type === 'image'">
-          <img class="media" src="{{ mediaBaseUri + media.path }}">
+          <img class="media" src="{{ mediaBaseUri + media.path }}" alt="product picture">
         </div>
       </div>
     </td>
