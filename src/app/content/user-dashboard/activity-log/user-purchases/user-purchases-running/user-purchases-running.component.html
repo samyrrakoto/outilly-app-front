@@ -16,10 +16,16 @@
             <mat-expansion-panel-header>
             <mat-panel-title>
               <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
-              <fa-icon *ngIf="purchase.isRead && purchase.isAccepted" class="accepted" [icon]="['fas', 'check']"></fa-icon>
-              <fa-icon *ngIf="purchase.isRead && purchase.isAccepted === false" class="declined" [icon]="['fas', 'times-circle']"></fa-icon>
-              <fa-icon *ngIf="purchase.isRead && purchase.counterOfferAmount > 0" class="counter-offer" [icon]="['fas', 'exchange-alt']"></fa-icon>
               {{ purchase.productName }}
+              <span *ngIf="purchase.isRead && purchase.isAccepted === false" class="tag is-danger is-light small-text small-left-margin">
+                &nbsp;Refusée
+              </span>
+              <span *ngIf="purchase.isRead && purchase.isAccepted === true" class="tag is-success is-light small-text small-left-margin">
+                &nbsp;Acceptée
+              </span>
+              <span *ngIf="purchase.isRead && purchase.counterOfferAmount > 0" class="tag is-info is-light small-text small-left-margin">
+                &nbsp;Contre-offre proposée
+              </span>
             </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-panel-description>
