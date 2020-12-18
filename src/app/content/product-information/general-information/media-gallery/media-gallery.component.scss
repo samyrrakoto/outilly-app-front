@@ -48,6 +48,10 @@
   transition: 1s;
 }
 
+.video-thumbnail {
+  object-fit: scale-down;
+}
+
 .main-image {
   display: inline-flex;
 }

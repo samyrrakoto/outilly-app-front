@@ -6,7 +6,7 @@
       <div *ngFor="let media of sale.product.productMedias.slice(0,3); index as i">
         <div class="column is-narrow">
           <img *ngIf="media.type === 'image'" class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, media.type)">
-          <img *ngIf="media.type === 'video'" class="top-thumbnail" src="/assets/img/logo/play.png" (click)="openGalleryMedia(i, media.type)">
+          <img *ngIf="media.type === 'video'" src="/assets/img/logo/play.png" class="top-thumbnail video-thumbnail" [ngStyle]="{ 'background-image': firstImage }" (click)="openGalleryMedia(i, media.type)">
         </div>
       </div>
     </div>

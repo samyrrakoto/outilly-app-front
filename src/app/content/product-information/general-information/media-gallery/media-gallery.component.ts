@@ -13,6 +13,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 export class MediaGalleryComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  firstImage: string = '';
 
   constructor(
     public auth: AuthService,
@@ -21,7 +22,11 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.removeThumbnail();
+    this.getFirstImage();
+    console.log(this.firstImage);
+  }
 
   // Keyboard shortcuts
   public onKey(event: KeyboardEvent): void {
@@ -30,6 +35,17 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     }
     else if (event.key === 'ArrowLeft') {
       this.previousMedia();
+    }
+  }
+
+  private removeThumbnail(): void {
+    let i: number = 0;
+
+    for (const media of this.sale.product.productMedias) {
+      if (media.type === 'thumbnail') {
+        this.sale.product.productMedias.splice(i, 1);
+      }
+      i++;
     }
   }
 
@@ -62,6 +78,15 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     this.media.index === lastIndex ? this.media.index = 0 : this.media.index++;
     this.media.type = this.sale.product.productMedias[this.media.index].type;
     this.media.path = this.sale.product.productMedias[this.media.index].path;
+  }
+
+  public getFirstImage(): void {
+    for (const media of this.sale.product.productMedias) {
+      if (media.type === 'image') {
+        this.firstImage = "url('" + this.mediaBaseUri + media.path + "')";
+        return;
+      }
+    }
   }
 
   public getBackgroundImgUrl(path: string): string {
