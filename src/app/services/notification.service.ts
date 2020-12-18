@@ -94,7 +94,7 @@ export class NotificationService {
         this.runningSalesStatus = false;
 
         for (const sale of this.runningSales) {
-          if (this.saleManager.hasNonTreatedBids(sale)) {
+          if (this.saleManager.hasNonTreatedBids(sale) && sale.bids[0].isRead === false) {
             this.runningSalesStatus = true;
             this.allSalesStatus = true;
             return;
