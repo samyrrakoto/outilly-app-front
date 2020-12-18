@@ -12,10 +12,13 @@
       </div>
 
       <mat-accordion *ngIf="runningPurchases.length > 0">
-        <mat-expansion-panel *ngFor="let purchase of runningPurchases">
+        <mat-expansion-panel (click)="noteAsRead(purchase.bidId)" *ngFor="let purchase of runningPurchases">
             <mat-expansion-panel-header>
             <mat-panel-title>
-              <fa-icon *ngIf="purchaseManager.requireAction(purchase)" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+              <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+              <fa-icon *ngIf="purchase.isRead && purchase.isAccepted" class="accepted" [icon]="['fas', 'check']"></fa-icon>
+              <fa-icon *ngIf="purchase.isRead && purchase.isAccepted === false" class="declined" [icon]="['fas', 'times-circle']"></fa-icon>
+              <fa-icon *ngIf="purchase.isRead && purchase.counterOfferAmount > 0" class="counter-offer" [icon]="['fas', 'exchange-alt']"></fa-icon>
               {{ purchase.productName }}
             </mat-panel-title>
             </mat-expansion-panel-header>
