@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
 import { Component } from '@angular/core';
@@ -30,6 +31,7 @@ export class UserPurchasesRunningComponent {
     public purchaseManager: PurchaseManagerService,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    private notification: NotificationService,
     public location: Location,
     public title: Title)
   {
@@ -40,29 +42,38 @@ export class UserPurchasesRunningComponent {
   }
 
   ngOnInit(): void {
-    this.getRunningPurchases();
+    this.getRunningPurchases()
+      .then(() => this.loaded = true);
   }
 
   public getRunningPurchases(): Promise<void> {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
+          console.log(purchases);
           this.runningPurchases = purchases;
-          this.loaded = true;
           resolve();
         });
     });
   }
 
-  public goToProductPage(purchase): void {
-
+  public goToProductPage(purchase: Purchase): void {
+    console.log(purchase);
+    this.router.navigate(['/product/' + purchase.productName + '/' + purchase.sale.id]);
   }
 
-  public noteAsRead(bidId: number): void {
-    this.request.patchData(null, this.request.uri.READ_BID + bidId).subscribe(
-      (res: any) => {
-        console.log(res);
-      }
-    )
+  public noteAsRead(currentPurchase: Purchase): void {
+    if (currentPurchase.isRead === false) {
+      this.request.patchData(null, this.request.uri.READ_BID + currentPurchase.bidId).subscribe(
+        () => {
+          for (const purchase of this.runningPurchases) {
+            if (currentPurchase.bidId === purchase.bidId) {
+              currentPurchase.isRead = true;
+              this.notification.checkAllNotifications();
+            }
+          }
+        }
+      )
+    }
   }
 }

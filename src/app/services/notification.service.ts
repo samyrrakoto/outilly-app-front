@@ -83,11 +83,16 @@ export class NotificationService {
     this.checkRunningSalesNotification();
     this.checkRunningPurchasesNotification();
     this.checkConfirmedSalesNotification();
+    if (!this.runningPurchasesStatus && !this.runningSalesStatus && !this.confirmedSalesStatus) {
+      this.allSalesStatus = false;
+    }
   }
 
   public checkRunningSalesNotification(): void {
     this.getRunningSales()
       .then(() => {
+        this.runningSalesStatus = false;
+
         for (const sale of this.runningSales) {
           if (this.saleManager.hasNonTreatedBids(sale)) {
             this.runningSalesStatus = true;
@@ -101,8 +106,10 @@ export class NotificationService {
   public checkRunningPurchasesNotification(): void {
     this.getRunningPurchases()
       .then(() => {
+        this.runningPurchasesStatus = false;
+
         for (const purchase of this.runningPurchases) {
-          if (this.purchaseManager.requireAction(purchase)) {
+          if (this.purchaseManager.requireAction(purchase) && !purchase.isRead) {
             this.runningPurchasesStatus = true;
             this.allSalesStatus = true;
             return;
@@ -114,6 +121,8 @@ export class NotificationService {
   public checkConfirmedSalesNotification(): void {
     this.getConfirmedSales()
       .then(() => {
+        this.confirmedSalesStatus = false;
+
         for (const order of this.confirmedSales) {
           if (order.shipMethod === 'RelayShip' && order.mrExpedition === null) {
             this.confirmedSalesStatus = true;
