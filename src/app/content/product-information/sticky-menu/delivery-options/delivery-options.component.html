@@ -10,12 +10,12 @@
 
       <div id="delivery-tiles" class="content">
         <div class="content">
-          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', 690)">
+          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', mrCosts)">
             <img src="/assets/img/logo/mondial-relay-logo.png">
 
             <div class="content">
               MONDIAL RELAY<br>
-              <span class="price">6,90€</span><br><br>
+              <span class="price">{{ mrCosts | currency:'full' | number:'1.2-2' }}€</span><br><br>
             </div>
           </div>
           <span class="delay discreet-text">4-5 jours ouvrés</span>

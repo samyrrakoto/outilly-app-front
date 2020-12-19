@@ -10,6 +10,11 @@
 </div>
 
 <div class="content is-size-7">
-    Ce prix ne tient pas compte des frais de port.<br>
-    Livraison à partir de <span class="has-text-weight-bold">6,90€</span> en France métropolitaine.
+  <div class="content">
+    Ce prix ne tient pas compte des frais de sécurisation.
+  </div>
+
+  <div class="content">
+    Frais de livraison : <span class="has-text-weight-bold">{{ mrCosts | currency:'full' | number:'1.2-2' }}€</span>.
+  </div>
 </div>

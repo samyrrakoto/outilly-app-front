@@ -15,6 +15,7 @@
         <div id="menu-content-desktop" class="content is-hidden-mobile">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
             [priceToPay]=priceToPay
+            [mrCosts]=mrCosts
             [sale]="sale">
           </delivery-options>
           <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
