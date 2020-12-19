@@ -10,6 +10,7 @@
   --KTKP-GREY-LIGHT: #F8F8F8;
   --KTKP-GREY-DARKER: #DEDEDE;
   --KTKP-BLACK: rgb(42, 41, 41);
+  --KTKP-PURPLE: #711e80;
 
   --GREY-LIGHT: #DBDBDB;
   --FAKE-WHITE: rgba(248, 248, 248, 0.865);
@@ -51,6 +52,14 @@
 
 .no-margin {
   margin: 0px;
+}
+
+.purple {
+  color: var(--KTKP-PURPLE);
+}
+
+.red {
+  color: var(--KTKP-RED);
 }
 
 /* Tags definition */
