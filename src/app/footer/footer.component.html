@@ -41,13 +41,17 @@
           <div class="columns">
             <div class="column">
               <ul>
-                <li *ngFor="let brand of footerBrands.slice(0, 5)"><a>{{ brand }}</a></li>
+                <li *ngFor="let brand of footerBrands.slice(0, 5)">
+                  <a (click)="brandManager.goToBrand(brand)">{{ brand }}</a>
+                </li>
               </ul>
             </div>
 
             <div class="column">
               <ul>
-                <li *ngFor="let brand of footerBrands.slice(5)"><a>{{ brand }}</a></li>
+                <li *ngFor="let brand of footerBrands.slice(5)">
+                  <a (click)="brandManager.goToBrand(brand)">{{ brand }}</a>
+                </li>
               </ul>
             </div>
           </div>

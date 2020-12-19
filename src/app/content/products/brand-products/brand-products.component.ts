@@ -24,6 +24,7 @@ export class BrandProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('sales init');
     this.getBrandId()
       .then(() => this.getBrandName())
       .then(() => this.getSales().subscribe(

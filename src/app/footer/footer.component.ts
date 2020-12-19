@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { BrandManagerService } from './../services/brand-manager.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
   readonly footerBrands: string[] = [
     'Facom',
-    'Bosch',
+    'BOSCH',
     'Milwaukee',
     'Makita',
     'Tubesca',
@@ -20,8 +22,12 @@ export class FooterComponent implements OnInit {
   ];
   @Input() toDisplay: boolean;
 
-  constructor() { }
+  constructor(
+    public brandManager: BrandManagerService)
+  {
+  }
 
   ngOnInit(): void {
+    this.brandManager.getBrands();
   }
 }
