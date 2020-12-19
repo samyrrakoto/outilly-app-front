@@ -66,15 +66,25 @@
 
             <div class="column">
               <div class="field">
+                <form [formGroup]="form">
                 <p class="control has-icons-left">
-                  <input class="input is-dark" type="text" pattern="^[a-zA-Z]+$" [(ngModel)]="cardOwner" required>
+                  <input class="input is-dark" type="text"
+                    [(ngModel)]="payment.cardOwner"
+                    formControlName="cardOwner"
+                    [ngClass]="{'is-invalid': controls.cardOwner.errors && payment.cardOwner, 'is-valid': !controls.cardOwner.errors }">
                   <span class="icon is-small is-left">
                     <fa-icon [icon]="['fas', 'user']"></fa-icon>
                   </span>
                 </p>
+                </form>
               </div>
             </div>
           </div>
+
+          <span *ngIf="controls.cardOwner.errors && payment.cardOwner" class="invalid-feedback" [ngClass]="{'is-invalid': controls.cardOwner.errors }">
+            <span class="error" *ngIf="controls.cardOwner.errors.required">Le nom est requis pour compléter la transaction</span>
+            <span class="error" *ngIf="controls.cardOwner.errors.pattern">Le nom est invalide</span>
+          </span>
 
           <!-- Card number -->
           <div class="columns field-block is-centered is-vcentered">
@@ -84,15 +94,25 @@
 
             <div class="column has-text-centered-mobile">
               <div class="field">
-                <p class="control has-icons-left">
-                  <input class="input is-dark" type="text" pattern="^[0-9]{16}$" maxlength="16" [(ngModel)]="cardNumber" required>
-                  <span class="icon is-small is-left">
-                    <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
-                  </span>
-                </p>
+                <form [formGroup]="form">
+                  <p class="control has-icons-left">
+                    <input class="input is-dark" type="text" maxlength="16"
+                      formControlName="cardNumber"
+                      [(ngModel)]="payment.cardNumber"
+                      [ngClass]="{'is-invalid': controls.cardNumber.errors && payment.cardNumber, 'is-valid': !controls.cardNumber.errors }">
+                    <span class="icon is-small is-left">
+                      <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
+                    </span>
+                  </p>
+                </form>
               </div>
             </div>
           </div>
+
+          <span *ngIf="controls.cardNumber.errors && payment.cardNumber" class="invalid-feedback" [ngClass]="{'is-invalid': controls.cardNumber.errors }">
+            <span class="error" *ngIf="controls.cardNumber.errors.required">Le numéro de carte est requis pour compléter la transaction</span>
+            <span class="error" *ngIf="controls.cardNumber.errors.pattern">Le numéro de carte est invalide</span>
+          </span>
 
           <!-- Expiration Date -->
           <div class="columns field-block is-centered is-vcentered">
@@ -105,20 +125,38 @@
               <div class="field-body expiration-date is-mobile">
                 <!-- Expiration month -->
                 <div class="field">
-                  <p class="control">
-                    <input class="input is-dark expiration-date" placeholder="mm" type="text" pattern="^(0[1-9])|(1[0-2])$" maxlength="2" [(ngModel)]="cardExpirationMonth" required>
-                  </p>
+                  <form [formGroup]="form">
+                    <p class="control">
+                      <input class="input is-dark expiration-date" placeholder="mm" type="text" maxlength="2"
+                        formControlName="cardExpirationMonth"
+                        [(ngModel)]="payment.cardExpirationMonth"
+                        [ngClass]="{'is-invalid': controls.cardExpirationMonth.errors && payment.cardExpirationMonth, 'is-valid': !controls.cardExpirationMonth.errors }">
+                    </p>
+                  </form>
                 </div>
 
                 <!-- Expiration year -->
                 <div class="field">
-                  <p class="control">
-                    <input class="input is-dark expiration-date" placeholder="aa" type="text" pattern="^2[0-9]$" maxlength="2" [(ngModel)]="cardExpirationYear" required>
-                  </p>
+                  <form [formGroup]="form">
+                    <p class="control">
+                      <input class="input is-dark expiration-date" placeholder="aa" type="text" maxlength="2"
+                        [(ngModel)]="payment.cardExpirationYear"
+                        formControlName="cardExpirationYear"
+                        [ngClass]="{'is-invalid': controls.cardExpirationYear.errors && payment.cardExpirationYear, 'is-valid': !controls.cardExpirationYear.errors }">
+                    </p>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
+
+          <span *ngIf="controls.cardExpirationMonth.errors && payment.cardExpirationMonth" class="invalid-feedback" [ngClass]="{'is-invalid': controls.cardExpirationMonth.errors }">
+            <span class="error" *ngIf="controls.cardExpirationMonth.errors.pattern">Le mois d'expiration est invalide</span>
+          </span>
+
+          <span *ngIf="controls.cardExpirationYear.errors && payment.cardExpirationYear" class="invalid-feedback" [ngClass]="{'is-invalid': controls.cardExpirationYear.errors }">
+            <span class="error" *ngIf="controls.cardExpirationYear.errors.pattern">L'année d'expiration est invalide</span>
+          </span>
 
           <!-- Security Code -->
           <div class="columns field-block is-centered is-vcentered">
@@ -130,24 +168,27 @@
 
             <div class="column">
               <div class="field" id="security-code">
-                <p class="control">
-                  <input class="input is-dark" type="text" pattern="^[0-9]{3}$" maxlength="3" [(ngModel)]="cardCvx" required>
-                </p>
+                <form [formGroup]="form">
+                  <p class="control">
+                    <input class="input is-dark" type="text" maxlength="3"
+                      formControlName="cardCvx"
+                      [ngClass]="{'is-invalid': controls.cardCvx.errors && payment.cardCvx, 'is-valid': !controls.cardCvx.errors }"
+                      [(ngModel)]="payment.cardCvx">
+                  </p>
+                </form>
               </div>
             </div>
           </div>
 
-        <!-- Error display -->
-        <div *ngFor="let message of paymentValidator.errorMessages" class="notification is-light has-text-danger addspacebelow">
-          <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
-          {{ message }}
-        </div>
+          <span *ngIf="controls.cardCvx.errors && payment.cardCvx" class="invalid-feedback" [ngClass]="{'is-invalid': controls.cardCvx.errors }">
+            <span class="error" *ngIf="controls.cardCvx.errors.pattern">Le code de sécurité est invalide</span>
+          </span>
 
         <div class="content">
           <img src="/assets/img/logo/visa-mastercard.png">
         </div>
 
-        <button *ngIf="loading === false" (click)="checkData(); saveCardInformation(); loading = true" id="lock" class="button is-danger is-large">
+        <button *ngIf="loading === false" (click)="payment.saveCardInformation(); loading = true" id="lock" class="button is-danger is-large">
           <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
           Valider le paiement de {{ orderPrice | currency:'full' }}€
         </button>
