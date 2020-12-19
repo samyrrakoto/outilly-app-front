@@ -276,6 +276,14 @@
   height: auto !important;
 }
 
+.input.is-invalid {
+  border-color: var(--KTKP-RED);
+}
+
+.input.is-valid {
+  border-color: var(--KTKP-GREEN);
+}
+
 .button.is-success, .button.is-success:hover {
   color: white;
 }
