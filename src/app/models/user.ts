@@ -7,6 +7,7 @@ export class User {
     newPassword: string;
     passwordConfirmation: string;
     userProfile: UserProfile;
+    status: string;
 
     constructor() {
       this.id = 0;
@@ -15,5 +16,6 @@ export class User {
       this.newPassword = '';
       this.passwordConfirmation = '';
       this.userProfile = new UserProfile();
+      this.status = 'toActivate';
     }
 }

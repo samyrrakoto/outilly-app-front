@@ -21,7 +21,6 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   loaded: boolean = false;
-  activated: boolean = false;
   isLogged: boolean;
   isAvailable: boolean;
   isSeller: boolean;
@@ -74,7 +73,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   private getSaleAvailability(saleId: number): Promise<void> {
     return new Promise<void>((resolve) => {
-      this.saleManager.getSaleAvailability(this.id)
+      this.saleManager.getSaleAvailability(saleId)
         .then((isAvailable) => {
           this.isAvailable = isAvailable;
           resolve();
