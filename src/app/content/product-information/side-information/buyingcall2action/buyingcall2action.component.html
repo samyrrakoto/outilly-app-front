@@ -14,7 +14,7 @@
     Ce prix ne tient pas compte des frais de sécurisation.
   </div>
 
-  <div class="content">
+  <div *ngIf="sale.product.toDeliver" class="content">
     Frais de livraison : <span class="has-text-weight-bold">{{ mrCosts | currency:'full' | number:'1.2-2' }}€</span>.
   </div>
 </div>

@@ -110,16 +110,16 @@
   </tr>
   <tr>
     <td class="field-name">Livraison</td>
-    <td *ngIf="formData.product.todeliver">Oui</td>
-    <td *ngIf="!formData.product.todeliver">Non</td>
+    <td *ngIf="formData.product.toDeliver">Oui</td>
+    <td *ngIf="!formData.product.toDeliver">Non</td>
     <td class="has-text-right"><button routerLink="/product/create/product-delivery" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr *ngIf="formData.product.todeliver">
+  <tr *ngIf="formData.product.toDeliver">
     <td class="field-name">Code postal</td>
     <td>{{ formData.product.locality }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr *ngIf="formData.product.todeliver">
+  <tr *ngIf="formData.product.toDeliver">
     <td class="field-name">Poids du colis</td>
     <td>{{ formData.product.weight }}{{ formData.product.weightUnity }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-weight" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>

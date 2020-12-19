@@ -22,7 +22,7 @@ export class Product {
   description: string;
   shortDescription: string;
   isWarrantied: boolean;
-  todeliver: boolean;
+  toDeliver: boolean;
   buyingOption: string;
   warrantyDuration: number;
   strId: string;
@@ -53,7 +53,7 @@ export class Product {
     this.weightUnity = 'kg';
     this.locality = '';
     this.isWarrantied = null;
-    this.todeliver = null;
+    this.toDeliver = null;
     this.buyingOption = "classic";
     this.warrantyDuration = null;
     this.priceOfNew = null;

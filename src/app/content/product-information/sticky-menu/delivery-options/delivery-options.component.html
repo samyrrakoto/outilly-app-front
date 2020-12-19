@@ -9,7 +9,7 @@
       <h3 class="subtitle is-6">Choisissez votre mode de remise</h3>
 
       <div id="delivery-tiles" class="content">
-        <div class="content">
+        <div *ngIf="sale.product.toDeliver" class="content">
           <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', mrCosts)">
             <img src="/assets/img/logo/mondial-relay-logo.png">
 
