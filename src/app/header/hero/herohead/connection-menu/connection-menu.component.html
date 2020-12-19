@@ -1,9 +1,9 @@
-<nav id="connection-container" class="level is-mobile">
-  <div class="level-left">
+<nav id="connection-container" class="level">
+  <div id="empty-level" class="level-left">
   </div>
 
   <div id="connection-button" class="level-right">
-    <nav class="level is-mobile">
+    <nav class="level">
       <div *ngIf="auth.logged" routerLink="/user/dashboard" id="right-element" class="level-right pointed">
         <fa-icon class="side-icon" [icon]="['fas', 'user']"></fa-icon>
         Mes informations
