@@ -25,7 +25,6 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
   ngOnInit(): void {
     this.removeThumbnail();
     this.getFirstImage();
-    console.log(this.firstImage);
   }
 
   // Keyboard shortcuts

@@ -26,3 +26,21 @@
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  #connection-container {
+    border: none;
+  }
+
+  #connection-button {
+    border-radius: 0px;
+    text-align: right;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+
+  #empty-level {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
