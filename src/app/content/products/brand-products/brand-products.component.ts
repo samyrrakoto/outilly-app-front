@@ -24,22 +24,24 @@ export class BrandProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBrandId()
-      .then(() => this.getBrandName())
-      .then(() => this.getSales().subscribe(
-        (res: any) => {
-          this.sales = res;
-        }
-      ));
+    this.getBrandId();
   }
 
   private getBrandId(): Promise<void> {
     return new Promise((resolve) => {
       this.route.params.subscribe(
-      (params) => {
-        this.brandId = +params['brandId'];
-        resolve();
-      });
+        (params) => {
+          this.brandId = +params['brandId'];
+          this.getBrandName()
+            .then(() => this.getSales().subscribe(
+              (res: any) => {
+                this.currentPage = 1;
+                this.noResult = false;
+                this.sales = res;
+                resolve();
+              }
+            ));
+        });
     });
   }
 

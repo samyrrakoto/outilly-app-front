@@ -1,25 +1,103 @@
-<footer *ngIf="toDisplay" class="footer has-text-centered has-background-dark has-text-white">
-  <p>
-    © 2020 - L'Outillerie | Tous droits réservés - Mentions légales - Politique de confidentialité - Conditions Générales de Vente/Utilisation - Nous contacter
-  </p>
+<footer *ngIf="toDisplay" class="footer">
+  <div class="columns is-centered has-text-centered-mobile">
+    <div class="column is-9">
+      <div class="columns is-centered">
 
-  <p>
-    Nous sécurisons toutes vos transactions de biens grâce à notre partenaire de confiance.
-  </p>
+        <!-- About -->
+        <div class="column">
+          <h1 class="title">A propos d'Outilly</h1>
 
-  <div class="columns is-centered has-text-centered">
-    <div class="column is-3">
-      <h2 class="subtitle">MODES DE PAIEMENT</h2>
-      <p>
-        100% sécurisé avec notre partenaire MangoPay.
-      </p>
-    </div>
+          <div class="columns">
+            <div class="column">
+              <ul>
+                <li><a>Mécanique</a></li>
+                <li><a>Bricolage</a></li>
+                <li><a>Atelier</a></li>
+                <li><a>Jardin</a></li>
+                <li><a>Fin de chantier</a></li>
+              </ul>
+            </div>
 
-    <div class="column is-3">
-      <h2 class="subtitle">MODES DE LIVRAISON</h2>
-      <p>
-        En point relais avec Mondial Relay.<br>
-      </p>
+            <div class="column">
+              <ul>
+                <li><a>L'équipe</a></li>
+                <li><a>Nous contacter</a></li>
+                <li><a>Sitemap</a></li>
+              </ul>
+
+              <div id="social-network" class="content has-text-centered">
+                <a><fa-icon [icon]="['fab', 'youtube']" class="declined"></fa-icon></a>
+                <a><fa-icon [icon]="['fab', 'facebook-square']" class="counter-offer"></fa-icon></a>
+                <a><fa-icon [icon]="['fab', 'instagram-square']" class="purple"></fa-icon></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brands -->
+        <div class="column">
+          <h1 class="title">Nos marques</h1>
+
+          <div class="columns">
+            <div class="column">
+              <ul>
+                <li *ngFor="let brand of footerBrands.slice(0, 5)">
+                  <a (click)="brandManager.goToBrand(brand)">{{ brand }}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="column">
+              <ul>
+                <li *ngFor="let brand of footerBrands.slice(5)">
+                  <a (click)="brandManager.goToBrand(brand)">{{ brand }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legal information -->
+        <div class="column">
+          <h1 class="title">Informations légales</h1>
+
+          <ul>
+            <li><a>Mentions légales</a></li>
+            <li><a>Politique de confidentialité</a></li>
+            <li><a>Conditions Générales de Ventes/Utilisation</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content has-text-centered">
+        Nous sécurisons toutes vos transactions de biens grâce à nos partenaires de confiance
+      </div>
+
+      <div class="columns has-text-centered">
+        <div class="column">
+          <h2 class="subtitle">{{ 'Modes de paiement' | uppercase }}</h2>
+
+          <div class="content">
+            100% sécurisé avec notre partenaire MangoPay par carte bancaire.
+          </div>
+
+          <div class="content">
+            <img id="mangopay-logo" src="/assets/img/logo/powered-by-mangopay.png" alt="MangoPay">
+          </div>
+        </div>
+
+        <div class="column">
+          <h2 class="subtitle">{{ 'Modes de livraison' | uppercase }}</h2>
+
+          <div class="content">
+            En point relais avec Mondial Relay.
+          </div>
+
+          <div class="content">
+            <img id="mondial-relay-logo" src="/assets/img/logo/mondial-relay-logo.png" alt="mondial-relay-logo">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
