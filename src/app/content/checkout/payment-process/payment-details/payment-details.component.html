@@ -15,6 +15,39 @@
 
 <div class="columns is-centered">
   <div class="column is-8">
+    <article *ngIf="testCard" class="message is-success">
+      <div class="message-header">
+        <h1 class="title has-text-white">Cartes de tests</h1>
+      </div>
+
+      <div class="message-body">
+        <div class="content">
+          <h1 class="subtitle">Pour les paiements de <span class="declined">- de 50€ (non-inclus)</span></h1>
+          <ul>
+            <li>4972485830400049</li>
+            <li>4972485830400056</li>
+            <li>4972485830400064</li>
+            <li>4972485830400072</li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <h1 class="subtitle">Pour les paiements de <span class="declined">+ de 50€ (inclus)</span></h1>
+
+          <div class="content">
+            <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+            Pour ces paiements, le 3D Secure va s'activer, vous allez être <span class="bold">redirigé vers une page de validation</span>.<br><br>
+            Le mot de passe devra <span class="underline">obligatoirement</span> être <span class="declined">MANGOPAY123</span> (en respectant les majuscules).
+          </div>
+
+          <ul>
+            <li>4970104100876588</li>
+            <li>4970104100876596</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
     <div class="box has-text-centered">
       <div id="header" class="content">
         <h2 class="subtitle">Informations de la carte</h2>

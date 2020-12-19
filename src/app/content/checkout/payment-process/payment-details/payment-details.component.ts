@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { OrderManagerService } from './../../../../services/order-manager.service';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { PaymentValidatorService } from 'src/app/services/payment-validator.service';
@@ -29,6 +30,7 @@ export class PaymentDetailsComponent implements OnInit {
   cardExpirationMonth: string;
   cardExpirationYear: string;
   cardCvx: string;
+  testCard: boolean = environment.testCard;
   saleId: string;
   orderPrice: number = 0;
   loading: boolean;
