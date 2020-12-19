@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+import { OrderManagerService } from './../../../../services/order-manager.service';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { PaymentValidatorService } from 'src/app/services/payment-validator.service';
 import { Router } from '@angular/router';
@@ -28,7 +30,9 @@ export class PaymentDetailsComponent implements OnInit {
   cardExpirationMonth: string;
   cardExpirationYear: string;
   cardCvx: string;
+  testCard: boolean = environment.testCard;
   saleId: string;
+  orderPrice: number = 0;
   loading: boolean;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly pageTitle: string = 'Paiement';
@@ -40,6 +44,7 @@ export class PaymentDetailsComponent implements OnInit {
     private http: HttpClient,
     public paymentValidator: PaymentValidatorService,
     public saleManager: SaleManagerService,
+    private orderManager: OrderManagerService,
     private title: Title)
   {
     this.cardOwner = '';
@@ -53,7 +58,12 @@ export class PaymentDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.pageNameManager.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
-    this.auth.getLogStatus();
+    this.auth.getLogStatus()
+      .then(() => {
+        if (this.auth.isLogged()) {
+          this.getOrderPriceById(parseInt(sessionStorage.getItem('orderId')));
+        }
+      });
     this.saleManager.getSaleAvailability(parseInt(this.saleId))
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
@@ -72,6 +82,17 @@ export class PaymentDetailsComponent implements OnInit {
       })
       .then(() => { this.preregister() })
       .catch((error: any) => { this.handleErrors(error) });
+  }
+
+  private getOrderPriceById(orderId: number): Promise<void> {
+    return new Promise((resolve) => {
+      this.orderManager.getOrderById(orderId).subscribe(
+        (order: any) => {
+          this.orderPrice = order.amountPrice;
+          resolve();
+        }
+      )
+    });
   }
 
   private saveMangoPayData(response: any): void {

@@ -1,4 +1,4 @@
-import { prices } from './../../../../parameters';
+import { prices } from 'src/app/parameters';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Recipient } from 'src/app/models/recipient';
 import { Order } from 'src/app/models/order';
