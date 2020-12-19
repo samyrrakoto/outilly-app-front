@@ -34,7 +34,6 @@ export class UserManagerService {
       this.request.getUserInfos().subscribe(
         (user: any) => {
           this.userMapping(user);
-          this.checkActivation();
           resolve()
         },
         () => {
@@ -43,6 +42,10 @@ export class UserManagerService {
         }
       );
     });
+  }
+
+  public isActivated(): boolean {
+    return sessionStorage.getItem('userStatus') === 'activated';
   }
 
   private userMapping(userRes: any): void {
@@ -121,12 +124,5 @@ export class UserManagerService {
       }
     }
     return false;
-  }
-
-  private checkActivation(): Promise<void> {
-    return new Promise((resolve) => {
-      this.activated = sessionStorage.getItem('userStatus') === 'activated';
-      resolve();
-    });
   }
 }
