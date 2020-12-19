@@ -46,19 +46,27 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   public isPending(): boolean {
-    return this.bid.isClosed === false;
+    if (this.bid !== null) {
+      return this.bid.isClosed === false;
+    }
   }
 
   public isAccepted(): boolean {
-    return this.bid !== null ? this.bid.isAccepted : null;
+    if (this.bid !== null) {
+      return this.bid !== null ? this.bid.isAccepted : null;
+    }
   }
 
   public isDeclined(): boolean {
-    return this.bid !== null ? this.bid.isAccepted === false : null;
+    if (this.bid !== null) {
+      return this.bid !== null ? this.bid.isAccepted === false : null;
+    }
   }
 
   public isCounterOffer(): boolean {
-    return this.bid !== null ? this.bid.counterOfferAmount > 0 : null;
+    if (this.bid !== null) {
+      return this.bid !== null ? this.bid.counterOfferAmount > 0 : null;
+    }
   }
 
   public nextStep() {
