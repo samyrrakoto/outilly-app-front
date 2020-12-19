@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class PaymentCallToActionComponent implements OnInit {
   @Input() areConditionsAccepted: boolean;
+  @Input() mrCosts: number;
   @Input() sale: Sale;
   @Input() user: User;
   @Input() recipient: Recipient;
@@ -79,7 +80,7 @@ export class PaymentCallToActionComponent implements OnInit {
     this.order.shippingAddressId = this.user.userProfile.mainAddress.id;
     this.order.amountPrice = this.priceToPay;
     this.order.amountFees = this.calculateCommissionFees();
-    this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
+    this.order.amountShipment = this.deliveryMethod === 'mondial-relay' ? this.mrCosts : 0;
     this.order.amountTotal = this.order.amountPrice + this.order.amountFees + this.order.amountShipment;
     this.order.shipMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayShip' : 'HandDelivery';
     this.order.collMethod = this.deliveryMethod === 'mondial-relay' ? 'RelayPoint' : 'HandDelivery';

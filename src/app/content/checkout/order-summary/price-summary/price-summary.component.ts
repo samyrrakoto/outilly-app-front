@@ -1,3 +1,4 @@
+import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
@@ -16,6 +17,7 @@ import { prices } from 'src/app/parameters';
 })
 export class PriceSummaryComponent implements OnInit {
   @Input() sale: Sale;
+  @Input() mrCosts: number;
   @Input() deliveryMethod: string;
   @Input() bid: Bid;
   @Input() priceToPay: number;
@@ -36,14 +38,14 @@ export class PriceSummaryComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['priceToPay']) {
+    if (changes['priceToPay'] || changes['mrCosts']) {
       this.getFees();
     }
   }
 
   private getFees(): void {
     this.commissionFees = this.calculateCommissionFees();
-    this.deliveryFees = this.deliveryMethod === 'mondial-relay' ? 690 : 0;
+    this.deliveryFees = this.deliveryMethod === 'mondial-relay' ? this.mrCosts : 0;
     this.totalPrice = this.priceToPay + this.commissionFees + this.deliveryFees;
   }
 

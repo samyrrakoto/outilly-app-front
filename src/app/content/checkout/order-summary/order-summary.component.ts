@@ -1,3 +1,4 @@
+import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
@@ -28,6 +29,7 @@ export class OrderSummaryComponent implements OnInit {
   deliveryMethod: string;
   areConditionsAccepted: boolean = false;
   priceToPay: number = 0;
+  mrCosts: number = 0;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly pageTitle: string = 'Récapitulatif de commande';
 
@@ -36,6 +38,7 @@ export class OrderSummaryComponent implements OnInit {
     public auth: AuthService,
     public location: Location,
     public saleManager: SaleManagerService,
+    private mrManager: MondialRelayManagerService,
     private title: Title)
   {
     this.bid = new Bid();
@@ -48,18 +51,30 @@ export class OrderSummaryComponent implements OnInit {
 
     this.auth.getLogStatus()
       .then(() => {
-        if (this.auth.logged && this.auth.accessToken === 'good') {
+        if (this.auth.isLogged()) {
           this.getSale()
             .then(() =>  { return this.saleManager.getSaleAvailability(parseInt(this.saleId)) })
             .then((isSaleAvailable: boolean) => this.saleAvailableHandler(isSaleAvailable))
             .then(() => this.getPriceToPay())
             .then(() => this.checkDeliveryMethod())
+            .then(() => this.getMondialRelayCosts())
             .catch((error: any) => this.errorHandle(error));
         }
         else {
           sessionStorage.setItem('redirect_after_login', this.location.path());
           this.router.navigate(['/login']);
         }
+    });
+  }
+
+  private getMondialRelayCosts(): Promise<void> {
+    return new Promise((resolve) => {
+      this.mrManager.getMondialRelayCosts(this.sale.product.weight).subscribe(
+        (res: any) => {
+          this.mrCosts = res.cost;
+          resolve();
+        }
+      )
     });
   }
 
