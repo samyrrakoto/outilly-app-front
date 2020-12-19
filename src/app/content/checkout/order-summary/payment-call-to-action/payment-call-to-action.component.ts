@@ -44,7 +44,7 @@ export class PaymentCallToActionComponent implements OnInit {
   public goPayment() {
     if (this.areConditionsAccepted) {
       this.getPayload();
-      this.saleManager.getSaleAvailability(this.saleId)
+      this.saleManager.getSaleAvailability(parseInt(this.saleId))
         .then((isSaleAvailable: boolean) => {
           return new Promise<void>((resolve, reject) => {
             if (isSaleAvailable) {

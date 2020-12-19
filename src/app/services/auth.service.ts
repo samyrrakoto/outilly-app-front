@@ -75,6 +75,10 @@ export class AuthService {
     });
   }
 
+  public isLogged(): boolean {
+    return this.accessToken === 'good' && this.logged;
+  }
+
   public getTokenStatus(): string {
     if (localStorage.getItem('access_token') === null) {
       return 'expired';

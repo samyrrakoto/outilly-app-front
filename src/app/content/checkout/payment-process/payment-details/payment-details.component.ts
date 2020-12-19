@@ -54,7 +54,7 @@ export class PaymentDetailsComponent implements OnInit {
     this.pageNameManager.setTitle(this.pageTitle);
     this.saleId = localStorage.getItem('saleId');
     this.auth.getLogStatus();
-    this.saleManager.getSaleAvailability(this.saleId)
+    this.saleManager.getSaleAvailability(parseInt(this.saleId))
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
           if (!isAvailable) {
@@ -95,7 +95,7 @@ export class PaymentDetailsComponent implements OnInit {
   public saveCardInformation(): void {
     this.payLineCall()
       .then(() => { return this.updateRegistration() })
-      .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
+      .then(() => { return this.saleManager.getSaleAvailability(parseInt(this.saleId)) })
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
           if (!isAvailable) {

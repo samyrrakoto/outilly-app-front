@@ -14,11 +14,8 @@
         <!-- DESKTOP VERSION -->
         <div id="menu-content-desktop" class="content is-hidden-mobile">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
-            (priceToPayEmitter)="getRealPriceToPay($event)"
-            [isLogged]="isLogged"
-            [accessToken]="accessToken"
-            [sale]="sale"
-            [priceToPay]=priceToPay>
+            [priceToPay]=priceToPay
+            [sale]="sale">
           </delivery-options>
           <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
             [priceToPay]="priceToPay"
@@ -38,9 +35,6 @@
         <!-- MOBILE VERSION -->
         <div id="menu-content-mobile" class="content is-hidden-tablet">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
-            (priceToPayEmitter)="getRealPriceToPay($event)"
-            [isLogged]="isLogged"
-            [accessToken]="accessToken"
             [sale]="sale">
           </delivery-options>
           <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
