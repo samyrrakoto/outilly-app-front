@@ -116,7 +116,7 @@
 
         <button *ngIf="loading === false" (click)="checkData(); saveCardInformation(); loading = true" id="lock" class="button is-danger is-large">
           <fa-icon id="lock-icon" [icon]="['fas', 'lock']"></fa-icon>
-          Valider le paiement
+          Valider le paiement de {{ orderPrice | currency:'full' }}€
         </button>
         <button *ngIf="loading" class="button is-light is-loading"></button>
       </div>
