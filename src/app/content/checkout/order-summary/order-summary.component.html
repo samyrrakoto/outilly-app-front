@@ -24,6 +24,7 @@
       (recipientEmitter)=getRecipient($event)>
     </app-information-summary>
     <app-price-summary
+      [mrCosts]=mrCosts
       [priceToPay]=priceToPay
       [sale]=sale
       [bid]=bid
@@ -35,6 +36,7 @@
     </app-conditions-of-sale>
     <app-payment-call-to-action
       [areConditionsAccepted]=areConditionsAccepted
+      [mrCosts]=mrCosts
       [sale]=sale
       [user]=user
       [recipient]=recipient
