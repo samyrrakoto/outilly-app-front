@@ -16,6 +16,7 @@ import { StickyMenuComponent } from '../sticky-menu.component';
 })
 export class DeliveryOptionsComponent implements OnInit {
   @Input() accessToken: string;
+  @Input() mrCosts: number;
   @Input() sale: Sale;
   @Input() priceToPay: number;
   @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();

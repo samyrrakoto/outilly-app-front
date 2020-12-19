@@ -22,6 +22,7 @@
       <div class="column is-one-quarter">
         <side-information
           [sale]=sale
+          [mrCosts]=mrCosts
           [isAvailable]=isAvailable
           [priceToPay]=priceToPay
           (openState)=getOpenState($event)>
@@ -30,6 +31,7 @@
 
       <sticky-menu *ngIf="!isSeller && sale.id !== 0 && sale.status !== 'sold'"
         [sale]=sale
+        [mrCosts]=mrCosts
         [priceToPay]=priceToPay
         [errorMsg]=errorMsg
         [minPrice]=minPrice

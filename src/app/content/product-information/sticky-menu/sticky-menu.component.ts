@@ -11,6 +11,7 @@ import { Sale } from 'src/app/models/sale';
 })
 export class StickyMenuComponent implements OnInit {
   @Input() sale: Sale;
+  @Input() mrCosts: number;
   @Input() priceToPay: number;
   @Input() errorMsg: any;
   @Input() minPrice: number;

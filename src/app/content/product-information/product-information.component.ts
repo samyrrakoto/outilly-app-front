@@ -1,3 +1,4 @@
+import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
@@ -33,6 +34,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   errorMsg: any;
   openMenuState: boolean;
   priceToPay: number;
+  mrCosts: number;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
 
   constructor(
@@ -44,6 +46,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     public saleManager: SaleManagerService,
     public purchaseManager: PurchaseManagerService,
     public auth: AuthService,
+    public mrManager: MondialRelayManagerService,
     private title: Title)
   {
     super();
@@ -59,6 +62,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         .then(() => this.getProductById(this.id.toString()))
         .then(() => this.handleSaleStatus())
         .then(() => this.getPriceToPay())
+        .then(() => this.getMondialRelayCosts())
         .then(() => this.loaded = true );
   }
 
@@ -68,6 +72,17 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         this.id = parseInt(params.id);
         resolve();
       });
+    });
+  }
+
+  private getMondialRelayCosts(): Promise<void> {
+    return new Promise((resolve) => {
+      this.mrManager.getMondialRelayCosts(this.sale.product.weight).subscribe(
+        (res: any) => {
+          this.mrCosts = res.cost;
+          resolve();
+        }
+      )
     });
   }
 

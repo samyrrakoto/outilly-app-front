@@ -1,6 +1,7 @@
 <div *ngIf="!isSeller" class="box has-text-centered is-hidden-mobile">
   <buying-call-2-action
     [sale]=sale
+    [mrCosts]=mrCosts
     [isAvailable]=isAvailable
     [priceToPay]=priceToPay
     (openState)=emitOpenState($event)>
