@@ -101,7 +101,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "reservePrice": product.reservePrice * 100,
         "weight": weight,
         "locality": product.locality,
-        "toDeliver": product.todeliver,
+        "toDeliver": product.toDeliver,
         "isWarrantied": product.isWarrantied,
         "warrantyDuration": product.warrantyDuration,
         "productCategories": product.productCategories,

@@ -31,7 +31,7 @@ export class ProductDeliveryComponent extends StepForm implements OnInit {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
-    this.additionalControls = this.product.todeliver !== null ? true : false;
+    this.additionalControls = this.product.toDeliver !== null ? true : false;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDelivery";
     this.stepNb = 11;
@@ -44,14 +44,14 @@ export class ProductDeliveryComponent extends StepForm implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    if (this.product.todeliver !== null) {
-      this.product.todeliver === true ? this.setFocus('yes') : this.setFocus('no');
+    if (this.product.toDeliver !== null) {
+      this.product.toDeliver === true ? this.setFocus('yes') : this.setFocus('no');
     }
     this.handleDelivery();
   }
 
   public handleDelivery(): void {
-    this.path.next = this.product.todeliver ? 'product-weight' : 'is-warrantied';
+    this.path.next = this.product.toDeliver ? 'product-weight' : 'is-warrantied';
   }
 
   public setFocus(id: string): void {
