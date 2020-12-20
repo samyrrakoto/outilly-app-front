@@ -52,7 +52,6 @@ export class ContactFormComponent implements OnInit {
         if (logStatus) {
           this.userManager.getUserInfos()
             .then(() => {
-              console.log(this.userManager.user.userProfile.email);
               this.email = this.userManager.user.userProfile.email;
             });
         }
@@ -88,6 +87,5 @@ export class ContactFormComponent implements OnInit {
   }
 
   public sendMessage(): void {
-    console.log(this.message);
   }
 }
