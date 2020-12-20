@@ -13,7 +13,6 @@ export class BidManagerService {
       "amount": amount,
       "saleId": saleId
     };
-    console.log('bid place');
     const request: any = this.request.postData(payload, this.request.uri.PLACE_BID);
 
     request.subscribe((res: any) => {
