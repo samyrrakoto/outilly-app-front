@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { Location } from '@angular/common';
@@ -14,6 +15,7 @@ import { pageInfo } from 'src/app/parameters';
 })
 export class AppComponent {
   title = pageInfo.BRAND_NAME;
+  cookies: boolean;
   faCoffee = faCoffee;
   logged: boolean;
   url: string = '';
@@ -27,9 +29,13 @@ export class AppComponent {
     private location: Location,
     private router: Router,
     private auth: AuthService,
+    public cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: any)
     {
       AppComponent.isBrowser.next(isPlatformBrowser(platformId));
+      const cookieValue: string = localStorage.getItem('cookies') ? 'true' : 'false';
+      console.log(cookieValue);
+      this.cookieService.set('acceptCookies', cookieValue);
     }
 
   ngOnInit(): void {

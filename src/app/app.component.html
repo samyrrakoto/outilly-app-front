@@ -1,3 +1,6 @@
+<app-cookie-disclaimer *ngIf="cookieService.get('acceptCookies') === 'false'">
+</app-cookie-disclaimer>
+
 <app-header
   [toDisplay]=toDisplay
   [toDisplayMenu]=toDisplayMenu

@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  cookieValue: string;
   allCategories: any[];
   allTypes: any[];
   decreasingPrice: boolean;
