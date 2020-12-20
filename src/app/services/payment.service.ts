@@ -94,7 +94,6 @@ export class PaymentService {
     return new Promise<void>((resolve, reject) => {
       this.request.postData(payload, this.request.uri.UPDATE_REGISTRATION).subscribe(
         (response) => {
-          console.log(response);
           sessionStorage.setItem('cardId', response.body.cardId);
           sessionStorage.removeItem('cardPreRegistrationData');
           sessionStorage.removeItem('cardRegistrationAccessKey');
