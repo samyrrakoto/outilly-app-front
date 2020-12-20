@@ -153,6 +153,9 @@ export class PaymentService {
     else if (preauthStatus === 'SUCCEEDED') {
       this.router.navigate(['/checkout/payment-confirmation']);
     }
+    else {
+      this.router.navigate(['/checkout/payment-failed']);
+    }
   }
 
   public saveCardInformation(): void {

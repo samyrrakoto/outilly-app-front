@@ -87,7 +87,7 @@ export class PaymentDetailsComponent implements OnInit {
     return new Promise((resolve) => {
       this.orderManager.getOrderById(orderId).subscribe(
         (order: any) => {
-          this.orderPrice = order.amountPrice;
+          this.orderPrice = order.amountTotal;
           resolve();
         }
       )
