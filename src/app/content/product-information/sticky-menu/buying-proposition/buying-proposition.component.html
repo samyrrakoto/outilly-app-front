@@ -15,7 +15,11 @@
           Montant :
 
           <div id="proposition-price" class="control has-icons-right">
-            <input class="input no-border has-text-centered-mobile" type="number" placeholder="{{ sale.product.reservePrice | currency:'full' }}" [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
+            <form [formGroup]="form">
+              <input class="input no-border has-text-centered-mobile" type="number" placeholder="{{ sale.product.reservePrice | currency:'full' }}"
+                formControlName="proposedPrice"
+                [(ngModel)]="sticky.proposedPrice" step="5" min="{{ minPrice }}" max="{{ maxPrice }}">
+            </form>
             <span id="devise" class="icon is-small is-right">
               <fa-icon [icon]="['fas', 'euro-sign']"></fa-icon>
             </span>
@@ -23,15 +27,16 @@
         </div>
 
         <div class="column">
-          <button class="button is-danger" (click)="placeBid(sticky.proposedPrice)">Envoyer ma proposition</button>
+          <button *ngIf="controls.proposedPrice.errors" class="button is-light">Envoyer ma proposition</button>
+          <button *ngIf="!controls.proposedPrice.errors" class="button is-danger" (click)="placeBid(sticky.proposedPrice)">Envoyer ma proposition</button>
         </div>
       </div>
     </div>
 
-    <div class="content">
-      <span *ngIf="sticky.proposedPrice < sticky.minPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.lowPrice }}€.</span>
-      <span *ngIf="sticky.proposedPrice > sticky.maxPrice" class="warning"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> {{ errorMsg.highPrice }}€.</span>
-    </div>
+    <span *ngIf="controls.proposedPrice.errors && sticky.proposedPrice" class="invalid-feedback" [ngClass]="{'is-invalid': controls.proposedPrice.errors }">
+      <span class="error" *ngIf="controls.proposedPrice.errors.max">Le prix ne peut pas dépasser {{ maxPrice }}€</span>
+      <span class="error" *ngIf="controls.proposedPrice.errors.min">Le prix ne peut pas être inférieur à {{ minPrice }}€</span>
+    </span>
 
     <button class="button normal" (click)="sticky.previousStep()">
       <fa-icon class="return" [icon]="['fas', 'chevron-left']"></fa-icon>

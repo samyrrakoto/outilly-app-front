@@ -14,8 +14,8 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class SideInformationComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
-  @Input() mrCosts: number;
   @Input() isSeller: boolean;
+  @Input() mrCosts: number;
   @Input() isAvailable: boolean;
   @Input() priceToPay: number;
   @Output() openState = new EventEmitter<boolean>();

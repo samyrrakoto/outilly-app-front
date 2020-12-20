@@ -42,11 +42,11 @@
     <div class="column has-text-centered">
 
       <!-- When login succeeds -->
-      <div *ngIf="auth.isLogged()" class="content">
+      <div *ngIf="auth.isLogged() && !isSeller" class="content">
         <div class="content">
 
           <!-- If a counter-offer has been made -->
-          <div *ngIf="isCounterOffer()" class="content">
+          <div *ngIf="hasBidded && isCounterOffer()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter au prix de {{ priceToPay | currency:'full' }}€
@@ -59,7 +59,7 @@
           </div>
 
           <!-- If an offer has been accepted -->
-          <div *ngIf="isAccepted()" class="content">
+          <div *ngIf="hasBidded && isAccepted()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter au prix de {{ priceToPay | currency:'full' }}€
@@ -72,7 +72,7 @@
           </div>
 
           <!-- If an offer has been declined -->
-          <div *ngIf="isDeclined()" class="content">
+          <div *ngIf="hasBidded && isDeclined()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter à prix coûtant
@@ -86,7 +86,7 @@
           </div>
 
           <!-- If a bid is pending -->
-          <div *ngIf="isPending()" class="content">
+          <div *ngIf="hasBidded && isPending()" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter
@@ -103,7 +103,7 @@
           </div>
 
           <!-- If no bid has been made -->
-          <div *ngIf="!userManager.hasBidded(sale.id)" class="content">
+          <div *ngIf="!hasBidded" class="content">
             <div class="content">
               <button class="button buy is-danger" (click)="nextStep()">
                 Acheter

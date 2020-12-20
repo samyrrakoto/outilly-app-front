@@ -103,9 +103,9 @@ export class AuthService {
   private setUserInfosInSession(): void {
       const token: any = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
 
-      sessionStorage.setItem('username', token.username);
-      sessionStorage.setItem('userId', token.userId);
-      sessionStorage.setItem('userStatus', token.status);
+      localStorage.setItem('username', token.username);
+      localStorage.setItem('userId', token.userId);
+      localStorage.setItem('userStatus', token.status);
   }
 
   public sendActivationMail(): Promise<void> {

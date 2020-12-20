@@ -1,3 +1,4 @@
+import { Purchase } from './../../../../models/purchase';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -16,11 +17,13 @@ import { StickyMenuComponent } from '../sticky-menu.component';
 })
 export class DeliveryOptionsComponent implements OnInit {
   @Input() accessToken: string;
+  @Input() isSeller: boolean;
   @Input() mrCosts: number;
   @Input() sale: Sale;
   @Input() priceToPay: number;
   @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
   bid: Bid;
+  hasBidded: boolean;
   deliveryName: string;
   deliveryFees: number;
   errorMsg: string;
@@ -43,8 +46,17 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.isLogged() ? this.bid = this.userManager.getBid(this.sale.id) : null;
+    if (this.auth.isLogged()) {
+      this.userManager.getPurchases()
+      .then((purchases: Purchase[]) => {
+        this.bid = this.userManager.getBid(this.sale.id, purchases);
+        if (this.userManager.hasBidded(this.sale.id, purchases)) {
+          this.hasBidded = true
+        };
+      })
+    }
   }
+
 
   public isPending(): boolean {
     if (this.bid !== null) {
@@ -53,21 +65,15 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   public isAccepted(): boolean {
-    if (this.bid !== null) {
-      return this.bid !== null ? this.bid.isAccepted : null;
-    }
+    return this.bid.isAccepted;
   }
 
   public isDeclined(): boolean {
-    if (this.bid !== null) {
-      return this.bid !== null ? this.bid.isAccepted === false : null;
-    }
+    return !this.bid.isAccepted;
   }
 
   public isCounterOffer(): boolean {
-    if (this.bid !== null) {
-      return this.bid !== null ? this.bid.counterOfferAmount > 0 : null;
-    }
+    return this.bid.counterOfferAmount > 0;
   }
 
   public nextStep() {

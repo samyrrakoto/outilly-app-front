@@ -38,7 +38,7 @@ export class UserDashboardComponent implements OnInit {
     this.pageNameManager.setTitle(this.pageTitle);
     this.auth.getLogStatus()
       .then(() => {
-        this.activated = sessionStorage.getItem('userStatus') === 'activated';
+        this.activated = localStorage.getItem('userStatus') === 'activated';
       });
     this.notification.checkAllNotifications();
   }

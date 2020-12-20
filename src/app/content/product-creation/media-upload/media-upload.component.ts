@@ -87,7 +87,12 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
       for (let i = 0; i < files.length; i++) {
         this.getFormData(files[i])
           .then((formData) => this.sendMedia(formData))
-          .then(() => { setTimeout(() => {}, 500) });
+          .then(() => {
+            return new Promise<void>((resolve) => {
+              setTimeout(() => {}, 1000);
+              resolve();
+            });
+          });
       }
     }
   }

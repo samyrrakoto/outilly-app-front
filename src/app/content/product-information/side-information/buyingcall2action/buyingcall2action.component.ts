@@ -11,6 +11,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class Buyingcall2actionComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
+  @Input() isSeller: boolean;
   @Input() mrCosts: number;
   @Input() isAvailable: boolean;
   @Input() priceToPay: number;
