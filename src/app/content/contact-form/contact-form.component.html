@@ -1,40 +1,46 @@
-<div id="contact" class="content has-text-centered">
-  <h1 class="title">Nous contacter</h1>
+<div class="modal {{ modals.get('contact-form') }}">
+  <div (click)="modals.close('contact-form')" class="modal-background"></div>
+  <div class="modal-content">
+    <div id="contact" class="box has-text-centered">
+      <h1 class="title">Nous contacter</h1>
 
-  <h2 class="subtitle">Objet</h2>
-  <div class="select">
-    <select class="pointed" [(ngModel)]="chosenSubject">
-      <option *ngFor="let subject of subjects">
-        {{ subject }}
-      </option>
-    </select>
+      <h2 class="subtitle">Objet</h2>
+      <div class="select">
+        <select class="pointed" [(ngModel)]="chosenSubject">
+          <option *ngFor="let subject of subjects">
+            {{ subject }}
+          </option>
+        </select>
+      </div>
+
+      <h2 class="subtitle">Votre message</h2>
+      <div id="message" class="content">
+        <form [formGroup]="form">
+          <textarea class="textarea" formControlName="message" [(ngModel)]="message"></textarea>
+        </form>
+      </div>
+
+      <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
+        <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
+      </span>
+
+      <h2 class="subtitle">Vous n'êtes pas un robot ? Alors résolvez cette addition :<br>
+        {{ testAddition }} = ?
+      </h2>
+
+      <form [formGroup]="form">
+        <input class="input" [(ngModel)]="testInput" formControlName="test">
+      </form>
+
+      <span *ngIf="controls.test.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.test.errors }">
+        <span class="error" *ngIf="controls.test.errors.notValid">Ce n'est pas la bonne réponse</span>
+      </span>
+
+      <div class="content addspaceabove">
+        <button *ngIf="controls.message.errors || controls.test.errors" class="button is-light">Envoyer</button>
+        <button *ngIf="!controls.message.errors && !controls.test.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
+      </div>
+    </div>
   </div>
-
-  <h2 class="subtitle">Votre message</h2>
-  <div id="message" class="content">
-    <form [formGroup]="form">
-      <textarea class="textarea" formControlName="message" [(ngModel)]="message"></textarea>
-    </form>
-  </div>
-
-  <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
-    <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
-  </span>
-
-  <h2 class="subtitle">Vous n'êtes pas un robot ? Alors résolvez cette addition :<br>
-    {{ testAddition }} = ?
-  </h2>
-
-  <form [formGroup]="form">
-    <input class="input" [(ngModel)]="testInput" formControlName="test">
-  </form>
-
-  <span *ngIf="controls.test.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.test.errors }">
-    <span class="error" *ngIf="controls.test.errors.notValid">Ce n'est pas la bonne réponse</span>
-  </span>
-
-  <div class="content addspaceabove">
-    <button *ngIf="controls.message.errors || controls.test.errors" class="button is-light">Envoyer</button>
-    <button *ngIf="!controls.message.errors && !controls.test.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
-  </div>
+  <button (click)="modals.close('contact-form')" class="modal-close is-large" aria-label="close"></button>
 </div>

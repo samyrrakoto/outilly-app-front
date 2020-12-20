@@ -1,5 +1,7 @@
+import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-form.component.css']
 })
 export class ContactFormComponent implements OnInit {
+  @Input() click: Subject<any> = new Subject<any>();
   form: FormGroup;
   readonly maxMessageLength: number = 255;
   readonly subjects: string[] = [
@@ -19,14 +22,24 @@ export class ContactFormComponent implements OnInit {
   testAddition: string = '';
   testInput: string = '';
   testResult: string = '';
+  modals: Modals = new Modals();
 
   constructor(
     public formBuilder: FormBuilder
-  ) { }
+  )
+  {
+    this.modals.addModal('contact-form');
+  }
 
   ngOnInit(): void {
     this.getForm();
     this.generateRandomAddition();
+    this.click.subscribe(
+      () => { this.modals.open('contact-form') }
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 
   public getForm(): void {
