@@ -1,5 +1,6 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { contact } from './../../parameters';
+import { contact } from 'src/app/parameters';
 import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
@@ -29,7 +30,8 @@ export class ContactFormComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    public userManager: UserManagerService
+    public userManager: UserManagerService,
+    private auth: AuthService
   )
   {
     this.modals.addModal('contact-form');
@@ -37,13 +39,25 @@ export class ContactFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getForm();
+    this.getUserMail();
     this.generateRandomAddition();
     this.click.subscribe(
       () => { this.modals.open('contact-form') }
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  private getUserMail(): void {
+    this.auth.isLoggedIn().subscribe(
+      (logStatus: boolean) => {
+        if (logStatus) {
+          this.userManager.getUserInfos()
+            .then(() => {
+              console.log(this.userManager.user.userProfile.email);
+              this.email = this.userManager.user.userProfile.email;
+            });
+        }
+      }
+    );
   }
 
   public getForm(): void {
