@@ -89,7 +89,7 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
           .then((formData) => this.sendMedia(formData))
           .then(() => {
             return new Promise<void>((resolve) => {
-              setTimeout(() => {}, 1000);
+              setTimeout(() => {}, 2000);
               resolve();
             });
           });

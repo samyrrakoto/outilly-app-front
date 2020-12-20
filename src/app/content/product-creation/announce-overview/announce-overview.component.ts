@@ -119,7 +119,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "id": null,
         "product": this.getProductPayload().product,
         "seller": {
-          "id": +sessionStorage.getItem("userId")
+          "id": +localStorage.getItem("userId")
         }
       }
     };
