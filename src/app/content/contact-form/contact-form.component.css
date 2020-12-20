@@ -1,0 +1,27 @@
+#contact {
+  margin: auto;
+  max-width: 700px;
+}
+
+.title {
+  border-bottom: solid 2px var(--KTKP-GREEN);
+  margin-bottom: 40px;
+}
+
+.subtitle {
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.input {
+  width: 100px;
+}
+
+textarea {
+  width: 200px;
+}
+
+#message {
+  margin: auto;
+  max-width: 400px;
+}

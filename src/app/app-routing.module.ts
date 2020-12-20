@@ -1,3 +1,4 @@
+import { ContactFormComponent } from './content/contact-form/contact-form.component';
 import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
 import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
 import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
@@ -76,6 +77,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent
+  },
+  {
+    path: 'contact',
+    component: ContactFormComponent
   },
   {
     path: 'product-results',
