@@ -1,3 +1,5 @@
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { contact } from './../../parameters';
 import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
@@ -11,7 +13,7 @@ import { Subject } from 'rxjs';
 export class ContactFormComponent implements OnInit {
   @Input() click: Subject<any> = new Subject<any>();
   form: FormGroup;
-  readonly maxMessageLength: number = 255;
+  readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
   readonly subjects: string[] = [
     'SAV',
     'Marketing',
@@ -19,13 +21,15 @@ export class ContactFormComponent implements OnInit {
   ];
   chosenSubject: string = 'SAV';
   message: string = '';
+  email: string = '';
   testAddition: string = '';
   testInput: string = '';
   testResult: string = '';
   modals: Modals = new Modals();
 
   constructor(
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public userManager: UserManagerService
   )
   {
     this.modals.addModal('contact-form');
@@ -45,7 +49,8 @@ export class ContactFormComponent implements OnInit {
   public getForm(): void {
     this.form = this.formBuilder.group({
       message: [this.message, [Validators.required, Validators.maxLength(this.maxMessageLength)]],
-      test: [this.testInput, [this.validTest()]]
+      test: [this.testInput, [this.validTest()]],
+      email: [this.email, [Validators.required, Validators.email]]
     });
   }
 
