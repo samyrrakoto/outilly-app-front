@@ -34,7 +34,6 @@ export class AppComponent {
     {
       AppComponent.isBrowser.next(isPlatformBrowser(platformId));
       const cookieValue: string = localStorage.getItem('cookies') ? 'true' : 'false';
-      console.log(cookieValue);
       this.cookieService.set('acceptCookies', cookieValue);
     }
 
