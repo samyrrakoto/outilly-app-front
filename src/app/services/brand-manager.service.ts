@@ -27,7 +27,7 @@ export class BrandManagerService {
 
   public getBrandId(brandName: string): number {
     for (const brand of this.brands) {
-      if (brand.name === brandName) {
+      if (brand.name.toLowerCase() === brandName.toLowerCase()) {
         return brand.id;
       }
     }
