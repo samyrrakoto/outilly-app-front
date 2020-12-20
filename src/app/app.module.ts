@@ -144,6 +144,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { KycComponent } from './content/user-dashboard/information/kyc/kyc.component';
 import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
 import { CookieDisclaimerComponent } from './content/cookie-disclaimer/cookie-disclaimer.component';
+import { ContactFormComponent } from './content/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -278,6 +279,7 @@ import { CookieDisclaimerComponent } from './content/cookie-disclaimer/cookie-di
     KycComponent,
     BrandProductsComponent,
     CookieDisclaimerComponent,
+    ContactFormComponent,
   ],
   imports: [
     HttpClientModule,
