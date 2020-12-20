@@ -55,6 +55,9 @@ export class ContactFormComponent implements OnInit {
               this.email = this.userManager.user.userProfile.email;
             });
         }
+        else {
+          this.email = '';
+        }
       }
     );
   }
