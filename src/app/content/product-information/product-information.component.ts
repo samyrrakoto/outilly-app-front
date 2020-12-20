@@ -155,13 +155,13 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getPriceToPay(): void {
-    const bid: Bid = new Bid();
+    let bid: Bid = new Bid();
 
     if (this.auth.isLogged()) {
       this.userManager.getPurchases()
         .then((purchases) => {
           if (purchases.length !== 0) {
-            this.userManager.getBid(this.sale.id, purchases);
+            bid = this.userManager.getBid(this.sale.id, purchases);
 
             if (this.userManager.hasBidded(this.sale.id, purchases)) {
               if (bid.counterOfferAmount > 0) {
