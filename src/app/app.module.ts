@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -142,6 +143,7 @@ import { ActivitationAccountWarningComponent } from './content/activitation-acco
 import { BrowserModule } from '@angular/platform-browser';
 import { KycComponent } from './content/user-dashboard/information/kyc/kyc.component';
 import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
+import { CookieDisclaimerComponent } from './content/cookie-disclaimer/cookie-disclaimer.component';
 import { ContactFormComponent } from './content/contact-form/contact-form.component';
 
 @NgModule({
@@ -276,6 +278,7 @@ import { ContactFormComponent } from './content/contact-form/contact-form.compon
     ActivitationAccountWarningComponent,
     KycComponent,
     BrandProductsComponent,
+    CookieDisclaimerComponent,
     ContactFormComponent,
   ],
   imports: [
@@ -304,7 +307,8 @@ import { ContactFormComponent } from './content/contact-form/contact-form.compon
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptorService,
       multi: true
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

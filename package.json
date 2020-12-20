@@ -45,6 +45,7 @@
     "express": "^4.15.2",
     "jquery": "^3.5.1",
     "localstorage-polyfill": "^1.0.1",
+    "ngx-cookie-service": "^10.1.1",
     "node-sass": "^4.14.1",
     "rxjs": "~6.6.0",
     "save": "^2.4.0",

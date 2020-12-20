@@ -167,7 +167,9 @@ export class ProductInformationComponent extends GenericComponent implements OnI
               if (bid.counterOfferAmount > 0) {
                 this.priceToPay = bid.counterOfferAmount;
               }
-              this.priceToPay = bid.isAccepted ? bid.amount : this.sale.product.reservePrice;
+              else {
+                this.priceToPay = bid.isAccepted ? bid.amount : this.sale.product.reservePrice;
+              }
             }
             else {
               this.priceToPay = this.sale.product.reservePrice;

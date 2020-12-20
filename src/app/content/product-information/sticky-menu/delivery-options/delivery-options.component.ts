@@ -69,7 +69,7 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   public isDeclined(): boolean {
-    return !this.bid.isAccepted;
+    return !this.bid.isAccepted && this.bid.counterOfferAmount === null;
   }
 
   public isCounterOffer(): boolean {
