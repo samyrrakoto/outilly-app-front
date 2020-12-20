@@ -1,0 +1,4 @@
+.box {
+  background-color: var(--KTKP-GREY);
+  border: solid 2px var(--KTKP-GREEN);
+}
