@@ -70,7 +70,6 @@ export class UserSalesRunningComponent implements OnInit {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SALES_NEW).subscribe(
         (newSales: any) => {
-          console.log(newSales);
           this.loaded = true;
           this.runningSales = this.runningSales.concat(newSales);
           resolve();

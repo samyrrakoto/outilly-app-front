@@ -54,15 +54,15 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
   }
 
   public getCommissionFees(order: any): number {
-    return order.amountPrice * 0.06;
+    return order.amountFees;
   }
 
   public getShippingFees(order: any): number {
-    return order.shipMethod === 'RelayShip' ? 690 : 0;
+    return order.amountShipment;
   }
 
   public getTotalPrice(order: any): number {
-    return order.amountPrice + this.getCommissionFees(order) + this.getShippingFees(order);
+    return order.amountTotal;
   }
 
   public goToProductPage(order: any): void {

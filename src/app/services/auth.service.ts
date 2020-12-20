@@ -110,7 +110,7 @@ export class AuthService {
 
   public sendActivationMail(): Promise<void> {
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.SEND_ACTIVATION_MAIL, [sessionStorage.getItem('userId')]).subscribe(
+      this.request.getData(this.request.uri.SEND_ACTIVATION_MAIL, [localStorage.getItem('userId')]).subscribe(
         (res: any) => {
           resolve();
         }

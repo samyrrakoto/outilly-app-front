@@ -30,7 +30,7 @@
 
               <tr>
                 <td class="field-name">Date de naissance</td>
-                <td><input type="date" class="input is-small not-editable" value="{{ birthdate }}" readonly></td>
+                <td><input type="date" class="input is-small not-editable" value="{{ userManager.birthdate }}" readonly></td>
               </tr>
 
               <tr>
@@ -53,7 +53,7 @@
           </mat-panel-description>
 
           <button class="button is-light is-small addspaceabove" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
-
+          {{ birthdate }}
           <app-kyc></app-kyc>
 
           <div id="identity"></div>

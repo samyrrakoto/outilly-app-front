@@ -1,4 +1,4 @@
-<h1 class="title has-text-centered">Bienvenue <span id="username">{{ user.userProfile.firstname }}</span> !</h1>
+<h1 *ngIf="userManager.user.userProfile.firstname" class="title has-text-centered">Bienvenue <span id="username">{{ userManager.user.userProfile.firstname }}</span> !</h1>
 
 <app-activitation-account-warning
   [activated]=activated>

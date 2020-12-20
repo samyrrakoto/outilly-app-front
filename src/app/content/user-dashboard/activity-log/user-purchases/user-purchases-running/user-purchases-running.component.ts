@@ -50,7 +50,6 @@ export class UserPurchasesRunningComponent {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
-          console.log(purchases);
           this.runningPurchases = purchases;
           resolve();
         });
@@ -58,7 +57,6 @@ export class UserPurchasesRunningComponent {
   }
 
   public goToProductPage(purchase: Purchase): void {
-    console.log(purchase);
     this.router.navigate(['/product/' + purchase.productName + '/' + purchase.sale.id]);
   }
 

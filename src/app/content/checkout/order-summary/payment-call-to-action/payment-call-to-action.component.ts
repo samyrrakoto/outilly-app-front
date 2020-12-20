@@ -49,8 +49,11 @@ export class PaymentCallToActionComponent implements OnInit {
         .then((isSaleAvailable: boolean) => {
           return new Promise<void>((resolve, reject) => {
             if (isSaleAvailable) {
-              this.createOrder();
-              resolve();
+              this.createOrder()
+                .then((orderId: number) => {
+                  sessionStorage.setItem('orderId', orderId.toString());
+                  resolve();
+                });
             }
             else {
               this.router.navigate(['/product-unavailable']);
@@ -59,7 +62,7 @@ export class PaymentCallToActionComponent implements OnInit {
           });
         })
         .then(() => {
-            this.router.navigate(['/checkout/payment-details']);
+          this.router.navigate(['/checkout/payment-details']);
         })
         .catch((error: any) => {
           this.handleError(error);
@@ -89,12 +92,12 @@ export class PaymentCallToActionComponent implements OnInit {
     this.order.recipient = this.recipient;
   }
 
-  private createOrder(): Promise<void> {
+  private createOrder(): Promise<number> {
     return new Promise((resolve, reject) => {
       this.request.postData(JSON.stringify(this.order), this.request.uri.CREATE_ORDER).subscribe({
         next: (value: any) => {
-          sessionStorage.setItem('orderId', value.body.id);
-          resolve();
+          value.body.id;
+          resolve(value.body.id);
         },
         error: (err: any) => {
           reject('Unknown');

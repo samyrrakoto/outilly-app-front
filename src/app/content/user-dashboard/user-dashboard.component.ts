@@ -34,7 +34,10 @@ export class UserDashboardComponent implements OnInit {
   {}
 
   ngOnInit(): void {
-    this.user = this.userManager.user;
+    this.userManager.getUserInfos()
+      .then(() => {
+        this.user = this.userManager.user;
+      });
     this.pageNameManager.setTitle(this.pageTitle);
     this.auth.getLogStatus()
       .then(() => {

@@ -62,13 +62,8 @@ export class VideoUploadComponent extends StepForm implements OnInit {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-video')).files;
 
     if (files.length !== 0) {
-      for (let i = 0; i < files.length; i++) {
-        this.getFormData(files[i])
-          .then((formData) => this.sendMedia(formData))
-          .then(() => {
-            setTimeout(() => {}, 500);
-          });
-      }
+      this.getFormData(files[0])
+        .then((formData) => this.sendMedia(formData));
     }
   }
 
@@ -79,7 +74,6 @@ export class VideoUploadComponent extends StepForm implements OnInit {
       formData.append('mediaFile', file);
       formData.append('productId', localStorage.getItem('id'));
       formData.append('productStrId', localStorage.getItem('strId'));
-      formData.append('mediaType', 'image');
       resolve(formData);
     });
   }

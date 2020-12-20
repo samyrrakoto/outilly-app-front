@@ -60,10 +60,10 @@ export class PaymentDetailsComponent implements OnInit {
     this.auth.getLogStatus()
       .then(() => {
         if (this.auth.isLogged()) {
-          this.getOrderPriceById(parseInt(sessionStorage.getItem('orderId')));
+          return this.getOrderPriceById(parseInt(sessionStorage.getItem('orderId')));
         }
-      });
-    this.saleManager.getSaleAvailability(this.payment.saleId)
+      })
+      .then(() => this.saleManager.getSaleAvailability(this.payment.saleId))
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
           if (!isAvailable) {
@@ -87,7 +87,7 @@ export class PaymentDetailsComponent implements OnInit {
     return new Promise((resolve) => {
       this.orderManager.getOrderById(orderId).subscribe(
         (order: any) => {
-          this.orderPrice = order.amountPrice;
+          this.orderPrice = order.amountTotal;
           resolve();
         }
       )
