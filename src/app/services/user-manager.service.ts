@@ -29,6 +29,21 @@ export class UserManagerService {
   ngOnInit(): void {
   }
 
+  public getUserId(): Promise<number> {
+    return new Promise((resolve)=> {
+      if (this.auth.isLogged()) {
+      this.request.getUserInfos().subscribe(
+        (user: any) => {
+          resolve(user.id)
+        }
+      );
+      }
+      else {
+        resolve(-1);
+      }
+    });
+  }
+
   public getUserInfos(): Promise<void> {
     return new Promise((resolve)=> {
       this.request.getUserInfos().subscribe(
@@ -45,7 +60,7 @@ export class UserManagerService {
   }
 
   public isActivated(): boolean {
-    return sessionStorage.getItem('userStatus') === 'activated';
+    return localStorage.getItem('userStatus') === 'activated';
   }
 
   private userMapping(userRes: any): void {
@@ -84,20 +99,19 @@ export class UserManagerService {
     }
   }
 
-  public getPurchases(): Promise<void> {
+  public getPurchases(): Promise<Purchase[]> {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases) => {
-          this.purchases = purchases;
-          resolve();
+          resolve(purchases);
         })
     });
   }
 
-  public getBid(saleId: number): Bid {
+  public getBid(saleId: number, purchases: Purchase[]): Bid {
     const bid: Bid = new Bid();
 
-    for (const purchase of this.purchases) {
+    for (const purchase of purchases) {
       if (purchase.sale.id === saleId) {
         bid.amount = purchase.bidAmount;
         bid.counterOfferAmount = purchase.counterOfferAmount;
@@ -108,8 +122,8 @@ export class UserManagerService {
     return null;
   }
 
-  public hasBidded(saleId: number): boolean {
-    for (const purchase of this.purchases) {
+  public hasBidded(saleId: number, purchases: Purchase[]): boolean {
+    for (const purchase of purchases) {
       if (purchase.sale.id === saleId) {
         return true;
       }

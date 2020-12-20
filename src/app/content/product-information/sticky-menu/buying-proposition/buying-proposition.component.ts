@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { StickyMenuComponent } from '../sticky-menu.component';
 import { RequestService } from 'src/app/services/request.service';
@@ -14,6 +15,7 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['../sticky-menu.component.css', './buying-proposition.component.css']
 })
 export class BuyingPropositionComponent implements OnInit {
+  form: FormGroup;
   @Input() sale: Sale;
   @Input() minPrice: number;
   @Input() maxPrice: number;
@@ -31,7 +33,8 @@ export class BuyingPropositionComponent implements OnInit {
     public sticky: StickyMenuComponent,
     public bidManager: BidManagerService,
     public purchaseManager: PurchaseManagerService,
-    public notification: NotificationService) {
+    public notification: NotificationService,
+    public formBuilder: FormBuilder) {
     this.sticky.current = 'buyingProposition';
     this.sticky.previous = 'deliveryOptions';
     this.sticky.next = '';
@@ -39,7 +42,19 @@ export class BuyingPropositionComponent implements OnInit {
     this.currentPurchase = null;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getForm();
+  }
+
+  public getForm(): void {
+    this.form = this.formBuilder.group({
+      proposedPrice: [this.sticky.proposedPrice , [Validators.required, Validators.min(this.minPrice), Validators.max(this.maxPrice)]]
+    });
+  }
+
+  public get controls() {
+    return this.form.controls;
+  }
 
   public placeBid(amount: number): void {
     if (this.checkBidValue(amount)) {

@@ -1,8 +1,8 @@
+import { prices } from './../../parameters';
 import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { PurchaseManagerService } from 'src/app/services/purchase-manager.service';
-import { prices } from 'src/app/parameters';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -22,6 +22,7 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   loaded: boolean = false;
+  activated: boolean = false;
   isLogged: boolean;
   isAvailable: boolean;
   isSeller: boolean;
@@ -56,14 +57,18 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   ngOnInit(): void {
-      this.getId()
-        .then(() => { return this.auth.isLogged() ? this.userManager.getPurchases() : null })
-        .then(() => this.getSaleAvailability(this.id))
-        .then(() => this.getProductById(this.id.toString()))
-        .then(() => this.handleSaleStatus())
-        .then(() => this.getPriceToPay())
-        .then(() => this.getMondialRelayCosts())
-        .then(() => this.loaded = true );
+    this.activated = localStorage.getItem('userStatus') === 'activated';
+    this.getId()
+      .then(() => {
+        return this.auth.isLogged() ? this.getSale(true) : this.getSale(false);
+      })
+      .then(() => { this.getSaleAvailability(this.id) })
+      .then(() => this.getPriceToPay())
+      .then(() => this.getMinAndMax())
+      .then(() => this.getMondialRelayCosts())
+      .then(() => this.userManager.getUserId())
+      .then((userId) => this.isSeller = this.sale.seller.id === userId )
+      .then(() => this.loaded = true );
   }
 
   private getId(): Promise<void> {
@@ -75,14 +80,25 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     });
   }
 
+  private getMinAndMax(): Promise<void> {
+    return new Promise((resolve) => {
+      this.minPrice = Math.round(this.sale.product.reservePrice * prices.MIN_PRICE_FACTOR / 100);
+      this.maxPrice = this.sale.product.reservePrice / 100 - 1;
+      resolve();
+    })
+  }
+
   private getMondialRelayCosts(): Promise<void> {
     return new Promise((resolve) => {
-      this.mrManager.getMondialRelayCosts(this.sale.product.weight).subscribe(
-        (res: any) => {
-          this.mrCosts = res.cost;
-          resolve();
-        }
-      )
+      if (this.sale.product.weight > 0) {
+        this.mrManager.getMondialRelayCosts(this.sale.product.weight).subscribe(
+          (res: any) => {
+            this.mrCosts = res.cost;
+            resolve();
+          }
+        )
+      }
+      resolve();
     });
   }
 
@@ -107,35 +123,31 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     this.sale.product.productMedias = videoMedias.concat(imgMedias);
   }
 
-  private getProductById(id: string): Promise<void> {
+  private getSale(logged: boolean): Promise<void> {
     return new Promise((resolve) => {
-      const response: any = this.isSeller
-      ? this.request.getData(this.request.uri.GET_SALE_VENDOR, [id])
-      : this.request.getData(this.request.uri.SALE, [id]);
-
-      response.subscribe((sale: any) => {
-        this.sale = sale;
-        this.pageNameManager.setTitle(sale.product.name);
-        this.proposedPrice = this.sale.product.reservePrice / 100;
-        this.minPrice = Math.round((this.sale.product.reservePrice / 100) * prices.MIN_PRICE_FACTOR);
-        this.maxPrice = (this.sale.product.reservePrice / 100) - 1;
-        this.errorMsg = {
-          delivery: 'Veuillez choisir un mode de livraison',
-          lowPrice: 'Votre prix est trop bas : votre proposition doit être supérieure à ' + this.minPrice,
-          highPrice: 'Votre prix est trop haut : votre proposition doit être inférieure à ' + this.maxPrice
-        };
-        this.sortByMediaType();
-        resolve();
-      });
+      if (logged) {
+        this.request.getData(this.request.uri.GET_SALE_VENDOR, [this.id.toString()]).subscribe({
+          next: (sale: any) => {
+            this.sale = sale;
+            resolve();
+          },
+          error: () => {
+            this.router.navigate(['/error404']);
+          }
+        });
+      }
+      else {
+        this.request.getData(this.request.uri.GET_SALE, [this.id.toString()]).subscribe({
+          next: (sale: any) => {
+            this.sale = sale;
+            resolve();
+          },
+          error: () => {
+            this.router.navigate(['/error404']);
+          }
+        });
+      }
     });
-  }
-
-  private handleSaleStatus(): Promise<any> {
-    if (this.sale.status === 'new' && !this.isSeller) {
-      this.router.navigate(['/error404']);
-      return Promise.reject('SaleStatus');
-    }
-    return Promise.resolve();
   }
 
   public getOpenState(state: boolean): void {
@@ -143,18 +155,28 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getPriceToPay(): void {
-    if (this.auth.isLogged()) {
-      const bid: Bid = this.userManager.getBid(this.sale.id);
+    const bid: Bid = new Bid();
 
-      if (this.userManager.hasBidded(this.sale.id)) {
-        if (bid.counterOfferAmount > 0) {
-          this.priceToPay = bid.counterOfferAmount;
-        }
-        this.priceToPay = bid.isAccepted ? bid.amount : this.priceToPay = this.sale.product.reservePrice;
-      }
-      else {
-        this.priceToPay = this.sale.product.reservePrice;
-      }
+    if (this.auth.isLogged()) {
+      this.userManager.getPurchases()
+        .then((purchases) => {
+          if (purchases.length !== 0) {
+            this.userManager.getBid(this.sale.id, purchases);
+
+            if (this.userManager.hasBidded(this.sale.id, purchases)) {
+              if (bid.counterOfferAmount > 0) {
+                this.priceToPay = bid.counterOfferAmount;
+              }
+              this.priceToPay = bid.isAccepted ? bid.amount : this.sale.product.reservePrice;
+            }
+            else {
+              this.priceToPay = this.sale.product.reservePrice;
+            }
+          }
+          else {
+            this.priceToPay = this.sale.product.reservePrice;
+          }
+        });
     }
     else {
       this.priceToPay = this.sale.product.reservePrice;
