@@ -27,32 +27,25 @@ export class ProductResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCategoryId()
-      .then(() => this.getSales());
+    this.getCategoryId(true);
   }
 
-  public getSales(): void {
+  public getSales(change: boolean): void {
+    this.currentPage = change ? 1 : this.currentPage;
     this.getSalesByCriteria().subscribe(
       (res: any) => {
         this.sales = res;
       });
   }
 
-  private getCategoryId(): Promise<void> {
+  private getCategoryId(change: boolean): Promise<void> {
     return new Promise((resolve) => {
       this.route.queryParams.subscribe((params: any) => {
         this.categoryId = parseInt(params.category);
+        this.getSales(change);
         resolve();
       });
     });
-  }
-
-  private getSalesPayload(): HttpParams {
-    let payload: HttpParams = new HttpParams();
-
-    this.categoryId !== null ? payload = payload.append('categories', this.categoryId.toString()) : null;
-    payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
-    return payload;
   }
 
   public getSalesByCriteria(): Observable<any> {
@@ -69,6 +62,14 @@ export class ProductResultsComponent implements OnInit {
         }
       );
     });
+  }
+
+  private getSalesPayload(): HttpParams {
+    let payload: HttpParams = new HttpParams();
+
+    this.categoryId !== null ? payload = payload.append('categories', this.categoryId.toString()) : null;
+    payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
+    return payload;
   }
 
   public getProductRoute(sale: any): string {
