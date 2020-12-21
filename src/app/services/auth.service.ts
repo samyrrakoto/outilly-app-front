@@ -13,6 +13,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   public logged: boolean;
   public accessToken: string;
+  private exclusiveStorageData: any[];
   model: any = {};
 
   constructor(
@@ -67,12 +68,33 @@ export class AuthService {
   // After clearing localStorage redirect to login screen
   public logout(params?: any): void {
     this.loggedIn.next(false);
+    this.getExclusiveStorageData();
     localStorage.clear();
     sessionStorage.clear();
+    this.setExclusiveStorageData();
     this.router.navigate(['/login'], {
       queryParams:
         params
     });
+  }
+
+  private getExclusiveStorageData(): any {
+    this.exclusiveStorageData = [
+      {
+        name: 'cookies',
+        value: localStorage.getItem('cookies')
+      }
+    ];
+  }
+
+  private setExclusiveStorageData(): void {
+    if (this.exclusiveStorageData) {
+      for (const storageData of this.exclusiveStorageData) {
+        if (storageData.value) {
+          localStorage.setItem(storageData.name, storageData.value);
+        }
+      }
+    }
   }
 
   public isLogged(): boolean {
