@@ -26,7 +26,9 @@
       </div>
 
       <div *ngIf="sale.product.productMedias.length > 7 && i === 3">
-        <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, media.type)">
+        <figure class="image">
+          <img id="plus" src="assets/img/logo/plus.png" (click)="openGalleryMedia(i, media.type)">
+        </figure>
       </div>
     </div>
   </div>
