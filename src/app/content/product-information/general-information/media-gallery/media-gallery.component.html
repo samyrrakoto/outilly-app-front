@@ -17,16 +17,18 @@
     <div *ngFor="let media of sale.product.productMedias.slice(3,7); index as i" class="content">
       <div *ngIf="i < 3">
         <figure *ngIf="media.type === 'image'" class="image">
-          <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, media.type)">
+          <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i + 3, media.type)">
         </figure>
 
         <figure *ngIf="media.type === 'video'">
-          <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, media.type)">
+          <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i + 3, media.type)">
         </figure>
       </div>
 
       <div *ngIf="sale.product.productMedias.length > 7 && i === 3">
-        <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i, media.type)">
+        <figure class="image">
+          <img id="plus" src="assets/img/logo/plus.png" (click)="openGalleryMedia(6, media.type)">
+        </figure>
       </div>
     </div>
   </div>

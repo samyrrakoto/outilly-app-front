@@ -17,7 +17,6 @@ export class PurchaseManagerService {
     return new Promise((resolve, reject) => {
       request.subscribe({
         next: (bidsAndSales: any) => {
-          console.log(bidsAndSales);
           for (const bidAndSale of bidsAndSales) {
             purchases.push(new Purchase(bidAndSale));
           }
