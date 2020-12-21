@@ -78,6 +78,35 @@ export class UserSalesRunningComponent implements OnInit {
     });
   }
 
+  private findBid(bidId: number): Bid {
+    let i: number = 0;
+
+    for (const sale of this.runningSales) {
+      if (sale.bids[0].id === bidId) {
+        return sale.bids[0];
+      }
+      i++;
+    }
+    return null;
+  }
+
+  public updateBid(bidId: number, status: string, counterOfferAmount?: number): void {
+    const bid: Bid = this.findBid(bidId);
+
+    switch(status) {
+      case 'accepted':
+        bid.isAccepted = true;
+        break;
+      case 'declined':
+        bid.isAccepted = false;
+        break;
+      case 'counter-offer':
+        bid.counterOfferAmount = counterOfferAmount * 100;
+        break;
+    }
+    bid.isClosed = true;
+  }
+
   public offerAcceptanceConfirmation(choice: string): void {
     const message: string = "L'offre a bien été acceptée";
 

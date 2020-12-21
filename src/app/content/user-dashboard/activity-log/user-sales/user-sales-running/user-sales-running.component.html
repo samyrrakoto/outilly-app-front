@@ -113,7 +113,7 @@
         Félicitations ! Si vous acceptez cette offre, votre produit sera vendu.
       </div>
 
-      <button (click)="offerAcceptanceConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="offerAcceptanceConfirmation('yes'); updateBid(currentBid.id, 'accepted')" class="button is-success">Oui</button>
       <button (click)="offerAcceptanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
@@ -133,7 +133,7 @@
         Pensez à faire une contre-offre !
       </div>
 
-      <button (click)="offerDeclinanceConfirmation('yes')" class="button is-danger">Oui</button>
+      <button (click)="offerDeclinanceConfirmation('yes'); updateBid(currentBid.id, 'declined')" class="button is-danger">Oui</button>
       <button (click)="offerDeclinanceConfirmation('no')" class="button is-light">Non</button>
 
     </div>
@@ -170,7 +170,7 @@
     <div class="box">
       <h2 class="subtitle">Etes-vous sûr(e) de vouloir proposer une contre-offre à {{ counterOfferAmount }}€ ?</h2>
 
-      <button (click)="counterOfferConfirmation('yes')" class="button is-success">Oui</button>
+      <button (click)="counterOfferConfirmation('yes'); updateBid(currentBid.id, 'counter-offer', counterOfferAmount)" class="button is-success">Oui</button>
       <button (click)="counterOfferConfirmation('no')" class="button is-light">Non</button>
 
     </div>
