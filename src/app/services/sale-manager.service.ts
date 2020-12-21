@@ -46,4 +46,13 @@ export class SaleManagerService {
       );
     });
   }
+
+  public sortSalesByLastUpdate(sales: Sale[]): Sale[] {
+    return sales.sort((a, b) => {
+      const c: number = new Date(a.updatedAt).getTime();
+      const d: number = new Date(b.updatedAt).getTime();
+
+      return d - c;
+    });
+  }
 }
