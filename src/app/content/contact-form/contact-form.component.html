@@ -1,7 +1,16 @@
 <div class="modal {{ modals.get('contact-form') }}">
-  <div (click)="modals.close('contact-form')" class="modal-background"></div>
+  <div (click)="modals.close('contact-form'); mailSent = null" class="modal-background"></div>
   <div class="modal-content">
     <div id="contact" class="box has-text-centered">
+
+      <div *ngIf="mailSent" class="notification is-success">
+        Votre message a bien été envoyé
+      </div>
+
+      <div *ngIf="error" class="notification is-danger">
+        Une erreur s'est produite
+      </div>
+
       <h1 class="title">Nous contacter</h1>
 
       <div class="field is-horizontal">
@@ -29,7 +38,7 @@
         <div class="field is-horizontal">
           <div class="field-label">
             <label class="label">
-              Votre adresse e-mail
+              Votre e-mail
             </label>
           </div>
           <div class="field-body">
@@ -88,11 +97,11 @@
         </div>
       </form>
 
-      <div class="content addspaceabove">
-        <button *ngIf="controls.message.errors || controls.test.errors" class="button is-light">Envoyer</button>
-        <button *ngIf="!controls.message.errors && !controls.test.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
+      <div *ngIf="!mailSent" class="content addspaceabove">
+        <button *ngIf="controls.message.errors || controls.test.errors || controls.email.errors" class="button is-light">Envoyer</button>
+        <button *ngIf="!controls.message.errors && !controls.test.errors && !controls.email.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
       </div>
     </div>
   </div>
-  <button (click)="modals.close('contact-form')" class="modal-close is-large" aria-label="close"></button>
+  <button (click)="modals.close('contact-form'); mailSent = null" class="modal-close is-large" aria-label="close"></button>
 </div>

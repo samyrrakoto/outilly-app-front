@@ -1,3 +1,5 @@
+import { RequestService } from 'src/app/services/request.service';
+import { EncodingService } from 'src/app/services/encoding.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { contact } from 'src/app/parameters';
@@ -26,12 +28,18 @@ export class ContactFormComponent implements OnInit {
   testAddition: string = '';
   testInput: string = '';
   testResult: string = '';
+  anonymous: boolean;
+  userId: number = null;
+  mailSent: boolean = null;
+  error: boolean = null;
   modals: Modals = new Modals();
 
   constructor(
+    private request: RequestService,
     public formBuilder: FormBuilder,
     public userManager: UserManagerService,
-    private auth: AuthService
+    private auth: AuthService,
+    private encoding: EncodingService
   )
   {
     this.modals.addModal('contact-form');
@@ -53,10 +61,14 @@ export class ContactFormComponent implements OnInit {
           this.userManager.getUserInfos()
             .then(() => {
               this.email = this.userManager.user.userProfile.email;
+              this.anonymous = false;
+              this.userId = this.userManager.user.id;
             });
         }
         else {
           this.email = '';
+          this.anonymous = true;
+          this.userId = null;
         }
       }
     );
@@ -89,6 +101,28 @@ export class ContactFormComponent implements OnInit {
     this.testResult = (a + b).toString();
   }
 
+  private getPayload(): any {
+    const payload: any = {
+      subject: this.chosenSubject,
+      message: this.encoding.base64Encoder(this.message),
+      isAnonymous: this.anonymous,
+      mail: this.email,
+      userId: this.userId
+    }
+
+    return payload;
+  }
+
   public sendMessage(): void {
+    const payload: any = this.getPayload();
+
+    this.request.postData(payload, this.request.uri.SEND_CONTACT_REQUEST).subscribe(
+      () => {
+        this.mailSent = true;
+      },
+      () => {
+        this.error = true;
+      }
+    );
   }
 }
