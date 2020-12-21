@@ -46,6 +46,7 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
       }
       i++;
     }
+    console.log(this.sale.product.productMedias);
   }
 
   public pauseVideo(videoId: string): void {
