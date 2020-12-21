@@ -17,6 +17,7 @@ export class PurchaseManagerService {
     return new Promise((resolve, reject) => {
       request.subscribe({
         next: (bidsAndSales: any) => {
+          console.log(bidsAndSales);
           for (const bidAndSale of bidsAndSales) {
             purchases.push(new Purchase(bidAndSale));
           }
@@ -46,5 +47,14 @@ export class PurchaseManagerService {
     if (purchase.isClosed) {
       return true;
     }
+  }
+
+  public sortPurchasesByLastUpdate(purchases: Purchase[]): Purchase[] {
+    return purchases.sort((a, b) => {
+      const c: number = new Date(a.updatedAt).getTime();
+      const d: number = new Date(b.updatedAt).getTime();
+
+      return d - c;
+    });
   }
 }

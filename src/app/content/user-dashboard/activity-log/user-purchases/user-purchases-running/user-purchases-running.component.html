@@ -12,7 +12,7 @@
       </div>
 
       <mat-accordion *ngIf="runningPurchases.length > 0">
-        <mat-expansion-panel (click)="noteAsRead(purchase)" *ngFor="let purchase of runningPurchases">
+        <mat-expansion-panel (click)="noteAsRead(purchase)" *ngFor="let purchase of purchaseManager.sortPurchasesByLastUpdate(runningPurchases)">
             <mat-expansion-panel-header>
             <mat-panel-title>
               <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
@@ -27,7 +27,7 @@
                 &nbsp;Acceptée
               </span>
               <span *ngIf="purchase.isRead && purchase.counterOfferAmount > 0" class="tag is-info is-light small-text small-left-margin">
-                &nbsp;Contre-offre proposée
+                &nbsp;Contre-offre reçue
               </span>
             </mat-panel-title>
             </mat-expansion-panel-header>

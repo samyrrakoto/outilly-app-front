@@ -14,7 +14,7 @@
         </div>
 
         <mat-accordion *ngIf="runningSales && runningSales.length > 0">
-          <mat-expansion-panel *ngFor="let sale of runningSales">
+          <mat-expansion-panel *ngFor="let sale of saleManager.sortSalesByLastUpdate(runningSales)">
               <mat-expansion-panel-header>
               <mat-panel-title>
                 <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
