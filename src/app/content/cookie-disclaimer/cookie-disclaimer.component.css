@@ -1,4 +1,26 @@
-.box {
-  background-color: var(--KTKP-GREY);
-  border: solid 2px var(--KTKP-GREEN);
+.hero-body {
+  color: var(--KTKP-GREY-LIGHT);
+  padding-top: 2px;
+  padding-bottom: 5px;
+  font-size: 0.6em;
+}
+
+.content {
+  margin-bottom: 3px;
+}
+
+.button {
+  margin-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 1em;
+}
+
+a {
+  color: var(--KTKP-GREY-LIGHT);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--KTKP-GREEN);
 }

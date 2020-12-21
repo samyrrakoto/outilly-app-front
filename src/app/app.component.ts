@@ -33,8 +33,8 @@ export class AppComponent {
     @Inject(PLATFORM_ID) private platformId: any)
     {
       AppComponent.isBrowser.next(isPlatformBrowser(platformId));
-      const cookieValue: string = localStorage.getItem('cookies') ? 'true' : 'false';
-      this.cookieService.set('acceptCookies', cookieValue);
+      const cookieValue: string = localStorage.getItem('cookies') === null ? 'false' : 'true';
+      this.cookieService.set('cookies', cookieValue);
     }
 
   ngOnInit(): void {
