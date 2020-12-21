@@ -107,3 +107,10 @@ figure img {
 .button:hover {
   color: green;
 }
+
+@media screen and (max-width: 768px) {
+  .modal {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
