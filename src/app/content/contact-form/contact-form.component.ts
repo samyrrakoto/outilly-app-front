@@ -1,5 +1,12 @@
+import { RequestService } from 'src/app/services/request.service';
+import { EncodingService } from 'src/app/services/encoding.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { contact } from 'src/app/parameters';
+import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
@@ -7,8 +14,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-form.component.css']
 })
 export class ContactFormComponent implements OnInit {
+  @Input() click: Subject<any> = new Subject<any>();
   form: FormGroup;
-  readonly maxMessageLength: number = 255;
+  readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
   readonly subjects: string[] = [
     'SAV',
     'Marketing',
@@ -16,23 +24,61 @@ export class ContactFormComponent implements OnInit {
   ];
   chosenSubject: string = 'SAV';
   message: string = '';
+  email: string = '';
   testAddition: string = '';
   testInput: string = '';
   testResult: string = '';
+  anonymous: boolean;
+  userId: number = null;
+  mailSent: boolean = null;
+  error: boolean = null;
+  modals: Modals = new Modals();
 
   constructor(
-    public formBuilder: FormBuilder
-  ) { }
+    private request: RequestService,
+    public formBuilder: FormBuilder,
+    public userManager: UserManagerService,
+    private auth: AuthService,
+    private encoding: EncodingService
+  )
+  {
+    this.modals.addModal('contact-form');
+  }
 
   ngOnInit(): void {
     this.getForm();
+    this.getUserMail();
     this.generateRandomAddition();
+    this.click.subscribe(
+      () => { this.modals.open('contact-form') }
+    );
+  }
+
+  private getUserMail(): void {
+    this.auth.isLoggedIn().subscribe(
+      (logStatus: boolean) => {
+        if (logStatus) {
+          this.userManager.getUserInfos()
+            .then(() => {
+              this.email = this.userManager.user.userProfile.email;
+              this.anonymous = false;
+              this.userId = this.userManager.user.id;
+            });
+        }
+        else {
+          this.email = '';
+          this.anonymous = true;
+          this.userId = null;
+        }
+      }
+    );
   }
 
   public getForm(): void {
     this.form = this.formBuilder.group({
       message: [this.message, [Validators.required, Validators.maxLength(this.maxMessageLength)]],
-      test: [this.testInput, [this.validTest()]]
+      test: [this.testInput, [this.validTest()]],
+      email: [this.email, [Validators.required, Validators.email]]
     });
   }
 
@@ -55,7 +101,28 @@ export class ContactFormComponent implements OnInit {
     this.testResult = (a + b).toString();
   }
 
+  private getPayload(): any {
+    const payload: any = {
+      subject: this.chosenSubject,
+      message: this.encoding.base64Encoder(this.message),
+      isAnonymous: this.anonymous,
+      mail: this.email,
+      userId: this.userId
+    }
+
+    return payload;
+  }
+
   public sendMessage(): void {
-    console.log(this.message);
+    const payload: any = this.getPayload();
+
+    this.request.postData(payload, this.request.uri.SEND_CONTACT_REQUEST).subscribe(
+      () => {
+        this.mailSent = true;
+      },
+      () => {
+        this.error = true;
+      }
+    );
   }
 }

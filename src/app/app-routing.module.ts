@@ -79,10 +79,6 @@ const routes: Routes = [
     component: HomepageComponent
   },
   {
-    path: 'contact',
-    component: ContactFormComponent
-  },
-  {
     path: 'product-results',
     component: ProductResultsComponent
   },

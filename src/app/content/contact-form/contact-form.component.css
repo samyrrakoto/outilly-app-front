@@ -13,15 +13,23 @@
   font-size: 1.2em;
 }
 
-.input {
-  width: 100px;
-}
-
 textarea {
-  width: 200px;
+  font-size: 1em;
 }
 
-#message {
-  margin: auto;
-  max-width: 400px;
+.input, .input:focus, .input:enabled {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  color: #727272;
+  border-left: solid 3px var(--MAT-GREY);
+  font-size: 1.2em;
+}
+
+.input.is-valid {
+  border-left: solid 3px var(--KTKP-GREEN);
+}
+
+.field.is-horizontal {
+  margin-bottom: 20px;
 }

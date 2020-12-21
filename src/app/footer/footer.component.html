@@ -21,7 +21,7 @@
             <div class="column">
               <ul>
                 <li><a>L'équipe</a></li>
-                <li><a>Nous contacter</a></li>
+                <li><a (click)="openModal()">Nous contacter</a></li>
                 <li><a>Sitemap</a></li>
               </ul>
 
@@ -101,3 +101,7 @@
     </div>
   </div>
 </footer>
+
+<app-contact-form
+  [click]=click>
+</app-contact-form>

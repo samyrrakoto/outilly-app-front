@@ -9,6 +9,10 @@ export const prices = {
   SECURISATION_FEES_MINIMUM: 150
 }
 
+export const contact = {
+  MAX_MESSAGE_LENGTH: 600
+}
+
 export const country = {
   COUNTRIES_ACCEPTED: [
     {

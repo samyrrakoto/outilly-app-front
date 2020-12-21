@@ -1,6 +1,6 @@
-import { Router } from '@angular/router';
-import { BrandManagerService } from './../services/brand-manager.service';
+import { BrandManagerService } from 'src/app/services/brand-manager.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -21,6 +21,7 @@ export class FooterComponent implements OnInit {
     'Gardena'
   ];
   @Input() toDisplay: boolean;
+  click: Subject<any> = new Subject<any>();
 
   constructor(
     public brandManager: BrandManagerService)
@@ -29,5 +30,9 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandManager.getBrands();
+  }
+
+  public openModal(): void {
+    this.click.next();
   }
 }

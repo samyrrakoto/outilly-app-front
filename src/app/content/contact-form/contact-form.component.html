@@ -1,40 +1,107 @@
-<div id="contact" class="content has-text-centered">
-  <h1 class="title">Nous contacter</h1>
+<div class="modal {{ modals.get('contact-form') }}">
+  <div (click)="modals.close('contact-form'); mailSent = null" class="modal-background"></div>
+  <div class="modal-content">
+    <div id="contact" class="box has-text-centered">
 
-  <h2 class="subtitle">Objet</h2>
-  <div class="select">
-    <select class="pointed" [(ngModel)]="chosenSubject">
-      <option *ngFor="let subject of subjects">
-        {{ subject }}
-      </option>
-    </select>
+      <div *ngIf="mailSent" class="notification is-success">
+        Votre message a bien été envoyé
+      </div>
+
+      <div *ngIf="error" class="notification is-danger">
+        Une erreur s'est produite
+      </div>
+
+      <h1 class="title">Nous contacter</h1>
+
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <label class="label">
+            Objet
+          </label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <div class="select">
+                <select class="pointed" [(ngModel)]="chosenSubject">
+                  <option *ngFor="let subject of subjects">
+                    {{ subject }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="form">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">
+              Votre e-mail
+            </label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <input class="input no-border" [(ngModel)]="email" formControlName="email" [ngClass]="{'is-valid': !controls.email.errors }">
+              </p>
+              <p *ngIf="controls.email.errors" class="help is-danger">
+                <span *ngIf="controls.email.errors && email !== ''" class="help is-danger">L'adresse email est invalide</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form [formGroup]="form">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">
+              Votre message
+            </label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <textarea class="textarea" maxlength="{{ maxMessageLength }}" [(ngModel)]="message" formControlName="message"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
+        <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
+      </span>
+
+      <h2 class="subtitle">Résolvez cette addition simple, basique :</h2>
+
+      <form [formGroup]="form">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">
+              {{ testAddition }} = ?
+            </label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <input class="input no-border" [(ngModel)]="testInput" formControlName="test" [ngClass]="{'is-valid': !controls.test.errors }">
+              </p>
+              <p *ngIf="controls.test.errors" class="help is-danger">
+                <span class="error" *ngIf="controls.test.errors.notValid">Vous n'avez pas les bases</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="!mailSent" class="content addspaceabove">
+        <button *ngIf="controls.message.errors || controls.test.errors || controls.email.errors" class="button is-light">Envoyer</button>
+        <button *ngIf="!controls.message.errors && !controls.test.errors && !controls.email.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
+      </div>
+    </div>
   </div>
-
-  <h2 class="subtitle">Votre message</h2>
-  <div id="message" class="content">
-    <form [formGroup]="form">
-      <textarea class="textarea" formControlName="message" [(ngModel)]="message"></textarea>
-    </form>
-  </div>
-
-  <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
-    <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
-  </span>
-
-  <h2 class="subtitle">Vous n'êtes pas un robot ? Alors résolvez cette addition :<br>
-    {{ testAddition }} = ?
-  </h2>
-
-  <form [formGroup]="form">
-    <input class="input" [(ngModel)]="testInput" formControlName="test">
-  </form>
-
-  <span *ngIf="controls.test.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.test.errors }">
-    <span class="error" *ngIf="controls.test.errors.notValid">Ce n'est pas la bonne réponse</span>
-  </span>
-
-  <div class="content addspaceabove">
-    <button *ngIf="controls.message.errors || controls.test.errors" class="button is-light">Envoyer</button>
-    <button *ngIf="!controls.message.errors && !controls.test.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
-  </div>
+  <button (click)="modals.close('contact-form'); mailSent = null" class="modal-close is-large" aria-label="close"></button>
 </div>
