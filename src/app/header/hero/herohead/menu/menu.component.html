@@ -14,11 +14,19 @@
         <div id="navBarMenu" #navBarMenu class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a routerLink="/home">{{ "accueil" | uppercase }}</a>
+                  <a routerLink="/home">{{ "accueil" | uppercase }}</a>
                 </div>
 
-                <div class="navbar-item">
-                    <a href="">{{ "catégorie" | uppercase }}</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <div class="navbar-link">
+                    <a>{{ "catégorie" | uppercase }}</a>
+                  </div>
+
+                  <div class="navbar-dropdown">
+                    <a (click)="launchCategorySearch(category.id)" *ngFor="let category of categories" class="navbar-item">
+                      {{ category.label }}
+                    </a>
+                  </div>
                 </div>
 
                 <div class="navbar-item">
