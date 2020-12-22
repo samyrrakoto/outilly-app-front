@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+import { ArrayToolbox } from 'src/app/models/array-toolbox';
 import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -14,8 +14,10 @@ export class ProductsComponent implements OnInit {
   @Input() sales: any[];
   @Input() filtersNb: number;
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
+  arrayToolbox: ArrayToolbox = new ArrayToolbox();
   loaded: boolean = false;
   results: any[];
+  randomPage: number[];
   currentPage: number;
   mecanicPage: number;
   gardenPage: number;
@@ -41,6 +43,7 @@ export class ProductsComponent implements OnInit {
     this.diyPage = 1;
     this.gardenPage = 1;
     this.workshopPage = 1;
+    this.randomPage = this.arrayToolbox.generateNumberArray(5);
   }
 
   ngOnInit(): void {
@@ -76,12 +79,20 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  private getRandomPage(): number {
+    const randomIndex: number = Math.floor(Math.random() * this.randomPage.length);
+    const randomPage: number = this.randomPage[randomIndex];
+
+    this.randomPage.splice(randomIndex, 1);
+    return randomPage;
+  }
+
   public getProductsByCategory(categoryId: string): Observable<any> {
     const categoryName: string = this.getCategoryName(categoryId);
 
     return new Observable((observer) => {
       const nbResults: number = this[categoryName + 'Page'] * this.resultsPerPage;
-      const getParams: string = '?categories=' + categoryId + '&resultsPerPage=' + nbResults.toString();
+      const getParams: string = '?categories=' + categoryId + '&page=' + this.getRandomPage();
 
       this.request.getData(this.request.uri.SALES + getParams).subscribe(
         (sales: any) => {
