@@ -2,7 +2,8 @@
   color: var(--KTKP-GREY-LIGHT);
   padding-top: 2px;
   padding-bottom: 5px;
-  font-size: 0.6em;
+  font-size: 0.8em;
+  background-color: var(--KTKP-YELLOW);
 }
 
 .content {
