@@ -16,8 +16,9 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-confirmed.component.css']
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
-  loaded: boolean = false;
+  loading: boolean = false;
   buyerOrders: Array<any>;
+  mondialRelayUrl: string = '';
   public currentOrder: any;
 
   constructor(
@@ -41,12 +42,26 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
     this.getBuyerOrders();
   }
 
+  public openMrOrderTracking(orderId: number): void {
+    this.loading = true;
+
+    this.request.getData(this.request.uri.MR_ORDER_TRACKING, [orderId.toString()]).subscribe(
+      (res: any) => {
+
+        this.mondialRelayUrl = res.tracingLink;
+        setTimeout(() => {
+          document.getElementById('mondial-relay-url').click();
+          this.loading = false;
+        }, 200);
+      }
+    );
+  }
+
   private getBuyerOrders(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
         (orders: any) => {
           this.buyerOrders = orders;
-          this.loaded = true;
           resolve();
         }
       );

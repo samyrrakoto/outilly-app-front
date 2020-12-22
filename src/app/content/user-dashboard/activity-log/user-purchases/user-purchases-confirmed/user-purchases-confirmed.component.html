@@ -1,4 +1,4 @@
-<div *ngIf="loaded" class="columns is-centered">
+<div class="columns is-centered">
   <div class="column is-6">
     <div class="content">
       <h2 class="subtitle">Mes achats</h2>
@@ -71,9 +71,14 @@
               </div>
 
               <div class="content has-text-centered">
-                <button class="button order-reception is-success">
+                <button *ngIf="order.isSent" class="button order-reception is-success">
                   <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
                   Je confirme la réception du colis
+                </button>
+
+                <button *ngIf="!order.isSent" class="button order-reception is-dark">
+                  <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
+                  Le colis n'a pas encore été expedié
                 </button>
               </div>
 
@@ -113,8 +118,10 @@
                 <span class="bold">{{ order.mrExpedition.ExpeditionNum }}</span>
               </div>
 
-              <div class="content has-text-centered">
-                <a class="link-normal">Suivre mon colis</a>
+              <div *ngIf="order.isSent" class="content has-text-centered">
+                <a *ngIf="!loading" (click)="openMrOrderTracking(order.id)" class="button is-success">Suivre mon colis</a>
+                <a *ngIf="loading" (click)="openMrOrderTracking(order.id)" class="button is-light is-active"></a>
+                <a hidden id="mondial-relay-url" [href]=mondialRelayUrl target="_blank"></a>
               </div>
             </div>
         </mat-expansion-panel>
