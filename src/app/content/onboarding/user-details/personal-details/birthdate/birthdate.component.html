@@ -13,7 +13,14 @@
     <form *ngIf="form" [formGroup]="form">
       <p class="control">
         <input id="birthdate"
-          class="input no-border"
+          class="input no-border is-hidden-mobile"
+          type="date"
+          formControlName="birthdate"
+          (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate"
+          [ngClass]="{'is-invalid': controls.birthdate.errors }">
+
+          <input id="birthdate-mobile"
+          class="input no-border is-hidden-tablet"
           type="date"
           formControlName="birthdate"
           (keydown)="onKey($event)" [(ngModel)]="user.userProfile.birthdate"

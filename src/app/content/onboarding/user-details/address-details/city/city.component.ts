@@ -44,7 +44,11 @@ export class CityComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('city').focus();
+    const city: HTMLElement = document.getElementById('city');
+
+    if (city !== null) {
+      city.focus();
+    }
   }
 
   public getForm(): void {

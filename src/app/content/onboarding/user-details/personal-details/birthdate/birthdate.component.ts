@@ -42,7 +42,11 @@ export class BirthdateComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('birthdate').focus();
+    const birthdate: HTMLElement = document.getElementById('birthdate');
+
+    if (birthdate !== null) {
+      birthdate.focus();
+    }
   }
 
   public getForm(): void {

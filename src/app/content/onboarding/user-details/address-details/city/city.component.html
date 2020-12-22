@@ -13,7 +13,13 @@
 
     <form [formGroup]="form">
       <p class="control">
-        <input id="city" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
+        <input id="city" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
+        (keydown)="onKey($event)"
+        [(ngModel)]="user.userProfile.mainAddress.city"
+        formControlName="city"
+        [ngClass]="{'is-invalid': controls.city.errors }">
+
+        <input id="city-mobile" class="input no-border is-hidden-tablet" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.mainAddress.city"
         formControlName="city"

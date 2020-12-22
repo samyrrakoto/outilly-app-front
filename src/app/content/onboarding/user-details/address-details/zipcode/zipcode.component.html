@@ -13,7 +13,13 @@
 
     <form *ngIf="form" [formGroup]="form">
       <p class="control">
-        <input id="zipcode" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
+        <input id="zipcode" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
+        (keydown)="onKey($event)"
+        [(ngModel)]="user.userProfile.mainAddress.zipcode"
+        formControlName="zipcode"
+        [ngClass]="{'is-invalid': controls.zipcode.errors }">
+
+        <input id="zipcode-mobile" class="input no-border is-hidden-tablet" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.mainAddress.zipcode"
         formControlName="zipcode"

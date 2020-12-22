@@ -47,7 +47,11 @@ export class PhoneNumberComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('phone').focus();
+    const phone: HTMLElement = document.getElementById('phone');
+
+    if (phone !== null) {
+      phone.focus();
+    }
   }
 
   public getForm(): void {

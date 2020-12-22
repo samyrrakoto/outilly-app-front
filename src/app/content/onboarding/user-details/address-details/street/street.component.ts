@@ -44,7 +44,11 @@ export class StreetComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('line1').focus();
+    const line1: HTMLElement = document.getElementById('line1');
+
+    if (line1 !== null) {
+      line1.focus();
+    }
   }
 
   public getForm(): void {
