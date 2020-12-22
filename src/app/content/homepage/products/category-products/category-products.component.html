@@ -7,7 +7,7 @@
   {{ categoryId | category:'description' }}
 </div>
 
-<div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales | async">
+<div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales | async; index as i" [ngClass]="{ 'is-hidden-mobile': i > 0 }">
   <div class="card">
     <div class="card-content">
       <div class="product-content">
