@@ -3,5 +3,6 @@ export const environment = {
   apiBaseUri: 'https://api.outilly.com/',
   mediaBaseUri: 'https://media.outilly.com/',
   mondialBrand: 'CC21IBBI',
-  testCard: false
+  testCard: false,
+  appAbsoluteRootPath: '/home/vich6439/front-prod.outilly.com/app-front/'
 };

@@ -7,7 +7,8 @@ export const environment = {
   apiBaseUri: 'http://outilly.api/',
   mediaBaseUri: 'http://media.outilly.api/',
   mondialBrand: 'BDTEST13',
-  testCard: true
+  testCard: true,
+  appAbsoluteRootPath: null
 };
 
 /*

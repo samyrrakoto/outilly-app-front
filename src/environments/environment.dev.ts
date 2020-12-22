@@ -3,5 +3,6 @@ export const environment = {
   apiBaseUri: 'http://api-dev.outilly.com/',
   mediaBaseUri: 'http://media-dev.outilly.com/',
   mondialBrand: 'BDTEST13',
-  testCard: true
+  testCard: true,
+  appAbsoluteRootPath: null
 };
