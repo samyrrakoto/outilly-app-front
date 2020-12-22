@@ -42,8 +42,11 @@ export class EmailComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('email').focus();
-  }
+    const email: HTMLElement = document.getElementById('email');
+
+    if (email !== null) {
+      email.focus();
+    }  }
 
   ngOnChanges() {
     if (this.formDataService) {

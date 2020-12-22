@@ -44,7 +44,11 @@ export class PasswordconfirmationComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('passwordConfirmation').focus();
+    const passwordConfirmation: HTMLElement = document.getElementById('passwordConfirmation');
+
+    if (passwordConfirmation !== null) {
+      passwordConfirmation.focus();
+    }
   }
 
   public getForm(): void {

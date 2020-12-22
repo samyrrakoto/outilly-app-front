@@ -46,7 +46,11 @@ export class ZipcodeComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('zipcode').focus();
+    const zipcode: HTMLElement = document.getElementById('zipcode');
+
+    if (zipcode !== null) {
+      zipcode.focus();
+    }
   }
 
   public getForm(): void {

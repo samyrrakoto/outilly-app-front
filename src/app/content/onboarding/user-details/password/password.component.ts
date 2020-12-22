@@ -46,7 +46,11 @@ export class PasswordComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('password').focus();
+    const password: HTMLElement = document.getElementById('password');
+
+    if (password !== null) {
+      password.focus();
+    }
   }
 
   public getForm(): void {

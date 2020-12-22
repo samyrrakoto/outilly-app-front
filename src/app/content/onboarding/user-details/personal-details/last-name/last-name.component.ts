@@ -41,7 +41,11 @@ export class LastNameComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('lastname').focus();
+    const lastname: HTMLElement = document.getElementById('lastname');
+
+    if (lastname !== null) {
+      lastname.focus();
+    }
   }
 
   public getForm(): void {
