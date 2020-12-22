@@ -59,3 +59,7 @@
 .warning fa-icon {
   color: white;
 }
+
+.field.is-grouped {
+  justify-content: center;
+}

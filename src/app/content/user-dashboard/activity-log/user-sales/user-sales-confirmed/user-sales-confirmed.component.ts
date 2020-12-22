@@ -1,3 +1,4 @@
+import { Order } from 'src/app/models/order';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,8 +18,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserSalesConfirmedComponent implements OnInit {
   loaded: boolean = false;
+  orderSent: boolean = false;
   sellerOrders: Array<any>;
   modals: Modals;
+  currentOrder: Order;
   currentBuyer: any;
   dispatchNoteA4: string = null;
   dispatchNoteA5: string = null;
@@ -107,6 +110,18 @@ export class UserSalesConfirmedComponent implements OnInit {
           resolve();
         }
       );
+    });
+  }
+
+  public sendOrder(orderId: number): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.patchData(null, this.request.uri.SEND_ORDER + '/' + orderId.toString()).subscribe(
+        () => {
+          this.orderSent = true;
+          this.currentOrder.isSent = true;
+          resolve();
+        }
+      )
     });
   }
 

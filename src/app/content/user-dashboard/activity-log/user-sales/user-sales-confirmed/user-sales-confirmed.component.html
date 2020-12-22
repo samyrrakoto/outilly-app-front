@@ -64,14 +64,19 @@
             <!-- If delivery note has been generated -->
             <div *ngIf="isRelayDelivery(order) && isDeliveryNoteGenerated(order)" class="content">
               <div class="content has-text-centered">
-                <button class="button is-success no-overflow has-text-white">
+                <button *ngIf="!order.isSent" (click)="currentOrder = order; modals.open('send-order-confirmation')" class="button is-success no-overflow has-text-white">
                   <fa-icon [icon]="['fas', 'box']"></fa-icon>
                   Confirmer l'envoi du colis
+                </button>
+
+                <button *ngIf="order.isSent" class="button is-success no-overflow">
+                  <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                  Envoi du colis confirmé, vous recevrez une confirmation de l'acheteur une fois reçu !
                 </button>
               </div>
 
               <div class="content has-text-centered">
-                <button (click)="generateDispatchNote(order)" class="button no-overflow has-text-success">
+                <button *ngIf="!order.isSent" (click)="generateDispatchNote(order)" class="button no-overflow has-text-success">
                   <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
                   Générer à nouveau mon bon d'envoi
                 </button>
@@ -172,4 +177,26 @@
     </div>
   </div>
   <button class="modal-close is-large is-danger" aria-label="close" (click)="modals.close('etiquette-download')"></button>
+</div>
+
+<!-- Order send confirmation -->
+<div class="modal {{ modals.get('send-order-confirmation') }}">
+  <div (click)="modals.close('send-order-confirmation')" class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title">
+        Confirmez-vous que le colis a bel et bien été envoyé ?
+      </h1>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <button class="button is-success" (click)="sendOrder(currentOrder.id); modals.close('send-order-confirmation')">Oui</button>
+        </p>
+        <p class="control">
+          <button (click)="modals.close('send-order-confirmation')" class="button is-light">Non</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large is-danger" aria-label="close" (click)="modals.close('send-order-confirmation')"></button>
 </div>
