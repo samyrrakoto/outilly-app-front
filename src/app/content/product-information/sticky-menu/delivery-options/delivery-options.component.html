@@ -48,7 +48,7 @@
           <!-- If a counter-offer has been made -->
           <div *ngIf="hasBidded && isCounterOffer()" class="content">
             <div class="content">
-              <button class="button buy is-danger" (click)="nextStep()">
+              <button class="button buy is-danger no-overflow" (click)="nextStep()">
                 Acheter au prix de {{ priceToPay | currency:'full' }}€
               </button>
             </div>
@@ -61,7 +61,7 @@
           <!-- If an offer has been accepted -->
           <div *ngIf="hasBidded && isAccepted()" class="content">
             <div class="content">
-              <button class="button buy is-danger" (click)="nextStep()">
+              <button class="button buy is-danger no-overflox" (click)="nextStep()">
                 Acheter au prix de {{ priceToPay | currency:'full' }}€
               </button>
             </div>
@@ -74,7 +74,7 @@
           <!-- If an offer has been declined -->
           <div *ngIf="hasBidded && isDeclined()" class="content">
             <div class="content">
-              <button class="button buy is-danger" (click)="nextStep()">
+              <button class="button buy is-danger no-overflow" (click)="nextStep()">
                 Acheter à prix coûtant
               </button>
             </div>
@@ -88,7 +88,7 @@
           <!-- If a bid is pending -->
           <div *ngIf="hasBidded && isPending()" class="content">
             <div class="content">
-              <button class="button buy is-danger" (click)="nextStep()">
+              <button class="button buy is-danger no-overflow" (click)="nextStep()">
                 Acheter
               </button>
             </div>
@@ -105,13 +105,13 @@
           <!-- If no bid has been made -->
           <div *ngIf="!hasBidded" class="content">
             <div class="content">
-              <button class="button buy is-danger" (click)="nextStep()">
+              <button class="button buy is-danger no-overflow" (click)="nextStep()">
                 Acheter
               </button>
             </div>
 
             <div class="content">
-              <button (click)="nextAltStep()" class="button is-ligh">
+              <button (click)="nextAltStep()" class="button is-ligh no-overflow">
                 Faire une proposition au vendeur.
               </button>
             </div>
@@ -122,7 +122,7 @@
       <!-- When login fails -->
       <div *ngIf="auth.isLogged() === false" class="content">
         <div class="content">
-          <button (click)="goToLogin()" class="button is-light">
+          <button (click)="goToLogin()" class="button is-light no-overflow">
             Se connecter pour acheter
           </button>
         </div>

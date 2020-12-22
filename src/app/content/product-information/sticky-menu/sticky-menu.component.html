@@ -37,6 +37,9 @@
         <!-- MOBILE VERSION -->
         <div id="menu-content-mobile" class="content is-hidden-tablet">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
+            [isSeller]=isSeller
+            [priceToPay]=priceToPay
+            [mrCosts]=mrCosts
             [sale]="sale">
           </delivery-options>
           <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
