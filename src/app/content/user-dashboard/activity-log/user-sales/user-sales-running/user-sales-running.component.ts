@@ -79,13 +79,12 @@ export class UserSalesRunningComponent implements OnInit {
   }
 
   private findBid(bidId: number): Bid {
-    let i: number = 0;
-
     for (const sale of this.runningSales) {
-      if (sale.bids[0].id === bidId) {
-        return sale.bids[0];
+      for (const bid of sale.bids) {
+        if (bid.id === bidId) {
+          return bid;
+        }
       }
-      i++;
     }
     return null;
   }
