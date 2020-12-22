@@ -12,7 +12,15 @@
 
     <form *ngIf="form" [formGroup]="form">
       <p class="control">
-        <input id="announceTitle" class="input no-border"
+        <input id="announceTitle" class="input no-border is-hidden-mobile"
+          type="email"
+          (keydown)="onKey($event)"
+          placeholder="{{ placeholder }}"
+          [(ngModel)]="product.name"
+          formControlName="announceTitle"
+          [ngClass]="{'is-invalid': controls.announceTitle.errors }">
+
+          <input id="announceTitle-mobile" class="input no-border is-hidden-tablet"
           type="email"
           (keydown)="onKey($event)"
           placeholder="{{ placeholder }}"

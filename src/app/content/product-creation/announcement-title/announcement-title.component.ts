@@ -61,7 +61,11 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('announceTitle').focus();
+    const announceTitle: HTMLElement = document.getElementById('announceTitle');
+
+    if (announceTitle !== null) {
+      announceTitle.focus();
+    }
   }
 
   ngOnDestroy(): void {

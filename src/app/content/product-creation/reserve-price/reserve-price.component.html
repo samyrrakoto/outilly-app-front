@@ -13,7 +13,13 @@
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
         <form *ngIf="form" [formGroup]="form">
-          <input id="reservePrice" class="input no-border" type="number"
+          <input id="reservePrice" class="input no-border is-hidden-mobile" type="number"
+          (keydown)="onKey($event)"
+          [(ngModel)]="product.reservePrice"
+          [ngClass]="{'is-invalid': controls.reservePrice.errors}"
+          formControlName="reservePrice">
+
+          <input id="reservePrice-mobile" class="input no-border is-hidden-tablet" type="number"
           (keydown)="onKey($event)"
           [(ngModel)]="product.reservePrice"
           [ngClass]="{'is-invalid': controls.reservePrice.errors}"

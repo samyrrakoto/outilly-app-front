@@ -58,10 +58,14 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.matOption) {
-      this.matOption.nativeElement.openPanel();
+    const productReference: HTMLElement = document.getElementById('product-reference');
+
+    if (productReference !== null) {
+      if (this.matOption) {
+        this.matOption.nativeElement.openPanel();
+      }
+      productReference.focus();
     }
-    document.getElementById('product-reference').focus();
   }
 
   private filterTreatment(): void {

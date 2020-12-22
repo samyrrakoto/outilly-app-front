@@ -50,7 +50,11 @@ export class ProductZipcodeComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('zipcode').focus();
+    const zipcode: HTMLElement = document.getElementById('zipcode');
+
+    if (zipcode !== null) {
+      zipcode.focus();
+    }
   }
 
   public getForm(): void {

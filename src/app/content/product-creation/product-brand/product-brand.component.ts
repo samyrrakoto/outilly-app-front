@@ -58,10 +58,14 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.matOption) {
-      this.matOption.nativeElement.openPanel();
+    const productBrand: HTMLElement = document.getElementById('product-brand');
+
+    if (productBrand !== null) {
+      if (this.matOption) {
+        this.matOption.nativeElement.openPanel();
+      }
+      productBrand.focus();
     }
-    document.getElementById('product-brand').focus();
   }
 
   private filterTreatment(): void {
