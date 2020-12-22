@@ -14,7 +14,14 @@
       <div class="column">
         <div class="field">
           <form *ngIf="form" [formGroup]="form">
-            <input id="weight" type="number" max="{{ maxValue }}" min="0" class="input no-border"
+            <input id="weight" type="number" max="{{ maxValue }}" min="0" class="input no-border is-hidden-mobile"
+            placeholder="{{ placeholder }}"
+            (keydown)="onKey($event)"
+            [(ngModel)]="product.weight"
+            formControlName="weight"
+            [ngClass]="{'is-invalid': controls.weight.errors}">
+
+            <input id="weight-mobile" type="number" max="{{ maxValue }}" min="0" class="input no-border is-hidden-tablet"
             placeholder="{{ placeholder }}"
             (keydown)="onKey($event)"
             [(ngModel)]="product.weight"

@@ -48,7 +48,11 @@ export class ProductWeightComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('weight').focus();
+    const weight: HTMLElement = document.getElementById('weight');
+
+    if (weight !== null) {
+      weight.focus();
+    }
   }
 
   public getForm(): void {

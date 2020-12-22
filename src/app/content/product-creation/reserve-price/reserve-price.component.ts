@@ -45,7 +45,11 @@ export class ReservePriceComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('reservePrice').focus();
+    const reservePrice: HTMLElement = document.getElementById('reservePrice');
+
+    if (reservePrice !== null) {
+      reservePrice.focus();
+    }
   }
 
   public getForm(): void {

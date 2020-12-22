@@ -45,7 +45,11 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('warrantyDuration').focus();
+    const warrantyDuration: HTMLElement = document.getElementById('warrantyDuration');
+
+    if (warrantyDuration !== null) {
+      warrantyDuration.focus();
+    }
   }
 
   public getForm(): void {

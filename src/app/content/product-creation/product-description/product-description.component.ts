@@ -50,7 +50,11 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    document.getElementById('description').focus();
+    const description: HTMLElement = document.getElementById('description');
+
+    if (description !== null) {
+      description.focus();
+    }
   }
 
   public removeAllSpaces(str: string): string {
