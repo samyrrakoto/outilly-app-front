@@ -28,6 +28,7 @@ export class AuthService {
         if (response.body.token) {
           this.setAccessToken(response.body);
           this.setUserInfosInSession();
+          this.logged = true;
           resolve(true);
         } else {
           reject(false);
@@ -67,6 +68,7 @@ export class AuthService {
 
   // After clearing localStorage redirect to login screen
   public logout(params?: any): void {
+    this.logged = false;
     this.loggedIn.next(false);
     this.getExclusiveStorageData();
     localStorage.clear();
@@ -98,7 +100,7 @@ export class AuthService {
   }
 
   public isLogged(): boolean {
-    return this.accessToken === 'good' && this.logged;
+    return this.getTokenStatus() === 'good' && this.logged;
   }
 
   public getTokenStatus(): string {

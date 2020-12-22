@@ -120,7 +120,7 @@
       </div>
 
       <!-- When login fails -->
-      <div *ngIf="!this.auth.isLogged()" class="content">
+      <div *ngIf="auth.isLogged() === false" class="content">
         <div class="content">
           <button (click)="goToLogin()" class="button is-light">
             Se connecter pour acheter
