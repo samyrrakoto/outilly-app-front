@@ -30,6 +30,10 @@
   color: white
 }
 
+.field.is-grouped {
+  justify-content: center;
+}
+
 @media (max-width: 780px) {
   .modal .columns {
     margin-bottom: 20px;

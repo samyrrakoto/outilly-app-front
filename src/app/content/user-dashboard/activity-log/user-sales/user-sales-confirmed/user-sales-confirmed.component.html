@@ -69,10 +69,22 @@
                   Confirmer l'envoi du colis
                 </button>
 
-                <button *ngIf="order.isSent" class="button is-success no-overflow">
-                  <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
-                  Envoi du colis confirmé, vous recevrez une confirmation de l'acheteur une fois reçu !
-                </button>
+                <!-- If order sent -->
+                <div *ngIf="order.isSent">
+                  <article *ngIf="!order.isDelivered" class="message is-success">
+                    <div class="message-body">
+                      <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                      Envoi du colis confirmé, vous recevrez une confirmation de l'acheteur une fois reçu !
+                    </div>
+                  </article>
+
+                  <article *ngIf="order.isDelivered" class="message is-success">
+                    <div class="message-body">
+                      <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                      L'acheteur a bien reçu votre colis !
+                    </div>
+                  </article>
+                </div>
               </div>
 
               <div class="content has-text-centered">
@@ -107,6 +119,10 @@
                   L'acheteur souhaite se faire livrer par<br>
                   <span class="accepted">{{ order.shipMethod | delivery}}</span>
                 </h2>
+              </div>
+
+              <div class="content has-text-centered">
+                <button class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
               </div>
 
               <div class="content has-text-centered">
