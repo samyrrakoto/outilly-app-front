@@ -13,6 +13,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 export class MediaGalleryComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  currentMediaIndex: number = 0;
   firstImage: string = '';
 
   constructor(
@@ -90,5 +91,23 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
 
   public getBackgroundImgUrl(path: string): string {
     return "url('" + this.mediaBaseUri + path + "')";
+  }
+
+  public getNextMediaIndex(): void {
+    if (this.currentMediaIndex === this.sale.product.productMedias.length - 1) {
+      this.currentMediaIndex = 0;
+    }
+    else {
+      this.currentMediaIndex++;
+    }
+  }
+
+  public getPreviousMediaIndex(): void {
+    if (this.currentMediaIndex === 0) {
+      this.currentMediaIndex = this.sale.product.productMedias.length - 1;
+    }
+    else {
+      this.currentMediaIndex--;
+    }
   }
 }
