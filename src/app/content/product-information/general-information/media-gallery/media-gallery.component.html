@@ -25,10 +25,9 @@
         </figure>
       </div>
 
-      <div *ngIf="sale.product.productMedias.length > 7 && i === 3">
-        <figure class="image">
-          <img id="plus" src="assets/img/logo/plus.png" (click)="openGalleryMedia(6, media.type)">
-        </figure>
+      <div id="see-more-medias" class="pointed" (click)="openGalleryMedia(6, media.type)" *ngIf="sale.product.productMedias.length > 7 && i === 3">
+        <fa-icon id="plus-icon" class="side-icon" [icon]="['fas', 'plus-circle']"></fa-icon>
+        <span class="declined">{{ sale.product.productMedias.length - 6 }}</span> médias
       </div>
     </div>
   </div>
