@@ -11,31 +11,7 @@
         </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <!-- DESKTOP VERSION -->
-        <div id="menu-content-desktop" class="content is-hidden-mobile">
-          <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
-            [isSeller]=isSeller
-            [priceToPay]=priceToPay
-            [mrCosts]=mrCosts
-            [sale]="sale">
-          </delivery-options>
-          <buying-confirmation *ngIf="stickyMenuSteps.buyingConfirmation"
-            [priceToPay]="priceToPay"
-            [sale]="sale"
-            [deliveryName]="deliveryName"
-            [deliveryFees]="deliveryFees">
-          </buying-confirmation>
-          <buying-proposition *ngIf="stickyMenuSteps.buyingProposition"
-            [sale]="sale"
-            [errorMsg]="errorMsg"
-            [minPrice]="minPrice"
-            [maxPrice]="maxPrice"
-            [proposedPrice]="proposedPrice">
-          </buying-proposition>
-        </div>
-
-        <!-- MOBILE VERSION -->
-        <div id="menu-content-mobile" class="content is-hidden-tablet">
+        <div id="menu-content" class="content">
           <delivery-options *ngIf="stickyMenuSteps.deliveryOptions"
             [isSeller]=isSeller
             [priceToPay]=priceToPay

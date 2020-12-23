@@ -11,3 +11,11 @@
 #predefined-question {
     border: solid 0px;
 }
+
+.state-title {
+  margin-bottom: 0px;
+}
+
+.state-description {
+  margin-top: 15px;
+}

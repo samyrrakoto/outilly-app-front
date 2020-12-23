@@ -1,4 +1,4 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';

@@ -8,4 +8,8 @@ export class ArrayToolbox {
     }
     return numberArray;
   }
+
+  public getCounter(n: number): any[] {
+    return new Array(n);
+  }
 }
