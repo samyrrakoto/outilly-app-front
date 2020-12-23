@@ -1,4 +1,4 @@
-import { Purchase } from './../../../../models/purchase';
+import { Purchase } from 'src/app/models/purchase';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -22,20 +22,23 @@ export class DeliveryOptionsComponent implements OnInit {
   @Input() sale: Sale;
   @Input() priceToPay: number;
   @Output() priceToPayEmitter: EventEmitter<number> = new EventEmitter<number>();
+  userStatus: string;
   bid: Bid;
   hasBidded: boolean;
   deliveryName: string;
   deliveryFees: number;
   errorMsg: string;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public route: ActivatedRoute,
     public auth: AuthService,
     public router: Router,
     public location: Location,
     public sticky: StickyMenuComponent,
     public userManager: UserManagerService,
-    public purchaseManager: PurchaseManagerService) {
+    public purchaseManager: PurchaseManagerService)
+  {
     this.sticky.current = 'deliveryOptions';
     this.sticky.previous = '';
     this.sticky.next = 'buyingConfirmation';
@@ -43,6 +46,7 @@ export class DeliveryOptionsComponent implements OnInit {
     this.deliveryFees = 0;
     this.deliveryName = '';
     this.errorMsg = '';
+    this.userStatus = localStorage.getItem('userStatus');
   }
 
   ngOnInit(): void {
