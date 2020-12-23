@@ -1,3 +1,5 @@
+import { ArrayToolbox } from 'src/app/models/array-toolbox';
+import { staticStates } from 'src/app/parameters';
 import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +22,8 @@ export class GeneralInformationComponent extends GenericComponent implements OnI
   descriptionFlag: boolean = false;
   mapUrl: string = '';
   modals: Modals;
+  arrayToolbox: ArrayToolbox = new ArrayToolbox();
+  readonly states: string[] = staticStates;
   readonly maxVisibleLength: number = 255;
 
   constructor(public request: RequestService,
