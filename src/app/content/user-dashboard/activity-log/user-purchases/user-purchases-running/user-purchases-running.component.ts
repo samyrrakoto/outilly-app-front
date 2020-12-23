@@ -57,7 +57,7 @@ export class UserPurchasesRunningComponent {
   }
 
   public goToProductPage(purchase: Purchase): void {
-    this.router.navigate(['/product/' + purchase.productName + '/' + purchase.sale.id]);
+    this.router.navigate(['/product/' + purchase.slug + '/' + purchase.sale.id]);
   }
 
   public noteAsRead(currentPurchase: Purchase): void {
