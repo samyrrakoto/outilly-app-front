@@ -10,7 +10,8 @@ export class MetaDataService {
 
   constructor(
     private title: Title,
-    private meta: Meta)
+    private meta: Meta
+    )
   {}
 
   public updateTags(tag: string, description: string, partUrl: string, imgUri: string): void {
@@ -23,7 +24,7 @@ export class MetaDataService {
 
   private updateMeta(title: string, description: string, imgUri: string, url: string): void {
     this.updateTitle(title);
-    this.updateDescription(description);
+    this.updateDescription(description.replace(/<br \/>/g, ' '));
     this.updateImage(imgUri);
     this.updateUrl(url);
   }
@@ -34,8 +35,8 @@ export class MetaDataService {
   }
 
   private updateDescription(description: string): void {
-    this.meta.updateTag({ name: 'description', content: description.slice(157) });
-    this.meta.updateTag({ name: 'og:description', content: description.slice(199) });
+    this.meta.updateTag({ name: 'description', content: description.slice(0, 155) + '...'});
+    this.meta.updateTag({ name: 'og:description', content: description.slice(0, 196) + '...' });
   }
 
   private updateImage(imgUri: string): void {
