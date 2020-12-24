@@ -27,6 +27,10 @@
   border-bottom: solid 2px var(--KTKP-GREEN);
 }
 
+.navbar-dropdown a:hover {
+  border: none;
+}
+
 .navbar-link a:hover {
   border: none;
 }
