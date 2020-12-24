@@ -5,8 +5,8 @@
     <div class="columns is-gapless is-centered is-mobile">
       <div *ngFor="let media of sale.product.productMedias.slice(0,3); index as i">
         <div class="column is-narrow">
-          <img *ngIf="media.type === 'image'" class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)">
-          <img *ngIf="media.type === 'video'" src="/assets/img/logo/play.png" class="top-thumbnail video-thumbnail" [ngStyle]="{ 'background-image': firstImage }" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)">
+          <img *ngIf="media.type === 'image'" class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
+          <img *ngIf="media.type === 'video'" src="/assets/img/logo/play.png" class="top-thumbnail video-thumbnail" [ngStyle]="{ 'background-image': firstImage }" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </div>
       </div>
     </div>
@@ -17,11 +17,11 @@
     <div *ngFor="let media of sale.product.productMedias.slice(3,7); index as i" class="content">
       <div *ngIf="i < 3">
         <figure *ngIf="media.type === 'image'" class="image">
-          <img src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)">
+          <img src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </figure>
 
         <figure *ngIf="media.type === 'video'">
-          <img src="assets/img/logo/play.png" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)">
+          <img src="assets/img/logo/play.png" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </figure>
       </div>
 
@@ -40,7 +40,7 @@
     <div class="box has-background-black">
       <!-- media -->
       <figure *ngIf="media.type === 'image'" class="image">
-        <img src="{{ mediaBaseUri + media.path }}">
+        <img src="{{ mediaBaseUri + media.path }}" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
       </figure>
 
       <figure class="video" *ngIf="media.type === 'video'">

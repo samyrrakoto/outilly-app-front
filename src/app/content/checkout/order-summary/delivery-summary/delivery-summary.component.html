@@ -211,7 +211,7 @@
   <div class="modal-background" (click)="modals.close('relayPointPicture')"></div>
   <div class="modal-content">
     <div class="box has-text-centered">
-      <img id="relay-point-picture" src="{{ relayPoint.photoUrl }}" alt="relay-point-picture">
+      <img id="relay-point-picture" src="{{ relayPoint.photoUrl }}" alt="{{ 'photo ' + relayPoint.addLine1 }}">
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('relayPointPicture')"></button>

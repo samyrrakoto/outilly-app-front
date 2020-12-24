@@ -11,11 +11,11 @@
 
 <div class="columns is-vcentered">
   <div class="column has-text-centered-mobile" [ngClass]="{ 'has-text-right': sale.product.toDeliver, 'has-text-centered': !sale.product.toDeliver }">
-    <img title="Livraison en mains propres" class="hand-delivery-icon" src="/assets/img/logo/hand-delivery-logo.png">
+    <img title="Livraison en mains propres" class="hand-delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" alt="Logo de remise en mains propres" title="Logo de remise en mains propres">
   </div>
 
   <div *ngIf="sale.product.toDeliver" class="column has-text-left has-text-centered-mobile">
-    <img title="Livraison en point relais" class="mondial-relay-icon" src="/assets/img/logo/mondial-relay-logo.png">
+    <img title="Livraison en point relais" class="mondial-relay-icon" src="/assets/img/logo/mondial-relay-logo.png" alt="Logo Mondial Relay" title="Logo Mondial Relay">
   </div>
 </div>
 

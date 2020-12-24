@@ -50,7 +50,6 @@ import { Buyingcall2actionComponent } from './content/product-information/side-i
 import { Sellingcall2actionComponent } from './content/product-information/side-information/sellingcall2action/sellingcall2action.component';
 import { PaymentinformationComponent } from './content/product-information/side-information/paymentinformation/paymentinformation.component';
 import { QuestiontovendorComponent } from './content/product-information/side-information/questiontovendor/questiontovendor.component';
-import { ProductModalComponent } from './content/product-information/product-modal/product-modal.component';
 import { MediaGalleryComponent } from './content/product-information/general-information/media-gallery/media-gallery.component';
 import { PredefinedQuestionComponent } from './content/product-information/general-information/predefined-question/predefined-question.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -191,7 +190,6 @@ import { PrivacyPolicyComponent } from './content/privacy-policy/privacy-policy.
     Sellingcall2actionComponent,
     PaymentinformationComponent,
     QuestiontovendorComponent,
-    ProductModalComponent,
     MediaGalleryComponent,
     PredefinedQuestionComponent,
     StickyMenuComponent,
