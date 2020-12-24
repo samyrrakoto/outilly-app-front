@@ -36,7 +36,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.meta.updateTags(this.pageTitle, 'Revendez vos outils sur Outilly.com', '/', 'outilly-share-base.jpg');
+    this.meta.updateTags(this.pageTitle, 'Faites de la place, Revendez votre matériel. Sur Outilly, achetez et revendez du matériel de seconde main en toute sécurité.', '', 'outilly-share-base.jpg');
     this.auth.getLogStatus()
       .then(() => this.connectionStatus())
       .then(() => this.getCategories())
