@@ -31,19 +31,19 @@ export class MetaDataService {
 
   private updateTitle(title: string): void {
     this.title.setTitle(title);
-    this.meta.updateTag({ name: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:title', content: title });
   }
 
   private updateDescription(description: string): void {
     this.meta.updateTag({ name: 'description', content: description.slice(0, 155) + '...'});
-    this.meta.updateTag({ name: 'og:description', content: description.slice(0, 196) + '...' });
+    this.meta.updateTag({ property: 'og:description', content: description.slice(0, 196) + '...' });
   }
 
   private updateImage(imgUri: string): void {
-    this.meta.updateTag({ name: 'og:image', content: imgUri });
+    this.meta.updateTag({ property: 'og:image', content: imgUri });
   }
 
   private updateUrl(url: string): void {
-    this.meta.updateTag({ name: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:url', content: url });
   }
 }
