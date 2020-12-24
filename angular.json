@@ -215,6 +215,28 @@
               ],
               "sourceMap": false,
               "optimization": true
+            },
+            "staging": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            },
+            "dev": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
             }
           }
         },
@@ -232,6 +254,14 @@
             "preprod": {
               "browserTarget": "angular:build:preprod",
               "serverTarget": "angular:server:preprod"
+            },
+            "staging": {
+              "browserTarget": "angular:build:staging",
+              "serverTarget": "angular:server:staging"
+            },
+            "dev": {
+              "browserTarget": "angular:build:dev",
+              "serverTarget": "angular:server:dev"
             }
           }
         },
