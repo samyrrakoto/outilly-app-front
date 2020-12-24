@@ -1,3 +1,4 @@
+import { Order } from 'src/app/models/order';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { UserPurchasesComponent } from './../user-purchases.component';
 import { Component, OnInit } from '@angular/core';
@@ -35,6 +36,7 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
     super(request, router, route, auth, purchaseManager, saleManager, bidManager, location, title);
     this.modals = new Modals();
     this.modals.addModal('order-overview');
+    this.modals.addModal('order-reception')
     this.currentOrder = null;
   }
 
@@ -62,6 +64,17 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
       this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
         (orders: any) => {
           this.buyerOrders = orders;
+          resolve();
+        }
+      );
+    });
+  }
+
+  public orderReceptionConfirmation(order: Order): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.patchData(null, this.request.uri.ORDER_RECEPTION_CONFIRMATION + '/' + order.id.toString()).subscribe(
+        (res: any) => {
+          order.isDelivered = true;
           resolve();
         }
       );

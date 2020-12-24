@@ -8,6 +8,22 @@
   padding-left: 0px;
 }
 
+.hero-icon {
+  border: solid 2px white;
+  border-radius: 30px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.hero-icon:hover {
+  background-color: var(--KTKP-GREEN);
+  border-color: var(--KTKP-GREEN);
+}
+
+.hero-label {
+  margin-top: 10px;
+}
+
 #brand-logo {
   height: 75px;
 }

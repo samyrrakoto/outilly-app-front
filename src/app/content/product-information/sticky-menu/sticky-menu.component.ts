@@ -64,7 +64,6 @@ export class StickyMenuComponent implements OnInit {
   setDelivery(id: string, deliveryName: string, deliveryFees: number): void {
     this.deliveryName = deliveryName;
     this.deliveryFees = deliveryFees;
-    this.setFocus(id);
   }
 
   setFocus(id: string): void {

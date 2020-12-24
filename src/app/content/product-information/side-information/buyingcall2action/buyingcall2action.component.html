@@ -9,6 +9,16 @@
   <button *ngIf="!isAvailable && sale.status !== 'new'" class="button product-sold is-large has-text-danger no-overflow">Oups, déjà vendu !</button>
 </div>
 
+<div class="columns is-vcentered">
+  <div class="column has-text-centered-mobile" [ngClass]="{ 'has-text-right': sale.product.toDeliver, 'has-text-centered': !sale.product.toDeliver }">
+    <img title="Livraison en mains propres" class="hand-delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" alt="Logo de remise en mains propres" title="Logo de remise en mains propres">
+  </div>
+
+  <div *ngIf="sale.product.toDeliver" class="column has-text-left has-text-centered-mobile">
+    <img title="Livraison en point relais" class="mondial-relay-icon" src="/assets/img/logo/mondial-relay-logo.png" alt="Logo Mondial Relay" title="Logo Mondial Relay">
+  </div>
+</div>
+
 <div class="content is-size-7">
   <div class="content">
     Ce prix ne tient pas compte des frais de sécurisation.

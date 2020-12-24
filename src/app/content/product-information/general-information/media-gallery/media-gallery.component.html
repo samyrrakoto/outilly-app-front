@@ -5,8 +5,8 @@
     <div class="columns is-gapless is-centered is-mobile">
       <div *ngFor="let media of sale.product.productMedias.slice(0,3); index as i">
         <div class="column is-narrow">
-          <img *ngIf="media.type === 'image'" class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i, media.type)">
-          <img *ngIf="media.type === 'video'" src="/assets/img/logo/play.png" class="top-thumbnail video-thumbnail" [ngStyle]="{ 'background-image': firstImage }" (click)="openGalleryMedia(i, media.type)">
+          <img *ngIf="media.type === 'image'" class="top-thumbnail" src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
+          <img *ngIf="media.type === 'video'" src="/assets/img/logo/play.png" class="top-thumbnail video-thumbnail" [ngStyle]="{ 'background-image': firstImage }" (click)="currentMediaIndex = i; openGalleryMedia(i, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </div>
       </div>
     </div>
@@ -17,18 +17,17 @@
     <div *ngFor="let media of sale.product.productMedias.slice(3,7); index as i" class="content">
       <div *ngIf="i < 3">
         <figure *ngIf="media.type === 'image'" class="image">
-          <img src="{{ mediaBaseUri + media.path }}" (click)="openGalleryMedia(i + 3, media.type)">
+          <img src="{{ mediaBaseUri + media.path }}" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </figure>
 
         <figure *ngIf="media.type === 'video'">
-          <img src="assets/img/logo/play.png" (click)="openGalleryMedia(i + 3, media.type)">
+          <img src="assets/img/logo/play.png" (click)="currentMediaIndex = i+3; openGalleryMedia(i + 3, media.type)" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
         </figure>
       </div>
 
-      <div *ngIf="sale.product.productMedias.length > 7 && i === 3">
-        <figure class="image">
-          <img id="plus" src="assets/img/logo/plus.png" (click)="openGalleryMedia(6, media.type)">
-        </figure>
+      <div id="see-more-medias" class="pointed" (click)="currentMediaIndex = 6; openGalleryMedia(6, media.type)" *ngIf="sale.product.productMedias.length > 7 && i === 3">
+        <fa-icon id="plus-icon" class="side-icon" [icon]="['fas', 'plus-circle']"></fa-icon>
+        <span class="declined">{{ sale.product.productMedias.length - 6 }}</span> photos
       </div>
     </div>
   </div>
@@ -41,7 +40,7 @@
     <div class="box has-background-black">
       <!-- media -->
       <figure *ngIf="media.type === 'image'" class="image">
-        <img src="{{ mediaBaseUri + media.path }}">
+        <img src="{{ mediaBaseUri + media.path }}" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
       </figure>
 
       <figure class="video" *ngIf="media.type === 'video'">
@@ -51,15 +50,19 @@
       </figure>
 
       <!-- nav arrows -->
-      <div class="columns is-mobile is-vcentered">
-        <div class="column">
-          <button class="button is-large has-background-black has-text-white" (click)="previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <button class="button is-large has-background-black has-text-white" (click)="getPreviousMediaIndex(); previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
         </div>
 
-        <div class="column has-text-right">
-          <button class="button is-large has-background-black has-text-white" (click)="nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+        <div class="level-item">
+          <span class="accepted">{{ currentMediaIndex + 1 }}</span>&nbsp;/&nbsp;{{ sale.product.productMedias.length }}
         </div>
-      </div>
+
+        <div class="level-right">
+          <button class="button is-large has-background-black has-text-white" (click)="getNextMediaIndex(); nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+        </div>
+      </nav>
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>

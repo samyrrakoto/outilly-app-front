@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-content">
         <div class="img-container" *ngIf="sale.product.mainImage" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImageThumbnail.path) }"></div>
-        <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+        <h2 *ngIf="sale.product.name.length <= maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
         <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
 
         <div class="columns is-vcentered">
@@ -25,11 +25,11 @@
           <div class="column has-text-left has-text-centered-mobile inline-mobile">
             <nav class="level inline-mobile">
               <div *ngIf="sale.product.toDeliver" class="level-item inline-mobile">
-                <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" title="Expédition via Mondial Relay">
+                <img class="delivery-icon" src="/assets/img/logo/mondial-relay-logo.png" alt="Logo Mondial Relay" title="Expédition via Mondial Relay">
               </div>
 
               <div class="level-item inline-mobile">
-                <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" title="Remise en mains propres">
+                <img class="delivery-icon" src="/assets/img/logo/hand-delivery-logo.png" alt="Logo Mondial Relay" title="Remise en mains propres">
               </div>
             </nav>
           </div>

@@ -15,7 +15,8 @@
 </div>
 
 <input accept="{{ picturesFormatAccepted }}" type="file" id="product-pictures" multiple name="product-pictures" (change)="handleFile()" style="display: none;">
-<button *ngIf="!isLoading" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+<button *ngIf="!isLoading && product.productMedias.length < maxNbPictures" (click)="openImgPicker()" id="file-select" class="button is-success" style="margin-bottom: 20px">Sélectionnez des images</button>
+<button *ngIf="!isLoading && product.productMedias.length >= maxNbPictures" class="button is-light" style="margin-bottom: 20px">Sélectionnez des images</button>
 <button *ngIf="isLoading" id="file-select" class="button is-light is-loading" style="margin-bottom: 20px"></button>
 
 <app-navigation
@@ -45,7 +46,7 @@
 <div id="displayed-medias">
   <div class="content" *ngFor="let media of product.productMedias">
     <div *ngIf="media.type === 'image'" class="preview-container">
-      <img class="previews" src="{{ mediaBaseUri + media.path }}">
+      <img class="previews" src="{{ mediaBaseUri + media.path }}" alt="Photo de {{ formData.product.name }}" title="Photo de {{ formData.product.name }}">
 
       <button (click)="cancelMedia(media)" title="Supprimer cette photo" class="button is-danger is-small action-button delete-button">
         <fa-icon [icon]="['fas', 'times']"></fa-icon>
@@ -64,7 +65,7 @@
 
           <!-- media -->
           <figure class="image">
-            <img src="{{ mediaBaseUri + currentMedia.path }}">
+            <img src="{{ mediaBaseUri + currentMedia.path }}" alt="Photo de {{ formData.product.name }}" title="Photo de {{ formData.product.name }}">
           </figure>
 
         </div>

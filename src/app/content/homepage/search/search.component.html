@@ -11,9 +11,9 @@
 
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label); getReferences()">
+          <li *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label); getReferences()">
             {{ category.label }}
-          </a>
+          </li>
         </div>
       </div>
     </div>
@@ -30,16 +30,16 @@
 
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div *ngIf="!hasFilter('category', 'Consommable')" class="dropdown-content">
-          <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
+          <li *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
             {{ type.label }}
-          </a>
+          </li>
         </div>
 
         <div *ngIf="hasFilter('category', 'Consommable')" class="dropdown-content">
           <div *ngFor="let type of allCategories">
-            <a *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
+            <li *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
               {{ type.label }}
-            </a>
+            </li>
           </div>
         </div>
       </div>
@@ -57,12 +57,12 @@
 
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
+          <li *ngIf="references.length === 0" class="dropdown-item discreet-text">
             Choisissez des catégories pour voir la liste des produits
-          </a>
-          <a *ngFor="let reference of references" title="{{ reference.label }}" class="dropdown-item" (click)="addFilter('reference', reference.label)">
+          </li>
+          <li *ngFor="let reference of references" title="{{ reference.label }}" class="dropdown-item" (click)="addFilter('reference', reference.label)">
             {{ reference.label }}
-          </a>
+          </li>
         </div>
       </div>
     </div>
@@ -79,12 +79,12 @@
 
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
+          <li class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
             Oui
-          </a>
-          <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
+          </li>
+          <li class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
             Non
-          </a>
+          </li>
         </div>
       </div>
     </div>
@@ -127,9 +127,9 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label); getReferences()">
+              <li *ngFor="let category of allCategories" class="dropdown-item" (click)="addFilter('category', category.label); getReferences()">
                 {{ category.label }}
-              </a>
+              </li>
             </div>
           </div>
         </div>
@@ -147,16 +147,16 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div *ngIf="!hasFilter('category', 'Consommable')" class="dropdown-content">
-              <a *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
+              <li *ngFor="let type of allTypes" class="dropdown-item" (click)="addFilter('type', type.label)">
                 {{ type.label }}
-              </a>
+              </li>
             </div>
 
             <div *ngIf="hasFilter('category', 'Consommable')" class="dropdown-content">
               <div *ngFor="let type of allCategories">
-                <a *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
+                <li *ngIf="type.label !== 'Consommable'" class="dropdown-item" (click)="addFilter('category', type.label)">
                   {{ type.label }}
-                </a>
+                </li>
               </div>
             </div>
           </div>
@@ -178,12 +178,12 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a *ngIf="references.length === 0" class="dropdown-item discreet-text">
+              <li *ngIf="references.length === 0" class="dropdown-item discreet-text">
                 Choisissez des catégories pour voir la liste des produits
-              </a>
-              <a *ngFor="let reference of references" title="{{ reference.label }}" class="dropdown-item" (click)="addFilter('reference', reference.label)">
+              </li>
+              <li *ngFor="let reference of references" title="{{ reference.label }}" class="dropdown-item" (click)="addFilter('reference', reference.label)">
                 {{ reference.label }}
-              </a>
+              </li>
             </div>
           </div>
         </div>
@@ -201,12 +201,12 @@
 
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
+              <li class="dropdown-item" (click)="addFilter('decreasingPrice', 'Oui')">
                 Oui
-              </a>
-              <a class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
+              </li>
+              <li class="dropdown-item" (click)="addFilter('decreasingPrice', 'Non')">
                 Non
-              </a>
+              </li>
             </div>
           </div>
         </div>

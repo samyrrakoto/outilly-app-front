@@ -10,8 +10,8 @@
 
       <div id="delivery-tiles" class="content">
         <div *ngIf="sale.product.toDeliver" class="content">
-          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', mrCosts)">
-            <img src="/assets/img/logo/mondial-relay-logo.png">
+          <div id="mondial" class="content remise" (click)="sticky.setDelivery('mondial', 'Mondial Relay', mrCosts); sticky.setFocus('mondial')">
+            <img src="/assets/img/logo/mondial-relay-logo.png" alt="Logo Mondial Relay" title="Logo Mondial Relay">
 
             <div class="content">
               MONDIAL RELAY<br>
@@ -22,8 +22,8 @@
         </div>
 
         <div class="content">
-          <div id="hand" class="content remise" (click)="sticky.setDelivery('hand', 'Remise en main propre', 0)">
-            <img src="/assets/img/logo/hand-delivery-logo.png">
+          <div id="hand" class="content remise" (click)="sticky.setDelivery('hand', 'Remise en main propre', 0); sticky.setFocus('hand')">
+            <img src="/assets/img/logo/hand-delivery-logo.png" alt="Logo de remise en mains propres" title="Logo de remise en mains propres">
 
             <div class="content">
               MAINS PROPRES<br>
@@ -43,7 +43,14 @@
 
       <!-- When login succeeds -->
       <div *ngIf="auth.isLogged() && !isSeller" class="content">
-        <div class="content">
+
+        <!-- If account has not already been activated -->
+        <div *ngIf="userStatus === 'toactivate'" class="content">
+          Vous devez <span class="bold">activer votre compte</span> avant de pouvoir faire une offre ou acheter un produit.
+        </div>
+
+        <!-- If account has been activated -->
+        <div *ngIf="userStatus === 'activated'" class="content">
 
           <!-- If a counter-offer has been made -->
           <div *ngIf="hasBidded && isCounterOffer()" class="content">

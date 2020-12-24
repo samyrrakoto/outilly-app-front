@@ -19,6 +19,7 @@ textarea {
 
 .input, .input:focus, .input:enabled {
   border: none;
+  border-bottom: solid 1px var(--MAT-GREY);
   border-radius: 0;
   background-color: white;
   color: #727272;
@@ -28,6 +29,7 @@ textarea {
 
 .input.is-valid {
   border-left: solid 3px var(--KTKP-GREEN);
+  border-bottom: solid 1px var(--KTKP-GREEN);
 }
 
 .field.is-horizontal {

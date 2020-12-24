@@ -39,6 +39,15 @@
   margin: auto;
 }
 
+#plus-icon {
+  margin-bottom: 10px;
+}
+
+#see-more-medias {
+  margin-top: 20px;
+  font-size: 1.7vw;
+}
+
 .top-thumbnail {
   height: 300px;
   opacity: 0.8;
@@ -106,6 +115,10 @@ figure img {
 
 .button:hover {
   color: green;
+}
+
+.level {
+  color: white;
 }
 
 @media screen and (max-width: 768px) {

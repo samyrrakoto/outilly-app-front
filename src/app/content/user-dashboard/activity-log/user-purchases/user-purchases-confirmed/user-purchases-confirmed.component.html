@@ -71,15 +71,17 @@
               </div>
 
               <div class="content has-text-centered">
-                <button *ngIf="order.isSent" class="button order-reception is-success">
+                <button (click)="modals.open('order-reception')" *ngIf="!order.isDelivered" class="button order-reception is-success">
                   <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
-                  Je confirme la réception du colis
+                  Je confirme que j'ai récupéré mon colis en mains propres
                 </button>
 
-                <button *ngIf="!order.isSent" class="button order-reception is-dark">
-                  <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
-                  Le colis n'a pas encore été expedié
-                </button>
+                <article *ngIf="order.isDelivered" class="message is-success">
+                  <div class="message-body">
+                    <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                    Félicitations ! La commande est arrivée à bon port !
+                  </div>
+                </article>
               </div>
 
               <div class="columns">
@@ -94,7 +96,7 @@
             </div>
 
             <!-- If Mondial Delivery -->
-            <div *ngIf="order.shipMethod === 'RelayShip'" class="content">
+            <div *ngIf="order.shipMethod === 'RelayShip'" class="content has-text-centered">
               <div class="columns has-text-centered">
                 <div class="column">
                   <a class="link-normal" (click)="goToProductPage(order)">Voir le produit</a>
@@ -118,10 +120,26 @@
                 <span class="bold">{{ order.mrExpedition.ExpeditionNum }}</span>
               </div>
 
-              <div *ngIf="order.isSent" class="content has-text-centered">
-                <a *ngIf="!loading" (click)="openMrOrderTracking(order.id)" class="button is-success">Suivre mon colis</a>
-                <a *ngIf="loading" (click)="openMrOrderTracking(order.id)" class="button is-light is-active"></a>
-                <a hidden id="mondial-relay-url" [href]=mondialRelayUrl target="_blank"></a>
+              <div *ngIf="!order.isDelivered">
+                <div *ngIf="order.isSent" class="content has-text-centered">
+                  <a *ngIf="!loading" (click)="openMrOrderTracking(order.id)" class="button is-success">Suivre mon colis</a>
+                  <a *ngIf="loading" (click)="openMrOrderTracking(order.id)" class="button is-light is-loading"></a>
+                  <a hidden id="mondial-relay-url" [href]=mondialRelayUrl target="_blank"></a>
+                </div>
+
+                <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="order.isSent" class="button order-reception is-success">
+                  <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
+                  Je confirme la réception du colis
+                </button>
+              </div>
+
+              <div *ngIf="order.isDelivered">
+                <article class="message is-success">
+                  <div class="message-body">
+                    <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                    Félicitations ! La commande est arrivée à bon port !
+                  </div>
+                </article>
               </div>
             </div>
         </mat-expansion-panel>
@@ -228,4 +246,24 @@
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('order-overview')"></button>
+</div>
+
+<!-- Order reception confirmation -->
+<div class="modal {{ modals.get('order-reception') }}">
+  <div (click)="modals.close('order-reception')" class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title">Confirmez-vous que vous avez bel et bien reçu le colis ?</h1>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <button class="button is-success" (click)="orderReceptionConfirmation(currentOrder); modals.close('order-reception')">Oui</button>
+        </p>
+        <p class="control">
+          <button class="button is-light" (click)="modals.close('order-reception')">Non</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="modal is-large" aria-label="close"></button>
 </div>
