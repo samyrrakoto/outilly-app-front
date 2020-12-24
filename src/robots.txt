@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://preprod.outilly.com/sitemap.xml
