@@ -4,5 +4,5 @@ export const environment = {
   mediaBaseUri: 'http://media-dev.outilly.com/',
   mondialBrand: 'BDTEST13',
   testCard: true,
-  appAbsoluteRootPath: null
+  appAbsoluteRootPath: '/mnt/c/Users/Public/Code/Outilly/app-front/'
 };

@@ -35,6 +35,12 @@
   overflow-x: hidden;
 }
 
+.dropdown-content li:hover {
+  cursor: pointer;
+  background-color: var(--KTKP-GREY);
+  color: var(--KTKP-GREEN);
+}
+
 .search {
   height: 50px;
 }
