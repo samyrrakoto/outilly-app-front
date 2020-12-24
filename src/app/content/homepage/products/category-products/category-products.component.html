@@ -12,7 +12,7 @@
     <div class="card-content">
       <div class="product-content">
         <div class="img-container" *ngIf="sale.product.mainImageThumbnail" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImageThumbnail.path) }"></div>
-        <h2 *ngIf="sale.product.name.length < maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
+        <h2 *ngIf="sale.product.name.length <= maxTitleSize" class="subtitle is-5 product-title">{{ sale.product.name }}</h2>
         <h2 *ngIf="sale.product.name.length > maxTitleSize" class="subtitle is-5 product-title" [title]=sale.product.name>{{ sale.product.name | slice:0:maxTitleSize }}...</h2>
 
         <div class="columns is-vcentered">
