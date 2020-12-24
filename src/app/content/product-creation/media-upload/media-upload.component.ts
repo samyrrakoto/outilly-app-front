@@ -22,6 +22,7 @@ import { media } from 'src/app/parameters';
 })
 export class MediaUploadComponent extends StepForm implements OnInit, OnChanges {
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly maxNbPictures: number = media.MAX_UPLOAD_PICTURES;
   readonly picturesFormatAccepted: string = media.PICTURES_FORMAT_ACCEPTED;
   readonly root: string = 'product/create/';
   uploaded: boolean = false;
@@ -82,31 +83,21 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;
+    const nbFiles: number = files.length;
 
-    if (files.length !== 0) {
-      for (let i = 0; i < files.length; i++) {
-        this.getFormData(files[i])
-          .then((formData) => this.sendMedia(formData))
-          .then(() => {
-            return new Promise<void>((resolve) => {
-              setTimeout(() => {}, 2000);
-              resolve();
-            });
-          });
-      }
+    if (nbFiles !== 0) {
+      this.sendMedia(files, 0, nbFiles);
     }
   }
 
-  private getFormData(file: File): Promise<FormData> {
-    return new Promise((resolve) => {
+  private getFormData(file: File): FormData {
       const formData: FormData = new FormData();
 
       formData.append('mediaFile', file);
       formData.append('productId', localStorage.getItem('id'));
       formData.append('productStrId', localStorage.getItem('strId'));
       formData.append('mediaType', 'image');
-      resolve(formData);
-    });
+      return formData;
   }
 
   public openImgPicker(): void {
@@ -118,8 +109,9 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     this.additionalControls = this.checkAdditionalControls();
   }
 
-  private sendMedia(data: FormData): Promise<void> {
-    return new Promise((resolve) => {
+  private sendMedia(files: FileList, index: number, nbFiles: number): void {
+    const data: FormData = this.getFormData(files[index]);
+
       this.request.uploadMedia(data).subscribe(
         (media: any) => {
           this.isLoading = true;
@@ -131,11 +123,13 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
             this.isLoading = false;
             this.uploaded = true;
             this.addMedia(media.body);
-            resolve()
+            this.percentDone = 0;
+            if (index + 1 < nbFiles && index + 1 < this.maxNbPictures) {
+              this.sendMedia(files, index + 1, nbFiles);
+            }
           }
         }
       );
-    });
   }
 
   private removeMedia(currentMedia: ProductMedia): void {
