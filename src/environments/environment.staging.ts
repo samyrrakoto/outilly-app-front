@@ -5,5 +5,5 @@ export const environment = {
   mediaBaseUri: 'https://media-staging.outilly.com/',
   mondialBrand: 'BDTEST13',
   testCard: true,
-  appAbsoluteRootPath: null
+  appAbsoluteRootPath: '/var/www/ltr/app-front-staging/'
 };

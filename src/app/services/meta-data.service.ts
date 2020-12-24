@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment.staging';
+import { environment } from 'src/environments/environment';
 import { pageInfo } from 'src/app/parameters';
 import { Meta, Title } from '@angular/platform-browser';
 import { Injectable } from '@angular/core';
