@@ -1,4 +1,4 @@
-import { CookieService } from 'ngx-cookie-service';
+import { MetaDataService } from 'src/app/services/meta-data.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 import { Component, OnInit } from '@angular/core';
@@ -25,7 +25,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private request: RequestService,
     private title: Title,
-    private auth: AuthService)
+    private auth: AuthService,
+    private meta: MetaDataService)
   {
     this.allCategories = [];
     this.allTypes = [];
@@ -35,7 +36,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pageNameManager.setTitle(this.pageTitle);
+    this.meta.updateTags(this.pageTitle, 'Revendez vos outils sur Outilly.com', '/', 'outilly-share-base.jpg');
     this.auth.getLogStatus()
       .then(() => this.connectionStatus())
       .then(() => this.getCategories())

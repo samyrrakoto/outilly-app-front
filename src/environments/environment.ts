@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUri: 'http://outilly.api/',
+  frontBaseUri: 'http://outilly.com/',
   mediaBaseUri: 'http://media.outilly.api/',
   mondialBrand: 'BDTEST13',
   testCard: true,
