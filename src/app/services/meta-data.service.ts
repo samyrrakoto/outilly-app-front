@@ -14,14 +14,11 @@ export class MetaDataService {
   {}
 
   public updateTags(tag: string, description: string, partUrl: string, imgUri: string): void {
-    console.log('META');
     const baseTitle: string = tag + pageInfo.PAGE_NAME_SEPARATOR + pageInfo.BRAND_NAME;
     const imgPath: string = environment.mediaBaseUri + imgUri;
     const urlPath: string = environment.frontBaseUri + partUrl;
 
-    if (tag === null && partUrl === null) {
-      this.updateMeta(baseTitle, description, imgPath, urlPath);
-    }
+    this.updateMeta(baseTitle, description, imgPath, urlPath);
   }
 
   private updateMeta(title: string, description: string, imgUri: string, url: string): void {
