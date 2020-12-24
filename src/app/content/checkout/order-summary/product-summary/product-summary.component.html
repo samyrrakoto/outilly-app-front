@@ -4,7 +4,7 @@
   <!-- DESKTOP Display -->
   <div class="columns is-vcentered is-hidden-touch">
     <div class="column is-6">
-      <img id="product-image-desktop" src="{{ thumbnail }}">
+      <img title="{{ sale.product.name }}" id="product-image-desktop" src="{{ thumbnail }}" alt="{{ sale.product.name }} ' (miniature)'">
     </div>
 
     <div *ngIf="sale" id="product-description" class="column">
@@ -39,7 +39,7 @@
     <h2 id="product-title" class="subtitle has-text-centered">{{ sale.product.name }}</h2>
 
     <div class="content">
-      <img id="product-image-tablet" src="{{ thumbnail }}">
+      <img title="{{ sale.product.name }}" id="product-image-tablet" src="{{ thumbnail }}" alt="{{ sale.product.name }} ' (miniature)'">
     </div>
 
     <div class="columns has-text-centered">

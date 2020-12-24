@@ -46,7 +46,7 @@
 <div id="displayed-medias">
   <div class="content" *ngFor="let media of product.productMedias">
     <div *ngIf="media.type === 'image'" class="preview-container">
-      <img class="previews" src="{{ mediaBaseUri + media.path }}">
+      <img class="previews" src="{{ mediaBaseUri + media.path }}" alt="Photo de {{ formData.product.name }}" title="Photo de {{ formData.product.name }}">
 
       <button (click)="cancelMedia(media)" title="Supprimer cette photo" class="button is-danger is-small action-button delete-button">
         <fa-icon [icon]="['fas', 'times']"></fa-icon>
@@ -65,7 +65,7 @@
 
           <!-- media -->
           <figure class="image">
-            <img src="{{ mediaBaseUri + currentMedia.path }}">
+            <img src="{{ mediaBaseUri + currentMedia.path }}" alt="Photo de {{ formData.product.name }}" title="Photo de {{ formData.product.name }}">
           </figure>
 
         </div>
