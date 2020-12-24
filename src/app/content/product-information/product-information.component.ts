@@ -73,7 +73,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => this.meta.updateTags(
         this.sale.product.name,
         this.sale.product.description,
-        '/product/' + this.sale.product.slug + '/' + this.sale.product.id,
+        ['product/', this.sale.product.slug, '/', this.sale.product.id].join(''),
         this.sale.product.mainImage.path
       ))
       .then(() => this.loaded = true );
