@@ -1,3 +1,4 @@
+import { MetaDataService } from 'src/app/services/meta-data.service';
 import { prices } from './../../parameters';
 import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { Bid } from 'src/app/models/bid';
@@ -48,7 +49,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
     public purchaseManager: PurchaseManagerService,
     public auth: AuthService,
     public mrManager: MondialRelayManagerService,
-    private title: Title)
+    private title: Title,
+    private meta: MetaDataService)
   {
     super();
     this.sale = new Sale();
@@ -68,6 +70,12 @@ export class ProductInformationComponent extends GenericComponent implements OnI
       .then(() => this.getMondialRelayCosts())
       .then(() => this.userManager.getUserId())
       .then((userId) => this.isSeller = this.sale.seller.id === userId )
+      .then(() => this.meta.updateTags(
+        this.sale.product.name,
+        this.sale.product.description,
+        ['product/', this.sale.product.slug, '/', this.sale.id].join(''),
+        this.sale.product.mainImage.path
+      ))
       .then(() => this.loaded = true );
   }
 
