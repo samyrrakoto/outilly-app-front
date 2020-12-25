@@ -28,12 +28,14 @@
         </form>
       </div>
     </div>
-    <span [ngClass]="{'error': removeAllSpaces(product.description).length < minLength || removeAllSpaces(product.description).length > maxLength}">{{ removeAllSpaces(product.description).length }} / {{ maxLength }}</span>
+    <span [ngClass]="{'error': removeAllSpaces(product.description).length < minLength || removeAllSpaces(product.description).length > maxLength}">{{ removeAllSpaces(product.description).length }} caractères</span>
   </div>
 </div>
 
-<div *ngFor="let error of errorMessages" class="content error has-text-left">
-  {{ error }}
+<div class="error" *ngIf="controls.description.errors">
+  <span *ngIf="controls.description.errors.required">La description est requise</span>
+  <span *ngIf="controls.description.errors.tooShort">La description doit faire au moins {{ minLength }} caractères.</span>
+  <span *ngIf="controls.description.errors.tooLong">La description ne peut pas dépasser {{ maxLength }} caractères.</span>
 </div>
 
 <app-navigation
