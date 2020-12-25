@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { Path } from 'src/app/models/Path/path';
 
 @Component({
@@ -19,6 +19,7 @@ export class NavigationComponent implements OnChanges {
   @Input() nextOn: boolean;
   @Input() controls: ValidationErrors = null;
   @Input() additionalControls: boolean = undefined;
+  @Input() externalControl: string;
   nextCondition: boolean = false;
 
   constructor(
@@ -65,21 +66,11 @@ export class NavigationComponent implements OnChanges {
   }
 
   public next(): void {
-    const path: string = this.rootUri + this.path.next;
-
+    const nextPath: string = this.path.current === 'status' && this.data.user.userProfile.type === 'professional' ? 'status/company-name' : this.path.next;
+    const path: string = this.rootUri + nextPath;
     this.nextCondition = this.getNextCondition();
 
-    // Verifying that the field matches the constraints before going further
-    if (this.nextCondition) {
-      localStorage.setItem('formData', JSON.stringify(this.data));
-
-      if (this.path.current === 'status' && this.data.user.userProfile.type === 'professional') {
-        this.goTo('status/company-name');
-      }
-      else {
-        this.router.navigateByUrl(path);
-      }
-    }
+    this.checkValues(path);
   }
 
   public previous(): void {
@@ -88,29 +79,28 @@ export class NavigationComponent implements OnChanges {
     this.router.navigateByUrl(path);
   }
 
-  public backToProductRecap(): void {
-    const path: string = this.rootUri + "announce-overview";
-
+  public backToRecap(path: string) {
+    path = this.rootUri + path;
     this.nextCondition = this.getNextCondition();
 
-    // Verifying that the field matches the constraints it gets before going further
-    if (this.nextCondition) {
-      localStorage.setItem('formData', JSON.stringify(this.data));
-
-      this.router.navigateByUrl(path);
-    }
+    this.checkValues(path);
   }
 
-  public backToAccountRecap(): void {
-    const path: string = "onboarding/validation";
+  private checkValues(path: string): void {
+    if (this.externalControl) {
+      this.formValidator.verify(this.data).then((value: boolean) => {
 
-    this.nextCondition = this.getNextCondition();
-
-    // Verifying that the field matches the constraints it gets before going further
-    if (this.nextCondition) {
-      localStorage.setItem('formData', JSON.stringify(this.data));
-
-      this.router.navigateByUrl(path);
+        if (this.nextCondition && value) {
+          localStorage.setItem('formData', JSON.stringify(this.data));
+          this.router.navigateByUrl(path);
+        }
+      });
+    }
+    else {
+      if (this.nextCondition) {
+        localStorage.setItem('formData', JSON.stringify(this.data));
+        this.router.navigateByUrl(path);
+      }
     }
   }
 

@@ -32,6 +32,10 @@
     </form>
 
     <!-- Errors display -->
+    <div class="content error has-text-centered" *ngFor="let message of errorMessages">
+      {{ message }}
+    </div>
+
     <div *ngIf="controls.mail.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.mail.errors }">
       <div class="error" *ngIf="controls.mail.errors.required">L'email est requis</div>
       <div class="error" *ngIf="controls.mail.errors.email">L'email est invalide</div>
@@ -41,6 +45,7 @@
 
 <app-navigation
   [controls]=controls.mail.errors
+  [externalControl]=externalControl
   [data]="formDataService"
   [path]=path
   [rootUri]="root"

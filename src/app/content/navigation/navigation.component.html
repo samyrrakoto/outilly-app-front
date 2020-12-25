@@ -11,11 +11,11 @@
   </div>
 
   <div *ngIf="data.isAccountComplete && rootUri === '/onboarding/'" class="level-item">
-    <button (click)="backToAccountRecap()" class="button" [ngClass]="{'is-light': !this.nextCondition, 'is-success': this.nextCondition}">Retourner au récapitulatif</button>
+    <button (click)="backToRecap('validation')" class="button" [ngClass]="{'is-light': !this.nextCondition, 'is-success': this.nextCondition}">Retourner au récapitulatif</button>
   </div>
 
   <div *ngIf="data.isProductComplete && rootUri === 'product/create/'" class="level-item">
-    <button (click)="backToProductRecap()" class="button" [ngClass]="{'is-light': !this.nextCondition, 'is-success': this.nextCondition}">Retourner au récapitulatif</button>
+    <button (click)="backToRecap('announce-overview')" class="button" [ngClass]="{'is-light': !this.nextCondition, 'is-success': this.nextCondition}">Retourner au récapitulatif</button>
   </div>
 
   <div class="level-right">

@@ -15,6 +15,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmailComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
+  readonly externalControl: boolean = true;
+  error: string[] = [];
   user: User = new User();
   form: FormGroup;
 
@@ -27,6 +29,7 @@ export class EmailComponent extends StepForm {
     super();
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "email";
+    this.formDataService.fieldName = "usernameExistence";
     this.user = formDataService.user;
     this.stepNb = this.findAccountStepNb('email');
     this.stepName = "Votre adresse e-mail ?";
@@ -46,7 +49,8 @@ export class EmailComponent extends StepForm {
 
     if (email !== null) {
       email.focus();
-    }  }
+    }
+  }
 
   ngOnChanges() {
     if (this.formDataService) {

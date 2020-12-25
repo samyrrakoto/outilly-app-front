@@ -1,14 +1,12 @@
-import { ProductReference } from './../models/product-reference';
-import { FormConstraintService } from './form-constraint.service';
+import { ProductReference } from 'src/app/models/product-reference';
+import { FormConstraintService } from 'src/app/services/form-constraint.service';
 import { ProductMedia } from 'src/app/models/product-media';
-import { ProductType } from './../models/product-type';
-import { ProductCategory } from './../models/product-category';
-import { Brand } from './../models/brand';
-import { ActivityDomain } from './../models/activity-domain';
+import { ProductType } from 'src/app/models/product-type';
+import { ProductCategory } from 'src/app/models/product-category';
+import { Brand } from 'src/app/models/brand';
 import { Injectable } from '@angular/core';
-import { FormDataService } from './form-data.service';
-import { RequestService } from './request.service';
-import { HttpResponse } from '@angular/common/http';
+import { FormDataService } from 'src/app/services/form-data.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,41 +15,10 @@ export class FormValidatorService {
   isValid: boolean;
   iexist : boolean;
 
-  constructor(public request: RequestService,
-  public constraintManager: FormConstraintService)
-  {
-  }
-
-  // TODO: finish implementation of user existence checking
-  // checkUsernameExists(response: HttpResponse<any>): boolean {
-  //   const hasExists: boolean = response.body.exists === true;
-  //   const message: string = "Cet utilisateur existe déjà !";
-  //   const index = this.errorMessages.indexOf(message);
-
-  //   if (hasExists === true) {
-  //     this.errorMessages.push(message);
-  //     return true;
-  //   }
-  //   this.errorMessages.splice(index);
-  //   return false;
-  // }
-
-  // TODO: finish implementation of user existence checking
-  // isUsernameExists(userData: FormDataService): boolean {
-  //   let data = JSON.stringify(
-  //     {
-  //       "entity": "user",
-  //       "field" : "username",
-  //       "value" : userData.user.username
-  //     }
-  //   );
-  //   let response = this.request.checkUsernameExistsCall(data);
-  //   let userNameExists : boolean;
-  //   response.subscribe((res: HttpResponse<any>) => {
-  //     userNameExists = this.checkUsernameExists(res);
-  //   });
-  //   return userNameExists;
-  // }
+  constructor(
+    public request: RequestService,
+    public constraintManager: FormConstraintService)
+  {}
 
   userNameVerify(data: FormDataService): boolean {
     const username: string = data.user.username;
@@ -388,8 +355,42 @@ export class FormValidatorService {
     return true;
   }
 
+  private usernameCall(username: string): Promise<boolean> {
+    const payload: any = {
+      entity: "user",
+      field: "username",
+      value: username
+    };
+
+    return new Promise((resolve) => {
+      this.request.postData(payload, this.request.uri.CHECK_EXIST).subscribe(
+        (res: any) => {
+          resolve(res.body.exists);
+        }
+      )
+    });
+  }
+
+  usernameExistenceVerify(data: FormDataService): Promise<boolean> {
+    const username: string = data.user.userProfile.email;
+    const message: string = "Cette adresse email est déjà utilisée";
+
+    return new Promise((resolve) => {
+      this.usernameCall(username)
+      .then((value: boolean) => {
+        if (value) {
+          this.constraintManager.errorMessageManager.addErrorMessage(message);
+        }
+        else {
+          this.constraintManager.errorMessageManager.removeErrorMessage(message);
+        }
+        resolve(!value);
+      });
+    });
+  }
+
   /* Constraints manager called by the form */
-  verify(data: FormDataService): boolean {
+  verify(data: FormDataService): Promise<boolean> {
     return this[data.fieldName + "Verify"](data);
   }
 }
