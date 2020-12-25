@@ -5,6 +5,7 @@ export class Uri {
   readonly BID: string = 'bid/';
   readonly SECURE: string = "secure/"
   readonly USER: string = 'user';
+  readonly CHECK_EXIST: string = 'check/exists';
   readonly LOGIN: string = 'login/check';
   readonly USER_ACTIVATION: string = 'user/activate';
   readonly SEND_ACTIVATION_MAIL: string = 'user/send-activation-token';
