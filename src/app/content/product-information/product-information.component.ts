@@ -149,6 +149,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         this.request.getData(this.request.uri.GET_SALE, [this.id.toString()]).subscribe({
           next: (sale: any) => {
             this.sale = sale;
+            this.sortByMediaType();
             resolve();
           },
           error: () => {
