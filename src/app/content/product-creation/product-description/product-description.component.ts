@@ -1,4 +1,4 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -68,18 +68,29 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
 
   private getForm(): void {
     this.form = this.formBuilder.group({
-      description: [this.product.description, [Validators.required, this.validDescription()]],
+      description: [this.product.description, [Validators.required, this.tooShort(), this.tooLong()]],
     });
   }
 
-  private validDescription(): ValidatorFn {
+  private tooShort(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null =>
       {
         const value: string = this.removeUselessSpaces(control.value);
-        const longEnough: boolean = this.removeAllSpaces(value).length >= 20;
+        const longEnough: boolean = this.removeAllSpaces(value).length >= this.minLength;
         const verifications: boolean = longEnough;
 
-        return verifications ? null : {notValid: control.value};
+        return verifications ? null : {tooShort: control.value};
+      }
+  }
+
+  private tooLong(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        const value: string = this.removeUselessSpaces(control.value);
+        const notTooLong: boolean = this.removeAllSpaces(value).length <= this.maxLength;
+        const verifications: boolean = notTooLong;
+
+        return verifications ? null : {tooLong: control.value};
       }
   }
 
