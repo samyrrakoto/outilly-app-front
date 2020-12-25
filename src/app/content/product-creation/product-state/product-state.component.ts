@@ -16,6 +16,7 @@ import { staticStates } from 'src/app/parameters';
 })
 export class ProductStateComponent extends StepForm {
   readonly root: string = 'product/create/';
+  additionalControls: boolean;
   product: Product;
   currentState: string;
   stateDescription: boolean = false;
@@ -33,6 +34,7 @@ export class ProductStateComponent extends StepForm {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
+    this.additionalControls = this.product.quality !== '' ? true : false;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productState";
     this.stepNb = 8;

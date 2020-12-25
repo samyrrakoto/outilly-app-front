@@ -12,7 +12,7 @@
 
     <div class="columns is-multiline is-mobile is-narrow has-text-centered">
       <div *ngFor="let state of staticStates" class="column">
-        <div class="tile" id="{{ state }}" (mouseover)="currentState = state; stateDescription = true" (mouseleave)="stateDescription = false;" (click)="product.quality = state; setFocus(state); nextOn = true">
+        <div class="tile" id="{{ state }}" (mouseover)="currentState = state; stateDescription = true" (mouseleave)="stateDescription = false;" (click)="product.quality = state; setFocus(state); nextOn = true; additionalControls = true">
           {{ state | quality }}
         </div>
       </div>
@@ -26,6 +26,7 @@
 
 <app-navigation
   [data]=formData
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [path]=path
   [rootUri]=root
