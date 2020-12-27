@@ -85,6 +85,15 @@ export class RequestService {
     });
   }
 
+  storeKycDoc(data: any): Observable<any> {
+    return this.http.post(this.uri.BASE + this.uri.STORE_KYC_DOC, data,
+      {
+        headers: null,
+        reportProgress: true,
+        observe: 'events',
+    });
+  }
+
   updateUser(data: any): Observable<HttpResponse<any>> {
     return this.putData(this.uri.UPDATE_USER, data);
   }

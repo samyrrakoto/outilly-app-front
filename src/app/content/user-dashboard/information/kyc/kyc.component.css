@@ -10,3 +10,34 @@
   padding-bottom: 10px;
   border-bottom: solid 3px var(--KTKP-GREEN);
 }
+
+.tile fa-icon {
+  font-size: 2em;
+}
+
+.tile {
+  display: inline-flex;
+  color: black;
+  font-size: 0.9em;
+  font-weight: 500;
+  border: solid 2px #DEDEDE;
+  border-radius: 10px;
+  height: 150px;
+  width: 150px;
+  padding: 10px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.tile:hover {
+  background: var(--KTKP-GREY);
+  border-color: var(--KTKP-GREY);
+}
+
+.chosen-tile {
+  background: var(--KTKP-GREEN) !important;
+  border-color: var(--KTKP-GREEN);
+  color: white;
+}

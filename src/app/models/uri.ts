@@ -34,6 +34,11 @@ export class Uri {
   readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
   readonly DELETE_MEDIA: string = 'product/media';
   readonly GET_USER: string = 'secure/user';
+  readonly CREATE_KYC_DOC: string = 'secure/mangopay/user/kyc/create-doc';
+  readonly STORE_KYC_DOC: string = 'secure/mangopay/user/kyc/store-doc';
+  readonly ADD_KYC_PAGE: string = 'secure/mangopay/user/kyc/add-page';
+  readonly ASK_KYC_VALIDATION: string = 'secure/mangopay/user/kyc/ask-validation';
+  readonly KYC_VALIDATION_STATUS: string = 'secure/mangopay/user/kyc/validation-status';
   readonly UPDATE_USER: string = 'secure/user/update';
   readonly UPDATE_PWD: string = 'secure/pwd-reset';
   readonly DELETE_ADDRESS: string = 'secure/address';

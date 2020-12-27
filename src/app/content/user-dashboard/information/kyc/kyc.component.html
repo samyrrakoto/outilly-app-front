@@ -8,17 +8,88 @@
 
   <div class="columns">
     <div class="column">
-      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')">
+      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('kyc')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
         Ajouter une pièce d'identité
       </button>
     </div>
 
     <div class="column">
-      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('id')">
+      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('iban')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
-        Ajouter un RIB
-    </button>
+        Enregistrer votre IBAN
+      </button>
     </div>
   </div>
+</div>
+
+
+<!-- MODALS -->
+
+<!-- Kyc Modal -->
+<div class="modal {{ modals.get('kyc') }}">
+  <div class="modal-background" (click)="modals.close('kyc')"></div>
+  <div class="modal-content">
+    <div class="box">
+
+      <h1 class="subtitle">Ajouter une pièce d'identité</h1>
+
+      <div class="content">
+        De quel type de pièce d'identité s'agit-il ?
+      </div>
+
+      <div class="columns has-text-centered">
+        <div class="column">
+          <div id="id-card" class="content tile" (click)="setFocus('id-card'); kycType = 'id-card'">
+            <fa-icon [icon]="['fas', 'id-card']" class="side-icon"></fa-icon>
+            Carte d'identité
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="passport" class="content tile" (click)="setFocus('passport'); kycType = 'passport'">
+            <fa-icon [icon]="['fas', 'passport']" class="side-icon"></fa-icon>
+            Passeport
+          </div>
+        </div>
+      </div>
+
+      <input accept="{{ acceptedKycFormats }}" type="file" id="kyc" name="product-pictures" (change)="handleFile()" style="display: none;">
+
+      <div *ngIf="kycSent.length > 0" class="content">
+        Documents envoyés :
+      </div>
+
+      <div *ngFor="let kyc of kycSent">
+        {{ kyc | titlecase }}
+      </div>
+
+      <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; recto = true; openImgPicker('kyc')">
+        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+        Ajouter le recto
+      </button>
+
+      <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; verso = true; openImgPicker('kyc')">
+        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+        Ajouter le verso
+      </button>
+
+      <button *ngIf="isKycComplete() && !kycCreated" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce</button>
+      <div *ngIf="kycCreated" class="notification is-success addspaceabove">
+        Les documents ont bien été envoyés et seront vérifiés très prochainement.
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" (click)="modals.close('kyc')"></button>
+</div>
+
+<!-- IBAN Modal -->
+<div class="modal {{ modals.get('iban') }}">
+  <div class="modal-background" (click)="modals.close('iban')"></div>
+  <div class="modal-content">
+    <div class="box">
+
+    </div>
+  </div>
+  <button class="modal-close is-large" (click)="modals.close('iban')"></button>
 </div>
