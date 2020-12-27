@@ -139,7 +139,10 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
             this.productUrl = '/product/' + sale.body.product.slug + '/' + sale.body.id;
             localStorage.removeItem('strId');
             localStorage.removeItem('id');
+            localStorage.removeItem('formData');
             sessionStorage.removeItem('current_product');
+            this.formData.product = new Product();
+            this.formData.isProductComplete = false;
           }
           else {
             this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
