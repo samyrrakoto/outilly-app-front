@@ -54,6 +54,11 @@
         </div>
       </div>
 
+      <!-- Error display -->
+      <div class="error" *ngFor="let message of errorMessages.errorMessages">
+        {{ message }}
+      </div>
+
       <input accept="{{ acceptedKycFormats }}" type="file" id="kyc" name="product-pictures" (change)="handleFile($event)" style="display: none;">
 
 
@@ -74,24 +79,24 @@
       </div>
 
       <div *ngIf="!loading" class="content">
-        <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; recto = true; openImgPicker('kyc')">
+        <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; openImgPicker('kyc')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le recto
         </button>
 
-        <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; verso = true; openImgPicker('kyc')">
+        <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; openImgPicker('kyc')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le verso
         </button>
 
-        <button *ngIf="isKycComplete() && !kycCreated" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce</button>
+        <button *ngIf="isKycComplete() && kycStatus !== 'VALIDATION_ASKED'" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
       </div>
 
       <div *ngIf="loading">
         <button class="button is-light is-loading"></button>
       </div>
 
-      <div *ngIf="kycCreated" class="notification is-success addspaceabove">
+      <div *ngIf="kycStatus === 'VALIDATION_ASKED'" class="notification is-success addspaceabove">
         Les documents ont bien été envoyés et seront vérifiés très prochainement.
       </div>
     </div>

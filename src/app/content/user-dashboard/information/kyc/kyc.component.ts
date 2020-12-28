@@ -3,6 +3,7 @@ import { ErrorMessageManagerService } from 'src/app/services/error-message-manag
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
+import { AskValidationStatus } from 'src/app/models/uri';
 
 @Component({
   selector: 'app-kyc',
@@ -13,10 +14,10 @@ export class KycComponent implements OnInit {
   loading: boolean = false;
   modals: Modals = new Modals();
   kycUrl: string[] = [];
-  kycCreated: boolean = false;
+  kycStatus: string = '';
+  kycSent: string[] = [];
   kycType: string = '';
   docId: number = 0;
-  kycSent: string[] = [];
   page: string = '';
   recto: boolean = false;
   verso: boolean = false;
@@ -101,6 +102,7 @@ export class KycComponent implements OnInit {
         next: (res: any) => {
           if (res.body.result) {
             this.kycSent.push(this.getKycName(this.kycType) + " [" + this.page + "]");
+            this.page === 'recto' ? this.recto = true : this.verso = true;
             this.onSelectFile(event);
             this.loading = false;
             resolve();
@@ -112,6 +114,8 @@ export class KycComponent implements OnInit {
           }
         },
         error: () => {
+          this.errorMessages.addErrorMessage('Une erreur est survenue');
+          this.loading = false;
           reject();
         }
       })
@@ -122,9 +126,7 @@ export class KycComponent implements OnInit {
     return new Promise((resolve) => {
       this.request.postData(null, this.request.uri.ASK_KYC_VALIDATION).subscribe({
         next: (res: any) => {
-          if (res.status === 'CREATED') {
-            this.kycCreated = true;
-          }
+          this.kycStatus = AskValidationStatus.VALIDATION_ASKED;
           resolve();
         }
       })
@@ -163,9 +165,9 @@ export class KycComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event) => { // called once readAsDataURL is completed
+      reader.onload = (event: any) => {
         this.kycUrl.push(<string>event.target.result);
       }
     }
