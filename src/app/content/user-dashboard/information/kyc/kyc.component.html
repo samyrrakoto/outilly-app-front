@@ -32,7 +32,7 @@
   <div class="modal-content">
     <div class="box">
 
-      <h1 class="subtitle">Ajouter une pièce d'identité</h1>
+      <h2 class="subtitle">Ajouter une pièce d'identité</h2>
 
       <div class="content">
         De quel type de pièce d'identité s'agit-il ?
@@ -54,27 +54,43 @@
         </div>
       </div>
 
-      <input accept="{{ acceptedKycFormats }}" type="file" id="kyc" name="product-pictures" (change)="handleFile()" style="display: none;">
+      <input accept="{{ acceptedKycFormats }}" type="file" id="kyc" name="product-pictures" (change)="handleFile($event)" style="display: none;">
 
-      <div *ngIf="kycSent.length > 0" class="content">
+
+      <h2 *ngIf="kycSent.length > 0" class="subtitle">
         Documents envoyés :
+      </h2>
+
+      <div class="columns is-centered is-vcentered">
+      <div class="column" *ngFor="let kyc of kycUrl; index as i">
+        <div class="content">
+          <img [src]="kyc" height="50px" width="auto" class="kyc-doc" [alt]="kycSent[i]" [title]="kycSent[i]">
+        </div>
+
+        <div class="content green">
+          {{ kycSent[i] }}
+        </div>
+      </div>
       </div>
 
-      <div *ngFor="let kyc of kycSent">
-        {{ kyc | titlecase }}
+      <div *ngIf="!loading" class="content">
+        <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; recto = true; openImgPicker('kyc')">
+          <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+          Ajouter le recto
+        </button>
+
+        <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; verso = true; openImgPicker('kyc')">
+          <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+          Ajouter le verso
+        </button>
+
+        <button *ngIf="isKycComplete() && !kycCreated" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce</button>
       </div>
 
-      <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; recto = true; openImgPicker('kyc')">
-        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
-        Ajouter le recto
-      </button>
+      <div *ngIf="loading">
+        <button class="button is-light is-loading"></button>
+      </div>
 
-      <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; verso = true; openImgPicker('kyc')">
-        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
-        Ajouter le verso
-      </button>
-
-      <button *ngIf="isKycComplete() && !kycCreated" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce</button>
       <div *ngIf="kycCreated" class="notification is-success addspaceabove">
         Les documents ont bien été envoyés et seront vérifiés très prochainement.
       </div>

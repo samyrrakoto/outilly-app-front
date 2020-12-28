@@ -1,3 +1,4 @@
+import { UserManagerService } from 'src/app/services/user-manager.service';
 import { Modals } from 'src/app/models/modals';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -14,7 +15,9 @@ export class PaymentInformationComponent implements OnInit {
   modals: Modals;
   url: string;
 
-  constructor(protected request: RequestService,
+  constructor(
+    protected request: RequestService,
+    public userManager: UserManagerService,
     protected auth: AuthService,
     protected router: Router,
     protected route: ActivatedRoute,

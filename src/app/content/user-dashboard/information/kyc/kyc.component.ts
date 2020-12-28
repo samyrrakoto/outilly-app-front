@@ -1,3 +1,4 @@
+import { UserManagerService } from 'src/app/services/user-manager.service';
 import { ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
@@ -9,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kyc.component.css']
 })
 export class KycComponent implements OnInit {
+  loading: boolean = false;
   modals: Modals = new Modals();
+  kycUrl: string[] = [];
   kycCreated: boolean = false;
   kycType: string = '';
   docId: number = 0;
@@ -22,7 +25,8 @@ export class KycComponent implements OnInit {
 
   constructor(
     private request: RequestService,
-    public errorMessages: ErrorMessageManagerService)
+    public errorMessages: ErrorMessageManagerService,
+    public userManager: UserManagerService)
   {
     this.modals.addModal('id');
   }
@@ -30,13 +34,14 @@ export class KycComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public handleFile(): void {
+  public handleFile(event: any): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('kyc')).files;
 
     if (files.length !== 0) {
+      this.loading = true;
       this.createKycDoc()
         .then(() => this.storeDoc(this.page, files[0]))
-        .then(() => this.addPage());
+        .then(() => this.addPage(event));
     }
   }
 
@@ -86,7 +91,7 @@ export class KycComponent implements OnInit {
     });
   }
 
-  private addPage(): Promise<void> {
+  private addPage(event: any): Promise<void> {
     const payload: any = {
       'docId': this.docId
     };
@@ -96,10 +101,13 @@ export class KycComponent implements OnInit {
         next: (res: any) => {
           if (res.body.result) {
             this.kycSent.push(this.getKycName(this.kycType) + " [" + this.page + "]");
+            this.onSelectFile(event);
+            this.loading = false;
             resolve();
           }
           else {
             this.errorMessages.addErrorMessage('Une erreur est survenue');
+            this.loading = false;
             reject();
           }
         },
@@ -112,7 +120,7 @@ export class KycComponent implements OnInit {
 
   public askKycValidation(): Promise<void> {
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.KYC_VALIDATION_STATUS).subscribe({
+      this.request.postData(null, this.request.uri.ASK_KYC_VALIDATION).subscribe({
         next: (res: any) => {
           if (res.status === 'CREATED') {
             this.kycCreated = true;
@@ -148,6 +156,18 @@ export class KycComponent implements OnInit {
     }
     else if (kycId === 'passport') {
       return "passeport";
+    }
+  }
+
+  public onSelectFile(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.kycUrl.push(<string>event.target.result);
+      }
     }
   }
 }

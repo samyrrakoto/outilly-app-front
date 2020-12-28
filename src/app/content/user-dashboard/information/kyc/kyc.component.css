@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.kyc-doc {
+  height: 80px;
+}
+
 #documents {
   margin-top: 20px;
 }

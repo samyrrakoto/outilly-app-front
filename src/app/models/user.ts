@@ -1,3 +1,4 @@
+import { MangoPayData } from './mango-pay-data';
 import { UserProfile } from './user-profile';
 
 export class User {
@@ -8,6 +9,7 @@ export class User {
     passwordConfirmation: string;
     userProfile: UserProfile;
     status: string;
+    mangoPayData: MangoPayData;
 
     constructor() {
       this.id = 0;
@@ -17,5 +19,6 @@ export class User {
       this.passwordConfirmation = '';
       this.userProfile = new UserProfile();
       this.status = 'toActivate';
+      this.mangoPayData = new MangoPayData();
     }
 }
