@@ -78,6 +78,7 @@ export class UserManagerService {
     this.user.userProfile.phone1 = userRes.userProfile.phone1;
     this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
     this.user.userProfile.phone2 = userRes.userProfile.phone2;
+    this.user.mangoPayData = userRes.mangoPayData;
   }
 
   private birthdateMapping(userRes: any): void {

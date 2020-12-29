@@ -6,8 +6,29 @@
     lorsque vous réussissez une vente.
   </div>
 
+  <article *ngIf="isKycCreated()" class="message is-success">
+    <div class="message-body">
+      <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+      Votre pièce d'identité a été validée.
+    </div>
+  </article>
+
+  <div *ngIf="isKycAsked()" class="message is-info">
+    <div class="message-body">
+      <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+      Votre pièce d'identité est en cours de validation.
+    </div>
+  </div>
+
+  <div *ngIf="isKycRefused()" class="message is-danger">
+    <div class="message-body">
+      <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+      Votre pièce d'identité a été refusée. Veuillez en proposer une autre.
+    </div>
+  </div>
+
   <div class="columns">
-    <div class="column">
+    <div *ngIf="getKycDisplay()" class="column">
       <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('kyc')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
         Ajouter une pièce d'identité
@@ -55,7 +76,7 @@
       </div>
 
       <!-- Error display -->
-      <div class="error" *ngFor="let message of errorMessages.errorMessages">
+      <div class="error" *ngFor="let message of errorManager.messages">
         {{ message }}
       </div>
 
@@ -89,14 +110,14 @@
           Ajouter le verso
         </button>
 
-        <button *ngIf="isKycComplete() && kycStatus !== 'VALIDATION_ASKED'" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
+        <button *ngIf="isKycComplete() && isKycAsked()" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
       </div>
 
       <div *ngIf="loading">
         <button class="button is-light is-loading"></button>
       </div>
 
-      <div *ngIf="kycStatus === 'VALIDATION_ASKED'" class="notification is-success addspaceabove">
+      <div *ngIf="isKycAsked()" class="notification is-success addspaceabove">
         Les documents ont bien été envoyés et seront vérifiés très prochainement.
       </div>
     </div>
@@ -109,6 +130,9 @@
   <div class="modal-background" (click)="modals.close('iban')"></div>
   <div class="modal-content">
     <div class="box">
+
+    <h2 class="subtitle">Ajouter un IBAN</h2>
+
 
     </div>
   </div>
