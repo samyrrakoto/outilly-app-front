@@ -167,10 +167,10 @@ export class PersonalInformationComponent implements OnInit {
 
     this.request.putData(this.request.uri.UPDATE_ADDRESS, payload).subscribe({
       next: () => {
-        this.notification.display('L\'adresse a bien été modifiée', 'addresses', ['accepted']);
+        this.notification.display('L\'adresse a bien été modifiée', 'address-' + index, ['notification', 'is-success']);
       },
       error: () => {
-        this.notification.display('Une erreur est survenue', 'addresses', ['declined']);
+        this.notification.display('Une erreur est survenue', 'addresses', ['notification', 'is-danger']);
       }
     })
   }
