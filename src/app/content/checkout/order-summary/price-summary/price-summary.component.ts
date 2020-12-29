@@ -1,10 +1,8 @@
-import { MondialRelayManagerService } from 'src/app/services/mondial-relay-manager.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
-import { OrderSummaryComponent } from '../order-summary.component';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { Bid } from 'src/app/models/bid';
 import { Sale } from 'src/app/models/sale';
@@ -26,7 +24,8 @@ export class PriceSummaryComponent implements OnInit {
   deliveryFees: number;
   totalPrice: number;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public router: Router,
     public auth: AuthService,
     public location: Location,

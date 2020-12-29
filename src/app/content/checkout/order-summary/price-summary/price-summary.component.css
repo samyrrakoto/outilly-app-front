@@ -28,6 +28,7 @@
 .breaking {
   word-break: break-all;
   padding: 0px !important;
+  margin-bottom: 3px;
 }
 
 .desktop-field {
