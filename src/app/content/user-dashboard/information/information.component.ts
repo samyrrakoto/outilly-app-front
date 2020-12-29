@@ -1,10 +1,8 @@
-import { UserManagerService } from 'src/app/services/user-manager.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-information',

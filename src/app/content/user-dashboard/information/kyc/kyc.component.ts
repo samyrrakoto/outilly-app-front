@@ -1,5 +1,5 @@
+import { ErrorManager } from 'src/app/models/error-manager';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
@@ -14,19 +14,18 @@ export class KycComponent implements OnInit {
   loading: boolean = false;
   modals: Modals = new Modals();
   kycUrl: string[] = [];
-  kycStatus: string = '';
   kycSent: string[] = [];
   kycType: string = '';
   docId: number = 0;
   page: string = '';
   recto: boolean = false;
   verso: boolean = false;
+  errorManager: ErrorManager = new ErrorManager();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
 
   constructor(
     private request: RequestService,
-    public errorMessages: ErrorMessageManagerService,
     public userManager: UserManagerService)
   {
     this.modals.addModal('id');
@@ -61,7 +60,7 @@ export class KycComponent implements OnInit {
           resolve();
         },
         () => {
-          this.errorMessages.addErrorMessage('Une erreur est survenue');
+          this.errorManager.addErrorMessage('Une erreur est survenue');
           reject();
         }
       )
@@ -82,7 +81,7 @@ export class KycComponent implements OnInit {
           }
         },
         () => {
-          this.errorMessages.addErrorMessage('Une erreur est survenue');
+          this.errorManager.addErrorMessage('Une erreur est survenue');
           reject();
         },
         () => {
@@ -108,13 +107,13 @@ export class KycComponent implements OnInit {
             resolve();
           }
           else {
-            this.errorMessages.addErrorMessage('Une erreur est survenue');
+            this.errorManager.addErrorMessage('Une erreur est survenue');
             this.loading = false;
             reject();
           }
         },
         error: () => {
-          this.errorMessages.addErrorMessage('Une erreur est survenue');
+          this.errorManager.addErrorMessage('Une erreur est survenue');
           this.loading = false;
           reject();
         }
@@ -123,10 +122,13 @@ export class KycComponent implements OnInit {
   }
 
   public askKycValidation(): Promise<void> {
+    this.loading = true;
+
     return new Promise((resolve) => {
       this.request.postData(null, this.request.uri.ASK_KYC_VALIDATION).subscribe({
-        next: (res: any) => {
-          this.kycStatus = AskValidationStatus.VALIDATION_ASKED;
+        next: () => {
+          this.userManager.user.mangoPayData.KYCstatus = AskValidationStatus.VALIDATION_ASKED;
+          this.loading = false;
           resolve();
         }
       })
@@ -171,5 +173,24 @@ export class KycComponent implements OnInit {
         this.kycUrl.push(<string>event.target.result);
       }
     }
+  }
+
+  public getKycDisplay(): boolean {
+    const KYCstatus: AskValidationStatus = this.userManager.user.mangoPayData.KYCstatus;
+
+    return KYCstatus === null || KYCstatus === AskValidationStatus.REFUSED;
+  }
+
+  public isKycCreated(): boolean {
+    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.CREATED;
+  }
+
+  public isKycAsked(): boolean {
+    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.VALIDATION_ASKED;
+  }
+
+  public isKycRefused(): boolean {
+    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.REFUSED;
+
   }
 }
