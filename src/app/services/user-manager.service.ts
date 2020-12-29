@@ -91,6 +91,7 @@ export class UserManagerService {
 
   private addressesMapping(userRes: any): void {
     let i: number = 0;
+    this.user.userProfile.addresses = [];
 
     for (const address of userRes.userProfile.addresses) {
       this.user.userProfile.addresses.push(new Address());
