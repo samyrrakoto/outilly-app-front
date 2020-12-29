@@ -8,3 +8,9 @@
 .step {
   color: var(--KTKP-GREEN);
 }
+
+@media screen and (max-width: 768px) {
+  .progress {
+    margin-bottom: 50px;
+  }
+}

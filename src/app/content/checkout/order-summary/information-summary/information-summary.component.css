@@ -32,6 +32,14 @@
   width: 70%;
 }
 
-#modify-tablet {
-  font-size: 1.3vmax;
+@media screen and (max-width: 768px) {
+  #modify {
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+  #modify {
+    font-size: 1.3vmax;
+  }
 }

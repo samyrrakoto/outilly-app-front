@@ -2,3 +2,9 @@
   font-weight: bold;
   font-size: 3.5em;
 }
+
+@media screen and (max-width: 768px) {
+  .accroche {
+    font-size: 1.7em;
+  }
+}
