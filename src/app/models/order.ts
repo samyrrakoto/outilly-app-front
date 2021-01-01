@@ -19,6 +19,12 @@ export class Order {
   isSent: boolean;
   paymentAttempts: number;
   recipient: Recipient;
+  buyerCode: string;
+  buyerCodeGeneratedAt: Date;
+  buyerCodeCheckAttempts: number;
+  buyerCodeValidatedAt: Date;
+  isBuyerCodeValidated: boolean;
+  isAvailabilityConfirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
 
@@ -40,6 +46,7 @@ export class Order {
     this.isSent = false;
     this.paymentAttempts = null;
     this.recipient = new Recipient();
+    this.buyerCode = '';
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

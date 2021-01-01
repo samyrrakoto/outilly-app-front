@@ -1,3 +1,4 @@
+import { ErrorMessageManagerService } from './../../../../../services/error-message-manager.service';
 import { Order } from 'src/app/models/order';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -25,6 +26,7 @@ export class UserSalesConfirmedComponent implements OnInit {
   currentBuyer: any;
   dispatchNoteA4: string = null;
   dispatchNoteA5: string = null;
+  errorMessages: ErrorMessageManagerService = new ErrorMessageManagerService();
   readonly nbAttempts: number = 3;
 
   constructor(
@@ -43,6 +45,7 @@ export class UserSalesConfirmedComponent implements OnInit {
     this.modals = new Modals();
     this.modals.addModal('buyer-contact');
     this.modals.addModal('etiquette-download');
+    this.modals.addModal('order-availability-confirmation');
     this.currentBuyer = {
       'phone1': '',
       'mainAddress': {
@@ -123,6 +126,18 @@ export class UserSalesConfirmedComponent implements OnInit {
         }
       )
     });
+  }
+
+  public availableConfirmation(order: Order): void {
+    this.request.patchData(null, this.request.uri.ORDER_VALIDITY_CONFIRMATION + '/' + order.id).subscribe({
+      next: () => {
+        order.isAvailabilityConfirmed = true;
+      },
+      error: () => {
+        this.errorMessages.addErrorMessage('Une erreur est survenue');
+      }
+    }
+    )
   }
 
   public goToProductPage(productSlug: string, saleId: number): void {

@@ -61,6 +61,8 @@
 
             <div class="is-divider"></div>
 
+            <!-- MONDIAL RELAY DELIVERY -->
+
             <!-- If delivery note has been generated -->
             <div *ngIf="isRelayDelivery(order) && isDeliveryNoteGenerated(order)" class="content">
               <div class="content has-text-centered">
@@ -95,7 +97,7 @@
               </div>
             </div>
 
-            <!-- If delivery note has not been generated yet -->
+            <!-- If delivery note has NOT been generated yet -->
             <div *ngIf="isRelayDelivery(order) && !isDeliveryNoteGenerated(order)" class="content">
               <div class="content">
                 <h2 class="subtitle announce has-text-centered">
@@ -112,7 +114,7 @@
               </div>
             </div>
 
-            <!-- If hand delivery has been chosen -->
+            <!-- HAND DELIVERY -->
             <div *ngIf="isHandDelivery(order)" class="content">
               <div class="content">
                 <h2 class="subtitle announce has-text-centered">
@@ -121,11 +123,11 @@
                 </h2>
               </div>
 
-              <div class="content has-text-centered">
-                <button class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
+              <div *ngIf="!order.isAvailabilityConfirmed" class="content has-text-centered">
+                <button (click)="currentOrder = order; modals.open('order-availability-confirmation')" class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
               </div>
 
-              <div class="content has-text-centered">
+              <div *ngIf="order.isAvailabilityConfirmed" class="content has-text-centered">
                 <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
                   <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
                   Contacter l'acheteur pour convenir d'un rendez-vous
@@ -141,6 +143,7 @@
 
 <!-- ##### MODALS ##### -->
 
+<!-- Buyer information -->
 <div *ngIf="currentBuyer" class="modal {{ modals.get('buyer-contact') }}">
   <div class="modal-background" (click)="modals.close('buyer-contact')"></div>
   <div class="modal-content">
@@ -193,6 +196,28 @@
     </div>
   </div>
   <button class="modal-close is-large is-danger" aria-label="close" (click)="modals.close('etiquette-download')"></button>
+</div>
+
+<!-- Order availability confirmation -->
+<div class="modal {{ modals.get('order-availability-confirmation') }}">
+  <div (click)="modals.close('order-availability-confirmation')" class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title">
+        Confirmez-vous que le produit est toujours disponible ?
+      </h1>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <button class="button is-success" (click)="availableConfirmation(currentOrder); modals.close('order-availability-confirmation')">Oui</button>
+        </p>
+        <p class="control">
+          <button (click)="modals.close('order-availability-confirmation')" class="button is-light">Non</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large is-danger" aria-label="close" (click)="modals.close('order-availability-confirmation')"></button>
 </div>
 
 <!-- Order send confirmation -->
