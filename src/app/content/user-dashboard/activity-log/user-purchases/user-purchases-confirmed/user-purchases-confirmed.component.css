@@ -34,6 +34,13 @@
   justify-content: center;
 }
 
+.buyer-code {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: var(--KTKP-GREEN);
+}
+
 @media (max-width: 780px) {
   .modal .columns {
     margin-bottom: 20px;
