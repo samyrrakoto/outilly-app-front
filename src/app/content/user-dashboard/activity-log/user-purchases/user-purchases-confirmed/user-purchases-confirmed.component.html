@@ -32,46 +32,62 @@
             <div *ngIf="order.shipMethod === 'HandDelivery'" class="content bid">
               <h2 class="panel-title has-text-centered">Votre commande est validée !</h2>
 
-              <div class="content has-text-centered">
-                Il n'y a plus qu'à <span class="bold">contacter le vendeur</span> grâce aux informations ci-dessous :
-              </div>
+              <!-- Buyer code awaiting -->
+              <div *ngIf="order.buyerCode !== null && !order.isDelivered">
+                <div class="content has-text-centered">
+                  Il n'y a plus qu'à <span class="bold">contacter le vendeur</span> grâce aux informations ci-dessous :
+                </div>
 
-              <div class="seller-info box has-text-centered">
-                <div class="columns is-vcentered">
-                  <div class="column">
-                    <div class="content">
-                      <fa-icon class="icon" [icon]="['fas', 'user']"></fa-icon>
-                      {{ order.sale.seller.userProfile.lastname | uppercase }} {{ order.sale.seller.userProfile.firstname }}
+                <div class="seller-info box has-text-centered">
+                  <div class="columns is-vcentered">
+                    <div class="column">
+                      <div class="content">
+                        <fa-icon class="icon" [icon]="['fas', 'user']"></fa-icon>
+                        {{ order.sale.seller.userProfile.lastname | uppercase }} {{ order.sale.seller.userProfile.firstname }}
+                      </div>
+                    </div>
+
+                    <div class="column">
+                      <div class="content">
+                        <fa-icon class="icon" [icon]="['fas', 'envelope']"></fa-icon>
+                        {{ order.sale.seller.userProfile.email }}
+                      </div>
                     </div>
                   </div>
 
-                  <div class="column">
-                    <div class="content">
-                      <fa-icon class="icon" [icon]="['fas', 'envelope']"></fa-icon>
-                      {{ order.sale.seller.userProfile.email }}
+                  <div class="columns">
+                    <div class="column">
+                      <div class="content">
+                        <fa-icon class="icon" [icon]="['fas', 'phone-alt']"></fa-icon>
+                        {{ order.sale.seller.userProfile.phone1 | phone }}
+                      </div>
+                    </div>
+
+                    <div class="column">
+                      <div class="content">
+                        <fa-icon class="icon" [icon]="['fas', 'home']"></fa-icon>
+                        {{ order.sale.seller.userProfile.mainAddress.zipcode }} {{ order.sale.seller.userProfile.mainAddress.city }}
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="columns">
-                  <div class="column">
-                    <div class="content">
-                      <fa-icon class="icon" [icon]="['fas', 'phone-alt']"></fa-icon>
-                      {{ order.sale.seller.userProfile.phone1 | phone }}
-                    </div>
-                  </div>
-
-                  <div class="column">
-                    <div class="content">
-                      <fa-icon class="icon" [icon]="['fas', 'home']"></fa-icon>
-                      {{ order.sale.seller.userProfile.mainAddress.zipcode }} {{ order.sale.seller.userProfile.mainAddress.city }}
-                    </div>
-                  </div>
-                </div>
               </div>
 
-              <div class="content has-text-centered">
-                <button (click)="modals.open('order-reception')" *ngIf="!order.isDelivered" class="button order-reception is-success">
+              <div class="content" *ngIf="order.buyerCode !== null && !order.isDelivered">
+                N'oubliez pas de remettre le code suivant au vendeur lors de votre rendez-vous afin de sécuriser la transaction :<br><br>
+                <span class="buyer-code">
+                  <fa-icon [icon]="['fas', 'user-secret']"></fa-icon>
+                  {{ order.buyerCode }}
+                </span>
+              </div>
+
+              <!-- Buyer code NOT yet generated -->
+              <div class="content" *ngIf="order.buyerCode === null">
+                En attente de la confirmation du vendeur.
+              </div>
+
+              <div *ngIf="order.isBuyerCodeValidated" class="content has-text-centered">
+                <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="!order.isDelivered" class="button order-reception is-success no-overflow">
                   <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
                   Je confirme que j'ai récupéré mon colis en mains propres
                 </button>
@@ -127,7 +143,7 @@
                   <a hidden id="mondial-relay-url" [href]=mondialRelayUrl target="_blank"></a>
                 </div>
 
-                <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="order.isSent" class="button order-reception is-success">
+                <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="order.isSent" class="button order-reception is-success no-overflow">
                   <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
                   Je confirme la réception du colis
                 </button>

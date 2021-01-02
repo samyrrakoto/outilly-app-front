@@ -1,4 +1,4 @@
-import { ErrorMessageManagerService } from './../../../../../services/error-message-manager.service';
+import { ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { Order } from 'src/app/models/order';
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -26,6 +26,8 @@ export class UserSalesConfirmedComponent implements OnInit {
   currentBuyer: any;
   dispatchNoteA4: string = null;
   dispatchNoteA5: string = null;
+  typedCode: string = '';
+  buyerCodeError: boolean = null;
   errorMessages: ErrorMessageManagerService = new ErrorMessageManagerService();
   readonly nbAttempts: number = 3;
 
@@ -46,6 +48,7 @@ export class UserSalesConfirmedComponent implements OnInit {
     this.modals.addModal('buyer-contact');
     this.modals.addModal('etiquette-download');
     this.modals.addModal('order-availability-confirmation');
+    this.modals.addModal('order-delivery-confirmation');
     this.currentBuyer = {
       'phone1': '',
       'mainAddress': {
@@ -138,6 +141,33 @@ export class UserSalesConfirmedComponent implements OnInit {
       }
     }
     )
+  }
+
+  public checkBuyerCode(order: Order): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.CHECK_BUYER_CODE, [order.id.toString(), this.typedCode]).subscribe({
+        next: (res: any) => {
+          resolve(res.isValid);
+        },
+        error: () => {
+          this.errorMessages.addErrorMessage('Une erreur est survenue');
+        }
+      })
+    });
+  }
+
+  public confirmOrderDelivery(order: Order): void {
+    this.checkBuyerCode(order)
+      .then((isValid: boolean) => {
+        if (isValid) {
+          order.isBuyerCodeValidated = true;
+          this.modals.close('order-delivery-confirmation');
+          this.buyerCodeError = false;
+        }
+        else {
+          this.buyerCodeError = true;
+        }
+      });
   }
 
   public goToProductPage(productSlug: string, saleId: number): void {

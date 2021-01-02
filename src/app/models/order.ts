@@ -47,6 +47,11 @@ export class Order {
     this.paymentAttempts = null;
     this.recipient = new Recipient();
     this.buyerCode = '';
+    this.buyerCodeGeneratedAt = new Date();
+    this.buyerCodeCheckAttempts = 0;
+    this.buyerCodeValidatedAt = new Date();
+    this.isBuyerCodeValidated = null;
+    this.isAvailabilityConfirmed = null;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

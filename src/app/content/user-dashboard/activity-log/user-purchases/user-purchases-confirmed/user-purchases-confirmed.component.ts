@@ -73,7 +73,7 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
   public orderReceptionConfirmation(order: Order): Promise<void> {
     return new Promise((resolve) => {
       this.request.patchData(null, this.request.uri.ORDER_RECEPTION_CONFIRMATION + '/' + order.id.toString()).subscribe(
-        (res: any) => {
+        () => {
           order.isDelivered = true;
           resolve();
         }
