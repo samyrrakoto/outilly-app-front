@@ -24,10 +24,17 @@ export class RequestService {
     return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
   }
 
+  /**
+   * 05/01/2021
+   * o2switch doesn't support PATCH requests so we don't have a choice (as of today) but to call "PUT" instad of "PATCH", but we'll keep this function called "patchData"
+   * because we will be getting back to PATCH when we go further than o2switch, so we just change the method "http.patch" to "http.put" in this method to comply.
+   * I do know this is not clean and I assume it entirely but this is because of lack of options.
+   * Decision done and approved by the CTO (Samyr Rakoto)
+   */
   patchData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, params);
 
-    return options === null ? this.http.patch<any>(this.uri.path, data) : this.http.patch<any>(this.uri.path, data, options);
+    return options === null ? this.http.put<any>(this.uri.path, data) : this.http.put<any>(this.uri.path, data, options);
   }
 
   getData(ressource: string, params: Array<string> = []): Observable<any> {
