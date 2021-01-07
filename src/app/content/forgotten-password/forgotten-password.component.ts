@@ -119,8 +119,6 @@ export class ForgottenPasswordComponent implements OnInit {
       "newPwd": this.pwd
     };
 
-    console.log(JSON.stringify(payload));
-
     this.request.putData(this.request.uri.NEW_PWD, payload).subscribe({
       next: (res: any) => {
         this.success = res.result;
