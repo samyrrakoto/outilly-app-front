@@ -46,7 +46,9 @@ export class Uri {
   readonly ASK_KYC_VALIDATION: string = 'secure/mangopay/user/kyc/ask-validation';
   readonly KYC_VALIDATION_STATUS: string = 'secure/mangopay/user/kyc/validation-status';
   readonly UPDATE_USER: string = 'secure/user/update';
+  readonly NEW_PWD: string ='pwd-reset';
   readonly UPDATE_PWD: string = 'secure/pwd-reset';
+  readonly PWD_REQUEST: string = 'pwd-reset/request';
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';

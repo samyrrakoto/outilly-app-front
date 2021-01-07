@@ -1,4 +1,5 @@
-import { ContactFormComponent } from './content/contact-form/contact-form.component';
+import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
+import { ForgottenPasswordComponent } from './content/forgotten-password/forgotten-password.component';
 import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
 import { UserPurchasesConfirmedComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-confirmed/user-purchases-confirmed.component';
 import { UserPurchasesRunningComponent } from './content/user-dashboard/activity-log/user-purchases/user-purchases-running/user-purchases-running.component';
@@ -85,6 +86,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'reset-password-request',
+    component: ResetPasswordRequestComponent
+  },
+  {
+    path: 'reset-password/:base64',
+    component: ForgottenPasswordComponent
   },
   {
     path: 'user/activate/:userId/:token',
