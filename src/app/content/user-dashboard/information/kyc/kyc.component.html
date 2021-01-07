@@ -36,9 +36,19 @@
     </div>
 
     <div class="column">
-      <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('iban')">
+      <div *ngIf="userManager.user.mangoPayData.ibanId !== null" class="content">
+        Le RIB utilisé est le suivant :
+
+        <div class="content">
+          <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('bank-account')">
+            <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+            Remplacer ce RIB
+          </button>
+        </div>
+      </div>
+      <button *ngIf="userManager.user.mangoPayData.ibanId === null" class="button kyc is-dark is-small no-overflow" (click)="modals.open('bank-account')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
-        Enregistrer votre IBAN
+        Ajouter un RIB
       </button>
     </div>
   </div>
@@ -125,16 +135,43 @@
   <button class="modal-close is-large" (click)="modals.close('kyc')"></button>
 </div>
 
-<!-- IBAN Modal -->
-<div class="modal {{ modals.get('iban') }}">
-  <div class="modal-background" (click)="modals.close('iban')"></div>
+<!-- Bank account Modal -->
+<div id="bank-account" class="modal {{ modals.get('bank-account') }}">
+  <div class="modal-background" (click)="modals.close('bank-account')"></div>
   <div class="modal-content">
     <div class="box">
 
-    <h2 class="subtitle">Ajouter un IBAN</h2>
+    <h2 class="subtitle">Ajouter un RIB</h2>
 
+    <div class="field is-horizontal is-mobile">
+      <div class="field-label is-normal">
+        <label class="label">IBAN</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <p class="control has-text-centered-mobile">
+            <input class="input" [(ngModel)]="iban">
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal is-mobile">
+      <div class="field-label is-normal">
+        <label class="label">BIC</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <p class="control has-text-centered-mobile">
+            <input class="input" [(ngModel)]="bic">
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button class="button is-success" (click)="bankAccountRegister()">Ajouter ce RIB</button>
 
     </div>
   </div>
-  <button class="modal-close is-large" (click)="modals.close('iban')"></button>
+  <button class="modal-close is-large" (click)="modals.close('bank-account')"></button>
 </div>
