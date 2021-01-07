@@ -48,6 +48,7 @@ export class Uri {
   readonly UPDATE_USER: string = 'secure/user/update';
   readonly NEW_PWD: string ='pwd-reset';
   readonly UPDATE_PWD: string = 'secure/pwd-reset';
+  readonly PWD_REQUEST: string = 'pwd-reset/request';
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';
