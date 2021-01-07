@@ -6,6 +6,10 @@
   height: 150px;
 }
 
+#bank-account .input {
+  width: 300px;
+}
+
 #documents {
   margin-top: 20px;
 }

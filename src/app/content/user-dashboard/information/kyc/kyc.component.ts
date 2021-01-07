@@ -20,6 +20,8 @@ export class KycComponent implements OnInit {
   page: string = '';
   recto: boolean = false;
   verso: boolean = false;
+  iban: string = '';
+  bic: string = '';
   errorManager: ErrorManager = new ErrorManager();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
@@ -29,6 +31,7 @@ export class KycComponent implements OnInit {
     public userManager: UserManagerService)
   {
     this.modals.addModal('id');
+    this.modals.addModal('bank-account');
   }
 
   ngOnInit(): void {
@@ -133,6 +136,20 @@ export class KycComponent implements OnInit {
         }
       })
     });
+  }
+
+  public bankAccountRegister(): void {
+    const payload: any = {
+      "IBAN": this.iban,
+      "BIC": this.bic
+    };
+
+    this.request.postData(payload, this.request.uri.BANK_ACCOUNT_REGISTRATION).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      }
+    }
+    )
   }
 
   public setFocus(id: string): void {
