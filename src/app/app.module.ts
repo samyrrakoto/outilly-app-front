@@ -145,6 +145,7 @@ import { BrandProductsComponent } from './content/products/brand-products/brand-
 import { CookieDisclaimerComponent } from './content/cookie-disclaimer/cookie-disclaimer.component';
 import { ContactFormComponent } from './content/contact-form/contact-form.component';
 import { PrivacyPolicyComponent } from './content/privacy-policy/privacy-policy.component';
+import { ForgottenPasswordComponent } from './content/forgotten-password/forgotten-password.component';
 
 @NgModule({
   declarations: [
@@ -280,6 +281,7 @@ import { PrivacyPolicyComponent } from './content/privacy-policy/privacy-policy.
     CookieDisclaimerComponent,
     ContactFormComponent,
     PrivacyPolicyComponent,
+    ForgottenPasswordComponent,
   ],
   imports: [
     HttpClientModule,
