@@ -15,6 +15,11 @@ export class NotificationService {
   runningPurchases: Purchase[];
   confirmedSales: Order[];
   confirmedPurchases: Order[];
+  allSalesNotifNb: number = 0;
+  runningPurchasesNotifNb: number = 0;
+  runningSalesNotifNb: number = 0;
+  confirmedPurchasesNotifNb: number = 0;
+  confirmedSalesNotifNb: number = 0;
   allSalesStatus: boolean = false;
   runningSalesStatus: boolean = false;
   runningPurchasesStatus: boolean = false;
@@ -26,6 +31,10 @@ export class NotificationService {
     private saleManager: SaleManagerService,
     private purchaseManager: PurchaseManagerService)
   {}
+
+  ngOnInit(): void {
+    this.checkAllNotifications();
+  }
 
   public display(message: string, domId: string, classes: string[] = [], duration: number = 5000): void {
     const content: HTMLElement = document.getElementById(domId);
@@ -68,6 +77,17 @@ export class NotificationService {
     });
   }
 
+  private getConfirmedPurchases(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.GET_BUYER_ORDERS).subscribe(
+        (orders: any) => {
+          this.confirmedPurchases = orders;
+          resolve();
+        }
+      )
+    });
+  }
+
   private getConfirmedSales(): Promise<void> {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
@@ -80,24 +100,23 @@ export class NotificationService {
   }
 
   public checkAllNotifications(): void {
+    this.allSalesNotifNb = 0;
     this.checkRunningSalesNotification();
     this.checkRunningPurchasesNotification();
     this.checkConfirmedSalesNotification();
-    if (!this.runningPurchasesStatus && !this.runningSalesStatus && !this.confirmedSalesStatus) {
-      this.allSalesStatus = false;
-    }
+    this.checkConfirmedPurchasesNotification();
   }
 
   public checkRunningSalesNotification(): void {
     this.getRunningSales()
       .then(() => {
         this.runningSalesStatus = false;
+        this.runningSalesNotifNb = 0;
 
         for (const sale of this.runningSales) {
-          if (this.saleManager.hasNonTreatedBids(sale) && sale.bids[0].isRead === false) {
-            this.runningSalesStatus = true;
-            this.allSalesStatus = true;
-            return;
+          if (this.saleManager.hasNonTreatedBids(sale)) {
+            this.runningSalesNotifNb++;
+            this.allSalesNotifNb++;
           }
         }
       });
@@ -107,27 +126,40 @@ export class NotificationService {
     this.getRunningPurchases()
       .then(() => {
         this.runningPurchasesStatus = false;
+        this.runningPurchasesNotifNb = 0;
 
         for (const purchase of this.runningPurchases) {
           if (this.purchaseManager.requireAction(purchase) && !purchase.isRead) {
-            this.runningPurchasesStatus = true;
-            this.allSalesStatus = true;
-            return;
+            this.runningPurchasesNotifNb++;
+            this.allSalesNotifNb++;
           }
         }
       });
   }
 
+  public checkConfirmedPurchasesNotification(): void {
+    this.getConfirmedPurchases()
+      .then(() => {
+        this.confirmedPurchasesNotifNb = 0;
+
+        for (const purchase of this.confirmedPurchases) {
+          if (!purchase.isReadBuyer) {
+            this.confirmedPurchasesNotifNb++;
+            this.allSalesNotifNb++;
+          }
+        }
+      });
+  }
   public checkConfirmedSalesNotification(): void {
     this.getConfirmedSales()
       .then(() => {
         this.confirmedSalesStatus = false;
+        this.confirmedPurchasesNotifNb = 0;
 
         for (const order of this.confirmedSales) {
           if (order.shipMethod === 'RelayShip' && order.mrExpedition === null) {
-            this.confirmedSalesStatus = true;
-            this.allSalesStatus = true;
-            return;
+            this.confirmedPurchasesNotifNb++;
+            this.allSalesNotifNb++;
           }
         }
       });

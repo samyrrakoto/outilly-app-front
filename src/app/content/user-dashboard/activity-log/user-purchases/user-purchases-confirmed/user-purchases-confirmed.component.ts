@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Order } from 'src/app/models/order';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { UserPurchasesComponent } from './../user-purchases.component';
@@ -31,7 +32,8 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
     public location: Location,
-    public title: Title)
+    public title: Title,
+    public notification: NotificationService)
   {
     super(request, router, route, auth, purchaseManager, saleManager, bidManager, location, title);
     this.modals = new Modals();
@@ -95,5 +97,17 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
 
   public goToProductPage(order: any): void {
     this.router.navigate(["/product/" + order.sale.productSlug + "/" + order.sale.id]);
+  }
+
+  public noteAsRead(currentOrder: Order): void {
+    if (currentOrder.isReadBuyer === false) {
+      this.request.patchData(null, this.request.uri.READ_ORDER_BUYER + '/' + currentOrder.id).subscribe(
+        () => {
+          currentOrder.isReadBuyer = true;
+          this.notification.confirmedPurchasesNotifNb--;
+          this.notification.allSalesNotifNb--;
+        }
+      )
+    }
   }
 }

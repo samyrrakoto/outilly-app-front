@@ -57,7 +57,7 @@ export class UserPurchasesRunningComponent {
   }
 
   public goToProductPage(purchase: Purchase): void {
-    this.router.navigate(['/product/' + purchase.slug + '/' + purchase.sale.id]);
+    this.router.navigate(['/product/' + purchase.sale.productSlug + '/' + purchase.sale.id]);
   }
 
   public noteAsRead(currentPurchase: Purchase): void {
@@ -67,9 +67,10 @@ export class UserPurchasesRunningComponent {
           for (const purchase of this.runningPurchases) {
             if (currentPurchase.bidId === purchase.bidId) {
               currentPurchase.isRead = true;
-              this.notification.checkAllNotifications();
             }
           }
+          this.notification.runningPurchasesNotifNb--;
+          this.notification.allSalesNotifNb--;
         }
       )
     }

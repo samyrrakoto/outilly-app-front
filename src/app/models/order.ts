@@ -25,6 +25,8 @@ export class Order {
   buyerCodeValidatedAt: Date;
   isBuyerCodeValidated: boolean;
   isAvailabilityConfirmed: boolean;
+  isReadBuyer: boolean = false;
+  isReadSeller: boolean = false;
   createdAt: Date;
   updatedAt: Date;
 

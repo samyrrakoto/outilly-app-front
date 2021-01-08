@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private request: RequestService,
-    private title: Title
+    private title: Title,
+    private notification: NotificationService
   )
   {}
 
@@ -66,6 +68,7 @@ export class LoginComponent implements OnInit {
 
   private checkHasRedirectAfterLogin(): void{
     if (sessionStorage.getItem("redirect_after_login") === null) {
+      this.notification.checkAllNotifications();
       this.router.navigate(['/user/dashboard']);
     }
     else {

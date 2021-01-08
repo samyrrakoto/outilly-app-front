@@ -60,6 +60,8 @@ export class Uri {
   readonly COUNTER_OFFER: string = 'secure/bid/place/counter-offer';
   readonly MONDIAL_RELAY_COSTS: string = 'mondialrelay/cost-delay';
   readonly SEND_ORDER: string = 'secure/order/sent';
+  readonly READ_ORDER_BUYER: string = 'secure/order/read/buyer';
+  readonly READ_ORDER_SELLER: string = 'secure/order/read/seller'
   readonly ORDER_RECEPTION_CONFIRMATION: string = 'secure/order/delivered';
   readonly GET_RELAY_POINT: string = 'mondialrelay/relaypoint';
   readonly CREATE_RELAY_EXPEDITION: string ='secure/mondialrelay/expedition';

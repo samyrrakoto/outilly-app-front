@@ -34,10 +34,6 @@ fa-icon {
   background: none;
 }
 
-.notification-icon {
-  color: var(--KTKP-RED);
-}
-
 #separation {
   background-color: var(--KTKP-BLACK);
   border-radius: 30px;
@@ -46,12 +42,6 @@ fa-icon {
 #separation fa-icon {
   color: white;
   margin: auto;
-}
-
-fa-icon.bell {
-  margin: 0px;
-  font-weight: bold;
-  color: var(--KTKP-RED);
 }
 
 .actions {

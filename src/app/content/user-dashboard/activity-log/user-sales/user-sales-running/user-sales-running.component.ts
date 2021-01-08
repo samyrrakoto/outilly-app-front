@@ -104,6 +104,8 @@ export class UserSalesRunningComponent implements OnInit {
         break;
     }
     bid.isClosed = true;
+    this.notification.runningSalesNotifNb--;
+    this.notification.allSalesNotifNb--;
   }
 
   public offerAcceptanceConfirmation(choice: string): void {
