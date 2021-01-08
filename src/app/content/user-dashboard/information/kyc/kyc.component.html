@@ -6,6 +6,10 @@
     lorsque vous réussissez une vente.
   </div>
 
+  <div *ngIf="bankInfo" class="notification is-success">
+    Votre RIB a bien été pris en compte
+  </div>
+
   <article *ngIf="isKycCreated()" class="message is-success">
     <div class="message-body">
       <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
@@ -16,7 +20,7 @@
   <div *ngIf="isKycAsked()" class="message is-info">
     <div class="message-body">
       <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-      Votre pièce d'identité est en cours de validation.
+      Les documents ont bien été envoyés et sont en cours de vérification.
     </div>
   </div>
 
@@ -24,6 +28,15 @@
     <div class="message-body">
       <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
       Votre pièce d'identité a été refusée. Veuillez en proposer une autre.
+    </div>
+  </div>
+
+  <div *ngIf="userManager.user.mangoPayData.ibanId !== null" class="content">
+    <h2 class="subtitle has-text-left">RIB actuellement utilisé :</h2>
+
+    <div class="content has-text-left">
+      <span class="tag is-light"><span class="bold">IBAN</span>&nbsp;: {{ iban }}</span><br>
+      <span class="tag is-light"><span class="bold">BIC</span>&nbsp;: {{ bic }}</span>
     </div>
   </div>
 
@@ -36,19 +49,14 @@
     </div>
 
     <div class="column">
-      <div *ngIf="userManager.user.mangoPayData.ibanId !== null" class="content">
-        Le RIB utilisé est le suivant :
-
-        <div class="content">
-          <button class="button kyc is-dark is-small no-overflow" (click)="modals.open('bank-account')">
-            <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
-            Remplacer ce RIB
-          </button>
-        </div>
-      </div>
       <button *ngIf="userManager.user.mangoPayData.ibanId === null" class="button kyc is-dark is-small no-overflow" (click)="modals.open('bank-account')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
         Ajouter un RIB
+      </button>
+
+      <button *ngIf="userManager.user.mangoPayData.ibanId !== null" class="button kyc is-dark is-small no-overflow" (click)="openModal()">
+        <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
+        Remplacer ce RIB
       </button>
     </div>
   </div>
@@ -120,15 +128,11 @@
           Ajouter le verso
         </button>
 
-        <button *ngIf="isKycComplete() && isKycAsked()" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
+        <button *ngIf="isKycComplete() && !isKycAsked()" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
       </div>
 
       <div *ngIf="loading">
         <button class="button is-light is-loading"></button>
-      </div>
-
-      <div *ngIf="isKycAsked()" class="notification is-success addspaceabove">
-        Les documents ont bien été envoyés et seront vérifiés très prochainement.
       </div>
     </div>
   </div>
@@ -142,6 +146,10 @@
     <div class="box">
 
     <h2 class="subtitle">Ajouter un RIB</h2>
+
+    <div *ngIf="bankInfo === false" class="notification is-danger">
+      Le RIB est incorrect
+    </div>
 
     <div class="field is-horizontal is-mobile">
       <div class="field-label is-normal">
@@ -175,3 +183,9 @@
   </div>
   <button class="modal-close is-large" (click)="modals.close('bank-account')"></button>
 </div>
+
+<app-contact-form
+  [click]=click
+  [chosenSubject]=chosenSubject
+  [message]=message>
+</app-contact-form>

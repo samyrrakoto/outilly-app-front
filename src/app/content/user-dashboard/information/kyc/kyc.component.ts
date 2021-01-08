@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { ErrorManager } from 'src/app/models/error-manager';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -12,6 +13,7 @@ import { AskValidationStatus } from 'src/app/models/uri';
 })
 export class KycComponent implements OnInit {
   loading: boolean = false;
+  bankInfo: boolean = null;
   modals: Modals = new Modals();
   kycUrl: string[] = [];
   kycSent: string[] = [];
@@ -23,8 +25,11 @@ export class KycComponent implements OnInit {
   iban: string = '';
   bic: string = '';
   errorManager: ErrorManager = new ErrorManager();
+  click: Subject<any> = new Subject<any>();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
+  readonly chosenSubject: string = 'Modifier mes informations bancaires';
+  readonly message: string = `Je souhaite changer de RIB. Voici mes nouvelles coordonnées bancaires :`;
 
   constructor(
     private request: RequestService,
@@ -32,9 +37,11 @@ export class KycComponent implements OnInit {
   {
     this.modals.addModal('id');
     this.modals.addModal('bank-account');
+    this.modals.addModal('modify-bank-account');
   }
 
   ngOnInit(): void {
+    this.getBankInfo();
   }
 
   public handleFile(event: any): void {
@@ -50,6 +57,17 @@ export class KycComponent implements OnInit {
 
   public openImgPicker(elementId: string): void {
     document.getElementById(elementId).click();
+  }
+
+  private getBankInfo(): Promise<void> {
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.BANK_INFO).subscribe({
+        next: (res: any) => {
+          this.iban = res.IBAN;
+          this.bic = res.BIC;
+        },
+      })
+    });
   }
 
   private createKycDoc(): Promise<void> {
@@ -132,6 +150,7 @@ export class KycComponent implements OnInit {
         next: () => {
           this.userManager.user.mangoPayData.KYCstatus = AskValidationStatus.VALIDATION_ASKED;
           this.loading = false;
+          this.modals.close('kyc');
           resolve();
         }
       })
@@ -145,8 +164,12 @@ export class KycComponent implements OnInit {
     };
 
     this.request.postData(payload, this.request.uri.BANK_ACCOUNT_REGISTRATION).subscribe({
-      next: (res: any) => {
-        console.log(res);
+      next: () => {
+        this.bankInfo = true;
+        this.modals.close('bank-account');
+      },
+      error: () => {
+        this.bankInfo = false;
       }
     }
     )
@@ -209,5 +232,9 @@ export class KycComponent implements OnInit {
   public isKycRefused(): boolean {
     return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.REFUSED;
 
+  }
+
+  public openModal(): void {
+    this.click.next();
   }
 }

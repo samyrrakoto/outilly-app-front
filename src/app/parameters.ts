@@ -44,3 +44,10 @@ export const media = {
 
 export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?"
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
+export const savSubjects: string[] = [
+  'SAV',
+  'Marketing',
+  'Demande de partenariat',
+  'Modifier mes informations bancaires',
+  'Modifier mon identité'
+];
