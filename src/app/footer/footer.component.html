@@ -21,7 +21,7 @@
             <div class="column">
               <ul>
                 <li><a>L'équipe</a></li>
-                <li><a (click)="openModal()">Nous contacter</a></li>
+                <li><a (click)="modals.open('contact-form')">Nous contacter</a></li>
                 <li><a>Sitemap</a></li>
               </ul>
 
@@ -102,6 +102,12 @@
   </div>
 </footer>
 
-<app-contact-form
-  [click]=click>
-</app-contact-form>
+<div class="modal {{ modals.get('contact-form') }}">
+  <div class="modal-background" (click)="modals.close('contact-form')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-contact-form></app-contact-form>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('contact-form')"></button>
+</div>

@@ -2,7 +2,7 @@
     <div class="columns">
         <div class="column">
           {{ brandName }} ouvre ses portes ! Envie de nous aider ?
-          Vous avez un problème ? <a (click)="openModal()">Venez vite nous en parler !</a>
+          Vous avez un problème ? <a (click)="modals.open('contact-form')">Venez vite nous en parler !</a>
         </div>
 
         <div class="column has-text-right is-hidden-mobile">
@@ -11,6 +11,12 @@
     </div>
 </div>
 
-<app-contact-form
-  [click]=click>
-</app-contact-form>
+<div class="modal {{ modals.get('contact-form') }}">
+  <div class="modal-background" (click)="modals.close('contact-form')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-contact-form></app-contact-form>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('contact-form')"></button>
+</div>

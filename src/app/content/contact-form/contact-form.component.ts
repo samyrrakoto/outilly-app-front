@@ -5,7 +5,7 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 import { contact, savSubjects } from 'src/app/parameters';
 import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({

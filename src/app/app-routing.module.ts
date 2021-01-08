@@ -1,3 +1,4 @@
+import { ContactFormComponent } from './content/contact-form/contact-form.component';
 import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
 import { ForgottenPasswordComponent } from './content/forgotten-password/forgotten-password.component';
 import { BrandProductsComponent } from './content/products/brand-products/brand-products.component';
@@ -78,6 +79,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent
+  },
+  {
+    path: 'contact',
+    component: ContactFormComponent
   },
   {
     path: 'product-results',
