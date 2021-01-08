@@ -71,7 +71,11 @@ export class NotificationService {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
-          this.runningPurchases = purchases;
+          for (const purchase of purchases) {
+            if (purchase.sale.status !== 'sold') {
+              this.runningPurchases.push(purchase);
+            }
+          }
           resolve();
         });
     });
