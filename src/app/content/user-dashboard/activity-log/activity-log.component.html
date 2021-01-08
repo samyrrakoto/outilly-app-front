@@ -4,7 +4,13 @@
     <!-- Sales -->
     <li id="user-sales" class="is-active" (click)="setFocus('user-sales')">
       <a routerLink="/user/dashboard/activity-log/sales/running">
-        <fa-icon *ngIf="notification.runningSalesStatus" class="notification-icon blinking" [icon]="['fas', 'bell']"></fa-icon>
+
+        <!-- Notification icon -->
+        <span *ngIf="notification.runningSalesNotifNb > 0" class="notification-container blinking">
+          <fa-icon class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+          <span class="declined"><sup>{{ notification.runningSalesNotifNb }}</sup></span>
+        </span>
+
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Mes annonces</span>
       </a>
@@ -24,13 +30,24 @@
     <!-- Purchases -->
     <li id="user-purchases" class="purchases" (click)="setFocus('user-purchases')">
       <a routerLink="/user/dashboard/activity-log/purchases/running">
-        <fa-icon *ngIf="notification.runningPurchasesStatus" class="notification-icon color-blinking" [icon]="['fas', 'bell']"></fa-icon>
+        <!-- Notification icon -->
+        <span *ngIf="notification.runningPurchasesNotifNb > 0" class="notification-container blinking">
+          <fa-icon class="notification-icon invert" [icon]="['fas', 'bell']"></fa-icon>
+          <span class="grey"><sup>{{ notification.runningPurchasesNotifNb }}</sup></span>
+        </span>
+
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Mes négociations</span>
       </a>
     </li>
     <li id="user-purchases-confirmed" class="purchases" (click)="setFocus('user-purchases-confirmed')">
       <a routerLink="/user/dashboard/activity-log/purchases/confirmed">
+        <!-- Notification icon -->
+        <span *ngIf="notification.confirmedPurchasesNotifNb > 0" class="notification-container blinking">
+          <fa-icon class="notification-icon invert" [icon]="['fas', 'bell']"></fa-icon>
+          <span class="grey"><sup>{{ notification.confirmedPurchasesNotifNb }}</sup></span>
+        </span>
+
         <span class="icon"><fa-icon [icon]="['fas', 'cart-arrow-down']"></fa-icon></span>
         <span>Mes achats</span>
       </a>

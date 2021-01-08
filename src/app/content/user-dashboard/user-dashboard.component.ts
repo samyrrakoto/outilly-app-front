@@ -43,7 +43,6 @@ export class UserDashboardComponent implements OnInit {
       .then(() => {
         this.activated = localStorage.getItem('userStatus') === 'activated';
       });
-    this.notification.checkAllNotifications();
   }
 
   ngAfterViewInit(): void {

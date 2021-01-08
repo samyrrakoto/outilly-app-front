@@ -66,6 +66,10 @@
   color: var(--KTKP-GREEN);
 }
 
+.grey {
+  color: var(--MAT-GREY);
+}
+
 /* Tags definition */
 
 .small-title {
@@ -95,6 +99,22 @@
   margin-bottom: 10px;
 }
 
+.notification-container {
+  margin-right: 10px;
+}
+
+.notification-icon {
+  margin-right: 0px !important;
+  color: var(--KTKP-RED) !important;
+}
+
+.notification-icon.invert {
+  color: var(--MAT-GREY) !important;
+}
+
+.notification-icon.side-icon {
+  margin-right: 5px !important;
+}
 
 /* Helpers */
 

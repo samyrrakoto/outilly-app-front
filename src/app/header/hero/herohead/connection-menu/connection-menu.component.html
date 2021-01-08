@@ -10,7 +10,10 @@
       </div>
 
       <div *ngIf="auth.logged" routerLink="/user/dashboard/activity-log" id="left-element" class="level-left pointed">
-        <fa-icon *ngIf="notification.allSalesStatus" class="notification-icon blinking side-icon error" [icon]="['fas', 'bell']"></fa-icon>
+        <span *ngIf="notification.allSalesNotifNb > 0" class="notification-container blinking">
+          <fa-icon class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+          <span class="declined"><sup>{{ notification.allSalesNotifNb }}</sup></span>
+        </span>
         <fa-icon class="side-icon" [icon]="['fas', 'handshake']"></fa-icon>
         Mon activité
       </div>
