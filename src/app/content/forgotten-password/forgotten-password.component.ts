@@ -1,3 +1,4 @@
+import { specialCharacters } from './../../parameters';
 import { EncodingService } from 'src/app/services/encoding.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
@@ -20,6 +21,7 @@ export class ForgottenPasswordComponent implements OnInit {
   pwd: string = '';
   pwdConfirmation: string = '';
   modals: Modals = new Modals();
+  readonly specialCharacters: string = specialCharacters;
 
   constructor(
     private formBuilder: FormBuilder,
