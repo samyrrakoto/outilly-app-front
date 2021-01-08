@@ -1,3 +1,4 @@
+import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -6,7 +7,6 @@ import { User } from 'src/app/models/user';
 import { HttpResponse } from '@angular/common/http';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { OnboardingComponent } from '../onboarding.component';
-import { UserProfile } from 'src/app/models/user-profile';
 
 @Component({
   selector: 'app-validation',
@@ -14,17 +14,23 @@ import { UserProfile } from 'src/app/models/user-profile';
   styleUrls: ['./validation.component.css']
 })
 export class ValidationComponent extends OnboardingComponent implements OnInit {
-  public loading: boolean;
+  public loading: boolean = false;
+  public conditionsAccepted: boolean = false;
+  public modals: Modals = new Modals();
 
   constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = this.formDataService.user;
-    this.loading = false;
+    this.modals.addModal('conditions-of-use');
   }
 
   ngOnInit() {
     this.formDataService.isAccountComplete = true;
+  }
+
+  public changeConditionsStatus(): void {
+    this.conditionsAccepted = !this.conditionsAccepted;
   }
 
   checkResponse(response: HttpResponse<User>) {

@@ -33,7 +33,7 @@
     <!-- Errors display -->
     <div *ngIf="controls.announceTitle.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.announceTitle.errors }">
       <div class="error" *ngIf="controls.announceTitle.errors.required">Le titre est requis</div>
-      <div class="error" *ngIf="controls.announceTitle.errors.notValid">Le titre est invalide</div>
+      <div class="error" *ngIf="controls.announceTitle.errors.notValid">Le titre n'est pas assez explicite</div>
     </div>
   </div>
 </div>

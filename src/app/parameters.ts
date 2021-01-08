@@ -42,5 +42,5 @@ export const media = {
   PICTURES_FORMAT_ACCEPTED: ".jpg, .jpeg, .png"
 }
 
-export const specialCharacters: string = "&!@#-_+~/.?"
+export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?"
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];

@@ -20,6 +20,7 @@ export class ForgottenPasswordComponent implements OnInit {
   pwd: string = '';
   pwdConfirmation: string = '';
   modals: Modals = new Modals();
+  readonly specialCharacters: string = specialCharacters;
 
   constructor(
     private formBuilder: FormBuilder,

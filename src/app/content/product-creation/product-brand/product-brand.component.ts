@@ -21,7 +21,6 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   readonly maxBrands: number = 5;
   @ViewChild("matOption") matOption: ElementRef;
-  additionalControls: boolean;
   product: Product;
   myControl = new FormControl();
   brands: Array<string>;
@@ -39,12 +38,10 @@ export class ProductBrandComponent extends StepForm implements OnInit {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
-    this.additionalControls = this.product.brands.length !== 0;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
     this.stepName = "Quelle est la marque de votre produit ?";
-    this.stepSubtitle = "Choisissez #Autre si votre marque n'apparaît pas.";
     this.path.current = "product-brand";
     this.path.previous = "product-category";
     this.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
@@ -97,7 +94,6 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     if (!this.hasType() && this.doesBrandExist() && this.product.brands.length < this.maxBrands) {
       const brandId: number = this.getId();
       this.product.brands.push(new Brand(brandId, this.myControl.value));
-      this.additionalControls = true;
     }
     document.getElementById('product-brand').focus();
   }
@@ -110,9 +106,6 @@ export class ProductBrandComponent extends StepForm implements OnInit {
         this.product.brands.splice(i, 1);
       }
       i++;
-    }
-    if (this.product.brands.length < 1) {
-      this.additionalControls = false;
     }
     document.getElementById('product-brand').focus();
   }
