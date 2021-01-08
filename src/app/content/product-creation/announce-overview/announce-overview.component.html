@@ -157,7 +157,15 @@
     Vous seul pouvez consulter votre annonce pour le moment. Elle sera visible pour vos futurs acheteurs dès validation !
   </div>
 
-  <div class="content">
-    <button *ngIf="isSaleCreated" class="button is-danger is-large" style="margin-top: 20px;" (click)="goToProduct()">Aller à la page produit</button>
+  <div class="content has-text-centered">
+    <div class="field is-grouped">
+      <p class="control">
+        <button *ngIf="isSaleCreated" class="button is-danger" style="margin-top: 20px;" (click)="goToProduct()">Aller à la page produit</button>
+      </p>
+
+      <p class="control">
+        <button *ngIf="isSaleCreated" class="button is-success" style="margin-top: 20px;" routerLink="/product/create">Poster une nouvelle annonce</button>
+      </p>
+    </div>
   </div>
 </div>

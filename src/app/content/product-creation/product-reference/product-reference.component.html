@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<button *ngIf="product.productReferences.length === 0" (click)="additionalControls = true; nextOn = true" class="button is-small is-light">Je ne connais pas la référence de mon produit</button>
+<button *ngIf="product.productReferences.length === 0" (click)="additionalControls = true; nextOn = true" class="button is-light">Je ne connais pas la référence de mon ou mes produit(s)</button>
 
 <div *ngFor="let error of errorMessages" class="content error has-text-left">
   {{ error }}
