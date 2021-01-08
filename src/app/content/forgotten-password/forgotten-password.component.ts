@@ -1,4 +1,3 @@
-import { specialCharacters } from './../../parameters';
 import { EncodingService } from 'src/app/services/encoding.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';

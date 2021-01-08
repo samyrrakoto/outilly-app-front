@@ -43,7 +43,7 @@ export class ProductReferenceComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productReference";
     this.stepNb = 7;
-    this.stepName = "Quel est le nom de votre produit ?";
+    this.stepName = "Sélectionnez le(s) produit(s) que vous vendez";
     this.stepSubtitle = 'Vous pouvez en sélectionner jusqu\'à 5.';
     this.path.current = "product-reference";
     this.path.previous = this.formData.product.isConsumable ? "product-brand" : "product-type";
