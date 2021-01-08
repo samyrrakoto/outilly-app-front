@@ -11,19 +11,10 @@ export class Uri {
   readonly BID: string = 'bid/';
   readonly SECURE: string = "secure/"
   readonly USER: string = 'user';
-  readonly CHECK_EXIST: string = 'check/exists';
-  readonly LOGIN: string = 'login/check';
-  readonly USER_ACTIVATION: string = 'user/activate';
-  readonly SEND_ACTIVATION_MAIL: string = 'user/send-activation-token';
-  readonly CHECK: string = 'check/';
-  readonly CREATE: string = 'create';
-  readonly EXISTS: string = 'exists';
+
+  // Sale routes
   readonly SALE: string = 'sale';
   readonly SALES: string = 'sales';
-  readonly PRODUCT_BY_CATEGORY: string = 'product/category'
-  readonly GENERIC_QUESTIONS: string = 'questions/generic';
-  readonly PRODUCT_CREATION: string = 'product/create';
-  readonly PRODUCT_UPDATE: string = 'secure/product/update';
   readonly SALE_CREATE: string = 'secure/sale/create';
   readonly GET_SALES_BY_IDS: string = 'secure/sales'
   readonly GET_SALES_SOLD: string = 'secure/sales/sold';
@@ -39,13 +30,15 @@ export class Uri {
   readonly REFERENCES: string = 'product/refs/categories';
   readonly PRODUCT_MEDIA_CREATE: string = 'product/media/create';
   readonly DELETE_MEDIA: string = 'product/media';
+
+  // Product routes
+  readonly PRODUCT_BY_CATEGORY: string = 'product/category'
+  readonly GENERIC_QUESTIONS: string = 'questions/generic';
+  readonly PRODUCT_CREATION: string = 'product/create';
+  readonly PRODUCT_UPDATE: string = 'secure/product/update';
+
+  // User Routes
   readonly GET_USER: string = 'secure/user';
-  readonly CREATE_KYC_DOC: string = 'secure/mangopay/user/kyc/create-doc';
-  readonly STORE_KYC_DOC: string = 'secure/mangopay/user/kyc/store-doc';
-  readonly ADD_KYC_PAGE: string = 'secure/mangopay/user/kyc/add-page';
-  readonly ASK_KYC_VALIDATION: string = 'secure/mangopay/user/kyc/ask-validation';
-  readonly KYC_VALIDATION_STATUS: string = 'secure/mangopay/user/kyc/validation-status';
-  readonly BANK_ACCOUNT_REGISTRATION: string = 'secure/mangopay/user/bank-account/register';
   readonly UPDATE_USER: string = 'secure/user/update';
   readonly NEW_PWD: string ='pwd-reset';
   readonly UPDATE_PWD: string = 'secure/pwd-reset';
@@ -53,11 +46,24 @@ export class Uri {
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';
+
+  // KYC routes
+  readonly BANK_INFO: string = 'secure/mangopay/user/bank-account/view';
+  readonly CREATE_KYC_DOC: string = 'secure/mangopay/user/kyc/create-doc';
+  readonly STORE_KYC_DOC: string = 'secure/mangopay/user/kyc/store-doc';
+  readonly ADD_KYC_PAGE: string = 'secure/mangopay/user/kyc/add-page';
+  readonly ASK_KYC_VALIDATION: string = 'secure/mangopay/user/kyc/ask-validation';
+  readonly KYC_VALIDATION_STATUS: string = 'secure/mangopay/user/kyc/validation-status';
+  readonly BANK_ACCOUNT_REGISTRATION: string = 'secure/mangopay/user/bank-account/register';
+
+  // Bid routes
   readonly READ_BID: string = 'secure/bid/read/';
   readonly PLACE_BID: string = 'secure/bid/place';
   readonly ACCEPT_OFFER: string = 'secure/bid/update-acceptance';
   readonly DECLINE_OFFER: string = 'secure/bid/update-acceptance';
   readonly COUNTER_OFFER: string = 'secure/bid/place/counter-offer';
+
+  // Order routes
   readonly MONDIAL_RELAY_COSTS: string = 'mondialrelay/cost-delay';
   readonly SEND_ORDER: string = 'secure/order/sent';
   readonly ORDER_RECEPTION_CONFIRMATION: string = 'secure/order/delivered';
@@ -73,10 +79,22 @@ export class Uri {
   readonly ORDER_VALIDITY_CONFIRMATION: string = 'secure/order/confirm-availability';
   readonly CHECK_BUYER_CODE: string = 'secure/order/buyer-code/check';
   readonly MR_ORDER_TRACKING: string = 'secure/mondialrelay/tracing/order';
+
+  // Payment routes
   readonly PREREGISTER: string = 'secure/mangopay/user/card/preregister';
   readonly UPDATE_REGISTRATION: string = 'secure/mangopay/user/card/update-registration';
   readonly PREAUTH: string = 'secure/mangopay/preauth';
+
+  // Other routes
+  readonly CHECK_EXIST: string = 'check/exists';
+  readonly LOGIN: string = 'login/check';
+  readonly USER_ACTIVATION: string = 'user/activate';
+  readonly SEND_ACTIVATION_MAIL: string = 'user/send-activation-token';
+  readonly CHECK: string = 'check/';
+  readonly CREATE: string = 'create';
+  readonly EXISTS: string = 'exists';
   readonly SEND_CONTACT_REQUEST = 'contact-request';
+
   path: string;
 
   constructor() {

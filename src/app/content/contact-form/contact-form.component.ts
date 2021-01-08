@@ -2,7 +2,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { EncodingService } from 'src/app/services/encoding.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { contact } from 'src/app/parameters';
+import { contact, savSubjects } from 'src/app/parameters';
 import { Modals } from 'src/app/models/modals';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
@@ -15,15 +15,9 @@ import { Subject } from 'rxjs';
 })
 export class ContactFormComponent implements OnInit {
   @Input() click: Subject<any> = new Subject<any>();
+  @Input() chosenSubject: string = 'SAV';
+  @Input() message: string = '';
   form: FormGroup;
-  readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
-  readonly subjects: string[] = [
-    'SAV',
-    'Marketing',
-    'Demande de partenariat'
-  ];
-  chosenSubject: string = 'SAV';
-  message: string = '';
   email: string = '';
   testAddition: string = '';
   testInput: string = '';
@@ -33,6 +27,8 @@ export class ContactFormComponent implements OnInit {
   mailSent: boolean = null;
   error: boolean = null;
   modals: Modals = new Modals();
+  readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
+  readonly subjects: string[] = savSubjects;
 
   constructor(
     private request: RequestService,
