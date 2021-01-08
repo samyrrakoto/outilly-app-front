@@ -1,11 +1,14 @@
 .hero-body {
-  background-image: url("/assets/img/background/latelier-darkened.jpg");
+  background-image: url("/assets/img/background/latelier-sq.jpg");
+  object-fit: cover;
   background-position: center;
+  background-repeat: x;
   margin-bottom: 50px;
   padding-bottom: 200px;
   padding-top: 0px;
   padding-right: 0px;
   padding-left: 0px;
+  height: 650px;
 }
 
 .hero-icon {
@@ -96,4 +99,11 @@ p {
 
 .account {
   color: var(--KTKP-RED) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .hero-body {
+    height: auto;
+    background-repeat: no-repeat;
+  }
 }
