@@ -28,6 +28,6 @@ export class Purchase {
     this.counterOfferAmount = purchase.counterOfferAmount;
     this.isClosed = purchase.isClosed;
     this.isAccepted = purchase.isAccepted;
-    this.isRead = purchase.isReadBuyer;
+    this.isRead = purchase.isRead;
   }
 }

@@ -50,11 +50,7 @@ export class UserPurchasesRunningComponent {
     return new Promise((resolve) => {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
-          for (const purchase of purchases) {
-            if (purchase.sale.status !== 'sold') {
-              this.runningPurchases.push(purchase);
-            }
-          }
+          this.runningPurchases = purchases;
           resolve();
         });
     });
@@ -67,7 +63,7 @@ export class UserPurchasesRunningComponent {
   public noteAsRead(currentPurchase: Purchase): void {
     if (currentPurchase.isRead === false) {
       this.request.patchData(null, this.request.uri.READ_BID + currentPurchase.bidId).subscribe(
-        () => {
+        (res: any) => {
           for (const purchase of this.runningPurchases) {
             if (currentPurchase.bidId === purchase.bidId) {
               currentPurchase.isRead = true;
