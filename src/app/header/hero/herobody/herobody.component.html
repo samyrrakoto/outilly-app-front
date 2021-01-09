@@ -10,22 +10,22 @@
     </p>
   </div>
 
-  <div class="columns is-mobile is-centered is-variable is-1 has-text-centered has-text-white">
-    <div class="column is-2">
+  <div class="content category has-text-centered has-text-white">
+    <div class="content">
       <fa-icon (click)="launchCategorySearch(1)" class="hero-icon huge-icon" [icon]="['fas', 'wrench']"></fa-icon>
       <div class="content hero-label">
         Mécanique
       </div>
     </div>
 
-    <div class="column is-2">
+    <div class="content">
       <fa-icon (click)="launchCategorySearch(3)" class="hero-icon huge-icon" [icon]="['fas', 'seedling']"></fa-icon>
       <div class="content hero-label">
         Jardin
       </div>
     </div>
 
-    <div class="column is-2">
+    <div class="content">
       <fa-icon (click)="launchCategorySearch(2)" class="hero-icon huge-icon" [icon]="['fas', 'hammer']"></fa-icon>
       <div class="content hero-label">
         Habitat
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="box has-text-centered addhugespaceabove">
+  <div id="call-to-action" class="box has-text-centered">
     <a routerLink="/product/create" class="button is-large is-success">Commencer à vendre</a>
     <div id="how-it-works">
       <a href=""><u>Comment ça marche ?</u></a>
