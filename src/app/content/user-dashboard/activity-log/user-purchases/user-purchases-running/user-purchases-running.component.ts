@@ -51,6 +51,7 @@ export class UserPurchasesRunningComponent {
       this.purchaseManager.getPurchases()
         .then((purchases: Array<Purchase>) => {
           this.runningPurchases = purchases;
+          console.log(this.runningPurchases);
           resolve();
         });
     });
@@ -61,9 +62,11 @@ export class UserPurchasesRunningComponent {
   }
 
   public noteAsRead(currentPurchase: Purchase): void {
+    console.log(currentPurchase);
     if (currentPurchase.isRead === false) {
       this.request.patchData(null, this.request.uri.READ_BID + currentPurchase.bidId).subscribe(
-        () => {
+        (res: any) => {
+          console.log(res);
           for (const purchase of this.runningPurchases) {
             if (currentPurchase.bidId === purchase.bidId) {
               currentPurchase.isRead = true;
