@@ -9,7 +9,8 @@ export const environment = {
   mediaBaseUri: 'http://media.outilly.api/',
   mondialBrand: 'BDTEST13',
   testCard: true,
-  appAbsoluteRootPath: '/mnt/c/Users/Public/Code/Outilly/app-front/'
+  appAbsoluteRootPath: '/mnt/c/Users/Public/Code/Outilly/app-front/',
+  GATrackingCode: ''
 };
 
 /*
