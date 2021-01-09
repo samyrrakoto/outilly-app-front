@@ -2,7 +2,6 @@
   background-image: url("/assets/img/background/latelier-sq.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: x;
   margin-bottom: 50px;
   padding-bottom: 200px;
   padding-top: 0px;
@@ -25,6 +24,16 @@
 
 .hero-label {
   margin-top: 10px;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+}
+
+.category .content {
+  height: 150px;
+  width: 150px;
 }
 
 #brand-logo {
@@ -92,6 +101,10 @@ p {
   font-size: 22px;
 }
 
+#call-to-action {
+  margin-top: 50px;
+}
+
 .level-right {
   background-color: #F9F9F9;
   border-bottom-left-radius: 10px;
@@ -102,9 +115,20 @@ p {
 }
 
 @media screen and (max-width: 768px) {
-  .hero-body {
-    height: auto;
-    background-size: auto;
-    background-repeat: no-repeat;
+  .title {
+    font-size: 1.2em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  #call-to-action {
+    margin-top: 20px;
+  }
+
+  .category .content {
+    height: 100px;
+    width: 100px;
   }
 }
