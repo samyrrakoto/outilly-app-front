@@ -6,5 +6,6 @@ export const environment = {
   mondialBrand: 'CC21IBBI',
   testCard: true,
   appAbsoluteRootPath: '/home/vich6439/preprod.outilly.com/app-front',
-  GATrackingCode: ''
+  GATrackingCode: '',
+  universalPort: 8000
 };

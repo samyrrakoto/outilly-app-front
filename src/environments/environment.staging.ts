@@ -6,5 +6,6 @@ export const environment = {
   mondialBrand: 'BDTEST13',
   testCard: true,
   appAbsoluteRootPath: '/var/www/ltr/app-front-staging/',
-  GATrackingCode: ''
+  GATrackingCode: '',
+  universalPort: 4000
 };

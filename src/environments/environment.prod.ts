@@ -6,5 +6,6 @@ export const environment = {
   mondialBrand: 'CC21IBBI',
   testCard: false,
   appAbsoluteRootPath: '/home/vich6439/outilly.com/',
-  GATrackingCode: 'G-5BRY438SP4'
+  GATrackingCode: 'G-5BRY438SP4',
+  universalPort: 4000
 };

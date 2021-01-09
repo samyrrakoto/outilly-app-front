@@ -10,7 +10,8 @@ export const environment = {
   mondialBrand: 'BDTEST13',
   testCard: true,
   appAbsoluteRootPath: '/mnt/c/Users/Public/Code/Outilly/app-front/',
-  GATrackingCode: ''
+  GATrackingCode: '',
+  universalPort: 4000
 };
 
 /*
