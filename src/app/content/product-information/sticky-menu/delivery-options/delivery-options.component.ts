@@ -64,7 +64,7 @@ export class DeliveryOptionsComponent implements OnInit {
 
   public isPending(): boolean {
     if (this.bid !== null) {
-      return this.bid.isClosed === false;
+      return this.bid.isClosed === null;
     }
   }
 
@@ -73,7 +73,7 @@ export class DeliveryOptionsComponent implements OnInit {
   }
 
   public isDeclined(): boolean {
-    return !this.bid.isAccepted && this.bid.counterOfferAmount === null;
+    return this.bid.isAccepted === false && this.bid.counterOfferAmount === null;
   }
 
   public isCounterOffer(): boolean {
