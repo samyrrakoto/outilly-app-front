@@ -5,7 +5,7 @@ export const environment = {
   mediaBaseUri: 'https://media.outilly.com/',
   mondialBrand: 'CC21IBBI',
   testCard: false,
-  appAbsoluteRootPath: '/home/vich6439/outilly.com/',
+  appAbsoluteRootPath: '/home/vich6439/prod.outilly.com/',
   GATrackingCode: 'G-5BRY438SP4',
   universalPort: 4000
 };
