@@ -110,7 +110,6 @@ export class NotificationService {
   public checkRunningSalesNotification(): void {
     this.getRunningSales()
       .then(() => {
-        this.runningSalesStatus = false;
         this.runningSalesNotifNb = 0;
 
         for (const sale of this.runningSales) {
@@ -125,7 +124,6 @@ export class NotificationService {
   public checkRunningPurchasesNotification(): void {
     this.getRunningPurchases()
       .then(() => {
-        this.runningPurchasesStatus = false;
         this.runningPurchasesNotifNb = 0;
 
         for (const purchase of this.runningPurchases) {
@@ -153,12 +151,11 @@ export class NotificationService {
   public checkConfirmedSalesNotification(): void {
     this.getConfirmedSales()
       .then(() => {
-        this.confirmedSalesStatus = false;
-        this.confirmedPurchasesNotifNb = 0;
+        this.confirmedSalesNotifNb = 0;
 
         for (const order of this.confirmedSales) {
-          if (order.shipMethod === 'RelayShip' && order.mrExpedition === null) {
-            this.confirmedPurchasesNotifNb++;
+          if ((order.shipMethod === 'RelayShip' && order.mrExpedition === null) || !order.isReadSeller) {
+            this.confirmedSalesNotifNb++;
             this.allSalesNotifNb++;
           }
         }

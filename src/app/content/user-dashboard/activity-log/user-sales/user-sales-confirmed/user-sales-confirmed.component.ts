@@ -170,6 +170,18 @@ export class UserSalesConfirmedComponent implements OnInit {
       });
   }
 
+  public noteAsRead(currentOrder: Order): void {
+    if (currentOrder.isReadSeller === false) {
+      this.request.patchData(null, this.request.uri.READ_ORDER_SELLER + '/' + currentOrder.id).subscribe(
+        () => {
+          currentOrder.isReadSeller = true;
+          this.notification.confirmedSalesNotifNb--;
+          this.notification.allSalesNotifNb--;
+        }
+      )
+    }
+  }
+
   public goToProductPage(productSlug: string, saleId: number): void {
     this.router.navigate(['/product/' + productSlug + '/' + saleId.toString()]);
   }
