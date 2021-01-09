@@ -29,10 +29,10 @@
 .category {
   display: flex;
   justify-content: center;
+  margin-bottom: 0px;
 }
 
 .category .content {
-  height: 150px;
   width: 150px;
 }
 
@@ -128,7 +128,6 @@ p {
   }
 
   .category .content {
-    height: 100px;
     width: 100px;
   }
 }
