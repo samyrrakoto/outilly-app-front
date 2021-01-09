@@ -118,6 +118,7 @@ export class UserManagerService {
         bid.amount = purchase.bidAmount;
         bid.counterOfferAmount = purchase.counterOfferAmount;
         bid.isAccepted = purchase.isAccepted;
+        bid.isClosed = purchase.isClosed;
         return bid;
       }
     }

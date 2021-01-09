@@ -13,11 +13,11 @@
       </div>
 
       <mat-accordion *ngIf="sellerOrders.length > 0">
-        <mat-expansion-panel *ngFor="let order of sellerOrders">
+        <mat-expansion-panel (click)="noteAsRead(order)" *ngFor="let order of sellerOrders">
             <mat-expansion-panel-header>
             <mat-panel-title>
-              <div *ngIf="isRequiringAction(order)" class="content">
-                <fa-icon class="notification-icon" [icon]="['fas', 'bell']"></fa-icon>
+              <div *ngIf="isRequiringAction(order) || !order.isReadSeller" class="content">
+                <fa-icon class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
               </div>
 
               <div class="content product-title">

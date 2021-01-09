@@ -17,7 +17,12 @@
     </li>
     <li id="user-sales-confirmed" (click)="setFocus('user-sales-confirmed')">
       <a routerLink="/user/dashboard/activity-log/sales/confirmed">
-        <fa-icon *ngIf="notification.confirmedSalesStatus" class="notification-icon blinking" [icon]="['fas', 'bell']"></fa-icon>
+
+        <!-- Notification icon -->
+        <span *ngIf="notification.confirmedSalesNotifNb > 0" class="notification-container blinking">
+          <fa-icon class="notification-icon invert" [icon]="['fas', 'bell']"></fa-icon>
+          <span class="grey"><sup>{{ notification.confirmedSalesNotifNb }}</sup></span>
+        </span>
         <span class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon></span>
         <span>Mes ventes</span>
       </a>
@@ -30,6 +35,7 @@
     <!-- Purchases -->
     <li id="user-purchases" class="purchases" (click)="setFocus('user-purchases')">
       <a routerLink="/user/dashboard/activity-log/purchases/running">
+
         <!-- Notification icon -->
         <span *ngIf="notification.runningPurchasesNotifNb > 0" class="notification-container blinking">
           <fa-icon class="notification-icon invert" [icon]="['fas', 'bell']"></fa-icon>
@@ -42,6 +48,7 @@
     </li>
     <li id="user-purchases-confirmed" class="purchases" (click)="setFocus('user-purchases-confirmed')">
       <a routerLink="/user/dashboard/activity-log/purchases/confirmed">
+
         <!-- Notification icon -->
         <span *ngIf="notification.confirmedPurchasesNotifNb > 0" class="notification-container blinking">
           <fa-icon class="notification-icon invert" [icon]="['fas', 'bell']"></fa-icon>
