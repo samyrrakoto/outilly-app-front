@@ -46,6 +46,7 @@
     "jquery": "^3.5.1",
     "localstorage-polyfill": "^1.0.1",
     "ngx-cookie-service": "^10.1.1",
+    "ngx-google-analytics": "^11.1.0",
     "node-sass": "^4.14.1",
     "rxjs": "^6.6.3",
     "save": "^2.4.0",
