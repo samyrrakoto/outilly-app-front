@@ -1,5 +1,5 @@
+import { browser } from 'protractor';
 import { environment } from 'src/environments/environment';
-import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 import { NgModule } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
@@ -297,7 +297,6 @@ import { ResetPasswordRequestComponent } from './content/reset-password-request/
     MatExpansionModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    NgxGoogleAnalyticsModule.forRoot(environment.GATrackingCode),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
