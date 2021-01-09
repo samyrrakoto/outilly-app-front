@@ -89,17 +89,34 @@ export class NavigationComponent implements OnChanges {
   private checkValues(path: string): void {
     if (this.externalControl) {
       this.formValidator.verify(this.data).then((value: boolean) => {
-
         if (this.nextCondition && value) {
           localStorage.setItem('formData', JSON.stringify(this.data));
-          this.router.navigateByUrl(path);
+
+          if (this.data.isProductComplete && this.rootUri === 'product/create/') {
+            this.router.navigateByUrl('product/create/announce-overview');
+          }
+          else if (this.data.isAccountComplete && this.rootUri === '/onboarding/') {
+            this.router.navigateByUrl('onboarding/validation');
+          }
+          else {
+            this.router.navigateByUrl(path);
+          }
         }
       });
     }
     else {
       if (this.nextCondition) {
         localStorage.setItem('formData', JSON.stringify(this.data));
-        this.router.navigateByUrl(path);
+
+        if (this.data.isProductComplete && this.rootUri === 'product/create/') {
+          this.router.navigateByUrl('product/create/announce-overview');
+        }
+        else if (this.data.isAccountComplete && this.rootUri === '/onboarding/') {
+          this.router.navigateByUrl('onboarding/validation');
+        }
+        else {
+          this.router.navigateByUrl(path);
+        }
       }
     }
   }
@@ -114,5 +131,12 @@ export class NavigationComponent implements OnChanges {
     return this.additionalControls === undefined
     ? this.controls === null
     : this.controls === null && this.additionalControls;
+  }
+
+  public isOnboardingComplete(): boolean {
+    const accountOnboarding: boolean = this.data.isAccountComplete && this.rootUri === '/onboarding/';
+    const productOnboarding: boolean = this.data.isProductComplete && this.rootUri === 'product/create/';
+
+    return accountOnboarding || productOnboarding;
   }
 }
