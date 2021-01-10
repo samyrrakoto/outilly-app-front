@@ -11,8 +11,7 @@ export class FaqComponent implements OnInit {
   loaded: boolean = false;
   buyerFaq: Faq[] = [];
   sellerFaq: Faq[] = [];
-  test: string = 'QUELQUECHOSE';
-
+  
   constructor(
     private request: RequestService
   ) { }
