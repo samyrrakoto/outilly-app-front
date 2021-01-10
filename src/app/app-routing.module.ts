@@ -1,3 +1,4 @@
+import { FaqComponent } from './content/faq/faq.component';
 import { ContactFormComponent } from './content/contact-form/contact-form.component';
 import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
 import { ForgottenPasswordComponent } from './content/forgotten-password/forgotten-password.component';
@@ -83,6 +84,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactFormComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
   },
   {
     path: 'product-results',

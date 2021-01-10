@@ -193,6 +193,11 @@
   margin-right: 10px;
 }
 
+.spacer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .addgiantspaceabove {
   margin-top: 100px;
 }

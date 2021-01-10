@@ -149,6 +149,8 @@ import { ContactFormComponent } from './content/contact-form/contact-form.compon
 import { PrivacyPolicyComponent } from './content/privacy-policy/privacy-policy.component';
 import { ForgottenPasswordComponent } from './content/forgotten-password/forgotten-password.component';
 import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
+import { FaqComponent } from './content/faq/faq.component';
+import { LoadingComponent } from './content/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -286,6 +288,8 @@ import { ResetPasswordRequestComponent } from './content/reset-password-request/
     PrivacyPolicyComponent,
     ForgottenPasswordComponent,
     ResetPasswordRequestComponent,
+    FaqComponent,
+    LoadingComponent,
   ],
   imports: [
     HttpClientModule,

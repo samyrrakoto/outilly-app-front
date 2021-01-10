@@ -1,3 +1,4 @@
+import { Faq } from 'src/app/models/faq';
 import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,13 +15,10 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class PredefinedQuestionComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
-  genericQuestions: Array<string> = [];
+  genericQuestions: Faq[] = [];
 
   constructor(
     private request: RequestService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private bidManager: BidManagerService,
     public auth: AuthService,
     public saleManager: SaleManagerService)
   {
@@ -33,9 +31,11 @@ export class PredefinedQuestionComponent extends GenericComponent implements OnI
 
   private getGenericQuestions(): Promise<void> {
     return new Promise((resolve) => {
-      this.request.getData(this.request.uri.GENERIC_QUESTIONS).subscribe((res: any) => {
-        this.genericQuestions = res;
-        resolve();
+      this.request.getData(this.request.uri.FAQ_PRODUCT).subscribe({
+        next: (faq: any) => {
+          this.genericQuestions = faq.faqItems;
+          resolve();
+        }
       });
     });
   }
