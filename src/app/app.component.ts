@@ -1,18 +1,22 @@
+import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { Location } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {isPlatformBrowser} from '@angular/common';
 import { pageInfo } from 'src/app/parameters';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = pageInfo.BRAND_NAME;
   cookies: boolean;
@@ -35,6 +39,17 @@ export class AppComponent {
       AppComponent.isBrowser.next(isPlatformBrowser(platformId));
       const cookieValue: string = localStorage.getItem('cookies') === null ? 'false' : 'true';
       this.cookieService.set('cookies', cookieValue);
+      if (environment.production){
+        this.router.events.subscribe(event => {
+          if(event instanceof NavigationEnd){
+            gtag('config', environment.GATrackingCode,
+              {
+                'page_path': event.urlAfterRedirects
+              });
+            }
+          }
+        );
+      }
     }
 
   ngOnInit(): void {
