@@ -54,7 +54,7 @@
         Ajouter un RIB
       </button>
 
-      <button *ngIf="userManager.user.mangoPayData.ibanId !== null" class="button kyc is-dark is-small no-overflow" (click)="openModal()">
+      <button *ngIf="userManager.user.mangoPayData.ibanId !== null" class="button kyc is-dark is-small no-overflow" (click)="modals.open('contact-form')">
         <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
         Remplacer ce RIB
       </button>
@@ -184,8 +184,21 @@
   <button class="modal-close is-large" (click)="modals.close('bank-account')"></button>
 </div>
 
-<app-contact-form
+<!-- <app-contact-form
   [click]=click
   [chosenSubject]=chosenSubject
   [message]=message>
-</app-contact-form>
+</app-contact-form> -->
+
+<div class="modal {{ modals.get('contact-form') }}">
+  <div class="modal-background" (click)="modals.close('contact-form')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-contact-form
+        [chosenSubject]=chosenSubject
+        [message]=message>
+      </app-contact-form>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('contact-form')"></button>
+</div>
