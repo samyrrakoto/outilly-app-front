@@ -1,0 +1,14 @@
+mat-expansion-panel {
+  background: white;
+  box-shadow: none !important;
+  color: black;
+}
+
+mat-panel-title {
+  color: var(--MAT-GREY);
+  font-weight: bold;
+}
+
+.title {
+  border-bottom: solid 2px var(--KTKP-GREEN);
+}

@@ -34,6 +34,9 @@ export class Uri {
   // Product routes
   readonly PRODUCT_BY_CATEGORY: string = 'product/category'
   readonly GENERIC_QUESTIONS: string = 'questions/generic';
+  readonly FAQ: string = 'faq';
+  readonly FAQ_BUYER: string = 'faq/1';
+  readonly FAQ_SELLER: string = 'faq/2';
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
 

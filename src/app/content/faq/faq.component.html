@@ -1,0 +1,33 @@
+<app-loading *ngIf="!loaded"></app-loading>
+
+<div *ngIf="loaded" class="columns is-centered">
+  <div class="column is-6">
+    <h1 class="title">Côté acheteur</h1>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let faq of buyerFaq">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+              {{ faq.question }}
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span [innerHtml]=faq.answer></span>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="spacer"></div>
+
+    <h1 class="title">Côté Vendeur</h1>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let faq of sellerFaq">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+              {{ faq.question }}
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span [innerHtml]=faq.answer></span>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
