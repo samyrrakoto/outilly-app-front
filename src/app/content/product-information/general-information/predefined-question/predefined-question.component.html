@@ -1,12 +1,12 @@
 <h1 class="title has-text-weight-bold">Le vendeur vous répond</h1>
 
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let faq of genericQuestions">
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ faq.question }}
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-        {{ faq.answer }}
-    </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let faq of genericQuestions">
+    <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ faq.question }}
+    </mat-panel-title>
+    </mat-expansion-panel-header>
+    <span [innerHtml]=faq.answer></span>
+  </mat-expansion-panel>
 </mat-accordion>

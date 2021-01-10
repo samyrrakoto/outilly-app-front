@@ -33,7 +33,7 @@ export class PredefinedQuestionComponent extends GenericComponent implements OnI
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.FAQ_PRODUCT).subscribe({
         next: (faq: any) => {
-          this.genericQuestions = faq;
+          this.genericQuestions = faq.faqItems;
           resolve();
         }
       });
