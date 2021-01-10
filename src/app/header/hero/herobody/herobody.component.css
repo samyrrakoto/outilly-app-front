@@ -1,5 +1,5 @@
 .hero-body {
-  background-image: url("/assets/img/background/latelier-sq.jpg");
+  background-image: url("/assets/img/background/latelier-darkened-mq.jpg");
   background-size: cover;
   background-position: center;
   margin-bottom: 50px;
@@ -115,6 +115,10 @@ p {
 }
 
 @media screen and (max-width: 768px) {
+  .hero-body {
+    background-image: url("/assets/img/background/latelier-darkened-mq-mobile.jpg");
+  }
+
   .title {
     font-size: 1.2em;
   }
