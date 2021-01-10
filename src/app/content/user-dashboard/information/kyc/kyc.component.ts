@@ -38,6 +38,7 @@ export class KycComponent implements OnInit {
     this.modals.addModal('id');
     this.modals.addModal('bank-account');
     this.modals.addModal('modify-bank-account');
+    this.modals.addModal('contact-form');
   }
 
   ngOnInit(): void {
