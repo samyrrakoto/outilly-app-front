@@ -1,4 +1,4 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +12,7 @@ export class UserActivationComponent implements OnInit {
   userId: number = 0;
   token: string = '';
   expiredToken: boolean = false;
+  success: boolean = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,14 +45,20 @@ export class UserActivationComponent implements OnInit {
     const params: string = this.userId.toString() + '/' + this.token;
     const queryParams: any = { activated: true };
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.USER_ACTIVATION, [params]).subscribe(
-        () => {
-          this.auth.logout(queryParams);
-          resolve();
+        (res: any) => {
+          if (res.activated) {
+            this.auth.logout(queryParams);
+            resolve();
+          }
+          else {
+            this.success = false;
+            reject();
+          }
         },
         (error: any) => {
-          if (error.status === 403) {
+          if (error.status === 400 || error.status === 403) {
             this.expiredToken = true;
             resolve();
           }

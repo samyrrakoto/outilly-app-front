@@ -6,4 +6,11 @@
       Veuillez en <span class="underline">demander un autre</span>.
     </div>
   </article>
+
+  <article *ngIf="success === false" class="message is-danger">
+    <div class="message-header">Erreur d'activation</div>
+    <div class="message-body">
+      L'activation ne s'est pas déroulée comme prévue.
+    </div>
+  </article>
  </section>
