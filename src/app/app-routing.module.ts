@@ -1,3 +1,4 @@
+import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 import { FaqComponent } from './content/faq/faq.component';
@@ -98,6 +99,10 @@ const routes: Routes = [
   {
     path: 'confidentiality-policy',
     component: ConfidentialityPolicyComponent
+  },
+  {
+    path: 'general-terms-and-conditions',
+    component: GeneralTermsAndConditionsComponent
   },
   {
     path: 'product-results',
