@@ -1,3 +1,4 @@
+import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 import { FaqComponent } from './content/faq/faq.component';
 import { ContactFormComponent } from './content/contact-form/contact-form.component';
 import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
@@ -88,6 +89,10 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FaqComponent
+  },
+  {
+    path: 'legal-mentions',
+    component: LegalMentionsComponent
   },
   {
     path: 'product-results',

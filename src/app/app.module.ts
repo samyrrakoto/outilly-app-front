@@ -151,6 +151,7 @@ import { ForgottenPasswordComponent } from './content/forgotten-password/forgott
 import { ResetPasswordRequestComponent } from './content/reset-password-request/reset-password-request.component';
 import { FaqComponent } from './content/faq/faq.component';
 import { LoadingComponent } from './content/loading/loading.component';
+import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 
 @NgModule({
   declarations: [
@@ -290,6 +291,7 @@ import { LoadingComponent } from './content/loading/loading.component';
     ResetPasswordRequestComponent,
     FaqComponent,
     LoadingComponent,
+    LegalMentionsComponent,
   ],
   imports: [
     HttpClientModule,

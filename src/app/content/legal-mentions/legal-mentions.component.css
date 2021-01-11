@@ -1,0 +1,15 @@
+#legal-mentions {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#legal-mentions .content {
+  text-align: justify;
+}
+
+@media screen and (max-width: 768px) {
+  #legal-mentions {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
