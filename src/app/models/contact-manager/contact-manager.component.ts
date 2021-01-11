@@ -19,7 +19,7 @@ export class ContactManagerComponent implements OnInit {
       case 'J\'ai une question à propos de ma commande (SAV)':
         return 'question-about-order';
       case 'Je rencontre un problème technique sur le site':
-        return 'technical issue';
+        return 'technical-issue';
       case 'Je suis professionnel(le) et souhaite être accompagné(e)':
         return 'pro-partnership';
       case 'Je souhaite contacter les équipes marketing':
