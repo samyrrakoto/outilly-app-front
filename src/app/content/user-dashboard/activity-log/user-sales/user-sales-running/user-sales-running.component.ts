@@ -43,7 +43,8 @@ export class UserSalesRunningComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRunningSales();
+    this.getRunningSales()
+      .then(() => this.loaded = true);
   }
 
   private getRunningSales(): Promise<void> {
@@ -58,7 +59,6 @@ export class UserSalesRunningComponent implements OnInit {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SALES_ONLINE).subscribe(
         (onlineSales: any) => {
-          this.loaded = true;
           this.runningSales = onlineSales;
           resolve();
         }
@@ -70,7 +70,6 @@ export class UserSalesRunningComponent implements OnInit {
     return new Promise((resolve) => {
       this.request.getData(this.request.uri.GET_SALES_NEW).subscribe(
         (newSales: any) => {
-          this.loaded = true;
           this.runningSales = this.runningSales.concat(newSales);
           resolve();
         }

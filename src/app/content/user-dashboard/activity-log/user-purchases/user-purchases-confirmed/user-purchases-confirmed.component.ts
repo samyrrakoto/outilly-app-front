@@ -19,6 +19,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
   loading: boolean = false;
+  loaded: boolean = false;
   buyerOrders: Array<any>;
   mondialRelayUrl: string = '';
   public currentOrder: any;
@@ -43,7 +44,8 @@ export class UserPurchasesConfirmedComponent extends UserPurchasesComponent impl
   }
 
   ngOnInit(): void {
-    this.getBuyerOrders();
+    this.getBuyerOrders()
+      .then(() => this.loaded = true);
   }
 
   public openMrOrderTracking(orderId: number): void {

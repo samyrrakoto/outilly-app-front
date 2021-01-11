@@ -59,7 +59,8 @@ export class UserSalesConfirmedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSellerOrders();
+    this.getSellerOrders()
+      .then(() => this.loaded = true);
   }
 
   public isDeliveryNoteGenerated(order: any): boolean {
@@ -112,7 +113,6 @@ export class UserSalesConfirmedComponent implements OnInit {
       this.request.getData(this.request.uri.GET_SELLER_ORDERS).subscribe(
         (orders: any) =>  {
           this.sellerOrders = orders;
-          this.loaded = true;
           resolve();
         }
       );
