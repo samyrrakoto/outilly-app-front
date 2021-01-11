@@ -1,17 +1,21 @@
-<h1 *ngIf="!noResult" class="title has-text-centered addhugespaceabove">
-  Articles de la marque <span class="declined">{{ brandName }}</span> ({{ totalNbResults }})
-</h1>
+<app-loading *ngIf="!loaded"></app-loading>
 
-<app-products-display *ngIf="!noResult"
-  [sales]=sales
-  [noMoreResults]=noMoreResults
-  (loadMore)=loadMoreHandle()>
-</app-products-display>
+<div *ngIf="loaded">
+  <h1 *ngIf="!noResult" class="title has-text-centered addhugespaceabove">
+    Articles de la marque <span class="declined">{{ brandName }}</span> ({{ totalNbResults }})
+  </h1>
 
-<div class="content has-text-centered addgiantspaceabove" *ngIf="noResult">
-  <div class="content">
-  Nous n'avons pas de produits correspondant à la marque <span class="declined">{{ brandName }}</span>.
+  <app-products-display *ngIf="!noResult"
+    [sales]=sales
+    [noMoreResults]=noMoreResults
+    (loadMore)=loadMoreHandle()>
+  </app-products-display>
+
+  <div class="content has-text-centered addgiantspaceabove" *ngIf="noResult">
+    <div class="content">
+    Nous n'avons pas de produits correspondant à la marque <span class="declined">{{ brandName }}</span>.
+    </div>
+
+    <button routerLink="/home" class="button is-danger">Consulter tous les produits</button>
   </div>
-
-  <button routerLink="/home" class="button is-danger">Consulter tous les produits</button>
 </div>

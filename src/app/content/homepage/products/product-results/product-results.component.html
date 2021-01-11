@@ -1,7 +1,9 @@
+<app-loading *ngIf="!loaded"></app-loading>
+
 <div *ngIf="loaded" id="results" class="content">
   <fa-icon class="category-icon" [icon]="['fas', 'warehouse']"></fa-icon>
   <h2 class="subtitle">
-    {{ categoryId | category }}
+    {{ categoryId | category:'alias' }}
   </h2>
 
   <div class="content discreet-text">
