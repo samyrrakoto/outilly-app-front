@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./seller-products.component.css']
 })
 export class SellerProductsComponent implements OnInit {
+  loaded: boolean = false;
   sellerId: number;
   sales: Sale[] = [];
   currentPage: number = 1;
@@ -25,7 +26,10 @@ export class SellerProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getSellerId()
       .then(() => this.getSales().subscribe(
-        (res: any) => { this.sales = res }
+        (res: any) => {
+          this.sales = res
+          this.loaded = true;
+        }
       ));
   }
 

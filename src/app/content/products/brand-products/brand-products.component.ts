@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./brand-products.component.css']
 })
 export class BrandProductsComponent implements OnInit {
+  loaded: boolean = false;
   brandId: number;
   brandName: string;
   sales: Sale[] = [];
@@ -24,7 +25,8 @@ export class BrandProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBrandId();
+    this.getBrandId()
+      .then(() => this.loaded = true);
   }
 
   private getBrandId(): Promise<void> {

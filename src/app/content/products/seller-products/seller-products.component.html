@@ -1,9 +1,13 @@
-<h1 class="title has-text-centered">
-  Articles du vendeur ({{ totalNbResults }})
-</h1>
+<app-loading *ngIf="!loaded"></app-loading>
 
-<app-products-display
-  [sales]=sales
-  [noMoreResults]=noMoreResults
-  (loadMore)=loadMoreHandle()>
-</app-products-display>
+<div *ngIf="loaded">
+  <h1 class="title has-text-centered">
+    Articles du vendeur ({{ totalNbResults }})
+  </h1>
+
+  <app-products-display
+    [sales]=sales
+    [noMoreResults]=noMoreResults
+    (loadMore)=loadMoreHandle()>
+  </app-products-display>
+</div>

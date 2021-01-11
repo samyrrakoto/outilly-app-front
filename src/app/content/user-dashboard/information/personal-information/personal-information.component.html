@@ -247,22 +247,9 @@
   <div class="modal-background" (click)="modals.close('dataChanges')"></div>
   <div class="modal-content">
       <div class="box">
-        <h2 class="subtitle">Modifier des informations</h2>
-
-        <label class="label">Que souhaitez-vous changer ?</label>
-
-        <div class="content discreet-text">
-          Les changements d'identité sont soumis à la validation par notre équipe
-          afin de garantir leur conformité.
-        </div>
-
-        <textarea class="textarea">
-
-        </textarea>
-
-        <div class="content">
-          <button class="button is-success">Soumettre ma demande</button>
-        </div>
+        <app-contact-form
+          [chosenSubject]=subject>
+        </app-contact-form>
       </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('dataChanges')"></button>

@@ -26,6 +26,7 @@ export class PersonalInformationComponent implements OnInit {
   readonly countryNames: Array<string> = ['France', 'Suisse', 'Luxembourg', 'Belgique'];
   readonly types: Array<string> = ['individual', 'professionnal'];
   readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
+  readonly subject: string = 'Je souhaite modifier mes informations personnelles';
   modals: Modals;
   addressIndexToDelete: number;
   idMedias: Array<any>;
@@ -46,6 +47,7 @@ export class PersonalInformationComponent implements OnInit {
     this.modals.addModal('id');
     this.modals.addModal('addressDeletion');
     this.modals.addModal('dataChanges');
+    this.modals.addModal('contact-form');
     this.addressIndexToDelete = 0;
     this.idMedias = [];
   }
@@ -267,7 +269,6 @@ export class PersonalInformationComponent implements OnInit {
     const formData: FormData = this.getFormData(files);
 
     this.addMedia(files[0]);
-    // this.sendMedia(formData);
     this.displayPreview(files[0]);
   }
 
