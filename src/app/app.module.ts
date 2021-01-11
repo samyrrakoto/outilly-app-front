@@ -153,6 +153,7 @@ import { FaqComponent } from './content/faq/faq.component';
 import { LoadingComponent } from './content/loading/loading.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
+import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -294,6 +295,7 @@ import { ConfidentialityPolicyComponent } from './content/confidentiality-policy
     LoadingComponent,
     LegalMentionsComponent,
     ConfidentialityPolicyComponent,
+    GeneralTermsAndConditionsComponent,
   ],
   imports: [
     HttpClientModule,
