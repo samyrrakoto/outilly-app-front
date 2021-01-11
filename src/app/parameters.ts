@@ -45,9 +45,12 @@ export const media = {
 export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?"
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 export const savSubjects: string[] = [
-  'SAV',
-  'Marketing',
-  'Demande de partenariat',
-  'Modifier mes informations bancaires',
-  'Modifier mon identité'
+  'Obtenir des informations complémentaires pour une annonce',
+  'J\'ai une question à propos de ma commande (SAV)',
+  'Je rencontre un problème technique sur le site',
+  'Je suis professionnel(le) et souhaite être accompagné(e)',
+  'Je souhaite contacter les équipes marketing',
+  'Je souhaite modifier mes informations personnelles',
+  'Je souhaite modifier mes coordonnées bancaires',
+  'Autre'
 ];

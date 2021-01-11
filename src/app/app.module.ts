@@ -154,6 +154,7 @@ import { LoadingComponent } from './content/loading/loading.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
+import { ContactManagerComponent } from './models/contact-manager/contact-manager.component';
 
 @NgModule({
   declarations: [
@@ -296,6 +297,7 @@ import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-
     LegalMentionsComponent,
     ConfidentialityPolicyComponent,
     GeneralTermsAndConditionsComponent,
+    ContactManagerComponent,
   ],
   imports: [
     HttpClientModule,
