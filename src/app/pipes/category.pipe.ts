@@ -11,6 +11,8 @@ export class CategoryPipe implements PipeTransform {
         return this.getIcon(value);
       case 'description':
         return this.getDescription(value);
+      case 'alias':
+        return this.getAlias(value);
       default:
         return this.getLabel(value);
     }
@@ -45,13 +47,26 @@ export class CategoryPipe implements PipeTransform {
   private getDescription(value: number): string {
     switch(value) {
       case 1:
-        return "Description de la catégorie Mécanique";
+        return "Tout l'équipement pour entretenir et réparer vos véhicules : voitures, moto, scooter, quad, vélo, etc.";
       case 2:
-        return "Description de la catégorie Bricolage";
+        return "Tout l'équipement et les matériaux pour entretenir, réparer et rénover votre maison : électricité, plomberie, peinture, maçonnerie, etc.";
       case 3:
-        return "Description de la catégorie Jardin";
+        return "Tout l'équipement pour créer et entretenir votre jardin : outillage, terrasse, engrais, etc.";
       case 4:
-        return "Description de la catégorie Machines d'atelier";
+        return "Tout l'équipement pour habiller et agrémenter votre atelier ou garage : machines-outils, décoration, etc.";
+    }
+  }
+
+  private getAlias(value: number): string {
+    switch(value) {
+      case 1:
+        return "Pour mon véhicule";
+      case 2:
+        return "Pour ma maison";
+      case 3:
+        return "Pour mon jardin";
+      case 4:
+        return "Pour mon atelier";
     }
   }
 }
