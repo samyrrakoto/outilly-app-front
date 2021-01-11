@@ -28,7 +28,7 @@ export class KycComponent implements OnInit {
   click: Subject<any> = new Subject<any>();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
-  readonly chosenSubject: string = 'Modifier mes informations bancaires';
+  readonly chosenSubject: string = 'Je souhaite modifier mes coordonnées bancaires';
   readonly message: string = `Je souhaite changer de RIB. Voici mes nouvelles coordonnées bancaires :`;
 
   constructor(

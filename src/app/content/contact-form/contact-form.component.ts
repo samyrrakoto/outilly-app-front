@@ -1,3 +1,4 @@
+import { ContactManagerComponent } from 'src/app/models/contact-manager/contact-manager.component';
 import { RequestService } from 'src/app/services/request.service';
 import { EncodingService } from 'src/app/services/encoding.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +16,7 @@ import { Subject } from 'rxjs';
 })
 export class ContactFormComponent implements OnInit {
   @Input() click: Subject<any> = new Subject<any>();
-  @Input() chosenSubject: string = 'SAV';
+  @Input() chosenSubject: string = 'Obtenir des informations complémentaires pour une annonce';
   @Input() message: string = '';
   form: FormGroup;
   email: string = '';
@@ -27,6 +28,7 @@ export class ContactFormComponent implements OnInit {
   mailSent: boolean = null;
   error: boolean = null;
   modals: Modals = new Modals();
+  contactManager: ContactManagerComponent = new ContactManagerComponent();
   readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
   readonly subjects: string[] = savSubjects;
 
@@ -99,7 +101,7 @@ export class ContactFormComponent implements OnInit {
 
   private getPayload(): any {
     const payload: any = {
-      subject: this.chosenSubject,
+      subject: this.contactManager.getSlug(this.chosenSubject),
       message: this.encoding.base64Encoder(this.message),
       isAnonymous: this.anonymous,
       mail: this.email,
