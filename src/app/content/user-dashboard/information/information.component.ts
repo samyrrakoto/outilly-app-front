@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -18,10 +19,20 @@ export class InformationComponent implements OnInit {
     protected auth: AuthService,
     protected router: Router,
     protected route: ActivatedRoute,
-    public title: Title)
+    public title: Title,
+    private location: Location)
   {}
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.location.path().match('personal-information')) {
+      this.setFocus(this.informationTabs, 'personal-information');
+    }
+    else {
+      this.setFocus(this.informationTabs, 'payment-information');
+    }
   }
 
   public setFocus(tabs: Array<string>, id: string): void {
