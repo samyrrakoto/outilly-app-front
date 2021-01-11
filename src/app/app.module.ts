@@ -152,6 +152,7 @@ import { ResetPasswordRequestComponent } from './content/reset-password-request/
 import { FaqComponent } from './content/faq/faq.component';
 import { LoadingComponent } from './content/loading/loading.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
+import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 
 @NgModule({
   declarations: [
@@ -292,6 +293,7 @@ import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.
     FaqComponent,
     LoadingComponent,
     LegalMentionsComponent,
+    ConfidentialityPolicyComponent,
   ],
   imports: [
     HttpClientModule,

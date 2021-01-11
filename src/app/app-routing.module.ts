@@ -1,3 +1,4 @@
+import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
 import { FaqComponent } from './content/faq/faq.component';
 import { ContactFormComponent } from './content/contact-form/contact-form.component';
@@ -93,6 +94,10 @@ const routes: Routes = [
   {
     path: 'legal-mentions',
     component: LegalMentionsComponent
+  },
+  {
+    path: 'confidentiality-policy',
+    component: ConfidentialityPolicyComponent
   },
   {
     path: 'product-results',

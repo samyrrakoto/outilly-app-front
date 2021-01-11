@@ -1,0 +1,15 @@
+#confidentiality-policy {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#confidentiality-policy .content {
+  text-align: justify;
+}
+
+@media screen and (max-width: 768px) {
+  #confidentiality-policy {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
