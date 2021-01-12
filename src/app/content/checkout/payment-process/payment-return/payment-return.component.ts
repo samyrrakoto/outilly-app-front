@@ -41,7 +41,7 @@ export class PaymentReturnComponent implements OnInit {
           this.router.navigate(['checkout/payment-failed']);
         }
         else {
-          this.errorMessage = 'Une erreur est survenue, veuillez réessayer';
+          this.router.navigate(['checkout/payment-failed']);
         }
       });
   }
