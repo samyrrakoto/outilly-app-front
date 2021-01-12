@@ -23,6 +23,7 @@ import { PageNameManager } from 'src/app/models/page-name-manager';
 })
 export class ProductInformationComponent extends GenericComponent implements OnInit {
   loaded: boolean = false;
+  adminToken: string = '';
   activated: boolean = false;
   isLogged: boolean;
   isAvailable: boolean;
@@ -60,7 +61,8 @@ export class ProductInformationComponent extends GenericComponent implements OnI
 
   ngOnInit(): void {
     this.activated = localStorage.getItem('userStatus') === 'activated';
-    this.getId()
+    this.getAdminToken()
+      .then(() => this.getId())
       .then(() => {
         return this.auth.isLogged() ? this.getSale(true) : this.getSale(false);
       })
@@ -77,6 +79,17 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         this.sale.product.mainImage.path
       ))
       .then(() => this.loaded = true );
+  }
+
+  private getAdminToken(): Promise<void> {
+    return new Promise((resolve)=> {
+      this.route.queryParams.subscribe((params) => {
+        if (params['token']) {
+          this.adminToken = params['token'];
+        }
+        resolve();
+      });
+    });
   }
 
   private getId(): Promise<void> {
@@ -134,7 +147,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   private getSale(logged: boolean): Promise<void> {
     return new Promise((resolve) => {
       if (logged) {
-        this.request.getData(this.request.uri.GET_SALE_VENDOR, [this.id.toString()]).subscribe({
+        this.request.getData(this.request.uri.GET_SALE_VENDOR, [this.id.toString(), this.adminToken]).subscribe({
           next: (sale: any) => {
             this.sale = sale;
             this.sortByMediaType();
@@ -146,7 +159,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       }
       else {
-        this.request.getData(this.request.uri.GET_SALE, [this.id.toString()]).subscribe({
+        this.request.getData(this.request.uri.GET_SALE, [this.id.toString(), this.adminToken]).subscribe({
           next: (sale: any) => {
             this.sale = sale;
             this.sortByMediaType();
