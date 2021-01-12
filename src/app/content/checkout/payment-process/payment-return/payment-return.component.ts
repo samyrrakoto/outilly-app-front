@@ -22,7 +22,7 @@ export class PaymentReturnComponent implements OnInit {
       .then(() => this.getPreauthData());
   }
 
-  private getTransactionId(): Promise<any> {
+  private getTransactionId(): Promise<void> {
     return new Promise((resolve) => {
       this.route.queryParams.subscribe((queryParams: any) => {
         this.preAuthId = queryParams.preAuthorizationId;
@@ -41,7 +41,7 @@ export class PaymentReturnComponent implements OnInit {
           this.router.navigate(['checkout/payment-failed']);
         }
         else {
-          this.errorMessage = 'Une erreur est survenue, veuillez réessayer';
+          this.router.navigate(['checkout/payment-failed']);
         }
       });
   }
