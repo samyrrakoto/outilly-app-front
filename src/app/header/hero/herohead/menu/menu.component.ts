@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
     this.getCategories();
   }
 
-  toggleNavbar() {
+  public toggleNavbar(): void {
     this.navBurger.nativeElement.classList.toggle('is-active');
     this.navBarMenu.nativeElement.classList.toggle('is-active');
   }
