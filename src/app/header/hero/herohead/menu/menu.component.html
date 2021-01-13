@@ -14,7 +14,7 @@
         <div id="navBarMenu" #navBarMenu class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
-                  <a routerLink="/home">{{ "accueil" | uppercase }}</a>
+                  <a routerLink="/home" (click)="toggleNavbar()">{{ "accueil" | uppercase }}</a>
                 </div>
 
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -23,18 +23,18 @@
                   </div>
 
                   <div class="navbar-dropdown">
-                    <a (click)="launchCategorySearch(category.id)" *ngFor="let category of categories" class="navbar-item">
+                    <a (click)="launchCategorySearch(category.id); toggleNavbar()" *ngFor="let category of categories" class="navbar-item">
                       {{ category.label }}
                     </a>
                   </div>
                 </div>
 
                 <div class="navbar-item">
-                    <a href="" routerLink="/faq">{{ "faq" | uppercase }}</a>
+                    <a href="" routerLink="/faq" (click)="toggleNavbar()">{{ "faq" | uppercase }}</a>
                 </div>
 
                 <div id="start-to-sell" class="navbar-item">
-                    <a class="button is-success" href="/product/create" routerLink="/product/create">{{ "vendre gratuitement" | uppercase }}</a>
+                    <a class="button is-success" href="/product/create" (click)="toggleNavbar()" routerLink="/product/create">{{ "vendre gratuitement" | uppercase }}</a>
                 </div>
             </div>
         </div>
