@@ -55,7 +55,8 @@
     </div>
   </div>
 
-  <button (click)="getSales(false)" class="button is-danger">
+  <button *ngIf="!loading" (click)="getSales(false)" class="button is-danger">
     Voir {{ resultsPerPage }} de plus
   </button>
+  <button *ngIf="loading" class="button is-light is-loading"></button>
 </div>
