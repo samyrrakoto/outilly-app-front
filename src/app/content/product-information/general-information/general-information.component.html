@@ -45,7 +45,7 @@
             <td><fa-icon [icon]="['fas', 'search']"></fa-icon> Etat</td>
             <td>{{ this.sale.product.quality | quality }} <a class="has-text-danger" (click)="openModal('knowMore')"><fa-icon [icon]="['fas', 'info-circle']"></fa-icon></a></td>
           </tr>
-          <tr>
+          <tr *ngIf="sale.product.weight > 0">
             <td><fa-icon [icon]="['fas', 'weight-hanging']"></fa-icon> Poids</td>
             <td>{{ this.sale.product.weight | weight:'value' }} {{ this.sale.product.weight | weight:'unity' }}</td>
           </tr>
