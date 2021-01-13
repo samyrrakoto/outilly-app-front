@@ -1,3 +1,4 @@
+import { SearchManagerService } from 'src/app/services/search-manager.service';
 import { Modals } from 'src/app/models/modals';
 import { BrandManagerService } from 'src/app/services/brand-manager.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -26,7 +27,8 @@ export class FooterComponent implements OnInit {
   click: Subject<any> = new Subject<any>();
 
   constructor(
-    public brandManager: BrandManagerService)
+    public brandManager: BrandManagerService,
+    public searchManager: SearchManagerService)
   {
     this.modals.addModal('contact-form');
   }
