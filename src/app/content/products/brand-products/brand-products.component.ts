@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrandProductsComponent implements OnInit {
   loaded: boolean = false;
+  loading: boolean = false;
   brandId: number;
   brandName: string;
   sales: Sale[] = [];
@@ -18,6 +19,7 @@ export class BrandProductsComponent implements OnInit {
   totalNbResults: number;
   noMoreResults: boolean = false;
   noResult: boolean = false;
+  readonly resultsPerPage: number = 15;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,16 +66,19 @@ export class BrandProductsComponent implements OnInit {
   }
 
   private getPayload(): string {
-    return '?page=' + this.currentPage + '&brands=' + this.brandId.toString();
+    return '?page=' + this.currentPage + '&brands=' + this.brandId.toString() + '&resultsPerPage=' + this.resultsPerPage;
   }
 
   private getSales(): Observable<any> {
+    this.loading = true;
+
     return new Observable((observer) => {
       this.request.getData(this.request.uri.SALES + this.getPayload()).subscribe(
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
             this.currentPage++;
             this.totalNbResults = sales.meta.totalResults;
+            this.loading = false;
             observer.next(sales.results);
             observer.complete();
           }

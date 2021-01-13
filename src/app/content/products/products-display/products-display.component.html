@@ -44,7 +44,9 @@
 </div>
 
 <div *ngIf="!noMoreResults" class="content has-text-centered">
-  <button (click)="loadMoreCall()" class="button is-danger">
+  <button *ngIf="!loading" (click)="loadMoreCall()" class="button is-danger">
     Voir {{ resultsPerPage }} de plus
   </button>
+
+  <button *ngIf="loading" class="button is-light is-loading"></button>
 </div>

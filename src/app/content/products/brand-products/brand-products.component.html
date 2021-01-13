@@ -6,8 +6,10 @@
   </h1>
 
   <app-products-display *ngIf="!noResult"
+    [resultsPerPage]=resultsPerPage
     [sales]=sales
     [noMoreResults]=noMoreResults
+    [loading]=loading
     (loadMore)=loadMoreHandle()>
   </app-products-display>
 

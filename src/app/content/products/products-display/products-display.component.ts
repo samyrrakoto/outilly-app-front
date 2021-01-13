@@ -12,19 +12,16 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class ProductsDisplayComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  readonly resultsPerPage: number = 5;
+  @Input() readonly resultsPerPage: number = 5;
+  @Input() loading: boolean = false;
   loaded: boolean = false;
   @Input() currentPage: number = 1;
   @Input() sales: Observable<any>;
   @Input() noMoreResults: boolean;
   @Output() loadMore: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private request: RequestService
-    )
-  {
-  }
+  constructor()
+  {}
 
   ngOnInit(): void {
   }

@@ -13,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProductResultsComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  readonly resultsPerPage: number = 5;
+  readonly resultsPerPage: number = 15;
+  loading: boolean = false;
   loaded: boolean = false;
   currentPage: number = 1;
   sales: Observable<any>;
@@ -31,10 +32,13 @@ export class ProductResultsComponent implements OnInit {
   }
 
   public getSales(change: boolean): void {
+    this.loading = true;
     this.currentPage = change ? 1 : this.currentPage;
+
     this.getSalesByCriteria().subscribe(
       (res: any) => {
         this.sales = res;
+        this.loading = false;
       });
   }
 

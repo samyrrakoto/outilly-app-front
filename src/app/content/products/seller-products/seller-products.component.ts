@@ -11,11 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellerProductsComponent implements OnInit {
   loaded: boolean = false;
+  loading: boolean = false;
   sellerId: number;
   sales: Sale[] = [];
   currentPage: number = 1;
   totalNbResults: number;
   noMoreResults: boolean = false;
+  readonly resultsPerPage: number = 15;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,16 +46,19 @@ export class SellerProductsComponent implements OnInit {
   }
 
   private getPayload(): string {
-    return '?page=' + this.currentPage + '&sellers=' + this.sellerId.toString();
+    return '?page=' + this.currentPage + '&sellers=' + this.sellerId.toString() + '&resultsPerPage=' + this.resultsPerPage;
   }
 
   private getSales(): Observable<any> {
+    this.loading = true;
+
     return new Observable((observer) => {
       this.request.getData(this.request.uri.SALES + this.getPayload()).subscribe(
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
             this.currentPage++;
             this.totalNbResults = sales.meta.totalResults;
+            this.loading = false;
             observer.next(sales.results);
             observer.complete();
           }
