@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
   arrayToolbox: ArrayToolbox = new ArrayToolbox();
   loaded: boolean = false;
+  loading: boolean = false;
   results: any[];
   randomPage: number[];
   currentPage: number;

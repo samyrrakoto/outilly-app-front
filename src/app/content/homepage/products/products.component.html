@@ -75,7 +75,8 @@
       </app-filtered-products>
 
       <div *ngIf="sales.length !== 0" class="content has-text-centered">
-        <button class="button is-danger is-outlined load-more no-overflow" (click)="sendLoadMore()">Voir plus de produits</button>
+        <button *ngIf="!loading" class="button is-danger is-outlined load-more no-overflow" (click)="sendLoadMore()">Voir plus de produits</button>
+        <button *ngIf="loading" class="button is-light is-loading"></button>
       </div>
 
       <div *ngIf="sales.length === 0" class="content has-text-centered">
