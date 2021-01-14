@@ -91,7 +91,8 @@
   </div>
 
   <div class="in-line">
-    <button class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
+    <button *ngIf="!loading" class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
+    <button *ngIf="loading" class="button is-light is-loading"></button>
   </div>
 </div>
 
@@ -202,7 +203,8 @@
 
     <!-- Search -->
     <div class="content">
-      <button class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
+      <button *ngIf="!loading" class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
+      <button *ngIf="loading" class="button is-light is-loading"></button>
     </div>
   </div>
 </div>
