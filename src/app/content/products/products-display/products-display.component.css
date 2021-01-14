@@ -81,7 +81,7 @@
 @media screen and (max-width: 768px) {
   .in-line {
     display: flex;
-    width: 90%;
+    width: 60%;
     height: auto;
     margin: auto;
     margin-bottom: 60px;
@@ -94,6 +94,10 @@
   .inline-mobile img {
     vertical-align: middle;
     margin-left: 5px;
+  }
+
+  .img-container {
+    height: 180px;
   }
 
   .card {

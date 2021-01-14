@@ -1,4 +1,4 @@
-import { environment } from './../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -20,5 +20,9 @@ export class FilteredProductsComponent implements OnInit {
 
   public getProductRoute(sale: any): string {
     return '/product/' + sale.product.slug + '/' + sale.id;
+  }
+
+  public getBackgroundImgUrl(path: string): string {
+    return "url('" + this.mediaBaseUri + path + "')";
   }
 }
