@@ -95,18 +95,6 @@
   </div>
 </div>
 
-<!-- Chosen filters -->
-<div id="filter-display" *ngIf="filters.length > 0" class="content has-text-centered">
-  <span class="bold">Filtres choisis</span> :
-</div>
-
-<div id="current-filters" class="content is-vcentered has-text-centered">
-  <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
-    <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-    {{ filter.type | productFilter }}: {{ filter.value }}
-  </button>
-</div>
-
 <!-- MOBILE Version -->
 <div id="search-container-mobile" class="columns is-centered is-hidden-tablet has-text-centered">
   <div class="column">
@@ -161,7 +149,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -217,16 +204,17 @@
     <div class="content">
       <button class="button is-danger search" (click)="currentPage=1; getSales()">Rechercher</button>
     </div>
+  </div>
+</div>
 
-    <!-- Chosen filters -->
-    <div *ngIf="filters.length > 0" class="content has-text-centered">
-      <span class="underline">Filtres choisis</span> :
-    </div>
+<!-- Chosen filters -->
+<div id="filter-display" *ngIf="filters.length > 0" class="content has-text-centered">
+  <span class="bold">Filtres choisis</span> :
+</div>
 
-    <div id="current-filters" class="columns is-vcentered has-text-centered chosen-filters">
-      <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
-        <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
-        {{ filter.type | productFilter }}: {{ filter.value }}
-      </button>
-    </div>
+<div id="current-filters" class="content is-vcentered has-text-centered addspacebelow">
+  <button (click)='removeFilter(filter.type, filter.value); getReferences()' *ngFor="let filter of filters" class="button medium-right-margin">
+    <fa-icon class="small-right-margin" [icon]="['fas', 'times']"></fa-icon>
+    {{ filter.type | productFilter }}: {{ filter.value }}
+  </button>
 </div>
