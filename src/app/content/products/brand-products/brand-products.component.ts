@@ -44,7 +44,6 @@ export class BrandProductsComponent implements OnInit {
           this.getBrandName()
             .then(() => this.getSales())
             .then(() => {
-              this.currentPage = 1;
               this.loaded = true;
               resolve();
             })
@@ -80,8 +79,8 @@ export class BrandProductsComponent implements OnInit {
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
             this.totalNbResults = sales.meta.totalResults;
-            this.currentPage++;
             this.sales = this.sales.concat(sales.results);
+            this.currentPage++;
           }
           if (sales.meta.totalResults === 0) {
             this.totalNbResults = sales.meta.totalResults;
