@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { RequestService } from 'src/app/services/request.service';
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -14,18 +13,19 @@ export class ProductResultsComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly resultsPerPage: number = 15;
+  noMoreResults: boolean = false;
+  resultsLeft: number = 0;
   loading: boolean = false;
   loaded: boolean = false;
   currentPage: number = 1;
-  sales: Observable<any>;
+  sales: any[] = [];
   categoryId: number;
 
   constructor(
     private route: ActivatedRoute,
     private request: RequestService
     )
-  {
-  }
+  {}
 
   ngOnInit(): void {
     this.getCategoryId(true);
@@ -34,12 +34,8 @@ export class ProductResultsComponent implements OnInit {
   public getSales(change: boolean): void {
     this.loading = true;
     this.currentPage = change ? 1 : this.currentPage;
-
-    this.getSalesByCriteria().subscribe(
-      (res: any) => {
-        this.sales = res;
-        this.loading = false;
-      });
+    change ? this.sales = [] : null;
+    this.getSalesByCriteria();
   }
 
   private getCategoryId(change: boolean): Promise<void> {
@@ -52,17 +48,22 @@ export class ProductResultsComponent implements OnInit {
     });
   }
 
-  public getSalesByCriteria(): Observable<any> {
+  public getSalesByCriteria(): Promise<void> {
     const payload: HttpParams = this.getSalesPayload();
     const requestname: string = this.request.uri.SALES + '?' + payload.toString();
 
-    return new Observable((observer) => {
+    return new Promise((resolve) => {
       this.request.getData(requestname).subscribe(
         (sales: any) => {
-          observer.next(sales.results);
-          observer.complete();
           this.currentPage++;
           this.loaded = true;
+          if (this.currentPage - 1 === sales.meta.totalPages) {
+            this.noMoreResults = true;
+          }
+          this.resultsLeft = sales.meta.totalResults - ((this.currentPage - 1) * this.resultsPerPage);
+          this.sales = this.sales.concat(sales.results);
+          this.loading = false;
+          resolve();
         }
       );
     });
@@ -72,7 +73,8 @@ export class ProductResultsComponent implements OnInit {
     let payload: HttpParams = new HttpParams();
 
     this.categoryId !== null ? payload = payload.append('categories', this.categoryId.toString()) : null;
-    payload = payload.append('resultsPerPage', (this.currentPage * this.resultsPerPage).toString());
+    payload = payload.append('resultsPerPage', this.resultsPerPage.toString());
+    payload = payload.append('currentPage', this.currentPage.toString());
     return payload;
   }
 

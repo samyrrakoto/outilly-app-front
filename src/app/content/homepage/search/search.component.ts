@@ -14,8 +14,9 @@ export class SearchComponent implements OnInit {
   @Input() loadMore: number;
   @Output() salesEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() filtersEmitter: EventEmitter<any> = new EventEmitter<any>();
-  readonly resultsPerPage: number = 5;
+  @Output() loadingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading: boolean = false;
+  readonly resultsPerPage: number = 15;
   filters: any[];
   references: any[];
   sales: any;
@@ -165,6 +166,7 @@ export class SearchComponent implements OnInit {
   public getSales(): Promise<void> {
     const payload: HttpParams = this.getSalesPayload();
     const requestname: string = this.request.uri.SALES + '?' + payload.toString();
+    this.loadingEmitter.emit(true);
     this.loading = true;
 
     return new Promise((resolve) => {
@@ -174,6 +176,7 @@ export class SearchComponent implements OnInit {
           this.salesEmitter.emit(this.sales);
           this.filtersEmitter.emit(this.filters);
           this.currentPage++;
+          this.loadingEmitter.emit(false);
           this.loading = false;
           resolve();
         }

@@ -1,7 +1,5 @@
-import { Sale } from 'src/app/models/sale';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,10 +12,11 @@ export class BrandProductsComponent implements OnInit {
   loading: boolean = false;
   brandId: number;
   brandName: string;
-  sales: Sale[] = [];
+  sales: any[] = [];
   currentPage: number = 1;
   totalNbResults: number;
   noMoreResults: boolean = false;
+  resultsLeft: number = 0;
   noResult: boolean = false;
   readonly resultsPerPage: number = 15;
 
@@ -27,25 +26,28 @@ export class BrandProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBrandId()
+    this.getBrandId(true)
       .then(() => this.loaded = true);
   }
 
-  private getBrandId(): Promise<void> {
+  private getBrandId(change: boolean): Promise<void> {
     return new Promise((resolve) => {
       this.route.params.subscribe(
         (params) => {
           this.brandId = +params['brandId'];
+          change ? this.sales = [] : null;
+          change ? this.loaded = false : null;
+          change ? this.currentPage = 1 : null;
+          this.noMoreResults = false;
+          this.noResult = false;
           this.getBrandName()
-            .then(() => this.getSales().subscribe(
-              (res: any) => {
-                this.currentPage = 1;
-                this.noResult = false;
-                this.sales = res;
-                resolve();
-              }
-            ));
-        });
+            .then(() => this.getSales())
+            .then(() => {
+              this.currentPage = 1;
+              this.loaded = true;
+              resolve();
+            })
+          });
     });
   }
 
@@ -69,18 +71,16 @@ export class BrandProductsComponent implements OnInit {
     return '?page=' + this.currentPage + '&brands=' + this.brandId.toString() + '&resultsPerPage=' + this.resultsPerPage;
   }
 
-  private getSales(): Observable<any> {
+  public getSales(): Promise<void> {
     this.loading = true;
 
-    return new Observable((observer) => {
+    return new Promise((resolve) => {
       this.request.getData(this.request.uri.SALES + this.getPayload()).subscribe(
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
-            this.currentPage++;
             this.totalNbResults = sales.meta.totalResults;
-            this.loading = false;
-            observer.next(sales.results);
-            observer.complete();
+            this.currentPage++;
+            this.sales = this.sales.concat(sales.results);
           }
           if (sales.meta.totalResults === 0) {
             this.totalNbResults = sales.meta.totalResults;
@@ -89,16 +89,15 @@ export class BrandProductsComponent implements OnInit {
           if (this.currentPage - 1 === sales.meta.totalPages) {
             this.noMoreResults = true;
           }
+          this.resultsLeft = sales.meta.totalResults - ((this.currentPage - 1) * this.resultsPerPage);
+          this.loading = false;
+          resolve();
         }
       );
     });
   }
 
   public loadMoreHandle(): void {
-    this.getSales().subscribe(
-      (res: any) => {
-        this.sales = this.sales.concat(res);
-      }
-    );
+    this.getSales();
   }
 }

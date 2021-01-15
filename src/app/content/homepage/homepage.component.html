@@ -17,11 +17,13 @@
     [decreasingPrice]=decreasingPrice
     [loadMore]=loadMore
     (filtersEmitter)=getFilters($event)
-    (salesEmitter)=getSales($event)>
+    (salesEmitter)=getSales($event)
+    (loadingEmitter)=getLoadingState($event)>
   </app-search>
 
   <app-products
     [sales]=sales
+    [loading]=loading
     [filtersNb]=filtersNb
     (loadMoreEmitter)="getLoadMore($event)">
   </app-products>

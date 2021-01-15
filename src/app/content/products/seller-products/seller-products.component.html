@@ -12,4 +12,9 @@
     [loading]=loading
     (loadMore)=loadMoreHandle()>
   </app-products-display>
+
+  <div *ngIf="sales.length !== 0" class="content has-text-centered">
+    <button *ngIf="!loading" class="button is-danger is-outlined load-more no-overflow" (click)="loadMoreHandle()">Voir {{ resultsPerPage }} annonces de plus</button>
+    <button *ngIf="loading" class="button is-light is-loading"></button>
+  </div>
 </div>

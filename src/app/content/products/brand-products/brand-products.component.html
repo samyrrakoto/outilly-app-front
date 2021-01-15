@@ -13,6 +13,14 @@
     (loadMore)=loadMoreHandle()>
   </app-products-display>
 
+  <div *ngIf="!noMoreResults" class="content has-text-centered">
+    <button *ngIf="!loading" class="button is-danger" (click)="loadMoreHandle()">
+      <span *ngIf="resultsLeft >= resultsPerPage">Voir {{ resultsPerPage }} annonces de plus</span>
+      <span *ngIf="resultsLeft < resultsPerPage">Voir {{ resultsLeft }} annonces de plus</span>
+    </button>
+    <button *ngIf="loading" class="button is-light is-loading"></button>
+  </div>
+
   <div class="content has-text-centered addgiantspaceabove" *ngIf="noResult">
     <div class="content">
     Nous n'avons pas de produits correspondant à la marque <span class="declined">{{ brandName }}</span>.

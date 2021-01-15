@@ -18,6 +18,7 @@ export class HomepageComponent implements OnInit {
   sales: any[];
   filtersNb: number;
   loadMore: number;
+  loading: boolean = false;
   logged: boolean = false;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   readonly pageTitle: string = "Matériel de bricolage d'occasion - Achat et revente - Outillage, équipement et fin de chantier";
@@ -88,11 +89,15 @@ export class HomepageComponent implements OnInit {
   }
 
   // Output Getters
-  public getSales(sales: any) {
+  public getSales(sales: any): void {
     this.sales = sales.results;
   }
 
-  public getLoadMore(loadMore: number) {
+  public getLoadMore(loadMore: number): void {
     this.loadMore = loadMore;
+  }
+
+  public getLoadingState(loadingState: boolean): void {
+    this.loading = loadingState;
   }
 }

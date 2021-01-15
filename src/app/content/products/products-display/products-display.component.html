@@ -1,5 +1,5 @@
 <div id="display-container" class="content">
-  <div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales">
+  <div [routerLink]="getProductRoute(sale)" class="in-line pointed" *ngFor="let sale of sales; index as i" [ngClass]="{ 'is-hidden-mobile': mobileNbMax ? i >= mobileNbMax : false }">
     <div class="card">
       <div class="card-content">
         <div class="img-container" *ngIf="sale.product.mainImage" [ngStyle]="{ 'background-image': getBackgroundImgUrl(sale.product.mainImageThumbnail.path) }"></div>
@@ -41,12 +41,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="!noMoreResults" class="content has-text-centered">
-  <button *ngIf="!loading" (click)="loadMoreCall()" class="button is-danger">
-    Voir {{ resultsPerPage }} de plus
-  </button>
-
-  <button *ngIf="loading" class="button is-light is-loading"></button>
 </div>
