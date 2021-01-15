@@ -9,10 +9,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class ProductsDisplayComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  @Input() readonly resultsPerPage: number = 5;
-  @Input() loading: boolean = false;
   @Input() sales: any[];
-  @Input() noMoreResults: boolean;
   @Input() mobileNbMax: number = null;
   @Output() loadMore: EventEmitter<void> = new EventEmitter<void>();
   loaded: boolean = false;
