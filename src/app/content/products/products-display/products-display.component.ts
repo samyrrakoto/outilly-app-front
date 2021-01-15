@@ -1,7 +1,4 @@
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -12,13 +9,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class ProductsDisplayComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  @Input() readonly resultsPerPage: number = 5;
-  @Input() loading: boolean = false;
-  loaded: boolean = false;
-  @Input() currentPage: number = 1;
-  @Input() sales: Observable<any>;
-  @Input() noMoreResults: boolean;
+  @Input() sales: any[];
+  @Input() mobileNbMax: number = null;
   @Output() loadMore: EventEmitter<void> = new EventEmitter<void>();
+  loaded: boolean = false;
 
   constructor()
   {}

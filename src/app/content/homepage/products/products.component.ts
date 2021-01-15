@@ -1,3 +1,4 @@
+import { productDisplay } from 'src/app/parameters';
 import { SearchManagerService } from 'src/app/services/search-manager.service';
 import { ArrayToolbox } from 'src/app/models/array-toolbox';
 import { environment } from 'src/environments/environment';
@@ -13,22 +14,23 @@ import { Observable } from 'rxjs';
 export class ProductsComponent implements OnInit {
   @Input() sales: any[];
   @Input() filtersNb: number;
+  @Input() loading: boolean = false;
   @Output() loadMoreEmitter: EventEmitter<number> = new EventEmitter<number>();
   arrayToolbox: ArrayToolbox = new ArrayToolbox();
   loaded: boolean = false;
-  loading: boolean = false;
   results: any[];
+  noMoreResults: boolean = false;
   randomPage: number[];
   currentPage: number;
   mecanicPage: number;
   gardenPage: number;
   diyPage: number;
   workshopPage: number;
-  mecanicProducts: Observable<any[]>;
-  gardenProducts: Observable<any[]>;
-  diyProducts: Observable<any[]>;
-  workshopProducts: Observable<any[]>;
-  readonly resultsPerPage: number = 5;
+  mecanicProducts: any[] = [];
+  gardenProducts: any[] = [];
+  diyProducts: any[] = [];
+  workshopProducts: any[] = [];
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly maxTitleSize: number = 42;
   readonly categoryTitle: string[] = ['Mécanique', 'Bricolage', 'Jardin', 'Atelier'];
@@ -49,11 +51,11 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.filtersNb = 0;
-    this.mecanicProducts = this.getProductsByCategory('1');
-    this.diyProducts = this.getProductsByCategory('2');
-    this.gardenProducts = this.getProductsByCategory('3');
-    this.workshopProducts = this.getProductsByCategory('4');
-    this.loaded = true;
+    this.getProductsByCategory(1)
+      .then(() => this.getProductsByCategory(2))
+      .then(() => this.getProductsByCategory(3))
+      .then(() => this.getProductsByCategory(4))
+      .then(() => this.loaded = true);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -67,15 +69,15 @@ export class ProductsComponent implements OnInit {
     this.currentPage++;
   }
 
-  private getCategoryName(categoryId: string): string {
+  private getCategoryName(categoryId: number): string {
     switch(categoryId) {
-      case '1':
+      case 1:
         return 'mecanic';
-      case '2':
+      case 2:
         return 'diy';
-      case '3':
+      case 3:
         return 'garden';
-      case '4':
+      case 4:
         return 'workshop';
     }
   }
@@ -88,26 +90,21 @@ export class ProductsComponent implements OnInit {
     return randomPage;
   }
 
-  public getProductsByCategory(categoryId: string): Observable<any> {
+  public getProductsByCategory(categoryId: number): Promise<void> {
     const categoryName: string = this.getCategoryName(categoryId);
 
-    return new Observable((observer) => {
-      const nbResults: number = this[categoryName + 'Page'] * this.resultsPerPage;
+    return new Promise((resolve) => {
       const getParams: string = '?categories=' + categoryId + '&page=' + this.getRandomPage();
 
       this.request.getData(this.request.uri.SALES + getParams).subscribe(
         (sales: any) => {
-          observer.next(sales.results);
-          observer.complete();
-          this[categoryName + 'Page']++;
+          this[categoryName + 'Products'] = sales.results;
+          if (this.currentPage - 1 === sales.meta.totalPages) {
+            this.noMoreResults = true;
+          }
+          resolve();
         }
       )
     });
-  }
-
-  public loadMoreCategory(categoryId: string): void {
-    const categoryName: string = this.getCategoryName(categoryId);
-
-    this[categoryName + 'Products'] = this.getProductsByCategory(categoryId);
   }
 }

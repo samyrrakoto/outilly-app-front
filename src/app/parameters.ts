@@ -7,11 +7,11 @@ export const prices = {
   MIN_PRICE_FACTOR: 0.72,
   SECURISATION_FEES_FACTOR: 0.06,
   SECURISATION_FEES_MINIMUM: 150
-}
+};
 
 export const contact = {
   MAX_MESSAGE_LENGTH: 600
-}
+};
 
 export const country = {
   COUNTRIES_ACCEPTED: [
@@ -32,7 +32,7 @@ export const country = {
       label: 'Suisse'
     }
   ]
-}
+};
 
 export const media = {
   MAX_UPLOAD_VIDEOS: 1,
@@ -40,9 +40,14 @@ export const media = {
   MAX_UPLOAD_SIZE: 200,
   VIDEO_FORMAT_ACCEPTED: ".mp4, .avi, .mov",
   PICTURES_FORMAT_ACCEPTED: ".jpg, .jpeg, .png"
-}
+};
 
-export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?"
+export const productDisplay = {
+  NB_RESULTS: 15,
+  NB_RESULTS_MOBILE: 1
+};
+
+export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?";
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 export const savSubjects: string[] = [
   'Obtenir des informations complémentaires pour une annonce',
