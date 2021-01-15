@@ -56,6 +56,7 @@ export class ProductResultsComponent implements OnInit {
     return new Promise((resolve) => {
       this.request.getData(requestname).subscribe(
         (sales: any) => {
+          this.noMoreResults = false;
           this.currentPage++;
           this.loaded = true;
           if (this.currentPage - 1 === sales.meta.totalPages) {
@@ -75,7 +76,7 @@ export class ProductResultsComponent implements OnInit {
 
     this.categoryId !== null ? payload = payload.append('categories', this.categoryId.toString()) : null;
     payload = payload.append('resultsPerPage', this.resultsPerPage.toString());
-    payload = payload.append('currentPage', this.currentPage.toString());
+    payload = payload.append('page', this.currentPage.toString());
     return payload;
   }
 
