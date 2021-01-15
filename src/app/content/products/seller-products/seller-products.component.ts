@@ -16,6 +16,7 @@ export class SellerProductsComponent implements OnInit {
   sales: Sale[] = [];
   currentPage: number = 1;
   totalNbResults: number;
+  resultsLeft: number = 0;
   noMoreResults: boolean = false;
   readonly resultsPerPage: number = 15;
 
@@ -27,12 +28,8 @@ export class SellerProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSellerId()
-      .then(() => this.getSales().subscribe(
-        (res: any) => {
-          this.sales = res
-          this.loaded = true;
-        }
-      ));
+      .then(() => this.getSales())
+      .then(() => this.loaded = true);
   }
 
   private getSellerId(): Promise<void> {
@@ -49,32 +46,30 @@ export class SellerProductsComponent implements OnInit {
     return '?page=' + this.currentPage + '&sellers=' + this.sellerId.toString() + '&resultsPerPage=' + this.resultsPerPage;
   }
 
-  private getSales(): Observable<any> {
+  private getSales(): Promise<void> {
     this.loading = true;
+    this.noMoreResults = false;
 
-    return new Observable((observer) => {
+    return new Promise((resolve) => {
       this.request.getData(this.request.uri.SALES + this.getPayload()).subscribe(
         (sales: any) => {
           if (this.currentPage <= sales.meta.totalPages) {
             this.currentPage++;
             this.totalNbResults = sales.meta.totalResults;
-            this.loading = false;
-            observer.next(sales.results);
-            observer.complete();
+            this.sales = this.sales.concat(sales.results);
           }
           if (this.currentPage - 1 === sales.meta.totalPages) {
             this.noMoreResults = true;
           }
+          this.resultsLeft = sales.meta.totalResults - ((this.currentPage - 1) * this.resultsPerPage);
+          this.loading = false;
+          resolve();
         }
       );
     });
   }
 
   public loadMoreHandle(): void {
-    this.getSales().subscribe(
-      (res: any) => {
-        this.sales = this.sales.concat(res);
-      }
-    );
+    this.getSales();
   }
 }
