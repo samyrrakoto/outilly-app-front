@@ -1,3 +1,4 @@
+import { productDisplay } from 'src/app/parameters';
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
@@ -16,11 +17,11 @@ export class SearchComponent implements OnInit {
   @Output() filtersEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() loadingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading: boolean = false;
-  readonly resultsPerPage: number = 15;
   filters: any[];
   references: any[];
   sales: any;
   currentPage: number = 1;
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
 
   constructor(private request: RequestService) {
     this.allCategories = [];

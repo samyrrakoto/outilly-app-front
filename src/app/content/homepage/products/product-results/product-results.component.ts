@@ -1,3 +1,4 @@
+import { productDisplay } from 'src/app/parameters';
 import { RequestService } from 'src/app/services/request.service';
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -12,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProductResultsComponent implements OnInit {
   readonly maxTitleSize: number = 42;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  readonly resultsPerPage: number = 15;
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
   noMoreResults: boolean = false;
   resultsLeft: number = 0;
   loading: boolean = false;

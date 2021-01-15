@@ -1,8 +1,10 @@
+import { productDisplay } from 'src/app/parameters';
 import { SearchManagerService } from 'src/app/services/search-manager.service';
 import { ArrayToolbox } from 'src/app/models/array-toolbox';
 import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +30,7 @@ export class ProductsComponent implements OnInit {
   gardenProducts: any[] = [];
   diyProducts: any[] = [];
   workshopProducts: any[] = [];
-  readonly resultsPerPage: number = 15;
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly maxTitleSize: number = 42;
   readonly categoryTitle: string[] = ['Mécanique', 'Bricolage', 'Jardin', 'Atelier'];

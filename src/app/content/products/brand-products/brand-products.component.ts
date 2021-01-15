@@ -1,3 +1,4 @@
+import { productDisplay } from 'src/app/parameters';
 import { RequestService } from 'src/app/services/request.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,7 @@ export class BrandProductsComponent implements OnInit {
   noMoreResults: boolean = false;
   resultsLeft: number = 0;
   noResult: boolean = false;
-  readonly resultsPerPage: number = 15;
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
 
   constructor(
     private route: ActivatedRoute,
