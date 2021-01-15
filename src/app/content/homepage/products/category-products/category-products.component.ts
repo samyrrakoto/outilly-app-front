@@ -1,3 +1,4 @@
+import { productDisplay } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -12,7 +13,7 @@ export class CategoryProductsComponent implements OnInit {
   @Input() categoryId: number;
   @Input() categoryIcon: string;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
-  readonly mobileNbMax: number = 1;
+  readonly mobileNbMax: number = productDisplay.NB_RESULTS_MOBILE;
 
   constructor() {
     this.categoryIcon = 'box';

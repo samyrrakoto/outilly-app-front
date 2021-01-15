@@ -43,7 +43,8 @@ export const media = {
 };
 
 export const productDisplay = {
-  NB_RESULTS: 15
+  NB_RESULTS: 15,
+  NB_RESULTS_MOBILE: 1
 };
 
 export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?";
