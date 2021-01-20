@@ -378,3 +378,13 @@ a:link, a:visited {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, "Helvetica Neue", sans-serif; }
+
+/* Fa-icons */
+fa-icon svg {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+}
+fa-icon .fa-2x{
+  height: 2em;
+}
