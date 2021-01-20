@@ -1,3 +1,4 @@
+import { GetBackComponent } from './content/get-back/get-back.component';
 import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.component';
@@ -119,6 +120,10 @@ const routes: Routes = [
   {
     path: 'reset-password/:base64',
     component: ForgottenPasswordComponent
+  },
+  {
+    path: 'get-back',
+    component: GetBackComponent
   },
   {
     path: 'user/activate/:userId/:token',

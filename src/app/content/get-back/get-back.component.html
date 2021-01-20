@@ -1,0 +1,34 @@
+<div class="columns is-centered normal-padding-mobile">
+  <div class="column is-4">
+    <h1 class="title">Bon retour parmi nous&nbsp;!</h1>
+
+    <div class="content">
+      Nous sommes heureux de vous retrouver. Afin d'utiliser votre compte, pour des raisons de sécurité, nous allons vous <span class="bold">envoyer un e-mail</span> qui vous permettra de <span class="bold">créer un nouveau mot de passe</span>.
+    </div>
+
+    <div class="content">
+      <div class="field">
+        <label class="label">Votre ancien e-mail de l'Outillerie</label>
+        <p class="control">
+          <input class="input" type="text" [(ngModel)]=email>
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="success === false" class="notification is-danger has-text-centered">
+      Une erreur est survenue
+    </div>
+
+    <div *ngIf="emailExists === false" class="notification is-danger has-text-centered">
+      L'e-mail n'existe pas
+    </div>
+
+    <div *ngIf="success" class="notification is-success has-text-centered">
+      Le mail a bien été envoyé. Il ne vous reste plus qu'à cliquer sur le lien contenu à l'intérieur pour continuer l'aventure :)
+    </div>
+
+    <div class="content has-text-centered">
+      <button *ngIf="!success" class="button is-success no-overflow" (click)="requestPassword()">Envoyer le mail</button>
+    </div>
+  </div>
+</div>

@@ -374,3 +374,15 @@ a:link, a:visited {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, "Helvetica Neue", sans-serif; }
+
+@media screen and (max-width: 768px) {
+  .little-padding-mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .normal-padding-mobile {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
