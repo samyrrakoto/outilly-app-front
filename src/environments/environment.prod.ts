@@ -7,5 +7,6 @@ export const environment = {
   testCard: false,
   appAbsoluteRootPath: '/home/vich6439/prod.outilly.com/',
   GATrackingCode: 'G-5BRY438SP4',
+  algoliaIndexName: 'prod_outilly',
   universalPort: 4000
 };

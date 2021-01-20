@@ -25,7 +25,7 @@ const searchOutilly = algoliasearch(
 
 export class AppComponent {
   configOutilly = {
-    indexName: algolia.INDEX_NAME,
+    indexName: environment.algoliaIndexName,
     searchClient: searchOutilly
   };
   title = pageInfo.BRAND_NAME;
