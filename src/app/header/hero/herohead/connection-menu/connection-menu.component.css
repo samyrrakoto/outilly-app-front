@@ -20,6 +20,10 @@
   padding-right: 35px;
 }
 
+.level.is-mobile {
+  font-size: 0.9em;
+}
+
 .level-left, .level-right {
   padding-right: 20px;
   padding-left: 20px;
