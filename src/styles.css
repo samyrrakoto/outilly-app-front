@@ -387,4 +387,15 @@ fa-icon svg {
 }
 fa-icon .fa-2x{
   height: 2em;
+
+@media screen and (max-width: 768px) {
+  .little-padding-mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .normal-padding-mobile {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
