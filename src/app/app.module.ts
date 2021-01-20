@@ -155,6 +155,9 @@ import { LegalMentionsComponent } from './content/legal-mentions/legal-mentions.
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
 import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
 import { ContactManagerComponent } from './models/contact-manager/contact-manager.component';
+import { SearchEngineComponent } from './search-engine/search-engine.component';
+import { NgAisModule } from 'angular-instantsearch';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -298,6 +301,8 @@ import { ContactManagerComponent } from './models/contact-manager/contact-manage
     ConfidentialityPolicyComponent,
     GeneralTermsAndConditionsComponent,
     ContactManagerComponent,
+    SearchEngineComponent,
+    SearchBoxComponent,
   ],
   imports: [
     HttpClientModule,
@@ -309,6 +314,7 @@ import { ContactManagerComponent } from './models/contact-manager/contact-manage
     MatExpansionModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    NgAisModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

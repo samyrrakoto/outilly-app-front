@@ -1,0 +1,10 @@
+#search-box {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  #search-box {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

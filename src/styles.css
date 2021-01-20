@@ -286,6 +286,10 @@
   font-weight: bold;
 }
 
+.is-pointable {
+  pointer-events: initial;
+}
+
 /* Animations */
 .blinking {
   animation: blinker 3s linear infinite;

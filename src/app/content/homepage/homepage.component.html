@@ -5,13 +5,16 @@
   <app-slogan></app-slogan>
   <app-incentive class="is-hidden-mobile"></app-incentive>
 
+  <app-search-box></app-search-box>
+
   <div class="addhugespacebelow addhugespaceabove">
     <h1 class="title has-text-centered bold">
       Parcourir les annonces
     </h1>
   </div>
 
-  <app-search
+  <!-- Replaced by search engine. Will be used elsewhere later -->
+  <!-- <app-search
     [allCategories]=allCategories
     [allTypes]=allTypes
     [decreasingPrice]=decreasingPrice
@@ -19,7 +22,7 @@
     (filtersEmitter)=getFilters($event)
     (salesEmitter)=getSales($event)
     (loadingEmitter)=getLoadingState($event)>
-  </app-search>
+  </app-search> -->
 
   <app-products
     [sales]=sales

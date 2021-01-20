@@ -47,6 +47,11 @@ export const productDisplay = {
   NB_RESULTS_MOBILE: 1
 };
 
+export const algolia: any = {
+  APP_ID: 'YOYXGVRIH4',
+  API_KEY: 'da2ebec0e3025fc4f211dd5a74d4836d',
+  INDEX_NAME: 'dev_outilly'
+};
 export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?";
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 export const savSubjects: string[] = [

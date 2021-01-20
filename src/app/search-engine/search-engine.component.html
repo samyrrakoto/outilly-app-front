@@ -1,0 +1,40 @@
+<ais-instantsearch [config]="config">
+  <ais-configure
+    [searchParameters]="{ hitsPerPage: 15, query: searchQuery }">
+  </ais-configure>
+  <div class="columns is-centered has-text-centered">
+    <div class="column">
+        <ais-search-box [searchAsYouType]=true placeholder="Rechercher"></ais-search-box>
+      <div id="powered-by-algolia" class="content very-discreet-text">
+        search by <a href="https://www.algolia.com"><img src="/assets/img/logo/algolia-logo.png"></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="results" class="columns is-centered has-text-centered">
+    <div>
+      <ais-hits>
+        <ng-template let-hits="hits">
+          <ais-stats>
+            <ng-template let-state="state">
+              <div *ngIf="hits.length > 0" class="content">
+                <app-products-display
+                  [search]=true
+                  [sales]=getSalesFromHits(hits)>
+                </app-products-display>
+              </div>
+
+              <div *ngIf="hits.length === 0" class="content">
+                Aucun résultat ne correspond à votre recherche.
+              </div>
+
+              <div id="pagination">
+                <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
+              </div>
+            </ng-template>
+          </ais-stats>
+        </ng-template>
+      </ais-hits>
+    </div>
+  </div>
+</ais-instantsearch>
