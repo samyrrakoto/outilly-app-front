@@ -15,8 +15,8 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
       var url = new URL(req.url);
       AppComponent.isBrowser.subscribe(isBrowser => {
         if (isBrowser) {
-          origin = url.origin + '/';
-          if(origin === environment.apiBaseUri){
+          var uriOrigin = url.origin + '/';
+          if(uriOrigin === environment.apiBaseUri){
               req = req.clone({
                 setHeaders: {
                     Authorization: "Bearer " + authToken
