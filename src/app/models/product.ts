@@ -14,6 +14,7 @@ export class Product {
   productCategories: Array<ProductCategory>;
   productReferences: ProductReference[];
   mainImage: any;
+  mainImageThumbnail: any;
   quality: string;
   weight: number;
   weightUnity: string;
@@ -46,6 +47,9 @@ export class Product {
     this.brands = [];
     this.mainImage = {
       id: 0,
+      path: ''
+    };
+    this.mainImageThumbnail = {
       path: ''
     };
     this.quality = '';

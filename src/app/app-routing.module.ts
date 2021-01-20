@@ -1,3 +1,4 @@
+import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
 import { ConfidentialityPolicyComponent } from './content/confidentiality-policy/confidentiality-policy.component';
@@ -108,6 +109,10 @@ const routes: Routes = [
   {
     path: 'product-results',
     component: ProductResultsComponent
+  },
+  {
+    path: 'search',
+    component: SearchEngineComponent
   },
   {
     path: 'login',

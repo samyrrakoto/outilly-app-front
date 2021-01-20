@@ -1,0 +1,41 @@
+.ais-SearchBox-input {
+  outline: none;
+  width: 400px;
+  height: 50px;
+}
+
+.ais-SearchBox-submit {
+  position: relative;
+  transform: translateX(-400px) translateY(-5px);
+}
+
+.ais-SearchBox-reset {
+  position: relative;
+  transform: translateX(-40px) translateY(-5px);
+}
+
+.ais-SearchBox-submitIcon path,
+.ais-SearchBox-resetIcon path {
+  fill: var(--KTKP-GREEN);
+}
+
+.ais-Pagination-item--selected .ais-Pagination-link{
+  background-color: var(--KTKP-GREEN);
+  border-color: var(--MAT-GREY);
+  border-width: 2px;
+}
+
+@media screen and (max-width: 768px) {
+  .ais-SearchBox-form {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .ais-SearchBox-input {
+    width: 250px;
+  }
+
+  .ais-SearchBox-submit {
+    transform: translateX(-250px) translateY(-5px);
+  }
+}

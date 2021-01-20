@@ -7,9 +7,15 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {isPlatformBrowser} from '@angular/common';
-import { pageInfo } from 'src/app/parameters';
+import { algolia, pageInfo } from 'src/app/parameters';
+import * as algoliasearch from 'algoliasearch/lite';
 
 declare let gtag: Function;
+
+const searchOutilly = algoliasearch(
+  algolia.APP_ID,
+  algolia.API_KEY
+);
 
 @Component({
   selector: 'app-root',
@@ -18,6 +24,10 @@ declare let gtag: Function;
 })
 
 export class AppComponent {
+  configOutilly = {
+    indexName: environment.algoliaIndexName,
+    searchClient: searchOutilly
+  };
   title = pageInfo.BRAND_NAME;
   cookies: boolean;
   faCoffee = faCoffee;

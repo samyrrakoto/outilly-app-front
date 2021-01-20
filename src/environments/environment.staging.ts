@@ -7,5 +7,6 @@ export const environment = {
   testCard: true,
   appAbsoluteRootPath: '/var/www/ltr/app-front-staging/',
   GATrackingCode: '',
+  algoliaIndexName: 'staging_outilly',
   universalPort: 4000
 };

@@ -11,6 +11,7 @@ export class Sale {
     startDate: Date;
     endDate: Date;
     product: Product;
+    productSlug: string;
     seller: Seller;
 
     constructor() {
@@ -22,6 +23,7 @@ export class Sale {
         this.startDate = null;
         this.endDate = null;
         this.product = new Product();
+        this.productSlug = '';
         this.seller = new Seller();
     }
 }

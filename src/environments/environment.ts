@@ -11,6 +11,7 @@ export const environment = {
   testCard: true,
   appAbsoluteRootPath: '/mnt/c/Users/Public/Code/Outilly/app-front/',
   GATrackingCode: '',
+  algoliaIndexName: 'dev_outilly',
   universalPort: 4000
 };
 

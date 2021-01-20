@@ -1,0 +1,17 @@
+<div id="search-box" class="content">
+  <div class="content has-text-centered">
+    <div class="field">
+      <p class="control has-icons-left">
+        <input id="search" (keydown)="onKey($event, search.value)" class="input" placeholder="Rechercher" #search>
+        <span class="icon is-small is-left">
+          <fa-icon (click)="goToSearch(search.value)" class="green is-pointable pointed" [icon]="['fas', 'search']"></fa-icon>
+        </span>
+        <button class="button is-danger is-hidden-mobile" (click)="goToSearch(search.value)">Rechercher</button>
+      </p>
+    </div>
+
+    <div class="content">
+      <button class="button is-danger is-hidden-tablet" (click)="goToSearch(search.value)">Rechercher</button>
+    </div>
+  </div>
+</div>

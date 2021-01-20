@@ -1,0 +1,37 @@
+#search-box {
+  margin-top: 20px;
+  margin: auto;
+}
+
+.control {
+  display: flex;
+  justify-content: center;
+}
+
+.control .icon {
+  position: inherit;
+  transform: translateX(-400px);
+}
+
+input#search {
+  width: 400px;
+}
+
+.button.is-hidden-mobile {
+  margin-left: -30px;
+}
+
+@media screen and (max-width: 768px) {
+  #search-box {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .control .icon {
+    transform: translateX(-245px);
+  }
+
+  input#search {
+    width: 250px;
+  }
+}
