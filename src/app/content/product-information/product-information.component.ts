@@ -145,9 +145,11 @@ export class ProductInformationComponent extends GenericComponent implements OnI
   }
 
   private getSale(logged: boolean): Promise<void> {
+    const params: string = this.adminToken ? this.id.toString() + '/' + this.adminToken : this.id.toString();
+
     return new Promise((resolve) => {
       if (logged) {
-        this.request.getData(this.request.uri.GET_SALE_VENDOR, [this.id.toString(), this.adminToken]).subscribe({
+        this.request.getData(this.request.uri.GET_SALE_VENDOR, [params]).subscribe({
           next: (sale: any) => {
             this.sale = sale;
             this.sortByMediaType();
@@ -159,7 +161,7 @@ export class ProductInformationComponent extends GenericComponent implements OnI
         });
       }
       else {
-        this.request.getData(this.request.uri.GET_SALE, [this.id.toString(), this.adminToken]).subscribe({
+        this.request.getData(this.request.uri.GET_SALE, [params]).subscribe({
           next: (sale: any) => {
             this.sale = sale;
             this.sortByMediaType();
