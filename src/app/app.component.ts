@@ -1,6 +1,6 @@
 import { PopUpService } from './services/pop-up.service';
 import { environment } from 'src/environments/environment';
-import { typeform } from 'src/app/marketing'
+import { typeform } from 'src/app/marketing';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './services/auth.service';
 import { BehaviorSubject } from 'rxjs';
