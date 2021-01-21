@@ -1,0 +1,7 @@
+<div id="pop-up" class="notification" [ngClass]=popUp.THEME>
+  <button class="delete" (click)="hideNotification()"></button>
+  <h1 *ngIf="popUp.TITLE" class="subtitle">{{ popUp.TITLE }}</h1>
+
+  <div class="content" [innerHTML]=popUp.CONTENT>
+  </div>
+</div>

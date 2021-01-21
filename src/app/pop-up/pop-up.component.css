@@ -1,0 +1,14 @@
+#pop-up {
+  position: sticky;
+  text-align: center;
+  width: 200px;
+  margin-left: 20px;
+  bottom: 50px;
+  font-size: 0.8em;
+}
+
+@media screen and (max-width: 768px) {
+  #pop-up {
+    margin: auto;
+  }
+}

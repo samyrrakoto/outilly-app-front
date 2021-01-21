@@ -159,6 +159,7 @@ import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { NgAisModule } from 'angular-instantsearch';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 @NgModule({
   declarations: [
@@ -304,7 +305,8 @@ import { GetBackComponent } from './content/get-back/get-back.component';
     ContactManagerComponent,
     SearchEngineComponent,
     SearchBoxComponent,
-    GetBackComponent
+    GetBackComponent,
+    PopUpComponent
   ],
   imports: [
     HttpClientModule,
