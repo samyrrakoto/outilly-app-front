@@ -10,3 +10,7 @@
 <app-footer
   [toDisplay]=toDisplay>
 </app-footer>
+
+<app-pop-up *ngIf="popUpManager.typeform === false && auth.isLogged()"
+  [popUp]=typeformPopUp>
+</app-pop-up>

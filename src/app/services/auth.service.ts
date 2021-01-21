@@ -85,6 +85,10 @@ export class AuthService {
       {
         name: 'cookies',
         value: localStorage.getItem('cookies')
+      },
+      {
+        name: 'typeform',
+        value: localStorage.getItem('typeform')
       }
     ];
   }

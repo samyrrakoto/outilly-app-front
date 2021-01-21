@@ -1,4 +1,6 @@
+import { PopUpService } from './services/pop-up.service';
 import { environment } from 'src/environments/environment';
+import { typeform } from 'src/app/marketing'
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './services/auth.service';
 import { BehaviorSubject } from 'rxjs';
@@ -37,13 +39,15 @@ export class AppComponent {
   toDisplayMenu: boolean = true;
   readonly noHeaderUrl: string[] = ['product/create', 'onboarding'];
   readonly noMenuUrl: string[]= ['home'];
+  readonly typeformPopUp: any = typeform;
   static isBrowser = new BehaviorSubject<boolean>(null);
 
   constructor(
     private location: Location,
     private router: Router,
-    private auth: AuthService,
+    public auth: AuthService,
     public cookieService: CookieService,
+    public popUpManager: PopUpService,
     @Inject(PLATFORM_ID) private platformId: any)
     {
       AppComponent.isBrowser.next(isPlatformBrowser(platformId));
@@ -74,6 +78,7 @@ export class AppComponent {
         this.isUrlDisablable('noMenuUrl') ? this.disable('toDisplayMenu') : this.enable('toDisplayMenu');
       }
     });
+    this.popUpManager.typeform = localStorage.getItem('typeform') === 'true';
   }
 
   private getUrl(): void {
