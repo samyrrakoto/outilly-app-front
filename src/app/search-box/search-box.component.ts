@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -7,6 +7,9 @@ import { Component, OnInit, ElementRef } from '@angular/core';
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent implements OnInit {
+  @Input() placeholder: string = 'Rechercher un produit';
+  @Input() searchTitle: string = 'Rechercher';
+  @Input() buttonHidden: boolean = false;
 
   constructor(
     private router: Router

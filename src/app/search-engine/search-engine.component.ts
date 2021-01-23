@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
 import { AppComponent } from './../app.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-engine',
@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-engine.component.css']
 })
 export class SearchEngineComponent implements OnInit {
+  @Input() placeholder: string = 'Rechercher un produit';
   config: any;
   searchQuery: string = '';
   currentQuery: string = '';
