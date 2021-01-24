@@ -4,8 +4,7 @@
   width: auto;
 }
 
-.navbar
-{
+.navbar {
   margin-bottom: 25px;
   margin-top: 30px;
 }
@@ -53,4 +52,11 @@
 {
     color:white;
     font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }
