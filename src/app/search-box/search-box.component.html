@@ -1,9 +1,9 @@
 <div id="search-box" class="content">
   <div class="content has-text-centered">
     <div class="field">
-      <p class="control has-icons-left">
+      <p class="control has-icons-right">
         <input id="search" (keydown)="onKey($event, search.value)" class="input" [placeholder]=placeholder #search>
-        <span class="icon is-small is-left">
+        <span class="icon is-small is-right">
           <fa-icon (click)="goToSearch(search.value)" class="green is-pointable pointed" [icon]="['fas', 'search']"></fa-icon>
         </span>
         <button *ngIf="!buttonHidden" class="button is-danger is-hidden-mobile no-overflow" (click)="goToSearch(search.value)">{{ searchTitle }}</button>

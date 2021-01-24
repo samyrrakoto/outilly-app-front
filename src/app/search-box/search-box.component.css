@@ -6,15 +6,17 @@
 .control {
   display: flex;
   justify-content: center;
+  margin-left: 2.5em;
 }
 
 .control .icon {
   position: inherit;
-  transform: translateX(-400px);
+  transform: translateX(-40px);
 }
 
 input#search {
   width: 400px;
+  height: 45px;
 }
 
 .button.is-hidden-mobile {
@@ -28,7 +30,7 @@ input#search {
   }
 
   .control .icon {
-    transform: translateX(-245px);
+    transform: translateX(-40px);
   }
 
   input#search {

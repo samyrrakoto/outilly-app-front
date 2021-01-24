@@ -5,13 +5,17 @@
   <app-slogan></app-slogan>
   <app-incentive class="is-hidden-mobile"></app-incentive>
 
-  <div class="addhugespacebelow addhugespaceabove">
+  <div class="addspacebelow addspaceabove">
     <h1 class="title has-text-centered bold">
       Parcourir les annonces
     </h1>
   </div>
 
-  <app-search-box></app-search-box>
+  <div class="addspacebelow">
+    <app-search-box class="is-hidden-tablet"
+      [buttonHidden]=true>
+    </app-search-box>
+  </div>
 
   <!-- Replaced by search engine. Will be used elsewhere later -->
   <!-- <app-search
