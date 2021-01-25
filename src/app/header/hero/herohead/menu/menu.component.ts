@@ -1,7 +1,7 @@
-import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { RequestService } from 'src/app/services/request.service';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private request: RequestService,
-    private router: Router
+    public categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
@@ -35,15 +35,6 @@ export class MenuComponent implements OnInit {
           resolve();
         }
       )
-    });
-  }
-
-  public launchCategorySearch(categoryId: number): void {
-    this.router.navigate(['/product-results'],
-    {
-      queryParams: {
-        category: categoryId.toString()
-      }
     });
   }
 }

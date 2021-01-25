@@ -4,6 +4,10 @@
   height: 50px;
 }
 
+.ais-Pagination-item {
+  list-style: none;
+}
+
 .ais-SearchBox-submit {
   position: relative;
   transform: translateX(-400px) translateY(-5px);

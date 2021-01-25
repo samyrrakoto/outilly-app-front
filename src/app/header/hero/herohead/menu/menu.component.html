@@ -23,7 +23,7 @@
                   </div>
 
                   <div class="navbar-dropdown">
-                    <a (click)="launchCategorySearch(category.id); toggleNavbar()" *ngFor="let category of categories" class="navbar-item">
+                    <a (click)="categoryService.launchCategorySearch(category.id); toggleNavbar()" *ngFor="let category of categories" class="navbar-item">
                       {{ category.label }}
                     </a>
                   </div>

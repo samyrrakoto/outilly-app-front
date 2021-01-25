@@ -64,3 +64,9 @@ export const savSubjects: string[] = [
   'Je souhaite modifier mes coordonnées bancaires',
   'Autre'
 ];
+export const categoryIcons: any = {
+  MECANIC: 'wrench',
+  DIY: 'hammer',
+  GARDEN: 'seedling',
+  WORKSHOP: 'warehouse'
+}

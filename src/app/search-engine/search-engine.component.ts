@@ -10,6 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SearchEngineComponent implements OnInit {
   @Input() placeholder: string = 'Rechercher un produit';
+  @Input() filters: string = '';
   config: any;
   searchQuery: string = '';
   currentQuery: string = '';

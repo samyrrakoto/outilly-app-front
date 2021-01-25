@@ -1,7 +1,5 @@
-<app-loading *ngIf="!loaded"></app-loading>
-
-<div *ngIf="loaded" id="results" class="content">
-  <fa-icon class="category-icon" [icon]="['fas', 'warehouse']"></fa-icon>
+<div id="results" class="content">
+  <fa-icon class="category-icon" [icon]="categoryService.getIcon(categoryId)"></fa-icon>
   <h2 class="subtitle">
     {{ categoryId | category:'alias' }}
   </h2>
@@ -10,13 +8,8 @@
     {{ categoryId | category:"description" }}
   </div>
 
-  <app-products-display
-    [sales]=sales>
-  </app-products-display>
-
-  <button *ngIf="!loading && !noMoreResults" (click)="getSales(false)" class="button is-danger">
-    <span *ngIf="resultsLeft >= resultsPerPage">Voir {{ resultsPerPage }} annonces de plus</span>
-    <span *ngIf="resultsLeft < resultsPerPage">Voir {{ resultsLeft }} annonces de plus</span>
-  </button>
-  <button *ngIf="loading" class="button is-light is-loading"></button>
+  <app-search-engine
+    [filters]=filters
+    [placeholder]=placeholder>
+  </app-search-engine>
 </div>
