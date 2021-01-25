@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { categoryIcons } from 'src/app/parameters';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -71,9 +72,14 @@ export class CategoryService {
     }
   }
 
-  public launchCategorySearch(categoryId: number): void {
+  public getCategoryRoute(categoryId: number, href: boolean = false): string {
     const categoryRouteLabel: string = this.getCategoryRouteLabel(categoryId);
 
-    this.router.navigate(['/category/' + categoryRouteLabel]);
+    if (href) {
+      return environment.mediaBaseUri + '/category/' + categoryRouteLabel;
+    }
+    else {
+      return '/category/' + categoryRouteLabel;
+    }
   }
 }
