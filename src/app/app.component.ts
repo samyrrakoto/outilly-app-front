@@ -60,6 +60,10 @@ export class AppComponent {
               {
                 'page_path': event.urlAfterRedirects
               });
+            gtag('config', environment.UATrackingCode,
+              {
+                'page_path': event.urlAfterRedirects
+              });
             }
           }
         );

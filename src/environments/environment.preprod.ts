@@ -7,6 +7,7 @@ export const environment = {
   testCard: true,
   appAbsoluteRootPath: '/home/vich6439/preprod.outilly.com/app-front',
   GATrackingCode: '',
+  UATrackingCode: '',
   algoliaIndexName: 'preprod_outilly',
   universalPort: 8000
 };
