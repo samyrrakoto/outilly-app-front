@@ -22,10 +22,10 @@ export class ProductResultsComponent implements OnInit {
   {}
 
   ngOnInit(): void {
-    this.newGetCategoryId();
+    this.getCategoryId();
   }
 
-  private newGetCategoryId(): void {
+  private getCategoryId(): void {
       this.route.params.subscribe((param: any) => {
         this.categoryLabel = this.categoryService.getCategoryLabel(param['categoryLabel']);
         this.categoryId = this.categoryService.categoryLabelToId(this.categoryLabel);
