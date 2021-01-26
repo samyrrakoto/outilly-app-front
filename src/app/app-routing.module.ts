@@ -357,6 +357,10 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'category/:categoryLabel',
+    component: ProductResultsComponent
+  },
+  {
     path: 'product/:slug/:id',
     component: ProductInformationComponent
   },

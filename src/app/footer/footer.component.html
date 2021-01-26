@@ -10,10 +10,10 @@
           <div class="columns">
             <div class="column">
               <ul>
-                <li><span class="link pointed" title="Mécanique" (click)="searchManager.categorySearch(1)">Mécanique</span></li>
-                <li><span class="link pointed" title="Bricolage" (click)="searchManager.categorySearch(2)">Bricolage</span></li>
-                <li><span class="link pointed" title="Atelier" (click)="searchManager.categorySearch(3)">Atelier</span></li>
-                <li><span class="link pointed" title="Jardin" (click)="searchManager.categorySearch(4)">Jardin</span></li>
+                <li><a [href]="categoryService.getCategoryRoute(1, true)" class="link pointed" title="Mécanique" [routerLink]="categoryService.getCategoryRoute(1)">Mécanique</a></li>
+                <li><a [href]="categoryService.getCategoryRoute(2, true)" class="link pointed" title="Bricolage" [routerLink]="categoryService.getCategoryRoute(2)">Bricolage</a></li>
+                <li><a [href]="categoryService.getCategoryRoute(4, true)" class="link pointed" title="Atelier" [routerLink]="categoryService.getCategoryRoute(4)">Atelier</a></li>
+                <li><a [href]="categoryService.getCategoryRoute(3, true)" class="link pointed" title="Jardin" [routerLink]="categoryService.getCategoryRoute(3)">Jardin</a></li>
               </ul>
             </div>
 

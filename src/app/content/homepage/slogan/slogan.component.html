@@ -1,6 +1,12 @@
 <div id="slogan-container" class="columns has-text-centered">
   <div class="column is-hidden-mobile is-one-quarter" id="leftborder"></div>
-  <div id="slogan-title"class="column is-half">
+  <div id="slogan-title" class="column is-half is-hidden-mobile">
+    <app-search-box
+      [placeholder]=placeholder>
+    </app-search-box>
+  </div>
+
+  <div id="slogan-title"class="column is-half is-hidden-tablet">
     <h1 class="title little-title">
       Trouvez du matériel sur
     </h1>

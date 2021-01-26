@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slogan.component.css']
 })
 export class SloganComponent implements OnInit {
+  readonly placeholder: string = 'Trouver du matériel sur Outilly';
 
   constructor() { }
 

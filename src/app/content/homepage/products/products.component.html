@@ -14,7 +14,7 @@
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="searchManager.categorySearch(1)">Voir plus de produits de cette catégorie</button>
+          <a [href]="categoryService.getCategoryRoute(1, true)" class="button is-danger is-outlined load-more no-overflow" [routerLink]="categoryService.getCategoryRoute(1)">Voir plus de produits de cette catégorie</a>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="searchManager.categorySearch(2)">Voir plus de produits de cette catégorie</button>
+          <a [href]="categoryService.getCategoryRoute(2, true)" class="button is-danger is-outlined load-more no-overflow" [routerLink]="categoryService.getCategoryRoute(2)">Voir plus de produits de cette catégorie</a>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="searchManager.categorySearch(4)">Voir plus de produits de cette catégorie</button>
+          <a [href]="categoryService.getCategoryRoute(4, true)" class="button is-danger is-outlined load-more no-overflow" [routerLink]="categoryService.getCategoryRoute(4)">Voir plus de produits de cette catégorie</a>
         </div>
       </div>
 
@@ -62,7 +62,7 @@
         </app-category-products>
 
         <div class="content has-text-centered">
-          <button class="button is-danger is-outlined load-more no-overflow" (click)="searchManager.categorySearch(3)">Voir plus de produits de cette catégorie</button>
+          <a [href]="categoryService.getCategoryRoute(4, true)" class="button is-danger is-outlined load-more no-overflow" [routerLink]="categoryService.getCategoryRoute(3)">Voir plus de produits de cette catégorie</a>
         </div>
       </div>
     </div>
