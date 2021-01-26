@@ -1,3 +1,4 @@
+import { wording } from 'src/app/wording';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Order } from 'src/app/models/order';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
@@ -18,6 +19,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-confirmed.component.css']
 })
 export class UserPurchasesConfirmedComponent extends UserPurchasesComponent implements OnInit {
+  readonly wording: any = wording.DASHBOARD.ACTIVITY.CONFIRMED_PURCHASES;
   loading: boolean = false;
   loaded: boolean = false;
   buyerOrders: Array<any>;

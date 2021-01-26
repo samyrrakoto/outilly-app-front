@@ -6,7 +6,7 @@
       <h2 class="subtitle">Mes achats</h2>
 
       <div class="content" *ngIf="buyerOrders && buyerOrders.length === 0">
-        Vous n'avez acheté aucun produit pour le moment :'-(
+        {{ wording.EMPTY }}
 
         <div class="content">
           <a routerLink="/home" class="button is-danger">Consulter nos produits</a>
@@ -35,8 +35,13 @@
             <div *ngIf="order.shipMethod === 'HandDelivery'" class="content bid">
               <h2 class="panel-title has-text-centered">Votre commande est validée !</h2>
 
-              <!-- Buyer code awaiting -->
-              <div *ngIf="order.buyerCode !== null && !order.isDelivered">
+              <!-- Product is not yet available -->
+              <div *ngIf="order.buyerCode !== null && !order.isDelivered && !order.isAvailabilityConfirmed" class="content">
+                {{ wording.AWAITING_AVAILABILITY }}
+              </div>
+
+              <!-- Product is available -->
+              <div *ngIf="order.buyerCode !== null && !order.isDelivered && order.isAvailabilityConfirmed && !order.isBuyerCodeValidated">
                 <div class="content has-text-centered">
                   Il n'y a plus qu'à <span class="bold">contacter le vendeur</span> grâce aux informations ci-dessous :
                 </div>
@@ -74,14 +79,21 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="content" *ngIf="order.buyerCode !== null && !order.isDelivered">
-                N'oubliez pas de remettre le code suivant au vendeur lors de votre rendez-vous afin de sécuriser la transaction :<br><br>
-                <span class="buyer-code">
-                  <fa-icon [icon]="['fas', 'user-secret']"></fa-icon>
-                  {{ order.buyerCode }}
-                </span>
+                <div class="content" *ngIf="order.buyerCode !== null && !order.isDelivered">
+                  N'oubliez pas de remettre le code suivant au vendeur lors de votre rendez-vous afin de sécuriser la transaction :<br><br>
+                  <span class="buyer-code">
+                    <fa-icon [icon]="['fas', 'user-secret']"></fa-icon>
+                    {{ order.buyerCode }}
+                  </span>
+                </div>
+
+                <div class="content has-text-centered">
+                  <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="!order.isDelivered" class="button order-reception is-success no-overflow">
+                    <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
+                    Je confirme que j'ai récupéré mon colis en mains propres
+                  </button>
+                </div>
               </div>
 
               <!-- Buyer code NOT yet generated -->
@@ -89,19 +101,12 @@
                 En attente de la confirmation du vendeur.
               </div>
 
-              <div *ngIf="order.isBuyerCodeValidated" class="content has-text-centered">
-                <button (click)="currentOrder = order; modals.open('order-reception')" *ngIf="!order.isDelivered" class="button order-reception is-success no-overflow">
-                  <fa-icon [icon]="['fas', 'box-open']"></fa-icon>
-                  Je confirme que j'ai récupéré mon colis en mains propres
-                </button>
-
-                <article *ngIf="order.isDelivered" class="message is-success">
-                  <div class="message-body">
-                    <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
-                    Félicitations ! La commande est arrivée à bon port !
-                  </div>
-                </article>
-              </div>
+              <article *ngIf="order.isDelivered || order.isBuyerCodeValidated" class="message is-success">
+                <div class="message-body">
+                  <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                  Félicitations ! La commande est arrivée à bon port !
+                </div>
+              </article>
 
               <div class="columns">
                 <div class="column">

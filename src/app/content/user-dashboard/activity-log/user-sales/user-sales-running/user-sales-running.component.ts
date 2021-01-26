@@ -1,3 +1,4 @@
+import { wording } from 'src/app/wording';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
 import { Location } from '@angular/common';
@@ -18,6 +19,7 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', '../user-sales.component.css', './user-sales-running.component.css']
 })
 export class UserSalesRunningComponent implements OnInit {
+  readonly wording: any = wording.DASHBOARD.ACTIVITY.RUNNING_SALES;
   runningSales: Array<Sale>;
   counterOfferAmount: number;
   currentSale: Sale;

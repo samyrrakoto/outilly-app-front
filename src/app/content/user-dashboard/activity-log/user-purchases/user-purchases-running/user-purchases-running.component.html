@@ -20,7 +20,7 @@
               <fa-icon *ngIf="purchaseManager.requireAction(purchase) && !purchase.isRead" class="notification-icon side-icon" [icon]="['fas', 'bell']"></fa-icon>
               {{ purchase.productName }}
               <span *ngIf="purchase.sale.status === 'sold'" class="tag is-danger small-text small-left-margin">
-                Déjà vendu
+                {{ wording.ALREADY_SOLD }}
               </span>
 
               <span *ngIf="purchase.sale.status !== 'sold'">

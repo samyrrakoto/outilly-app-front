@@ -7,7 +7,7 @@
       <div id="notifications"></div>
 
       <div class="content" *ngIf="sellerOrders.length === 0">
-        Vous n'avez posté aucune annonce pour le moment :'-(
+        <div [innerHTML]=wording.EMPTY></div>
 
         <div class="content">
           <a routerLink="/product/create" class="button is-success">Commencer à vendre</a>
@@ -40,7 +40,7 @@
             </div>
 
             <h2 class="subtitle announce has-text-centered">
-              Félicitations ! Quelqu'un a acheté votre produit !
+              {{ wording.PRODUCT_BOUGHT }}
             </h2>
 
             <div class="columns">
@@ -129,19 +129,21 @@
                 <button (click)="currentOrder = order; modals.open('order-availability-confirmation')" class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
               </div>
 
-              <div *ngIf="order.isAvailabilityConfirmed && !order.isBuyerCodeValidated" class="content has-text-centered">
-                <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
-                  <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
-                  Contacter l'acheteur pour convenir d'un rendez-vous
-                </button>
+              <div *ngIf="order.isAvailabilityConfirmed && !order.isBuyerCodeValidated && !order.isSellerCodeValidated && !order.isDelivered">
+                <div class="content has-text-centered">
+                  <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
+                    <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
+                    Contacter l'acheteur pour convenir d'un rendez-vous
+                  </button>
+                </div>
+
+                <!-- When buyer code has been generated -->
+                <div class="content has-text-centered">
+                  <button class="button is-success no-overflow" (click)="currentOrder = order; modals.open('order-delivery-confirmation')">Je confirme avoir remis le colis à l'acheteur en mains propres</button>
+                </div>
               </div>
 
-              <!-- When buyer code has been generated -->
-              <div *ngIf="order.isAvailabilityConfirmed && !order.isBuyerCodeValidated" class="content has-text-centered">
-                <button class="button is-success no-overflow" (click)="currentOrder = order; modals.open('order-delivery-confirmation')">Je confirme avoir remis le colis à l'acheteur en mains propres</button>
-              </div>
-
-              <article *ngIf="order.isBuyerCodeValidated === true" class="message is-success has-text-centered">
+              <article *ngIf="order.isDelivered" class="message is-success has-text-centered">
                 <div class="message-body">
                   <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
                   Le colis est arrivé à bon port !

@@ -160,6 +160,7 @@ import { NgAisModule } from 'angular-instantsearch';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { PopUpComponent } from './pop-up/pop-up.component';
+import { InterpolationPipe } from './pipes/interpolation.pipe';
 
 @NgModule({
   declarations: [
@@ -306,7 +307,8 @@ import { PopUpComponent } from './pop-up/pop-up.component';
     SearchEngineComponent,
     SearchBoxComponent,
     GetBackComponent,
-    PopUpComponent
+    PopUpComponent,
+    InterpolationPipe,
   ],
   imports: [
     HttpClientModule,

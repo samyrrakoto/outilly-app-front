@@ -1,3 +1,4 @@
+import { wording } from 'src/app/wording';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
@@ -18,6 +19,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-purchases-running.component.css']
 })
 export class UserPurchasesRunningComponent {
+  readonly wording: any = wording.DASHBOARD.ACTIVITY.RUNNING_PURCHASES;
   loaded: boolean = false;
   runningPurchases: Array<Purchase>;
   modals: Modals = new Modals();
