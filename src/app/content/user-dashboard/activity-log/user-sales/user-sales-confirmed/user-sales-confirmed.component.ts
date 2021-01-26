@@ -1,3 +1,4 @@
+import { wording } from 'src/app/wording';
 import { ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { Order } from 'src/app/models/order';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +19,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['../../../user-dashboard.component.css', '../../activity-log.component.css', './user-sales-confirmed.component.css']
 })
 export class UserSalesConfirmedComponent implements OnInit {
+  readonly wording: any = wording.DASHBOARD.ACTIVITY.CONFIRMED_SALES;
   loaded: boolean = false;
   orderSent: boolean = false;
   sellerOrders: Array<any>;
