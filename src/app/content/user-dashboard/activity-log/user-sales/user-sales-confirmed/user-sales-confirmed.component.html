@@ -143,7 +143,7 @@
                 </div>
               </div>
 
-              <article *ngIf="order.isDelivered" class="message is-success has-text-centered">
+              <article *ngIf="order.isBuyerCodeValidated" class="message is-success has-text-centered">
                 <div class="message-body">
                   <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
                   Le colis est arrivé à bon port !
