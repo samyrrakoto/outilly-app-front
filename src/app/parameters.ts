@@ -10,7 +10,7 @@ export const prices = {
 };
 
 export const contact = {
-  MAX_MESSAGE_LENGTH: 600
+  MAX_MESSAGE_LENGTH: 2000
 };
 
 export const country = {
