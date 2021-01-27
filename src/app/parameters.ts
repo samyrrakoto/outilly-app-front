@@ -6,7 +6,8 @@ export const pageInfo = {
 export const prices = {
   MIN_PRICE_FACTOR: 0.72,
   SECURISATION_FEES_FACTOR: 0.06,
-  SECURISATION_FEES_MINIMUM: 150
+  SECURISATION_FEES_MINIMUM: 150,
+  MAX_PRODUCT_PRICE: 1000000
 };
 
 export const contact = {
