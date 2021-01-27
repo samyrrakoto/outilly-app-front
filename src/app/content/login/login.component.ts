@@ -1,4 +1,4 @@
-import { InputService } from './../../services/input.service';
+import { InputService } from 'src/app/services/input.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
