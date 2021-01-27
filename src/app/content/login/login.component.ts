@@ -1,4 +1,4 @@
-import { InputToolbox } from 'src/app/models/input-toolbox';
+import { InputService } from 'src/app/services/input.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   loginFailed: boolean = false;
   pageNameManager: PageNameManager = new PageNameManager(this.title);
   activated: boolean = false;
-  inputToolbox: InputToolbox = new InputToolbox();
   readonly pageTitle: string = 'Connexion';
 
   constructor(
@@ -26,7 +25,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private request: RequestService,
     private title: Title,
-    private notification: NotificationService
+    private notification: NotificationService,
+    public inputService: InputService
   )
   {}
 
