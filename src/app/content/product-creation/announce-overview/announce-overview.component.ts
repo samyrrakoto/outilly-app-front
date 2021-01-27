@@ -1,3 +1,4 @@
+import { StringToolbox } from './../../../models/string-toolbox';
 import { pageInfo } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
 import { EncodingService } from 'src/app/services/encoding.service';
@@ -25,6 +26,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   public isLoading: boolean;
   public nbPictures: number;
   public nbVideos: number;
+  private strToolbox: StringToolbox = new StringToolbox();
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly brandName: string = pageInfo.BRAND_NAME;
 
@@ -91,7 +93,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       "product": {
         "id": product.id,
         "strId": product.strId,
-        "name": product.name,
+        "name": this.strToolbox.capitalizeFirstLetter(product.name),
         "description": this.encoding.base64Encoder(product.description),
         "isDescriptionBase64": true,
         "isDescriptionHtml": false,
