@@ -26,10 +26,10 @@
         <form (ngSubmit)="login()" #form="ngForm">
           <div class="field">
             <label class="label">Adresse e-mail</label>
-            <div class="control has-icons-right">
+            <div class="control has-icons-left">
               <input id="username" class="input is-hidden-mobile" type="text" name="username" [(ngModel)]="model.username" required />
               <input class="input is-hidden-tablet" type="text" name="username" [(ngModel)]="model.username" required />
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                   <fa-icon [icon]="['fas','user']"></fa-icon>
                 </span>
             </div>
@@ -37,10 +37,14 @@
 
           <div class="field">
             <label class="label">Mot de passe</label>
-              <div class="control has-icons-right">
-                <input class="input" type="password" name="password" [(ngModel)]="model.password" required />
-                <span class="icon is-small is-right">
+              <div class="control has-icons-left has-icons-right">
+                <input #password class="input" type="password" name="password" [(ngModel)]="model.password" required />
+                <span class="icon is-small is-left">
                   <fa-icon [icon]="['fas','key']"></fa-icon>
+                </span>
+
+                <span class="icon is-small is-right">
+                  <fa-icon [icon]="['fas','eye']" class="is-pointable pointed" (click)="inputToolbox.passwordDisplay(password)"></fa-icon>
                 </span>
               </div>
           </div>
