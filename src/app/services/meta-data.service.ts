@@ -35,8 +35,8 @@ export class MetaDataService {
   }
 
   private updateDescription(description: string): void {
-    this.meta.updateTag({ name: 'description', content: description.slice(0, 155) + '...'});
-    this.meta.updateTag({ property: 'og:description', content: description.slice(0, 196) + '...' });
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:description', content: description });
   }
 
   private updateImage(imgUri: string): void {
