@@ -3,6 +3,11 @@ export const pageInfo = {
   PAGE_NAME_SEPARATOR: ' - ',
 };
 
+export const user = {
+  MIN_AGE: 18,
+  MAX_AGE: 100
+}
+
 export const prices = {
   MIN_PRICE_FACTOR: 0.62,
   SECURISATION_FEES_FACTOR: 0.06,

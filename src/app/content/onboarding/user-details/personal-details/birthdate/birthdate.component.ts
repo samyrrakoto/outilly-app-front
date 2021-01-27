@@ -1,3 +1,4 @@
+import { user } from './../../../../../parameters';
 import { accountOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -51,7 +52,7 @@ export class BirthdateComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      birthdate: [this.user.userProfile.birthdate, [Validators.required, this.major(), this.notEmpty()]],
+      birthdate: [this.user.userProfile.birthdate, [Validators.required, this.major(), , this.alive(), this.notEmpty()]],
     });
   }
 
@@ -62,8 +63,15 @@ export class BirthdateComponent extends StepForm {
   private major(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null =>
       {
-        return this.getAge(control.value) >= 18 ? null : {notMajor: control.value};
+        return this.getAge(control.value) >= user.MIN_AGE ? null : {notMajor: control.value};
       }
+  }
+
+  private alive(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+    {
+      return this.getAge(control.value) <= user.MAX_AGE ? null : {notAlive: control.value};
+    }
   }
 
   private notEmpty(): ValidatorFn {
