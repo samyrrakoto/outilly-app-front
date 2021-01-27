@@ -1,4 +1,4 @@
-import { InputToolbox } from 'src/app/models/input-toolbox';
+import { InputService } from 'src/app/services/input.service';
 import { accountOnboarding } from 'src/app/onboardings';
 import { specialCharacters } from 'src/app/parameters';
 import { Component } from '@angular/core';
@@ -18,7 +18,6 @@ export class PasswordComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
   readonly acceptedSpecialCharacters: string = specialCharacters;
-  inputToolbox: InputToolbox = new InputToolbox();
   user: User;
   form: FormGroup;
 
@@ -26,7 +25,8 @@ export class PasswordComponent extends StepForm {
     public formDataService: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    public inputService: InputService)
   {
     super();
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
