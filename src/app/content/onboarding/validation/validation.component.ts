@@ -1,3 +1,4 @@
+import { StringToolbox } from './../../../models/string-toolbox';
 import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,6 +18,7 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   public loading: boolean = false;
   public conditionsAccepted: boolean = false;
   public modals: Modals = new Modals();
+  private strToolbox: StringToolbox = new StringToolbox();
 
   constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
     super(formDataService, router, formValidatorService);
@@ -66,8 +68,8 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
 
   private createUserProfilePayload(): any {
     const userProfilePayload: any = {
-      "firstname": this.formDataService.user.userProfile.firstname,
-      "lastname": this.formDataService.user.userProfile.lastname,
+      "firstname": this.strToolbox.capitalizeFirstLetter(this.formDataService.user.userProfile.firstname),
+      "lastname": this.strToolbox.capitalizeFirstLetter(this.formDataService.user.userProfile.lastname),
       "email": this.formDataService.user.userProfile.email,
       "emailoptin": this.formDataService.user.userProfile.emailOptin,
       "phone1": this.formDataService.user.userProfile.phone1,
