@@ -81,19 +81,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  private getRandomPage(): number {
-    const randomIndex: number = Math.floor(Math.random() * this.randomPage.length);
-    const randomPage: number = this.randomPage[randomIndex];
-
-    this.randomPage.splice(randomIndex, 1);
-    return randomPage;
-  }
-
   public getProductsByCategory(categoryId: number): Promise<void> {
     const categoryName: string = this.getCategoryName(categoryId);
 
     return new Promise((resolve) => {
-      const getParams: string = '?categories=' + categoryId + '&page=' + this.getRandomPage();
+      const getParams: string = '?categories=' + categoryId;
 
       this.request.getData(this.request.uri.SALES + getParams).subscribe(
         (sales: any) => {
