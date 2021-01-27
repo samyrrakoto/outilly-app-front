@@ -1,4 +1,4 @@
-import { StringToolbox } from 'src/app/models/string-toolbox';
+import { StringToolboxService } from 'src/app/services/string-toolbox.service';
 import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,9 +18,14 @@ export class ValidationComponent extends OnboardingComponent implements OnInit {
   public loading: boolean = false;
   public conditionsAccepted: boolean = false;
   public modals: Modals = new Modals();
-  private strToolbox: StringToolbox = new StringToolbox();
 
-  constructor(public formDataService: FormDataService, public router: Router, formValidatorService: FormValidatorService, public request: RequestService) {
+  constructor(
+    public formDataService: FormDataService,
+    public router: Router,
+    public formValidatorService: FormValidatorService,
+    public request: RequestService,
+    public strToolbox: StringToolboxService)
+  {
     super(formDataService, router, formValidatorService);
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = this.formDataService.user;
