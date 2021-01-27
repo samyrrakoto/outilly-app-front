@@ -1,4 +1,4 @@
-import { StringToolbox } from './../../../models/string-toolbox';
+import { StringToolbox } from 'src/app/models/string-toolbox';
 import { pageInfo } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
 import { EncodingService } from 'src/app/services/encoding.service';

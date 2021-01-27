@@ -1,4 +1,4 @@
-import { StringToolbox } from './../../../models/string-toolbox';
+import { StringToolbox } from 'src/app/models/string-toolbox';
 import { Modals } from 'src/app/models/modals';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';

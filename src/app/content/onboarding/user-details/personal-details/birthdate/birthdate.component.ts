@@ -1,4 +1,4 @@
-import { user } from './../../../../../parameters';
+import { user } from 'src/app/parameters';
 import { accountOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
