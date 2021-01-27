@@ -1,5 +1,6 @@
+import { InputToolbox } from 'src/app/models/input-toolbox';
 import { accountOnboarding } from 'src/app/onboardings';
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -15,6 +16,7 @@ import { StepForm } from 'src/app/models/step-form';
 export class PasswordconfirmationComponent extends StepForm {
   readonly root: string = '/onboarding/';
   readonly totalNbSteps: number = accountOnboarding.length;
+  inputToolbox: InputToolbox = new InputToolbox();
   user: User;
   form: FormGroup;
 
