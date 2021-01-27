@@ -94,7 +94,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "id": product.id,
         "strId": product.strId,
         "name": this.strToolbox.capitalizeFirstLetter(product.name),
-        "description": this.encoding.base64Encoder(product.description),
+        "description": this.encoding.base64Encoder(this.strToolbox.capitalizeFirstLetter(product.description)),
         "isDescriptionBase64": true,
         "isDescriptionHtml": false,
         "quality": product.quality,
