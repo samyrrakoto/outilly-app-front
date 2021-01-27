@@ -1,4 +1,4 @@
-import { StringToolbox } from 'src/app/models/string-toolbox';
+import { StringToolboxService } from 'src/app/services/string-toolbox.service';
 import { pageInfo } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
 import { EncodingService } from 'src/app/services/encoding.service';
@@ -26,7 +26,6 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   public isLoading: boolean;
   public nbPictures: number;
   public nbVideos: number;
-  private strToolbox: StringToolbox = new StringToolbox();
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly brandName: string = pageInfo.BRAND_NAME;
 
@@ -37,7 +36,8 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     public auth: AuthService,
     public encoding: EncodingService,
     public location: Location,
-    public title: Title)
+    public title: Title,
+    public strToolbox: StringToolboxService)
   {
     super(request, formData, router, formValidator, title);
     this.product = formData.product;
