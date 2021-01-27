@@ -1,3 +1,4 @@
+import { prices } from 'src/app/parameters';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
@@ -16,6 +17,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
 })
 export class ReservePriceComponent extends StepForm implements OnInit {
   readonly root: string ='product/create/';
+  readonly maxProductPrice: number = prices.MAX_PRODUCT_PRICE;
   product: Product;
   form: FormGroup;
 
@@ -54,7 +56,7 @@ export class ReservePriceComponent extends StepForm implements OnInit {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      reservePrice: [this.product.reservePrice, [Validators.required, Validators.min(0), Validators.max(1000), this.isNotEmpty()]],
+      reservePrice: [this.product.reservePrice, [Validators.required, Validators.min(0), Validators.max(this.maxProductPrice / 100), this.isNotEmpty()]],
     });
   }
 

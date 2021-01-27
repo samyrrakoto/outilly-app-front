@@ -35,7 +35,7 @@
   <div class="error" *ngIf="controls.reservePrice.errors.required">Le prix est requis</div>
   <div class="error" *ngIf="controls.reservePrice.errors.isEmpty">Le prix est requis</div>
   <div class="error" *ngIf="controls.reservePrice.errors.min">Le prix ne peut pas être négatif</div>
-  <div class="error" *ngIf="controls.reservePrice.errors.max">Le prix ne doit pas dépasser 1000€</div>
+  <div class="error" *ngIf="controls.reservePrice.errors.max">Le prix ne doit pas dépasser {{ maxProductPrice | currency }}€</div>
 </div>
 
 <app-navigation
