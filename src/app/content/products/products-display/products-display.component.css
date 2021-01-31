@@ -80,8 +80,8 @@
 
 @media screen and (max-width: 768px) {
   .in-line {
-    display: flex;
-    width: 60%;
+    display: block;
+    width: 220px;
     height: auto;
     margin: auto;
     margin-bottom: 60px;
