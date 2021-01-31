@@ -1,3 +1,4 @@
+import { CategoryService } from 'src/app/services/category.service';
 import { Router } from '@angular/router';
 import { pageInfo } from 'src/app/parameters';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,7 +13,8 @@ export class HerobodyComponent implements OnInit {
   @Input() logged: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
