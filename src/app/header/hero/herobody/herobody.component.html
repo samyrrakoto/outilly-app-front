@@ -15,26 +15,32 @@
   </div>
 
   <div class="content category has-text-centered has-text-white">
-    <div class="content">
-      <fa-icon (click)="launchCategorySearch(1)" class="hero-icon huge-icon" [icon]="['fas', 'wrench']"></fa-icon>
-      <div class="content hero-label">
-        Mécanique
+    <a [href]="categoryService.getCategoryRoute(1, true)" [routerLink]="categoryService.getCategoryRoute(1)">
+      <div class="content">
+        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'wrench']"></fa-icon>
+        <div class="content hero-label">
+          Mécanique
+        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="content">
-      <fa-icon (click)="launchCategorySearch(3)" class="hero-icon huge-icon" [icon]="['fas', 'seedling']"></fa-icon>
-      <div class="content hero-label">
-        Jardin
+    <a [href]="categoryService.getCategoryRoute(3, true)" [routerLink]="categoryService.getCategoryRoute(3)">
+      <div class="content">
+        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'seedling']"></fa-icon>
+        <div class="content hero-label">
+          Jardin
+        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="content">
-      <fa-icon (click)="launchCategorySearch(2)" class="hero-icon huge-icon" [icon]="['fas', 'hammer']"></fa-icon>
-      <div class="content hero-label">
-        Habitat
+    <a [href]="categoryService.getCategoryRoute(2, true)" [routerLink]="categoryService.getCategoryRoute(2)">
+      <div class="content">
+        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'hammer']"></fa-icon>
+        <div class="content hero-label">
+          Habitat
+        </div>
       </div>
-    </div>
+    </a>
   </div>
 
   <div id="call-to-action" class="box has-text-centered">
