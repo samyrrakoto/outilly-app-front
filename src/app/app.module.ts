@@ -161,6 +161,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { InterpolationPipe } from './pipes/interpolation.pipe';
+import { IvyGalleryModule } from 'angular-gallery';
 
 @NgModule({
   declarations: [
@@ -321,6 +322,7 @@ import { InterpolationPipe } from './pipes/interpolation.pipe';
     MatAutocompleteModule,
     ReactiveFormsModule,
     NgAisModule.forRoot(),
+    IvyGalleryModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

@@ -39,6 +39,7 @@
     "@types/jquery": "^3.5.5",
     "algoliasearch": "^3.35.1",
     "angular-fontawesome": "^1.0.0",
+    "angular-gallery": "^1.0.2",
     "angular-instantsearch": "^3.0.0-beta.5",
     "bulma": "^0.8.2",
     "bulma-accordion": "^2.0.1",

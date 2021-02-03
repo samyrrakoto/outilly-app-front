@@ -4,6 +4,7 @@ import { Sale } from 'src/app/models/sale';
 import { AuthService } from 'src/app/services/auth.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
+import { Gallery } from 'angular-gallery';
 
 @Component({
   selector: 'media-gallery',
@@ -18,7 +19,8 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
-    public saleManager: SaleManagerService)
+    public saleManager: SaleManagerService,
+    private gallery: Gallery)
   {
     super();
   }
@@ -55,6 +57,25 @@ export class MediaGalleryComponent extends GenericComponent implements OnInit {
     if (video !== null) {
       video.pause();
     }
+  }
+
+  showIvyGallery(index: number) {
+    let images = [];
+    for (const media of this.sale.product.productMedias) {
+      if (media.type === 'video')
+      {
+        index = index - 1;
+        continue;
+      }
+      images.push({path : this.mediaBaseUri + media.path})
+    }
+    let prop = {
+        images,
+        index,
+        counter : true,
+        counterSeparator : '/'
+    };
+    this.gallery.load(prop);
   }
 
   public openGalleryMedia(mediaIndex: number, mediaType: string): void {
