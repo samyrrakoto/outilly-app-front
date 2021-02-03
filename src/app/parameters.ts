@@ -19,6 +19,11 @@ export const contact = {
   MAX_MESSAGE_LENGTH: 2000
 };
 
+export const questions = {
+  MAX_QUESTION_LENGTH: 100,
+  MAX_ANSWER_LENGTH: 600
+}
+
 export const country = {
   COUNTRIES_ACCEPTED: [
     {
