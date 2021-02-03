@@ -36,7 +36,12 @@
 <!-- Media Modal -->
 <div class="modal {{ media.modal }}">
   <div class="modal-background" (click)="closeMedia(); pauseVideo('demoVideo')"></div>
-  <div class="modal-content">
+  <div class="modal-content"
+    (swipeleft)="getNextMediaIndex();nextMedia()"
+    (swiperight)="getPreviousMediaIndex();previousMedia()"
+    (swipeup)="closeMedia(); pauseVideo('demoVideo')"
+    (swipedown)="closeMedia(); pauseVideo('demoVideo')"
+  >
     <div class="box has-background-black">
       <!-- media -->
       <figure *ngIf="media.type === 'image'" class="image">
