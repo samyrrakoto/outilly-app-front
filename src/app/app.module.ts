@@ -161,7 +161,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { InterpolationPipe } from './pipes/interpolation.pipe';
-import * as Hammer from 'hammerjs';
+import * as Hammer from '@egjs/hammerjs';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 
 @Injectable()
