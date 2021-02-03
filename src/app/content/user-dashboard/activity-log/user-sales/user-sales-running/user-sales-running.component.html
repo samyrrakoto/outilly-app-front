@@ -32,7 +32,7 @@
 
               <!-- Questions about product -->
               <div class="content">
-                <h2 class="subtitle">Questions posées</h2>
+                <h2 *ngIf="sale.product.validQuestions.length > 0" class="subtitle">Questions posées</h2>
 
                 <mat-accordion>
                   <mat-expansion-panel *ngFor="let question of sale.product.validQuestions">
