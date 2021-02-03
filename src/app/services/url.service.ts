@@ -18,4 +18,15 @@ export class UrlService {
       return uri;
     }
   }
+
+  public getLoginRoute(href: boolean = false): string {
+    const uri: string = '/login/';
+
+    if (href) {
+      return environment.mediaBaseUri + uri;
+    }
+    else {
+      return uri;
+    }
+  }
 }
