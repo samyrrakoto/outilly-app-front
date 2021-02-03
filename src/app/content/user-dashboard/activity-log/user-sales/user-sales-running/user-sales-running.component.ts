@@ -1,5 +1,5 @@
 import { questions } from 'src/app/parameters';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Faq } from 'src/app/models/faq';
 import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { wording } from 'src/app/wording';
