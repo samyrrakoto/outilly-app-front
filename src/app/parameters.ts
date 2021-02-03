@@ -21,7 +21,7 @@ export const contact = {
 
 export const questions = {
   MAX_QUESTION_LENGTH: 100,
-  MAX_ANSWER_LENGTH: 300
+  MAX_ANSWER_LENGTH: 600
 }
 
 export const country = {
