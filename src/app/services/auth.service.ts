@@ -103,6 +103,10 @@ export class AuthService {
     }
   }
 
+  public setRedirectionUrl(url: string): void {
+    sessionStorage.setItem('redirect_after_login', url);
+  }
+
   public isLogged(): boolean {
     return this.getTokenStatus() === 'good' && this.logged;
   }

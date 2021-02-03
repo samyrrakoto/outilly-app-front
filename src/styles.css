@@ -349,6 +349,11 @@
   border: solid 3px var(--KTKP-GREY);
 }
 
+.modal.padded {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 button.modal-close {
   background: black;
 }

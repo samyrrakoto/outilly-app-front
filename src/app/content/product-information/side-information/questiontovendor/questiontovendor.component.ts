@@ -1,3 +1,5 @@
+import { UrlService } from 'src/app/services/url.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { questions } from 'src/app/parameters';
@@ -20,8 +22,11 @@ export class QuestiontovendorComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     private formBuilder: FormBuilder,
-    public productManager: ProductManagerService)
+    public productManager: ProductManagerService,
+    public auth: AuthService,
+    public url: UrlService)
   {
     this.modals.addModal('ask-question');
   }
