@@ -1,3 +1,5 @@
+import { Faq } from 'src/app/models/faq';
+import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { wording } from 'src/app/wording';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
@@ -24,15 +26,18 @@ export class UserSalesRunningComponent implements OnInit {
   counterOfferAmount: number;
   currentSale: Sale;
   currentBid: Bid;
+  currentQuestion: Faq = new Faq();
   loaded: boolean = false;
   modals: Modals = new Modals();
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
     public purchaseManager: PurchaseManagerService,
+    public productManager: ProductManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
     protected location: Location,
@@ -42,6 +47,7 @@ export class UserSalesRunningComponent implements OnInit {
     this.modals.addModal('counterOfferConfirmation');
     this.modals.addModal('acceptOffer');
     this.modals.addModal('declineOffer');
+    this.modals.addModal('answer-question');
   }
 
   ngOnInit(): void {

@@ -110,7 +110,7 @@ export class RequestService {
   }
 }
 
-export enum HtmlStatus {
+export enum HttpStatus {
   OK = 200,
   CREATED = 201,
   ACCEPTED = 202,
