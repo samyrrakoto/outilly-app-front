@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="navbar-item">
-                  <a href="{{ blogUri }}" target="_blank" (click)="toggleNavbar()">{{ "blog" | uppercase }}</a>
+                  <a [href]="blogUri" target="_blank" (click)="toggleNavbar()">{{ "blog" | uppercase }}</a>
                 </div>
 
                 <div id="start-to-sell" class="navbar-item">
