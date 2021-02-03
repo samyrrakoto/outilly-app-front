@@ -1,9 +1,7 @@
 import { Faq } from 'src/app/models/faq';
+import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { RequestService } from 'src/app/services/request.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from 'src/app/models/sale';
-import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
@@ -15,28 +13,20 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class PredefinedQuestionComponent extends GenericComponent implements OnInit {
   @Input() sale: Sale;
+  answeredQuestions: Faq[] = [];
   genericQuestions: Faq[] = [];
 
   constructor(
-    private request: RequestService,
     public auth: AuthService,
-    public saleManager: SaleManagerService)
+    public saleManager: SaleManagerService,
+    public productManager: ProductManagerService)
   {
     super();
   }
 
   ngOnInit(): void {
-    this.getGenericQuestions();
-  }
-
-  private getGenericQuestions(): Promise<void> {
-    return new Promise((resolve) => {
-      this.request.getData(this.request.uri.FAQ_PRODUCT).subscribe({
-        next: (faq: any) => {
-          this.genericQuestions = faq.faqItems;
-          resolve();
-        }
-      });
-    });
+    this.answeredQuestions = this.productManager.getAnsweredQuestions(this.sale.product.validQuestions);
+    this.productManager.getGenericQuestions()
+      .then((faq: any) => { this.genericQuestions = faq });
   }
 }

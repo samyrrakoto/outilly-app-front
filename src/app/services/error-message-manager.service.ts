@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ErrorMessageManagerService {
   public errorMessages: Array<string>;
+  public errorMessageTemplate: ErrorMessageTemplate = new ErrorMessageTemplate();
 
   constructor() {
     this.errorMessages = [];
@@ -32,4 +33,9 @@ export class ErrorMessageManagerService {
       }
     }
   }
+}
+
+export class ErrorMessageTemplate {
+  readonly SIMPLE: string = 'Une erreur est survenue';
+  readonly UNKNOWN: string = 'Une erreur inconnue est survenue';
 }

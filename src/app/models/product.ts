@@ -1,3 +1,4 @@
+import { Faq } from './faq';
 import { ProductReference } from './product-reference';
 import { ProductCategory } from './product-category';
 import { ProductType } from './product-type';
@@ -32,6 +33,7 @@ export class Product {
   brands: Array<Brand>;
   productMedias: Array<ProductMedia>;
   activityDomains: Array<ActivityDomain>;
+  validQuestions: Faq[] = [];
 
   constructor() {
     this.id = 0;
