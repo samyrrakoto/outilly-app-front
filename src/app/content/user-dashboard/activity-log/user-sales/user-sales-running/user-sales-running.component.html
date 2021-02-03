@@ -102,7 +102,7 @@
                 <div *ngIf="sale.status !== 'new'" [innerHTML]=wording.NO_PROPOSITION></div>
               </div>
 
-              <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
+              <a class="product-page" [href]="url.getProductRoute(sale.id, sale.product.slug, true)" [routerLink]="url.getProductRoute(sale.id, sale.product.slug)">Accéder à la page du produit</a>
 
               <div class="content bid-date has-text-left discreet-text">
                 <fa-icon [icon]="['fas', 'clock']"></fa-icon>
