@@ -30,6 +30,28 @@
 
               </mat-panel-description>
 
+              <!-- Questions about product -->
+              <div class="content">
+                <h2 class="subtitle">Questions posées</h2>
+
+                <mat-accordion>
+                  <mat-expansion-panel *ngFor="let question of sale.product.validQuestions">
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ question.question }}
+                      <span class="tag is-danger is-light small-text small-left-margin" *ngIf="!question.answer">&nbsp;Non répondu</span>
+                      <span class="tag is-success is-light small-text small-left-margin" *ngIf="question.answer">&nbsp;Répondu</span>
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <span *ngIf="question.answer">
+                      {{ question.answer }}
+                    </span>
+
+                    <button *ngIf="!question.answer" class="button is-danger is-small" (click)="currentQuestion=question; modals.open('answer-question')">Répondre à cette question</button>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
               <!-- Displayed when sale is running -->
               <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
                 <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
@@ -162,4 +184,28 @@
     </div>
   </div>
   <button class="modal-close is-large addlittlespaceabove" aria-label="close" (click)="modals.close('counterOfferConfirmation')"></button>
+</div>
+
+<div class="modal {{ modals.get('answer-question') }}">
+  <div class="modal-background" (click)="modals.close('answer-question')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Répondre à une question</h2>
+
+      <div *ngIf="currentQuestion" class="content">
+        {{ currentQuestion.question }}
+      </div>
+
+      <div class="content">
+        <textarea class="textarea" [(ngModel)]="currentQuestion.answer"></textarea>
+      </div>
+
+      <div *ngIf="productManager.answerSent" class="notification is-success">
+        Votre réponse a bien été envoyée !
+      </div>
+
+      <button *ngIf="!productManager.answerSent" class="button is-success" (click)="productManager.answerQuestion(currentQuestion.id, currentQuestion.answer)">Envoyer la réponse</button>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
