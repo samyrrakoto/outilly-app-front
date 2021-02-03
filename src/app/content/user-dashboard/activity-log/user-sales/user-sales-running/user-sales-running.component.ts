@@ -1,3 +1,5 @@
+import { questions } from 'src/app/parameters';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Faq } from 'src/app/models/faq';
 import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { wording } from 'src/app/wording';
@@ -22,11 +24,13 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 })
 export class UserSalesRunningComponent implements OnInit {
   readonly wording: any = wording.DASHBOARD.ACTIVITY.RUNNING_SALES;
+  readonly maxAnswerLength: number = questions.MAX_ANSWER_LENGTH;
   runningSales: Array<Sale>;
   counterOfferAmount: number;
   currentSale: Sale;
   currentBid: Bid;
   currentQuestion: Faq = new Faq();
+  answer: string;
   loaded: boolean = false;
   modals: Modals = new Modals();
 
@@ -41,7 +45,8 @@ export class UserSalesRunningComponent implements OnInit {
     protected route: ActivatedRoute,
     protected notification: NotificationService,
     protected location: Location,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder)
   {
     this.modals.addModal('counterOffer');
     this.modals.addModal('counterOfferConfirmation');
