@@ -1,5 +1,6 @@
+import { UrlService } from 'src/app/services/url.service';
 import { questions } from 'src/app/parameters';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Faq } from 'src/app/models/faq';
 import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { wording } from 'src/app/wording';
@@ -46,7 +47,8 @@ export class UserSalesRunningComponent implements OnInit {
     protected notification: NotificationService,
     protected location: Location,
     public title: Title,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    public url: UrlService)
   {
     this.modals.addModal('counterOffer');
     this.modals.addModal('counterOfferConfirmation');

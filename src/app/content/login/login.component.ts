@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private checkHasRedirectAfterLogin(): void{
+  private checkHasRedirectAfterLogin(): void {
     if (sessionStorage.getItem("redirect_after_login") === null) {
       this.notification.checkAllNotifications();
       this.router.navigate(['/user/dashboard']);

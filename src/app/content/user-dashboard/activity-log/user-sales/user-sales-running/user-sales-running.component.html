@@ -19,7 +19,7 @@
           <mat-expansion-panel *ngFor="let sale of saleManager.sortSalesByLastUpdate(runningSales)">
               <mat-expansion-panel-header>
               <mat-panel-title>
-                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
+                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale) || saleManager.hasNonAnsweredQuestions(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
                 {{ sale.product.name }}
                 <span class="tag is-info is-light small-text small-left-margin" *ngIf="sale.status === 'new'">&nbsp;En attente de validation</span>
                 <span class="tag is-success is-light small-text small-left-margin" *ngIf="sale.status === 'online'">&nbsp;En ligne</span>
@@ -32,7 +32,7 @@
 
               <!-- Questions about product -->
               <div class="content">
-                <h2 class="subtitle">Questions posées</h2>
+                <h2 *ngIf="sale.product.validQuestions.length > 0" class="subtitle">Questions posées</h2>
 
                 <mat-accordion>
                   <mat-expansion-panel *ngFor="let question of sale.product.validQuestions">
@@ -102,7 +102,7 @@
                 <div *ngIf="sale.status !== 'new'" [innerHTML]=wording.NO_PROPOSITION></div>
               </div>
 
-              <a class="product-page" (click)="goToProductPage(sale.product.slug, sale.id)">Accéder à la page du produit</a>
+              <a class="product-page" [href]="url.getProductRoute(sale.id, sale.product.slug, true)" [routerLink]="url.getProductRoute(sale.id, sale.product.slug)">Accéder à la page du produit</a>
 
               <div class="content bid-date has-text-left discreet-text">
                 <fa-icon [icon]="['fas', 'clock']"></fa-icon>
