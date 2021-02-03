@@ -40,6 +40,8 @@ export class Uri {
   readonly FAQ_PRODUCT: string = 'faq/3';
   readonly PRODUCT_CREATION: string = 'product/create';
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
+  readonly ASK_PRODUCT_QUESTION: string = 'secure/question/product/ask';
+  readonly ANSWER_PRODUCT_QUESTION: string = 'secure/question/product/answer';
 
   // User Routes
   readonly GET_USER: string = 'secure/user';
