@@ -19,7 +19,7 @@
           <mat-expansion-panel *ngFor="let sale of saleManager.sortSalesByLastUpdate(runningSales)">
               <mat-expansion-panel-header>
               <mat-panel-title>
-                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
+                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale) || saleManager.hasNonAnsweredQuestions(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
                 {{ sale.product.name }}
                 <span class="tag is-info is-light small-text small-left-margin" *ngIf="sale.status === 'new'">&nbsp;En attente de validation</span>
                 <span class="tag is-success is-light small-text small-left-margin" *ngIf="sale.status === 'online'">&nbsp;En ligne</span>

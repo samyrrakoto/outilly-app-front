@@ -34,6 +34,15 @@ export class SaleManagerService {
     return false;
   }
 
+  public hasNonAnsweredQuestions(sale: Sale): boolean {
+    for (const question of sale.product.validQuestions) {
+      if (!question.answer) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public getSaleAvailability(saleId: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [saleId.toString()]).subscribe(
