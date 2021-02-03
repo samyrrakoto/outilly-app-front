@@ -109,3 +109,16 @@ export class RequestService {
     return this.getData(this.uri.GET_PREAUTH_DATA + '?preAuthorizationId=' + preAuthId);
   }
 }
+
+export enum HtmlStatus {
+  OK = 200,
+  CREATED = 201,
+  ACCEPTED = 202,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER = 500,
+  BAD_GATEWAY = 502,
+  UNAVAILABLE = 503
+}
