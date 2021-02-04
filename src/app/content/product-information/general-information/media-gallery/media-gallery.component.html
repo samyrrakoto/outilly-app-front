@@ -42,7 +42,7 @@
     (swipeup)="closeMedia(); pauseVideo('demoVideo')"
     (swipedown)="closeMedia(); pauseVideo('demoVideo')"
   >
-    <div class="box has-background-black">
+
       <!-- media -->
       <figure *ngIf="media.type === 'image'" class="image">
         <img src="{{ mediaBaseUri + media.path }}" alt="Photo de {{ sale.product.name }}" title="Photo de {{ sale.product.name }}">
@@ -57,7 +57,7 @@
       <!-- nav arrows -->
       <nav class="level is-mobile">
         <div class="level-left">
-          <button class="button is-large has-background-black has-text-white" (click)="getPreviousMediaIndex(); previousMedia()"><fa-icon [icon]="['fas','arrow-circle-left']"></fa-icon></button>
+          <button class="button is-large bg-black-blurred has-text-white" (click)="getPreviousMediaIndex(); previousMedia()"><fa-icon [icon]="['fas','angle-left']"></fa-icon></button>
         </div>
 
         <div class="level-item">
@@ -65,10 +65,9 @@
         </div>
 
         <div class="level-right">
-          <button class="button is-large has-background-black has-text-white" (click)="getNextMediaIndex(); nextMedia()"><fa-icon [icon]="['fas','arrow-circle-right']"></fa-icon></button>
+          <button class="button is-large bg-black-blurred has-text-white" (click)="getNextMediaIndex(); nextMedia()"><fa-icon [icon]="['fas','angle-right']"></fa-icon></button>
         </div>
       </nav>
-    </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="closeMedia(); pauseVideo('demoVideo')"></button>
 </div>
