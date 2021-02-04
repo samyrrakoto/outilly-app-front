@@ -1,3 +1,4 @@
+import { ProductQuestionManagerService, QuestionFilter } from 'src/app/services/product-question-manager.service';
 import { UrlService } from 'src/app/services/url.service';
 import { questions } from 'src/app/parameters';
 import { FormBuilder } from '@angular/forms';
@@ -28,9 +29,10 @@ export class UserSalesRunningComponent implements OnInit {
   readonly maxAnswerLength: number = questions.MAX_ANSWER_LENGTH;
   runningSales: Array<Sale>;
   counterOfferAmount: number;
-  currentSale: Sale;
+  currentSale: Sale = new Sale();
   currentBid: Bid;
   currentQuestion: Faq = new Faq();
+  questionFilter: QuestionFilter = QuestionFilter.ALL;
   answer: string;
   loaded: boolean = false;
   modals: Modals = new Modals();
@@ -41,6 +43,7 @@ export class UserSalesRunningComponent implements OnInit {
     public router: Router,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    public productQuestionManager: ProductQuestionManagerService,
     public purchaseManager: PurchaseManagerService,
     public productManager: ProductManagerService,
     protected route: ActivatedRoute,
@@ -55,6 +58,7 @@ export class UserSalesRunningComponent implements OnInit {
     this.modals.addModal('acceptOffer');
     this.modals.addModal('declineOffer');
     this.modals.addModal('answer-question');
+    this.modals.addModal('product-questions');
   }
 
   ngOnInit(): void {

@@ -1,3 +1,4 @@
+import { Faq } from 'src/app/models/faq';
 import { RequestService } from 'src/app/services/request.service';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Sale } from 'src/app/models/sale';
@@ -7,7 +8,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SaleManagerService {
-
   constructor(
     public bidManager: BidManagerService,
     private request: RequestService)

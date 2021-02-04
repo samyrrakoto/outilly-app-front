@@ -30,28 +30,6 @@
 
               </mat-panel-description>
 
-              <!-- Questions about product -->
-              <div class="content">
-                <h2 *ngIf="sale.product.validQuestions.length > 0" class="subtitle">Questions posées</h2>
-
-                <mat-accordion>
-                  <mat-expansion-panel *ngFor="let question of sale.product.validQuestions">
-                    <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      {{ question.question }}
-                      <span class="tag is-danger is-light small-text small-left-margin" *ngIf="!question.answer">&nbsp;Non répondu</span>
-                      <span class="tag is-success is-light small-text small-left-margin" *ngIf="question.answer">&nbsp;Répondu</span>
-                    </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <span *ngIf="question.answer">
-                      {{ question.answer }}
-                    </span>
-
-                    <button *ngIf="!question.answer" class="button is-danger is-small" (click)="currentQuestion=question; modals.open('answer-question')">Répondre à cette question</button>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </div>
-
               <!-- Displayed when sale is running -->
               <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
                 <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
@@ -102,7 +80,16 @@
                 <div *ngIf="sale.status !== 'new'" [innerHTML]=wording.NO_PROPOSITION></div>
               </div>
 
-              <a class="product-page" [href]="url.getProductRoute(sale.id, sale.product.slug, true)" [routerLink]="url.getProductRoute(sale.id, sale.product.slug)">Accéder à la page du produit</a>
+              <nav class="level">
+                <div class="level-left">
+                  <a class="product-page" [href]="url.getProductRoute(sale.id, sale.product.slug, true)" [routerLink]="url.getProductRoute(sale.id, sale.product.slug)">Accéder à la page du produit</a>
+                </div>
+
+                <div *ngIf="sale.product.validQuestions.length > 0" class="level-right">
+                  <button *ngIf="!saleManager.hasNonAnsweredQuestions(sale)" class="button is-dark is-small" (click)="currentSale = sale; modals.open('product-questions')">Questions posées</button>
+                  <button *ngIf="saleManager.hasNonAnsweredQuestions(sale)" class="button is-danger is-small" (click)="currentSale = sale; modals.open('product-questions')">Questions en attente</button>
+                </div>
+              </nav>
 
               <div class="content bid-date has-text-left discreet-text">
                 <fa-icon [icon]="['fas', 'clock']"></fa-icon>
@@ -186,6 +173,43 @@
   <button class="modal-close is-large addlittlespaceabove" aria-label="close" (click)="modals.close('counterOfferConfirmation')"></button>
 </div>
 
+<!-- User questions modal -->
+<div class="modal {{ modals.get('product-questions') }} padded">
+  <div class="modal-background" (click)="modals.close('product-questions')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 *ngIf="currentSale && currentSale.product.validQuestions.length > 0" class="subtitle">Répondre aux questions</h2>
+
+      <div class="content discreet-text">
+        Les questions et réponses seront publiées et visibles par tous
+      </div>
+
+      <div class="buttons">
+        <button class="button is-dark is-outlined" (click)="questionFilter = productQuestionManager.setQuestionFilter('ALL')">Toutes</button>
+        <button class="button is-danger is-outlined" (click)="questionFilter = productQuestionManager.setQuestionFilter('WAITING')">En attente</button>
+        <button class="button is-success is-outlined" (click)="questionFilter = productQuestionManager.setQuestionFilter('ALREADY_ANSWERED')">Déjà répondues</button>
+      </div>
+
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let question of productQuestionManager.getFilteredQuestions(currentSale.product.validQuestions, questionFilter)">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span [ngClass]="{ 'declined': !question.answer }">{{ question.question }}</span>
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span *ngIf="question.answer">
+            {{ question.answer }}
+          </span>
+
+          <button *ngIf="!question.answer" class="button is-danger is-small" (click)="currentQuestion=question; modals.open('answer-question')">Répondre à cette question</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <button (click)="modals.close('product-questions')" class="modal-close is-large" aria-label="close"></button>
+  </div>
+</div>
+
+<!-- Question answer modal -->
 <div class="modal {{ modals.get('answer-question') }}">
   <div class="modal-background" (click)="modals.close('answer-question')"></div>
   <div class="modal-content">
