@@ -25,8 +25,10 @@ export class PredefinedQuestionComponent extends GenericComponent implements OnI
   }
 
   ngOnInit(): void {
-    this.answeredQuestions = this.productManager.getAnsweredQuestions(this.sale.product.validQuestions);
     this.productManager.getGenericQuestions()
-      .then((faq: any) => { this.genericQuestions = faq });
+      .then((faq: any) => {
+        this.genericQuestions = faq;
+        this.answeredQuestions = this.productManager.getAnsweredQuestions(this.sale.product.validQuestions);
+      });
   }
 }
