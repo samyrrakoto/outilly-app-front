@@ -38,7 +38,8 @@
               "./node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/googleApi.js",
               "src/assets/js/mondialRelay.js",
-              "src/assets/js/leaflet.js"
+              "src/assets/js/leaflet.js",
+              "./node_modules/@egjs/hammerjs/dist/hammer.js"
             ]
           },
           "configurations": {
