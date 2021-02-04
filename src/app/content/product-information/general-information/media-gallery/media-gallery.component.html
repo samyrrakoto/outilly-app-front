@@ -61,7 +61,11 @@
         </div>
 
         <div class="level-item">
-          <span class="accepted">{{ currentMediaIndex + 1 }}</span>&nbsp;/&nbsp;{{ sale.product.productMedias.length }}
+          <!--<span class="accepted">{{ currentMediaIndex + 1 }}</span>&nbsp;/&nbsp;{{ sale.product.productMedias.length }}-->
+          <span *ngFor="let media of sale.product.productMedias; index as i">
+            <fa-icon [icon]="['far','dot-circle']" *ngIf="currentMediaIndex === i; else otherDots" class="dot-slider dot-slider-current"></fa-icon>
+            <ng-template #otherDots><fa-icon [icon]="['fas','circle']" class="dot-slider"></fa-icon></ng-template>
+          </span>
         </div>
 
         <div class="level-right">

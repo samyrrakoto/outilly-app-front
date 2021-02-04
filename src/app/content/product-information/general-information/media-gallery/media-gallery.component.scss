@@ -135,3 +135,14 @@ figure img {
 .modal-background {
   backdrop-filter: blur(3px);
 }
+
+.dot-slider {
+  font-size: 7px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.dot-slider-current {
+  font-size: 15px;
+  color: var(--KTKP-GREEN);
+}
