@@ -1,3 +1,9 @@
+import { ProductQuestionManagerService, QuestionFilter } from 'src/app/services/product-question-manager.service';
+import { UrlService } from 'src/app/services/url.service';
+import { questions } from 'src/app/parameters';
+import { FormBuilder } from '@angular/forms';
+import { Faq } from 'src/app/models/faq';
+import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { wording } from 'src/app/wording';
 import { Bid } from 'src/app/models/bid';
 import { Modals } from 'src/app/models/modals';
@@ -20,28 +26,39 @@ import { SaleManagerService } from 'src/app/services/sale-manager.service';
 })
 export class UserSalesRunningComponent implements OnInit {
   readonly wording: any = wording.DASHBOARD.ACTIVITY.RUNNING_SALES;
+  readonly maxAnswerLength: number = questions.MAX_ANSWER_LENGTH;
   runningSales: Array<Sale>;
   counterOfferAmount: number;
-  currentSale: Sale;
+  currentSale: Sale = new Sale();
   currentBid: Bid;
+  currentQuestion: Faq = new Faq();
+  questionFilter: QuestionFilter = QuestionFilter.ALL;
+  answer: string;
   loaded: boolean = false;
   modals: Modals = new Modals();
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public auth: AuthService,
     public router: Router,
     public bidManager: BidManagerService,
     public saleManager: SaleManagerService,
+    public productQuestionManager: ProductQuestionManagerService,
     public purchaseManager: PurchaseManagerService,
+    public productManager: ProductManagerService,
     protected route: ActivatedRoute,
     protected notification: NotificationService,
     protected location: Location,
-    public title: Title)
+    public title: Title,
+    public formBuilder: FormBuilder,
+    public url: UrlService)
   {
     this.modals.addModal('counterOffer');
     this.modals.addModal('counterOfferConfirmation');
     this.modals.addModal('acceptOffer');
     this.modals.addModal('declineOffer');
+    this.modals.addModal('answer-question');
+    this.modals.addModal('product-questions');
   }
 
   ngOnInit(): void {

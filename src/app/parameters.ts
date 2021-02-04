@@ -3,10 +3,14 @@ export const pageInfo = {
   PAGE_NAME_SEPARATOR: ' - ',
 };
 
+export const staticLinks = {
+  BLOG_URI: 'https://blog.outilly.com'
+};
+
 export const user = {
   MIN_AGE: 18,
   MAX_AGE: 100
-}
+};
 
 export const prices = {
   MIN_PRICE_FACTOR: 0.62,
@@ -17,6 +21,11 @@ export const prices = {
 
 export const contact = {
   MAX_MESSAGE_LENGTH: 2000
+};
+
+export const questions = {
+  MAX_QUESTION_LENGTH: 100,
+  MAX_ANSWER_LENGTH: 600
 };
 
 export const country = {

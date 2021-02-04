@@ -1,6 +1,6 @@
 import { browser } from 'protractor';
 import { environment } from 'src/environments/environment';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -161,6 +161,15 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { InterpolationPipe } from './pipes/interpolation.pipe';
+import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import Hammer from '@egjs/hammerjs';
+
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any> {
+    swipe: { direction: Hammer.DIRECTION_ALL },
+  };
+}
 
 @NgModule({
   declarations: [
@@ -320,6 +329,7 @@ import { InterpolationPipe } from './pipes/interpolation.pipe';
     MatExpansionModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    HammerModule,
     NgAisModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -338,7 +348,11 @@ import { InterpolationPipe } from './pipes/interpolation.pipe';
       useClass: AuthHttpInterceptorService,
       multi: true
     },
-    CookieService
+    CookieService,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

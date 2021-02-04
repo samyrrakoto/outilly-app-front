@@ -2,6 +2,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { staticLinks } from 'src/app/parameters';
 
 @Component({
   selector: 'app-menu',
@@ -12,6 +13,7 @@ export class MenuComponent implements OnInit {
   @ViewChild('navBurger') navBurger: ElementRef;
   @ViewChild('navBarMenu') navBarMenu: ElementRef;
   categories: ProductCategory[] = [];
+  blogUri = staticLinks.BLOG_URI;
 
   constructor(
     private request: RequestService,

@@ -1,5 +1,54 @@
 <h2 class="subtitle is-5 has-text-weight-bold">Une question ?</h2>
 
 <div class="content">
-    <button class="button is-danger is-outlined no-overflow" [routerLink] = "['/product/', id]" fragment="predefined-questions">Poser une question au vendeur</button>
+  <button (click)="modals.open('ask-question')" class="button is-danger is-outlined no-overflow">Poser une question au vendeur</button>
+</div>
+
+<!-- MODALS -->
+
+<div class="modal {{ modals.get('ask-question') }} padded">
+  <div class="modal-background" (click)="modals.close('ask-question')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Poser une question au vendeur</h2>
+
+      <!-- If a user is logged he can ask a question -->
+      <ng-container *ngIf="auth.isLogged()">
+        <div class="content discreet-text">
+          Maximum {{ maxQuestionLength }} caractères
+        </div>
+
+        <div class="content">
+          <form [formGroup]="form">
+            <textarea formControlName="userQuestion" class="textarea" [maxlength]=maxQuestionLength placeholder="Posez-votre question ici" [(ngModel)]="userQuestion"></textarea>
+          </form>
+        </div>
+
+        <div *ngIf="controls.userQuestion.errors && userQuestion" class="content error">
+          <span *ngIf="controls.userQuestion.errors.maxlength">Le message ne peut pas excéder {{ maxQuestionLength }}</span>
+        </div>
+
+        <div *ngFor="let errorMessage of productManager.errorMessages.errorMessages" class="message is-danger">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="productManager.questionSent" class="notification is-success">
+          Votre question a bien été envoyée !
+        </div>
+
+        <div *ngIf="!productManager.questionSent" class="content">
+          <button *ngIf="!controls.userQuestion.errors" class="button is-success" (click)="productManager.askQuestion(productId, userQuestion)">Envoyer la question</button>
+          <button *ngIf="controls.userQuestion.errors" class="button is-light">Envoyer la question</button>
+        </div>
+      </ng-container>
+
+      <!-- If a user is NOT logged -->
+      <ng-container *ngIf="!auth.isLogged()">
+        <a [href]="url.getLoginRoute(true)" [routerLink]="url.getLoginRoute()" (click)="auth.setRedirectionUrl(router.url)">
+          <button class="button is-success no-overflow">Veuillez vous connecter pour poser une question</button>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('ask-question')"></button>
 </div>
