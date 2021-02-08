@@ -70,6 +70,10 @@
   color: var(--MAT-GREY);
 }
 
+.yellow {
+  color: var(--KTKP-YELLOW) !important;
+}
+
 /* Tags definition */
 
 .small-title {

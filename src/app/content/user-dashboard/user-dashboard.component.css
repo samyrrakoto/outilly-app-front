@@ -129,32 +129,32 @@ mat-panel-description {
   margin-right: 10px;
 }
 
-.green {
+.acceptance {
   border-top: solid 4px var(--KTKP-GREEN);
   transition: 0.5s;
 }
 
-.yellow {
+.counter-offering {
   border-top: solid 4px var(--KTKP-BLUE-DARKER);
   transition: 0.5s;
 }
 
-.red {
+.declinance {
   border-top: solid 4px var(--KTKP-RED);
   transition: 0.5s;
 }
 
-.green:hover {
+.acceptance:hover {
   background-color: var(--KTKP-GREEN);
   opacity: 0.75;
 }
 
-.yellow:hover {
+.counter-offering:hover {
   background-color: var(--KTKP-BLUE-DARKER);
   opacity: 0.75;
 }
 
-.red:hover {
+.declinance:hover {
   background-color: var(--KTKP-RED);
   opacity: 0.75;
 }

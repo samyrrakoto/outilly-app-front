@@ -12,15 +12,16 @@
     <div class="box">
       <h2 class="subtitle">Poser une question au vendeur</h2>
 
+      <div class="content discreet-text">
+        <fa-icon class="yellow" [icon]="['fas', 'exclamation-triangle']"></fa-icon> Les questions et réponses seront publiées et visibles de tous.
+      </div>
+
       <!-- If a user is logged he can ask a question -->
       <ng-container *ngIf="auth.isLogged()">
-        <div class="content discreet-text">
-          Maximum {{ maxQuestionLength }} caractères
-        </div>
-
         <div class="content">
           <form [formGroup]="form">
-            <textarea formControlName="userQuestion" class="textarea" [maxlength]=maxQuestionLength placeholder="Posez-votre question ici" [(ngModel)]="userQuestion"></textarea>
+            <input formControlName="userQuestion" class="input" [maxlength]=maxQuestionLength placeholder="Ex : Le produit est-il d'origine, sans modification ?" [(ngModel)]="userQuestion">
+            <span class="has-text-left discreet-text">{{ userQuestion.length }} caractères / 100 maximum</span>
           </form>
         </div>
 
