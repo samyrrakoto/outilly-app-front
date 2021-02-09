@@ -8,8 +8,9 @@
   font-size: 2.2em;
 }
 
-.incentive h2 {
-  min-height: 60px;
+.columns.is-mobile {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .incentive .subtitle {
