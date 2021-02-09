@@ -1,3 +1,5 @@
+import { Address } from 'src/app/models/address';
+import { UserManagerService } from 'src/app/services/user-manager.service';
 import { ArrayToolbox } from 'src/app/models/array-toolbox';
 import { staticStates } from 'src/app/parameters';
 import { Component, OnInit, Input } from '@angular/core';
@@ -22,18 +24,22 @@ export class GeneralInformationComponent extends GenericComponent implements OnI
   descriptionFlag: boolean = false;
   mapUrl: string = '';
   modals: Modals;
+  userLocality: string = '';
   arrayToolbox: ArrayToolbox = new ArrayToolbox();
   readonly states: string[] = staticStates;
   readonly maxVisibleLength: number = 255;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public router: Router,
-    private route: ActivatedRoute,
     public bidManager: BidManagerService,
     public auth: AuthService,
-    public saleManager: SaleManagerService)
+    public saleManager: SaleManagerService,
+    private userManager: UserManagerService)
   {
     super();
+    this.userManager.getUserAddress()
+      .then((address: Address) => { this.userLocality = address.zipcode });
     this.modals = new Modals();
     this.modals.addModal('knowMore');
   }
@@ -45,7 +51,12 @@ export class GeneralInformationComponent extends GenericComponent implements OnI
   }
 
   public getMapUrl(): string {
-    return 'http://google.fr/maps/place/' + this.sale.product.locality;
+    if (this.auth.isLogged() && this.userLocality !== '') {
+      return 'https://www.google.fr/maps/dir/' + this.userLocality + '/' + this.sale.product.locality;
+    }
+    else {
+      return 'https://www.google.fr/maps/place/' + this.sale.product.locality;
+    }
   }
 
   public goToBrandProduct(brandId: number): void {

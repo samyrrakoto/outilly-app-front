@@ -51,7 +51,7 @@
           </tr>
           <tr>
             <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Où ?</td>
-            <td><a [href]="getMapUrl()" rel="noopener" target="_blank">{{ this.sale.product.locality }}</a></td>
+            <td><a [href]="getMapUrl()" rel="noopener" title="Itinéraire via Google Maps" target="_blank">{{ this.sale.product.locality }}<fa-icon class="side-icon-right red" [icon]="['fas', 'map-marked-alt']"></fa-icon></a></td>
           </tr>
         </table>
       </div>

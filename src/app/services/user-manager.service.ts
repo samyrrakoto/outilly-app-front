@@ -32,15 +32,25 @@ export class UserManagerService {
   public getUserId(): Promise<number> {
     return new Promise((resolve)=> {
       if (this.auth.isLogged()) {
-      this.request.getUserInfos().subscribe(
-        (user: any) => {
-          resolve(user.id)
-        }
-      );
+        this.request.getUserInfos().subscribe(
+          (user: any) => {
+            resolve(user.id)
+          }
+        );
       }
       else {
         resolve(-1);
       }
+    });
+  }
+
+  public getUserAddress(): Promise<Address> {
+    return new Promise((resolve)=> {
+      this.request.getUserInfos().subscribe(
+        (user: User) => {
+          resolve(user.userProfile.mainAddress);
+        }
+      );
     });
   }
 
