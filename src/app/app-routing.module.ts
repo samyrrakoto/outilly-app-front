@@ -77,6 +77,7 @@ import { Error404Component } from './content/error404/error404.component';
 import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-confirmed/user-sales-confirmed.component';
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
+import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
 
 const routes: Routes = [
   {
@@ -274,6 +275,10 @@ const routes: Routes = [
         component: ConfirmationComponent
       }
     ]
+  },
+  {
+    path: 'introduction',
+    component: IntroductionComponent
   },
   {
     path: 'product/create',
