@@ -37,3 +37,9 @@ h1 {
   border-bottom-left-radius: 50px;
   margin-left: -15px;
 }
+
+@media screen and (max-width: 768px) {
+  #slogan-container {
+    margin-bottom: -15px;
+  }
+}

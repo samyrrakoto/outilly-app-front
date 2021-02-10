@@ -8,6 +8,15 @@ export class UrlService {
 
   constructor() { }
 
+  public getRoute(route: string, href: boolean = false): string {
+    if (href) {
+      return environment.mediaBaseUri + '/' + route;
+    }
+    else {
+      return '/' + route;
+    }
+  }
+
   public getProductRoute(saleId: number, slug: string, href: boolean = false): string {
     const uri: string = '/product/' + slug + '/' + saleId;
 

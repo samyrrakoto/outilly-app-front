@@ -38,6 +38,10 @@
   font-weight: bold;
 }
 
+.bolder {
+  font-weight: 1000;
+}
+
 .italic {
   font-style: italic;
 }
@@ -195,6 +199,10 @@
 
 .side-icon {
   margin-right: 10px;
+}
+
+.side-icon-right {
+  margin-left: 10px;
 }
 
 .spacer {

@@ -163,6 +163,8 @@ import { PopUpComponent } from './pop-up/pop-up.component';
 import { InterpolationPipe } from './pipes/interpolation.pipe';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import Hammer from '@egjs/hammerjs';
+import { ConstructionCallToActionComponent } from './content/homepage/construction-call-to-action/construction-call-to-action.component';
+import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -318,6 +320,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     GetBackComponent,
     PopUpComponent,
     InterpolationPipe,
+    ConstructionCallToActionComponent,
+    IntroductionComponent,
   ],
   imports: [
     HttpClientModule,

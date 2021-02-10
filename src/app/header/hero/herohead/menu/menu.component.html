@@ -38,7 +38,7 @@
                 </div>
 
                 <div id="start-to-sell" class="navbar-item">
-                    <a class="button is-success" href="/product/create" (click)="toggleNavbar()" routerLink="/product/create">{{ "vendre gratuitement" | uppercase }}</a>
+                    <a class="button is-success" (click)="toggleNavbar()" [href]="urlService.getRoute('search', true)" [routerLink]="urlService.getRoute('search')">Accéder au catalogue</a>
                 </div>
             </div>
         </div>
