@@ -37,7 +37,7 @@ export class AppComponent {
   url: string = '';
   toDisplay: boolean = true;
   toDisplayMenu: boolean = true;
-  readonly noHeaderUrl: string[] = ['product/create', 'onboarding'];
+  readonly noHeaderUrl: string[] = ['product/create', 'onboarding', 'introduction'];
   readonly noMenuUrl: string[]= ['home'];
   readonly typeformPopUp: any = typeform;
   static isBrowser = new BehaviorSubject<boolean>(null);
