@@ -1,4 +1,4 @@
-import { UrlService } from './../../../../services/url.service';
+import { UrlService } from 'src/app/services/url.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { RequestService } from 'src/app/services/request.service';
