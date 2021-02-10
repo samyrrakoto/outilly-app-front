@@ -6,47 +6,28 @@
     [buttonHidden]=true>
   </app-search-box>
 
-  <div class="container has-text-centered">
-    <h1 class="subtitle">Faites de la place,</h1>
-    <h1 class="title">Revendez votre matériel.</h1>
-    <p>
-      Sur {{ brandName }}, achetez et revendez du matériel de seconde main en toute sécurité.
-    </p>
-  </div>
-
-  <div class="content category has-text-centered has-text-white">
-    <a [href]="categoryService.getCategoryRoute(1, true)" [routerLink]="categoryService.getCategoryRoute(1)">
-      <div class="content">
-        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'wrench']"></fa-icon>
-        <div class="content hero-label">
-          Mécanique
-        </div>
-      </div>
-    </a>
-
-    <a [href]="categoryService.getCategoryRoute(3, true)" [routerLink]="categoryService.getCategoryRoute(3)">
-      <div class="content">
-        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'seedling']"></fa-icon>
-        <div class="content hero-label">
-          Jardin
-        </div>
-      </div>
-    </a>
-
-    <a [href]="categoryService.getCategoryRoute(2, true)" [routerLink]="categoryService.getCategoryRoute(2)">
-      <div class="content">
-        <fa-icon class="hero-icon huge-icon" [icon]="['fas', 'hammer']"></fa-icon>
-        <div class="content hero-label">
-          Habitat
-        </div>
-      </div>
-    </a>
+  <div id="promise-title-container" class="container has-text-centered">
+    <h1 id="promise-title" class="title">Prêt(e) à bricoler ?</h1>
+    <p class="is-hidden-mobile">Ici, vous pouvez revendre et acheter du matériel de seconde main.</p>
   </div>
 
   <div id="call-to-action" class="box has-text-centered">
-    <a routerLink="/product/create" class="button is-large is-success">Vendre gratuitement</a>
-    <div id="how-it-works">
-      <a href="" routerLink="/faq"><u>Comment ça marche ?</u></a>
+    <div class="columns is-centered">
+      <div class="column is-4">
+
+        <p class="discreet-text is-hidden-mobile">Achetez votre matériel simplement en toute sécurité</p>
+        <p class="discreet-text is-hidden-tablet">Ici, vous pouvez revendre et acheter du matériel de seconde main.</p>
+        <a routerLink="/search" class="button is-large is-success no-overflow addspacebelow">Accéder au catalogue</a>
+      </div>
+
+      <div class="column is-4">
+        <p class="discreet-text">Professionnel(le)s, transformez vos stocks en trésorerie</p>
+        <a routerLink="/product/create" class="button is-large is-warning no-overflow">Essayer gratuitement</a>
+      </div>
+    </div>
+
+    <div id="how-it-works" class="is-hidden-mobile">
+      <a href="" routerLink="/onboarding"><u>Rejoindre la communauté</u></a>
     </div>
   </div>
 </div>
