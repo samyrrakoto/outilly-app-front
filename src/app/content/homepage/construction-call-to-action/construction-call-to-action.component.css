@@ -1,0 +1,21 @@
+img#construction {
+  max-height: 300px;
+  width: auto;
+}
+
+@media screen and (max-width: 768px) {
+  #construction-content {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #construction-slogan {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  img#construction {
+    height: 200px;
+    width: auto;
+  }
+}

@@ -1,3 +1,4 @@
+import { UrlService } from 'src/app/services/url.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductCategory } from 'src/app/models/product-category';
 import { RequestService } from 'src/app/services/request.service';
@@ -17,7 +18,8 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private request: RequestService,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    public urlService: UrlService
   ) { }
 
   ngOnInit(): void {

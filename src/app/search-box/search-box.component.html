@@ -6,12 +6,12 @@
         <span class="icon is-small is-right">
           <fa-icon (click)="goToSearch(search.value)" class="green is-pointable pointed" [icon]="['fas', 'search']"></fa-icon>
         </span>
-        <button *ngIf="!buttonHidden" class="button is-danger is-hidden-mobile no-overflow" (click)="goToSearch(search.value)">{{ searchTitle }}</button>
+        <button *ngIf="!buttonHidden" class="button is-success is-hidden-mobile no-overflow" (click)="goToSearch(search.value)">{{ searchTitle }}</button>
       </p>
     </div>
 
     <div *ngIf="!buttonHidden" class="content addspacebelow">
-      <button class="button is-danger is-hidden-tablet no-overflow" (click)="goToSearch(search.value)">Rechercher</button>
+      <button class="button is-success is-hidden-tablet no-overflow" (click)="goToSearch(search.value)">Rechercher</button>
     </div>
   </div>
 </div>
