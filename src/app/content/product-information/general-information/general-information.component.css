@@ -4,6 +4,10 @@
     width: auto;
 }
 
+#map-link:hover {
+  color: var(--KTKP-RED);
+}
+
 #product-name, #brands {
     margin-bottom: 40px;
 }

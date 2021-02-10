@@ -51,7 +51,7 @@
           </tr>
           <tr>
             <td><fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> Où ?</td>
-            <td><a [href]="getMapUrl()" rel="noopener" title="Itinéraire via Google Maps" target="_blank">{{ this.sale.product.locality }}<fa-icon class="side-icon-right red" [icon]="['fas', 'map-marked-alt']"></fa-icon></a></td>
+            <td><a [href]="getMapUrl()" rel="noopener" title="Itinéraire via Google Maps" target="_blank">{{ this.sale.product.locality }}<span id="map-link" class="discreet-text"> (<span class="underline">voir sur Maps</span>)</span></a></td>
           </tr>
         </table>
       </div>
