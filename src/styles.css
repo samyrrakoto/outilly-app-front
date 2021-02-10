@@ -38,6 +38,10 @@
   font-weight: bold;
 }
 
+.bolder {
+  font-weight: 1000;
+}
+
 .italic {
   font-style: italic;
 }
