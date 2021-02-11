@@ -39,7 +39,6 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
     this.formData.fieldName = "productCategory";
     this.stepNb = 4;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
-    this.stepSubtitle = 'Vous pouvez choisir jusqu\'à 2 catégories';
     this.path.current = "product-category";
     this.path.previous = "product-consumable";
     this.path.next = "product-brand";
@@ -67,7 +66,9 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
       this.request.getData(this.request.uri.CATEGORIES).subscribe(
         (categories: any) => {
           for (const category of categories) {
-            this.categories.push({'label': category.label, 'id': category.id});
+            if (category.label !== 'Atelier') {
+              this.categories.push({'label': category.label, 'id': category.id});
+            }
           }
           resolve();
         });
@@ -77,16 +78,16 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
   public setFocus(category: any): void {
       if (document.getElementById(category.label).classList.contains('chosen-tile')) {
         document.getElementById(category.label).classList.remove('chosen-tile');
-        this.removeProductCategory(category.label);
+        this.product.productCategories = [category];
+        this.nextOn = true;
       }
       else {
         if (this.chosenCategories < this.maxCategories && !this.hasCategory(category.label)) {
           document.getElementById(category.label).classList.add('chosen-tile');
-          this.addProductCategory(category);
-          if (this.chosenCategories === this.maxCategories) {
+          this.product.productCategories = [category];
+
             this.additionalControls = true;
             this.nextOn = true;
-          }
           if (this.product.productCategories.length > 0) {
             this.additionalControls = true;
           }

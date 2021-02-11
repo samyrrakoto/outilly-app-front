@@ -36,7 +36,7 @@ export class ProductWeightComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productWeight";
     this.stepNb = 12;
-    this.stepName = "Combien pèse votre colis emballé (en kg) ?";
+    this.stepName = "Pour la livraison, combien pèse votre colis emballé (en kg) ?";
     this.path.previous = "product-delivery";
     this.path.current = 'product-weight';
     this.path.next = "is-warrantied";

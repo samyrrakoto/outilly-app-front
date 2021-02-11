@@ -41,10 +41,10 @@ export class ProductBrandComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
     this.stepNb = 5;
-    this.stepName = "Quelle est la marque de votre produit ?";
+    this.stepName = "Sélectionnez les marques de votre produit";
     this.path.current = "product-brand";
     this.path.previous = "product-category";
-    this.path.next = this.formData.product.isConsumable ? "product-reference" : "product-type";
+    this.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
     this.brands = [];
   }

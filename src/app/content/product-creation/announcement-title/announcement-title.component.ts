@@ -38,7 +38,8 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announcementTitle";
     this.stepNb = 1;
-    this.stepName = "Donnez un titre à votre annonce";
+    this.stepName = "Que souhaitez-vous vendre ?";
+    this.stepSubtitle = "Titre de votre annonce";
     this.path.current = "announcement-title";
     this.path.previous = "";
     this.path.next = "media-upload";

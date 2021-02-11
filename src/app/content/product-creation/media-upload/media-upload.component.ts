@@ -22,6 +22,7 @@ import { media } from 'src/app/parameters';
 })
 export class MediaUploadComponent extends StepForm implements OnInit, OnChanges {
   readonly mediaBaseUri: string = environment.mediaBaseUri;
+  readonly minNbPictures: number = media.MIN_UPLOAD_PICTURES;
   readonly maxNbPictures: number = media.MAX_UPLOAD_PICTURES;
   readonly picturesFormatAccepted: string = media.PICTURES_FORMAT_ACCEPTED;
   readonly root: string = 'product/create/';
@@ -53,10 +54,10 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
     this.formData.fieldName = "mediaUpload";
     this.stepNb = 2;
     this.stepName = "Téléchargez vos photos";
-    this.stepSubtitle = "Sur " + pageInfo.BRAND_NAME + ", on n'est pas radin : c'est 3 photos minimum… et jusqu'à 10 ! (.jpeg, .jpg, .png)";
+    this.stepSubtitle = "Vous pouvez télécharger jusqu'à " + this.maxNbPictures + " photos ! (.jpeg, .jpg, .png)";
     this.path.current = "media-upload";
     this.path.previous = "announcement-title";
-    this.path.next = "product-consumable";
+    this.path.next = "product-category";
     this.isMandatory = false;
     this.previews = [];
     this.isLoading = false;
@@ -70,7 +71,7 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
   }
 
   private checkAdditionalControls(): boolean {
-    if (this.product.productMedias.length >= 3 && this.product.productMedias.length <= 10) {
+    if (this.product.productMedias.length >= this.minNbPictures && this.product.productMedias.length <= this.maxNbPictures) {
       return true;
     }
     else {

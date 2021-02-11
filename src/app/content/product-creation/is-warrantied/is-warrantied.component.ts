@@ -33,7 +33,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "isWarrantied";
     this.stepNb = 13;
-    this.stepName = "Si vous êtes professionnel, appliquez-vous une garantie à ce produit ?";
+    this.stepName = "Appliquez-vous une garantie ?";
     this.path.previous = 'product-weight';
     this.path.next = 'warranty-duration';
   }

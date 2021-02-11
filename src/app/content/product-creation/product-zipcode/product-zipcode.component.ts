@@ -37,11 +37,11 @@ export class ProductZipcodeComponent extends StepForm implements OnInit {
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productZipcode";
     this.stepNb = 10;
-    this.stepName = "Votre code postal ?";
-    this.stepSubtitle = "Pour savoir où se trouve le produit."
+    this.stepName = "Où récupérer votre produit ?";
+    this.stepSubtitle = "Là où l'acheteur devra se rendre pour le récupérer en mains propres."
     this.path.current = "product-zipcode";
     this.path.previous = "product-description";
-    this.path.next = "product-delivery";
+    this.path.next = "product-weight";
     this.placeholder = "93500";
   }
 
