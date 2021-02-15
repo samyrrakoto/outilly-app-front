@@ -7,6 +7,6 @@
       {{ faq.question }}
     </mat-panel-title>
     </mat-expansion-panel-header>
-    <span [innerHtml]=faq.answer></span>
+    <span [innerHtml]="faq.answer | interpolation:this"></span>
   </mat-expansion-panel>
 </mat-accordion>

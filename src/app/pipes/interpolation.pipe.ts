@@ -19,7 +19,7 @@ export class InterpolationPipe implements PipeTransform {
   private findInterpolations(str: string): string[] {
     const regex: RegExp = new RegExp(/\{\{[a-zA-Z. ]+\}\}/g);
 
-    return str.match(regex);
+    return str.match(regex) ? str.match(regex) : [];
   }
 
   private getAttributeName(interpolation: string): string {

@@ -31,4 +31,8 @@ export class PredefinedQuestionComponent extends GenericComponent implements OnI
         this.answeredQuestions = this.productManager.getAnsweredQuestions(this.sale.product.validQuestions);
       });
   }
+
+  test(): void {
+    console.log('test');
+  }
 }
