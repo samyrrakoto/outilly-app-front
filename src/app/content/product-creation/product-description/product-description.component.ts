@@ -1,11 +1,8 @@
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
-import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
@@ -16,32 +13,25 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 })
 export class ProductDescriptionComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
-  product: Product;
   readonly maxLength: number = 650;
   readonly minLength: number = 20;
+  product: Product;
   form: FormGroup;
 
   constructor(
-    public request: RequestService,
     public formData: FormDataService,
-    public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title,
     public formBuilder: FormBuilder)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'product-description');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productDescription";
-    this.stepNb = 9;
     this.stepName = "Apportez des précisions à votre annonce";
     this.stepSubtitle = "Expliquez avec le plus de détails possibles ce que vous vendez pour éviter les mauvaises surprises. N'oubliez pas que l'acheteur compte sur ces détails pour se décider à acheter !";
-    this.path.current = "product-description";
-    this.path.previous = "product-state";
-    this.path.next = "product-zipcode";
     this.placeholder = "";
   }
 

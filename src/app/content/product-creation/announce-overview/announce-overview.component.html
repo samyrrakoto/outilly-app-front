@@ -25,12 +25,6 @@
     <td class="has-text-right"><button routerLink="/product/create/reserve-price" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td class="field-name">Consommable</td>
-    <td *ngIf="formData.product.isConsumable">Oui</td>
-    <td *ngIf="!formData.product.isConsumable">Non</td>
-    <td class="has-text-right"><button routerLink="/product/create/product-consumable" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
-  <tr>
     <td class="field-name">Marques</td>
     <td>
       <ul>
@@ -40,22 +34,13 @@
     <td class="has-text-right"><button routerLink="/product/create/product-brand" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
-    <td class="field-name">Catégories</td>
+    <td class="field-name">Catégorie</td>
     <td>
       <ul>
         <li *ngFor="let category of formData.product.productCategories">{{ category.id | category }}</li>
       </ul>
     </td>
     <td class="has-text-right"><button routerLink="/product/create/product-category" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
-  <tr>
-    <td class="field-name">Types</td>
-    <td>
-      <ul>
-        <li *ngFor="let type of formData.product.productTypes">{{ type.label }}</li>
-      </ul>
-    </td>
-    <td class="has-text-right"><button routerLink="/product/create/product-type" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>
     <td class="field-name">Etat</td>
@@ -92,20 +77,15 @@
   <tr>
     <td colspan="3"><h2 class="subtitle">Livraison</h2></td>
   </tr>
-  <tr>
-    <td class="field-name">Livraison</td>
-    <td *ngIf="formData.product.toDeliver">Oui</td>
-    <td *ngIf="!formData.product.toDeliver">Non</td>
-    <td class="has-text-right"><button routerLink="/product/create/product-delivery" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-  </tr>
   <tr *ngIf="formData.product.toDeliver">
     <td class="field-name">Code postal</td>
     <td>{{ formData.product.locality }}</td>
     <td class="has-text-right"><button routerLink="/product/create/product-zipcode" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
-  <tr *ngIf="formData.product.toDeliver">
+  <tr>
     <td class="field-name">Poids du colis</td>
-    <td>{{ formData.product.weight }}{{ formData.product.weightUnity }}</td>
+    <td *ngIf="!product.weight">Pas de livraison</td>
+    <td *ngIf="product.weight > 0">{{ formData.product.weight }} kg</td>
     <td class="has-text-right"><button routerLink="/product/create/product-weight" class="button is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
   </tr>
   <tr>

@@ -32,9 +32,9 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.warrantyDuration.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.warrantyDuration.errors }">
-  <div class="error" *ngIf="controls.warrantyDuration.errors.required">La durée de garantie est requise</div>
-  <div class="error" *ngIf="controls.warrantyDuration.errors.isEmpty">La durée de garantie est requise</div>
-  <div class="error" *ngIf="controls.warrantyDuration.errors.min">La durée de garantie ne peut pas être négative</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.required">La durée de la garantie est requise</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.isEmpty">La durée de la garantie est requise</div>
+  <div class="error" *ngIf="controls.warrantyDuration.errors.min">La durée de la garantie ne peut pas être négative</div>
 </div>
 
 <app-navigation

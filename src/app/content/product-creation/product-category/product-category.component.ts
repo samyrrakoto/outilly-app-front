@@ -1,12 +1,9 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProductCategory } from 'src/app/models/product-category';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 
 @Component({
@@ -18,18 +15,15 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   product: Product;
   additionalControls: boolean;
-  public categories: Array<any>;
-  private chosenCategories: number;
+  public categories: Array<any> = [];
   readonly maxCategories: number = 2;
 
   constructor(
-    public request: RequestService,
+    private request: RequestService,
     public formData: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
-    public title: Title)
+    public formValidatorService: FormValidatorService)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'product-category');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -37,15 +31,8 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
     this.additionalControls = this.product.productCategories.length !== 0;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productCategory";
-    this.stepNb = 4;
     this.stepName = "Dans quelle catégorie se trouve votre produit ?";
-    this.stepSubtitle = 'Vous pouvez choisir jusqu\'à 2 catégories';
-    this.path.current = "product-category";
-    this.path.previous = "product-consumable";
-    this.path.next = "product-brand";
     this.placeholder = "Commencez à écrire le nom d'une catégorie de produit et sélectionnez-la";
-    this.categories = [];
-    this.chosenCategories = this.product.productCategories.length;
   }
 
   ngOnInit(): void {
@@ -67,7 +54,9 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
       this.request.getData(this.request.uri.CATEGORIES).subscribe(
         (categories: any) => {
           for (const category of categories) {
-            this.categories.push({'label': category.label, 'id': category.id});
+            if (category.label !== 'Atelier') {
+              this.categories.push({'label': category.label, 'id': category.id});
+            }
           }
           resolve();
         });
@@ -75,58 +64,19 @@ export class ProductCategoryComponent extends StepForm implements OnInit {
   }
 
   public setFocus(category: any): void {
-      if (document.getElementById(category.label).classList.contains('chosen-tile')) {
-        document.getElementById(category.label).classList.remove('chosen-tile');
-        this.removeProductCategory(category.label);
-      }
-      else {
-        if (this.chosenCategories < this.maxCategories && !this.hasCategory(category.label)) {
-          document.getElementById(category.label).classList.add('chosen-tile');
-          this.addProductCategory(category);
-          if (this.chosenCategories === this.maxCategories) {
-            this.additionalControls = true;
-            this.nextOn = true;
-          }
-          if (this.product.productCategories.length > 0) {
-            this.additionalControls = true;
-          }
-        }
-      }
-  }
+    this.product.productCategories = [category];
 
-  private addProductCategory(category: any): void {
-    this.product.productCategories.push(new ProductCategory(category.label, category.id));
-    this.chosenCategories++;
-  }
-
-  private removeProductCategory(category: string): void {
-    const pos: number = this.findCategory(category);
-
-    this.chosenCategories--;
-    this.product.productCategories.splice(pos, 1);
-    if (this.product.productCategories.length === 0) {
-      this.additionalControls = false;
+    if (document.getElementById(category.label).classList.contains('chosen-tile')) {
+      document.getElementById(category.label).classList.remove('chosen-tile');
+      this.nextOn = true;
     }
-  }
+    else {
+      document.getElementById(category.label).classList.add('chosen-tile');
+      this.nextOn = true;
 
-  private findCategory(category: string): number {
-    let i: number = 0;
-
-    for (const elem of this.product.productCategories) {
-      if (elem.label === category) {
-        return i;
-      }
-      i++;
-    }
-    return -1;
-  }
-
-  private hasCategory(currentCategory: string): boolean {
-    for (const category of this.product.productCategories) {
-      if (category.label === currentCategory) {
-        return true;
+      if (this.product.productCategories.length > 0) {
+        this.additionalControls = true;
       }
     }
-    return false;
   }
 }
