@@ -2,14 +2,12 @@ import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 
 @Component({
@@ -23,30 +21,23 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   @ViewChild("matOption") matOption: ElementRef;
   product: Product;
   myControl = new FormControl();
-  brands: Array<string>;
+  brands: Array<string> = [];
   filteredOptions: Observable<Array<string>>;
 
   constructor(
-    public request: RequestService,
+    private request: RequestService,
     public formData: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
-    public title: Title)
+    public formValidatorService: FormValidatorService)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'product-brand');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productBrand";
-    this.stepNb = 5;
     this.stepName = "Sélectionnez les marques de votre produit";
-    this.path.current = "product-brand";
-    this.path.previous = "product-category";
-    this.path.next = "product-state";
     this.placeholder = "Commencez à écrire le nom d'une marque et sélectionnez-la";
-    this.brands = [];
   }
 
   ngOnInit(): void {

@@ -3,12 +3,9 @@ import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductMedia } from 'src/app/models/product-media';
-import { Modals } from 'src/app/models/modals';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { HttpEventType } from '@angular/common/http';
 import { media } from 'src/app/parameters';
@@ -24,34 +21,26 @@ export class VideoUploadComponent extends StepForm implements OnInit {
   readonly maxUploadVideos: number = media.MAX_UPLOAD_VIDEOS;
   readonly videoFormatAccepted: string = media.VIDEO_FORMAT_ACCEPTED;
   product: Product;
-  isLoading: boolean;
+  isLoading: boolean = false;
   uploaded: boolean = false;
-  currentMedia: ProductMedia;
-  modals: Modals;
+  currentMedia: ProductMedia = new ProductMedia();
   percentDone: number;
 
   constructor(
-    public request: RequestService,
+    private request: RequestService,
     public formData: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
-    public title: Title)
+    public formValidatorService: FormValidatorService)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'video-upload');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "videoUpload";
-    this.stepNb = 15;
     this.stepName = "Augmentez vos chances de vendre votre produit, prenez-le en vidéo !";
     this.stepSubtitle = "Pas de vidéo ? Passez à l'étape suivante.";
-    this.path.previous = this.formData.product.isWarrantied.toString() === 'true' ? "warranty-duration" : 'is-warrantied';
-    this.path.next = "reserve-price";
-    this.isLoading = false;
-    this.currentMedia = new ProductMedia();
-    this.modals = new Modals();
+    this.path.previous = this.product.isWarrantied ? 'warranty-duration' : 'is-warrantied';
     this.modals.addModal('video-preview');
   }
 

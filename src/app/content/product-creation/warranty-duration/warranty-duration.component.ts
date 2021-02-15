@@ -1,12 +1,9 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product';
-import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 
 @Component({
@@ -20,24 +17,18 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
   form: FormGroup;
 
   constructor(
-    public request: RequestService,
     public formData: FormDataService,
-    public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title,
     public formBuilder: FormBuilder)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'warranty-duration');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "warrantyDuration";
-    this.stepNb = 14;
     this.stepName = "Pendant combien de mois ?";
-    this.path.previous = "is-warrantied";
-    this.path.next = "video-upload";
   }
 
   ngOnInit(): void {

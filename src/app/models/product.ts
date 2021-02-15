@@ -59,7 +59,7 @@ export class Product {
     this.weightUnity = 'kg';
     this.locality = '';
     this.isWarrantied = null;
-    this.toDeliver = null;
+    this.toDeliver = false;
     this.buyingOption = "classic";
     this.warrantyDuration = null;
     this.priceOfNew = null;

@@ -1,16 +1,12 @@
-import { pageInfo } from 'src/app/parameters';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { ProductMedia } from 'src/app/models/product-media';
-import { Modals } from 'src/app/models/modals';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { media } from 'src/app/parameters';
@@ -20,7 +16,7 @@ import { media } from 'src/app/parameters';
   templateUrl: './media-upload.component.html',
   styleUrls: ['../product-creation.component.css', './media-upload.component.css']
 })
-export class MediaUploadComponent extends StepForm implements OnInit, OnChanges {
+export class MediaUploadComponent extends StepForm {
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly minNbPictures: number = media.MIN_UPLOAD_PICTURES;
   readonly maxNbPictures: number = media.MAX_UPLOAD_PICTURES;
@@ -30,39 +26,29 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
   percentDone: number = 0;
   form: FormGroup;
   product: Product;
-  previews: Array<any>;
   isLoading: boolean;
-  modals: Modals;
   currentMedia: ProductMedia;
   additionalControls: boolean = false;
 
   constructor(
-    public request: RequestService,
+    private request: RequestService,
     public formData: FormDataService,
-    public router: Router,
     public formValidatorService: FormValidatorService,
     public http: HttpClient,
-    public title: Title,
     public formBuilder: FormBuilder)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'media-upload');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "mediaUpload";
-    this.stepNb = 2;
     this.stepName = "Téléchargez vos photos";
     this.stepSubtitle = "Vous pouvez télécharger jusqu'à " + this.maxNbPictures + " photos ! (.jpeg, .jpg, .png)";
-    this.path.current = "media-upload";
-    this.path.previous = "announcement-title";
-    this.path.next = "product-category";
     this.isMandatory = false;
-    this.previews = [];
     this.isLoading = false;
     this.currentMedia = new ProductMedia();
-    this.modals = new Modals();
     this.modals.addModal('picture-preview');
   }
 
@@ -78,9 +64,6 @@ export class MediaUploadComponent extends StepForm implements OnInit, OnChanges 
       return false;
     }
   }
-
-  ngAfterViewInit(): void {}
-  ngOnChanges(): void {}
 
   public handleFile(): void {
     const files: FileList = (<HTMLInputElement>document.getElementById('product-pictures')).files;

@@ -2,11 +2,9 @@ import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
@@ -22,27 +20,21 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
   form: FormGroup;
 
   constructor(
-    public request: RequestService,
+    private request: RequestService,
     public formData: FormDataService,
-    public router: Router,
     private auth: AuthService,
     public formValidatorService: FormValidatorService,
-    public title: Title,
     public formBuilder: FormBuilder)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'announcement-title');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "announcementTitle";
-    this.stepNb = 1;
     this.stepName = "Que souhaitez-vous vendre ?";
     this.stepSubtitle = "Titre de votre annonce";
-    this.path.current = "announcement-title";
-    this.path.previous = "";
-    this.path.next = "media-upload";
     this.placeholder = "Tondeuse à gazon Milwaukee 750-ZF";
     this.isLogged = false;
   }

@@ -1,12 +1,9 @@
 import { prices } from 'src/app/parameters';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
-import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
@@ -22,24 +19,18 @@ export class ReservePriceComponent extends StepForm implements OnInit {
   form: FormGroup;
 
   constructor(
-    public request: RequestService,
     public formData: FormDataService,
-    public router: Router,
     public formValidatorService: FormValidatorService,
-    public title: Title,
     public formBuilder: FormBuilder)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'reserve-price');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
     this.product = formData.product;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "reservePrice";
-    this.stepNb = 16;
     this.stepName = "Quel est votre prix (en €) ?";
-    this.path.previous = "video-upload";
-    this.path.next = "announce-overview";
   }
 
   ngOnInit(): void {

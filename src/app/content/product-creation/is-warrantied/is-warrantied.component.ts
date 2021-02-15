@@ -1,11 +1,9 @@
 import { Product } from 'src/app/models/product';
-import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { Router } from '@angular/router';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { StepForm } from 'src/app/models/step-form';
+import { productOnboarding } from 'src/app/onboardings';
 
 @Component({
   selector: 'app-is-warrantied',
@@ -18,13 +16,10 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
   product: Product;
 
   constructor(
-    public request: RequestService,
     public formData: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
-    public title: Title)
+    public formValidatorService: FormValidatorService)
   {
-    super();
+    super(productOnboarding, 'is-warrantied');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -32,10 +27,7 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
     this.additionalControls = this.product.isWarrantied !== null ? true : false;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "isWarrantied";
-    this.stepNb = 13;
     this.stepName = "Appliquez-vous une garantie ?";
-    this.path.previous = 'product-weight';
-    this.path.next = 'warranty-duration';
   }
 
   ngOnInit(): void {}
@@ -49,7 +41,6 @@ export class IsWarrantiedComponent extends StepForm implements OnInit {
 
   public handleWarranty(): void {
     this.path.next = this.product.isWarrantied ? 'warranty-duration' : 'video-upload';
-    this.path.previous = this.product.toDeliver ? 'product-weight' : 'product-delivery';
   }
 
   public setFocus(id: string): void {
