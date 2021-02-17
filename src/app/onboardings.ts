@@ -1,24 +1,22 @@
 export const accountOnboarding = [
   'email',
-  'firstname',
-  'lastname',
+  'password',
+  'emailoptin',
+  'account-validation',
+];
+
+export const profileOnboarding = [
+  'name',
   'gender',
   'status',
-  'status/company-name',
-  'status/siret',
-  'status/tva',
+  'status-information',
   'birthdate',
-  'country',
-  'zipcode',
-  'city',
-  'street',
+  'address',
   'phonenumber',
-  'password',
-  'passwordconfirmation',
   'emailoptin',
   'validation',
   'confirmation'
-]
+];
 
 export const productOnboarding = [
   'announcement-title',
@@ -34,4 +32,4 @@ export const productOnboarding = [
   'video-upload',
   'reserve-price',
   'announce-overview'
-]
+];
