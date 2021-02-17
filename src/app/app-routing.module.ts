@@ -78,6 +78,8 @@ import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-l
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
+import { AccountOnboardingComponent } from './content/onboarding/account-onboarding/account-onboarding.component';
+import { AccountValidationComponent } from './content/onboarding/account-onboarding/account-validation/account-validation.component';
 
 const routes: Routes = [
   {
@@ -196,11 +198,7 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path: '', redirectTo: 'email', pathMatch: 'full'
-      },
-      {
-        path: 'email',
-        component: EmailComponent
+        path: '', redirectTo: 'firstname', pathMatch: 'full'
       },
       {
         path: 'firstname',
@@ -255,24 +253,37 @@ const routes: Routes = [
         component: PhoneNumberComponent
       },
       {
-        path: 'password',
-        component: PasswordComponent
-      },
-      {
-        path: 'passwordconfirmation',
-        component: PasswordconfirmationComponent
-      },
-      {
-        path: 'emailoptin',
-        component: EmailOptinComponent
-      },
-      {
         path: 'validation',
         component: ValidationComponent
       },
       {
         path: 'confirmation',
         component: ConfirmationComponent
+      }
+    ]
+  },
+  {
+    path: 'account-onboarding',
+    component: AccountOnboardingComponent,
+    children: [
+      {
+        path: '', redirectTo: 'email', pathMatch: 'full'
+      },
+      {
+        path: 'email',
+        component: EmailComponent
+      },
+      {
+        path: 'password',
+        component: PasswordComponent
+      },
+      {
+        path: 'emailoptin',
+        component: EmailOptinComponent
+      },
+      {
+        path: 'account-validation',
+        component: AccountValidationComponent
       }
     ]
   },

@@ -1,5 +1,3 @@
-import { browser } from 'protractor';
-import { environment } from 'src/environments/environment';
 import { NgModule, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
@@ -167,6 +165,7 @@ import { ConstructionCallToActionComponent } from './content/homepage/constructi
 import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
 import { SolutionsComponent } from './content/homepage/solutions/solutions.component';
 import { DemoRequestComponent } from './demo-request/demo-request.component';
+import { AccountOnboardingComponent } from './content/onboarding/account-onboarding/account-onboarding.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -326,6 +325,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     IntroductionComponent,
     SolutionsComponent,
     DemoRequestComponent,
+    AccountOnboardingComponent
   ],
   imports: [
     HttpClientModule,
