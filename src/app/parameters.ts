@@ -12,6 +12,11 @@ export const user = {
   MAX_AGE: 100
 };
 
+export const pwd = {
+  MIN_PWD_LENGTH: 7,
+  SPECIAL_CHARACTERS: "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?"
+}
+
 export const prices = {
   MIN_PRICE_FACTOR: 0.62,
   SECURISATION_FEES_FACTOR: 0.06,
@@ -68,7 +73,6 @@ export const algolia: any = {
   API_KEY: 'da2ebec0e3025fc4f211dd5a74d4836d',
   INDEX_NAME: 'dev_outilly'
 };
-export const specialCharacters: string = "@[]^_!\"#$%&'()*+,-./:;{}<>=|~?";
 export const staticStates: string[] = ['new', 'excellent', 'good', 'acceptable', 'forparts'];
 export const savSubjects: string[] = [
   'Obtenir des informations complémentaires pour une annonce',
