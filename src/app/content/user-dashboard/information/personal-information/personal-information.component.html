@@ -143,8 +143,8 @@
               <td>
                 <div class="select">
                   <select [(ngModel)]="user.userProfile.emailOptin" class="pointed">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
+                    <option [ngValue] ="true">Oui</option>
+                    <option [ngValue] ="false">Non</option>
                   </select>
                 </div>
               </td>
@@ -161,8 +161,8 @@
 
                 <div class="select">
                   <select [(ngModel)]="user.userProfile.phone1Optin" class="pointed">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
+                    <option [ngValue] ="true">Oui</option>
+                    <option [ngValue] ="false">Non</option>
                   </select>
                 </div>
               </td>
