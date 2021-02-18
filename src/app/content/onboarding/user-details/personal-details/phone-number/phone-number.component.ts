@@ -56,7 +56,7 @@ export class PhoneNumberComponent extends StepForm {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      phone: [this.user.userProfile.phone1, [Validators.required, Validators.pattern(this.regexTemplate.PHONE)]],
+      phone: [this.user.userProfile.phone2, [Validators.required, Validators.pattern(this.regexTemplate.PHONE)]],
     });
   }
 

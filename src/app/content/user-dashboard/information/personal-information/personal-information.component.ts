@@ -237,6 +237,7 @@ export class PersonalInformationComponent implements OnInit {
     this.user.userProfile.company = userRes.userProfile.company;
     this.addressesMapping(userRes);
     this.user.userProfile.email = userRes.userProfile.email;
+    this.user.userProfile.emailOptin = userRes.userProfile.emailOptin;
     this.user.userProfile.phone1 = userRes.userProfile.phone1;
     this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
     this.user.userProfile.phone2 = userRes.userProfile.phone2;
