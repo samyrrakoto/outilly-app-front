@@ -1,3 +1,4 @@
+import { DateService } from 'src/app/services/date.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { DashboardValidatorService } from 'src/app/services/dashboard-validator.service';
 import { Address } from 'src/app/models/address';
@@ -39,7 +40,8 @@ export class PersonalInformationComponent implements OnInit {
     public dashboardValidator: DashboardValidatorService,
     public notification: NotificationService,
     public route: ActivatedRoute,
-    public title: Title)
+    public title: Title,
+    public dateService: DateService)
   {
     this.idNames = [];
     this.nextIndex = 0;
@@ -200,7 +202,7 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   private createPayload(): any {
-    this.user.userProfile.birthdate = parseInt(this.birthdate); // converting into seconds
+    const birthdate: number = this.dateService.getTimestamp(this.userManager.birthdate); // converting into seconds
 
     const userProfile: any = {
       "id": this.user.userProfile.id,
@@ -211,7 +213,7 @@ export class PersonalInformationComponent implements OnInit {
       "phone1": this.user.userProfile.phone1,
       "phone1Optin": this.user.userProfile.phone1Optin,
       "gender": this.user.userProfile.gender,
-      "birthdate": this.user.userProfile.birthdate,
+      "birthdate": birthdate,
       "type": this.user.userProfile.type,
     };
 
