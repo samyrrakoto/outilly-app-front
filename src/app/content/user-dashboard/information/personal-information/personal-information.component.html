@@ -13,41 +13,41 @@
             <table class="table is-narrow">
               <tr>
                 <td class="field-name">Prénom</td>
-                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.firstname" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [value]="user.userProfile.firstname" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Nom</td>
-                <td><input type="text" class="input is-small not-editable" [(ngModel)]="user.userProfile.lastname" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [value]="user.userProfile.lastname" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Genre</td>
                 <td colspan="2">
-                  <input class="input is-small not-editable" value="{{ getGender() }}" readonly>
+                  <input class="input is-small not-editable" [value]="getGender()" readonly>
                 </td>
               </tr>
 
               <tr>
                 <td class="field-name">Date de naissance</td>
-                <td><input type="date" class="input is-small not-editable" value="{{ userManager.birthdate }}" readonly></td>
+                <td><input type="text" class="input is-small not-editable" [value]="userManager.birthdate | date:'dd/MM/yyyy'" readonly></td>
               </tr>
 
               <tr>
                 <td class="field-name">Statut</td>
                 <td colspan="2">
-                  <input class="input is-small not-editable" value="{{ getType() }}" readonly>
+                  <input class="input is-small not-editable" [value]="getType()" readonly>
                 </td>
               </tr>
 
               <tr *ngIf="user.userProfile.type === 'professional'">
                 <td class="field-name">SIRET</td>
-                <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.company.siret"></td>
+                <td><input type="text" class="input is-small" [value]="user.userProfile.company.siret"></td>
               </tr>
 
               <tr *ngIf="user.userProfile.type === 'professional'">
                 <td class="field-name">TVA</td>
-                <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.company.tvanumber"></td>
+                <td><input type="text" class="input is-small" [value]="user.userProfile.company.tvanumber"></td>
               </tr>
             </table>
           </mat-panel-description>
@@ -143,8 +143,8 @@
               <td>
                 <div class="select">
                   <select [(ngModel)]="user.userProfile.emailOptin" class="pointed">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
+                    <option [ngValue] ="true">Oui</option>
+                    <option [ngValue] ="false">Non</option>
                   </select>
                 </div>
               </td>
@@ -161,8 +161,8 @@
 
                 <div class="select">
                   <select [(ngModel)]="user.userProfile.phone1Optin" class="pointed">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
+                    <option [ngValue] ="true">Oui</option>
+                    <option [ngValue] ="false">Non</option>
                   </select>
                 </div>
               </td>

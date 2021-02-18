@@ -15,7 +15,7 @@ import { Address } from 'src/app/models/address';
 export class UserManagerService {
   user: User = new User();
   activated: boolean;
-  birthdate: string = '';
+  birthdate: Date = new Date();
   purchases: Purchase[];
   sales: Sale[];
 
@@ -85,6 +85,7 @@ export class UserManagerService {
     this.user.userProfile.company = userRes.userProfile.company;
     this.addressesMapping(userRes);
     this.user.userProfile.email = userRes.userProfile.email;
+    this.user.userProfile.emailOptin = userRes.userProfile.emailOptin;
     this.user.userProfile.phone1 = userRes.userProfile.phone1;
     this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
     this.user.userProfile.phone2 = userRes.userProfile.phone2;
@@ -97,7 +98,7 @@ export class UserManagerService {
     const month: any = new Date(userBirthdate).getMonth() + 1 < 10 ? '0' + (new Date(userBirthdate).getMonth() + 1) : (new Date(userBirthdate).getMonth() + 1);
     const year: any = new Date(userBirthdate).getFullYear()
 
-    this.birthdate = year + '-' + month + '-' + day;
+    this.birthdate = new Date(year + '-' + month + '-' + day);
   }
 
   private addressesMapping(userRes: any): void {

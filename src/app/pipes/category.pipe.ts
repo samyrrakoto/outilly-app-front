@@ -21,11 +21,11 @@ export class CategoryPipe implements PipeTransform {
   private getLabel(value: number): string {
     switch(value) {
       case 1:
-        return "Mécanique";
+        return "Mécanique Garage";
       case 2:
-        return "Bricolage";
+        return "Bricolage BTP Maison";
       case 3:
-        return "Jardin";
+        return "Jardin Motoculture";
       case 4:
         return "Machines d'atelier";
     }

@@ -36,14 +36,13 @@
 
 <!-- Errors display -->
 <div *ngIf="controls.weight.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.weight.errors }">
-  <div class="error" *ngIf="controls.weight.errors.required">Le poids est requis</div>
-  <div class="error" *ngIf="controls.weight.errors.isEmpty">Le poids est requis</div>
   <div class="error" *ngIf="controls.weight.errors.min">Le poids ne peut pas être négatif</div>
   <div class="error" *ngIf="controls.weight.errors.max">
     Le poids ne peut pas dépasser 30kg en livraison.
-    <br>Nous vous recommandons la <a [ngStyle]="{'color': 'var(--KTKP-RED)'}" class="bold underline" (click)="previousOn = true">remise en mains propres</a>.
   </div>
 </div>
+
+<button class="button is-light" (click)="nextOn = true">Je ne souhaite pas faire livrer mon produit</button>
 
 <app-navigation
   [data]=formData

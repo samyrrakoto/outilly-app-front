@@ -30,7 +30,7 @@
 </app-navigation>
 
 <div *ngIf="!additionalControls" class="error">
-  3 photos minimum
+  {{ minNbPictures }} photos minimum
 </div>
 
 <div *ngIf="isLoading" class="loading">

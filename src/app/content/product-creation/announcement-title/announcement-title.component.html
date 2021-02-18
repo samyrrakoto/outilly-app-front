@@ -7,6 +7,7 @@
 
     <app-step-label class="has-text-centered"
       [stepNb]=stepNb
+      [stepSubtitle]=stepSubtitle
       [stepName]=stepName>
     </app-step-label>
 
@@ -33,7 +34,7 @@
     <!-- Errors display -->
     <div *ngIf="controls.announceTitle.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.announceTitle.errors }">
       <div class="error" *ngIf="controls.announceTitle.errors.required">Le titre est requis</div>
-      <div class="error" *ngIf="controls.announceTitle.errors.notValid">Le titre n'est pas assez explicite</div>
+      <div class="error" *ngIf="controls.announceTitle.errors.notValid">Merci de proposer un titre explicite pour continuer</div>
     </div>
   </div>
 </div>
