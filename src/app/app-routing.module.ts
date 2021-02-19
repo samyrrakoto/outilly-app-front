@@ -72,6 +72,7 @@ import { IntroductionComponent } from './content/product-creation/introduction/i
 import { AccountOnboardingComponent } from './content/onboarding/account-onboarding/account-onboarding.component';
 import { AccountValidationComponent } from './content/onboarding/account-onboarding/account-validation/account-validation.component';
 import { NameComponent } from './content/onboarding/user-details/name/name.component';
+import { TeamComponent } from './content/team/team.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent
+  },
+  {
+    path:'team',
+    component: TeamComponent
   },
   {
     path: 'contact',

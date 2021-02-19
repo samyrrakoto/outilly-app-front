@@ -1,0 +1,24 @@
+<div id="container">
+    <h1 class="title has-text-centered">L'equipe</h1>
+    <div class="content-description "><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, quas. Voluptatum incidunt, aspernatur assumenda perferendis cumque, excepturi dolorem laboriosam ratione sit placeat quis blanditiis consequatur nam numquam! Nobis, est quia! Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p></div>
+    <div class="card in-line" *ngFor="let member of members">
+        <div class="card-image">
+            <figure class="image">
+                <img classe="img" src="{{member.imgPath}}" alt="Placeholder image" style='z-index:10;' > 
+                <img src="{{member.imgPath2}}" alt="Placeholder image" style='z-index:5;'> 
+                <div [ngStyle] ="{'background-image': 'url(member.imgPath)'}"></div>
+            </figure>
+        </div>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">{{member.name}} </p>
+                    <p class="subtitle is-6">{{member.status}}</p>
+                </div>
+            </div>
+            <div class="content">
+                {{member.description}}
+            </div>
+        </div>
+    </div>
+</div> 

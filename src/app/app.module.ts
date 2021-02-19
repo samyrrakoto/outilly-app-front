@@ -171,6 +171,7 @@ import { AddressComponent } from './content/onboarding/user-details/address/addr
 import { CompanyInformationComponent } from './content/onboarding/company-information/company-information.component';
 import { NameComponent } from './content/onboarding/user-details/name/name.component';
 import { CompletionAccountWarningComponent } from './content/user-dashboard/completion-account-warning/completion-account-warning.component';
+import { TeamComponent } from './content/team/team.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -336,6 +337,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     CompanyInformationComponent,
     NameComponent,
     CompletionAccountWarningComponent,
+    TeamComponent,
   ],
   imports: [
     HttpClientModule,
