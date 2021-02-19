@@ -78,6 +78,7 @@ import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-l
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
+import { TeamComponent } from './content/team/team.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent
+  },
+  {
+    path:'team',
+    component: TeamComponent
   },
   {
     path: 'contact',

@@ -1,0 +1,114 @@
+.card{
+    justify-content: left;
+}
+.card-content{
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+
+.image img{
+    width: 500px;
+    height: 224px;
+    position: absolute;
+}
+
+img:first-child:hover{
+    display: none; 
+}
+
+.in-line {
+    display: inline-block;
+    width: 300px;
+    margin-top: 5em;
+    margin-left: 5em;
+    vertical-align: top;
+    outline: none;
+  }
+
+#container{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.card-content .content{
+    text-align: left;
+}
+
+.content-description{
+    margin: auto;
+    width: 60%;
+}
+.content-description > p{
+    text-align: justify;
+}
+
+.card-content{
+    margin-top: 14em;
+}
+
+/* responsive mobile*/
+
+@media screen and (max-width: 767px) {
+    .in-line {
+      display: block;
+      width: 300px;
+      height: auto;
+      margin: auto;
+      margin-bottom: 60px;
+    }
+    .content-description{
+        margin: auto;
+        width: 85%;
+    }
+
+    .card-content{
+        margin-top: 0;
+    }
+
+    .card-content .content{
+        margin: auto;
+        width: 90%;
+    }
+
+    .card-content .media-content{
+        margin-top: 14em;
+        margin: auto;
+        width: 85%;
+    }
+
+    .content-description > p{
+        width: 100%;
+        text-align: left;
+    }
+    
+}
+
+@media screen and (max-width: 1023px) {
+    .in-line {
+      display: block;
+      width: 400px;
+      height: auto;
+      margin: auto;
+      margin-bottom: 60px;
+    }
+    .content-description{
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    
+    .card-content{
+        margin-top: 0;
+    }
+    .card-content .media-content{
+        margin-top: 14em;
+    }
+
+    .content-description > p{
+        width: 100%;
+        text-align: left;
+    }
+    
+}
