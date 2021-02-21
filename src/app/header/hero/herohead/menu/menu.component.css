@@ -54,6 +54,10 @@
     font-weight: normal;
 }
 
+#mobile-number {
+  font-size: 0.8em;
+}
+
 @media screen and (max-width: 768px) {
   .navbar {
     margin-top: 0px;

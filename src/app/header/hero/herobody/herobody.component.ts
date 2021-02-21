@@ -2,6 +2,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Router } from '@angular/router';
 import { pageInfo } from 'src/app/parameters';
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-herobody',
@@ -14,7 +15,8 @@ export class HerobodyComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {

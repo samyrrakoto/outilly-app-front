@@ -7,8 +7,12 @@
 */
 export const typeform: any = {
   TITLE: '',
-  CONTENT: `<p><span class="bold">Que pensez-vous de notre site&nbsp;?</span><br>Répondez à <a href="https://eudwu866azp.typeform.com/to/MLg2ZAqA" target="_blank">notre questionnaire</a> (2 min.) !</p>
+  CONTENT: `
+  <p>
+  Vous êtes professionnel(le)&nbsp;?<br>
+  Adoptez notre solution.
+  </p>
   `,
-  THEME: 'is-info',
+  THEME: 'is-warning',
   VAR_NAME: 'typeform'
 };

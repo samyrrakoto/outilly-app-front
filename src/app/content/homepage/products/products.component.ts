@@ -1,10 +1,10 @@
+import { UrlService } from 'src/app/services/url.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { productDisplay } from 'src/app/parameters';
 import { ArrayToolbox } from 'src/app/models/array-toolbox';
 import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-import { Sale } from 'src/app/models/sale';
 
 @Component({
   selector: 'app-products',
@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private request: RequestService,
+    public urlService: UrlService,
     public categoryService: CategoryService)
   {
     this.sales = [];

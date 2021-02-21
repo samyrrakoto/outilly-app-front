@@ -3,6 +3,10 @@ img#construction {
   width: auto;
 }
 
+#demo-call-to-action {
+  border: solid 2px var(--KTKP-YELLOW);
+}
+
 @media screen and (max-width: 768px) {
   #construction-content {
     padding-left: 30px;

@@ -40,6 +40,10 @@
                 <div id="start-to-sell" class="navbar-item">
                     <a class="button is-success" (click)="toggleNavbar()" [href]="urlService.getRoute('search', true)" [routerLink]="urlService.getRoute('search')">Accéder au catalogue</a>
                 </div>
+
+                <div id="mobile-number" class="navbar-item is-hidden-mobile">
+                  <fa-icon class="side-icon" [icon]="['fas', 'phone-alt']"></fa-icon><span class="grey">07 61 03 32 12</span>
+                </div>
             </div>
         </div>
     </div>

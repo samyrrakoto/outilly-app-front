@@ -7,8 +7,10 @@
   </app-search-box>
 
   <div id="promise-title-container" class="container has-text-centered">
-    <h1 id="promise-title" class="title">Prêt(e) à bricoler ?</h1>
-    <p class="is-hidden-mobile">Ici, vous pouvez revendre et acheter du matériel de seconde main.</p>
+    <h1 id="promise-title" class="title">Ne jetez plus,<br>réemployez vos matériaux.</h1>
+    <p class="is-hidden-mobile">
+      Ici, vous pouvez revendre et acheter du matériel de seconde main.
+    </p>
   </div>
 
   <div id="call-to-action" class="box has-text-centered">
@@ -26,7 +28,7 @@
       </div>
     </div>
 
-    <div id="how-it-works" class="is-hidden-mobile">
+    <div *ngIf="!auth.isLogged()" id="how-it-works" class="is-hidden-mobile">
       <a href="" routerLink="/onboarding"><u>Rejoindre la communauté</u></a>
     </div>
   </div>

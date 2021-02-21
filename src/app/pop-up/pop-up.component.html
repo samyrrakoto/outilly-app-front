@@ -2,6 +2,18 @@
   <button class="delete" (click)="hideNotification()"></button>
   <h1 *ngIf="popUp.TITLE" class="subtitle">{{ popUp.TITLE }}</h1>
 
-  <div class="content" [innerHTML]=popUp.CONTENT>
+  <div class="content" [innerHTML]=popUp.CONTENT></div>
+
+  <a class="button is-white has-text-warning" (click)="modals.open('b2b-form')">Demander une démo</a>
+</div>
+
+<!-- MODALS -->
+<div class="modal {{ modals.get('b2b-form') }}">
+  <div (click)="modals.close('b2b-form')" class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-demo-request></app-demo-request>
+    </div>
   </div>
+  <button (click)="modals.close('b2b-form')" class="modal-close is-large" aria-label="close"></button>
 </div>

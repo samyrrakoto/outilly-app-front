@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Modals } from 'src/app/models/modals';
 
 @Component({
   selector: 'app-solutions',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./solutions.component.css']
 })
 export class SolutionsComponent implements OnInit {
+  modals: Modals = new Modals();
 
-  constructor() { }
+  constructor() {
+    this.modals.addModal('b2b-form');
+  }
 
   ngOnInit(): void {
   }
