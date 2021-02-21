@@ -4,8 +4,24 @@
     <!-- Static sales -->
     <div *ngIf="filtersNb === 0" id="static-sales">
 
+      <div>
+        <!-- <app-category-products
+          [sales]=mecanicProducts
+          [maxTitleSize]=maxTitleSize
+          [categoryId]=1
+          [categoryIcon]=categoryIcons[0]>
+        </app-category-products> -->
+        <app-products-display
+          [sales]=sales>
+        </app-products-display>
+
+        <div class="content has-text-centered">
+          <a [href]="categoryService.getCategoryRoute(1, true)" class="button is-danger is-outlined load-more no-overflow invert-top-margin remove-bottom-margin" [routerLink]="categoryService.getCategoryRoute(1)">Voir tous nos produits</a>
+        </div>
+      </div>
+
       <!-- Mecanic sales -->
-      <div id="mecanic">
+      <!-- <div id="mecanic">
         <app-category-products
           [sales]=mecanicProducts
           [maxTitleSize]=maxTitleSize
@@ -18,10 +34,10 @@
         </div>
       </div>
 
-      <div class="is-divider"></div>
+      <div class="is-divider"></div> -->
 
       <!-- Diy sales -->
-      <div id="diy">
+      <!-- <div id="diy">
         <app-category-products
           [sales]=diyProducts
           [maxTitleSize]=maxTitleSize
@@ -34,10 +50,10 @@
         </div>
       </div>
 
-      <div class="is-divider"></div>
+      <div class="is-divider"></div> -->
 
       <!-- Workshop -->
-      <div id="workshop">
+      <!-- <div id="workshop">
         <app-category-products
           [sales]=workshopProducts
           [maxTitleSize]=maxTitleSize
@@ -50,10 +66,10 @@
         </div>
       </div>
 
-      <div class="is-divider"></div>
+      <div class="is-divider"></div> -->
 
       <!-- Garden -->
-      <div id="garden">
+      <!-- <div id="garden">
         <app-category-products
           [sales]=gardenProducts
           [maxTitleSize]=maxTitleSize
@@ -65,23 +81,6 @@
           <a [href]="categoryService.getCategoryRoute(4, true)" class="button is-danger is-outlined load-more no-overflow invert-top-margin remove-bottom-margin" [routerLink]="categoryService.getCategoryRoute(3)">Voir plus de produits de cette catégorie</a>
         </div>
       </div>
-    </div>
-
-    <!-- Filtered products -->
-    <div *ngIf="filtersNb > 0">
-      <app-filtered-products
-        [sales]=sales
-        [maxTitleSize]=maxTitleSize>
-      </app-filtered-products>
-
-      <div *ngIf="sales.length !== 0" class="content has-text-centered">
-        <button *ngIf="!loading" class="button is-danger is-outlined load-more no-overflow" (click)="sendLoadMore()">Voir plus de produits</button>
-        <button *ngIf="loading" class="button is-light is-loading"></button>
-      </div>
-
-      <div *ngIf="sales.length === 0" class="content has-text-centered">
-        Aucun produit ne correspond (pour l'instant) à votre recherche
-      </div>
-    </div>
+    </div> -->
   </div>
 </div>
