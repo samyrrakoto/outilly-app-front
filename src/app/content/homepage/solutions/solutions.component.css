@@ -1,0 +1,24 @@
+.column {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.title {
+  font-size: 1.4em;
+}
+
+img {
+  width: 180px;
+}
+
+#demo-call-to-action {
+  border: solid 2px var(--KTKP-YELLOW);
+}
+
+@media screen and (max-width: 768px) {
+  #my-title {
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
