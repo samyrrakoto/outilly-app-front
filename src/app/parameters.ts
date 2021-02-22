@@ -60,6 +60,7 @@ export const media = {
 
 export const productDisplay = {
   NB_RESULTS: 15,
+  NB_RESULTS_HOMEPAGE: 30,
   NB_RESULTS_MOBILE: 1
 };
 

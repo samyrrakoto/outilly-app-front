@@ -1,0 +1,54 @@
+<h1 id="my-title" class="title has-text-centered">3 solutions en faveur du réemploi de matériaux</h1>
+
+<div id="solutions" class="columns is-centered has-text-centered">
+  <div class="column is-3">
+    <div class="box">
+      <img src="/assets/img/logo/outilly-website.jpg">
+
+      <h1 class="title">Marketplace de réemploi de matériaux</h1>
+
+      <div class="content">
+        Solution de réemploi de matériaux et de matériel par de l'achat/revente sur une marketplace dédiée aux fabricants, distributeurs et constructeurs.
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-3">
+    <div class="box">
+      <img src="/assets/img/logo/outilly-second.jpg">
+
+      <h1 class="title">Solution SaaS intégrée à votre business</h1>
+
+      <div class="content">
+        Solution en marque blanche pour les distributeurs leur permettant d'intégrer l'occasion et les retours SAV à leur modèle pour accroître leur trafic et fidéliser leurs utilisateurs.
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-3">
+    <div class="box">
+      <img src="/assets/img/logo/outilly-reuse.jpg">
+
+      <h1 class="title">Solution de déconstruction avant chantier</h1>
+
+      <div class="content">
+        Marque servicielle dédiée à la déconstruction de matériaux en bâtiment favorisant le réemploi avant mise en déchetterie et/ou recyclage.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content has-text-centered">
+  <button id="demo-call-to-action" class="button is-white has-text-warning" (click)="modals.open('b2b-form')">Demander une démo</button>
+</div>
+
+<!-- MODALS -->
+<div class="modal {{ modals.get('b2b-form') }}">
+  <div class="modal-background" (click)="modals.close('b2b-form')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-demo-request></app-demo-request>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('b2b-form')"></button>
+</div>

@@ -1,0 +1,81 @@
+<div class="columns is-centered is-vcentered">
+  <div class="column">
+    <h1 class="title has-text-right has-text-centered-mobile">Faites-vous rappeler rapidement pour essayer notre solution</h1>
+  </div>
+
+  <div *ngIf="!success" class="column">
+    <form [formGroup]="form">
+      <!-- Nom Entreprise-->
+      <div class="field">
+        <p class="control">
+          <input class="input" type="text" placeholder="Nom de l'entreprise" [(ngModel)]="messageData.companyName" formControlName="companyName">
+        </p>
+      </div>
+
+      <!-- Nom et prénom du contact -->
+      <div class="field">
+        <p class="control">
+          <input class="input" placeholder="Nom et prénom" [(ngModel)]="messageData.fullName" formControlName="fullName">
+        </p>
+      </div>
+
+      <!-- Numéro de téléphone -->
+      <div class="field">
+        <p class="control">
+          <input class="input" type="tel" placeholder="Numéro de téléphone" [(ngModel)]="messageData.phoneNumber" formControlName="phoneNumber">
+        </p>
+      </div>
+
+      <!-- Mail -->
+      <div class="field">
+        <p class="control">
+          <input class="input" type="mail" placeholder="Mail" [(ngModel)]="messageData.email" formControlName="email">
+        </p>
+      </div>
+
+      <div *ngIf="!form.valid">
+        <div class="error" *ngIf="controls.fullName.errors">
+          <span *ngIf="controls.fullName.errors.pattern">
+            Le nom est invalide
+          </span>
+        </div>
+
+        <div class="error" *ngIf="controls.companyName.errors">
+          <span *ngIf="controls.companyName.errors.pattern">
+            Le nom de l'entreprise est invalide
+          </span>
+        </div>
+
+        <div class="error" *ngIf="controls.phoneNumber.errors">
+          <span *ngIf="controls.phoneNumber.errors.pattern">
+            Le numéro de téléphone est invalide
+          </span>
+        </div>
+
+        <div class="error" *ngIf="controls.email.errors">
+          <span *ngIf="controls.email.errors.email">
+            L'email est invalide
+          </span>
+        </div>
+      </div>
+
+      <button *ngIf="form.valid" class="button is-success has-text-centered" (click)="askDemo()">Envoyer ma demande</button>
+      <button *ngIf="!form.valid" class="button is-light has-text-centered">Envoyer ma demande</button>
+    </form>
+  </div>
+
+  <div *ngIf="success === false" class="column has-text-centered">
+    <div class="notification is-danger has-text-white">
+      Une erreur s'est produite. Veuillez réessayer.
+    </div>
+  </div>
+
+  <div *ngIf="success" class="column has-text-centered">
+    <div class="notification is-success has-text-white">
+      Nous avons bien reçu votre demande !<br>
+      Nous allons vous recontacter au plus vite. :)
+    </div>
+  </div>
+</div>
+
+<img src="/assets/img/misc/frise_onboarding.jpg">

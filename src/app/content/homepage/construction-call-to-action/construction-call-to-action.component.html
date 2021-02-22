@@ -13,7 +13,21 @@
     </div>
 
     <div class="content">
-      <a [href]="urlService.getRoute('introduction', true)" [routerLink]="urlService.getRoute('introduction')" class="button is-warning">Essayez gratuitement</a>
+      <div class="buttons is-centered">
+        <a [href]="urlService.getRoute('introduction', true)" [routerLink]="urlService.getRoute('introduction')" class="button is-warning no-overflow">Essayer gratuitement</a>
+        <a id="demo-call-to-action" class="button is-white has-text-warning no-overflow" (click)="modals.open('b2b-form')">Demander une démo</a>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal {{ modals.get('b2b-form') }}">
+  <div class="modal-background" (click)="modals.close('b2b-form')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-demo-request></app-demo-request>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('b2b-form')"></button>
 </div>

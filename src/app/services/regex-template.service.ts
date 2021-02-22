@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class RegexTemplateService {
+  readonly NAME: RegExp = /^[a-zA-Zéèêîôû'\- ]+$/;
+  readonly COMPANY_NAME: RegExp = /^[a-zA-Zéèêîôû0-9'\- ]+$/;
   readonly PHONE: RegExp = /^((00|\+)33|0)[0-9][0-9]{8}$/;
   readonly ZIPCODE: RegExp = /^[0-9]{4,5}$/;
   readonly SIRET: RegExp = /^[0-9]{14}$/;

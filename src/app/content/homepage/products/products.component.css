@@ -105,4 +105,16 @@
     height: 20px;
     margin-bottom: 10px;
   }
+
+  .invert-top-margin {
+    margin-top: -35px;
+  }
+
+  .remove-margin-bottom {
+    margin-bottom: 0px;
+  }
+
+  .is-divider {
+    margin-top: 0px;
+  }
 }

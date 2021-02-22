@@ -1,3 +1,4 @@
+import { UrlService } from 'src/app/services/url.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { productDisplay } from 'src/app/parameters';
 import { ArrayToolbox } from 'src/app/models/array-toolbox';
@@ -29,7 +30,7 @@ export class ProductsComponent implements OnInit {
   gardenProducts: any[] = [];
   diyProducts: any[] = [];
   workshopProducts: any[] = [];
-  readonly resultsPerPage: number = productDisplay.NB_RESULTS;
+  readonly resultsPerPage: number = productDisplay.NB_RESULTS_HOMEPAGE;
   readonly mediaBaseUri: string = environment.mediaBaseUri;
   readonly maxTitleSize: number = 42;
   readonly categoryTitle: string[] = ['Mécanique', 'Bricolage', 'Jardin', 'Atelier'];
@@ -37,6 +38,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private request: RequestService,
+    public urlService: UrlService,
     public categoryService: CategoryService)
   {
     this.sales = [];
@@ -50,11 +52,13 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.filtersNb = 0;
-    this.getProductsByCategory(1)
-      .then(() => this.getProductsByCategory(2))
-      .then(() => this.getProductsByCategory(3))
-      .then(() => this.getProductsByCategory(4))
+    this.getSales()
       .then(() => this.loaded = true);
+    // this.getProductsByCategory(1)
+    //   .then(() => this.getProductsByCategory(2))
+    //   .then(() => this.getProductsByCategory(3))
+    //   .then(() => this.getProductsByCategory(4))
+    //   .then(() => this.loaded = true);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -96,6 +100,19 @@ export class ProductsComponent implements OnInit {
           resolve();
         }
       )
+    });
+  }
+
+  public getSales(): Promise<void> {
+    const params: string = '?resultsPerPage=' + this.resultsPerPage.toString();
+
+    return new Promise((resolve) => {
+      this.request.getData(this.request.uri.SALES + params).subscribe({
+        next: (sales: any) => {
+          this.sales = sales.results;
+          resolve();
+        }
+      })
     });
   }
 }
