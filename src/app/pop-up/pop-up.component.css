@@ -1,5 +1,5 @@
 #pop-up {
-  position: sticky;
+  position: fixed;
   text-align: center;
   width: 300px;
   min-height: 100px;
