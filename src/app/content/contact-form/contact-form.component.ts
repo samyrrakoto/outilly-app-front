@@ -1,4 +1,4 @@
-import { CaptchaService } from './../../services/captcha.service';
+import { CaptchaService } from 'src/app/services/captcha.service';
 import { ContactManagerComponent } from 'src/app/models/contact-manager/contact-manager.component';
 import { RequestService } from 'src/app/services/request.service';
 import { EncodingService } from 'src/app/services/encoding.service';

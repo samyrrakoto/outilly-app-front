@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CaptchaService } from '../services/captcha.service';
-import { MailService } from '../services/mail.service';
-import { RegexTemplateService } from '../services/regex-template.service';
+import { CaptchaService } from 'src/app/services/captcha.service';
+import { MailService } from 'src/app/services/mail.service';
+import { RegexTemplateService } from 'src/app/services/regex-template.service';
 
 @Component({
   selector: 'app-demo-request',
