@@ -8,14 +8,14 @@
       <!-- Nom Entreprise-->
       <div class="field">
         <p class="control">
-          <input class="input" type="text" placeholder="Nom de l'entreprise" [(ngModel)]="messageData.companyName" formControlName="companyName">
+          <input class="input" type="text" placeholder="Nom de l'entreprise" maxlength="255" [(ngModel)]="messageData.companyName" formControlName="companyName">
         </p>
       </div>
 
       <!-- Nom et prénom du contact -->
       <div class="field">
         <p class="control">
-          <input class="input" placeholder="Nom et prénom" [(ngModel)]="messageData.fullName" formControlName="fullName">
+          <input class="input" placeholder="Nom et prénom" maxlength="255" [(ngModel)]="messageData.fullName" formControlName="fullName">
         </p>
       </div>
 
@@ -33,19 +33,23 @@
         </p>
       </div>
 
+      <!-- Captcha -->
+      <h2 class="subtitle">Résolvez cette addition simple, basique :</h2>
+
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input no-border" [(ngModel)]="testInput" [placeholder]=captcha.testAddition formControlName="test" [ngClass]="{'is-valid': !controls.test.errors }">
+            </p>
+            <p *ngIf="controls.test.errors" class="help is-danger">
+              <span class="error" *ngIf="controls.test.errors.notValid">Vous n'avez pas les bases</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="!form.valid">
-        <div class="error" *ngIf="controls.fullName.errors">
-          <span *ngIf="controls.fullName.errors.pattern">
-            Le nom est invalide
-          </span>
-        </div>
-
-        <div class="error" *ngIf="controls.companyName.errors">
-          <span *ngIf="controls.companyName.errors.pattern">
-            Le nom de l'entreprise est invalide
-          </span>
-        </div>
-
         <div class="error" *ngIf="controls.phoneNumber.errors">
           <span *ngIf="controls.phoneNumber.errors.pattern">
             Le numéro de téléphone est invalide

@@ -1,3 +1,4 @@
+import { CaptchaService } from 'src/app/services/captcha.service';
 import { ContactManagerComponent } from 'src/app/models/contact-manager/contact-manager.component';
 import { RequestService } from 'src/app/services/request.service';
 import { EncodingService } from 'src/app/services/encoding.service';
@@ -34,11 +35,11 @@ export class ContactFormComponent implements OnInit {
 
   constructor(
     private request: RequestService,
-    public formBuilder: FormBuilder,
-    public userManager: UserManagerService,
+    private formBuilder: FormBuilder,
+    private userManager: UserManagerService,
     private auth: AuthService,
-    private encoding: EncodingService
-  )
+    private encoding: EncodingService,
+    public captcha: CaptchaService)
   {
     this.modals.addModal('contact-form');
   }
@@ -46,7 +47,7 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {
     this.getForm();
     this.getUserMail();
-    this.generateRandomAddition();
+    this.captcha.generateRandomAddition();
     this.click.subscribe(
       () => { this.modals.open('contact-form') }
     );
@@ -75,28 +76,13 @@ export class ContactFormComponent implements OnInit {
   public getForm(): void {
     this.form = this.formBuilder.group({
       message: [this.message, [Validators.required, Validators.maxLength(this.maxMessageLength)]],
-      test: [this.testInput, [this.validTest()]],
+      test: [this.testInput, [this.captcha.validTest()]],
       email: [this.email, [Validators.required, Validators.email]]
     });
   }
 
   public get controls() {
     return this.form.controls;
-  }
-
-  private validTest(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null =>
-      {
-        return control.value === this.testResult ? null : {notValid: control.value};
-      }
-  }
-
-  public generateRandomAddition(): void {
-    const a: number = Math.round(Math.random() * 4 + 1);
-    const b: number = Math.round(Math.random() * 4 + 1);
-
-    this.testAddition = a.toString() + ' + ' + b.toString();
-    this.testResult = (a + b).toString();
   }
 
   private getPayload(): any {

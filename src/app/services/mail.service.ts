@@ -33,7 +33,7 @@ export class MailService {
       companyName: companyName,
       phone: phoneNumber,
       mail: email,
-      isAnonymous: false
+      isAnonymous: true
     }
   }
 
