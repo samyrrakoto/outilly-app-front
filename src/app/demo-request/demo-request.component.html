@@ -33,6 +33,22 @@
         </p>
       </div>
 
+      <!-- Captcha -->
+      <h2 class="subtitle">Résolvez cette addition simple, basique :</h2>
+
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input no-border" [(ngModel)]="testInput" [placeholder]=captcha.testAddition formControlName="test" [ngClass]="{'is-valid': !controls.test.errors }">
+            </p>
+            <p *ngIf="controls.test.errors" class="help is-danger">
+              <span class="error" *ngIf="controls.test.errors.notValid">Vous n'avez pas les bases</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="!form.valid">
         <div class="error" *ngIf="controls.phoneNumber.errors">
           <span *ngIf="controls.phoneNumber.errors.pattern">

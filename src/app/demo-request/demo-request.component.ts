@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CaptchaService } from '../services/captcha.service';
 import { MailService } from '../services/mail.service';
 import { RegexTemplateService } from '../services/regex-template.service';
 
@@ -12,11 +13,13 @@ export class DemoRequestComponent implements OnInit {
   form: FormGroup;
   success: boolean = null;
   messageData: MessageData = new MessageData();
+  testInput: string = '';
 
   constructor(
     private mailService: MailService,
     private formBuilder: FormBuilder,
-    private regex: RegexTemplateService
+    private regex: RegexTemplateService,
+    public captcha: CaptchaService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +37,8 @@ export class DemoRequestComponent implements OnInit {
       fullName: [this.messageData.fullName, [Validators.required]],
       companyName: [this.messageData.companyName, [Validators.required]],
       phoneNumber: [this.messageData.phoneNumber, [Validators.required, Validators.pattern(this.regex.PHONE)]],
-      email: [this.messageData.email, [Validators.required, Validators.email]]
+      email: [this.messageData.email, [Validators.required, Validators.email]],
+      test: [this.testInput, [Validators.required, this.captcha.validTest()]]
     });
   }
 
