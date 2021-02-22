@@ -31,8 +31,8 @@ export class DemoRequestComponent implements OnInit {
 
   public getForm(): void {
     this.form = this.formBuilder.group({
-      fullName: [this.messageData.fullName, [Validators.required, Validators.pattern(this.regex.NAME)]],
-      companyName: [this.messageData.companyName, [Validators.required, Validators.pattern(this.regex.COMPANY_NAME)]],
+      fullName: [this.messageData.fullName, [Validators.required]],
+      companyName: [this.messageData.companyName, [Validators.required]],
       phoneNumber: [this.messageData.phoneNumber, [Validators.required, Validators.pattern(this.regex.PHONE)]],
       email: [this.messageData.email, [Validators.required, Validators.email]]
     });
