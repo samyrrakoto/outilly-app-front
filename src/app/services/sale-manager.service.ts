@@ -75,7 +75,7 @@ export class SaleManagerService {
 
   public deleteSale(sale: Sale, domId: string): Promise<void> {
     const message: string = "L'annonce a bien été supprimée";
-    const classes: string[] = ["notification", "is-success", "has-text-centered", "has-text-white", "addspaceabove", "addspacebelow"];
+    const classes: string[] = ["is-success"];
 
     return new Promise((resolve, reject) => {
       this.saleRequest.deleteSale(sale.id).subscribe({
