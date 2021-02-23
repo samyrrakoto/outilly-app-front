@@ -32,6 +32,7 @@ export class UserSalesRunningComponent implements OnInit {
   currentSale: Sale = new Sale();
   currentBid: Bid;
   currentQuestion: Faq = new Faq();
+  currentNotifId: string;
   questionFilter: QuestionFilter = QuestionFilter.ALL;
   answer: string;
   loaded: boolean = false;
@@ -59,6 +60,7 @@ export class UserSalesRunningComponent implements OnInit {
     this.modals.addModal('declineOffer');
     this.modals.addModal('answer-question');
     this.modals.addModal('product-questions');
+    this.modals.addModal('deletion-confirmation');
   }
 
   ngOnInit(): void {
@@ -189,5 +191,9 @@ export class UserSalesRunningComponent implements OnInit {
 
   public goToProductPage(slug: string, saleId: number): void {
     this.router.navigate(['/product' + '/' + slug + '/' + saleId.toString()]);
+  }
+
+  public getDomId(index: number): string {
+    return 'notif' + index.toString();
   }
 }

@@ -1,16 +1,21 @@
-import { Faq } from 'src/app/models/faq';
+import { NotificationsService } from './notifications.service';
+import { SaleRequestService } from './sale-request.service';
 import { RequestService } from 'src/app/services/request.service';
 import { BidManagerService } from 'src/app/services/bid-manager.service';
 import { Sale } from 'src/app/models/sale';
 import { Injectable } from '@angular/core';
+import { ErrorMessageManagerService } from './error-message-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaleManagerService {
   constructor(
-    public bidManager: BidManagerService,
-    private request: RequestService)
+    private bidManager: BidManagerService,
+    private request: RequestService,
+    private saleRequest: SaleRequestService,
+    private notifications: NotificationsService,
+    private errorManager: ErrorMessageManagerService)
   {}
 
   public isClosed(sale: Sale): boolean {
@@ -43,6 +48,18 @@ export class SaleManagerService {
     return false;
   }
 
+  public isOnline(sale: Sale): boolean {
+    return sale.status === 'online';
+  }
+
+  public isDeleted(sale: Sale): boolean {
+    return sale.status === 'deleted';
+  }
+
+  public isSold(sale: Sale): boolean {
+    return sale.status === 'sold';
+  }
+
   public getSaleAvailability(saleId: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.GET_SALE_AVAILABILITY, [saleId.toString()]).subscribe(
@@ -53,6 +70,31 @@ export class SaleManagerService {
           reject('ProductUnavailable');
         }
       );
+    });
+  }
+
+  public deleteSale(sale: Sale, domId: string): Promise<void> {
+    const message: string = "L'annonce a bien été supprimée";
+    const classes: string[] = ["notification", "is-success", "has-text-centered", "has-text-white", "addspaceabove", "addspacebelow"];
+
+    return new Promise((resolve, reject) => {
+      this.saleRequest.deleteSale(sale.id).subscribe({
+        next: (res: any) => {
+          if (res.status === 'deleted') {
+            this.notifications.display(message, domId, classes, -1);
+            sale.status = 'deleted';
+            resolve();
+          }
+          else {
+            this.errorManager.addErrorMessage('Une erreur est survenue');
+            reject();
+          }
+        },
+        error: () => {
+          this.errorManager.addErrorMessage('Une erreur est survenue');
+          reject();
+        }
+      })
     });
   }
 

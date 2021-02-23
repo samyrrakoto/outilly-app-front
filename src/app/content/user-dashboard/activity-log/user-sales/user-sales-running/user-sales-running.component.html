@@ -16,20 +16,24 @@
         </div>
 
         <mat-accordion *ngIf="runningSales && runningSales.length > 0">
-          <mat-expansion-panel *ngFor="let sale of saleManager.sortSalesByLastUpdate(runningSales)">
-              <mat-expansion-panel-header>
-              <mat-panel-title>
-                <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale) || saleManager.hasNonAnsweredQuestions(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
-                {{ sale.product.name }}
-                <span class="tag is-info is-light small-text small-left-margin" *ngIf="sale.status === 'new'">&nbsp;En attente de validation</span>
-                <span class="tag is-success is-light small-text small-left-margin" *ngIf="sale.status === 'online'">&nbsp;En ligne</span>
-              </mat-panel-title>
-              </mat-expansion-panel-header>
-              <mat-panel-description>
-                Prix de votre produit : {{ sale.product.reservePrice | currency:'full' }}€<br>
+          <mat-expansion-panel *ngFor="let sale of saleManager.sortSalesByLastUpdate(runningSales); index as i">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+              <fa-icon *ngIf="saleManager.hasNonTreatedBids(sale) || saleManager.hasNonAnsweredQuestions(sale)" class="section-icon new-bid" [icon]="['fas', 'bell']"></fa-icon>
+              {{ sale.product.name }}
+              <span class="tag is-info is-light small-text small-left-margin" *ngIf="sale.status === 'new'">&nbsp;En attente de validation</span>
+              <span class="tag is-success is-light small-text small-left-margin" *ngIf="sale.status === 'online'">&nbsp;En ligne</span>
+              <span class="tag is-danger is-light small-text small-left-margin" *ngIf="sale.status === 'deleted'">&nbsp;Supprimée</span>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              Prix de votre produit : {{ sale.product.reservePrice | currency:'full' }}€<br>
 
-              </mat-panel-description>
+            </mat-panel-description>
 
+            <div [id]="getDomId(i)"></div>
+
+            <ng-container *ngIf="!saleManager.isDeleted(sale)">
               <!-- Displayed when sale is running -->
               <div *ngIf="!saleManager.isClosed(sale)" class="content bids">
                 <div class="content bid" *ngFor="let bid of bidManager.sortBidsByDate(sale.bids, 'decreasing')">
@@ -90,11 +94,19 @@
                   <button *ngIf="saleManager.hasNonAnsweredQuestions(sale)" class="button is-danger is-small" (click)="currentSale = sale; modals.open('product-questions')">Questions en attente</button>
                 </div>
               </nav>
+            </ng-container>
 
-              <div class="content bid-date has-text-left discreet-text">
-                <fa-icon [icon]="['fas', 'clock']"></fa-icon>
-                {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'HH:mm' }}
+
+            <nav *ngIf="saleManager.isOnline(sale)" class="level">
+              <div class="level-left">
+                <span class="red underline pointed" (click)="currentSale = sale; currentNotifId = getDomId(i); modals.open('deletion-confirmation')">Supprimer mon annonce</span>
               </div>
+            </nav>
+
+            <div class="content bid-date has-text-left discreet-text">
+              <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+              {{ sale.createdAt | date:'dd/MM/yyyy' }} à {{ sale.createdAt | date:'HH:mm' }}
+            </div>
 
           </mat-expansion-panel>
         </mat-accordion>
@@ -237,4 +249,25 @@
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<!-- Deletion confirmation -->
+<div class="modal {{ modals.get('deletion-confirmation') }}">
+  <div class="modal-background" (click)="modals.close('deletion-confirmation')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h2 class="subtitle">Souhaitez-vous réellement supprimer cette annonce ?</h2>
+
+      <div class="content">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']" class="red"></fa-icon>
+        Elle disparaîtra de votre dashboard et ne pourra plus être consultée.
+      </div>
+
+      <div class="buttons is-centered">
+        <button class="button is-danger" (click)="saleManager.deleteSale(currentSale, currentNotifId); modals.close('deletion-confirmation')">Oui</button>
+        <button class="button is-light" (click)="modals.close('deletion-confirmation')">Non</button>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close" (click)="modals.close('deletion-confirmation')"></button>
 </div>
