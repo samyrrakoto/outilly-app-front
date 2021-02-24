@@ -1,9 +1,12 @@
+import { Onboarding } from './onboarding';
 import { accountOnboarding } from 'src/app/onboardings';
 import { Path } from './Path/path';
 import { GenericComponent } from './generic-component';
 
 export class StepForm extends GenericComponent {
+  onboardingName: string = '';
   fieldName: string = '';
+  root: string = '';
   totalNbSteps: number = 0;
   stepNb: number = 0;
   stepSubtitle: string = '';
@@ -18,11 +21,12 @@ export class StepForm extends GenericComponent {
   disabledNgCheck: boolean = false;
   wording: any = {};
 
-  constructor(onboarding: string[] = [], stepName?: string) {
+  constructor(onboarding?: Onboarding, stepName?: string) {
     super();
     this.totalNbSteps = this.getTotalNbSteps(onboarding);
     this.stepNb = this.getStepNb(onboarding, stepName);
     this.path = this.getPath(onboarding, stepName);
+    this.root = onboarding.root;
   }
 
   // Keyboard shortcuts
@@ -35,10 +39,10 @@ export class StepForm extends GenericComponent {
     }
   }
 
-  private getStepNb(onboarding: any, stepName: string): number {
+  private getStepNb(onboarding: Onboarding, stepName: string): number {
     let i: number = 1;
 
-    for (const step of onboarding) {
+    for (const step of onboarding.steps) {
       if (stepName === step) {
         return i;
       }
@@ -49,7 +53,7 @@ export class StepForm extends GenericComponent {
   public findAccountStepNb(stepName: string): number {
     let i: number = 1;
 
-    for (const step of accountOnboarding) {
+    for (const step of accountOnboarding.steps) {
       if (stepName === step) {
         return i;
       }
@@ -60,7 +64,7 @@ export class StepForm extends GenericComponent {
   public findSubStepsNb(stepName: string): number {
     let nbSubSteps: number = 0;
 
-    for (const step of accountOnboarding) {
+    for (const step of accountOnboarding.steps) {
       if (step.includes('/')) {
         nbSubSteps++;
       }
@@ -70,27 +74,27 @@ export class StepForm extends GenericComponent {
     }
   }
 
-  private getPath(onboarding: any, stepName: string): Path {
+  private getPath(onboarding: Onboarding, stepName: string): Path {
     const path: Path = new Path();
     path.current = stepName;
 
-    for (let i: number = 0; i < onboarding.length; i++) {
-      if (onboarding[i] === stepName) {
+    for (let i: number = 0; i < onboarding.steps.length; i++) {
+      if (onboarding.steps[i] === stepName) {
         if (i > 0) {
-          path.previous = onboarding[i - 1];
+          path.previous = onboarding.steps[i - 1];
         }
-        if (i < onboarding.length - 1) {
-          path.next = onboarding[i + 1];
+        if (i < onboarding.steps.length - 1) {
+          path.next = onboarding.steps[i + 1];
         }
       }
     }
     return path;
   }
 
-  private getTotalNbSteps(onboarding: string[]): number {
+  private getTotalNbSteps(onboarding: Onboarding): number {
     let nbSteps: number = 0;
 
-    for (const step of onboarding) {
+    for (const step of onboarding.steps) {
       if (!step.includes('/')) {
         nbSteps++;
       }
