@@ -1,0 +1,13 @@
+.label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.control {
+  font-size: 0.7em;
+}
+
+.control.my-select {
+  font-size: 1em;
+}

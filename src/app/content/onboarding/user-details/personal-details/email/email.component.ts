@@ -1,8 +1,7 @@
 import { StepForm } from 'src/app/models/step-form';
 import { accountOnboarding } from 'src/app/onboardings';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,8 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './email.component.css']
 })
 export class EmailComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
+  @ViewChild('email') email: ElementRef;
   readonly externalControl: boolean = true;
   error: string[] = [];
   user: User = new User();
@@ -22,21 +20,16 @@ export class EmailComponent extends StepForm {
 
   constructor(
     public formDataService: FormDataService,
-    public router: Router,
     public formValidatorService: FormValidatorService,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(accountOnboarding, 'email');
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "email";
     this.formDataService.fieldName = "usernameExistence";
     this.user = formDataService.user;
-    this.stepNb = this.findAccountStepNb('email');
     this.stepName = "Votre adresse e-mail ?";
     this.stepSubtitle = 'Elle vous servira pour vous connecter.';
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = "";
-    this.path.next = accountOnboarding[this.stepNb];
     this.placeholder = "jeanmarc78@aol.fr";
   }
 
@@ -45,10 +38,8 @@ export class EmailComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    const email: HTMLElement = document.getElementById('email');
-
-    if (email !== null) {
-      email.focus();
+    if (this.email.nativeElement !== null) {
+      this.email.nativeElement.focus();
     }
   }
 

@@ -18,7 +18,7 @@ export class RequestService {
     this.uri = new Uri();
   }
 
-  postData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
+  public postData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(ressource, params);
 
     return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);

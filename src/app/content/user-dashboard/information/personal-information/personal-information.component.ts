@@ -25,7 +25,7 @@ export class PersonalInformationComponent implements OnInit {
   readonly genderNames: Array<string> = ['Homme', 'Femme', 'Autre'];
   readonly isoCodes: Array<string> = ['FR', 'CH', 'LU', 'BE'];
   readonly countryNames: Array<string> = ['France', 'Suisse', 'Luxembourg', 'Belgique'];
-  readonly types: Array<string> = ['individual', 'professionnal'];
+  readonly types: Array<string> = ['individual', 'professional'];
   readonly typeNames: Array<string> = ['Particulier', 'Professionnel'];
   readonly subject: string = 'Je souhaite modifier mes informations personnelles';
   modals: Modals;

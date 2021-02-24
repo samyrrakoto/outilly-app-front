@@ -66,8 +66,7 @@ export class NavigationComponent implements OnChanges {
   }
 
   public next(): void {
-    const nextPath: string = this.path.current === 'status' && this.data.user.userProfile.type === 'professional' ? 'status/company-name' : this.path.next;
-    const path: string = this.rootUri + nextPath;
+    const path: string = this.rootUri + this.path.next;
     this.nextCondition = this.getNextCondition();
 
     this.checkValues(path);

@@ -3,8 +3,9 @@ import { RequestService } from 'src/app/services/request.service';
 import { Modals } from 'src/app/models/modals';
 import { ActivatedRoute } from '@angular/router';
 import { ValidatorFn, AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { specialCharacters } from 'src/app/parameters';
 import { Component, OnInit } from '@angular/core';
+import { StringToolboxService } from 'src/app/services/string-toolbox.service';
+import { pwd } from 'src/app/parameters';
 
 @Component({
   selector: 'app-forgotten-password',
@@ -12,6 +13,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forgotten-password.component.css']
 })
 export class ForgottenPasswordComponent implements OnInit {
+  readonly specialCharacters: string = pwd.SPECIAL_CHARACTERS;
+  readonly minPwdLength: number = pwd.MIN_PWD_LENGTH;
   loading: boolean = false;
   success: boolean = null;
   form: FormGroup;
@@ -20,13 +23,13 @@ export class ForgottenPasswordComponent implements OnInit {
   pwd: string = '';
   pwdConfirmation: string = '';
   modals: Modals = new Modals();
-  readonly specialCharacters: string = specialCharacters;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private request: RequestService,
-    private encoding: EncodingService)
+    private encoding: EncodingService,
+    private strToolbox: StringToolboxService)
   {
     this.modals.addModal('pwd');
   }
@@ -63,53 +66,15 @@ export class ForgottenPasswordComponent implements OnInit {
   private validFormat(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null =>
       {
-        const longEnough: boolean = control.value.length >= 7;
-        const containsUpper: boolean = this.containsUpper(control.value);
-        const containsLower: boolean = this.containsLower(control.value);
-        const containsDigit: boolean = this.containsDigit(control.value);
-        const containsSpecialCharacter: boolean = this.containsSpecial(control.value);
+        const longEnough: boolean = control.value.length >= this.minPwdLength;
+        const containsUpper: boolean = this.strToolbox.containsUpper(control.value);
+        const containsLower: boolean = this.strToolbox.containsLower(control.value);
+        const containsDigit: boolean = this.strToolbox.containsDigit(control.value);
+        const containsSpecialCharacter: boolean = this.strToolbox.containsSpecial(control.value);
 
         const verifications: boolean = longEnough && containsUpper && containsLower && containsDigit && containsSpecialCharacter;
         return verifications ? null : {notCorrect: control.value};
       }
-  }
-
-  private containsUpper(str: string): boolean {
-    for (const c of str) {
-      if (c.charCodeAt(0) >= "A".charCodeAt(0) && c.charCodeAt(0) <= "Z".charCodeAt(0)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private containsLower(str: string): boolean {
-    for (const c of str) {
-      if (c.charCodeAt(0) >= "a".charCodeAt(0) && c.charCodeAt(0) <= "z".charCodeAt(0)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private containsDigit(str: string): boolean {
-    for (const c of str) {
-      if (c.charCodeAt(0) >= "0".charCodeAt(0) && c.charCodeAt(0) <= "9".charCodeAt(0)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private containsSpecial(str: string): boolean {
-    for (const c of str) {
-      for (const specialChar of specialCharacters) {
-        if (c === specialChar) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   public submitNewPassword(): void {

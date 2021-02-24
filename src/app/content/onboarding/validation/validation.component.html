@@ -8,12 +8,12 @@
       <tr>
         <td class="field-name">Prénom</td>
         <td>{{ formDataService.user.userProfile.firstname }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/firstname" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/name" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Nom</td>
         <td>{{ formDataService.user.userProfile.lastname }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/lastname" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/name" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Genre</td>
@@ -40,92 +40,55 @@
       <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
         <td class="field-name">Nom d'entreprise</td>
         <td>{{ formDataService.user.userProfile.company.name }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/status/company-name" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
         <td class="field-name">SIRET</td>
         <td>{{ formDataService.user.userProfile.company.siret }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/status/siret" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
         <td class="field-name">TVA</td>
         <td>{{ formDataService.user.userProfile.company.tvanumber }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/status/tva" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
-        <td colspan="3"><h2 class="subtitle">Localisation</h2></td>
+        <td colspan="3"><h2 class="subtitle">Adresse</h2></td>
       </tr>
       <tr>
         <td class="field-name">Pays</td>
         <td>
           {{ formDataService.user.userProfile.mainAddress.country.name }}
         </td>
-        <td class="has-text-right"><button routerLink="/onboarding/country" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/address" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Code postal</td>
         <td>{{ formDataService.user.userProfile.mainAddress.zipcode }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/zipcode" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/address" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Ville</td>
         <td>{{ formDataService.user.userProfile.mainAddress.city }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/city" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/address" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Voie</td>
         <td>{{ formDataService.user.userProfile.mainAddress.line1 }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/street" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        <td class="has-text-right"><button routerLink="/onboarding/address" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td colspan="3"><h2 class="subtitle">Contact</h2></td>
-      </tr>
-      <tr>
-        <td class="field-name">Email</td>
-        <td>{{ formDataService.user.userProfile.email }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/email" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
       <tr>
         <td class="field-name">Téléphone</td>
         <td>{{ formDataService.user.userProfile.phone1 }}</td>
         <td class="has-text-right"><button routerLink="/onboarding/phonenumber" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
-      <tr>
-        <td class="field-name">Newsletter</td>
-        <td *ngIf="formDataService.user.userProfile.emailOptin">Oui</td>
-        <td *ngIf="!formDataService.user.userProfile.emailOptin">Non</td>
-        <td class="has-text-right"><button routerLink="/onboarding/emailoptin" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-      </tr>
-      <tr>
-        <td colspan="3"><h2 class="subtitle">Sécurité</h2></td>
-      </tr>
-      <tr>
-        <td class="field-name">Mot de passe</td>
-        <td>{{ formDataService.user.password | anonymize:0 }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/password" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-      </tr>
     </table>
-
-    <div id="conditions-of-sale" class="content has-text-centered">
-      <label class="checkbox">
-        <input (click)="changeConditionsStatus()" type="checkbox">
-        J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGVU</span>.
-      </label>
-    </div>
 
     <div class="content">
       <button *ngIf="loading" class="button is-light is-loading"></button>
-      <button *ngIf="!loading && conditionsAccepted" class="button is-success" (click)="loading = true; submit()">On valide !</button>
-      <button *ngIf="!loading && !conditionsAccepted" class="button is-light">On valide !</button>
+      <button *ngIf="!loading" class="button is-success" (click)="submit()">On valide !</button>
     </div>
-</div>
-
-<div class="modal {{ modals.get('conditions-of-use') }}">
-  <div class="modal-background" (click)="modals.close('conditions-of-use')"></div>
-  <div class="modal-content">
-    <div class="box">
-      <app-general-terms-and-conditions></app-general-terms-and-conditions>
-    </div>
-  </div>
-  <button class="modal-close is-large" aria-label="close"></button>
 </div>

@@ -1,3 +1,5 @@
+import { CompanyInformationComponent } from './content/onboarding/company-information/company-information.component';
+import { AddressComponent } from './content/onboarding/user-details/address/address.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { GetBackComponent } from './content/get-back/get-back.component';
 import { GeneralTermsAndConditionsComponent } from './content/general-terms-and-conditions/general-terms-and-conditions.component';
@@ -13,7 +15,6 @@ import { UserPurchasesRunningComponent } from './content/user-dashboard/activity
 import { UserActivationComponent } from './content/user-activation/user-activation.component';
 import { SellerProductsComponent } from './content/products/seller-products/seller-products.component';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
-import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { ProductReferenceComponent } from './content/product-creation/product-reference/product-reference.component';
 import { UserSalesRunningComponent } from './content/user-dashboard/activity-log/user-sales/user-sales-running/user-sales-running.component';
 import { PaymentConfirmationComponent } from './content/checkout/payment-process/payment-confirmation/payment-confirmation.component';
@@ -49,24 +50,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './content/homepage/homepage.component';
 import { OnboardingComponent } from './content/onboarding/onboarding.component';
 import { ValidationComponent } from './content/onboarding/validation/validation.component'
-import { PseudoComponent } from './content/onboarding/user-details/personal-details/pseudo/pseudo.component';
 import { EmailComponent } from './content/onboarding/user-details/personal-details/email/email.component';
-import { FirstNameComponent } from './content/onboarding/user-details/personal-details/first-name/first-name.component';
-import { LastNameComponent } from './content/onboarding/user-details/personal-details/last-name/last-name.component';
 import { GenderComponent } from './content/onboarding/user-details/personal-details/gender/gender.component';
 import { StatusComponent } from './content/onboarding/user-details/personal-details/status/status.component';
-import { CountryComponent } from './content/onboarding/user-details/address-details/country/country.component';
-import { ZipcodeComponent } from './content/onboarding/user-details/address-details/zipcode/zipcode.component';
-import { CityComponent } from './content/onboarding/user-details/address-details/city/city.component';
-import { StreetComponent } from './content/onboarding/user-details/address-details/street/street.component';
 import { PhoneNumberComponent } from './content/onboarding/user-details/personal-details/phone-number/phone-number.component';
 import { PasswordComponent } from './content/onboarding/user-details/password/password.component';
-import { PasswordconfirmationComponent } from './content/onboarding/user-details/passwordconfirmation/passwordconfirmation.component';
 import { BirthdateComponent } from './content/onboarding/user-details/personal-details/birthdate/birthdate.component';
 import { EmailOptinComponent } from './content/onboarding/user-details/personal-details/email-optin/email-optin.component';
 import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
-import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
-import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
 import { ProductInformationComponent } from './content/product-information/product-information.component';
 import { LoginComponent } from './content/login/login.component';
 import { UserDashboardComponent } from './content/user-dashboard/user-dashboard.component';
@@ -78,6 +69,9 @@ import { UserSalesConfirmedComponent } from './content/user-dashboard/activity-l
 import { DispatchNoteComponent } from './content/user-dashboard/dispatch-note/dispatch-note.component';
 import { ProductConsumableComponent } from './content/product-creation/product-consumable/product-consumable.component';
 import { IntroductionComponent } from './content/product-creation/introduction/introduction.component';
+import { AccountOnboardingComponent } from './content/onboarding/account-onboarding/account-onboarding.component';
+import { AccountValidationComponent } from './content/onboarding/account-onboarding/account-validation/account-validation.component';
+import { NameComponent } from './content/onboarding/user-details/name/name.component';
 
 const routes: Routes = [
   {
@@ -196,19 +190,11 @@ const routes: Routes = [
     component: OnboardingComponent,
     children: [
       {
-        path: '', redirectTo: 'email', pathMatch: 'full'
+        path: '', redirectTo: 'name', pathMatch: 'full'
       },
       {
-        path: 'email',
-        component: EmailComponent
-      },
-      {
-        path: 'firstname',
-        component: FirstNameComponent
-      },
-      {
-        path: 'lastname',
-        component: LastNameComponent
+        path: 'name',
+        component: NameComponent
       },
       {
         path: 'gender',
@@ -219,52 +205,20 @@ const routes: Routes = [
         component: StatusComponent,
       },
       {
-        path: 'status/company-name',
-        component: CompanyNameComponent
-      },
-      {
-        path: 'status/siret',
-        component: SiretComponent
-      },
-      {
-        path: 'status/tva',
-        component: TvaComponent
+        path: 'company-information',
+        component: CompanyInformationComponent
       },
       {
         path: 'birthdate',
         component: BirthdateComponent
       },
       {
-        path: 'country',
-        component: CountryComponent
-      },
-      {
-        path: 'zipcode',
-        component: ZipcodeComponent
-      },
-      {
-        path: 'city',
-        component: CityComponent
-      },
-      {
-        path: 'street',
-        component: StreetComponent
+        path: 'address',
+        component: AddressComponent
       },
       {
         path: 'phonenumber',
         component: PhoneNumberComponent
-      },
-      {
-        path: 'password',
-        component: PasswordComponent
-      },
-      {
-        path: 'passwordconfirmation',
-        component: PasswordconfirmationComponent
-      },
-      {
-        path: 'emailoptin',
-        component: EmailOptinComponent
       },
       {
         path: 'validation',
@@ -273,6 +227,31 @@ const routes: Routes = [
       {
         path: 'confirmation',
         component: ConfirmationComponent
+      }
+    ]
+  },
+  {
+    path: 'account-onboarding',
+    component: AccountOnboardingComponent,
+    children: [
+      {
+        path: '', redirectTo: 'email', pathMatch: 'full'
+      },
+      {
+        path: 'email',
+        component: EmailComponent
+      },
+      {
+        path: 'password',
+        component: PasswordComponent
+      },
+      {
+        path: 'emailoptin',
+        component: EmailOptinComponent
+      },
+      {
+        path: 'account-validation',
+        component: AccountValidationComponent
       }
     ]
   },

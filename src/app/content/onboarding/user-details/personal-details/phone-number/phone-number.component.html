@@ -11,35 +11,35 @@
       [stepSubtitle]=stepSubtitle>
     </app-step-label>
 
-    <form [formGroup]="form">
+    <form [formGroup]="formCreator.form">
       <p class="control">
         <input id="phone" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.phone1"
         formControlName="phone"
-        [ngClass]="{'is-invalid': controls.phone.errors }">
+        [ngClass]="{'is-invalid': formCreator.controls.phone.errors }">
 
         <input id="phone-mobile" class="input no-border is-hidden-tablet" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.phone1"
         formControlName="phone"
-        [ngClass]="{'is-invalid': controls.phone.errors }">
+        [ngClass]="{'is-invalid': formCreator.controls.phone.errors }">
       </p>
     </form>
   </div>
 </div>
 
 <!-- Errors display -->
-<div *ngIf="controls.phone.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.phone.errors }">
-  <div class="error" *ngIf="controls.phone.errors.required">Votre numéro (fixe ou mobile) est requis</div>
-  <div class="error" *ngIf="controls.phone.errors.pattern">Votre numéro est invalide</div>
+<div *ngIf="formCreator.controls.phone.errors" class="invalid-feedback" [ngClass]="{'is-invalid': formCreator.controls.phone.errors }">
+  <div class="error" *ngIf="formCreator.controls.phone.errors.required">Votre numéro (fixe ou mobile) est requis</div>
+  <div class="error" *ngIf="formCreator.controls.phone.errors.pattern">Votre numéro est invalide</div>
 </div>
 
 <app-navigation
-  [controls]=controls.phone.errors
-  [data]="formDataService"
+  [controls]=formCreator.controls.phone.errors
+  [data]=formData
   [path]=path
-  [rootUri]="root"
-  [nextOn]="nextOn"
-  [previousOn]="previousOn">
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

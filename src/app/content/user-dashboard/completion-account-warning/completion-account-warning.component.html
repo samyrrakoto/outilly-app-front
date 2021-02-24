@@ -1,0 +1,13 @@
+<section #warning *ngIf="!completed" class="section">
+  <article class="message">
+    <div class="message-header">
+      Votre profil n'est pas encore complété
+      <button class="delete" aria="delete" (click)="warning.remove()"></button>
+    </div>
+
+    <div class="message-body">
+      Vous ne pouvez pas <span class="bold">acheter des produits</span> ou <span class="bold">vendre vos produits</span> tant que votre profil n'est pas complété.<br><br>
+      Vous pouvez compléter votre profil <span class="accepted pointed" routerLink="/onboarding">ici</span>.
+    </div>
+  </article>
+</section>

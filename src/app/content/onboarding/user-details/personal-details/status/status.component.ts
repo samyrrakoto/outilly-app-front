@@ -1,8 +1,6 @@
-import { accountOnboarding } from 'src/app/onboardings';
+import { profileOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Router } from '@angular/router';
-import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,34 +11,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './status.component.css']
 })
 export class StatusComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   readonly tiles: string[] = ['individual', 'professionnal'];
   additionalControls: boolean;
   user: User;
   form: FormGroup;
 
   constructor(
-    public formDataService: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
+    public formData: FormDataService,
     public formBuilder: FormBuilder)
   {
-    super();
-    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
-    this.formDataService.fieldName = "status";
-    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
-    this.user = formDataService.user;
+    super(profileOnboarding, 'status');
+    this.formData.fieldName = "status";
+    !this.formData.user.username ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    this.user = formData.user;
     this.additionalControls = this.user.userProfile.type !== null ? true : false;
-    this.stepNb = this.findAccountStepNb('status');
     this.stepName = "Particulier ou professionnel ?";
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = accountOnboarding[this.stepNb - 2];
-    this.path.next = accountOnboarding[this.stepNb + 3];
   }
 
   ngOnInit(): void {
-    this.getForm();
   }
 
   ngAfterViewInit(): void {
@@ -49,23 +37,16 @@ export class StatusComponent extends StepForm {
     }
   }
 
-  public getForm(): void {
-    this.form = this.formBuilder.group({
-      status: [this.user.userProfile.type, [Validators.required]],
-    });
-  }
-
-  public get controls() {
-    return this.form.controls;
-  }
-
   public setFocus(tileId: string): void {
     if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
       document.getElementById(tileId).classList.add('chosen-tile');
     }
   }
 
-  public handleStatus(): void {
-    this.user.userProfile.type === 'professional' ? this.path.next = accountOnboarding[this.stepNb] : null;
+  public handleStatus(status: string): void {
+    this.user.userProfile.type = status;
+    this.path.next = this.user.userProfile.type === 'professional' ? profileOnboarding.steps[this.stepNb] : profileOnboarding.steps[this.stepNb + 1];
+    this.additionalControls = true;
+    this.nextOn = true;
   }
 }
