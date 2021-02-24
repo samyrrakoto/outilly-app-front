@@ -122,6 +122,26 @@ export class AuthService {
     return actualTimestamp > timestamp ? 'expired' : 'good';
   }
 
+  public getUserStatus(): string {
+    const userToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+
+    return JSON.parse(userToken).status;
+  }
+
+  public getUserProfileCompletion(): boolean {
+    const userProfileCompletionToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+
+    return JSON.parse(userProfileCompletionToken).isCompleted;
+  }
+
+  public isUserActivated(): boolean {
+    return this.getUserStatus() === 'activated';
+  }
+
+  public isUserCompleted(): boolean {
+    return this.getUserProfileCompletion();
+  }
+
   // Verify user credentials on server to get token
   private getJwtToken(data: any): any {
     return this.request.login(data);
