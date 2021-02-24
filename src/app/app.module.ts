@@ -166,6 +166,11 @@ import { IntroductionComponent } from './content/product-creation/introduction/i
 import { SolutionsComponent } from './content/homepage/solutions/solutions.component';
 import { DemoRequestComponent } from './demo-request/demo-request.component';
 import { AccountOnboardingComponent } from './content/onboarding/account-onboarding/account-onboarding.component';
+import { AccountValidationComponent } from './content/onboarding/account-onboarding/account-validation/account-validation.component';
+import { AddressComponent } from './content/onboarding/user-details/address/address.component';
+import { CompanyInformationComponent } from './content/onboarding/company-information/company-information.component';
+import { NameComponent } from './content/onboarding/user-details/name/name.component';
+import { CompletionAccountWarningComponent } from './content/user-dashboard/completion-account-warning/completion-account-warning.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -325,7 +330,12 @@ export class MyHammerConfig extends HammerGestureConfig {
     IntroductionComponent,
     SolutionsComponent,
     DemoRequestComponent,
-    AccountOnboardingComponent
+    AccountOnboardingComponent,
+    AccountValidationComponent,
+    AddressComponent,
+    CompanyInformationComponent,
+    NameComponent,
+    CompletionAccountWarningComponent,
   ],
   imports: [
     HttpClientModule,
