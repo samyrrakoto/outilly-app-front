@@ -36,20 +36,20 @@ export const questions = {
 export const country = {
   COUNTRIES_ACCEPTED: [
     {
-      isocode: 'FR',
-      label: 'France',
+      isoCode: 'FR',
+      name: 'France',
     },
     {
-      isocode: 'LU',
-      label: 'Luxembourg'
+      isoCode: 'LU',
+      name: 'Luxembourg'
     },
     {
-      isocode: 'BE',
-      label: 'Belgique'
+      isoCode: 'BE',
+      name: 'Belgique'
     },
     {
-      isocode: 'CH',
-      label: 'Suisse'
+      isoCode: 'CH',
+      name: 'Suisse'
     }
   ]
 };
