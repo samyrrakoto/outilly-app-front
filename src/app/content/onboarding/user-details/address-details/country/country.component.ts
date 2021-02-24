@@ -15,7 +15,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CountryComponent extends StepForm {
   readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   additionalControls: boolean;
   user: User;
   form: FormGroup;
