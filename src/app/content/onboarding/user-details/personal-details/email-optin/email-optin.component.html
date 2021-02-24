@@ -1,5 +1,5 @@
 <div class="content has-text-left">
-  <div class="control">
+  <div class="field">
     <app-step-progress
       [stepNb]=stepNb
       [totalNbSteps]=totalNbSteps>
@@ -35,9 +35,9 @@
 
 <app-navigation
   [disabledEnterKey]=true
-  [data]="formDataService"
+  [data]=formData
   [path]=path
-  [rootUri]="root"
-  [nextOn]="nextOn"
-  [previousOn]="previousOn">
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>

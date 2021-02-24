@@ -1,9 +1,7 @@
+import { profileOnboarding } from 'src/app/onboardings';
 import { user } from 'src/app/parameters';
-import { accountOnboarding } from 'src/app/onboardings';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Router } from '@angular/router';
-import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { StepForm } from 'src/app/models/step-form';
@@ -14,28 +12,19 @@ import { StepForm } from 'src/app/models/step-form';
   styleUrls: ['../../../onboarding.component.css', './birthdate.component.css']
 })
 export class BirthdateComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
-  user: User;
+  @ViewChild('birthdate') birthdate: ElementRef;
+  user: User = new User();
   form: FormGroup;
 
   constructor(
     public formDataService: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(profileOnboarding, 'birthdate');
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
-    this.formDataService.fieldName = "birthdate";
-    this.stepNb = this.findAccountStepNb('birthdate');
     this.stepName = "Votre date de naissance ?";
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = this.user.userProfile.type === 'professional' ? accountOnboarding[this.stepNb - 2] : accountOnboarding[this.stepNb - 5];
-    this.path.next = accountOnboarding[this.stepNb];
-    this.stepNb -= this.findSubStepsNb('birthdate');
+    this.path.previous = this.user.userProfile.type === 'professional' ? profileOnboarding.steps[this.stepNb - 2] : profileOnboarding.steps[this.stepNb - 3];
   }
 
   ngOnInit(): void {
@@ -43,10 +32,8 @@ export class BirthdateComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    const birthdate: HTMLElement = document.getElementById('birthdate');
-
-    if (birthdate !== null) {
-      birthdate.focus();
+    if (this.birthdate.nativeElement !== null) {
+      this.birthdate.nativeElement.focus();
     }
   }
 

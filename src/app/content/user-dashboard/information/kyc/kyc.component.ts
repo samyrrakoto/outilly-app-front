@@ -1,3 +1,4 @@
+import { KycManagerService } from 'src/app/services/kyc-manager.service';
 import { Subject } from 'rxjs';
 import { ErrorManager } from 'src/app/models/error-manager';
 import { UserManagerService } from 'src/app/services/user-manager.service';
@@ -33,7 +34,8 @@ export class KycComponent implements OnInit {
 
   constructor(
     private request: RequestService,
-    public userManager: UserManagerService)
+    public userManager: UserManagerService,
+    public kycManager: KycManagerService)
   {
     this.modals.addModal('id');
     this.modals.addModal('bank-account');
@@ -42,7 +44,10 @@ export class KycComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getBankInfo();
+    if (this.kycManager.hasBankInfo()) {
+      this.getBankInfo()
+        .catch();
+    }
   }
 
   public handleFile(event: any): void {
@@ -53,7 +58,7 @@ export class KycComponent implements OnInit {
       this.createKycDoc()
         .then(() => this.storeDoc(this.page, files[0]))
         .then(() => this.addPage(event));
-    }
+      }
   }
 
   public openImgPicker(elementId: string): void {
@@ -61,12 +66,16 @@ export class KycComponent implements OnInit {
   }
 
   private getBankInfo(): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.request.getData(this.request.uri.BANK_INFO).subscribe({
         next: (res: any) => {
           this.iban = res.IBAN;
           this.bic = res.BIC;
+          resolve();
         },
+        error: () => {
+          reject();
+        }
       })
     });
   }
@@ -78,7 +87,7 @@ export class KycComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
       this.request.postData(payload, this.request.uri.CREATE_KYC_DOC).subscribe(
-        (res: any) => {
+        () => {
           resolve();
         },
         () => {
@@ -214,25 +223,6 @@ export class KycComponent implements OnInit {
         this.kycUrl.push(<string>event.target.result);
       }
     }
-  }
-
-  public getKycDisplay(): boolean {
-    const KYCstatus: AskValidationStatus = this.userManager.user.mangoPayData.KYCstatus;
-
-    return KYCstatus === null || KYCstatus === AskValidationStatus.REFUSED;
-  }
-
-  public isKycCreated(): boolean {
-    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.CREATED;
-  }
-
-  public isKycAsked(): boolean {
-    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.VALIDATION_ASKED;
-  }
-
-  public isKycRefused(): boolean {
-    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.REFUSED;
-
   }
 
   public openModal(): void {

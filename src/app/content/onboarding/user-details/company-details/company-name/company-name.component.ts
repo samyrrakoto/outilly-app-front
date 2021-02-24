@@ -15,7 +15,6 @@ import { User } from 'src/app/models/user';
 })
 export class CompanyNameComponent extends StepForm {
   readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 

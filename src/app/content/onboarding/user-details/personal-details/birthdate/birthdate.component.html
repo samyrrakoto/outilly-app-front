@@ -12,7 +12,7 @@
 
     <form *ngIf="form" [formGroup]="form">
       <p class="control">
-        <input id="birthdate"
+        <input #birthdate id="birthdate"
           class="input no-border is-hidden-mobile"
           type="date"
           formControlName="birthdate"

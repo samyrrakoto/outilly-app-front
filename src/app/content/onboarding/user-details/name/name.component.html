@@ -1,0 +1,50 @@
+<div class="content has-text-left">
+  <div class="field">
+
+  <app-step-progress
+    [stepNb]=stepNb
+    [totalNbSteps]=totalNbSteps>
+  </app-step-progress>
+
+    <app-step-label
+    [stepNb]=stepNb
+    [stepName]=stepName
+    [stepSubtitle]=stepSubtitle>
+  </app-step-label>
+
+    <form *ngIf="formCreator.form" [formGroup]="formCreator.form">
+      <div class="field">
+        <label class="label">Prénom</label>
+        <div class="control">
+          <input #firstname id="firstname" class="input no-border"
+          type="text"
+          (keydown)="onKey($event)"
+          [(ngModel)]="user.userProfile.firstname"
+          formControlName="firstname"
+          [ngClass]="{'is-invalid': formCreator.controls.firstname.errors }">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Nom</label>
+        <div class="control">
+          <input #lastname id="lastname" class="input no-border"
+          type="text"
+          (keydown)="onKey($event)"
+          [(ngModel)]="user.userProfile.lastname"
+          formControlName="lastname"
+          [ngClass]="{'is-invalid': formCreator.controls.lastname.errors }">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-navigation
+  [controls]=formCreator.controls.firstname.errors
+  [data]=formDataService
+  [path]=path
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
+</app-navigation>

@@ -22,7 +22,8 @@ export class OnboardingComponent implements OnInit {
   previousOn: boolean;
   readonly root: string = 'onboarding/';
 
-  constructor(public formDataService: FormDataService,
+  constructor(
+    public formDataService: FormDataService,
     public router: Router,
     public formValidator: FormValidatorService)
   {

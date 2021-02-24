@@ -7,3 +7,7 @@
 .control {
   font-size: 0.7em;
 }
+
+.control.my-select {
+  font-size: 1em;
+}

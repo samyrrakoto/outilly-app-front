@@ -53,6 +53,7 @@ export class Uri {
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';
+  readonly CREATE_COMPANY: string = 'secure/company/create';
 
   // KYC routes
   readonly BANK_INFO: string = 'secure/mangopay/user/bank-account/view';

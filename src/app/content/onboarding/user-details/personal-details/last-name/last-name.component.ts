@@ -1,4 +1,4 @@
-import { accountOnboarding } from 'src/app/onboardings';
+import { profileOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { Router } from '@angular/router';
@@ -13,8 +13,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './last-name.component.css']
 })
 export class LastNameComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length
   user: User;
   form: FormGroup;
 
@@ -24,16 +22,12 @@ export class LastNameComponent extends StepForm {
     public formValidatorService: FormValidatorService,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(profileOnboarding);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "lastname";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = this.findAccountStepNb('lastname');
     this.stepName = "Et votre nom ?";
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = accountOnboarding[this.stepNb - 2];
-    this.path.next = accountOnboarding[this.stepNb];
   }
 
   ngOnInit(): void {

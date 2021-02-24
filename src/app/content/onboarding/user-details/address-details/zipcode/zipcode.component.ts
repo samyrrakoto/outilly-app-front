@@ -15,7 +15,6 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
 })
 export class ZipcodeComponent extends StepForm {
   readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 

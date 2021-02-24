@@ -13,7 +13,7 @@
 
     <form *ngIf="form" [formGroup]="form">
       <p class="control">
-        <input id="email" class="input no-border is-hidden-mobile"
+        <input #email id="email" class="input no-border is-hidden-mobile"
           type="email"
           (keydown)="onKey($event)"
           placeholder="{{ placeholder }}"
@@ -46,9 +46,9 @@
 <app-navigation
   [controls]=controls.mail.errors
   [externalControl]=externalControl
-  [data]="formDataService"
+  [data]=formDataService
   [path]=path
-  [rootUri]="root"
-  [nextOn]="nextOn"
-  [previousOn]="previousOn">
+  [rootUri]=root
+  [nextOn]=nextOn
+  [previousOn]=previousOn>
 </app-navigation>
