@@ -1,0 +1,19 @@
+section {
+  width: 60%;
+  margin: auto;
+}
+
+.message-body {
+  color: black !important;
+  font-size: 0.9em;
+}
+
+.message-header {
+  background-color: var(--KTKP-YELLOW);
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    width: 95%;
+  }
+}
