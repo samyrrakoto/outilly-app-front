@@ -28,26 +28,6 @@ export const profileOnboarding: Onboarding = {
   ]
 };
 
-export const fullAccountOnboarding: Onboarding = {
-  root: '/full-account/',
-  onboardingName: 'Création de votre compte',
-  steps: [
-    'email',
-    'password',
-    'emailoptin',
-    'name',
-    'gender',
-    'status',
-    'status-information',
-    'birthdate',
-    'address',
-    'phonenumber',
-    'emailoptin',
-    'validation',
-    'confirmation'
-  ]
-};
-
 export const productOnboarding: Onboarding = {
   root: '/product/create/',
   onboardingName: '',
