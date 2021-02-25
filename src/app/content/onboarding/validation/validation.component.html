@@ -37,21 +37,26 @@
         </td>
         <td class="has-text-right"><button routerLink="/onboarding/status" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
       </tr>
-      <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
-        <td class="field-name">Nom d'entreprise</td>
-        <td>{{ formDataService.user.userProfile.company.name }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-      </tr>
-      <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
-        <td class="field-name">SIRET</td>
-        <td>{{ formDataService.user.userProfile.company.siret }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-      </tr>
-      <tr *ngIf="formDataService.user.userProfile.type === 'professional'">
-        <td class="field-name">TVA</td>
-        <td>{{ formDataService.user.userProfile.company.tvanumber }}</td>
-        <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
-      </tr>
+      <ng-container *ngIf="formDataService.user.userProfile.type === 'professional'">
+        <tr>
+          <td colspan="3"><h2 class="subtitle">Société</h2></td>
+        </tr>
+        <tr>
+          <td class="field-name">Nom d'entreprise</td>
+          <td>{{ formDataService.user.userProfile.company.name }}</td>
+          <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        </tr>
+        <tr>
+          <td class="field-name">SIRET</td>
+          <td>{{ formDataService.user.userProfile.company.siret }}</td>
+          <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        </tr>
+        <tr>
+          <td class="field-name">TVA</td>
+          <td>{{ formDataService.user.userProfile.company.tvanumber }}</td>
+          <td class="has-text-right"><button routerLink="/onboarding/company-information" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+        </tr>
+      </ng-container>
       <tr>
         <td colspan="3"><h2 class="subtitle">Adresse</h2></td>
       </tr>
@@ -79,6 +84,11 @@
       </tr>
       <tr>
         <td colspan="3"><h2 class="subtitle">Contact</h2></td>
+      </tr>
+      <tr>
+        <td class="field-name">Email</td>
+        <td>{{ formDataService.user.userProfile.email }}</td>
+        <td></td>
       </tr>
       <tr>
         <td class="field-name">Téléphone</td>

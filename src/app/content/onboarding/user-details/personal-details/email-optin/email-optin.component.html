@@ -11,9 +11,9 @@
       [isMandatory]=isMandatory>
     </app-step-label>
 
-    <div class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
+    <div *ngIf="!loading" class="columns tiles is-multiline is-mobile is-narrow is-vcentered has-text-centered">
       <div class="column">
-        <div class="content tile" id="yes" (click)="user.userProfile.emailOptin=true; additionalControls = true; nextOn=true">
+        <div class="content tile" id="yes" (click)="handleChoice(true); submit()">
           Oui
           <div class="discreet-text addlittlespaceabove">
             Promis, on ne va pas vous spammer ;-)
@@ -22,7 +22,7 @@
       </div>
 
       <div class="column">
-        <div class="content tile" id="no" (click)="user.userProfile.emailOptin=false; additionalControls = true; nextOn=true">
+        <div class="content tile" id="no" (click)="handleChoice(false); submit()">
           Non
           <div class="discreet-text addlittlespaceabove">
             Vous viendrez donc nous voir plus souvent !
@@ -30,10 +30,17 @@
         </div>
       </div>
     </div>
+
+    <nav class="level">
+      <div class="level-item">
+        <app-loading *ngIf="loading"></app-loading>
+      </div>
+    </nav>
   </div>
 </div>
 
 <app-navigation
+  [additionalControls]=additionalControls
   [disabledEnterKey]=true
   [data]=formData
   [path]=path

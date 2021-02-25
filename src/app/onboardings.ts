@@ -6,12 +6,10 @@ export const accountOnboarding: Onboarding = {
   steps: [
     'email',
     'password',
-    'emailoptin',
-    'account-validation'
+    'emailoptin'
   ]
 };
 
-// Onboarding to refacto
 export const profileOnboarding: Onboarding = {
   root: '/onboarding/',
   onboardingName: 'Complétion de votre profil',
@@ -23,26 +21,6 @@ export const profileOnboarding: Onboarding = {
     'birthdate',
     'address',
     'phonenumber',
-    'validation',
-    'confirmation'
-  ]
-};
-
-export const fullAccountOnboarding: Onboarding = {
-  root: '/full-account/',
-  onboardingName: 'Création de votre compte',
-  steps: [
-    'email',
-    'password',
-    'emailoptin',
-    'name',
-    'gender',
-    'status',
-    'status-information',
-    'birthdate',
-    'address',
-    'phonenumber',
-    'emailoptin',
     'validation',
     'confirmation'
   ]
