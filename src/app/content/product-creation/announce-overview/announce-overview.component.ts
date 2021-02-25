@@ -80,7 +80,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   }
 
   public signInOrUp(hasAccount: boolean): void {
-    const target: string = hasAccount ? 'login' : 'onboarding';
+    const target: string = hasAccount ? 'login' : 'account-onboarding';
 
     sessionStorage.setItem("redirect_after_login", this.location.path());
     this.router.navigate([target]);
