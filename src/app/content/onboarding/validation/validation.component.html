@@ -97,8 +97,27 @@
       </tr>
     </table>
 
+    <div id="conditions-of-sale" class="content has-text-centered">
+      <label class="checkbox">
+        <input (click)="changeConditionsStatus()" type="checkbox">
+        J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGVU</span>.
+      </label>
+    </div>
+
     <div class="content">
       <button *ngIf="loading" class="button is-light is-loading"></button>
-      <button *ngIf="!loading" class="button is-success" (click)="submit()">On valide !</button>
+      <button *ngIf="!loading && conditionsAccepted" class="button is-success" (click)="submit()">On valide !</button>
+      <button *ngIf="!loading && !conditionsAccepted" class="button is-light">On valide !</button>
     </div>
 </div>
+
+<!-- MODALS -->
+<div class="modal {{ modals.get('conditions-of-use') }}">
+  <div class="modal-background" (click)="modals.close('conditions-of-use')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-general-terms-and-conditions></app-general-terms-and-conditions>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+  </div>
