@@ -15,15 +15,15 @@
   <form [formGroup]="formCreator.form">
     <div class="field">
       <label class="label">Pays</label>
-        <div class="control my-select">
-          <div class="select">
-            <select [(ngModel)]="user.userProfile.mainAddress.country" formControlName="country">
-              <option *ngFor="let country of countriesAccepted" [ngValue]="country">
-                {{ country.name }}
-              </option>
-            </select>
-          </div>
+      <div class="control my-select">
+        <div class="select">
+          <select [(ngModel)]="user.userProfile.mainAddress.country.isoCode" formControlName="country">
+            <option *ngFor="let country of countriesAccepted" [value]="country.isoCode">
+              {{ country.name }}
+            </option>
+          </select>
         </div>
+      </div>
     </div>
 
     <div class="field">
