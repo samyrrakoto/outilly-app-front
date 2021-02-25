@@ -11,7 +11,7 @@
       [stepSubtitle]=stepSubtitle>
     </app-step-label>
 
-    <form *ngIf="form" [formGroup]="form">
+    <form *ngIf="formCreator.form" [formGroup]="formCreator.form">
       <p class="control">
         <input #email id="email" class="input no-border is-hidden-mobile"
           type="email"
@@ -19,7 +19,7 @@
           placeholder="{{ placeholder }}"
           [(ngModel)]="user.userProfile.email"
           formControlName="mail"
-          [ngClass]="{'is-invalid': controls.mail.errors }">
+          [ngClass]="{'is-invalid': formCreator.controls.mail.errors }">
 
           <input id="email-mobile" class="input no-border is-hidden-tablet"
           type="email"
@@ -27,7 +27,7 @@
           placeholder="{{ placeholder }}"
           [(ngModel)]="user.userProfile.email"
           formControlName="mail"
-          [ngClass]="{'is-invalid': controls.mail.errors }">
+          [ngClass]="{'is-invalid': formCreator.controls.mail.errors }">
       </p>
     </form>
 
@@ -36,17 +36,17 @@
       {{ message }}
     </div>
 
-    <div *ngIf="controls.mail.errors" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': controls.mail.errors }">
-      <div class="error" *ngIf="controls.mail.errors.required">L'email est requis</div>
-      <div class="error" *ngIf="controls.mail.errors.email">L'email est invalide</div>
+    <div *ngIf="!formCreator.form.valid" class="invalid-feedback has-text-centered" [ngClass]="{'is-invalid': formCreator.controls.mail.errors }">
+      <div class="error" *ngIf="formCreator.controls.mail.errors.required">L'email est requis</div>
+      <div class="error" *ngIf="formCreator.controls.mail.errors.email">L'email est invalide</div>
     </div>
   </div>
 </div>
 
 <app-navigation
-  [controls]=controls.mail.errors
+  [additionalControls]=formCreator.form.valid
   [externalControl]=externalControl
-  [data]=formDataService
+  [data]=formData
   [path]=path
   [rootUri]=root
   [nextOn]=nextOn
