@@ -1,6 +1,6 @@
-section {
-  width: 60%;
-  margin: auto;
+.section {
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .message-body {
@@ -10,10 +10,4 @@ section {
 
 .message-header {
   background-color: var(--KTKP-RED);
-}
-
-@media screen and (max-width: 768px) {
-  section {
-    width: 95%;
-  }
 }

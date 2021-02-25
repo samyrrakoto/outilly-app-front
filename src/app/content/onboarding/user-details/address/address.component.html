@@ -15,35 +15,47 @@
   <form [formGroup]="formCreator.form">
     <div class="field">
       <label class="label">Pays</label>
-        <div class="control my-select">
-          <div class="select">
-            <select [(ngModel)]="user.userProfile.mainAddress.country" formControlName="country">
-              <option *ngFor="let country of countriesAccepted" [ngValue]="country">
-                {{ country.name }}
-              </option>
-            </select>
-          </div>
+      <div class="control my-select">
+        <div class="select">
+          <select [(ngModel)]="user.userProfile.mainAddress.country.isoCode" formControlName="country">
+            <option *ngFor="let country of countriesAccepted" [value]="country.isoCode">
+              {{ country.name }}
+            </option>
+          </select>
         </div>
+      </div>
     </div>
 
     <div class="field">
       <label class="label">Code postal</label>
       <p class="control">
-        <input class="input" formControlName="zipcode" [(ngModel)]="user.userProfile.mainAddress.zipcode">
+        <input class="input"
+        formControlName="zipcode"
+        [(ngModel)]="user.userProfile.mainAddress.zipcode"
+        (keydown)="onKey($event)"
+        [ngClass]="{'is-invalid': formCreator.controls.zipcode.errors }">
       </p>
     </div>
 
     <div class="field">
       <label class="label">Ville</label>
       <p class="control">
-        <input class="input" formControlName="city" [(ngModel)]="user.userProfile.mainAddress.city">
+        <input class="input"
+        formControlName="city"
+        [(ngModel)]="user.userProfile.mainAddress.city"
+        (keydown)="onKey($event)"
+        [ngClass]="{'is-invalid': formCreator.controls.city.errors }">
       </p>
     </div>
 
     <div class="field">
       <label class="label">Voie</label>
       <p class="control">
-        <input class="input" formControlName="line1" [(ngModel)]="user.userProfile.mainAddress.line1">
+        <input class="input"
+        formControlName="line1"
+        [(ngModel)]="user.userProfile.mainAddress.line1"
+        (keydown)="onKey($event)"
+        [ngClass]="{'is-invalid': formCreator.controls.line1.errors }">
       </p>
     </div>
   </form>
