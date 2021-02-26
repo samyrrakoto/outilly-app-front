@@ -1,3 +1,4 @@
+import { storage } from 'src/app/parameters';
 import { pageInfo } from 'src/app/parameters';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,8 +16,7 @@ export class ConfirmationComponent implements OnInit {
 
   constructor(
     private formData: FormDataService,
-    public router: Router,
-    private auth: AuthService)
+    public auth: AuthService)
   {
     localStorage.removeItem('formData');
     this.formData.user = new User();
@@ -27,7 +27,10 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public backToLogin(): void {
-    this.auth.logout();
+    this.auth.logout(null, true);
   }
 
+  public comesFromProductOnboarding(): boolean {
+    return localStorage.getItem(storage.PRODUCT_ONBOARDING) !== null
+  }
 }
