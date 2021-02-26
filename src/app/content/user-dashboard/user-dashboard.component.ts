@@ -64,7 +64,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public logOut(): void {
-    this.auth.logout();
+    this.auth.logout(null);
   }
 
   public setFocus(id: string): void {

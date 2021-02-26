@@ -5,6 +5,11 @@
     depuis votre messagerie</span> via le mail que nous venons de vous envoyer.
 </div>
 
+<div *ngIf="comesFromProductOnboarding()" class="content">
+  Vous allez être redirigé(e) vers votre annonce afin de la finaliser.
+</div>
+
 <div class="content">
-    <button class="button is-danger" (click)="this.backToLogin()">Continuer</button>
+  <button *ngIf="!comesFromProductOnboarding()" class="button is-danger" (click)="this.backToLogin()">Continuer</button>
+  <button *ngIf="comesFromProductOnboarding()" class="button is-danger" routerLink="/product/create/announce-overview">Revenir à mon annonce</button>
 </div>
