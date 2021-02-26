@@ -19,7 +19,7 @@ export class TeamComponent implements OnInit {
         "https://media.outilly.com/team/christophe-vincent-cso-cofondateur-outilly-1.jpg",
         "https://media.outilly.com/team/christophe-vincent-cso-cofondateur-outilly-2.jpg",
         "Chief Sales Officer",
-        "Le bricolo de l'équipe, mais surtout chineur de bonnes affaires et collectionneur d'outils ! J'ai fait ses armes derrière les fourneaux avant de me reconvertir dans l'industrie de BTP en tant que responsable commercial au sein du groupe Soprema.",
+        "Le bricolo de l'équipe, mais surtout chineur de bonnes affaires et collectionneur d'outils ! J'ai fait mes armes derrière les fourneaux avant de me reconvertir dans l'industrie de BTP en tant que responsable commercial au sein du groupe Soprema.",
         "Christophe Vincent CSO et cofondateur d'Outilly",
         "christophe-vincent-7bb851173"
         ));
