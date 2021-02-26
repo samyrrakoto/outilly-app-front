@@ -18,8 +18,8 @@ export class TeamComponent implements OnInit {
         "Christophe Vincent",
         "https://media.outilly.com/team/christophe-vincent-cso-cofondateur-outilly-1.jpg",
         "https://media.outilly.com/team/christophe-vincent-cso-cofondateur-outilly-2.jpg",
-        "Chief Sales Officer (CSO)",
-        "Le bricoleur de l'équipe, chineur de bonnes affaires et collectionneur d'outils. Il a fait ses armes derrière les fourneaux avant de se reconvertir dans l'industrie de BTP en tant que responsable commercial au sein du groupe Soprema.",
+        "Chief Sales Officer",
+        "Le bricolo de l'équipe, mais surtout chineur de bonnes affaires et collectionneur d'outils ! J'ai fait ses armes derrière les fourneaux avant de me reconvertir dans l'industrie de BTP en tant que responsable commercial au sein du groupe Soprema.",
         "Christophe Vincent CSO et cofondateur d'Outilly",
         "christophe-vincent-7bb851173"
         ));
@@ -28,7 +28,7 @@ export class TeamComponent implements OnInit {
         "Yannick Piault",
         "https://media.outilly.com/team/yannick-piault-ceo-cofondateur-outilly-2.jpg",
         "https://media.outilly.com/team/yannick-piault-ceo-cofondateur-outilly-1.jpg",
-        "Chief Executive Officer (CEO)",
+        "Chief Executive Officer",
         "J'ai regardé 24 fois les saisons de H, je porte une barbe noire et j'ai des cheveux longs pour éviter les aller-retour chez le coiffeur, selon moi le fromage est un mets constitué de lait frelaté et je voue presque un culte à la langue française. Sinon je fais du marketing et j'aime innover. Voilà.",
         "Yannick Piault CEO et cofondateur d'Outilly",
         "yannick-piault"
@@ -38,8 +38,8 @@ export class TeamComponent implements OnInit {
         "Samyr Rakoto",
         "https://media.outilly.com/team/samyr-rakoto-cto-cofondateur-outilly-2.jpg",
         "https://media.outilly.com/team/samyr-rakoto-cto-cofondateur-outilly-1.jpg",
-        "Chief Technical Officer (CTO)",
-        "La légende dit qu'il ne dort pas et qu'il a inventé une formule chimique qui transforme ses heures de sommeil, sa passion pour la tech et le \"bien faire les choses\" en électricité pour faire tourner le serveur de prod. Si vous lisez ceci, c'est que sa formule fonctionne plutôt bien.",
+        "Chief Technical Officer",
+        "La légende raconte que je ne dors pas et que j'aurais inventé une formule chimique qui transforme mes heures de sommeil, ma passion pour la tech et le \"bien faire les choses\" en électricité pour faire tourner le serveur de production. Si vous lisez ceci, c'est que la formule fonctionne plutôt bien.",
         "Samyr Rakoto CTO et cofondateur d'Outilly",
         "samyr-rakoto"
         ));
