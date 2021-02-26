@@ -24,6 +24,7 @@ export class Uri {
   readonly GET_SALE_VENDOR: string = 'secure/sale';
   readonly GET_SALE_AVAILABILITY: string = 'sale/check/availability';
   readonly GET_BIDS_AND_SALES = 'secure/bids/sales';
+  readonly DELETE_SALE = 'secure/sale/soft-delete';
   readonly BRANDS: string = 'brands';
   readonly CATEGORIES: string = 'product/categories/all';
   readonly TYPES: string = 'product/types/all';
@@ -52,6 +53,7 @@ export class Uri {
   readonly DELETE_ADDRESS: string = 'secure/address';
   readonly ADD_ADDRESS: string = 'secure/address/';
   readonly UPDATE_ADDRESS: string = 'secure/address/';
+  readonly CREATE_COMPANY: string = 'secure/company/create';
 
   // KYC routes
   readonly BANK_INFO: string = 'secure/mangopay/user/bank-account/view';

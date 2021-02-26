@@ -1,0 +1,13 @@
+<section #warning *ngIf="!completed" class="section">
+  <article class="message">
+    <div class="message-header">
+      Votre profil n'est pas encore complété
+      <button class="delete" aria="delete" (click)="warning.remove()"></button>
+    </div>
+
+    <div class="message-body">
+      Pensez à compléter votre profil pour pouvoir utiliser toutes les fonctionnalités du site.<br>
+      Pour ce faire <span class="accepted pointed" routerLink="/onboarding">vous pouvez cliquer ici</span>.
+    </div>
+  </article>
+</section>

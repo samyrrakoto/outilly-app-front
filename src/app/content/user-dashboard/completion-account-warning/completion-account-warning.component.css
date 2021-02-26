@@ -1,0 +1,13 @@
+.section {
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.message-body {
+  color: black !important;
+  font-size: 0.9em;
+}
+
+.message-header {
+  background-color: var(--KTKP-YELLOW);
+}

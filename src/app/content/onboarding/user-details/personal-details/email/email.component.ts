@@ -1,11 +1,11 @@
+import { FormCreatorService } from 'src/app/services/form-creator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { accountOnboarding } from 'src/app/onboardings';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Router } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { User } from 'src/app/models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-email',
@@ -13,58 +13,45 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './email.component.css']
 })
 export class EmailComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
+  @ViewChild('email') email: ElementRef;
   readonly externalControl: boolean = true;
   error: string[] = [];
   user: User = new User();
-  form: FormGroup;
 
   constructor(
-    public formDataService: FormDataService,
-    public router: Router,
+    public formData: FormDataService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formCreator: FormCreatorService,
+    )
   {
-    super();
+    super(accountOnboarding, 'email');
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
-    this.formDataService.fieldName = "email";
-    this.formDataService.fieldName = "usernameExistence";
-    this.user = formDataService.user;
-    this.stepNb = this.findAccountStepNb('email');
+    this.formData.fieldName = "usernameExistence";
+    this.user = formData.user;
     this.stepName = "Votre adresse e-mail ?";
     this.stepSubtitle = 'Elle vous servira pour vous connecter.';
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = "";
-    this.path.next = accountOnboarding[this.stepNb];
     this.placeholder = "jeanmarc78@aol.fr";
   }
 
   ngOnInit(): void {
-    this.getForm();
+    this.formCreator.getForm(this.getValidations());
   }
 
   ngAfterViewInit(): void {
-    const email: HTMLElement = document.getElementById('email');
-
-    if (email !== null) {
-      email.focus();
+    if (this.email.nativeElement !== null) {
+      this.email.nativeElement.focus();
     }
   }
 
   ngOnChanges() {
-    if (this.formDataService) {
-      !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    if (this.formData) {
+      !this.formData.user.username ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
     }
   }
 
-  public getForm(): void {
-    this.form = this.formBuilder.group({
-      mail: [this.user.userProfile.email, [Validators.required, Validators.email]],
-    });
-  }
-
-  public get controls() {
-    return this.form.controls;
+  public getValidations(): any {
+    return {
+      mail: [this.user.userProfile.email, [Validators.required, Validators.email]]
+    };
   }
 }

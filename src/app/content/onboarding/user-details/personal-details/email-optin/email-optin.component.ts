@@ -1,11 +1,11 @@
 import { accountOnboarding } from 'src/app/onboardings';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Router } from '@angular/router';
-import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OnboardingManagerService } from 'src/app/services/onboarding-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-optin',
@@ -13,31 +13,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './email-optin.component.css']
 })
 export class EmailOptinComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
-  additionalControls: boolean;
+  loading: boolean = false;
+  additionalControls: boolean = false;
   user: User;
-  form: FormGroup;
 
   constructor(
-    public formDataService: FormDataService,
-    public router: Router,
-    public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formData: FormDataService,
+    private onboardingManager: OnboardingManagerService,
+    private auth: AuthService,
+    private router: Router)
   {
-    super();
-    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
-    this.user = formDataService.user;
-    this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
-    this.formDataService.fieldName = "emailOptin";
+    super(accountOnboarding, 'emailoptin');
+    !this.formData.user.username ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    this.user = formData.user;
     this.additionalControls = this.user.userProfile.emailOptin !== null ? true : false;
-    this.stepNb = this.findAccountStepNb('emailoptin');
     this.stepName = "Souhaitez-vous recevoir notre newsletter ?";
-    this.isMandatory = false;
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = accountOnboarding[this.stepNb - 2];
-    this.path.next = accountOnboarding[this.stepNb];
-    this.stepNb -= this.findSubStepsNb('emailoptin');
   }
 
   ngOnInit(): void {
@@ -52,6 +42,26 @@ export class EmailOptinComponent extends StepForm {
   public setFocus(tileId: string): void {
     if (!document.getElementById(tileId).classList.contains('chosen-tile')) {
       document.getElementById(tileId).classList.add('chosen-tile');
+    }
+  }
+
+  public handleChoice(choice: boolean): void {
+    this.user.userProfile.emailOptin = choice;
+  }
+
+  public submit(): void {
+    this.loading = true;
+    this.onboardingManager.createAccount(this.formData.user)
+      .then(() => this.auth.login(this.getCredentials()))
+      .then(() => this.router.navigate(['/onboarding']))
+      .then(() => this.loading = false)
+      .catch(() => this.loading = false);
+  }
+
+    private getCredentials(): any {
+    return {
+      "username": this.formData.user.userProfile.email,
+      "password": this.formData.user.password
     }
   }
 }

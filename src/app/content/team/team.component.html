@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="section">
+    <div class="columns">
+      <div class="column has-text-centered">
+        <h1 class="title">L'équipe</h1><br>
+      </div>
+    </div>
+    <div id="app" class="row columns is-multiline">
+      <div *ngFor="let member of members, index as i" class="column is-6 member">
+        <div class="card large">
+          <div class="card-image">
+            <figure class="image is-4by3" (mouseover)="displaySecondPhoto[i]=true" (mouseout)="displaySecondPhoto[i]=false">
+              <img [src]="member.imgPath" [alt]="member.imgAlt" *ngIf="!displaySecondPhoto[i]; else photo2">
+              <ng-template #photo2><img [src]="member.imgPath2" [alt]="member.imgAlt"></ng-template>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4 no-padding">{{member.name}}</p>
+                <p>
+                  <span class="title is-6">
+                    {{ member.title }}
+                  </span>
+                </p>
+                <span class="icon is-small is-left">
+                  <a href="https://www.linkedin.com/in/{{ member.linkedin }}" target="_blank"><fa-icon [icon]="['fab','linkedin']"></fa-icon></a>
+                </span>
+              </div>
+            </div>
+            <div class="content">
+              {{ member.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

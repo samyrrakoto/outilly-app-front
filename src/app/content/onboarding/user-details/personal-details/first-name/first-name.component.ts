@@ -1,4 +1,4 @@
-import { accountOnboarding } from 'src/app/onboardings';
+import { profileOnboarding } from 'src/app/onboardings';
 import { StepForm } from 'src/app/models/step-form';
 import { Component } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -13,8 +13,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../../../onboarding.component.css', './first-name.component.css']
 })
 export class FirstNameComponent extends StepForm {
-  readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 
@@ -24,17 +22,13 @@ export class FirstNameComponent extends StepForm {
     public formValidatorService: FormValidatorService,
     public formBuilder: FormBuilder)
   {
-    super();
+    super(profileOnboarding);
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formDataService.fieldName = "firstname";
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
     this.user = formDataService.user;
-    this.stepNb = this.findAccountStepNb('firstname');
     this.stepName = "Votre prénom ?";
     this.stepSubtitle = 'Car vous n\'êtes pas un numéro. ;-)';
-    this.path.current = accountOnboarding[this.stepNb - 1];
-    this.path.previous = accountOnboarding[this.stepNb - 2];
-    this.path.next = accountOnboarding[this.stepNb];
     this.placeholder = "Jean Marc";
   }
 

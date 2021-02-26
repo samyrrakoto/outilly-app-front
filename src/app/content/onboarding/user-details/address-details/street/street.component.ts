@@ -14,7 +14,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class StreetComponent extends StepForm {
   readonly root: string = '/onboarding/';
-  readonly totalNbSteps: number = accountOnboarding.length;
   user: User;
   form: FormGroup;
 

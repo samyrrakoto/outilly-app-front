@@ -1,3 +1,4 @@
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -15,4 +16,31 @@ export class RegexTemplateService {
     SWITZERLAND: /^CHE(-| )([0-9]{3}.){2}[0-9]{3}( )?(MWST|TVA|IVA)$/,
     LUXEMBOURG : /^[0-9]{8}$/
   };
+
+  public validVatRegex(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null =>
+      {
+        const verifications: boolean = this.checkVatRegex(control.value);
+        return verifications ? null : {notCorrect: control.value};
+      }
+  }
+
+  private checkVatRegex(value: any): boolean {
+    const allRegex: RegExp[] = [
+      this.TVA.FRANCE,
+      this.TVA.BELGIUM,
+      this.TVA.SWITZERLAND,
+      this.TVA.LUXEMBOURG
+    ];
+
+    if (value !== '') {
+      for (const regex of allRegex) {
+        if (value.match(regex)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
 }

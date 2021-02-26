@@ -39,16 +39,6 @@
                   <input class="input is-small not-editable" [value]="getType()" readonly>
                 </td>
               </tr>
-
-              <tr *ngIf="user.userProfile.type === 'professional'">
-                <td class="field-name">SIRET</td>
-                <td><input type="text" class="input is-small" [value]="user.userProfile.company.siret"></td>
-              </tr>
-
-              <tr *ngIf="user.userProfile.type === 'professional'">
-                <td class="field-name">TVA</td>
-                <td><input type="text" class="input is-small" [value]="user.userProfile.company.tvanumber"></td>
-              </tr>
             </table>
           </mat-panel-description>
 
@@ -59,150 +49,191 @@
           <div id="identity"></div>
 
       </mat-expansion-panel>
+    </mat-accordion>
+
+    <!-- COMPANY -->
+    <mat-accordion *ngIf="user.userProfile.type === 'professional'">
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            <fa-icon class="section-icon" [icon]="['fas', 'hard-hat']"></fa-icon>Société
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+
+            <table class="table is-narrow">
+              <tr>
+                <td class="field-name">Nom de la société</td>
+                <td><input type="text" class="input is-small not-editable" [value]="user.userProfile.company.name" readonly></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">SIRET</td>
+                <td><input type="text" class="input is-small not-editable" [value]="user.userProfile.company.siret" readonly></td>
+              </tr>
+
+              <tr>
+                <td class="field-name">TVA</td>
+                <td><input type="text" class="input is-small not-editable" [value]="user.userProfile.company.tvanumber" readonly></td>
+              </tr>
+            </table>
+          </mat-panel-description>
+
+          <button class="button is-light is-small addspaceabove" (click)="modals.open('dataChanges')">Une modification à faire ? Cliquez ici !</button>
+
+          <div id="company"></div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
 
     <!-- ADDRESSES -->
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-            <fa-icon class="section-icon" [icon]="['fas', 'house-user']"></fa-icon>Adresses
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div *ngFor="let address of user.userProfile.addresses; let i = index">
-          <table class="table">
-            <tr>
-              <td colspan="2" class="section-title">{{ user.userProfile.addresses[i].name }}</td>
-            </tr>
+    <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+              <fa-icon class="section-icon" [icon]="['fas', 'house-user']"></fa-icon>Adresses
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let address of user.userProfile.addresses; let i = index">
+            <table class="table">
+              <tr>
+                <td colspan="2" class="section-title">{{ user.userProfile.addresses[i].name }}</td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Nom</td>
-              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].name"></td>
-            </tr>
+              <tr>
+                <td class="field-name">Nom</td>
+                <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].name"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Pays</td>
-              <td>
-                <div class="select">
-                <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="pointed">
-                  <option *ngFor="let isoCode of isoCodes" value="{{ isoCode }}">{{ getCountryName(isoCode) }}</option>
-                </select>
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <td class="field-name">Pays</td>
+                <td>
+                  <div class="select">
+                  <select [(ngModel)]="user.userProfile.addresses[i].country.isoCode" class="pointed">
+                    <option *ngFor="let isoCode of isoCodes" value="{{ isoCode }}">{{ getCountryName(isoCode) }}</option>
+                  </select>
+                  </div>
+                </td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Code postal</td>
-              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].zipcode"></td>
-            </tr>
+              <tr>
+                <td class="field-name">Code postal</td>
+                <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].zipcode"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Ville</td>
-              <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].city"></td>
-            </tr>
+              <tr>
+                <td class="field-name">Ville</td>
+                <td><input type="text" class="input is-small" [(ngModel)]="user.userProfile.addresses[i].city"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Voie</td>
-              <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
-            </tr>
-          </table>
+              <tr>
+                <td class="field-name">Voie</td>
+                <td><input class="input is-small" [(ngModel)]="user.userProfile.addresses[i].line1"></td>
+              </tr>
+            </table>
 
-          <div class="field is-grouped">
-            <p class="control">
-              <button class="button is-dark is-small" (click)="updateUserAddress(i)">
-                <fa-icon [icon]="['fas', 'save']" style="color: var(--KTKP-GREEN)"></fa-icon>Sauvegarder
-              </button>
-            </p>
-            <p class="control">
-              <button class="button is-dark is-small" (click)="modals.open('addressDeletion'); addressIndexToDelete = i">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: var(--KTKP-RED)"></fa-icon>Supprimer
-              </button>
-            </p>
+            <div class="field is-grouped">
+              <p class="control">
+                <button class="button is-dark is-small" (click)="updateUserAddress(i)">
+                  <fa-icon [icon]="['fas', 'save']" style="color: var(--KTKP-GREEN)"></fa-icon>Sauvegarder
+                </button>
+              </p>
+              <p class="control">
+                <button class="button is-dark is-small" (click)="modals.open('addressDeletion'); addressIndexToDelete = i">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: var(--KTKP-RED)"></fa-icon>Supprimer
+                </button>
+              </p>
+            </div>
+
+            <div id="address-{{i}}"></div>
           </div>
 
-          <div id="address-{{i}}"></div>
-        </div>
+          <button class="button is-dark is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
 
-        <button class="button is-dark is-small" (click)="addAddress()" style="margin-top: 20px"><fa-icon [icon]="['fas', 'plus']"></fa-icon>Ajouter une adresse</button>
-
-    </mat-expansion-panel>
+      </mat-expansion-panel>
+    </mat-accordion>
 
     <!-- CONTACT INFORMATION -->
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          <fa-icon class="section-icon" [icon]="['fas', 'envelope-open']"></fa-icon>Contact
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-          <table class="table">
-            <tr>
-              <td class="field-name">Email</td>
-              <td><input id="email" class="input is-small" [(ngModel)]="user.userProfile.email"></td>
-            </tr>
+    <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            <fa-icon class="section-icon" [icon]="['fas', 'envelope-open']"></fa-icon>Contact
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+            <table class="table">
+              <tr>
+                <td class="field-name">Email</td>
+                <td><input id="email" class="input is-small" [(ngModel)]="user.userProfile.email"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Recevoir des actualités par mail</td>
-              <td>
-                <div class="select">
-                  <select [(ngModel)]="user.userProfile.emailOptin" class="pointed">
-                    <option [ngValue] ="true">Oui</option>
-                    <option [ngValue] ="false">Non</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <td class="field-name">Recevoir des actualités par mail</td>
+                <td>
+                  <div class="select">
+                    <select [(ngModel)]="user.userProfile.emailOptin" class="pointed">
+                      <option [ngValue] ="true">Oui</option>
+                      <option [ngValue] ="false">Non</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Téléphone</td>
-              <td><input id="phone" class="input is-small" [(ngModel)]="user.userProfile.phone1"></td>
-            </tr>
+              <tr>
+                <td class="field-name">Téléphone</td>
+                <td><input id="phone" class="input is-small" [(ngModel)]="user.userProfile.phone1"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Recevoir des actualités par SMS</td>
-              <td>
+              <tr>
+                <td class="field-name">Recevoir des actualités par SMS</td>
+                <td>
 
-                <div class="select">
-                  <select [(ngModel)]="user.userProfile.phone1Optin" class="pointed">
-                    <option [ngValue] ="true">Oui</option>
-                    <option [ngValue] ="false">Non</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
-          </table>
+                  <div class="select">
+                    <select [(ngModel)]="user.userProfile.phone1Optin" class="pointed">
+                      <option [ngValue] ="true">Oui</option>
+                      <option [ngValue] ="false">Non</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </table>
 
-          <div id="contact-information"></div>
+            <div id="contact-information"></div>
 
-          <button class="button is-dark is-small addspaceabove" (click)="updateUserData()"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
-    </mat-expansion-panel>
+            <button class="button is-dark is-small addspaceabove" (click)="updateUserData()"><fa-icon [icon]="['fas', 'save']"></fa-icon>Mettre à jour les infos</button>
+      </mat-expansion-panel>
+    </mat-accordion>
 
 
     <!-- SECURITY INFORMATION -->
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          <fa-icon class="section-icon" [icon]="['fas', 'lock']"></fa-icon>Sécurité
-        </mat-panel-title>
-        </mat-expansion-panel-header>
-          <table class="table">
-            <tr>
-              <td class="field-name">Mot de passe actuel</td>
-              <td><input id="password" type="password" class="input is-small" [(ngModel)]="user.password"></td>
-            </tr>
+    <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            <fa-icon class="section-icon" [icon]="['fas', 'lock']"></fa-icon>Sécurité
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+            <table class="table">
+              <tr>
+                <td class="field-name">Mot de passe actuel</td>
+                <td><input id="password" type="password" class="input is-small" [(ngModel)]="user.password"></td>
+              </tr>
 
-            <tr>
-              <td class="field-name">Nouveau mot de passe</td>
-              <td><input id="newPwd" type="password" class="input is-small" [(ngModel)]="user.newPassword"></td>
-            </tr>
+              <tr>
+                <td class="field-name">Nouveau mot de passe</td>
+                <td><input id="newPwd" type="password" class="input is-small" [(ngModel)]="user.newPassword"></td>
+              </tr>
 
-            <tr *ngIf="user.newPassword">
-              <td class="field-name">Confirmation du nouveau mot de passe</td>
-              <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
-            </tr>
-          </table>
+              <tr *ngIf="user.newPassword">
+                <td class="field-name">Confirmation du nouveau mot de passe</td>
+                <td><input id="password-confirmation" type="password" class="input is-small" [(ngModel)]="user.passwordConfirmation"></td>
+              </tr>
+            </table>
 
-          <button class="button is-dark is-small" (click)="updateUserPwd()">Mettre à jour le mot de passe</button>
+            <button class="button is-dark is-small" (click)="updateUserPwd()">Mettre à jour le mot de passe</button>
 
-          <div id="security"></div>
-    </mat-expansion-panel>
+            <div id="security"></div>
+      </mat-expansion-panel>
     </mat-accordion>
 
     <article id="error-messages" class="message is-danger" *ngFor="let errorMsg of dashboardValidator.errorMessages">
@@ -210,7 +241,6 @@
         {{ errorMsg }}
       </div>
     </article>
-</div>
 
 <!-- Information Modal -->
 <div class="modal {{ modals.get('addressDeletion') }}">

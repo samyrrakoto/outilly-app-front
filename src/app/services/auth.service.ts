@@ -1,3 +1,5 @@
+import { storage } from 'src/app/parameters';
+import { StorageService, StorageType } from './storage.service';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError} from 'rxjs';
@@ -13,14 +15,16 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   public logged: boolean;
   public accessToken: string;
-  private exclusiveStorageData: any[];
-  model: any = {};
 
   constructor(
-      private router: Router,
-      private jwtHelper: JwtHelperService,
-      private request: RequestService,
-  ) { }
+    private router: Router,
+    private jwtHelper: JwtHelperService,
+    private request: RequestService,
+    private storageService: StorageService)
+  {
+    this.storageService.addExclusiveStorageData('typeform');
+    this.storageService.addExclusiveStorageData('cookies');
+  }
 
   public login(credentials: any): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -30,7 +34,8 @@ export class AuthService {
           this.setUserInfosInSession();
           this.logged = true;
           resolve(true);
-        } else {
+        }
+        else {
           reject(false);
         }
       }, () => {
@@ -41,9 +46,10 @@ export class AuthService {
 
   // Checking if token is set
   public isLoggedIn(): Observable<boolean> {
-    if (localStorage.getItem('access_token') != null) {
+    if (localStorage.getItem('access_token') !== null) {
       this.loggedIn.next(true);
-    } else {
+    }
+    else {
       this.loggedIn.next(false);
     }
     return this.loggedIn.asObservable();
@@ -66,45 +72,31 @@ export class AuthService {
     return promise;
   }
 
-  // After clearing localStorage redirect to login screen
-  public logout(params?: any): void {
+  /*
+  ** After clearing localStorage redirect to login screen
+  ** soft parameter allows to keep 'redirect_after_url' after deconnection
+  */
+  public logout(params?: any, soft: boolean = false): void {
+    soft ? this.storageService.addExclusiveStorageData(storage.REDIRECT_AFTER_LOGIN, StorageType.SESSION) : null;
     this.logged = false;
     this.loggedIn.next(false);
-    this.getExclusiveStorageData();
-    localStorage.clear();
-    sessionStorage.clear();
-    this.setExclusiveStorageData();
+    this.storageService.reset()
     this.router.navigate(['/login'], {
       queryParams:
         params
     });
   }
 
-  private getExclusiveStorageData(): any {
-    this.exclusiveStorageData = [
-      {
-        name: 'cookies',
-        value: localStorage.getItem('cookies')
-      },
-      {
-        name: 'typeform',
-        value: localStorage.getItem('typeform')
-      }
-    ];
-  }
-
-  private setExclusiveStorageData(): void {
-    if (this.exclusiveStorageData) {
-      for (const storageData of this.exclusiveStorageData) {
-        if (storageData.value) {
-          localStorage.setItem(storageData.name, storageData.value);
-        }
-      }
-    }
-  }
-
   public setRedirectionUrl(url: string): void {
-    sessionStorage.setItem('redirect_after_login', url);
+    sessionStorage.setItem(storage.REDIRECT_AFTER_LOGIN, url);
+  }
+
+  public getRedirectionUrl(): string {
+    return sessionStorage.getItem(storage.REDIRECT_AFTER_LOGIN);
+  }
+
+  public hasRedirectionUrl(): boolean {
+    return sessionStorage.getItem(storage.REDIRECT_AFTER_LOGIN) !== null;
   }
 
   public isLogged(): boolean {
@@ -120,6 +112,26 @@ export class AuthService {
     const actualTimestamp: number = Date.now();
 
     return actualTimestamp > timestamp ? 'expired' : 'good';
+  }
+
+  public getUserStatus(): string {
+    const userToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+
+    return JSON.parse(userToken).status;
+  }
+
+  public getUserProfileCompletion(): boolean {
+    const userProfileCompletionToken: string = atob(localStorage.getItem('access_token').split('.')[1]);
+
+    return JSON.parse(userProfileCompletionToken).isCompleted;
+  }
+
+  public isUserActivated(): boolean {
+    return this.getUserStatus() === 'activated';
+  }
+
+  public isUserCompleted(): boolean {
+    return this.getUserProfileCompletion();
   }
 
   // Verify user credentials on server to get token

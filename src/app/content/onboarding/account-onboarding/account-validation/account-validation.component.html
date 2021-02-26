@@ -1,0 +1,56 @@
+<div id="recap" class="content">
+
+  <!-- Account recap -->
+  <ng-container *ngIf="!onboardingManager.accountCreated">
+    <h1 class="title">Récapitulatif</h1>
+
+    <table class="table">
+      <tr>
+        <td colspan="3"><h2 class="subtitle">Contact</h2></td>
+      </tr>
+      <tr>
+        <td class="field-name">Email</td>
+        <td>{{ formData.user.userProfile.email }}</td>
+        <td class="has-text-right"><button routerLink="/account-onboarding/email" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+      </tr>
+      <tr>
+        <td class="field-name">Newsletter</td>
+        <td *ngIf="formData.user.userProfile.emailOptin">Oui</td>
+        <td *ngIf="!formData.user.userProfile.emailOptin">Non</td>
+        <td class="has-text-right"><button routerLink="/account-onboarding/emailoptin" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+      </tr>
+      <tr>
+        <td colspan="3"><h2 class="subtitle">Sécurité</h2></td>
+      </tr>
+      <tr>
+        <td class="field-name">Mot de passe</td>
+        <td>{{ formData.user.password | anonymize:0 }}</td>
+        <td class="has-text-right"><button routerLink="/account-onboarding/password" class="button edit is-success is-small"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button></td>
+      </tr>
+    </table>
+
+    <div id="conditions-of-sale" class="content has-text-centered">
+      <label class="checkbox">
+        <input (click)="changeConditionsStatus()" type="checkbox">
+        J'ai lu et j'accepte les <span (click)="modals.open('conditions-of-use')" class="underline brandName">CGVU</span>.
+      </label>
+    </div>
+
+    <div class="content">
+      <button *ngIf="loading" class="button is-light is-loading"></button>
+      <button *ngIf="!loading && conditionsAccepted" class="button is-success" (click)="submit()">On valide !</button>
+      <button *ngIf="!loading && !conditionsAccepted" class="button is-light">On valide !</button>
+    </div>
+  </ng-container>
+</div>
+
+<!-- MODALS -->
+<div class="modal {{ modals.get('conditions-of-use') }}">
+<div class="modal-background" (click)="modals.close('conditions-of-use')"></div>
+<div class="modal-content">
+  <div class="box">
+    <app-general-terms-and-conditions></app-general-terms-and-conditions>
+  </div>
+</div>
+<button class="modal-close is-large" aria-label="close"></button>
+</div>

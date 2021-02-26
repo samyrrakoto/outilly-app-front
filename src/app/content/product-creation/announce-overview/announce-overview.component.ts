@@ -1,3 +1,4 @@
+import { storage } from 'src/app/parameters';
 import { StringToolboxService } from 'src/app/services/string-toolbox.service';
 import { pageInfo } from 'src/app/parameters';
 import { environment } from 'src/environments/environment';
@@ -33,9 +34,9 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
     public formData: FormDataService,
     public router: Router,
     public formValidator: FormValidatorService,
-    public auth: AuthService,
-    public encoding: EncodingService,
-    public location: Location,
+    private auth: AuthService,
+    private encoding: EncodingService,
+    private location: Location,
     public title: Title,
     public strToolbox: StringToolboxService)
   {
@@ -80,9 +81,10 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
   }
 
   public signInOrUp(hasAccount: boolean): void {
-    const target: string = hasAccount ? 'login' : 'onboarding';
+    const target: string = hasAccount ? 'login' : 'account-onboarding';
 
-    sessionStorage.setItem("redirect_after_login", this.location.path());
+    localStorage.setItem(storage.PRODUCT_ONBOARDING, 'true');
+    this.auth.setRedirectionUrl(this.location.path());
     this.router.navigate([target]);
   }
 
@@ -139,12 +141,7 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
           if (sale.status === 201) {
             this.isSaleCreated = true;
             this.productUrl = '/product/' + sale.body.product.slug + '/' + sale.body.id;
-            localStorage.removeItem('strId');
-            localStorage.removeItem('id');
-            localStorage.removeItem('formData');
-            sessionStorage.removeItem('current_product');
-            this.formData.product = new Product();
-            this.formData.isProductComplete = false;
+            this.cleanData();
           }
           else {
             this.errorMessages.push('Une erreur est survenue pendant la création de l\'annonce. Veuillez réessayer');
@@ -170,5 +167,14 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
       }
     }
     return nb;
+  }
+
+  private cleanData(): void {
+    localStorage.removeItem('strId');
+    localStorage.removeItem('id');
+    localStorage.removeItem('formData');
+    sessionStorage.removeItem('current_product');
+    this.formData.product = new Product();
+    this.formData.isProductComplete = false;
   }
 }
