@@ -22,7 +22,7 @@
 </div>
 
 <!-- MODALS -->
-<div class="modal {{ modals.get('b2b-form') }}">
+<div class="modal" [ngClass]="modals.get('b2b-form')">
   <div class="modal-background" (click)="modals.close('b2b-form')"></div>
   <div class="modal-content">
     <div class="box">

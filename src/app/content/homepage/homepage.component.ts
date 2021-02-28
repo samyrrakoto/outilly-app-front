@@ -1,3 +1,4 @@
+import { QueryParamService } from 'src/app/services/query-param.service';
 import { MetaDataService } from 'src/app/services/meta-data.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PageNameManager } from 'src/app/models/page-name-manager';
@@ -27,7 +28,8 @@ export class HomepageComponent implements OnInit {
     private request: RequestService,
     private title: Title,
     private auth: AuthService,
-    private meta: MetaDataService)
+    private meta: MetaDataService,
+    private queryParam: QueryParamService)
   {
     this.allCategories = [];
     this.allTypes = [];
