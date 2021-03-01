@@ -4,7 +4,8 @@ export const pageInfo: any = {
 };
 
 export const staticLinks: any = {
-  BLOG_URI: 'https://blog.outilly.com'
+  BLOG_URI: 'https://blog.outilly.com',
+  LANDING_PAGE: 'https://blog.outilly.com/pro'
 };
 
 export const user: any = {
