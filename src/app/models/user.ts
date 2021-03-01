@@ -10,6 +10,7 @@ export class User {
     userProfile: UserProfile;
     status: string;
     mangoPayData: MangoPayData;
+    isCompleted: boolean;
 
     constructor() {
       this.id = 0;
@@ -20,5 +21,6 @@ export class User {
       this.userProfile = new UserProfile();
       this.status = 'toActivate';
       this.mangoPayData = new MangoPayData();
+      this.isCompleted = false;
     }
 }
