@@ -22,12 +22,14 @@
 </div>
 
 <!-- MODALS -->
-<div class="modal {{ modals.get('b2b-form') }}">
-  <div class="modal-background" (click)="modals.close('b2b-form')"></div>
+<div class="modal" [ngClass]="modals.get('b2b-form')">
+  <div class="modal-background" (click)="modals.close('b2b-form'); getBackToLandingPage()"></div>
   <div class="modal-content">
     <div class="box">
       <app-demo-request></app-demo-request>
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="modals.close('b2b-form')"></button>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('b2b-form'); getBackToLandingPage()"></button>
 </div>
+
+<a #landingPage [hidden] target="_blank"></a>
