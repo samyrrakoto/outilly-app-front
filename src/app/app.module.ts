@@ -22,25 +22,15 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { OnboardingComponent } from './content/onboarding/onboarding.component';
 import { ValidationComponent } from './content/onboarding/validation/validation.component';
-import { PseudoComponent } from './content/onboarding/user-details/personal-details/pseudo/pseudo.component';
-import { FirstNameComponent } from './content/onboarding/user-details/personal-details/first-name/first-name.component';
-import { LastNameComponent } from './content/onboarding/user-details/personal-details/last-name/last-name.component';
 import { EmailComponent } from './content/onboarding/user-details/personal-details/email/email.component';
 import { GenderComponent } from './content/onboarding/user-details/personal-details/gender/gender.component';
 import { StatusComponent } from './content/onboarding/user-details/personal-details/status/status.component';
-import { CountryComponent } from './content/onboarding/user-details/address-details/country/country.component';
-import { ZipcodeComponent } from './content/onboarding/user-details/address-details/zipcode/zipcode.component';
-import { CityComponent } from './content/onboarding/user-details/address-details/city/city.component';
-import { StreetComponent } from './content/onboarding/user-details/address-details/street/street.component';
 import { NavigationComponent } from './content/navigation/navigation.component';
 import { PhoneNumberComponent } from './content/onboarding/user-details/personal-details/phone-number/phone-number.component';
 import { PasswordComponent } from './content/onboarding/user-details/password/password.component';
-import { PasswordconfirmationComponent } from './content/onboarding/user-details/passwordconfirmation/passwordconfirmation.component';
 import { BirthdateComponent } from './content/onboarding/user-details/personal-details/birthdate/birthdate.component';
 import { EmailOptinComponent } from './content/onboarding/user-details/personal-details/email-optin/email-optin.component';
 import { ConfirmationComponent } from './content/onboarding/confirmation/confirmation.component';
-import { SiretComponent } from './content/onboarding/user-details/company-details/siret/siret.component';
-import { TvaComponent } from './content/onboarding/user-details/company-details/tva/tva.component';
 import { StepLabelComponent } from './content/onboarding/step-label/step-label.component';
 import { ProductInformationComponent } from './content/product-information/product-information.component';
 import { GeneralInformationComponent } from './content/product-information/general-information/general-information.component';
@@ -130,7 +120,6 @@ import { AnonymizePipe } from './pipes/anonymize.pipe';
 import { ProductInformationIncentivesComponent } from './content/product-information/general-information/product-information-incentives/product-information-incentives.component';
 import { FormStepComponent } from './models/form-step/form-step.component';
 import { CountryPipe } from './pipes/country.pipe';
-import { CompanyNameComponent } from './content/onboarding/user-details/company-details/company-name/company-name.component';
 import { CategoryPipe } from './pipes/category.pipe';
 import { TypeDescriptionPipe } from './pipes/type-description.pipe';
 import { ProductResultsComponent } from './content/homepage/products/product-results/product-results.component';
@@ -196,25 +185,15 @@ export class MyHammerConfig extends HammerGestureConfig {
     SearchComponent,
     OnboardingComponent,
     ValidationComponent,
-    PseudoComponent,
-    FirstNameComponent,
-    LastNameComponent,
     EmailComponent,
     GenderComponent,
     StatusComponent,
-    CountryComponent,
-    ZipcodeComponent,
-    CityComponent,
-    StreetComponent,
     NavigationComponent,
     PhoneNumberComponent,
     PasswordComponent,
-    PasswordconfirmationComponent,
     BirthdateComponent,
     EmailOptinComponent,
     ConfirmationComponent,
-    SiretComponent,
-    TvaComponent,
     StepLabelComponent,
     ProductInformationComponent,
     GeneralInformationComponent,
@@ -300,7 +279,6 @@ export class MyHammerConfig extends HammerGestureConfig {
     ProductInformationIncentivesComponent,
     FormStepComponent,
     CountryPipe,
-    CompanyNameComponent,
     CategoryPipe,
     TypeDescriptionPipe,
     ProductResultsComponent,

@@ -4,6 +4,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { Path } from 'src/app/models/Path/path';
 import { User } from 'src/app/models/user';
 import { FormDataService } from 'src/app/services/form-data.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -25,6 +26,7 @@ export class OnboardingComponent implements OnInit {
   constructor(
     public formDataService: FormDataService,
     public router: Router,
+    private auth: AuthService,
     public formValidator: FormValidatorService)
   {
     this.user = new User();
@@ -39,15 +41,8 @@ export class OnboardingComponent implements OnInit {
   ngOnInit(): void {
     this.previousOn = false;
     this.nextOn = false;
-  }
-
-  // Keyboard shortcuts
-  onKey(event: KeyboardEvent): void {
-    if (event.shiftKey && event.key === 'ArrowLeft') {
-      this.previousOn = !this.previousOn;
-    }
-    else if ((event.shiftKey && event.key === 'ArrowRight') || (event.key === 'Enter')) {
-      this.nextOn = !this.nextOn;
+    if (this.auth.isLogged() && this.auth.isUserCompleted()) {
+      this.router.navigate(["/user/dashboard"]);
     }
   }
 }
