@@ -1,5 +1,6 @@
 <div id="content" class="content">
 
+  <ng-container *ngIf="auth.isUserCompleted()">
     <!-- IDENTITY INFORMATION -->
     <mat-accordion>
       <mat-expansion-panel>
@@ -152,6 +153,7 @@
 
       </mat-expansion-panel>
     </mat-accordion>
+  </ng-container>
 
     <!-- CONTACT INFORMATION -->
     <mat-accordion>
@@ -204,7 +206,7 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-
+  <ng-container>
     <!-- SECURITY INFORMATION -->
     <mat-accordion>
       <mat-expansion-panel>
