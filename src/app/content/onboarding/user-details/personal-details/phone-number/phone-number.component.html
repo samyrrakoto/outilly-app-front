@@ -13,13 +13,7 @@
 
     <form [formGroup]="formCreator.form">
       <p class="control">
-        <input id="phone" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
-        (keydown)="onKey($event)"
-        [(ngModel)]="user.userProfile.phone1"
-        formControlName="phone"
-        [ngClass]="{'is-invalid': formCreator.controls.phone.errors }">
-
-        <input id="phone-mobile" class="input no-border is-hidden-tablet" type="text" placeholder="{{ this.placeholder }}"
+        <input #phoneNumber id="phone" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.phone1"
         formControlName="phone"

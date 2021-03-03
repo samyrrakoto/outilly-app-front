@@ -15,7 +15,7 @@
     <div class="field">
       <label class="label">Nom de société</label>
       <div class="control">
-        <input id="companyName" class="input no-border"
+        <input #companyName id="companyName" class="input no-border"
           type="text"
           (keydown)="onKey($event)"
           [(ngModel)]="user.userProfile.company.name"

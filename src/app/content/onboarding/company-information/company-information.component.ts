@@ -1,6 +1,7 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { Validators } from '@angular/forms';
 import { profileOnboarding } from 'src/app/onboardings';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { User } from 'src/app/models/user';
@@ -13,12 +14,14 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
   styleUrls: ['../onboarding.component.css', './company-information.component.css']
 })
 export class CompanyInformationComponent extends StepForm implements OnInit {
+  @ViewChild('companyName') companyName: ElementRef;
   user: User = new User();
 
   constructor(
     public formData: FormDataService,
     public formCreator: FormCreatorService,
-    private regex: RegexTemplateService
+    private regex: RegexTemplateService,
+    private viewport: ViewportService
   ) {
     super(profileOnboarding, 'company-information');
     !this.formData.user ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
@@ -28,6 +31,12 @@ export class CompanyInformationComponent extends StepForm implements OnInit {
 
   ngOnInit(): void {
     this.formCreator.getForm(this.getValidations());
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.viewport.check(Viewport.MOBILE) && this.companyName) {
+      this.companyName.nativeElement.focus();
+    }
   }
 
   private getValidations(): any {
