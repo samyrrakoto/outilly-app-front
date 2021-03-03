@@ -1,3 +1,4 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -13,6 +14,7 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
   styleUrls: ['../product-creation.component.css', './product-zipcode.component.css']
 })
 export class ProductZipcodeComponent extends StepForm implements OnInit {
+  @ViewChild('productZipcode') productZipcode: ElementRef;
   readonly root: string = 'product/create/';
   product: Product;
   form: FormGroup;
@@ -21,7 +23,8 @@ export class ProductZipcodeComponent extends StepForm implements OnInit {
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
     public formBuilder: FormBuilder,
-    public regexTemplate: RegexTemplateService)
+    public regexTemplate: RegexTemplateService,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'product-zipcode');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -40,10 +43,8 @@ export class ProductZipcodeComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const zipcode: HTMLElement = document.getElementById('zipcode');
-
-    if (zipcode !== null) {
-      zipcode.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.productZipcode) {
+      this.productZipcode.nativeElement.focus();
     }
   }
 

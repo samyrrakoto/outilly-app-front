@@ -1,8 +1,9 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
@@ -12,6 +13,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
   styleUrls: ['../product-creation.component.css', './product-description.component.css']
 })
 export class ProductDescriptionComponent extends StepForm implements OnInit {
+  @ViewChild('productDescription') productDescription: ElementRef;
   readonly root: string = 'product/create/';
   readonly maxLength: number = 650;
   readonly minLength: number = 20;
@@ -21,7 +23,8 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
   constructor(
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'product-description');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -40,10 +43,8 @@ export class ProductDescriptionComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const description: HTMLElement = document.getElementById('description');
-
-    if (description !== null) {
-      description.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.productDescription) {
+      this.productDescription.nativeElement.focus();
     }
   }
 

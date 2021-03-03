@@ -1,9 +1,10 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { prices } from 'src/app/parameters';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
   styleUrls: ['../product-creation.component.css', './reserve-price.component.css']
 })
 export class ReservePriceComponent extends StepForm implements OnInit {
+  @ViewChild('reservePrice') reservePrice: ElementRef;
   readonly root: string ='product/create/';
   readonly maxProductPrice: number = prices.MAX_PRODUCT_PRICE;
   product: Product;
@@ -21,7 +23,8 @@ export class ReservePriceComponent extends StepForm implements OnInit {
   constructor(
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'reserve-price');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -38,10 +41,8 @@ export class ReservePriceComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const reservePrice: HTMLElement = document.getElementById('reservePrice');
-
-    if (reservePrice !== null) {
-      reservePrice.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.reservePrice) {
+      this.reservePrice.nativeElement.focus();
     }
   }
 

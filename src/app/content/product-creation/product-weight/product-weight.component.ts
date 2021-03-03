@@ -1,8 +1,9 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
@@ -12,6 +13,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
   styleUrls: ['../product-creation.component.css', './product-weight.component.css']
 })
 export class ProductWeightComponent extends StepForm implements OnInit {
+  @ViewChild('productWeight') productWeight: ElementRef;
   readonly root: string = 'product/create/';
   maxValue: string = '30';
   form: FormGroup;
@@ -20,7 +22,8 @@ export class ProductWeightComponent extends StepForm implements OnInit {
   constructor(
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'product-weight');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -38,10 +41,8 @@ export class ProductWeightComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const weight: HTMLElement = document.getElementById('weight');
-
-    if (weight !== null) {
-      weight.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.productWeight) {
+      this.productWeight.nativeElement.focus();
     }
   }
 

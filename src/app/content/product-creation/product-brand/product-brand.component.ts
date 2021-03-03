@@ -1,3 +1,4 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
@@ -18,6 +19,7 @@ import { StepForm } from 'src/app/models/step-form';
 export class ProductBrandComponent extends StepForm implements OnInit {
   readonly root: string = 'product/create/';
   readonly maxBrands: number = 5;
+  @ViewChild('productBrand') productBrand: ElementRef;
   @ViewChild("matOption") matOption: ElementRef;
   product: Product;
   myControl = new FormControl();
@@ -27,7 +29,8 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   constructor(
     private request: RequestService,
     public formData: FormDataService,
-    public formValidatorService: FormValidatorService)
+    public formValidatorService: FormValidatorService,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'product-brand');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -46,13 +49,11 @@ export class ProductBrandComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const productBrand: HTMLElement = document.getElementById('product-brand');
-
-    if (productBrand !== null) {
+    if (!this.viewport.check(Viewport.MOBILE) && this.productBrand) {
       if (this.matOption) {
         this.matOption.nativeElement.openPanel();
       }
-      productBrand.focus();
+      this.productBrand.nativeElement.focus();
     }
   }
 
