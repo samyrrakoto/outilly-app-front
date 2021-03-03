@@ -29,7 +29,7 @@
     <div class="field">
       <label class="label">Code postal</label>
       <p class="control">
-        <input class="input"
+        <input #zipcode class="input"
         formControlName="zipcode"
         [(ngModel)]="user.userProfile.mainAddress.zipcode"
         (keydown)="onKey($event)"
