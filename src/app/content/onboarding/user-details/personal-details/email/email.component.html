@@ -13,15 +13,7 @@
 
     <form *ngIf="formCreator.form" [formGroup]="formCreator.form">
       <p class="control">
-        <input #email id="email" class="input no-border is-hidden-mobile"
-          type="email"
-          (keydown)="onKey($event)"
-          placeholder="{{ placeholder }}"
-          [(ngModel)]="user.userProfile.email"
-          formControlName="mail"
-          [ngClass]="{'is-invalid': formCreator.controls.mail.errors }">
-
-          <input id="email-mobile" class="input no-border is-hidden-tablet"
+        <input #email id="email" class="input no-border"
           type="email"
           (keydown)="onKey($event)"
           placeholder="{{ placeholder }}"
