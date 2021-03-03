@@ -13,7 +13,7 @@
 
     <form [formGroup]="formCreator.form">
       <p class="control">
-        <input #phoneNumber id="phone" class="input no-border is-hidden-mobile" type="text" placeholder="{{ this.placeholder }}"
+        <input #phoneNumber id="phone" class="input no-border" type="text" placeholder="{{ this.placeholder }}"
         (keydown)="onKey($event)"
         [(ngModel)]="user.userProfile.phone1"
         formControlName="phone"

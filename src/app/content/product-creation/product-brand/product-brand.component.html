@@ -18,8 +18,7 @@
     </mat-autocomplete>
 
     <p class="control has-icons-right">
-      <input id="product-brand" class="input no-border is-hidden-mobile" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
-      <input id="product-brand-mobile" class="input no-border is-hidden-tablet" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
+      <input #productBrand id="product-brand" class="input no-border" type="text" placeholder="{{ placeholder }}" matInput [matAutocomplete]="auto" [formControl]="myControl">
       <span id="caret-down" class="icon is-right">
         <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
       </span>

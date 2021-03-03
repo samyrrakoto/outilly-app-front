@@ -1,9 +1,10 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { RequestService } from 'src/app/services/request.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -14,6 +15,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
   styleUrls: ['../product-creation.component.css', './announcement-title.component.css']
 })
 export class AnnouncementTitleComponent extends StepForm implements OnInit {
+  @ViewChild('announceTitle') announceTitle: ElementRef;
   readonly root: string = 'product/create/';
   isLogged: boolean;
   product: Product;
@@ -24,7 +26,8 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
     public formData: FormDataService,
     private auth: AuthService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'announcement-title');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -54,10 +57,8 @@ export class AnnouncementTitleComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const announceTitle: HTMLElement = document.getElementById('announceTitle');
-
-    if (announceTitle !== null) {
-      announceTitle.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.announceTitle) {
+      this.announceTitle.nativeElement.focus();
     }
   }
 

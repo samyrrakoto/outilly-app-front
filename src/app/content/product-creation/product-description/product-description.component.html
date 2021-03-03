@@ -14,13 +14,7 @@
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
         <form *ngIf="form" [formGroup]="form">
-          <textarea id="description" class="textarea no-border is-hidden-mobile" rows="10" placeholder="{{ placeholder }}"
-            [(ngModel)]="product.description"
-            [ngClass]="{'is-invalid': controls.description.errors}"
-            formControlName="description">
-          </textarea>
-
-          <textarea id="description-mobile" class="textarea no-border is-hidden-tablet" rows="10" placeholder="{{ placeholder }}"
+          <textarea #productDescription id="description" class="textarea no-border" rows="10" placeholder="{{ placeholder }}"
             [(ngModel)]="product.description"
             [ngClass]="{'is-invalid': controls.description.errors}"
             formControlName="description">

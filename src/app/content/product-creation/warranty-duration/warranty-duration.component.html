@@ -13,13 +13,7 @@
     <div class="columns is-vcentered has-text-centered">
       <div class="column">
         <form *ngIf="form" [formGroup]="form">
-          <input id="warrantyDuration" class="input no-border is-hidden-mobile" type="number"
-          [(ngModel)]="product.warrantyDuration"
-          (keydown)="onKey($event)"
-          formControlName="warrantyDuration"
-          [ngClass]="{'is-invalid': controls.warrantyDuration.errors}">
-
-          <input id="warrantyDurationimobile" class="input no-border is-hidden-tablet" type="number"
+          <input #warrantyDuration id="warrantyDuration" class="input no-border" type="number"
           [(ngModel)]="product.warrantyDuration"
           (keydown)="onKey($event)"
           formControlName="warrantyDuration"
