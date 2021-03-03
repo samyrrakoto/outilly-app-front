@@ -1,3 +1,4 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { FormCreatorService } from 'src/app/services/form-creator.service';
 import { StepForm } from 'src/app/models/step-form';
 import { accountOnboarding } from 'src/app/onboardings';
@@ -22,6 +23,7 @@ export class EmailComponent extends StepForm {
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
     public formCreator: FormCreatorService,
+    private viewport: ViewportService
     )
   {
     super(accountOnboarding, 'email');
@@ -38,7 +40,7 @@ export class EmailComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    if (this.email.nativeElement !== null) {
+    if (!this.viewport.check(Viewport.MOBILE) && this.email.nativeElement !== null) {
       this.email.nativeElement.focus();
     }
   }

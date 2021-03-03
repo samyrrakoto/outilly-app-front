@@ -1,8 +1,9 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { FormCreatorService } from 'src/app/services/form-creator.service';
 import { pwd } from 'src/app/parameters';
 import { InputService } from 'src/app/services/input.service';
 import { accountOnboarding } from 'src/app/onboardings';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { StepForm } from 'src/app/models/step-form';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -15,6 +16,7 @@ import { StringToolboxService } from 'src/app/services/string-toolbox.service';
   styleUrls: ['../../onboarding.component.css', './password.component.css']
 })
 export class PasswordComponent extends StepForm {
+  @ViewChild('password') password: ElementRef;
   readonly minPwdLength: number = pwd.MIN_PWD_LENGTH;
   user: User;
 
@@ -22,7 +24,8 @@ export class PasswordComponent extends StepForm {
     public formData: FormDataService,
     public formCreator: FormCreatorService,
     public inputService: InputService,
-    private strToolbox: StringToolboxService)
+    private strToolbox: StringToolboxService,
+    private viewport: ViewportService)
   {
     super(accountOnboarding, 'password');
     !this.formData.user.username ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
@@ -34,6 +37,12 @@ export class PasswordComponent extends StepForm {
 
   ngOnInit(): void {
     this.formCreator.getForm(this.getValidations());
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.viewport.check(Viewport.MOBILE) && this.password.nativeElement !== null) {
+      this.password.nativeElement.focus();
+    }
   }
 
   public getValidations(): any {
