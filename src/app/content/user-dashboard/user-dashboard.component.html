@@ -1,4 +1,4 @@
-<h1 *ngIf="userManager.user.userProfile.firstname" class="title has-text-centered">Bienvenue <span id="username">{{ userManager.user.userProfile.firstname }}</span> !</h1>
+<h1 class="title has-text-centered">Bienvenue <span *ngIf="userManager.user.userProfile.firstname" id="username">{{ userManager.user.userProfile.firstname }} </span>!</h1>
 
 <div class="columns is-centered">
   <div *ngIf="!activated" class="column is-4">
