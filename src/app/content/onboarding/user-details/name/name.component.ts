@@ -1,3 +1,4 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { FormCreatorService } from 'src/app/services/form-creator.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,8 @@ export class NameComponent extends StepForm implements OnInit {
 
   constructor(
     public formDataService: FormDataService,
-    public formCreator: FormCreatorService)
+    public formCreator: FormCreatorService,
+    private viewport: ViewportService)
   {
     super(profileOnboarding, 'name');
     this.formDataService.fieldName = "name";
@@ -31,6 +33,12 @@ export class NameComponent extends StepForm implements OnInit {
 
   ngOnInit(): void {
     this.formCreator.getForm(this.getValidations());
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.viewport.check(Viewport.MOBILE) && this.firstname) {
+      this.firstname.nativeElement.focus();
+    }
   }
 
   private getValidations(): any {

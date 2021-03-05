@@ -34,7 +34,7 @@ export class UserManagerService {
       if (this.auth.isLogged()) {
         this.request.getUserInfos().subscribe(
           (user: any) => {
-            resolve(user.id)
+            resolve(user.id);
           }
         );
       }

@@ -17,13 +17,13 @@ export class GenderComponent extends StepForm {
   readonly tiles: string[] = ['male', 'female'];
 
   constructor(
-    public formDataService: FormDataService,
+    public formData: FormDataService,
     public formBuilder: FormBuilder)
   {
     super(profileOnboarding, 'gender');
-    this.formDataService.fieldName = "gender";
-    !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
-    this.user = formDataService.user;
+    this.formData.fieldName = "gender";
+    !this.formData.user ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
+    this.user = formData.user;
     this.additionalControls = this.user.userProfile.gender !== null ? true : false;
     this.stepName = "Vous êtes un(e)...";
   }

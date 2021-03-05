@@ -1,10 +1,16 @@
+export const VIEWPORT: any = {
+  MOBILE: 768,
+  TABLET: 1023
+};
+
 export const pageInfo: any = {
   BRAND_NAME: 'Outilly',
   PAGE_NAME_SEPARATOR: ' - ',
 };
 
 export const staticLinks: any = {
-  BLOG_URI: 'https://blog.outilly.com'
+  BLOG_URI: 'https://blog.outilly.com',
+  LANDING_PAGE: 'https://blog.outilly.com/pro'
 };
 
 export const user: any = {

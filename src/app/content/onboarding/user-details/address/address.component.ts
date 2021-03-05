@@ -1,7 +1,8 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { country } from 'src/app/parameters';
 import { Validators } from '@angular/forms';
 import { FormCreatorService } from 'src/app/services/form-creator.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
 import { profileOnboarding } from 'src/app/onboardings';
@@ -14,13 +15,15 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
   styleUrls: ['../../onboarding.component.css', './address.component.css']
 })
 export class AddressComponent extends StepForm implements OnInit {
+  @ViewChild('zipcode') zipcode: ElementRef;
   user: User = new User();
   countriesAccepted: any[] = country.COUNTRIES_ACCEPTED;
 
   constructor(
     public formData: FormDataService,
     public formCreator: FormCreatorService,
-    private regex: RegexTemplateService)
+    private regex: RegexTemplateService,
+    private viewport: ViewportService)
   {
     super(profileOnboarding, 'address');
     !this.formData.user ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
@@ -30,6 +33,12 @@ export class AddressComponent extends StepForm implements OnInit {
 
   ngOnInit(): void {
     this.formCreator.getForm(this.getVerifications());
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.viewport.check(Viewport.MOBILE) && this.zipcode) {
+      this.zipcode.nativeElement.focus();
+    }
   }
 
   private getVerifications(): any {

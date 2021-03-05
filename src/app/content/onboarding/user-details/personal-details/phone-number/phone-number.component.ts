@@ -1,6 +1,7 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { FormCreatorService } from 'src/app/services/form-creator.service';
 import { profileOnboarding } from 'src/app/onboardings';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { StepForm } from 'src/app/models/step-form';
 import { User } from 'src/app/models/user';
@@ -13,12 +14,14 @@ import { RegexTemplateService } from 'src/app/services/regex-template.service';
   styleUrls: ['../../../onboarding.component.css', './phone-number.component.css']
 })
 export class PhoneNumberComponent extends StepForm {
+  @ViewChild('phoneNumber') phoneNumber: ElementRef;
   user: User;
 
   constructor(
     public formData: FormDataService,
     public formCreator: FormCreatorService,
-    public regexTemplate: RegexTemplateService)
+    public regexTemplate: RegexTemplateService,
+    private viewport: ViewportService)
   {
     super(profileOnboarding, 'phonenumber');
     !this.formData.user.username ? this.formData.user = JSON.parse(localStorage.getItem('formData')).user : null;
@@ -33,10 +36,8 @@ export class PhoneNumberComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    const phone: HTMLElement = document.getElementById('phone');
-
-    if (phone !== null) {
-      phone.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.phoneNumber) {
+      this.phoneNumber.nativeElement.focus();
     }
   }
 

@@ -1,3 +1,4 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { profileOnboarding } from 'src/app/onboardings';
 import { user } from 'src/app/parameters';
 import { Component, ElementRef, ViewChild } from '@angular/core';
@@ -18,7 +19,8 @@ export class BirthdateComponent extends StepForm {
 
   constructor(
     public formDataService: FormDataService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(profileOnboarding, 'birthdate');
     !this.formDataService.user.username ? this.formDataService.user = JSON.parse(localStorage.getItem('formData')).user : null;
@@ -32,7 +34,7 @@ export class BirthdateComponent extends StepForm {
   }
 
   ngAfterViewInit(): void {
-    if (this.birthdate.nativeElement !== null) {
+    if (!this.viewport.check(Viewport.MOBILE) && this.birthdate) {
       this.birthdate.nativeElement.focus();
     }
   }

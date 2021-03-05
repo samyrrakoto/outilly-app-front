@@ -1,9 +1,10 @@
+import { Viewport, ViewportService } from 'src/app/services/viewport.service';
 import { productOnboarding } from 'src/app/onboardings';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FormDataService } from 'src/app/services/form-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StepForm } from 'src/app/models/step-form';
 
 @Component({
@@ -12,6 +13,7 @@ import { StepForm } from 'src/app/models/step-form';
   styleUrls: ['../product-creation.component.css', './warranty-duration.component.css']
 })
 export class WarrantyDurationComponent extends StepForm implements OnInit {
+  @ViewChild('warrantyDuration') warrantyDuration: ElementRef;
   readonly root: string ='product/create/';
   product: Product;
   form: FormGroup;
@@ -19,7 +21,8 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
   constructor(
     public formData: FormDataService,
     public formValidatorService: FormValidatorService,
-    public formBuilder: FormBuilder)
+    public formBuilder: FormBuilder,
+    private viewport: ViewportService)
   {
     super(productOnboarding, 'warranty-duration');
     if (JSON.parse(localStorage.getItem('formData'))) {
@@ -36,10 +39,8 @@ export class WarrantyDurationComponent extends StepForm implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const warrantyDuration: HTMLElement = document.getElementById('warrantyDuration');
-
-    if (warrantyDuration !== null) {
-      warrantyDuration.focus();
+    if (!this.viewport.check(Viewport.MOBILE) && this.warrantyDuration) {
+      this.warrantyDuration.nativeElement.focus();
     }
   }
 

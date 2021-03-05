@@ -35,7 +35,7 @@ export class PersonalInformationComponent implements OnInit {
   constructor(
     protected request: RequestService,
     public userManager: UserManagerService,
-    protected auth: AuthService,
+    public auth: AuthService,
     protected router: Router,
     public dashboardValidator: DashboardValidatorService,
     public notification: NotificationService,
