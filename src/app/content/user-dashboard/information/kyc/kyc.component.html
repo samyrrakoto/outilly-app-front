@@ -7,7 +7,7 @@
   </div>
 
   <ng-container *ngIf="kycManager.hasMangoPayData()">
-    <div *ngIf="bankInfo" class="notification is-success">
+    <div *ngIf="kycManager.hasBankInfo() && kycManager.bankDoc.isSent" class="notification is-success">
       Votre RIB a bien été pris en compte
     </div>
 
@@ -32,12 +32,12 @@
       </div>
     </div>
 
-    <div *ngIf="userManager.user.mangoPayData.ibanId !== null" class="content">
+    <div *ngIf="kycManager.bankDoc.iban" class="content">
       <h2 class="subtitle has-text-left">RIB actuellement utilisé :</h2>
 
       <div class="content has-text-left">
-        <span class="tag is-light"><span class="bold">IBAN</span>&nbsp;: {{ iban }}</span><br>
-        <span class="tag is-light"><span class="bold">BIC</span>&nbsp;: {{ bic }}</span>
+        <span class="tag is-light"><span class="bold">IBAN</span>&nbsp;: {{ kycManager.bankDoc.iban }}</span><br>
+        <span class="tag is-light"><span class="bold">BIC</span>&nbsp;: {{ kycManager.bankDoc.bic }}</span>
       </div>
     </div>
   </ng-container>
@@ -65,10 +65,16 @@
 </div>
 
 
-<!-- MODALS -->
+<!--
+  ##########
+  ##########
+  MODALS
+  ##########
+  ##########
+-->
 
 <!-- Kyc Modal -->
-<div class="modal {{ modals.get('kyc') }}">
+<div class="modal" [ngClass]="modals.get('kyc')">
   <div class="modal-background" (click)="modals.close('kyc')"></div>
   <div class="modal-content">
     <div class="box">
@@ -81,14 +87,14 @@
 
       <div class="columns has-text-centered">
         <div class="column">
-          <div id="id-card" class="content tile" (click)="setFocus('id-card'); kycType = 'id-card'">
+          <div id="id-card" class="content tile" (click)="setFocus('id-card'); kycManager.setId()">
             <fa-icon [icon]="['fas', 'id-card']" class="side-icon"></fa-icon>
             Carte d'identité
           </div>
         </div>
 
         <div class="column">
-          <div id="passport" class="content tile" (click)="setFocus('passport'); kycType = 'passport'">
+          <div id="passport" class="content tile" (click)="setFocus('passport'); kycManager.setPassport()">
             <fa-icon [icon]="['fas', 'passport']" class="side-icon"></fa-icon>
             Passeport
           </div>
@@ -96,41 +102,36 @@
       </div>
 
       <!-- Error display -->
-      <div class="error" *ngFor="let message of errorManager.messages">
+      <div class="error" *ngFor="let message of kycManager.errorManager.errorMessages">
         {{ message }}
       </div>
 
-      <input accept="{{ acceptedKycFormats }}" type="file" id="kyc" name="product-pictures" (change)="handleFile($event)" style="display: none;">
-
-
-      <h2 *ngIf="kycSent.length > 0" class="subtitle">
+      <h2 *ngIf="kycManager.hasKyc()" class="subtitle">
         Documents envoyés :
       </h2>
 
       <div class="columns is-centered is-vcentered">
-      <div class="column" *ngFor="let kyc of kycUrl; index as i">
-        <div class="content">
-          <img [src]="kyc" height="50px" width="auto" class="kyc-doc" [alt]="kycSent[i]" [title]="kycSent[i]">
+        <div class="column" *ngFor="let kyc of kycManager.kycDocs">
+          <div class="content">
+            <img [src]="kyc.url" height="50px" width="auto" class="kyc-doc" [alt]="kyc.path" [title]="kyc.path">
+          </div>
         </div>
-
-        <div class="content green">
-          {{ kycSent[i] }}
-        </div>
-      </div>
       </div>
 
       <div *ngIf="!loading" class="content">
-        <button *ngIf="kycType && !recto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='recto'; openImgPicker('kyc')">
+        <input #kycInput [accept]=acceptedKycFormats type="file" id="kyc" name="product-pictures" (change)="kycManager.handleFile($event, loading)" [hidden]="true">
+
+        <button *ngIf="!kycManager.currentKycDoc.hasRecto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('verso')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le recto
         </button>
 
-        <button *ngIf="recto && kycType === 'id-card' && !verso" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="page='verso'; openImgPicker('kyc')">
+        <button *ngIf="!kycManager.currentKycDoc.hasVerso && kycManager.currentKycDoc.type === 'carte d\'identité'" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('recto')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le verso
         </button>
 
-        <button *ngIf="isKycComplete() && !kycManager.isKycAsked()" (click)="askKycValidation()" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
+        <button *ngIf="kycManager.isKycComplete() && !kycManager.isKycAsked()" (click)="kycManager.askKycValidation(modals)" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
       </div>
 
       <div *ngIf="loading">
@@ -142,57 +143,52 @@
 </div>
 
 <!-- Bank account Modal -->
-<div id="bank-account" class="modal {{ modals.get('bank-account') }}">
+<div id="bank-account" class="modal" [ngClass]="modals.get('bank-account')">
   <div class="modal-background" (click)="modals.close('bank-account')"></div>
   <div class="modal-content">
     <div class="box">
 
-    <h2 class="subtitle">Ajouter un RIB</h2>
+      <h2 class="subtitle">Ajouter un RIB</h2>
 
-    <div *ngIf="bankInfo === false" class="notification is-danger">
-      Le RIB est incorrect
-    </div>
-
-    <div class="field is-horizontal is-mobile">
-      <div class="field-label is-normal">
-        <label class="label">IBAN</label>
+      <div *ngIf="!kycManager.hasBankInfo()" class="notification is-danger">
+        Le RIB est incorrect
       </div>
-      <div class="field-body">
-        <div class="field">
-          <p class="control has-text-centered-mobile">
-            <input class="input" [(ngModel)]="iban">
-          </p>
+
+      <div class="field is-horizontal is-mobile">
+        <div class="field-label is-normal">
+          <label class="label">IBAN</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control has-text-centered-mobile">
+              <input class="input" [(ngModel)]="kycManager.bankDoc.iban">
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="field is-horizontal is-mobile">
-      <div class="field-label is-normal">
-        <label class="label">BIC</label>
-      </div>
-      <div class="field-body">
-        <div class="field">
-          <p class="control has-text-centered-mobile">
-            <input class="input" [(ngModel)]="bic">
-          </p>
+      <div class="field is-horizontal is-mobile">
+        <div class="field-label is-normal">
+          <label class="label">BIC</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control has-text-centered-mobile">
+              <input class="input" [(ngModel)]="kycManager.bankDoc.bic">
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <button class="button is-success" (click)="bankAccountRegister()">Ajouter ce RIB</button>
+      <button class="button is-success" (click)="kycManager.bankAccountRegister(kycManager.bankDoc.iban, kycManager.bankDoc.bic, modals)">Ajouter ce RIB</button>
 
     </div>
   </div>
   <button class="modal-close is-large" (click)="modals.close('bank-account')"></button>
 </div>
 
-<!-- <app-contact-form
-  [click]=click
-  [chosenSubject]=chosenSubject
-  [message]=message>
-</app-contact-form> -->
-
-<div class="modal {{ modals.get('contact-form') }}">
+<!-- Contact form Modal -->
+<div class="modal" [ngClass]="modals.get('contact-form')">
   <div class="modal-background" (click)="modals.close('contact-form')"></div>
   <div class="modal-content">
     <div class="box">

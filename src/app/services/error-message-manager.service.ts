@@ -39,3 +39,8 @@ export class ErrorMessageTemplate {
   readonly SIMPLE: string = 'Une erreur est survenue';
   readonly UNKNOWN: string = 'Une erreur inconnue est survenue';
 }
+
+export enum ErrorMessage {
+  SIMPLE = 'Une erreur est survenue',
+  UNKNOWN = 'Une erreur inconnue est survenue'
+}
