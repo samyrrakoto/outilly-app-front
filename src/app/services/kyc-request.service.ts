@@ -29,7 +29,7 @@ export class KycRequestService {
 
     console.log(this.request.getFormDataPayload(formData));
 
-    return this.request.postData(formData, this.request.uri.STORE_KYC_DOC, [], this.request.formDataOptions);
+    return this.request.postData(formData, this.request.uri.STORE_KYC_DOC, [], {observe: 'response'});
   }
 
   public addPage(docId: number): Observable<any> {
