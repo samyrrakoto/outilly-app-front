@@ -1,19 +1,19 @@
+import { GenericComponent } from 'src/app/models/generic-component';
 import { KycManagerService } from 'src/app/services/kyc-manager.service';
 import { Subject } from 'rxjs';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { Modals } from 'src/app/models/modals';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { KycSide } from 'src/app/models/kyc-doc';
+import { KycSide, KycType } from 'src/app/models/kyc-doc';
 
 @Component({
   selector: 'app-kyc',
   templateUrl: './kyc.component.html',
   styleUrls: ['./kyc.component.css']
 })
-export class KycComponent implements OnInit {
+export class KycComponent extends GenericComponent implements OnInit {
   @ViewChild('kycInput') kycInput: ElementRef;
-  loading: boolean = false;
-  modals: Modals = new Modals();
+  currentKycPage: KycSide = null;
+  currentKycType: KycType = KycType.ID_CARD;
   click: Subject<any> = new Subject<any>();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
@@ -24,10 +24,12 @@ export class KycComponent implements OnInit {
     public userManager: UserManagerService,
     public kycManager: KycManagerService)
   {
+    super();
     this.modals.addModal('id');
     this.modals.addModal('bank-account');
     this.modals.addModal('modify-bank-account');
     this.modals.addModal('contact-form');
+    this.loadings.add('kyc');
   }
 
   ngOnInit(): void {
@@ -35,9 +37,25 @@ export class KycComponent implements OnInit {
       .catch(() => null);
   }
 
+  ngAfterViewInit(): void {
+    this.setFocus('id-card');
+  }
+
   public openKycPicker(page: string): void {
-    this.kycManager.currentKycDoc.page = page === 'verso' ? KycSide.RECTO : KycSide.VERSO;
+    this.currentKycPage = page === 'verso' ? KycSide.VERSO : KycSide.RECTO;
     this.kycInput.nativeElement.click();
+  }
+
+  public addKycId(): void {
+    this.currentKycType = KycType.ID_CARD;
+  }
+
+  public addKycPassport(): void {
+    this.currentKycType = KycType.PASSPORT;
+  }
+
+  public isKycPassport(): boolean {
+    return this.currentKycType === KycType.PASSPORT;
   }
 
   public setFocus(id: string): void {
@@ -45,7 +63,9 @@ export class KycComponent implements OnInit {
 
     for (const tile of this.tiles) {
       if (tile !== id) {
+        if (document.getElementById(tile)) {
         document.getElementById(tile).classList.remove('chosen-tile');
+        }
       }
     }
   }

@@ -25,8 +25,6 @@ export class RequestService {
 
   public postData(body: any, url: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
     this.uri.setUri(url, params);
-    console.log(this.uri.path);
-    console.log(options);
 
     return options === null ? this.http.post<any>(this.uri.path, body) : this.http.post<any>(this.uri.path, body, options);
   }
@@ -50,7 +48,7 @@ export class RequestService {
     return this.http.get<any>(this.uri.path);
   }
 
-  putData(body: string, url: any, params: Array<string> = []): Observable<any> {
+  putData(url: string, body: any, params: Array<string> = []): Observable<any> {
     this.uri.setUri(url, params);
 
     return this.http.put<any>(this.uri.path, body)

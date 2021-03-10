@@ -27,8 +27,6 @@ export class KycRequestService {
     formData.append('page', page);
     formData.append('docFile', file);
 
-    console.log(this.request.getFormDataPayload(formData));
-
     return this.request.postData(formData, this.request.uri.STORE_KYC_DOC, [], {observe: 'response'});
   }
 

@@ -11,7 +11,7 @@
       Votre RIB a bien été pris en compte
     </div>
 
-    <article *ngIf="kycManager.isKycCreated()" class="message is-success">
+    <article *ngIf="kycManager.isKycValidated()" class="message is-success">
       <div class="message-body">
         <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
         Votre pièce d'identité a été validée.
@@ -86,15 +86,15 @@
       </div>
 
       <div class="columns has-text-centered">
-        <div class="column">
-          <div id="id-card" class="content tile" (click)="setFocus('id-card'); kycManager.setId()">
+        <div *ngIf="kycManager.getIdDisplay()" class="column">
+          <div id="id-card" class="content tile" (click)="setFocus('id-card'); addKycId()">
             <fa-icon [icon]="['fas', 'id-card']" class="side-icon"></fa-icon>
             Carte d'identité
           </div>
         </div>
 
-        <div class="column">
-          <div id="passport" class="content tile" (click)="setFocus('passport'); kycManager.setPassport()">
+        <div *ngIf="kycManager.getPassportDisplay()" class="column">
+          <div id="passport" class="content tile" (click)="setFocus('passport'); addKycPassport()">
             <fa-icon [icon]="['fas', 'passport']" class="side-icon"></fa-icon>
             Passeport
           </div>
@@ -107,34 +107,34 @@
       </div>
 
       <h2 *ngIf="kycManager.hasKyc()" class="subtitle">
-        Documents envoyés :
+        Documents ajoutés :
       </h2>
 
       <div class="columns is-centered is-vcentered">
         <div class="column" *ngFor="let kyc of kycManager.kycDocs">
-          <div class="content">
-            <img [src]="kyc.url" height="50px" width="auto" class="kyc-doc" [alt]="kyc.path" [title]="kyc.path">
+          <div [ngStyle]="{ 'background-image': 'url(' + kyc.url + ')' }" height="50px" width="auto" class="kyc-doc" [title]="kyc.path">
+            <fa-icon [icon]="['fas', 'times-circle']" class="pointed" (click)="kycManager.removeKycDoc(kyc)"></fa-icon>
           </div>
         </div>
       </div>
 
-      <div *ngIf="!loading" class="content">
-        <input #kycInput [accept]=acceptedKycFormats type="file" id="kyc" name="product-pictures" (change)="kycManager.handleFile($event, loading)" [hidden]="true">
+      <div *ngIf="!loadings.isLoading('kyc')" class="content">
+        <input #kycInput [accept]=acceptedKycFormats type="file" id="kyc" name="product-pictures" (change)="kycManager.handleFile($event, currentKycType, currentKycPage)" [hidden]="true">
 
-        <button *ngIf="!kycManager.currentKycDoc.hasRecto" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('verso')">
+        <button *ngIf="kycManager.getRectoDisplay()" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('recto')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le recto
         </button>
 
-        <button *ngIf="!kycManager.currentKycDoc.hasVerso && kycManager.currentKycDoc.type === 'carte d\'identité'" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('recto')">
+        <button *ngIf="kycManager.getVersoDisplay() && !isKycPassport()" class="button kyc is-dark is-small no-overflow addspaceabove" (click)="openKycPicker('verso')">
           <fa-icon [icon]="['fas', 'plus']" class="side-icon"></fa-icon>
           Ajouter le verso
         </button>
 
-        <button *ngIf="kycManager.isKycComplete() && !kycManager.isKycAsked()" (click)="kycManager.askKycValidation(modals)" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
+        <button *ngIf="kycManager.isKycComplete() && !kycManager.isKycAsked() && !loadings.isLoading('kyc')" (click)="kycManager.askKycValidation(modals, loadings.get('kyc'))" class="button is-success addspaceabove">Valider ma pièce d'identité</button>
       </div>
 
-      <div *ngIf="loading">
+      <div *ngIf="loadings.isLoading('kyc')">
         <button class="button is-light is-loading"></button>
       </div>
     </div>

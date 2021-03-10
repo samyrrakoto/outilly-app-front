@@ -4,17 +4,19 @@ import { KycRequestService } from 'src/app/services/kyc-request.service';
 import { Injectable } from '@angular/core';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { KycDoc } from 'src/app/models/kyc-doc';
-import { ErrorMessage, ErrorMessageManagerService, ErrorMessageTemplate } from 'src/app/services/error-message-manager.service';
+import { ErrorMessage, ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { Modals } from 'src/app/models/modals';
 import { HttpStatus } from 'src/app/services/request.service';
+import { Loading } from 'src/app/models/loading';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KycManagerService {
+  indexCounter: number = 1;
   kycDocs: KycDoc[] = [];
-  currentKycDoc: KycDoc = new KycDoc();
   bankDoc: BankDoc = new BankDoc();
+  validationStatus: AskValidationStatus = null;
 
   constructor(
     private userManager: UserManagerService,
@@ -22,13 +24,25 @@ export class KycManagerService {
     public errorManager: ErrorMessageManagerService
   ) { }
 
+  /*
+  ** KYC PROCESS
+  */
+
+  public async publishKycDoc(index: number): Promise<void> {
+    await this.createKycDoc();
+    await this.storeKycDoc(this.kycDocs[index]);
+    await this.addPage(this.kycDocs[index]);
+
+    if (index !== this.kycDocs.length - 1) {
+      await this.publishKycDoc(index + 1);
+    }
+  }
+
   /* 1. KYC doc creation */
-  public async createKycDoc(): Promise<void> {
+  private async createKycDoc(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.kycRequest.createKycDoc().subscribe({
         next: (res: any) => {
-          console.log("Create KYC doc");
-          console.log(res);
           if (res.status === !HttpStatus.CREATED) {
             this.errorManager.addErrorMessage(ErrorMessage.SIMPLE);
             reject();
@@ -46,13 +60,11 @@ export class KycManagerService {
   }
 
   /* 2. KYC doc storage */
-  private async storeKycDoc(page: KycSide, file: File): Promise<void> {
+  private async storeKycDoc(kycDoc: KycDoc): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.kycRequest.storeKycDoc(page, file).subscribe({
+      this.kycRequest.storeKycDoc(kycDoc.page, kycDoc.file).subscribe({
         next: (res: any) => {
-          console.log("Store KYC doc");
-          console.log(res);
-          this.currentKycDoc.id = res.body.id;
+          kycDoc.id = res.body.id;
           resolve();
         },
         error: () => {
@@ -64,63 +76,75 @@ export class KycManagerService {
   }
 
   /* 3. KYC doc page add */
-  private async addPage(event: any, loading: boolean): Promise<void> {
+  private async addPage(kycDoc: KycDoc): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.kycRequest.addPage(this.currentKycDoc.id).subscribe({
+      this.kycRequest.addPage(kycDoc.id).subscribe({
         next: (res: any) => {
-          console.log("Add doc");
-          console.log(res);
           if (res.body.result) {
-            this.currentKycDoc.page === KycSide.RECTO ? this.currentKycDoc.hasRecto = true : this.currentKycDoc.hasVerso = true;
-            this.onSelectFile(event);
-            loading = false;
             resolve();
           }
           else {
             this.errorManager.addErrorMessage(ErrorMessage.SIMPLE);
-            loading = false;
             reject();
           }
         },
         error: () => {
           this.errorManager.addErrorMessage(ErrorMessage.SIMPLE);
-          loading = false;
           reject();
         }
       });
     });
   }
 
-  private onSelectFile(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      const reader: FileReader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]);
-
-      reader.onload = (event: any) => {
-        console.log(event.target.result);
-        // this.kycDocs.push(<string>event.target.result);
+  public removeKycDoc(kyc: KycDoc): void {
+    for (let i = 0; i < this.kycDocs.length; i++) {
+      if (this.kycDocs[i].id === kyc.id) {
+        this.kycDocs.splice(i, 1);
       }
     }
   }
 
-  public async handleFile(event: any, loading: boolean): Promise<void> {
-    const files: FileList = (<HTMLInputElement>document.getElementById('kyc')).files;
+  private onSelectFile(event: any, kycDoc: KycDoc): void {
+    if (event.target.files && event.target.files[0]) {
+      const reader: FileReader = new FileReader();
 
-    if (files.length !== 0) {
-      loading = true;
-      await this.createKycDoc();
-      await this.storeKycDoc(this.currentKycDoc.page, files[0]);
-      await this.addPage(event, loading);
+      reader.readAsDataURL(event.target.files[0]);
+      kycDoc.file = event.target.files[0];
+
+      reader.onload = (event: any) => {
+        kycDoc.url = (<string>event.target.result);
+      }
     }
   }
 
-  public async askKycValidation(modals: Modals): Promise<void> {
+  public async handleFile(event: any, type: KycType, page: KycSide): Promise<void> {
+    const files: FileList = (<HTMLInputElement>document.getElementById('kyc')).files;
+
+    if (files.length !== 0) {
+      const kycDoc: KycDoc = new KycDoc(type, page);
+
+      kycDoc.id = this.indexCounter;
+      this.indexCounter++;
+      this.onSelectFile(event, kycDoc);
+      this.kycDocs.push(kycDoc);
+    }
+  }
+
+  public async askKycValidation(modals: Modals, loading: Loading): Promise<void> {
+    loading.load();
+    await this.publishKycDoc(0)
+      .catch(() => loading.unload());
     this.kycRequest.askKycValidation().subscribe({
-      next: () => {
-        this.userManager.user.mangoPayData.KYCstatus = AskValidationStatus.VALIDATION_ASKED;
-        modals.close('kyc');
-        return;
+      next: (res: any) => {
+        if (res.body.result) {
+          this.userManager.user.mangoPayData.KYCstatus = AskValidationStatus.VALIDATION_ASKED;
+          loading.unload();
+          modals.close('kyc');
+        }
+        else {
+          this.errorManager.addErrorMessage(ErrorMessage.SIMPLE);
+          loading.unload();
+        }
       }
     });
   }
@@ -164,6 +188,10 @@ export class KycManagerService {
     });
   }
 
+  /*
+  ** User Data checks
+  */
+
   public hasBankInfo(): boolean {
     return this.bankDoc.iban !== '';
   }
@@ -173,24 +201,23 @@ export class KycManagerService {
   }
 
   public hasKyc(): boolean {
-
-    return this.userManager.user.mangoPayData !== null && this.userManager.user.mangoPayData.KYCdocs.length > 0;
+    return this.kycDocs.length > 0;
   }
 
-  public setVerso(): void {
-    this.currentKycDoc.hasVerso = true;
+  public hasStarted(): boolean {
+    return this.kycDocs.length > 0;
   }
 
-  public setRecto(): void {
-    this.currentKycDoc.hasRecto = true;
+  /*
+  ** Display conditionners
+  */
+
+  public getIdDisplay(): boolean {
+    return !this.hasKyc() || this.isKycId() || (this.isKycPassport() && !this.hasStarted());
   }
 
-  public setId(): void {
-    this.currentKycDoc.type = KycType.ID_CARD;
-  }
-
-  public setPassport(): void {
-    this.currentKycDoc.type = KycType.PASSPORT;
+  public getPassportDisplay(): boolean {
+    return !this.hasKyc() || this.isKycPassport() || (this.isKycId() && !this.hasStarted());
   }
 
   public getKycDisplay(): boolean {
@@ -198,6 +225,54 @@ export class KycManagerService {
 
     return KYCstatus === null || KYCstatus === AskValidationStatus.REFUSED;
   }
+
+  public getRectoDisplay(): boolean {
+    return !this.hasKyc() || !this.hasRecto();
+  }
+
+  public getVersoDisplay(): boolean {
+    return !this.hasKyc() || (!this.hasVerso() && this.isKycId());
+  }
+
+  public isKycId(): boolean {
+    for (const kycDoc of this.kycDocs) {
+      if (kycDoc.type === KycType.ID_CARD) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public isKycPassport(): boolean {
+    for (const kycDoc of this.kycDocs) {
+      if (kycDoc.type === KycType.PASSPORT) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public hasRecto(): boolean {
+    for (const kycDoc of this.kycDocs) {
+      if (kycDoc.page === KycSide.RECTO) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public hasVerso(): boolean {
+    for (const kycDoc of this.kycDocs) {
+      if (kycDoc.page === KycSide.VERSO) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /*
+  ** KYC status getters
+  */
 
   public isKycCreated(): boolean {
     return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.CREATED;
@@ -211,12 +286,16 @@ export class KycManagerService {
     return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.REFUSED;
   }
 
+  public isKycValidated(): boolean {
+    return this.userManager.user.mangoPayData.KYCstatus === AskValidationStatus.VALIDATED;
+  }
+
   public isKycComplete(): boolean {
-    if (this.currentKycDoc.type === 'id-card') {
-      return this.currentKycDoc.hasRecto && this.currentKycDoc.hasVerso;
+    if (this.isKycId()) {
+      return this.hasRecto() && this.hasVerso();
     }
-    else if (this.currentKycDoc.type === 'passport') {
-      return this.currentKycDoc.hasRecto;
+    else if (this.isKycPassport()) {
+      return this.hasRecto();
     }
   }
 }
@@ -225,5 +304,5 @@ export enum AskValidationStatus {
   CREATED = 'CREATED',
   VALIDATION_ASKED = 'VALIDATION_ASKED',
   REFUSED = 'REFUSED',
-  SUCCEEDED = 'SUCCEEDED'
+  VALIDATED = 'VALIDATED'
 }
