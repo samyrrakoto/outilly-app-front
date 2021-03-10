@@ -8,20 +8,25 @@ import { AccessToken } from '../models/access-token';
   providedIn: 'root'
 })
 export class RequestService {
-  httpOptions = {
+  readonly httpOptions: any = {
     headers: new HttpHeaders({'Content-Type': 'application/json'}),
     observe: 'response' as 'response'
   };
+  readonly formDataOptions: any = {
+    headers: null,
+    reportProgress: true,
+    observe: 'events',
+  }
   uri: Uri;
 
   constructor(public http: HttpClient) {
     this.uri = new Uri();
   }
 
-  public postData(data: any, ressource: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
-    this.uri.setUri(ressource, params);
+  public postData(body: any, url: string, params: Array<string>=[], options=this.httpOptions): Observable<HttpResponse<any>> {
+    this.uri.setUri(url, params);
 
-    return options === null ? this.http.post<any>(this.uri.path, data) : this.http.post<any>(this.uri.path, data, options);
+    return options === null ? this.http.post<any>(this.uri.path, body) : this.http.post<any>(this.uri.path, body, options);
   }
 
   /**
@@ -43,10 +48,10 @@ export class RequestService {
     return this.http.get<any>(this.uri.path);
   }
 
-  putData(ressource: string, data: any, params: Array<string> = []): Observable<any> {
-    this.uri.setUri(ressource, params);
+  putData(url: string, body: any, params: Array<string> = []): Observable<any> {
+    this.uri.setUri(url, params);
 
-    return this.http.put<any>(this.uri.path, data)
+    return this.http.put<any>(this.uri.path, body)
   }
 
   deleteData(ressource: string, data: any, params: Array<string> = []): Observable<any> {
@@ -92,21 +97,23 @@ export class RequestService {
     });
   }
 
-  storeKycDoc(data: any): Observable<any> {
-    return this.http.post(this.uri.BASE + this.uri.STORE_KYC_DOC, data,
-      {
-        headers: null,
-        reportProgress: true,
-        observe: 'events',
-    });
-  }
-
   updateUser(data: any): Observable<HttpResponse<any>> {
     return this.putData(this.uri.UPDATE_USER, data);
   }
 
   getPreauthData(preAuthId: any): Observable<any> {
     return this.getData(this.uri.GET_PREAUTH_DATA + '?preAuthorizationId=' + preAuthId);
+  }
+
+  public getFormDataPayload(formData: any): any {
+    const payload: any = {};
+
+    for (const value of formData.entries()) {
+      Object.defineProperty(payload, value[0], {
+        value: value[1]
+      });
+    }
+    return payload;
   }
 }
 

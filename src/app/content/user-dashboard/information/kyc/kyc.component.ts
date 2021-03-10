@@ -1,31 +1,19 @@
+import { GenericComponent } from 'src/app/models/generic-component';
 import { KycManagerService } from 'src/app/services/kyc-manager.service';
 import { Subject } from 'rxjs';
-import { ErrorManager } from 'src/app/models/error-manager';
 import { UserManagerService } from 'src/app/services/user-manager.service';
-import { RequestService } from 'src/app/services/request.service';
-import { Modals } from 'src/app/models/modals';
-import { Component, OnInit } from '@angular/core';
-import { AskValidationStatus } from 'src/app/models/uri';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { KycSide, KycType } from 'src/app/models/kyc-doc';
 
 @Component({
   selector: 'app-kyc',
   templateUrl: './kyc.component.html',
   styleUrls: ['./kyc.component.css']
 })
-export class KycComponent implements OnInit {
-  loading: boolean = false;
-  bankInfo: boolean = null;
-  modals: Modals = new Modals();
-  kycUrl: string[] = [];
-  kycSent: string[] = [];
-  kycType: string = '';
-  docId: number = 0;
-  page: string = '';
-  recto: boolean = false;
-  verso: boolean = false;
-  iban: string = '';
-  bic: string = '';
-  errorManager: ErrorManager = new ErrorManager();
+export class KycComponent extends GenericComponent implements OnInit {
+  @ViewChild('kycInput') kycInput: ElementRef;
+  currentKycPage: KycSide = null;
+  currentKycType: KycType = KycType.ID_CARD;
   click: Subject<any> = new Subject<any>();
   readonly tiles: string[] = ['id-card', 'passport'];
   readonly acceptedKycFormats: string[] = [];
@@ -33,156 +21,41 @@ export class KycComponent implements OnInit {
   readonly message: string = `Je souhaite changer de RIB. Voici mes nouvelles coordonnées bancaires :`;
 
   constructor(
-    private request: RequestService,
     public userManager: UserManagerService,
     public kycManager: KycManagerService)
   {
+    super();
     this.modals.addModal('id');
     this.modals.addModal('bank-account');
     this.modals.addModal('modify-bank-account');
     this.modals.addModal('contact-form');
+    this.loadings.add('kyc');
   }
 
   ngOnInit(): void {
-    if (this.kycManager.hasBankInfo()) {
-      this.getBankInfo()
-        .catch();
-    }
+    this.kycManager.getBankInfo()
+      .catch(() => null);
   }
 
-  public handleFile(event: any): void {
-    const files: FileList = (<HTMLInputElement>document.getElementById('kyc')).files;
-
-    if (files.length !== 0) {
-      this.loading = true;
-      this.createKycDoc()
-        .then(() => this.storeDoc(this.page, files[0]))
-        .then(() => this.addPage(event));
-      }
+  ngAfterViewInit(): void {
+    this.setFocus('id-card');
   }
 
-  public openImgPicker(elementId: string): void {
-    document.getElementById(elementId).click();
+  public openKycPicker(page: string): void {
+    this.currentKycPage = page === 'verso' ? KycSide.VERSO : KycSide.RECTO;
+    this.kycInput.nativeElement.click();
   }
 
-  private getBankInfo(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.request.getData(this.request.uri.BANK_INFO).subscribe({
-        next: (res: any) => {
-          this.iban = res.IBAN;
-          this.bic = res.BIC;
-          resolve();
-        },
-        error: () => {
-          reject();
-        }
-      })
-    });
+  public addKycId(): void {
+    this.currentKycType = KycType.ID_CARD;
   }
 
-  private createKycDoc(): Promise<void> {
-    const payload: any = {
-      type: 'IDENTITY_PROOF'
-    };
-
-    return new Promise((resolve, reject) => {
-      this.request.postData(payload, this.request.uri.CREATE_KYC_DOC).subscribe(
-        () => {
-          resolve();
-        },
-        () => {
-          this.errorManager.addErrorMessage('Une erreur est survenue');
-          reject();
-        }
-      )
-    });
+  public addKycPassport(): void {
+    this.currentKycType = KycType.PASSPORT;
   }
 
-  private storeDoc(page: string, file: File): Promise<void> {
-    const formData: FormData = new FormData();
-    formData.append('type', 'IDENTITY_PROOF');
-    formData.append('page', page);
-    formData.append('docFile', file);
-
-    return new Promise((resolve, reject) => {
-      this.request.storeKycDoc(formData).subscribe(
-        (res: any) => {
-          if (res.body) {
-            this.docId = res.body.id;
-          }
-        },
-        () => {
-          this.errorManager.addErrorMessage('Une erreur est survenue');
-          reject();
-        },
-        () => {
-          resolve();
-        }
-      )
-    });
-  }
-
-  private addPage(event: any): Promise<void> {
-    const payload: any = {
-      'docId': this.docId
-    };
-
-    return new Promise((resolve, reject) => {
-      this.request.postData(payload, this.request.uri.ADD_KYC_PAGE).subscribe({
-        next: (res: any) => {
-          if (res.body.result) {
-            this.kycSent.push(this.getKycName(this.kycType) + " [" + this.page + "]");
-            this.page === 'recto' ? this.recto = true : this.verso = true;
-            this.onSelectFile(event);
-            this.loading = false;
-            resolve();
-          }
-          else {
-            this.errorManager.addErrorMessage('Une erreur est survenue');
-            this.loading = false;
-            reject();
-          }
-        },
-        error: () => {
-          this.errorManager.addErrorMessage('Une erreur est survenue');
-          this.loading = false;
-          reject();
-        }
-      })
-    });
-  }
-
-  public askKycValidation(): Promise<void> {
-    this.loading = true;
-
-    return new Promise((resolve) => {
-      this.request.postData(null, this.request.uri.ASK_KYC_VALIDATION).subscribe({
-        next: () => {
-          this.userManager.user.mangoPayData.KYCstatus = AskValidationStatus.VALIDATION_ASKED;
-          this.loading = false;
-          this.modals.close('kyc');
-          resolve();
-        }
-      })
-    });
-  }
-
-  public bankAccountRegister(): void {
-    const payload: any = {
-      "IBAN": this.iban,
-      "BIC": this.bic
-    };
-
-    this.request.postData(payload, this.request.uri.BANK_ACCOUNT_REGISTRATION).subscribe({
-      next: () => {
-        this.bankInfo = true;
-        this.modals.close('bank-account');
-      },
-      error: () => {
-        this.bankInfo = false;
-      }
-    }
-    )
+  public isKycPassport(): boolean {
+    return this.currentKycType === KycType.PASSPORT;
   }
 
   public setFocus(id: string): void {
@@ -190,42 +63,10 @@ export class KycComponent implements OnInit {
 
     for (const tile of this.tiles) {
       if (tile !== id) {
+        if (document.getElementById(tile)) {
         document.getElementById(tile).classList.remove('chosen-tile');
+        }
       }
     }
-  }
-
-  public isKycComplete(): boolean {
-    if (this.kycType === 'id-card') {
-      return this.recto && this.verso;
-    }
-    else if (this.kycType === 'passport') {
-      return this.recto;
-    }
-  }
-
-  private getKycName(kycId: string): string {
-    if (kycId === 'id-card') {
-      return "carte d'identité";
-    }
-    else if (kycId === 'passport') {
-      return "passeport";
-    }
-  }
-
-  public onSelectFile(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]);
-
-      reader.onload = (event: any) => {
-        this.kycUrl.push(<string>event.target.result);
-      }
-    }
-  }
-
-  public openModal(): void {
-    this.click.next();
   }
 }

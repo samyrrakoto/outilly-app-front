@@ -1,3 +1,4 @@
+import { UserRequestService } from 'src/app/services/user-request.service';
 import { Bid } from 'src/app/models/bid';
 import { Sale } from 'src/app/models/sale';
 import { Purchase } from 'src/app/models/purchase';
@@ -8,6 +9,7 @@ import { RequestService } from './request.service';
 import { User } from 'src/app/models/user';
 import { Injectable } from '@angular/core';
 import { Address } from 'src/app/models/address';
+import { AskValidationStatus } from 'src/app/services/kyc-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,7 @@ export class UserManagerService {
 
   constructor(
     private request: RequestService,
+    private userRequest: UserRequestService,
     private router: Router,
     private auth: AuthService,
     private purchaseManager: PurchaseManagerService)
@@ -44,7 +47,7 @@ export class UserManagerService {
     });
   }
 
-  public getUserAddress(): Promise<Address> {
+  public async getUserAddress(): Promise<Address> {
     return new Promise((resolve)=> {
       this.request.getUserInfos().subscribe(
         (user: User) => {
@@ -54,7 +57,7 @@ export class UserManagerService {
     });
   }
 
-  public getUserInfos(): Promise<void> {
+  public async getUserInfos(): Promise<void> {
     return new Promise((resolve)=> {
       this.request.getUserInfos().subscribe(
         (user: any) => {
@@ -69,11 +72,26 @@ export class UserManagerService {
     });
   }
 
+  public async getValidationStatus(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.userRequest.getValidationStatus().subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.user.mangoPayData.KYCstatus = res.status;
+          resolve();
+        },
+        error: () => {
+          reject();
+        }
+      })
+    });
+  }
+
   public isActivated(): boolean {
     return localStorage.getItem('userStatus') === 'activated';
   }
 
-  private userMapping(userRes: any): void {
+  private async userMapping(userRes: any): Promise<void> {
     this.user.id = userRes.id;
     this.user.username = userRes.username;
     this.user.userProfile.id = userRes.userProfile.id;
@@ -90,6 +108,9 @@ export class UserManagerService {
     this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
     this.user.userProfile.phone2 = userRes.userProfile.phone2;
     this.user.mangoPayData = userRes.mangoPayData;
+    if (this.user.mangoPayData.KYCstatus && this.user.mangoPayData.KYCstatus !== AskValidationStatus.VALIDATED) {
+      await this.getValidationStatus();
+    }
   }
 
   private birthdateMapping(userRes: any): void {
