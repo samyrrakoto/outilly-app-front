@@ -3,7 +3,19 @@
 }
 
 .kyc-doc {
-  height: 150px;
+  height: 120px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.kyc-doc fa-icon {
+  font-size: 1.5em;
+  transition: 0.2s;
+}
+
+.kyc-doc fa-icon:hover {
+  color: var(--KTKP-RED);
 }
 
 #bank-account .input {

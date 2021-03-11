@@ -1,9 +1,11 @@
-import { Media } from './media';
-import { Modals } from './modals';
+import { Loadings } from 'src/app/models/loadings';
+import { Media } from 'src/app/models/media';
+import { Modals } from 'src/app/models/modals';
 
 export class GenericComponent {
   media: Media;
   modals: Modals = new Modals();
+  loadings: Loadings = new Loadings();
 
   constructor() {
     this.media = new Media();

@@ -1,11 +1,5 @@
 import { environment } from 'src/environments/environment';
 
-export enum AskValidationStatus {
-  CREATED = 'CREATED',
-  VALIDATION_ASKED = 'VALIDATION_ASKED',
-  REFUSED = 'REFUSED'
-}
-
 export class Uri {
   readonly BASE: string;
   readonly BID: string = 'bid/';
