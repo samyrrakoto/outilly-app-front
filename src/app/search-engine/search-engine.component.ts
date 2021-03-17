@@ -3,7 +3,7 @@ import { Address } from 'src/app/models/address';
 import { GeoService, GeoSearch } from 'src/app/services/geo.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
@@ -16,6 +16,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 export class SearchEngineComponent extends GenericComponent implements OnInit {
   @Input() placeholder: string = 'Rechercher un produit';
   @Input() filters: any;
+  @ViewChild('state') state: ElementRef;
   counter: number;
   test: any;
   config: any;
@@ -23,6 +24,7 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
   currentZipcode: string = '';
   geo: GeoSearch = new GeoSearch('0', '0', 0);
   searchParams: SearchParams = {
+    query: '',
     hitsPerPage: 15,
     filters: '',
     page: 0,
@@ -46,6 +48,12 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
 
   ngOnInit(): void {
     this.doOnInit();
+    console.log(this.searchParams);
+
+  }
+
+  ngAfterViewInit(): void{
+
   }
 
   private async getQuery(): Promise<void> {
@@ -54,6 +62,7 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
         this.initialQuery = params['query'];
       }
     });
+    this.searchParams.query = this.initialQuery;
   }
 
   private async doOnInit(): Promise<void> {
@@ -82,10 +91,15 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
 
   public updateDistance(distance: number): void {
     this.searchParams.aroundRadius = this.geoService.getRadius(distance);
+    console.log(this.state.nativeElement.value);
+    this.searchParams.query = this.state.nativeElement.value;
+    console.log(this.searchParams);
   }
+
 }
 
 type SearchParams = {
+  query: string;
   hitsPerPage?: number;
   filters?: string;
   page?: number;

@@ -5,8 +5,8 @@
 
   <div class="content has-text-centered">
     <div class="content">
-      <!-- <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box> -->
-      <app-custom-search-box [initialQuery]=initialQuery></app-custom-search-box>
+      <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box>
+      <!--<app-custom-search-box [initialQuery]=initialQuery></app-custom-search-box>-->
     </div>
 
     <button class="button is-danger is-hidden-tablet" (click)="modals.open('mobile-filters')">Recherche avancée</button>
@@ -54,8 +54,11 @@
               <div id="pagination">
                 <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
               </div>
-
-              {{ state.query }}
+              <input
+                type="hidden"
+                [value]="state.query"
+                #state
+              />
             </ng-template>
           </ais-stats>
         </ng-template>
