@@ -302,6 +302,14 @@
   pointer-events: initial;
 }
 
+.is-fixed {
+  position: fixed;
+}
+
+.grid {
+  display: grid;
+}
+
 /* Animations */
 .blinking {
   animation: blinker 3s linear infinite;

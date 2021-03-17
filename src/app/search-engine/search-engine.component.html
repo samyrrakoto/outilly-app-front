@@ -1,15 +1,41 @@
 <ais-instantsearch [config]="config">
   <ais-configure
-    [searchParameters]="{ hitsPerPage: 15, query: searchQuery, filters: filters, page: 0 }">
+    [searchParameters]="searchParams">
   </ais-configure>
-  <div class="columns is-centered has-text-centered">
-    <div class="column">
-        <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box>
+
+  <div class="content has-text-centered">
+    <div class="content">
+      <!-- <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box> -->
+      <app-custom-search-box [initialQuery]=initialQuery></app-custom-search-box>
     </div>
+
+    <button class="button is-danger is-hidden-tablet" (click)="modals.open('mobile-filters')">Recherche avancée</button>
   </div>
 
-  <div id="results" class="columns is-centered has-text-centered">
+  <div id="results" class="grid is-centered has-text-centered">
+
+    <!-- Filters -->
     <div>
+      <div id="filters" class="box is-fixed is-hidden-mobile">
+        <div class="field">
+          <label>Code postal</label>
+          <div class="control">
+            <input class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="currentZipcode" (ngModelChange)="updateGeoLoc()">
+          </div>
+        </div>
+
+        <nav id="distance" class="level">
+          <div class="level-left">0 km</div>
+          <div class="level-item">
+            <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=geo.aroundRadius (input)="updateDistance(matSlider.value)"></mat-slider>
+          </div>
+          <div class="level-right">200 km</div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="content">
       <ais-hits>
         <ng-template let-hits="hits">
           <ais-stats>
@@ -17,7 +43,7 @@
               <div *ngIf="hits.length > 0" class="content">
                 <app-products-display
                   [search]=true
-                  [sales]=getSalesFromHits(hits)>
+                  [sales]=algoliaManager.getSalesFromHits(hits)>
                 </app-products-display>
               </div>
 
@@ -28,6 +54,8 @@
               <div id="pagination">
                 <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
               </div>
+
+              {{ state.query }}
             </ng-template>
           </ais-stats>
         </ng-template>
@@ -35,3 +63,31 @@
     </div>
   </div>
 </ais-instantsearch>
+
+<!-- MODALS -->
+
+<!-- Filters on mobile -->
+<div class="modal padded" [ngClass]="modals.get('mobile-filters')">
+  <div class="modal-background" (click)="modals.close('mobile-filters')"></div>
+  <div class="modal-content">
+    <div class="box has-text-centered">
+      <div class="field">
+        <label>Code postal</label>
+        <div class="control">
+          <input class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="currentZipcode" (ngModelChange)="updateGeoLoc()">
+        </div>
+      </div>
+
+      <nav class="level is-mobile">
+        <div class="level-left">0 km</div>
+        <div class="level-item">
+          <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=geo.aroundRadius (input)="updateDistance(matSlider.value)"></mat-slider>
+        </div>
+        <div class="level-right">200 km</div>
+      </nav>
+
+      <button class="button is-danger" (click)="modals.close('mobile-filters')">Rechercher</button>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('mobile-filters')"></button>
+</div>

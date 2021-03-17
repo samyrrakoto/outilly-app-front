@@ -1,54 +1,94 @@
+import { AlgoliaManagerService } from 'src/app/services/algolia-manager.service';
+import { Address } from 'src/app/models/address';
+import { GeoService, GeoSearch } from 'src/app/services/geo.service';
 import { ActivatedRoute } from '@angular/router';
-import { Sale } from 'src/app/models/sale';
-import { AppComponent } from './../app.component';
+import { AppComponent } from 'src/app/app.component';
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { GenericComponent } from 'src/app/models/generic-component';
 
 @Component({
   selector: 'app-search-engine',
   templateUrl: './search-engine.component.html',
   styleUrls: ['./search-engine.component.css']
 })
-export class SearchEngineComponent implements OnInit {
+export class SearchEngineComponent extends GenericComponent implements OnInit {
   @Input() placeholder: string = 'Rechercher un produit';
-  @Input() filters: string = '';
+  @Input() filters: any;
+  counter: number;
+  test: any;
   config: any;
-  searchQuery: string = '';
-  currentQuery: string = '';
+  initialQuery: string = '';
+  currentZipcode: string = '';
+  geo: GeoSearch = new GeoSearch('0', '0', 0);
+  searchParams: SearchParams = {
+    hitsPerPage: 15,
+    filters: '',
+    page: 0,
+    aroundLatLng: '0, 0',
+    aroundRadius: 1
+  };
 
   constructor(
     public appcomponent: AppComponent,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private geoService: GeoService,
+    private auth: AuthService,
+    private userManager: UserManagerService,
+    public algoliaManager: AlgoliaManagerService)
   {
+    super();
+    this.counter = 1;
     this.config = appcomponent.configOutilly;
+    this.modals.addModal('mobile-filters');
   }
 
   ngOnInit(): void {
+    this.doOnInit();
+  }
+
+  private async getQuery(): Promise<void> {
     this.route.queryParams.subscribe((params) => {
       if (params['query']) {
-        this.searchQuery = params['query'];
+        this.initialQuery = params['query'];
       }
     });
   }
 
-  public getSalesFromHits(hits: any[]): Sale[] {
-    const sales: Sale[] = [];
+  private async doOnInit(): Promise<void> {
+    this.getQuery();
 
-    for (const hit of hits) {
-      sales.push(this.saleMapping(hit));
+    if (this.auth.isLogged()) {
+      const address: Address = await this.userManager.getUserAddress();
+
+      if (address && address.zipcode) {
+        await this.getGps(address.zipcode);
+        this.currentZipcode = address.zipcode;
+      }
     }
-    return sales;
   }
 
-  private saleMapping(hit: any): Sale {
-    const sale: Sale = new Sale();
-
-    sale.product.name = hit.product_name;
-    sale.product.mainImageThumbnail.path = hit.thumbnail_uri;
-    sale.product.reservePrice = hit.reserve_price * 100;
-    sale.product.toDeliver = hit.to_deliver;
-    sale.id = hit.sale_id;
-    sale.productSlug = hit.slug;
-    sale.product.locality = hit.locality;
-    return sale;
+  private async getGps(zipcode: string): Promise<void> {
+    this.geo = await this.geoService.getGps(zipcode);
+    this.searchParams.aroundLatLng = this.geo.aroundLatLng;
   }
+
+  public updateGeoLoc(): void {
+    if (this.currentZipcode.length === 5) {
+      this.getGps(this.currentZipcode);
+    }
+  }
+
+  public updateDistance(distance: number): void {
+    this.searchParams.aroundRadius = this.geoService.getRadius(distance);
+  }
+}
+
+type SearchParams = {
+  hitsPerPage?: number;
+  filters?: string;
+  page?: number;
+  aroundLatLng?: string;
+  aroundRadius?: number;
 }

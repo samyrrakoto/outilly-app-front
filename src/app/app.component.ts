@@ -14,7 +14,7 @@ import * as algoliasearch from 'algoliasearch/lite';
 
 declare let gtag: Function;
 
-const searchOutilly = algoliasearch(
+const searchOutilly: algoliasearch.Client = algoliasearch(
   algolia.APP_ID,
   algolia.API_KEY
 );

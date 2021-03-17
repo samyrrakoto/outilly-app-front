@@ -2,6 +2,17 @@
   margin-top: 20px;
 }
 
+.grid {
+  grid-template-columns: 200px auto;
+  gap: 40px;
+}
+
+#filters {
+  margin-left: 40px;
+  padding-left: 10px;
+  z-index: 10;
+}
+
 #powered-by-algolia {
   margin-top: 5px;
   transform: translateX(135px);
@@ -11,8 +22,26 @@
   height: 9px;
 }
 
+#distance {
+  margin-bottom: 0px;
+}
+
+.mat-slider-horizontal .mat-slider-thumb-label {
+  right: -20px;
+  top: -50px;
+}
+
+.mat-slider-thumb-label {
+  height: 40px;
+  width: 40px;
+}
+
 @media screen and (max-width: 768px) {
   #powered-by-algolia {
     transform: translateX(60px);
+  }
+
+  .grid {
+    display: block;
   }
 }

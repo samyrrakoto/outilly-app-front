@@ -45,6 +45,7 @@ import { PredefinedQuestionComponent } from './content/product-information/gener
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
 import { StickyMenuComponent } from './content/product-information/sticky-menu/sticky-menu.component';
 import { DeliveryOptionsComponent } from './content/product-information/sticky-menu/delivery-options/delivery-options.component';
 import { BuyingConfirmationComponent } from './content/product-information/sticky-menu/buying-confirmation/buying-confirmation.component';
@@ -161,6 +162,7 @@ import { CompanyInformationComponent } from './content/onboarding/company-inform
 import { NameComponent } from './content/onboarding/user-details/name/name.component';
 import { CompletionAccountWarningComponent } from './content/user-dashboard/completion-account-warning/completion-account-warning.component';
 import { TeamComponent } from './content/team/team.component';
+import { CustomSearchBoxComponent } from './custom-search-box/custom-search-box.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -316,6 +318,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     NameComponent,
     CompletionAccountWarningComponent,
     TeamComponent,
+    CustomSearchBoxComponent,
   ],
   imports: [
     HttpClientModule,
@@ -326,6 +329,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserAnimationsModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    MatSliderModule,
     ReactiveFormsModule,
     HammerModule,
     NgAisModule.forRoot(),
