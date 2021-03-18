@@ -1,15 +1,14 @@
 <ais-instantsearch [config]="config">
   <ais-configure
-    [searchParameters]="searchParams">
+    [searchParameters]="searchQuery.searchParams">
   </ais-configure>
 
   <div class="content has-text-centered">
     <div class="content">
       <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box>
-      <!--<app-custom-search-box [initialQuery]=initialQuery></app-custom-search-box>-->
     </div>
 
-    <button class="button is-danger is-hidden-tablet" (click)="modals.open('mobile-filters')">Recherche avancée</button>
+    <button class="button is-danger is-hidden-tablet" (click)="searchQueryTmp.copy(searchQuery); modals.open('mobile-filters')">Recherche avancée</button>
   </div>
 
   <div id="results" class="grid is-centered has-text-centered">
@@ -20,14 +19,14 @@
         <div class="field">
           <label>Code postal</label>
           <div class="control">
-            <input class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="currentZipcode" (ngModelChange)="updateGeoLoc()">
+            <input #zipcode class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="searchQuery.zipcode" (ngModelChange)="searchQuery.updateGeoLoc(zipcode.value)">
           </div>
         </div>
 
         <nav id="distance" class="level">
           <div class="level-left">0 km</div>
           <div class="level-item">
-            <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=geo.aroundRadius (input)="updateDistance(matSlider.value)"></mat-slider>
+            <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=searchQuery.geo.aroundRadius (input)="searchQuery.updateDistance(matSlider.value, state)"></mat-slider>
           </div>
           <div class="level-right">200 km</div>
         </nav>
@@ -54,11 +53,8 @@
               <div id="pagination">
                 <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
               </div>
-              <input
-                type="hidden"
-                [value]="state.query"
-                #state
-              />
+
+              <input #state type="hidden" [value]="state.query" />
             </ng-template>
           </ais-stats>
         </ng-template>
@@ -71,25 +67,25 @@
 
 <!-- Filters on mobile -->
 <div class="modal padded" [ngClass]="modals.get('mobile-filters')">
-  <div class="modal-background" (click)="modals.close('mobile-filters')"></div>
+  <div class="modal-background" (click)="matSliderTmp.value = searchQuery.slider; modals.close('mobile-filters')"></div>
   <div class="modal-content">
     <div class="box has-text-centered">
       <div class="field">
         <label>Code postal</label>
         <div class="control">
-          <input class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="currentZipcode" (ngModelChange)="updateGeoLoc()">
+          <input #zipcodeTmp class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="searchQueryTmp.zipcode" (ngModelChange)="searchQueryTmp.updateGeoLoc(zipcodeTmp.value)">
         </div>
       </div>
 
       <nav class="level is-mobile">
         <div class="level-left">0 km</div>
         <div class="level-item">
-          <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=geo.aroundRadius (input)="updateDistance(matSlider.value)"></mat-slider>
+          <mat-slider #matSliderTmp min="0" max="200" step="20" thumbLabel [value]=0 (input)="searchQueryTmp.updateSlider(matSliderTmp.value); searchQueryTmp.updateDistance(matSliderTmp.value, state)"></mat-slider>
         </div>
         <div class="level-right">200 km</div>
       </nav>
 
-      <button class="button is-danger" (click)="modals.close('mobile-filters')">Rechercher</button>
+      <button class="button is-danger" (click)="searchQuery.copy(searchQueryTmp); modals.close('mobile-filters')">Rechercher</button>
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="modals.close('mobile-filters')"></button>
