@@ -15,9 +15,9 @@
 
     <!-- Filters -->
     <div>
-      <div id="filters" class="box is-fixed is-hidden-mobile">
+      <div id="filters" class="box is-hidden-mobile">
+        <h2 class="subtitle filter-title has-text-centered">Code postal</h2>
         <div class="field">
-          <label>Code postal</label>
           <div class="control">
             <input #zipcode class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="searchQuery.zipcode" (ngModelChange)="searchQuery.updateGeoLoc(zipcode.value)">
           </div>
@@ -30,11 +30,96 @@
           </div>
           <div class="level-right">200 km</div>
         </nav>
+
+        <!-- Product Types -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('types', 'Consommable & accessoires')">
+              Matériaux & accessoires
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilters('types', toolsAndMachines)">
+              Outillage & machines
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Quality -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Etat</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('quality', 'Neuf')">
+              Neuf
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('quality', 'Occasion')">
+              Occasion
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Category -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('categories', 'BTP / Brico / Maison')">
+              BTP / Brico / Maison
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('categories', 'Espace verts / Paysage')">
+              Espace verts / Paysage
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('categories', 'Garage / Mécanique')">
+              Garage / Mécanique
+            </label>
+          </div>
+        </div>
+
+
+        <!-- Product Delivery -->
+        <div class="has-text-left">
+          <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('to_deliver', 'true')">
+              Produits livrables
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" (click)="setFilter('to_deliver', 'false')">
+              A récupérer sur place
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Results -->
     <div class="content">
+      <div id="pagination">
+        <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
+      </div>
+
       <ais-hits>
         <ng-template let-hits="hits">
           <ais-stats>
@@ -50,15 +135,15 @@
                 Aucun résultat ne correspond à votre recherche.
               </div>
 
-              <div id="pagination">
-                <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
-              </div>
-
               <input #state type="hidden" [value]="state.query" />
             </ng-template>
           </ais-stats>
         </ng-template>
       </ais-hits>
+
+      <div id="pagination">
+        <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
+      </div>
     </div>
   </div>
 </ais-instantsearch>
