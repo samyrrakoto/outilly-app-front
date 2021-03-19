@@ -43,6 +43,9 @@ export class SearchQuery {
     if (zipcode.length === 5) {
       this.getGps(zipcode);
     }
+    else if (zipcode.length === 0) {
+      this.searchParams.aroundLatLng = '';
+    }
   }
 
   public updateDistance(distance: number, state: ElementRef): void {
