@@ -36,9 +36,14 @@
   width: 40px;
 }
 
+/* Filters */
 .filter-title {
   margin-top: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
+}
+
+.field {
+  margin-bottom: 2px;
 }
 
 input[type=checkbox] {
@@ -56,6 +61,7 @@ input[type=checkbox]:checked {
   background: var(--KTKP-GREEN);
 }
 
+/* MOBILE DISPLAY */
 @media screen and (max-width: 768px) {
   #powered-by-algolia {
     transform: translateX(60px);

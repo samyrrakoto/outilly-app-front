@@ -1,4 +1,6 @@
-<ais-instantsearch [config]="config">
+<app-loading *ngIf="!loaded"></app-loading>
+
+<ais-instantsearch *ngIf="loaded" [config]="config">
   <ais-configure
     [searchParameters]="searchQuery.searchParams">
   </ais-configure>
@@ -36,14 +38,14 @@
           <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('types', 'Consommable & accessoires')">
+              <input type="checkbox" (click)="searchQuery.setFilter('types', 'Consommable & accessoires')">
               Matériaux & accessoires
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilters('types', toolsAndMachines)">
+              <input type="checkbox" (click)="searchQuery.setFilters('types', toolsAndMachines)">
               Outillage & machines
             </label>
           </div>
@@ -54,14 +56,14 @@
           <h2 class="subtitle filter-title has-text-centered">Etat</h2>
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('quality', 'Neuf')">
+              <input type="checkbox" (click)="searchQuery.setFilter('quality', 'Neuf')">
               Neuf
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('quality', 'Occasion')">
+              <input type="checkbox" (click)="searchQuery.setFilter('quality', 'Occasion')">
               Occasion
             </label>
           </div>
@@ -73,21 +75,21 @@
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('categories', 'BTP / Brico / Maison')">
+              <input type="checkbox" (click)="searchQuery.setFilter('categories', 'BTP / Brico / Maison')">
               BTP / Brico / Maison
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('categories', 'Espace verts / Paysage')">
+              <input type="checkbox" (click)="searchQuery.setFilter('categories', 'Espace verts / Paysage')">
               Espace verts / Paysage
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('categories', 'Garage / Mécanique')">
+              <input type="checkbox" (click)="searchQuery.setFilter('categories', 'Garage / Mécanique')">
               Garage / Mécanique
             </label>
           </div>
@@ -99,14 +101,14 @@
           <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('to_deliver', 'true')">
+              <input type="checkbox" (click)="searchQuery.setFilter('to_deliver', 'true')">
               Produits livrables
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" (click)="setFilter('to_deliver', 'false')">
+              <input type="checkbox" (click)="searchQuery.setFilter('to_deliver', 'false')">
               A récupérer sur place
             </label>
           </div>
@@ -138,6 +140,7 @@
               <input #state type="hidden" [value]="state.query" />
             </ng-template>
           </ais-stats>
+          <input type="hidden" [value]="hits.length" />
         </ng-template>
       </ais-hits>
 
@@ -169,6 +172,86 @@
         </div>
         <div class="level-right">200 km</div>
       </nav>
+
+      <!-- Product Types -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('types', 'Consommable & accessoires')">
+            Matériaux & accessoires
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilters('types', toolsAndMachines)">
+            Outillage & machines
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Quality -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Etat</h2>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('quality', 'Neuf')">
+            Neuf
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('quality', 'Occasion')">
+            Occasion
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Category -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('categories', 'BTP / Brico / Maison')">
+            BTP / Brico / Maison
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('categories', 'Espace verts / Paysage')">
+            Espace verts / Paysage
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('categories', 'Garage / Mécanique')">
+            Garage / Mécanique
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Delivery -->
+      <div class="has-text-left">
+        <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('to_deliver', 'true')">
+            Produits livrables
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" (click)="searchQueryTmp.setFilter('to_deliver', 'false')">
+            A récupérer sur place
+          </label>
+        </div>
+      </div>
 
       <button class="button is-danger" (click)="searchQuery.copy(searchQueryTmp); modals.close('mobile-filters')">Rechercher</button>
     </div>

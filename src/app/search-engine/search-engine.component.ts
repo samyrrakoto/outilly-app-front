@@ -22,6 +22,8 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
   config: any;
   searchQuery: SearchQuery = new SearchQuery(this.geoService);
   searchQueryTmp: SearchQuery = new SearchQuery(this.geoService);
+  nbHits: number = 0;
+  loaded: boolean = false;
 
   constructor(
     public appcomponent: AppComponent,
@@ -59,25 +61,17 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
         this.searchQuery.zipcode = address.zipcode;
       }
     }
+    this.loaded = true;
   }
 
-  public setFilter(filterName: string, value: string): void {
-    if (this.searchQuery.filters.hasFilter(filterName, value)) {
-      this.searchQuery.filters.remove(filterName, value);
-    }
-    else {
-      this.searchQuery.filters.add(filterName, value);
-    }
-    this.updateSearch();
-  }
+  // public getHits(): number {
+  //   if (this.currentHits) {
+  //     return this.currentHits.nativeElement.value;
+  //   }
+  //   return 0;
+  // }
 
-  public setFilters(filterName: string, values: string[]): void {
-    for (const value of values) {
-      this.setFilter(filterName, value);
-    }
-  }
-
-  public updateSearch(): void {
-    this.searchQuery.searchParams.filters = this.searchQuery.filters.getAll();
+  public log(): void {
+    console.log('COUCOU');
   }
 }

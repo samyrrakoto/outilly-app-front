@@ -22,14 +22,15 @@ export class SearchQuery {
     };
   }
 
-  public copy(searchQuery2: SearchQuery): void {
-    this.searchParams.query = searchQuery2.searchParams.query;
-    this.geo.aroundRadius = searchQuery2.geo.aroundRadius;
-    this.zipcode = searchQuery2.zipcode;
-    this.searchParams.aroundLatLng = searchQuery2.searchParams.aroundLatLng;
-    this.searchParams.aroundRadius = searchQuery2.searchParams.aroundRadius;
-    this.searchParams.filters = searchQuery2.searchParams.filters;
-    this.slider = searchQuery2.slider;
+  public copy(searchQuery: SearchQuery): void {
+    this.searchParams.query = searchQuery.searchParams.query;
+    this.geo.aroundRadius = searchQuery.geo.aroundRadius;
+    this.zipcode = searchQuery.zipcode;
+    this.searchParams.aroundLatLng = searchQuery.searchParams.aroundLatLng;
+    this.searchParams.aroundRadius = searchQuery.searchParams.aroundRadius;
+    this.searchParams.filters = searchQuery.searchParams.filters;
+    this.slider = searchQuery.slider;
+    this.filters.copy(searchQuery.filters);
   }
 
   public async getGps(zipcode: string): Promise<void> {
@@ -51,6 +52,26 @@ export class SearchQuery {
 
   public updateSlider(value: number): void {
     this.slider = value;
+  }
+
+  public setFilter(filterName: string, value: string): void {
+    if (this.filters.hasFilter(filterName, value)) {
+      this.filters.remove(filterName, value);
+    }
+    else {
+      this.filters.add(filterName, value);
+    }
+    this.updateSearch();
+  }
+
+  public setFilters(filterName: string, values: string[]): void {
+    for (const value of values) {
+      this.setFilter(filterName, value);
+    }
+  }
+
+  public updateSearch(): void {
+    this.searchParams.filters = this.filters.getAll();
   }
 }
 
@@ -74,6 +95,14 @@ class Filters {
     let request = this.constructFilters();
     console.log(request);
     return request;
+  }
+
+  public copy(filters: Filters): void {
+    this.brands = filters.brands;
+    this.quality = filters.quality;
+    this.types = filters.types;
+    this.categories = filters.categories;
+    this.to_deliver = filters.to_deliver;
   }
 
   public hasFilter(filterName: string, value: string): boolean {
