@@ -36,7 +36,7 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
     public algoliaManager: AlgoliaManagerService)
   {
     super();
-    this.config = appcomponent.configOutilly;
+    this.config = appcomponent.configClient;
     this.modals.addModal('mobile-filters');
   }
 

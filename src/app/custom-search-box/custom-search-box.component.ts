@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, Inject, forwardRef, Input, ViewChild, ElementRef } from '@angular/core';
 import { BaseWidget, NgAisInstantSearch } from 'angular-instantsearch';
 import { connectSearchBox } from 'instantsearch.js/es/connectors';
 
@@ -33,11 +33,5 @@ export class CustomSearchBoxComponent extends BaseWidget {
       }
     });
     super.ngOnInit();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['initialQuery'] && changes['initialQuery'].currentValue) {
-    //   this.state.refine(this.initialQuery);
-    // }
   }
 }

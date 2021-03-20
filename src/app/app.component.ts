@@ -14,7 +14,7 @@ import * as algoliasearch from 'algoliasearch/lite';
 
 declare let gtag: Function;
 
-const searchOutilly: algoliasearch.Client = algoliasearch(
+const searchClient: algoliasearch.Client = algoliasearch(
   algolia.APP_ID,
   algolia.API_KEY
 );
@@ -26,9 +26,9 @@ const searchOutilly: algoliasearch.Client = algoliasearch(
 })
 
 export class AppComponent {
-  configOutilly = {
+  configClient = {
     indexName: environment.algoliaIndexName,
-    searchClient: searchOutilly
+    searchClient: searchClient
   };
   title = pageInfo.BRAND_NAME;
   cookies: boolean;
