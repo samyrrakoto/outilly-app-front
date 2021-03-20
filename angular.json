@@ -32,7 +32,8 @@
               "src/assets/css/bulma-custom.css",
               "src/styles.css",
               "src/theme.scss",
-              "src/assets/css/algolia-custom.css"
+              "src/assets/css/algolia-custom.css",
+              "src/assets/css/checkbox.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

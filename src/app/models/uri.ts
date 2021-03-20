@@ -58,6 +58,9 @@ export class Uri {
   readonly KYC_VALIDATION_STATUS: string = 'secure/mangopay/user/kyc/validation-status';
   readonly BANK_ACCOUNT_REGISTRATION: string = 'secure/mangopay/user/bank-account/register';
 
+  // Geo routes
+  readonly GET_GPS: string = 'address/geocode';
+
   // Bid routes
   readonly READ_BID: string = 'secure/bid/read/';
   readonly PLACE_BID: string = 'secure/bid/place';

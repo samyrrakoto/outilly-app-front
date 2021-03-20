@@ -13,5 +13,27 @@
     <div *ngIf="!buttonHidden" class="content addspacebelow">
       <button class="button is-success is-hidden-tablet no-overflow" (click)="goToSearch(search.value)">Rechercher</button>
     </div>
+
+    <div class="content has-text-centered">
+      <button class="button is-danger" (click)="modals.open('fake-filters')">Recherche avancée</button>
+    </div>
   </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal" [ngClass]="modals.get('fake-filters')">
+  <div class="modal-background" (click)="modals.close('fake-filters')"></div>
+  <div class="modal-content">
+    <div class="box">
+      <app-fake-filters
+        [query]=search.value
+        [placeholder]=placeholder
+        (filters)="getFiltersEmitter($event)"
+        (searchLaunch)="getSearchLaunchEmitter($event)"
+        (zipcode)="getZipcodeEmitter($event)"
+        (radius)="getRadiusEmitter($event)">
+      </app-fake-filters>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
