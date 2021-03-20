@@ -1,0 +1,119 @@
+<h2 class="subtitle filter-title has-text-centered">Mots-clé</h2>
+<input (keydown.enter)="launchSearch(modalSearch.value)" class="input" [placeholder]=placeholder [value]=query #modalSearch>
+
+<div class="columns">
+
+  <div class="column">
+    <h2 class="subtitle filter-title has-text-centered">Code postal</h2>
+    <div class="field">
+      <input #zipcodeInput class="input" placeholder="Ex: 75010" [(ngModel)]="searchQuery.zipcode" (input)="updateZipcode(zipcodeInput.value)" (keydown.enter)="launchSearch(modalSearch.value)">
+    </div>
+
+    <nav id="distance" class="level is-mobile">
+      <div class="level-left">0 km</div>
+      <div class="level-item">
+        <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=searchQuery.geo.aroundRadius (input)="updateRadius(matSlider.value)"></mat-slider>
+      </div>
+      <div class="level-right">200 km</div>
+    </nav>
+  </div>
+
+  <div class="is-divider-vertical"></div>
+
+  <!-- Product Types -->
+  <div class="column has-text-left">
+    <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('types', 'Consommable & accessoires')" (click)="searchQuery.setFilter('types', 'Consommable & accessoires'); updateFilters()">
+        Matériaux & accessoires
+      </label>
+    </div>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilters('types', toolsAndMachines)" (click)="searchQuery.setFilters('types', toolsAndMachines); updateFilters()">
+        Outillage & machines
+      </label>
+    </div>
+  </div>
+
+  <div class="is-divider-vertical"></div>
+
+  <!-- Product Quality -->
+  <div class="column has-text-left">
+    <h2 class="subtitle filter-title has-text-centered">Etat</h2>
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('quality', 'Neuf')" (click)="searchQuery.setFilter('quality', 'Neuf'); updateFilters()">
+        Neuf
+      </label>
+    </div>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('quality', 'Occasion')" (click)="searchQuery.setFilter('quality', 'Occasion'); updateFilters()">
+        Occasion
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="is-divider"></div>
+
+<div class="columns">
+
+  <!-- Product Category -->
+  <div class="column has-text-left">
+    <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'BTP / Brico / Maison')" (click)="searchQuery.setFilter('categories', 'BTP / Brico / Maison'); updateFilters()">
+        BTP / Brico / Maison
+      </label>
+    </div>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'Espace verts / Paysage')" (click)="searchQuery.setFilter('categories', 'Espace verts / Paysage'); updateFilters()">
+        Espace verts / Paysage
+      </label>
+    </div>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'Garage / Mécanique')" (click)="searchQuery.setFilter('categories', 'Garage / Mécanique'); updateFilters()">
+        Garage / Mécanique
+      </label>
+    </div>
+  </div>
+
+  <div class="is-divider-vertical"></div>
+
+  <!-- Product Delivery -->
+  <div class="column has-text-left">
+    <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('to_deliver', 'true')" (click)="searchQuery.setFilter('to_deliver', 'true'); updateFilters()">
+        Produits livrables
+      </label>
+    </div>
+
+    <div class="field checkbox-field">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="searchQuery.filters.hasFilter('to_deliver', 'false')" (click)="searchQuery.setFilter('to_deliver', 'false'); updateFilters()">
+        A récupérer sur place
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="content has-text-centered">
+  <button class="button is-success" (click)="launchSearch(modalSearch.value)">Rechercher</button>
+</div>
+
+<div class="content has-text-centered">
+  <span class="underline discreet-text pointed" (click)="searchQuery.cleanParams(); modalSearch.value = ''; matSlider.value = searchQuery.geo.aroundRadius">Retirer tous les filtres</span>
+</div>

@@ -163,6 +163,7 @@ import { NameComponent } from './content/onboarding/user-details/name/name.compo
 import { CompletionAccountWarningComponent } from './content/user-dashboard/completion-account-warning/completion-account-warning.component';
 import { TeamComponent } from './content/team/team.component';
 import { CustomSearchBoxComponent } from './custom-search-box/custom-search-box.component';
+import { FakeFiltersComponent } from './content/fake-filters/fake-filters.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -319,6 +320,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     CompletionAccountWarningComponent,
     TeamComponent,
     CustomSearchBoxComponent,
+    FakeFiltersComponent,
   ],
   imports: [
     HttpClientModule,

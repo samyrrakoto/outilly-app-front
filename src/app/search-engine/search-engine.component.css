@@ -36,31 +36,6 @@
   width: 40px;
 }
 
-/* Filters */
-.filter-title {
-  margin-top: 20px;
-  margin-bottom: 7px;
-}
-
-.field {
-  margin-bottom: 2px;
-}
-
-input[type=checkbox] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -border-radius: 4px;
-  height: 15px;
-  width: 15px;
-  background: #fff;
-  border: 1px solid #ccc;
-}
-
-input[type=checkbox]:checked {
-  background: var(--KTKP-GREEN);
-}
-
 /* MOBILE DISPLAY */
 @media screen and (max-width: 768px) {
   #powered-by-algolia {

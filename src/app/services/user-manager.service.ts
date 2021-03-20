@@ -76,7 +76,6 @@ export class UserManagerService {
     return new Promise((resolve, reject) => {
       this.userRequest.getValidationStatus().subscribe({
         next: (res: any) => {
-          console.log(res);
           this.user.mangoPayData.KYCstatus = res.status;
           resolve();
         },

@@ -1,10 +1,11 @@
 import { ElementRef } from "@angular/core";
 import { GeoSearch, GeoService } from "src/app/services/geo.service";
+import { filterAliases } from "src/app/parameters";
 
 export class SearchQuery {
   searchParams: SearchParams;
   filters: Filters = new Filters();
-  geo: GeoSearch = new GeoSearch('0', '0', 0);
+  geo: GeoSearch = new GeoSearch('0', '0', 20);
   zipcode: string = '';
   slider: number = 0;
 
@@ -18,7 +19,7 @@ export class SearchQuery {
       filters: '',
       page: 0,
       aroundLatLng: '0, 0',
-      aroundRadius: 1
+      aroundRadius: 20
     };
   }
 
@@ -44,17 +45,38 @@ export class SearchQuery {
       this.getGps(zipcode);
     }
     else if (zipcode.length === 0) {
-      this.searchParams.aroundLatLng = '';
+      this.resetGeoLoc();
     }
   }
 
-  public updateDistance(distance: number, state: ElementRef): void {
+  private resetGeoLoc(): void {
+    this.searchParams.aroundLatLng = '';
+  }
+
+  public updateDistance(distance: number): void {
     this.searchParams.aroundRadius = this.geoService.getRadius(distance);
+  }
+
+  public updateQuery(state: ElementRef): void {
     this.searchParams.query = state.nativeElement.value;
   }
 
   public updateSlider(value: number): void {
     this.slider = value;
+  }
+
+  public cleanParams(): void {
+    this.filters.clean();
+    this.zipcode = '';
+    this.searchParams = {
+      query: '',
+      hitsPerPage: 15,
+      filters: '',
+      page: 0,
+      aroundLatLng: '0, 0',
+      aroundRadius: 20
+    };
+    this.resetGeoLoc();
   }
 
   public setFilter(filterName: string, value: string): void {
@@ -74,7 +96,50 @@ export class SearchQuery {
   }
 
   public updateSearch(): void {
+    if (this.searchParams.aroundRadius === 0) {
+      delete this.searchParams.aroundRadius;
+    }
     this.searchParams.filters = this.filters.getAll();
+  }
+
+  public getFiltersParams(param: string): void {
+    const myParams: string[] = this.parseUrlParams(param);
+    const filters: Filter[] = this.getFilters(myParams);
+
+    for (const filter of filters) {
+      this.setFilter(filter.name, filter.value);
+    }
+  }
+
+  private parseUrlParams(urlParams: string): string[] {
+    let params: string[] = [];
+
+    params = urlParams.split(' ');
+    return params;
+  }
+
+  private getFilters(params: string[]): Filter[] {
+    const filters: Filter[] = [];
+
+    for (const param of params) {
+      if (param !== 'OR' && param !=='AND') {
+        const currentFilter: Filter = {
+          name: param.split(':')[0],
+          value: this.mapParamAlias(param.split(':')[1].replace(/"/g, ''))
+        };
+        filters.push(currentFilter);
+      }
+    }
+    return filters;
+  }
+
+  private mapParamAlias(param: string): string {
+    for (const alias of filterAliases) {
+      if (param === alias.alias) {
+        return alias.name;
+      }
+    }
+    return param;
   }
 }
 
@@ -94,9 +159,8 @@ class Filters {
   categories: string[] = [];
   to_deliver: string[] = [];
 
-  public getAll(): string {
-    let request = this.constructFilters();
-    console.log(request);
+  public getAll(alias: boolean = false): string {
+    let request = this.constructFilters(alias);
     return request;
   }
 
@@ -117,6 +181,15 @@ class Filters {
     return false;
   }
 
+  public hasFilters(filterName: string, values: string[]): boolean {
+    for (const value of values) {
+      if (!this[filterName].includes(value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   private getFiltersName(): string[] {
     let properties: string[] = [];
 
@@ -126,13 +199,13 @@ class Filters {
     return properties;
   }
 
-  private constructFilters(): string {
+  private constructFilters(alias: boolean = false): string {
     let first: boolean = true;
     let filters: string = '';
 
     for (let filter of this.getFiltersName()) {
       if (first && this[filter].length > 0) {
-        filters += this.constructFilter(filter);
+        filters += this.constructFilter(filter, alias);
         first = false;
       }
       else if (this[filter].length > 0) {
@@ -140,6 +213,12 @@ class Filters {
       }
     }
     return filters;
+  }
+
+  public clean(): void {
+    for (const filter of this.getFiltersName()) {
+      this[filter] = [];
+    }
   }
 
   public add(filterName: string, value: string): void {
@@ -156,19 +235,35 @@ class Filters {
     }
   }
 
-  public constructFilter(filterName: string): string {
+  public constructFilter(filterName: string, alias: boolean = false): string {
     let first: boolean = true;
     let filter: string = '';
 
     for (const element of this[filterName]) {
       if (first) {
-        filter += filterName + ':' + "\"" + element + "\"";
+        if (alias) filter += filterName + ':' + "\"" + this.mapParamName(element) + "\"";
+        else filter += filterName + ':' + "\"" + element + "\"";
         first = false;
       }
       else {
-        filter += ' OR ' + filterName + ':' + "\"" + element + "\"";
+        if (alias) filter += ' OR ' + filterName + ':' + "\"" + this.mapParamName(element) + "\"";
+        else filter += ' OR ' + filterName + ':' + "\"" + element + "\"";
       }
     }
     return filter;
   }
+
+  private mapParamName(param: string): string {
+    for (const alias of filterAliases) {
+      if (param === alias.name) {
+        return alias.alias;
+      }
+    }
+    return param;
+  }
+}
+
+export type Filter = {
+  name: string;
+  value: string;
 }

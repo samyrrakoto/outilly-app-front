@@ -101,6 +101,47 @@ export const categoryIcons: any = {
   WORKSHOP: 'warehouse'
 };
 
+export const toolsAndMachines: string[] = ['Outillage à main', 'Electrique / Filaire', 'Pneumatique / À air', 'Electroportatif / À batterie', 'Thermique / Moteur à carburant'];
+
+export const filterAliases: any = [
+  {
+    name: "Consommable & accessoires",
+    alias: "consommable"
+  },
+  {
+    name: "BTP / Brico / Maison",
+    alias: "btp"
+  },
+  {
+    name: "Garage / Mécanique",
+    alias: "mecanic"
+  },
+  {
+    name: "Espace verts / Paysage",
+    alias: "garden"
+  },
+  {
+    name: "Outillage à main",
+    alias: "handy"
+  },
+  {
+    name: "Electrique / Filaire",
+    alias: "wire"
+  },
+  {
+    name: "Electroportatif / À batterie",
+    alias: "battery"
+  },
+  {
+    name: "Pneumatique / À air",
+    alias: "pneumatic",
+  },
+  {
+    name: "Thermique / Moteur à carburant",
+    alias: "thermic"
+  }
+]
+
 export const storage: any = {
   PRODUCT_ONBOARDING: 'product-onboarding',
   REDIRECT_AFTER_LOGIN: 'redirect_after_login',
