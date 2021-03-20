@@ -2,6 +2,11 @@ import { Component, Inject, forwardRef, Input, ViewChild, ElementRef } from '@an
 import { BaseWidget, NgAisInstantSearch } from 'angular-instantsearch';
 import { connectSearchBox } from 'instantsearch.js/es/connectors';
 
+/*
+** Component unused for now but could be useful in case we would like to customize Algolia search bar later. It is exploitable as it is.
+** Validated by Samyr Rakoto, CTO the 20/03/2021.
+*/
+
 @Component({
   selector: 'app-custom-search-box',
   templateUrl: './custom-search-box.component.html',
