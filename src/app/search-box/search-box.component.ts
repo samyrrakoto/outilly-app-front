@@ -14,7 +14,7 @@ export class SearchBoxComponent extends GenericComponent implements OnInit {
   @Input() buttonHidden: boolean = false;
   zipcode: string = '';
   filters: string = '';
-  radius: number = 20;
+  radius: number = 200;
 
   constructor(
     private router: Router

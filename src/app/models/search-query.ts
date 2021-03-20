@@ -5,7 +5,7 @@ import { filterAliases } from "src/app/parameters";
 export class SearchQuery {
   searchParams: SearchParams;
   filters: Filters = new Filters();
-  geo: GeoSearch = new GeoSearch('0', '0', 20);
+  geo: GeoSearch = new GeoSearch('0', '0', 200);
   zipcode: string = '';
   slider: number = 0;
 
