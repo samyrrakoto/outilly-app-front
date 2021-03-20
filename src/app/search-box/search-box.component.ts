@@ -9,6 +9,7 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class SearchBoxComponent extends GenericComponent implements OnInit {
   @ViewChild('search') currentSearch: ElementRef;
+  @Input() advancedSearch: boolean = true;
   @Input() placeholder: string = 'Rechercher un produit';
   @Input() searchTitle: string = 'Rechercher';
   @Input() buttonHidden: boolean = false;
