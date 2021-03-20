@@ -49,7 +49,7 @@ export class SearchQuery {
     }
   }
 
-  private resetGeoLoc(): void {
+  public resetGeoLoc(): void {
     this.searchParams.aroundLatLng = '';
   }
 

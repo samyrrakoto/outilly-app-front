@@ -64,6 +64,9 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
           this.searchQuery.zipcode = address.zipcode;
         }
       }
+      else {
+        this.searchQuery.resetGeoLoc();
+      }
     }
   }
 
