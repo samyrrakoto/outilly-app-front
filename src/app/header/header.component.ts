@@ -16,7 +16,7 @@ export class HeaderComponent {
     private location: Location,
     private menu: MenuService)
   {
-    this.location.onUrlChange((val) => {
+    this.location.onUrlChange(() => {
       this.menu.showMenu();
     });
   }
