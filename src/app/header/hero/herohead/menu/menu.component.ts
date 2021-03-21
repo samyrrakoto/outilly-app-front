@@ -5,6 +5,8 @@ import { ProductCategory } from 'src/app/models/product-category';
 import { RequestService } from 'src/app/services/request.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { staticLinks } from 'src/app/parameters';
+import { Location } from '@angular/common';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -21,8 +23,14 @@ export class MenuComponent implements OnInit {
   constructor(
     private request: RequestService,
     public categoryService: CategoryService,
-    public urlService: UrlService
-  ) { }
+    public urlService: UrlService,
+    private location: Location,
+    private menu: MenuService
+  ) {
+    this.location.onUrlChange(() => {
+      this.menu.showMenu();
+    });
+  }
 
   ngOnInit(): void {
     this.getCategories();

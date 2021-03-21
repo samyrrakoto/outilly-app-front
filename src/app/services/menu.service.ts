@@ -13,11 +13,15 @@ export class MenuService {
   }
 
   public hideMenu(): void {
-    this.getMenu().style.zIndex = MenuValue.HIDDEN;
+    if (this.getMenu()) {
+      this.getMenu().style.zIndex = MenuValue.HIDDEN;
+    }
   }
 
   public showMenu(): void {
-    this.getMenu().style.zIndex = MenuValue.DEFAULT;
+    if (this.getMenu()) {
+      this.getMenu().style.zIndex = MenuValue.DEFAULT;
+    }
   }
 }
 
