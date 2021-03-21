@@ -14,7 +14,7 @@
       <button class="button is-success is-hidden-tablet no-overflow" (click)="goToSearch(search.value)">Rechercher</button>
     </div>
 
-    <div class="content has-text-centered">
+    <div class="content has-text-centered" *ngIf="advancedSearch">
       <button class="button is-danger" (click)="modals.open('fake-filters')">Recherche avancée</button>
     </div>
   </div>

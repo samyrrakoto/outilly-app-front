@@ -9,12 +9,13 @@ import { GenericComponent } from 'src/app/models/generic-component';
 })
 export class SearchBoxComponent extends GenericComponent implements OnInit {
   @ViewChild('search') currentSearch: ElementRef;
+  @Input() advancedSearch: boolean = true;
   @Input() placeholder: string = 'Rechercher un produit';
   @Input() searchTitle: string = 'Rechercher';
   @Input() buttonHidden: boolean = false;
   zipcode: string = '';
   filters: string = '';
-  radius: number = 20;
+  radius: number = 200;
 
   constructor(
     private router: Router
