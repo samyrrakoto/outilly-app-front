@@ -8,15 +8,20 @@ export class MenuService {
 
   constructor() { }
 
-  public hideMenu(): void {
-    const elem: HTMLElement = document.getElementById(MENU.ID);
+  private getMenu(): HTMLElement {
+    return document.getElementById(MENU.ID);
+  }
 
-    elem.style.zIndex = '0';
+  public hideMenu(): void {
+    this.getMenu().style.zIndex = MenuValue.HIDDEN;
   }
 
   public showMenu(): void {
-    const elem: HTMLElement = document.getElementById(MENU.ID);
-
-    elem.style.zIndex = '40';
+    this.getMenu().style.zIndex = MenuValue.DEFAULT;
   }
+}
+
+enum MenuValue {
+  DEFAULT = '30',
+  HIDDEN = '0'
 }
