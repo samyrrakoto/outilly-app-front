@@ -1,3 +1,4 @@
+import { MENU } from 'src/app/parameters';
 import { UrlService } from 'src/app/services/url.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductCategory } from 'src/app/models/product-category';
@@ -13,8 +14,9 @@ import { staticLinks } from 'src/app/parameters';
 export class MenuComponent implements OnInit {
   @ViewChild('navBurger') navBurger: ElementRef;
   @ViewChild('navBarMenu') navBarMenu: ElementRef;
+  readonly menuId: string = MENU.ID;
+  readonly blogUri = staticLinks.BLOG_URI;
   categories: ProductCategory[] = [];
-  blogUri = staticLinks.BLOG_URI;
 
   constructor(
     private request: RequestService,

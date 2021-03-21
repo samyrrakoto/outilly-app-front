@@ -1,3 +1,7 @@
+export const MENU: any = {
+  ID: 'my-menu'
+};
+
 export const VIEWPORT: any = {
   MOBILE: 768,
   TABLET: 1023
