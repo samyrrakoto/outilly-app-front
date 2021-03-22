@@ -11,13 +11,4 @@ export class HeaderComponent {
   @Input() toDisplay: boolean;
   @Input() toDisplayMenu: boolean;
   @Input() logged: boolean;
-
-  constructor(
-    private location: Location,
-    private menu: MenuService)
-  {
-    this.location.onUrlChange(() => {
-      this.menu.showMenu();
-    });
-  }
 }
