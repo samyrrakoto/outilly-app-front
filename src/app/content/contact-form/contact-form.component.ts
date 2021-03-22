@@ -1,112 +1,104 @@
+import { FormCreatorService } from 'src/app/services/form-creator.service';
+import { ContactManagerService, ContactData } from 'src/app/services/contact-manager.service';
 import { CaptchaService } from 'src/app/services/captcha.service';
-import { ContactManagerComponent } from 'src/app/models/contact-manager/contact-manager.component';
-import { RequestService } from 'src/app/services/request.service';
-import { EncodingService } from 'src/app/services/encoding.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { contact, savSubjects } from 'src/app/parameters';
-import { Modals } from 'src/app/models/modals';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { GenericComponent } from 'src/app/models/generic-component';
 
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css']
 })
-export class ContactFormComponent implements OnInit {
+export class ContactFormComponent extends GenericComponent implements OnInit {
   @Input() click: Subject<any> = new Subject<any>();
   @Input() chosenSubject: string = 'Obtenir des informations complémentaires pour une annonce';
   @Input() message: string = '';
-  form: FormGroup;
-  email: string = '';
-  testAddition: string = '';
+  contactData: ContactData = new ContactData();
   testInput: string = '';
-  testResult: string = '';
-  anonymous: boolean;
-  userId: number = null;
   mailSent: boolean = null;
+  loaded: boolean = false;
   error: boolean = null;
-  modals: Modals = new Modals();
-  contactManager: ContactManagerComponent = new ContactManagerComponent();
   readonly maxMessageLength: number = contact.MAX_MESSAGE_LENGTH;
   readonly subjects: string[] = savSubjects;
 
   constructor(
-    private request: RequestService,
-    private formBuilder: FormBuilder,
+    public formCreator: FormCreatorService,
     private userManager: UserManagerService,
     private auth: AuthService,
-    private encoding: EncodingService,
+    public contactManager: ContactManagerService,
     public captcha: CaptchaService)
   {
+    super();
     this.modals.addModal('contact-form');
   }
 
-  ngOnInit(): void {
-    this.getForm();
-    this.getUserMail();
+  async ngOnInit(): Promise<void> {
+    await this.doOnInit();
+    this.contactData.subject = this.chosenSubject;
+    this.contactData.message = this.message;
+    this.loaded = true;
+  }
+
+  private async doOnInit(): Promise<void> {
+    await this.handleUserMail();
+    this.formCreator.getForm(this.getVerifications());
     this.captcha.generateRandomAddition();
     this.click.subscribe(
       () => { this.modals.open('contact-form') }
     );
   }
 
-  private getUserMail(): void {
-    this.auth.isLoggedIn().subscribe(
-      (logStatus: boolean) => {
-        if (logStatus) {
-          this.userManager.getUserInfos()
-            .then(() => {
-              this.email = this.userManager.user.userProfile.email;
-              this.anonymous = false;
-              this.userId = this.userManager.user.id;
-            });
-        }
-        else {
-          this.email = '';
-          this.anonymous = true;
-          this.userId = null;
-        }
-      }
-    );
+  private async handleUserMail(): Promise<void> {
+    if (this.auth.isLogged()) {
+      await this.getUserMail();
+    }
+    else {
+      this.contactData.email = '';
+      this.contactData.isAnonymous = true;
+      this.contactData.userId = null;
+    }
   }
 
-  public getForm(): void {
-    this.form = this.formBuilder.group({
-      message: [this.message, [Validators.required, Validators.maxLength(this.maxMessageLength)]],
-      test: [this.testInput, [this.captcha.validTest()]],
-      email: [this.email, [Validators.required, Validators.email]]
+  private async getUserMail(): Promise<void> {
+    return new Promise((resolve) => {
+      this.userManager.getUserInfos()
+        .then(() => {
+          this.contactData.email = this.userManager.user.userProfile.email;
+          this.contactData.isAnonymous = false;
+          this.contactData.userId = this.userManager.user.id;
+          resolve();
+        });
     });
   }
 
-  public get controls() {
-    return this.form.controls;
-  }
-
-  private getPayload(): any {
-    const payload: any = {
-      subject: this.contactManager.getSlug(this.chosenSubject),
-      message: this.encoding.base64Encoder(this.message),
-      isAnonymous: this.anonymous,
-      mail: this.email,
-      userId: this.userId
+  public async sendMessage(): Promise<void> {
+    try {
+      await this.contactManager.sendMessage(this.contactData);
     }
-
-    return payload;
+    catch (e) {}
+    finally {
+      this.mailSent = true;
+    }
   }
 
-  public sendMessage(): void {
-    const payload: any = this.getPayload();
+  public getVerifications(): any {
+    return {
+      message: [this.contactData.message, [Validators.required, Validators.maxLength(this.maxMessageLength)]],
+      test: [this.testInput, [this.captcha.validTest()]],
+      email: [this.contactData.email, [Validators.required, Validators.email]]
+    };
+  }
 
-    this.request.postData(payload, this.request.uri.SEND_CONTACT_REQUEST).subscribe(
-      () => {
-        this.mailSent = true;
-      },
-      () => {
-        this.error = true;
-      }
-    );
+  public get form() {
+    return this.formCreator.form;
+  }
+
+  public get controls() {
+    return this.formCreator.controls;
   }
 }
