@@ -1,4 +1,6 @@
-<div id="contact" class="has-text-centered">
+<app-loading *ngIf="!loaded"></app-loading>
+
+<div *ngIf="loaded" id="contact" class="has-text-centered">
 
   <div *ngIf="mailSent" class="notification is-success">
     Votre message a bien été envoyé
@@ -20,7 +22,7 @@
       <div class="field">
         <div class="control">
           <div class="select">
-            <select class="pointed" [(ngModel)]="chosenSubject">
+            <select class="pointed" [(ngModel)]="contactData.subject">
               <option *ngFor="let subject of subjects">
                 {{ subject }}
               </option>
@@ -31,7 +33,7 @@
     </div>
   </div>
 
-  <form [formGroup]="form">
+  <form *ngIf="form && controls" [formGroup]="form">
     <div class="field is-horizontal">
       <div class="field-label">
         <label class="label">
@@ -39,19 +41,19 @@
         </label>
       </div>
       <div class="field-body">
-        <div class="field">
+        <div class="field" *ngIf="controls.email">
           <p class="control">
-            <input class="input no-border" [(ngModel)]="email" formControlName="email" [ngClass]="{'is-valid': !controls.email.errors }">
+            <input class="input no-border" [(ngModel)]="contactData.email" formControlName="email" [ngClass]="{'is-valid': !controls.email.errors }">
           </p>
           <p *ngIf="controls.email.errors" class="help is-danger">
-            <span *ngIf="controls.email.errors && email !== ''" class="help is-danger">L'adresse email est invalide</span>
+            <span *ngIf="controls.email.errors && contactData.email !== ''" class="help is-danger">L'adresse email est invalide</span>
           </p>
         </div>
       </div>
     </div>
   </form>
 
-  <form [formGroup]="form">
+  <form *ngIf="form && controls" [formGroup]="form">
     <div class="field is-horizontal">
       <div class="field-label">
         <label class="label">
@@ -61,20 +63,20 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <textarea class="textarea" maxlength="{{ maxMessageLength }}" [(ngModel)]="message" formControlName="message"></textarea>
+            <textarea class="textarea" [maxlength]="maxMessageLength" [(ngModel)]="contactData.message" formControlName="message"></textarea>
           </div>
         </div>
       </div>
     </div>
+
+    <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
+      <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
+    </span>
   </form>
 
-  <span *ngIf="controls.message.errors" class="invalid-feedback" [ngClass]="{'is-invalid': controls.message.errors }">
-    <span class="error" *ngIf="controls.message.errors.maxlength">Le message ne doit pas dépasser {{ maxMessageLength }} caractères.</span>
-  </span>
+  <h2 class="subtitle">Résolvez cette addition pour prouver que vous n'êtes pas un robot :</h2>
 
-  <h2 class="subtitle">Résolvez cette addition simple, basique :</h2>
-
-  <form [formGroup]="form">
+  <form *ngIf="form && controls" [formGroup]="form">
     <div class="field is-horizontal">
       <div class="field-label">
         <label class="label">
@@ -87,14 +89,14 @@
             <input class="input no-border" [(ngModel)]="testInput" formControlName="test" [ngClass]="{'is-valid': !controls.test.errors }">
           </p>
           <p *ngIf="controls.test.errors" class="help is-danger">
-            <span class="error" *ngIf="controls.test.errors.notValid">Vous n'avez pas les bases</span>
+            <span class="error" *ngIf="controls.test.errors.notValid">Le résultat est incorrect</span>
           </p>
         </div>
       </div>
     </div>
   </form>
 
-  <div *ngIf="!mailSent" class="content addspaceabove">
+  <div *ngIf="form && controls && !mailSent" class="content addspaceabove">
     <button *ngIf="controls.message.errors || controls.test.errors || controls.email.errors" class="button is-light">Envoyer</button>
     <button *ngIf="!controls.message.errors && !controls.test.errors && !controls.email.errors" class="button is-success" (click)="sendMessage()">Envoyer</button>
   </div>

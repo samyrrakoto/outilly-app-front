@@ -10,12 +10,16 @@ export class CaptchaService {
 
   constructor() { }
 
-  public generateRandomAddition(): void {
-    const a: number = Math.round(Math.random() * 4 + 1);
-    const b: number = Math.round(Math.random() * 4 + 1);
+  public generateRandomAddition(minNb: number = 1, maxNb: number = 5): void {
+    const a: number = this.randomNumber(minNb, maxNb);
+    const b: number = this.randomNumber(minNb, maxNb);
 
     this.testAddition = a.toString() + ' + ' + b.toString();
     this.testResult = (a + b).toString();
+  }
+
+  private randomNumber(minNb: number = 1, maxNb: number = 5): number {
+    return Math.round(Math.random() * (maxNb - 1) + minNb);
   }
 
   public validTest(): ValidatorFn {
