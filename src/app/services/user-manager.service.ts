@@ -9,7 +9,8 @@ import { RequestService } from './request.service';
 import { User } from 'src/app/models/user';
 import { Injectable } from '@angular/core';
 import { Address } from 'src/app/models/address';
-import { AskValidationStatus } from 'src/app/services/kyc-manager.service';
+import { AskValidationStatus } from 'src/app/enums/ask-validation-status';
+
 
 @Injectable({
   providedIn: 'root'
@@ -107,7 +108,7 @@ export class UserManagerService {
     this.user.userProfile.phone1Optin = userRes.userProfile.phone1Optin;
     this.user.userProfile.phone2 = userRes.userProfile.phone2;
     this.user.mangoPayData = userRes.mangoPayData;
-    if (this.user.mangoPayData.KYCstatus && this.user.mangoPayData.KYCstatus !== AskValidationStatus.VALIDATED) {
+    if (this.user.mangoPayData && this.user.mangoPayData.KYCstatus && this.user.mangoPayData.KYCstatus !== AskValidationStatus.VALIDATED) {
       await this.getValidationStatus();
     }
   }

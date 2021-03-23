@@ -1,4 +1,4 @@
-import { AskValidationStatus } from 'src/app/services/kyc-manager.service';
+import { AskValidationStatus } from 'src/app/enums/ask-validation-status';
 import { KycDoc } from './kyc-doc';
 
 export class MangoPayData {
