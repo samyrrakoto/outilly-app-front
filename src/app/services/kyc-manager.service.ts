@@ -1,3 +1,4 @@
+import { AskValidationStatus } from 'src/app/enums/ask-validation-status';
 import { KycSide, KycType } from 'src/app/models/kyc-doc';
 import { BankDoc } from 'src/app/models/bank-doc';
 import { KycRequestService } from 'src/app/services/kyc-request.service';
@@ -298,11 +299,4 @@ export class KycManagerService {
       return this.hasRecto();
     }
   }
-}
-
-export enum AskValidationStatus {
-  CREATED = 'CREATED',
-  VALIDATION_ASKED = 'VALIDATION_ASKED',
-  REFUSED = 'REFUSED',
-  VALIDATED = 'VALIDATED'
 }
