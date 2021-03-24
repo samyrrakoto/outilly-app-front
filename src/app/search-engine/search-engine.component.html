@@ -1,15 +1,128 @@
-<ais-instantsearch [config]="config">
+<app-loading *ngIf="!loaded"></app-loading>
+
+<ais-instantsearch *ngIf="loaded" [config]="config">
   <ais-configure
-    [searchParameters]="{ hitsPerPage: 15, query: searchQuery, filters: filters, page: 0 }">
+    [searchParameters]="searchQuery.searchParams">
   </ais-configure>
-  <div class="columns is-centered has-text-centered">
-    <div class="column">
-        <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box>
+
+  <div class="content has-text-centered">
+    <div class="content">
+      <ais-search-box [searchAsYouType]=true [placeholder]=placeholder></ais-search-box>
     </div>
+
+    <button class="button is-danger is-hidden-tablet" (click)="searchQueryTmp.copy(searchQuery); modals.open('mobile-filters')">Recherche avancée</button>
   </div>
 
-  <div id="results" class="columns is-centered has-text-centered">
+  <div id="results" class="grid is-centered has-text-centered">
+
+    <!-- Filters -->
     <div>
+      <div id="filters" class="box is-hidden-mobile">
+        <span class="underline discreet-text pointed" (click)="searchQuery.cleanParams(); matSlider.value = searchQuery.geo.aroundRadius">Retirer tous les filtres</span>
+        <h2 class="subtitle filter-title has-text-centered">Code postal</h2>
+        <div class="field">
+          <div class="control">
+            <input #zipcode class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="searchQuery.zipcode" (ngModelChange)="searchQuery.updateGeoLoc(zipcode.value); searchQuery.updateQuery(stateInput)">
+          </div>
+        </div>
+
+        <nav id="distance" class="level">
+          <div class="level-left">0 km</div>
+          <div class="level-item">
+            <mat-slider #matSlider min="0" max="200" step="20" thumbLabel [value]=searchQuery.geo.aroundRadius (input)="searchQuery.updateDistance(matSlider.value); searchQuery.updateQuery(stateInput)"></mat-slider>
+          </div>
+          <div class="level-right">200 km</div>
+        </nav>
+
+        <!-- Product Types -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('types', 'Consommable & accessoires')" (click)="searchQuery.setFilter('types', 'Consommable & accessoires'); searchQuery.updateQuery(stateInput)">
+              Matériaux & accessoires
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilters('types', toolsAndMachines)" (click)="searchQuery.setFilters('types', toolsAndMachines); searchQuery.updateQuery(stateInput)">
+              Outillage & machines
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Quality -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Etat</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('quality', 'Neuf')" (click)="searchQuery.setFilter('quality', 'Neuf'); searchQuery.updateQuery(stateInput)">
+              Neuf
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('quality', 'Occasion')" (click)="searchQuery.setFilter('quality', 'Occasion'); searchQuery.updateQuery(stateInput)">
+              Occasion
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Category -->
+        <div class="has-text-left">
+          <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'BTP / Brico / Maison')" (click)="searchQuery.setFilter('categories', 'BTP / Brico / Maison'); searchQuery.updateQuery(stateInput)">
+              BTP / Brico / Maison
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'Espace verts / Paysage')" (click)="searchQuery.setFilter('categories', 'Espace verts / Paysage'); searchQuery.updateQuery(stateInput)">
+              Espace verts / Paysage
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('categories', 'Garage / Mécanique')" (click)="searchQuery.setFilter('categories', 'Garage / Mécanique'); searchQuery.updateQuery(stateInput)">
+              Garage / Mécanique
+            </label>
+          </div>
+        </div>
+
+
+        <!-- Product Delivery -->
+        <div class="has-text-left">
+          <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('to_deliver', 'true')" (click)="searchQuery.setFilter('to_deliver', 'true'); searchQuery.updateQuery(stateInput)">
+              Produits livrables
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('to_deliver', 'false')" (click)="searchQuery.setFilter('to_deliver', 'false'); searchQuery.updateQuery(stateInput)">
+              A récupérer sur place
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="content">
+      <div id="pagination">
+        <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
+      </div>
+
       <ais-hits>
         <ng-template let-hits="hits">
           <ais-stats>
@@ -17,7 +130,7 @@
               <div *ngIf="hits.length > 0" class="content">
                 <app-products-display
                   [search]=true
-                  [sales]=getSalesFromHits(hits)>
+                  [sales]=algoliaManager.getSalesFromHits(hits)>
                 </app-products-display>
               </div>
 
@@ -25,13 +138,128 @@
                 Aucun résultat ne correspond à votre recherche.
               </div>
 
-              <div id="pagination">
-                <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
-              </div>
+              <input #stateInput type="hidden" [value]="state.query"/>
             </ng-template>
           </ais-stats>
+          <input type="hidden" [value]="hits.length" />
         </ng-template>
       </ais-hits>
+
+      <div id="pagination">
+        <ais-pagination padding="1" [showFirst]=false [showLast]=false [showNext]=true [showPrevious]=true></ais-pagination>
+      </div>
     </div>
   </div>
 </ais-instantsearch>
+
+<!-- MODALS -->
+
+<!-- Filters on mobile -->
+<div class="modal padded" [ngClass]="modals.get('mobile-filters')">
+  <div class="modal-background" (click)="matSliderTmp.value = searchQuery.slider; modals.close('mobile-filters')"></div>
+  <div class="modal-content">
+    <div class="box has-text-centered">
+      <div class="field">
+        <label>Code postal</label>
+        <div class="control">
+          <input #zipcodeTmp class="input" placeholder="Ex: 75010" type="text" [(ngModel)]="searchQueryTmp.zipcode" (ngModelChange)="searchQueryTmp.updateGeoLoc(zipcodeTmp.value); searchQueryTmp.updateQuery(stateInput)">
+        </div>
+      </div>
+
+      <nav class="level is-mobile">
+        <div class="level-left">0 km</div>
+        <div class="level-item">
+          <mat-slider #matSliderTmp min="0" max="200" step="20" thumbLabel [value]=searchQuery.geo.aroundRadius (input)="searchQueryTmp.updateSlider(matSliderTmp.value); searchQueryTmp.updateDistance(matSliderTmp.value); searchQueryTmp.updateQuery(stateInput)"></mat-slider>
+        </div>
+        <div class="level-right">200 km</div>
+      </nav>
+
+      <!-- Product Types -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('types', 'Consommable & accessoires')" (click)="searchQueryTmp.setFilter('types', 'Consommable & accessoires'); searchQueryTmp.updateQuery(stateInput)">
+            Matériaux & accessoires
+          </label>
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilters('types', toolsAndMachines)" (click)="searchQueryTmp.setFilters('types', toolsAndMachines); searchQueryTmp.updateQuery(stateInput)">
+            Outillage & machines
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Quality -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Etat</h2>
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('quality', 'Neuf')" (click)="searchQueryTmp.setFilter('quality', 'Neuf'); searchQueryTmp.updateQuery(stateInput)">
+            Neuf
+          </label>
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('quality', 'Occasion')" (click)="searchQueryTmp.setFilter('quality', 'Occasion'); searchQueryTmp.updateQuery(stateInput)">
+            Occasion
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Category -->
+      <div class="has-text-left">
+        <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('categories', 'BTP / Brico / Maison')" (click)="searchQueryTmp.setFilter('categories', 'BTP / Brico / Maison'); searchQueryTmp.updateQuery(stateInput)">
+            BTP / Brico / Maison
+          </label>
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('categories', 'Espace verts / Paysage')" (click)="searchQueryTmp.setFilter('categories', 'Espace verts / Paysage'); searchQueryTmp.updateQuery(stateInput)">
+            Espace verts / Paysage
+          </label>
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('categories', 'Garage / Mécanique')" (click)="searchQueryTmp.setFilter('categories', 'Garage / Mécanique'); searchQueryTmp.updateQuery(stateInput)">
+            Garage / Mécanique
+          </label>
+        </div>
+      </div>
+
+      <!-- Product Delivery -->
+      <div class="has-text-left">
+        <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('to_deliver', 'true')" (click)="searchQueryTmp.setFilter('to_deliver', 'true'); searchQueryTmp.updateQuery(stateInput)">
+            Produits livrables
+          </label>
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox">
+            <input type="checkbox" [checked]="searchQueryTmp.filters.hasFilter('to_deliver', 'false')" (click)="searchQueryTmp.setFilter('to_deliver', 'false'); searchQueryTmp.updateQuery(stateInput)">
+            A récupérer sur place
+          </label>
+        </div>
+      </div>
+
+      <button class="button is-danger addspaceabove" (click)="searchQuery.copy(searchQueryTmp); modals.close('mobile-filters')">Rechercher</button>
+
+      <div class="content has-text-centered">
+        <span class="underline discreet-text pointed" (click)="searchQueryTmp.cleanParams(); matSliderTmp.value = searchQuery.geo.aroundRadius">Retirer tous les filtres</span>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="modals.close('mobile-filters')"></button>
+</div>

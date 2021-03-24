@@ -1,0 +1,6 @@
+export enum AskValidationStatus {
+  CREATED = 'CREATED',
+  VALIDATION_ASKED = 'VALIDATION_ASKED',
+  REFUSED = 'REFUSED',
+  VALIDATED = 'VALIDATED'
+}

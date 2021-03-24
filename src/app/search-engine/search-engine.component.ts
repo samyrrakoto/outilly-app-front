@@ -1,54 +1,85 @@
+import { toolsAndMachines } from 'src/app/parameters';
+import { SearchQuery } from 'src/app/models/search-query';
+import { AlgoliaManagerService } from 'src/app/services/algolia-manager.service';
+import { Address } from 'src/app/models/address';
+import { GeoService } from 'src/app/services/geo.service';
 import { ActivatedRoute } from '@angular/router';
-import { Sale } from 'src/app/models/sale';
-import { AppComponent } from './../app.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserManagerService } from 'src/app/services/user-manager.service';
+import { GenericComponent } from 'src/app/models/generic-component';
 
 @Component({
   selector: 'app-search-engine',
   templateUrl: './search-engine.component.html',
   styleUrls: ['./search-engine.component.css']
 })
-export class SearchEngineComponent implements OnInit {
+export class SearchEngineComponent extends GenericComponent implements OnInit {
+  @ViewChild('stateInput') stateInput: ElementRef;
+  @ViewChild('matSlider') matSlider: ElementRef;
   @Input() placeholder: string = 'Rechercher un produit';
-  @Input() filters: string = '';
+  @Input() filters: any;
+  readonly toolsAndMachines: string[] = toolsAndMachines;
   config: any;
-  searchQuery: string = '';
-  currentQuery: string = '';
+  searchQuery: SearchQuery = new SearchQuery(this.geoService);
+  searchQueryTmp: SearchQuery = new SearchQuery(this.geoService);
+  zipcode: string = '';
+  loaded: boolean = false;
 
   constructor(
     public appcomponent: AppComponent,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private geoService: GeoService,
+    private auth: AuthService,
+    private userManager: UserManagerService,
+    public algoliaManager: AlgoliaManagerService)
   {
-    this.config = appcomponent.configOutilly;
+    super();
+    this.config = appcomponent.configClient;
+    this.modals.addModal('mobile-filters');
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params['query']) {
-        this.searchQuery = params['query'];
+    this.doOnInit();
+  }
+
+  private async doOnInit(): Promise<void> {
+    this.getQuery();
+    await this.getGeoLoc();
+    this.loaded = true;
+  }
+
+  private async getGeoLoc(): Promise<void> {
+    if (this.zipcode) {
+      await this.searchQuery.getGps(this.zipcode);
+      this.searchQuery.zipcode = this.zipcode;
+    }
+    else {
+      if (this.auth.isLogged()) {
+        const address: Address = await this.userManager.getUserAddress();
+
+        if (address && address.zipcode) {
+          await this.searchQuery.getGps(address.zipcode);
+          this.searchQuery.zipcode = address.zipcode;
+        }
+      }
+      else {
+        this.searchQuery.resetGeoLoc();
+      }
+    }
+  }
+
+  private async getQuery(): Promise<void> {
+    this.route.queryParams.subscribe((params: any) => {
+      this.searchQuery.searchParams.query = params['query'] ? params['query'] : '';
+      this.zipcode = params['zipcode'] ? params['zipcode'] : '';
+      params['filters'] ? this.searchQuery.getFiltersParams(params['filters']) : null;
+
+      if (params['radius']) {
+        this.searchQuery.updateDistance(params['radius']);
+        this.searchQuery.geo.aroundRadius = +params['radius'];
       }
     });
-  }
-
-  public getSalesFromHits(hits: any[]): Sale[] {
-    const sales: Sale[] = [];
-
-    for (const hit of hits) {
-      sales.push(this.saleMapping(hit));
-    }
-    return sales;
-  }
-
-  private saleMapping(hit: any): Sale {
-    const sale: Sale = new Sale();
-
-    sale.product.name = hit.product_name;
-    sale.product.mainImageThumbnail.path = hit.thumbnail_uri;
-    sale.product.reservePrice = hit.reserve_price * 100;
-    sale.product.toDeliver = hit.to_deliver;
-    sale.id = hit.sale_id;
-    sale.productSlug = hit.slug;
-    sale.product.locality = hit.locality;
-    return sale;
   }
 }
