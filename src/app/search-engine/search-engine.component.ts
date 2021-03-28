@@ -5,7 +5,7 @@ import { Address } from 'src/app/models/address';
 import { GeoService } from 'src/app/services/geo.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
@@ -21,6 +21,7 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
   @Input() placeholder: string = 'Rechercher un produit';
   @Input() filters: any;
   readonly toolsAndMachines: string[] = toolsAndMachines;
+  onInit: boolean = true;
   config: any;
   searchQuery: SearchQuery = new SearchQuery(this.geoService);
   searchQueryTmp: SearchQuery = new SearchQuery(this.geoService);
@@ -42,6 +43,13 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
 
   ngOnInit(): void {
     this.doOnInit();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filters'] && !this.onInit) {
+      this.searchQuery.resetFilter('categories');
+      this.searchQuery.getFiltersParams(this.filters);
+    }
   }
 
   private async doOnInit(): Promise<void> {
@@ -74,7 +82,13 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.searchQuery.searchParams.query = params['query'] ? params['query'] : '';
       this.zipcode = params['zipcode'] ? params['zipcode'] : '';
-      params['filters'] ? this.searchQuery.getFiltersParams(params['filters']) : null;
+      if (!this.filters) {
+        params['filters'] ? this.searchQuery.getFiltersParams(params['filters']) : null;
+      }
+      else {
+        this.searchQuery.getFiltersParams(this.filters);
+        this.onInit = false;
+      }
 
       if (params['radius']) {
         this.searchQuery.updateDistance(params['radius']);

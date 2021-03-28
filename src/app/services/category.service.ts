@@ -45,13 +45,11 @@ export class CategoryService {
   public getCategoryRouteLabel(id: number): string {
     switch (id) {
       case 1:
-        return 'mecanique';
+        return 'mecanic';
       case 2:
-        return 'bricolage';
+        return 'btp';
       case 3:
-        return 'jardin';
-      case 4:
-        return 'atelier';
+        return 'garden';
       default:
         return null;
     }
