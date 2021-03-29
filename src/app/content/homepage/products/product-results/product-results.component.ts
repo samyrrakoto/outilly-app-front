@@ -16,7 +16,6 @@ export class ProductResultsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     public categoryService: CategoryService
     )
   {}
@@ -31,7 +30,7 @@ export class ProductResultsComponent implements OnInit {
           this.categoryLabel = param['categoryLabel'];
         }
         this.filters = 'categories:' + "\"" + this.categoryLabel + "\"";
-        this.placeholder = 'Rechercher dans la catégorie ' + this.categoryLabel;
+        this.placeholder = 'Rechercher dans la catégorie ' + this.categoryService.getCategoryLabel(this.categoryLabel);
       });
   }
 }
