@@ -95,6 +95,10 @@ export class SearchQuery {
     }
   }
 
+  public resetFilter(filterName: string): void {
+    this.filters.resetFilter(filterName);
+  }
+
   public updateSearch(): void {
     if (this.searchParams.aroundRadius === 0) {
       delete this.searchParams.aroundRadius;
@@ -188,6 +192,12 @@ class Filters {
       }
     }
     return true;
+  }
+
+  public resetFilter(filterName: string): void {
+    if (this[filterName]) {
+      this[filterName] = [];
+    }
   }
 
   private getFiltersName(): string[] {

@@ -26,8 +26,6 @@ export class CategoryPipe implements PipeTransform {
         return "Bricolage BTP Maison";
       case 3:
         return "Jardin Motoculture";
-      case 4:
-        return "Machines d'atelier";
     }
   }
 
@@ -39,8 +37,6 @@ export class CategoryPipe implements PipeTransform {
         return "hammer";
       case 3:
         return "seedling";
-      case 4:
-        return "warehouse";
     }
   }
 
@@ -52,8 +48,6 @@ export class CategoryPipe implements PipeTransform {
         return "Tout l'équipement et les matériaux pour entretenir, réparer et rénover votre maison : électricité, plomberie, peinture, maçonnerie, etc.";
       case 3:
         return "Tout l'équipement pour créer et entretenir votre jardin : outillage, terrasse, engrais, etc.";
-      case 4:
-        return "Tout l'équipement pour habiller et agrémenter votre atelier ou garage : machines-outils, décoration, etc.";
     }
   }
 
@@ -65,8 +59,6 @@ export class CategoryPipe implements PipeTransform {
         return "Pour ma maison";
       case 3:
         return "Pour mon jardin";
-      case 4:
-        return "Pour mon atelier";
     }
   }
 }
