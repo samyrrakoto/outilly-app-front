@@ -16,7 +16,6 @@ export class ProductResultsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     public categoryService: CategoryService
     )
   {}
@@ -27,14 +26,11 @@ export class ProductResultsComponent implements OnInit {
 
   private getCategoryId(): void {
       this.route.params.subscribe((param: any) => {
-        this.categoryLabel = this.categoryService.getCategoryLabel(param['categoryLabel']);
-        this.categoryId = this.categoryService.categoryLabelToId(this.categoryLabel);
-        this.filters = 'categories:' + this.categoryLabel;
-        this.placeholder = 'Rechercher dans la catégorie ' + this.categoryLabel;
-
-        if (this.categoryId === -1) {
-          this.router.navigate(['error404']);
+        if (param['categoryLabel']) {
+          this.categoryLabel = param['categoryLabel'];
         }
+        this.filters = 'categories:' + "\"" + this.categoryLabel + "\"";
+        this.placeholder = 'Rechercher dans la catégorie ' + this.categoryService.getCategoryLabel(this.categoryLabel);
       });
   }
 }

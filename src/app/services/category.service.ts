@@ -29,14 +29,12 @@ export class CategoryService {
 
   public getCategoryLabel(label: string): string {
     switch (label) {
-      case 'mecanique':
+      case 'mecanic':
         return 'Mécanique';
-      case 'bricolage':
+      case 'btp':
         return 'Bricolage';
-      case 'jardin':
+      case 'garden':
         return 'Jardin';
-      case 'atelier':
-        return 'Atelier';
       default:
         return null;
     }
@@ -45,13 +43,11 @@ export class CategoryService {
   public getCategoryRouteLabel(id: number): string {
     switch (id) {
       case 1:
-        return 'mecanique';
+        return 'mecanic';
       case 2:
-        return 'bricolage';
+        return 'btp';
       case 3:
-        return 'jardin';
-      case 4:
-        return 'atelier';
+        return 'garden';
       default:
         return null;
     }
@@ -65,8 +61,6 @@ export class CategoryService {
         return categoryIcons.DIY;
       case 3:
         return categoryIcons.GARDEN;
-      case 4:
-        return categoryIcons.WORKSHOP;
       default:
         return null;
     }
