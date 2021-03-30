@@ -56,17 +56,7 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
       this.searchQuery.zipcode = this.zipcode;
     }
     else {
-      if (this.auth.isLogged()) {
-        const address: Address = await this.userManager.getUserAddress();
-
-        if (address && address.zipcode) {
-          await this.searchQuery.getGps(address.zipcode);
-          this.searchQuery.zipcode = address.zipcode;
-        }
-      }
-      else {
-        this.searchQuery.resetGeoLoc();
-      }
+      this.searchQuery.resetGeoLoc();
     }
   }
 
