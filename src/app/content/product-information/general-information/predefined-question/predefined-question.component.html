@@ -1,15 +1,27 @@
 <h1 class="title has-text-weight-bold">Le vendeur vous répond</h1>
 
 <!-- Users questions -->
-<div *ngIf="answeredQuestions.length > 0" class="content">
+<div *ngIf="answeredQuestions.length > 0" class="box">
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let faq of answeredQuestions">
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ faq.question }}
-      </mat-panel-title>
+        <mat-panel-title>
+          <h2 class="title is-5">
+            <fa-icon [icon]="['fas', 'question-circle']"></fa-icon>
+            Questions des acheteurs
+          </h2>
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <span [innerHtml]=faq.answer></span>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let faq of answeredQuestions">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ faq.question }}
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span [innerHtml]=faq.answer></span>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
@@ -19,7 +31,10 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
       <mat-panel-title>
-        <h2 class="title is-5">Voir les questions habituelles</h2>
+        <h2 class="title is-5">
+          <fa-icon [icon]="['fas', 'question-circle']"></fa-icon>
+          Questions générales
+        </h2>
       </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-accordion>
