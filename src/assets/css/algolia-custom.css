@@ -18,6 +18,10 @@
   transform: translateX(-40px) translateY(-5px);
 }
 
+.noUi-pips-horizontal {
+  display: none;
+}
+
 .ais-SearchBox-submitIcon path,
 .ais-SearchBox-resetIcon path {
   fill: var(--KTKP-GREEN);
@@ -27,6 +31,16 @@
   background-color: var(--KTKP-GREEN);
   border-color: var(--MAT-GREY);
   border-width: 2px;
+}
+
+ul.ais-RefinementList-list {
+  text-align: left;
+  list-style-type: none;
+}
+
+ul.ais-RefinementList-list input {
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

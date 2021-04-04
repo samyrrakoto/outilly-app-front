@@ -17,7 +17,32 @@
 
     <!-- Filters -->
     <div>
-      <div id="filters" class="box is-hidden-mobile">
+      <h2 class="subtitle is-5">Prix</h2>
+      <ais-range-slider
+        attribute="reserve_price">
+      </ais-range-slider>
+
+      <h2 class="subtitle is-5">Catégories</h2>
+      <ais-refinement-list
+        attribute="categories">
+      </ais-refinement-list>
+
+      <h2 class="subtitle is-5">Types</h2>
+      <ais-refinement-list
+        attribute="types">
+      </ais-refinement-list>
+
+      <h2 class="subtitle is-5">Marques</h2>
+      <ais-refinement-list
+        attribute="brands">
+      </ais-refinement-list>
+
+      <h2 class="subtitle is-5">Qualité</h2>
+      <ais-refinement-list
+        attribute="quality">
+      </ais-refinement-list>
+
+      <!-- <div id="filters" class="box is-hidden-mobile">
         <span class="underline discreet-text pointed" (click)="searchQuery.cleanParams(); matSlider.value = searchQuery.geo.aroundRadius">Retirer tous les filtres</span>
         <h2 class="subtitle filter-title has-text-centered">Code postal</h2>
         <div class="field">
@@ -34,7 +59,6 @@
           <div class="level-right">200 km</div>
         </nav>
 
-        <!-- Product Types -->
         <div class="has-text-left">
           <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
           <div class="field">
@@ -52,7 +76,6 @@
           </div>
         </div>
 
-        <!-- Product Quality -->
         <div class="has-text-left">
           <h2 class="subtitle filter-title has-text-centered">Etat</h2>
           <div class="field">
@@ -70,7 +93,6 @@
           </div>
         </div>
 
-        <!-- Product Category -->
         <div class="has-text-left">
           <h2 class="subtitle filter-title has-text-centered">Catégorie</h2>
 
@@ -96,8 +118,6 @@
           </div>
         </div>
 
-
-        <!-- Product Delivery -->
         <div class="has-text-left">
           <h2 class="subtitle has-text-centered filter-title">Logistique</h2>
           <div class="field">
@@ -114,7 +134,7 @@
             </label>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Results -->

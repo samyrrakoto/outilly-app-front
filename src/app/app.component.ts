@@ -28,7 +28,12 @@ const searchClient: algoliasearch.Client = algoliasearch(
 export class AppComponent {
   configClient = {
     indexName: environment.algoliaIndexName,
-    searchClient: searchClient
+    searchClient: searchClient,
+    searchFunction(helper: any) {
+      helper.search();
+      console.log(helper);
+    },
+    routing: true
   };
   title = pageInfo.BRAND_NAME;
   cookies: boolean;
