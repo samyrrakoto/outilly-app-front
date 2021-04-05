@@ -409,10 +409,6 @@ const routes: Routes = [
     component: ProductUnavailableComponent
   },
   {
-    path: 'product-estimate',
-    component: ProductEstimateComponent
-  },
-  {
     path: 'error404',
     component: Error404Component
   }

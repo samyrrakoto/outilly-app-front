@@ -164,7 +164,6 @@ import { CompletionAccountWarningComponent } from './content/user-dashboard/comp
 import { TeamComponent } from './content/team/team.component';
 import { CustomSearchBoxComponent } from './custom-search-box/custom-search-box.component';
 import { FakeFiltersComponent } from './content/fake-filters/fake-filters.component';
-import { ProductEstimateComponent } from './content/product-estimate/product-estimate.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -322,7 +321,6 @@ export class MyHammerConfig extends HammerGestureConfig {
     TeamComponent,
     CustomSearchBoxComponent,
     FakeFiltersComponent,
-    ProductEstimateComponent,
   ],
   imports: [
     HttpClientModule,
