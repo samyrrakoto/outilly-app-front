@@ -1,0 +1,19 @@
+.purple {
+  color: var(--KTKP-PURPLE);
+}
+
+.red {
+  color: var(--KTKP-RED);
+}
+
+.green {
+  color: var(--KTKP-GREEN);
+}
+
+.grey {
+  color: var(--MAT-GREY);
+}
+
+.yellow {
+  color: var(--KTKP-YELLOW) !important;
+}

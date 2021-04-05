@@ -1,0 +1,31 @@
+.hand-delivery-icon {
+  height: 15px;
+}
+
+.mondial-relay-icon {
+  height: 30px;
+}
+
+.small-icon {
+  font-size: 0.5em;
+}
+
+.medium-icon {
+  font-size: 0.75em;
+}
+
+.big-icon {
+  font-size: 1em;
+}
+
+.huge-icon {
+  font-size: 1.5em;
+}
+
+.side-icon {
+  margin-right: 10px;
+}
+
+.side-icon-right {
+  margin-left: 10px;
+}
