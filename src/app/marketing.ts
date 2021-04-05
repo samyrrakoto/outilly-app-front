@@ -15,4 +15,4 @@ export const typeform: any = {
   `,
   THEME: 'is-warning',
   VAR_NAME: 'typeform'
-};
+}

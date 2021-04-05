@@ -73,6 +73,7 @@ import { AccountOnboardingComponent } from './content/onboarding/account-onboard
 import { AccountValidationComponent } from './content/onboarding/account-onboarding/account-validation/account-validation.component';
 import { NameComponent } from './content/onboarding/user-details/name/name.component';
 import { TeamComponent } from './content/team/team.component';
+import { ProductEstimateComponent } from './content/product-estimate/product-estimate.component';
 
 const routes: Routes = [
   {
