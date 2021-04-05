@@ -16,3 +16,7 @@ export const typeform: any = {
   THEME: 'is-warning',
   VAR_NAME: 'typeform'
 }
+
+export const CONTACT: any = {
+  CHRIS: '0761033212'
+}
