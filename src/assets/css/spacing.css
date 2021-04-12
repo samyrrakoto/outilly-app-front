@@ -60,3 +60,8 @@
 .no-margin {
   margin: 0px !important;
 }
+
+.padded {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}

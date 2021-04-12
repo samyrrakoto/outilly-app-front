@@ -1,0 +1,12 @@
+.buttons {
+  display: block;
+}
+
+#estimate-content {
+  margin: auto;
+  max-width: 600px;
+}
+
+#invoice-title {
+  margin-bottom: 0px;
+}

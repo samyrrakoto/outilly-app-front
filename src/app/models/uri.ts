@@ -37,6 +37,7 @@ export class Uri {
   readonly PRODUCT_UPDATE: string = 'secure/product/update';
   readonly ASK_PRODUCT_QUESTION: string = 'secure/question/product/ask';
   readonly ANSWER_PRODUCT_QUESTION: string = 'secure/question/product/answer';
+  readonly PRODUCT_ESTIMATE: string = 'secure/product/estimation/create';
 
   // User Routes
   readonly GET_USER: string = 'secure/user';

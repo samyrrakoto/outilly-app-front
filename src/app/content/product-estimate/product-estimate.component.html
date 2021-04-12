@@ -1,45 +1,82 @@
-<div class="content has-text-centered">
-  <h1 class="title">Faites estimer gratuitement vos matériaux ou outils.</h1>
+<div id="page-content" class="content padded">
+  <h1 class="title has-text-centered">Faites estimer gratuitement vos matériaux ou outils.</h1>
 
-  <div class="content discreet-text">
+  <div class="content discreet-text has-text-centered">
     Vous avez beaucoup de produits à vendre ? Contactez-nous directement au {{ contactPhone | phone:' ' }} pour une estimation rapide et gratuite.
   </div>
 
-  <div id="estimate-content" class="content">
-    <div *ngIf="!auth.isLogged()">
-      Vous devez <a routerLink="/onboarding" href="/onboarding" class="important">créer un compte</a> pour demander une estimation gratuite à notre équipe.<br>
-      <a routerLink="/login" href="/login" class="important">Connectez-vous</a> si vous en avez déjà un.
-    </div>
-
-    <form>
-      <div class="field">
-        <label class="label" title="Obligatoire">Description*</label>
-        <textarea class="textarea small centered" placeholder="Indiquez un maximum d'informations sur le produit que vous souhaitez vendre : état, référence, marque, quantité, etc."></textarea>
-      </div>
-
-      <div class="field">
-        <label class="label">Quantité</label>
-        <input class="input tiny" type="number">
-      </div>
-
-      <div class="field">
-        <div class="control centered">
-          <div class="content">
-            Disposez-vous d'une facture ?
-          </div>
-          <label class="radio">
-            <input type="radio" name="invoice">
-            Oui
-          </label>
-
-          <label class="radio">
-            <input type="radio" name="invoice">
-            Non
-          </label>
+  <ng-container *ngIf="!estimationManager.estimationSent">
+    <div id="estimate-content" class="content">
+      <form>
+        <div class="field">
+          <label class="label" title="Obligatoire">Description*</label>
+          <textarea name="description" [(ngModel)]=data.description class="textarea small" placeholder="Indiquez un maximum d'informations sur le produit que vous souhaitez vendre : état, référence, marque, quantité, etc."></textarea>
         </div>
-      </div>
 
-      <button class="button is-danger">Valider</button>
-    </form>
-  </div>
+        <div class="addspacebelow">
+          <app-file-upload
+            [medias]=files
+            (filesEmitter)=getFilesEmitter($event)>
+          </app-file-upload>
+        </div>
+
+        <div class="field">
+          <label class="label">Quantité</label>
+          <input name="quantity" class="input tiny" type="number" [(ngModel)]=data.quantity min=0>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <div id="invoice-title" class="content">
+              Disposez-vous d'une facture ?
+            </div>
+
+            <label class="radio">
+              <input type="radio" name="invoice" [value]=true [(ngModel)]=data.hasInvoice>
+              Oui
+            </label>
+
+            <label class="radio">
+              <input type="radio" name="invoice" [value]=false [(ngModel)]=data.hasInvoice>
+              Non
+            </label>
+          </div>
+        </div>
+
+        <div *ngIf="auth.isLogged()">
+          <button *ngIf="!isValid()" class="button is-light no-overflow">
+            <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
+            Valider votre estimation
+          </button>
+          <button *ngIf="isValid()" class="button is-danger no-overflow" (click)="estimationManager.estimate(data)">
+            <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
+            Valider votre estimation</button>
+        </div>
+
+        <div *ngIf="!auth.isLogged()" class="content">
+          <div class="buttons">
+            <button *ngIf="!isValid()" class="button is-light no-overflow">
+              Sauvegarder votre estimation<br>et vous connecter
+            </button>
+            <button *ngIf="!isValid()" class="button is-light no-overflow">Sauvegarder votre estimation<br>et créer un compte</button>
+          </div>
+
+          <div class="buttons">
+            <button *ngIf="isValid()" routerLink="/login" href="/login" class="button is-danger no-overflow" (click)="setRedirection()">Sauvegarder votre estimation<br>et vous connecter</button>
+            <button *ngIf="isValid()" routerLink="/account-onboarding" href="/account-onboarding" class="button is-danger no-overflow" (click)="setRedirection()">Sauvegarder votre estimation<br>et créer un compte</button>
+          </div>
+
+          <div class="content discreet-text">
+            Dans les 2 cas vous reviendrez à votre estimation.
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="estimationManager.estimationSent">
+    <div class="notification is-success has-text-centered">
+      Votre estimation a bien été envoyée !
+    </div>
+  </ng-container>
 </div>

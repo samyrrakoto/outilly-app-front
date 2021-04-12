@@ -165,6 +165,7 @@ import { TeamComponent } from './content/team/team.component';
 import { CustomSearchBoxComponent } from './custom-search-box/custom-search-box.component';
 import { FakeFiltersComponent } from './content/fake-filters/fake-filters.component';
 import { ProductEstimateComponent } from './content/product-estimate/product-estimate.component';
+import { FileUploadComponent } from 'src/app/content/file-upload/file-upload.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -323,6 +324,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     CustomSearchBoxComponent,
     FakeFiltersComponent,
     ProductEstimateComponent,
+    FileUploadComponent,
   ],
   imports: [
     HttpClientModule,

@@ -28,17 +28,17 @@
 }
 
 .textarea.small, .input.small {
-  min-width: 30em;
+  min-width: 15em;
   max-width: 30em;
 }
 
 .textarea.medium, .input.medium {
-  min-width: 50em;
+  min-width: 15em;
   max-width: 50em;
 }
 
 .textarea.large, .input.large {
-  min-width: 75em;
+  min-width: 15em;
   max-width: 75em;
 }
 
