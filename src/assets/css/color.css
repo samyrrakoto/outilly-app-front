@@ -2,6 +2,10 @@
   color: var(--KTKP-PURPLE);
 }
 
+.blue {
+  color: var(--KTKP-BLUE-DARKER);
+}
+
 .red {
   color: var(--KTKP-RED);
 }
@@ -16,4 +20,8 @@
 
 .yellow {
   color: var(--KTKP-YELLOW) !important;
+}
+
+.bg-blue {
+  background-color: var(--KTKP-BLUE-DARKER);
 }
