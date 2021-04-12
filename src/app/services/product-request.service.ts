@@ -32,4 +32,12 @@ export class ProductRequestService {
   public getGenericQuestions(): Observable<any> {
     return this.request.getData(this.request.uri.FAQ_PRODUCT);
   }
+
+  public createProduct(): Observable<any> {
+    return this.request.postData('', this.request.uri.PRODUCT_CREATION);
+  }
+
+  public updateProduct(payload: any): Observable<any> {
+    return this.request.putData(this.request.uri.PRODUCT_UPDATE, payload);
+  }
 }

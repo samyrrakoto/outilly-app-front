@@ -12,6 +12,17 @@ export class StorageService {
     this.exclusiveStorageData.push(new StorageData(name, type));
   }
 
+  public removeExclusiveStorageData(name: string, type: StorageType = StorageType.LOCAL): void {
+    let i: number = 0;
+
+    for (const data of this.exclusiveStorageData) {
+      if (data.name === name && data.type === type) {
+        this.exclusiveStorageData.splice(i, 1);
+      }
+      i++;
+    }
+  }
+
   public createExclusiveStorageData(): void {
     if (this.exclusiveStorageData) {
       for (const storageData of this.exclusiveStorageData) {

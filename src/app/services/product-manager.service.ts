@@ -14,7 +14,7 @@ export class ProductManagerService {
 
   constructor(
     private productRequest: ProductRequestService,
-    public errorMessages: ErrorMessageManagerService
+    public errorMessages: ErrorMessageManagerService,
   ) { }
 
   public askQuestion(productId: number, question: string): void {
@@ -68,5 +68,22 @@ export class ProductManagerService {
         }
       });
     });
+  }
+
+  public async createProduct(): Promise<void> {
+    this.productRequest.createProduct().subscribe(
+      (res: any) => {
+        localStorage.setItem('id', res.body.id);
+        localStorage.setItem('strId', res.body.strId);
+    });
+  }
+
+  public removeProduct(): void {
+    localStorage.removeItem('id');
+    localStorage.removeItem('strId');
+  }
+
+  public isProductStored(): boolean {
+    return localStorage.getItem('id') !== null;
   }
 }

@@ -1,50 +1,54 @@
 <nav [id]=menuId class="navbar">
-    <div class="container">
-        <div class="navbar-brand">
-            <a routerLink="/home" class="navbar-item">
-              <img id="brand-logo" src="/assets/img/logo/outilly-logo.png" title="Logo Outilly" alt="Logo Outilly">
-            </a>
-            <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navBarMenu" #navBarMenu class="navbar-menu">
-            <div class="navbar-end">
-                <div class="navbar-item">
-                  <a routerLink="/home" (click)="toggleNavbar()">{{ "accueil" | uppercase }}</a>
-                </div>
-
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <div class="navbar-link">
-                    <a>{{ "catégorie" | uppercase }}</a>
-                  </div>
-
-                  <div class="navbar-dropdown">
-                    <a [href]="categoryService.getCategoryRoute(category.id, true)" [routerLink]="categoryService.getCategoryRoute(category.id)" (click)="toggleNavbar()" *ngFor="let category of categories" class="navbar-item">
-                      {{ category.label }}
-                    </a>
-                  </div>
-                </div>
-
-                <div class="navbar-item">
-                    <a href="" routerLink="/faq" (click)="toggleNavbar()">{{ "faq" | uppercase }}</a>
-                </div>
-
-                <div class="navbar-item">
-                  <a [href]="blogUri" target="_blank" (click)="toggleNavbar()">{{ "blog" | uppercase }}</a>
-                </div>
-
-                <div id="start-to-sell" class="navbar-item">
-                    <a class="button is-success" (click)="toggleNavbar()" [href]="urlService.getRoute('search', true)" [routerLink]="urlService.getRoute('search')">Accéder au catalogue</a>
-                </div>
-
-                <div id="mobile-number" class="navbar-item is-hidden-mobile">
-                  <fa-icon class="side-icon" [icon]="['fas', 'phone-alt']"></fa-icon><span class="grey">07 61 03 32 12</span>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="navbar-brand">
+      <a routerLink="/home" class="navbar-item">
+        <img id="brand-logo" src="/assets/img/logo/outilly-logo.png" title="Logo Outilly" alt="Logo Outilly">
+      </a>
+      <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navBarMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
+
+    <div id="navBarMenu" #navBarMenu class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a routerLink="/home" (click)="toggleNavbar()">{{ "accueil" | uppercase }}</a>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">
+            <a>{{ "catégorie" | uppercase }}</a>
+          </div>
+
+          <div class="navbar-dropdown">
+            <a [href]="categoryService.getCategoryRoute(category.id, true)" [routerLink]="categoryService.getCategoryRoute(category.id)" (click)="toggleNavbar()" *ngFor="let category of categories" class="navbar-item">
+              {{ category.label }}
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item">
+          <a href="" routerLink="/faq" (click)="toggleNavbar()">{{ "faq" | uppercase }}</a>
+        </div>
+
+        <div class="navbar-item">
+          <a [href]="blogUri" target="_blank" (click)="toggleNavbar()">{{ "blog" | uppercase }}</a>
+        </div>
+
+        <div id="start-to-sell" class="navbar-item">
+          <a class="button is-success" (click)="toggleNavbar()" [href]="urlService.getRoute('search', true)" [routerLink]="urlService.getRoute('search')">Accéder au catalogue</a>
+        </div>
+
+        <div id="product-estimation" class="navbar-item">
+          <a class="button bg-blue" (click)="toggleNavbar()" href="/product-estimate" routerLink="/product-estimate">{{ "estimation gratuite" | uppercase }}</a>
+        </div>
+
+        <div id="mobile-number" class="navbar-item is-hidden-mobile">
+          <fa-icon class="side-icon" [icon]="['fas', 'phone-alt']"></fa-icon><span class="grey">07 61 03 32 12</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

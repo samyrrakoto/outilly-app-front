@@ -1,0 +1,29 @@
+#percentage-value {
+  color: var(--KTKP-RED);
+}
+
+.uploaded-file {
+  height: 150px;
+  width: 150px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: solid 3px var(--KTKP-GREEN);
+  border-radius: 15px;
+}
+
+.uploaded-file fa-icon {
+  font-size: 2em;
+  transition: 0.2s;
+  margin-left: 5px;
+  color: var(--MAT-GREY);
+}
+
+.uploaded-file fa-icon:hover {
+  color: var(--KTKP-RED);
+}
+
+#uploaded-media {
+  max-width: 500px;
+  margin-top: 10px;
+}
