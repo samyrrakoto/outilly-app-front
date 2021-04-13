@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ProductMedia } from 'src/app/models/product-media';
 import { Location } from '@angular/common';
 import { StorageType } from 'src/app/services/storage.service';
+import { storage } from 'src/app/parameters';
 
 @Component({
   selector: 'app-product-estimate',
@@ -31,15 +32,14 @@ export class ProductEstimateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('estimationData')) {
-      this.data = JSON.parse(sessionStorage.getItem('estimationData'));
+    if (sessionStorage.getItem(storage.ESTIMATION_DATA)) {
+      this.data = JSON.parse(sessionStorage.getItem(storage.ESTIMATION_DATA));
     }
-    else {
-      this.productManager.createProduct();
+    if (localStorage.getItem(storage.ESTIMATION_ID) === null) {
+      this.productManager.createProductEstimation();
     }
-
-    if (sessionStorage.getItem('estimationMedia')) {
-      this.files = JSON.parse(sessionStorage.getItem('estimationMedia'));
+    if (sessionStorage.getItem(storage.ESTIMATION_MEDIA)) {
+      this.files = JSON.parse(sessionStorage.getItem(storage.ESTIMATION_MEDIA));
     }
   }
 
@@ -57,12 +57,19 @@ export class ProductEstimateComponent implements OnInit {
   }
 
   public storeData(): void {
-    sessionStorage.setItem('estimationData', JSON.stringify(this.data));
-    sessionStorage.setItem('estimationMedia', JSON.stringify(this.files));
-    this.auth.addExclusiveStorageData('estimationMedia', StorageType.SESSION);
-    this.auth.addExclusiveStorageData('estimationData', StorageType.SESSION);
-    this.auth.addExclusiveStorageData('id');
-    this.auth.addExclusiveStorageData('strId');
+    sessionStorage.setItem(storage.ESTIMATION_DATA, JSON.stringify(this.data));
+    sessionStorage.setItem(storage.ESTIMATION_MEDIA, JSON.stringify(this.files));
+    this.auth.addExclusiveStorageData(storage.ESTIMATION_MEDIA, StorageType.SESSION);
+    this.auth.addExclusiveStorageData(storage.ESTIMATION_DATA, StorageType.SESSION);
+    this.auth.addExclusiveStorageData(storage.ESTIMATION_ID);
+    this.auth.addExclusiveStorageData(storage.ESTIMATION_STR_ID);
+  }
+
+  public resetData(): void {
+    this.data = new Data();
+    this.files = [];
+    this.productManager.createProductEstimation();
+    this.estimationManager.estimationSent = false;
   }
 }
 

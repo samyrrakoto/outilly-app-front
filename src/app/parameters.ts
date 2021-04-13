@@ -150,5 +150,11 @@ export const storage: any = {
   PRODUCT_ONBOARDING: 'product-onboarding',
   REDIRECT_AFTER_LOGIN: 'redirect_after_login',
   COOKIES: 'cookies',
-  TYPEFORM: 'typeform'
+  TYPEFORM: 'typeform',
+  ESTIMATION_ID: 'estimationId',
+  ESTIMATION_STR_ID: 'estimationStrId',
+  ESTIMATION_MEDIA: 'estimationMedia',
+  ESTIMATION_DATA: 'estimationData',
+  PRODUCT_ID: 'id',
+  PRODUCT_STR_ID: 'strId'
 };

@@ -4,19 +4,19 @@
 
 .uploaded-file {
   margin: auto;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  border: solid 4px var(--MAT-GREY);
+  border: solid 4px var(--KTKP-GREEN);
   border-radius: 10px;
 }
 
 .uploaded-file fa-icon {
   font-size: 2em;
   transition: 0.2s;
-  color: var(--MAT-GREY);
+  color: black;
 }
 
 .uploaded-file fa-icon:hover {

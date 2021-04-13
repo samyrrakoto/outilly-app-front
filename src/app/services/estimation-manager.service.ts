@@ -5,6 +5,7 @@ import { ProductRequestService } from 'src/app/services/product-request.service'
 import { HttpStatus } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageType } from 'src/app/services/storage.service';
+import { storage } from 'src/app/parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,9 @@ export class EstimationManagerService {
   private async update(data: any): Promise<void> {
     const payload: any = {
       product: {
-        id: localStorage.getItem('id'),
-        strId: localStorage.getItem('strId'),
-        name: 'estimation ' + localStorage.getItem('id'),
+        id: localStorage.getItem(storage.ESTIMATION_ID),
+        strId: localStorage.getItem(storage.ESTIMATION_STR_ID),
+        name: 'estimation ' + localStorage.getItem(storage.ESTIMATION_ID),
         description: this.encoding.base64Encoder(data.description),
         isDescriptionBase64: true
       }
@@ -42,8 +43,8 @@ export class EstimationManagerService {
   public async estimate(data: any): Promise<void> {
     const payload: any = {
       product: {
-        id: localStorage.getItem('id'),
-        strId: localStorage.getItem('strId')
+        id: localStorage.getItem(storage.ESTIMATION_ID),
+        strId: localStorage.getItem(storage.ESTIMATION_STR_ID)
       },
       hasInvoice: data.hasInvoice,
       quantity: data.quantity
@@ -64,12 +65,20 @@ export class EstimationManagerService {
   }
 
   private removeData(): void {
-    sessionStorage.removeItem('estimationData');
-    sessionStorage.removeItem('estimationMedia');
-    this.auth.removeExclusiveStorageData('estimationMedia', StorageType.SESSION);
-    this.auth.removeExclusiveStorageData('estimationData', StorageType.SESSION);
-    this.auth.removeExclusiveStorageData('id');
-    this.auth.removeExclusiveStorageData('strId');
+    this.transferProductData();
+    sessionStorage.removeItem(storage.ESTIMATION_DATA);
+    sessionStorage.removeItem(storage.ESTIMATION_MEDIA);
+    localStorage.removeItem(storage.ESTIMATION_ID);
+    localStorage.removeItem(storage.ESTIMATION_STR_ID);
+    this.auth.removeExclusiveStorageData(storage.ESTIMATION_MEDIA, StorageType.SESSION);
+    this.auth.removeExclusiveStorageData(storage.ESTIMATION_DATA, StorageType.SESSION);
+    this.auth.removeExclusiveStorageData(storage.ESTIMATION_ID);
+    this.auth.removeExclusiveStorageData(storage.ESTIMATION_STR_ID);
     this.auth.resetRedirectionUrl();
+  }
+
+  private transferProductData(): void {
+    localStorage.setItem(storage.PRODUCT_ID, localStorage.getItem(storage.ESTIMATION_ID));
+    localStorage.setItem(storage.PRODUCT_STR_ID, localStorage.getItem(storage.ESTIMATION_STR_ID));
   }
 }

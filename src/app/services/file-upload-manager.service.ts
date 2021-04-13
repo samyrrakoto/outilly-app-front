@@ -3,7 +3,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Loadings } from 'src/app/models/loadings';
 import { ProductMedia } from 'src/app/models/product-media';
-import { media } from 'src/app/parameters';
+import { media, storage } from 'src/app/parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,8 @@ export class FileUploadManagerService {
     const formData: FormData = new FormData();
 
     formData.append('mediaFile', file);
-    formData.append('productId', localStorage.getItem('id'));
-    formData.append('productStrId', localStorage.getItem('strId'));
+    formData.append('productId', localStorage.getItem(storage.ESTIMATION_ID));
+    formData.append('productStrId', localStorage.getItem(storage.ESTIMATION_STR_ID));
     formData.append('mediaType', 'image');
     return formData;
   }
@@ -61,8 +61,8 @@ export class FileUploadManagerService {
   }
 
   public cancelMedia(media: ProductMedia): void {
-    const productId: string = localStorage.getItem('id');
-    const productStrId: string = localStorage.getItem('strId');
+    const productId: string = localStorage.getItem(storage.ESTIMATION_ID);
+    const productStrId: string = localStorage.getItem(storage.ESTIMATION_STR_ID);
 
     this.fileUploadRequest.cancelMedia(productId, productStrId, media).subscribe(
       (res: any) => {

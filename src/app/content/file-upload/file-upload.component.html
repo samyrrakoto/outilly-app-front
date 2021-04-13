@@ -5,12 +5,12 @@
 
 <input [accept]=mediaFormatAccepted type="file" id="product-pictures" multiple name="medias" (change)="handleFile($event)" [hidden]=true>
 <button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length < maxFiles" (click)="openImgPicker()" id="file-select" class="button is-success no-overflow">
-  <fa-icon class="side-icon gigantic" [icon]="['fas', 'image']"></fa-icon>
+  <fa-icon class="side-icon gigantic" [icon]="['fas', 'images']"></fa-icon>
   {{ title }}
 </button>
 
 <button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length >= maxFiles" id="file-select" class="button is-light no-overflow">
-  <fa-icon class="side-icon gigantic" [icon]="['fas', 'image']"></fa-icon>
+  <fa-icon class="side-icon gigantic" [icon]="['fas', 'images']"></fa-icon>
   {{ title }}
 </button>
 

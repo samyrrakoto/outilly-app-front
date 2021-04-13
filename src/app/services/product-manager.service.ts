@@ -1,8 +1,9 @@
 import { Faq } from 'src/app/models/faq';
-import { HttpStatus } from './request.service';
-import { ErrorMessageManagerService } from './error-message-manager.service';
+import { HttpStatus } from 'src/app/services/request.service';
+import { ErrorMessageManagerService } from 'src/app/services/error-message-manager.service';
 import { ProductRequestService } from 'src/app/services/product-request.service';
 import { Injectable } from '@angular/core';
+import { storage } from 'src/app/parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ export class ProductManagerService {
   public answerQuestion(questionId: number, answer: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.productRequest.answerQuestion(questionId, answer).subscribe({
-        next: (res: any) => {
+        next: () => {
           this.answerSent = true;
           resolve();
         },
@@ -73,17 +74,34 @@ export class ProductManagerService {
   public async createProduct(): Promise<void> {
     this.productRequest.createProduct().subscribe(
       (res: any) => {
-        localStorage.setItem('id', res.body.id);
-        localStorage.setItem('strId', res.body.strId);
+        localStorage.setItem(storage.PRODUCT_ID, res.body.id);
+        localStorage.setItem(storage.PRODUCT_STR_ID, res.body.strId);
+    });
+  }
+
+  public async createProductEstimation(): Promise<void> {
+    this.productRequest.createProduct().subscribe(
+      (res: any) => {
+        localStorage.setItem(storage.ESTIMATION_ID, res.body.id);
+        localStorage.setItem(storage.ESTIMATION_STR_ID, res.body.strId);
     });
   }
 
   public removeProduct(): void {
-    localStorage.removeItem('id');
-    localStorage.removeItem('strId');
+    localStorage.removeItem(storage.PRODUCT_ID);
+    localStorage.removeItem(storage.PRODUCT_STR_ID);
+  }
+
+  public removeProductEstimation(): void {
+    localStorage.removeItem(storage.ESTIMATION_ID);
+    localStorage.removeItem(storage.ESTIMATION_STR_ID);
   }
 
   public isProductStored(): boolean {
-    return localStorage.getItem('id') !== null;
+    return localStorage.getItem(storage.PRODUCT_ID) !== null;
+  }
+
+  public isEstimationStored(): boolean {
+    return localStorage.getItem(storage.ESTIMATION_ID) !== null;
   }
 }
