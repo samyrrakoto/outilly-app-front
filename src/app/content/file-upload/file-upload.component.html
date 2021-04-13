@@ -4,13 +4,13 @@
 </div>
 
 <input [accept]=mediaFormatAccepted type="file" id="product-pictures" multiple name="medias" (change)="handleFile($event)" [hidden]=true>
-<button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length < maxFiles" (click)="openImgPicker()" id="file-select" class="button is-success">
-  <fa-icon class="side-icon" [icon]="['fas', 'file-upload']"></fa-icon>
+<button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length < maxFiles" (click)="openImgPicker()" id="file-select" class="button is-success no-overflow">
+  <fa-icon class="side-icon gigantic" [icon]="['fas', 'images']"></fa-icon>
   {{ title }}
 </button>
 
-<button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length >= maxFiles" id="file-select" class="button is-light">
-  <fa-icon class="side-icon" [icon]="['fas', 'file-upload']"></fa-icon>
+<button *ngIf="!loadings.isLoading('input') && fileUploadManager.productMedias.length >= maxFiles" id="file-select" class="button is-light no-overflow">
+  <fa-icon class="side-icon gigantic" [icon]="['fas', 'images']"></fa-icon>
   {{ title }}
 </button>
 
@@ -24,7 +24,7 @@
       </mat-expansion-panel-header>
 
       <nav class="content" id="medias">
-        <div class="content has-text-left" *ngFor="let media of fileUploadManager.productMedias">
+        <div class="content" *ngFor="let media of fileUploadManager.productMedias">
           <div [ngStyle]="{ 'background-image': getBackgroundUrl(media.path) }" height="50px" width="auto" class="uploaded-file" [title]="'file'">
             <fa-icon [icon]="['fas', 'times-circle']" class="pointed" (click)="fileUploadManager.cancelMedia(media)"></fa-icon>
           </div>
