@@ -1,16 +1,21 @@
-<div id="page-content" class="content padded">
+<div id="page-content" class="content padded has-text-centered">
   <h1 class="title has-text-centered">Faites estimer gratuitement vos matériaux ou outils.</h1>
 
-  <div class="content discreet-text has-text-centered">
+  <div class="content discreet-text">
     Vous avez beaucoup de produits à vendre ? Contactez-nous directement au {{ contactPhone | phone:' ' }} pour une estimation rapide et gratuite.
   </div>
 
   <ng-container *ngIf="!estimationManager.estimationSent">
     <div id="estimate-content" class="content">
-      <form>
-        <div class="field">
-          <label class="label" title="Obligatoire">Description*</label>
-          <textarea name="description" [(ngModel)]=data.description class="textarea small" placeholder="Indiquez un maximum d'informations sur le produit que vous souhaitez vendre : état, référence, marque, quantité, etc."></textarea>
+      <form class="spaced">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label" title="Obligatoire">Description*</label>
+          </div>
+
+          <div class="field-body">
+            <textarea name="description" [(ngModel)]=data.description class="textarea small" placeholder="Indiquez un maximum d'informations sur le produit que vous souhaitez vendre : état, référence, marque, quantité, etc."></textarea>
+          </div>
         </div>
 
         <div class="addspacebelow">
@@ -20,26 +25,34 @@
           </app-file-upload>
         </div>
 
-        <div class="field">
-          <label class="label">Quantité</label>
-          <input name="quantity" class="input tiny" type="number" [(ngModel)]=data.quantity min=0>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Quantité</label>
+          </div>
+          <div class="field-body">
+            <input name="quantity" class="input tiny" type="number" [(ngModel)]=data.quantity min=0>
+          </div>
         </div>
 
-        <div class="field">
-          <div class="control">
-            <div id="invoice-title" class="content">
-              Disposez-vous d'une facture ?
+        <div class="field is-horizontal">
+          <div class="field-label">
+            Disposez-vous d'une facture ?
+          </div>
+
+          <div class="field-body">
+            <div class="field is-narrow">
+              <div class="control has-text-centered">
+                <label class="radio">
+                  <input type="radio" name="invoice" [value]=true [(ngModel)]=data.hasInvoice>
+                  Oui
+                </label>
+
+                <label class="radio">
+                  <input type="radio" name="invoice" [value]=false [(ngModel)]=data.hasInvoice>
+                  Non
+                </label>
+              </div>
             </div>
-
-            <label class="radio">
-              <input type="radio" name="invoice" [value]=true [(ngModel)]=data.hasInvoice>
-              Oui
-            </label>
-
-            <label class="radio">
-              <input type="radio" name="invoice" [value]=false [(ngModel)]=data.hasInvoice>
-              Non
-            </label>
           </div>
         </div>
 

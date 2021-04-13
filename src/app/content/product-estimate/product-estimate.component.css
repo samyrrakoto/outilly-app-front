@@ -10,3 +10,7 @@
 #invoice-title {
   margin-bottom: 0px;
 }
+
+textarea {
+  margin: auto;
+}
