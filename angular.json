@@ -27,10 +27,16 @@
             ],
             "styles": [
               "node_modules/instantsearch.css/themes/algolia.css",
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "node_modules/bulma/css/bulma.min.css",
               "src/assets/css/bulma-custom.css",
               "src/styles.css",
+              "src/assets/css/icon.css",
+              "src/assets/css/spacing.css",
+              "src/assets/css/font.css",
+              "src/assets/css/color.css",
+              "src/assets/css/animation.css",
+              "src/assets/css/form.css",
               "src/theme.scss",
               "src/assets/css/algolia-custom.css",
               "src/assets/css/checkbox.css"

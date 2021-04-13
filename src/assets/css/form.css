@@ -1,0 +1,51 @@
+form.spaced .field {
+  margin-bottom: 30px;
+}
+
+.input.no-border, .input.no-border:hover, .input.no-border:enabled {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  border-bottom: solid 1px grey;
+}
+
+.input.is-invalid {
+  border-color: var(--KTKP-RED);
+}
+
+.input.is-valid {
+  border-color: var(--KTKP-GREEN);
+}
+
+.textarea.centered, .input.centered {
+  margin: auto;
+}
+
+.textarea.tiny, .input.tiny {
+  min-width: 5em;
+  max-width: 5em;
+}
+
+.textarea.very-small, .input.very-small {
+  min-width: 15em;
+  max-width: 15em;
+}
+
+.textarea.small, .input.small {
+  min-width: 15em;
+  max-width: 30em;
+}
+
+.textarea.medium, .input.medium {
+  min-width: 15em;
+  max-width: 50em;
+}
+
+.textarea.large, .input.large {
+  min-width: 15em;
+  max-width: 75em;
+}
+
+.control.centered {
+  text-align: center;
+}

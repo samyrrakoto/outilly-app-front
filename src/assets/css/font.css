@@ -1,0 +1,29 @@
+.normal {
+  color: black;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.bolder {
+  font-weight: 1000;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.overline {
+  border-top: solid 2px var(--FAKE-WHITE);
+}
+
+.overline-thick {
+  border-top: solid 4px black;
+}

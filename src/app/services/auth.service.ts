@@ -87,8 +87,20 @@ export class AuthService {
     });
   }
 
+  public addExclusiveStorageData(name: string, type: StorageType = StorageType.LOCAL): void {
+    this.storageService.addExclusiveStorageData(name, type);
+  }
+
+  public removeExclusiveStorageData(name: string, type: StorageType = StorageType.LOCAL): void {
+    this.storageService.removeExclusiveStorageData(name, type);
+  }
+
   public setRedirectionUrl(url: string): void {
     sessionStorage.setItem(storage.REDIRECT_AFTER_LOGIN, url);
+  }
+
+  public resetRedirectionUrl(): void {
+    sessionStorage.removeItem(storage.REDIRECT_AFTER_LOGIN);
   }
 
   public getRedirectionUrl(): string {

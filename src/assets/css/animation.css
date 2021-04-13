@@ -1,0 +1,35 @@
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.blinking {
+  animation: blinker 3s linear infinite;
+}
+
+.blinking-slow {
+  animation: blinker 5s linear infinite;
+}
+
+.blinking-slower {
+  animation: blinker 8s linear infinite;
+}
+
+@keyframes color-blinker {
+  50% {
+    color: white;
+  }
+}
+
+.color-blinking {
+  animation: color-blinker 3s linear infinite;
+}
+
+.color-blinking-slow {
+  animation: color-blinker 5s linear infinite;
+}
+
+.color-blinking-slower {
+  animation: color-blinker 8s linear infinite;
+}
