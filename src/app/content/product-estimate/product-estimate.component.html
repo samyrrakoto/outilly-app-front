@@ -59,11 +59,11 @@
         <div *ngIf="auth.isLogged()">
           <button *ngIf="!isValid()" class="button is-light no-overflow">
             <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
-            Valider votre annonce
+            Valider votre estimation
           </button>
           <button *ngIf="isValid()" class="button is-danger no-overflow" (click)="estimationManager.estimate(data)">
             <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
-            Valider votre annonce
+            Valider votre estimation
           </button>
         </div>
 
@@ -71,14 +71,14 @@
           <div class="buttons">
             <button *ngIf="!isValid()" routerLink="/login" href="/login" class="button is-light no-overflow">
               <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
-              Valider votre annonce
+              Valider votre estimation
             </button>
           </div>
 
           <div class="buttons">
             <button *ngIf="isValid()" routerLink="/login" href="/login" class="button is-danger no-overflow" (click)="setRedirection()">
               <fa-icon [icon]="['fas', 'paper-plane']" class="side-icon"></fa-icon>
-              Valider votre annonce
+              Valider votre estimation
             </button>
           </div>
         </div>
