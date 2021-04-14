@@ -19,7 +19,7 @@ export class ProductEstimateComponent implements OnInit {
   readonly min: number = 1;
   readonly max: number = 10;
   data: Data = new Data();
-  files: ProductMedia[] = [];
+  // files: ProductMedia[] = [];
 
   constructor(
     public auth: AuthService,
@@ -28,7 +28,7 @@ export class ProductEstimateComponent implements OnInit {
     private fileUploadManager: FileUploadManagerService,
     private location: Location)
   {
-    this.files = this.fileUploadManager.productMedias;
+    this.data.files = this.fileUploadManager.productMedias;
   }
 
   ngOnInit(): void {
@@ -39,16 +39,16 @@ export class ProductEstimateComponent implements OnInit {
       this.productManager.createProductEstimation();
     }
     if (sessionStorage.getItem(storage.ESTIMATION_MEDIA)) {
-      this.files = JSON.parse(sessionStorage.getItem(storage.ESTIMATION_MEDIA));
+      this.data.files = JSON.parse(sessionStorage.getItem(storage.ESTIMATION_MEDIA));
     }
   }
 
   public getFilesEmitter(productMedias: ProductMedia[]): void {
-    this.files = productMedias;
+    this.data.files = productMedias;
   }
 
   public isValid(): boolean {
-    return this.files.length <= 10 && this.data.description.length > 0;
+    return this.data.files.length <= 10 && this.data.description.length > 0;
   }
 
   public setRedirection(): void {
@@ -58,7 +58,7 @@ export class ProductEstimateComponent implements OnInit {
 
   public storeData(): void {
     sessionStorage.setItem(storage.ESTIMATION_DATA, JSON.stringify(this.data));
-    sessionStorage.setItem(storage.ESTIMATION_MEDIA, JSON.stringify(this.files));
+    sessionStorage.setItem(storage.ESTIMATION_MEDIA, JSON.stringify(this.data.files));
     this.auth.addExclusiveStorageData(storage.ESTIMATION_MEDIA, StorageType.SESSION);
     this.auth.addExclusiveStorageData(storage.ESTIMATION_DATA, StorageType.SESSION);
     this.auth.addExclusiveStorageData(storage.ESTIMATION_ID);
@@ -67,7 +67,7 @@ export class ProductEstimateComponent implements OnInit {
 
   public resetData(): void {
     this.data = new Data();
-    this.files = [];
+    this.data.files = [];
     this.productManager.createProductEstimation();
     this.estimationManager.estimationSent = false;
   }
@@ -77,4 +77,5 @@ class Data {
   description: string = '';
   quantity: number = 0;
   hasInvoice: boolean = false;
+  files: ProductMedia[] = [];
 }
