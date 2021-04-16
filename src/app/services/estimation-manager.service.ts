@@ -6,6 +6,7 @@ import { HttpStatus } from 'src/app/services/request.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageType } from 'src/app/services/storage.service';
 import { storage } from 'src/app/parameters';
+import { FormDataService } from './form-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,15 @@ export class EstimationManagerService {
     };
 
     return new Promise((resolve) => {
+      data.files = [];
+
       this.productRequest.updateProduct(payload).subscribe({
         next: (res: any) => {
+          for (const media of res.productMedias) {
+            if (media.type !== 'thumbnail') {
+              data.files.push(media);
+            }
+          }
           resolve();
         }
       });
@@ -55,7 +63,7 @@ export class EstimationManagerService {
       next: (res: any) => {
         if (res.status === HttpStatus.CREATED) {
           this.estimationSent = true;
-          this.removeData();
+          this.removeData(data);
         }
       },
       error: () => {
@@ -64,8 +72,8 @@ export class EstimationManagerService {
     });
   }
 
-  private removeData(): void {
-    this.transferProductData();
+  private removeData(data: any): void {
+    this.transferProductData(data);
     sessionStorage.removeItem(storage.ESTIMATION_DATA);
     sessionStorage.removeItem(storage.ESTIMATION_MEDIA);
     localStorage.removeItem(storage.ESTIMATION_ID);
@@ -77,7 +85,12 @@ export class EstimationManagerService {
     this.auth.resetRedirectionUrl();
   }
 
-  private transferProductData(): void {
+  private transferProductData(data: any): void {
+    const formData: FormDataService = new FormDataService();
+
+    formData.product.description = data.description;
+    formData.product.productMedias = data.files;
+    localStorage.setItem('formData', JSON.stringify(formData));
     localStorage.setItem(storage.PRODUCT_ID, localStorage.getItem(storage.ESTIMATION_ID));
     localStorage.setItem(storage.PRODUCT_STR_ID, localStorage.getItem(storage.ESTIMATION_STR_ID));
   }

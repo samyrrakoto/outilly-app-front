@@ -96,24 +96,24 @@ export class MediaUploadComponent extends StepForm {
   private sendMedia(files: FileList, index: number, nbFiles: number): void {
     const data: FormData = this.getFormData(files[index]);
 
-      this.request.uploadMedia(data).subscribe(
-        (media: any) => {
-          this.isLoading = true;
+    this.request.uploadMedia(data).subscribe(
+      (media: any) => {
+        this.isLoading = true;
 
-          if (media.type === HttpEventType.UploadProgress) {
-            this.percentDone = Math.round(100 * media.loaded / media.total);
-          }
-          if (media.type === HttpEventType.Response) {
-            this.isLoading = false;
-            this.uploaded = true;
-            this.addMedia(media.body);
-            this.percentDone = 0;
-            if (index + 1 < nbFiles && index + 1 < this.maxNbPictures) {
-              this.sendMedia(files, index + 1, nbFiles);
-            }
+        if (media.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * media.loaded / media.total);
+        }
+        if (media.type === HttpEventType.Response) {
+          this.isLoading = false;
+          this.uploaded = true;
+          this.addMedia(media.body);
+          this.percentDone = 0;
+          if (index + 1 < nbFiles && index + 1 < this.maxNbPictures) {
+            this.sendMedia(files, index + 1, nbFiles);
           }
         }
-      );
+      }
+    );
   }
 
   private removeMedia(currentMedia: ProductMedia): void {
