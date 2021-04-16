@@ -33,8 +33,15 @@ export class EstimationManagerService {
     };
 
     return new Promise((resolve) => {
+      data.files = [];
+
       this.productRequest.updateProduct(payload).subscribe({
         next: (res: any) => {
+          for (const media of res.productMedias) {
+            if (media.type !== 'thumbnail') {
+              data.files.push(media);
+            }
+          }
           resolve();
         }
       });
@@ -83,7 +90,6 @@ export class EstimationManagerService {
 
     formData.product.description = data.description;
     formData.product.productMedias = data.files;
-    console.log(data);
     localStorage.setItem('formData', JSON.stringify(formData));
     localStorage.setItem(storage.PRODUCT_ID, localStorage.getItem(storage.ESTIMATION_ID));
     localStorage.setItem(storage.PRODUCT_STR_ID, localStorage.getItem(storage.ESTIMATION_STR_ID));

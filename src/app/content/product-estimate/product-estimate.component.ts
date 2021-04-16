@@ -19,7 +19,6 @@ export class ProductEstimateComponent implements OnInit {
   readonly min: number = 1;
   readonly max: number = 10;
   data: Data = new Data();
-  // files: ProductMedia[] = [];
 
   constructor(
     public auth: AuthService,

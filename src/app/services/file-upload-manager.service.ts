@@ -30,7 +30,6 @@ export class FileUploadManagerService {
     formData.append('productId', localStorage.getItem(storage.ESTIMATION_ID));
     formData.append('productStrId', localStorage.getItem(storage.ESTIMATION_STR_ID));
     formData.append('mediaType', 'image');
-    console.log(this.request.getFormDataPayload(formData));
     return formData;
   }
 
@@ -51,8 +50,10 @@ export class FileUploadManagerService {
   }
 
   private async addMedia(media: any, index: number, event: any): Promise<void> {
+    const path: string = media.path;
+
     await this.onSelectFile(event, media, index);
-    this.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted, media.file));
+    this.productMedias.push(new ProductMedia(media.id, media.type, path, media.link, media.isHosted, media.file));
   }
 
   public removeMedia(id: number): void {
@@ -87,8 +88,6 @@ export class FileUploadManagerService {
           this.percentDone = Math.round(100 * media.loaded / media.total);
         }
         if (media.type === HttpEventType.Response) {
-          console.log(media);
-
           loadings.unload('input');
           this.addMedia(media.body, index, event);
           this.percentDone = 0;

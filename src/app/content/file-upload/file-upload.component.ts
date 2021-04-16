@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GenericComponent } from 'src/app/models/generic-component';
 import { media } from 'src/app/parameters';
 import { ProductMedia } from 'src/app/models/product-media';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,6 +11,7 @@ import { ProductMedia } from 'src/app/models/product-media';
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent extends GenericComponent implements OnInit {
+  readonly baseMediaUri: string = environment.mediaBaseUri;
   @Input() maxFiles: number = 10;
   @Input() mediaFormatAccepted: string = media.PICTURES_FORMAT_ACCEPTED;
   @Input() medias: ProductMedia[] = [];
