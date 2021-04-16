@@ -81,7 +81,6 @@ export class MediaUploadComponent extends StepForm {
       formData.append('productId', localStorage.getItem('id'));
       formData.append('productStrId', localStorage.getItem('strId'));
       formData.append('mediaType', 'image');
-      console.log(this.request.getFormDataPayload(formData));
       return formData;
   }
 
@@ -105,7 +104,6 @@ export class MediaUploadComponent extends StepForm {
           this.percentDone = Math.round(100 * media.loaded / media.total);
         }
         if (media.type === HttpEventType.Response) {
-          console.log(media);
           this.isLoading = false;
           this.uploaded = true;
           this.addMedia(media.body);
