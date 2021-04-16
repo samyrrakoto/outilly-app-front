@@ -1,8 +1,7 @@
-import { Product } from './../models/product';
+import { Product } from 'src/app/models/product';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { Path } from '../models/Path/path';
-import { Recipient } from '../models/recipient';
+import { User } from 'src/app/models/user';
+import { Path } from 'src/app/models/Path/path';
 
 @Injectable({
   providedIn: 'root'

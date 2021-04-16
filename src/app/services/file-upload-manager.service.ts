@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Loadings } from 'src/app/models/loadings';
 import { ProductMedia } from 'src/app/models/product-media';
 import { media, storage } from 'src/app/parameters';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class FileUploadManagerService {
   maxNbFiles: number = media.MAX_UPLOAD_PICTURES;
 
   constructor(
-    private fileUploadRequest: FileUploadRequestService
+    private fileUploadRequest: FileUploadRequestService,
+    private request: RequestService
   ) { }
 
     public getPercents(): number {
@@ -48,8 +50,10 @@ export class FileUploadManagerService {
   }
 
   private async addMedia(media: any, index: number, event: any): Promise<void> {
+    const path: string = media.path;
+
     await this.onSelectFile(event, media, index);
-    this.productMedias.push(new ProductMedia(media.id, media.type, media.path, media.link, media.isHosted, media.file));
+    this.productMedias.push(new ProductMedia(media.id, media.type, path, media.link, media.isHosted, media.file));
   }
 
   public removeMedia(id: number): void {

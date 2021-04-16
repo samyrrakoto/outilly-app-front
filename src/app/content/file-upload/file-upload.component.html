@@ -25,7 +25,7 @@
 
       <nav class="content" id="medias">
         <div class="content" *ngFor="let media of fileUploadManager.productMedias">
-          <div [ngStyle]="{ 'background-image': getBackgroundUrl(media.path) }" height="50px" width="auto" class="uploaded-file" [title]="'file'">
+          <div [ngStyle]="{ 'background-image': getBackgroundUrl(baseMediaUri + media.path) }" height="50px" width="auto" class="uploaded-file" [title]="'file'">
             <fa-icon [icon]="['fas', 'times-circle']" class="pointed" (click)="fileUploadManager.cancelMedia(media)"></fa-icon>
           </div>
         </div>
