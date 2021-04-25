@@ -1,3 +1,5 @@
+import { ProductType } from 'src/app/models/product-type';
+import { productTypes } from 'src/app/parameters';
 import { storage } from 'src/app/parameters';
 import { StringToolboxService } from 'src/app/services/string-toolbox.service';
 import { pageInfo } from 'src/app/parameters';
@@ -109,12 +111,24 @@ export class AnnounceOverviewComponent extends ProductCreationComponent implemen
         "isWarrantied": product.isWarrantied,
         "warrantyDuration": product.warrantyDuration,
         "productCategories": product.productCategories,
-        "productTypes": product.productTypes,
+        "productTypes": this.getProductType(product.isConsumable),
         "brands": product.brands,
         "productMedias": product.productMedias
       }
     };
     return payload;
+  }
+
+  private getProductType(isConsumable: boolean): ProductType[] {
+    const newProductTypes: ProductType[] = [];
+
+    if (isConsumable) {
+      newProductTypes.push(new ProductType(productTypes[6].label, 7));
+    }
+    else {
+      newProductTypes.push(new ProductType(productTypes[7].label, 8));
+    }
+    return newProductTypes;
   }
 
   private getSalePayload(): any {
