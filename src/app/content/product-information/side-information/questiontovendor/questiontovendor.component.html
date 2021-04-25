@@ -21,7 +21,7 @@
         <div class="content">
           <form [formGroup]="form">
             <input formControlName="userQuestion" class="input" [maxlength]=maxQuestionLength placeholder="Ex : Le produit est-il d'origine, sans modification ?" [(ngModel)]="userQuestion">
-            <span class="has-text-left discreet-text">{{ userQuestion.length }} caractères / 100 maximum</span>
+            <span class="has-text-left discreet-text">{{ userQuestion.length }} caractères / {{ maxQuestionLength }} maximum</span>
           </form>
         </div>
 

@@ -39,7 +39,7 @@ export const contact: any = {
 };
 
 export const questions: any = {
-  MAX_QUESTION_LENGTH: 100,
+  MAX_QUESTION_LENGTH: 200,
   MAX_ANSWER_LENGTH: 600
 };
 
