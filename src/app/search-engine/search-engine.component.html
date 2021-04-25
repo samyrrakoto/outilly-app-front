@@ -39,14 +39,14 @@
           <h2 class="subtitle filter-title has-text-centered">Type de produits</h2>
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('types', 'Consommable & accessoires')" (click)="searchQuery.setFilter('types', 'Consommable & accessoires'); searchQuery.updateQuery(stateInput)">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('types', 'Matériaux & accessoires')" (click)="searchQuery.setFilter('types', 'Matériaux & accessoires'); searchQuery.updateQuery(stateInput)">
               Matériaux & accessoires
             </label>
           </div>
 
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" [checked]="searchQuery.filters.hasFilters('types', toolsAndMachines)" (click)="searchQuery.setFilters('types', toolsAndMachines); searchQuery.updateQuery(stateInput)">
+              <input type="checkbox" [checked]="searchQuery.filters.hasFilter('types', 'Outillage & machines')" (click)="searchQuery.setFilter('types', 'Outillage & machines'); searchQuery.updateQuery(stateInput)">
               Outillage & machines
             </label>
           </div>

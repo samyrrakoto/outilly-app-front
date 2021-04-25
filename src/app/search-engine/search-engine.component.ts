@@ -1,13 +1,10 @@
 import { toolsAndMachines } from 'src/app/parameters';
 import { SearchQuery } from 'src/app/models/search-query';
 import { AlgoliaManagerService } from 'src/app/services/algolia-manager.service';
-import { Address } from 'src/app/models/address';
 import { GeoService } from 'src/app/services/geo.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserManagerService } from 'src/app/services/user-manager.service';
 import { GenericComponent } from 'src/app/models/generic-component';
 
 @Component({
@@ -32,8 +29,6 @@ export class SearchEngineComponent extends GenericComponent implements OnInit {
     public appcomponent: AppComponent,
     private route: ActivatedRoute,
     private geoService: GeoService,
-    private auth: AuthService,
-    private userManager: UserManagerService,
     public algoliaManager: AlgoliaManagerService)
   {
     super();
