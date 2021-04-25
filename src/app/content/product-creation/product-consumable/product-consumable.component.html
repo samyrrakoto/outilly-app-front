@@ -5,38 +5,38 @@
       [totalNbSteps]=totalNbSteps>
     </app-step-progress>
 
-      <app-step-label class="has-text-centered"
-        [stepNb]=stepNb
-        [stepName]=stepName
-        [stepSubtitle]=stepSubtitle>
-      </app-step-label>
+    <app-step-label class="has-text-centered"
+      [stepNb]=stepNb
+      [stepName]=stepName
+      [stepSubtitle]=stepSubtitle>
+    </app-step-label>
 
-      <div class="columns is-vcentered has-text-centered">
-        <div class="column">
-          <div class="tile" id="no" (click)="product.isConsumable = false; additionalControls = true; nextOn=true">
-            <fa-icon [icon]="['fas', 'hammer']"></fa-icon>
-            Outillage / <br>
-            Machines
-          </div>
-          <div class="content discreet-text addlittlespaceabove">
-            Ex : visseuse, marteau, balai,<br>
-            élagueuse, aspirateur, pinceau<br>
-            pelle, servante, clé de serrage...
-          </div>
+    <div class="columns is-vcentered has-text-centered">
+      <div class="column">
+        <div class="tile" id="no" (click)="product.isConsumable = false; additionalControls = true; nextOn=true">
+          <fa-icon [icon]="['fas', 'hammer']"></fa-icon>
+          Outillage / <br>
+          Machines
         </div>
-
-        <div class="column">
-          <div class="tile" id="yes" (click)="product.isConsumable = true; additionalControls = true; nextOn=true">
-            <fa-icon [icon]="['fas', 'fill-drip']"></fa-icon>
-            Matériaux /<br>Fin de chantier
-          </div>
-          <div class="content discreet-text addlittlespaceabove">
-            Ex : peinture, parquet, colle,<br>
-            visserie, fenêtre, isolant<br>
-            décoration, huile, placo...
-          </div>
+        <div class="content discreet-text addlittlespaceabove">
+          Ex : visseuse, marteau, balai,<br>
+          élagueuse, aspirateur, pinceau<br>
+          pelle, servante, clé de serrage...
         </div>
       </div>
+
+      <div class="column">
+        <div class="tile" id="yes" (click)="product.isConsumable = true; additionalControls = true; nextOn=true">
+          <fa-icon [icon]="['fas', 'fill-drip']"></fa-icon>
+          Matériaux /<br>Fin de chantier
+        </div>
+        <div class="content discreet-text addlittlespaceabove">
+          Ex : peinture, parquet, colle,<br>
+          visserie, fenêtre, isolant<br>
+          décoration, huile, placo...
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -1,11 +1,10 @@
-import { productOnboarding } from './../../../onboardings';
+import { productOnboarding } from 'src/app/onboardings';
 import { Product } from 'src/app/models/product';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { StepForm } from 'src/app/models/step-form';
-import { AuthService } from 'src/app/services/auth.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -22,14 +21,14 @@ export class ProductConsumableComponent extends StepForm {
   form: FormGroup;
   product: Product;
 
-  constructor(public request: RequestService,
+  constructor(
+    public request: RequestService,
     public formData: FormDataService,
     public router: Router,
     public formValidatorService: FormValidatorService,
-    private auth: AuthService,
     public title: Title)
   {
-    super(productOnboarding);
+    super(productOnboarding, 'product-consumable');
     if (JSON.parse(localStorage.getItem('formData'))) {
       !this.formData.product.name ? this.formData.product = JSON.parse(localStorage.getItem('formData')).product : null;
     }
@@ -37,13 +36,7 @@ export class ProductConsumableComponent extends StepForm {
     this.additionalControls = this.product.isConsumable !== null;
     this.errorMessages = formValidatorService.constraintManager.errorMessageManager.errorMessages;
     this.formData.fieldName = "productConsumable";
-    this.stepNb = 3;
     this.stepName = "Que souhaitez-vous vendre ?";
-    this.stepSubtitle = '';
-    this.path.current = "product-consumable";
-    this.path.previous = "media-upload";
-    this.path.next = "product-category";
-    this.placeholder = "(ex : jeanmarc78@aol.fr )";
   }
 
   ngAfterViewChecked(): void {
