@@ -39,7 +39,7 @@ export const contact: any = {
 };
 
 export const questions: any = {
-  MAX_QUESTION_LENGTH: 100,
+  MAX_QUESTION_LENGTH: 200,
   MAX_ANSWER_LENGTH: 600
 };
 
@@ -104,6 +104,50 @@ export const categoryIcons: any = {
   GARDEN: 'seedling',
   WORKSHOP: 'warehouse'
 };
+
+export const productTypes: any =
+  [
+    {
+      id: 1,
+      label: 'Pneumatique / À air',
+      slug: 'pneumatique-a-air'
+    },
+    {
+      id: 2,
+      label: 'Electroportatif / À batterie',
+      slug: 'electroportatif-a-batterie'
+    },
+    {
+      id: 3,
+      label: 'Hydraulique',
+      slug: 'hydraulique'
+    },
+    {
+      id: 4,
+      label: 'Electrique / Filaire',
+      slug: 'electrique-filaire'
+    },
+    {
+      id: 5,
+      label: 'Outillage à main',
+      slug: 'outillage-a-main'
+    },
+    {
+      id: 6,
+      label: 'Thermique / Moteur à carburant',
+      slug: 'thermique-moteur-a-carburant'
+    },
+    {
+      id: 7,
+      label: 'Matériaux & accessoires',
+      slug: 'materiaux-accessoires'
+    },
+    {
+      id: 8,
+      label: 'Outillage & machines',
+      slug: 'outillage-machines'
+    }
+  ];
 
 export const toolsAndMachines: string[] = ['Outillage à main', 'Electrique / Filaire', 'Pneumatique / À air', 'Electroportatif / À batterie', 'Thermique / Moteur à carburant'];
 

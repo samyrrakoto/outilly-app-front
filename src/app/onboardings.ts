@@ -31,6 +31,7 @@ export const productOnboarding: Onboarding = {
   onboardingName: '',
   steps: [
     'announcement-title',
+    'product-consumable',
     'media-upload',
     'product-category',
     'product-brand',
