@@ -63,103 +63,112 @@
 
             <div class="is-divider"></div>
 
-            <!-- MONDIAL RELAY DELIVERY -->
-            <ng-container *ngIf="orderManager.isRelayDelivery(order)">
-              <div class="content">
-                <h2 class="subtitle announce has-text-centered">
-                  L'acheteur souhaite se faire livrer par<br>
-                  {{ order.shipMethod | delivery }}
-                </h2>
-              </div>
+            <div *ngIf="orderManager.isCanceled(order)" class="notification is-danger has-text-centered">
+              Cette commande a été annulée
+            </div>
 
-              <!-- If product availability has not been confirmed -->
-              <div *ngIf="!orderManager.isAvailable(order)" class="content has-text-centered">
-                <button class="button is-success" (click)="currentOrder = order; modals.open('order-availability-confirmation')">Confirmer la disponibilité du produit</button>
-              </div>
 
-              <!-- If product availability has been confirmed -->
-              <ng-container *ngIf="orderManager.isAvailable(order)">
+            <div *ngIf="!orderManager.isCanceled(order)">
 
-                <!-- If delivery note has been generated -->
-                <div *ngIf="orderManager.isDeliveryNoteGenerated(order)" class="content">
-                  <div class="content has-text-centered">
-                    <button *ngIf="!order.isSent" (click)="currentOrder = order; modals.open('send-order-confirmation')" class="button is-success no-overflow has-text-white">
-                      <fa-icon [icon]="['fas', 'box']"></fa-icon>
-                      Confirmer l'envoi du colis
-                    </button>
+              <!-- MONDIAL RELAY DELIVERY -->
+              <ng-container *ngIf="orderManager.isRelayDelivery(order)">
+                <div class="content">
+                  <h2 class="subtitle announce has-text-centered">
+                    L'acheteur souhaite se faire livrer par<br>
+                    {{ order.shipMethod | delivery }}
+                  </h2>
+                </div>
 
-                    <!-- If order sent -->
-                    <div *ngIf="order.isSent">
-                      <article *ngIf="!order.isDelivered" class="message is-success">
-                        <div class="message-body">
-                          <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
-                          Envoi du colis confirmé, vous recevrez une confirmation de l'acheteur une fois reçu !
-                        </div>
-                      </article>
+                <!-- If product availability has not been confirmed -->
+                <div *ngIf="!orderManager.isAvailable(order)" class="content has-text-centered">
+                  <button class="button is-success" (click)="currentOrder = order; modals.open('order-availability-confirmation')">Confirmer la disponibilité du produit</button>
+                </div>
 
-                      <article *ngIf="order.isDelivered" class="message is-success">
-                        <div class="message-body">
-                          <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
-                          L'acheteur a bien reçu votre colis !
-                        </div>
-                      </article>
+                <!-- If product availability has been confirmed -->
+                <ng-container *ngIf="orderManager.isAvailable(order)">
+
+                  <!-- If delivery note has been generated -->
+                  <div *ngIf="orderManager.isDeliveryNoteGenerated(order)" class="content">
+                    <div class="content has-text-centered">
+                      <button *ngIf="!order.isSent" (click)="currentOrder = order; modals.open('send-order-confirmation')" class="button is-success no-overflow has-text-white">
+                        <fa-icon [icon]="['fas', 'box']"></fa-icon>
+                        Confirmer l'envoi du colis
+                      </button>
+
+                      <!-- If order sent -->
+                      <div *ngIf="order.isSent">
+                        <article *ngIf="!order.isDelivered" class="message is-success">
+                          <div class="message-body">
+                            <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                            Envoi du colis confirmé, vous recevrez une confirmation de l'acheteur une fois reçu !
+                          </div>
+                        </article>
+
+                        <article *ngIf="order.isDelivered" class="message is-success">
+                          <div class="message-body">
+                            <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                            L'acheteur a bien reçu votre colis !
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="content has-text-centered">
+                      <button *ngIf="!order.isSent" (click)="orderManager.generateDispatchNote(order, dispatchNote, modals)" class="button no-overflow has-text-success">
+                        <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
+                        Générer à nouveau mon bon d'envoi
+                      </button>
                     </div>
                   </div>
 
-                  <div class="content has-text-centered">
-                    <button *ngIf="!order.isSent" (click)="orderManager.generateDispatchNote(order, dispatchNote, modals)" class="button no-overflow has-text-success">
-                      <fa-icon id="redo" [icon]="['fas', 'redo']"></fa-icon>
-                      Générer à nouveau mon bon d'envoi
-                    </button>
+                  <!-- If delivery note has NOT been generated yet -->
+                  <div *ngIf="!orderManager.isDeliveryNoteGenerated(order)" class="content">
+                    <div class="content has-text-centered">
+                      <button (click)="goToDispatch(order)" class="button is-success no-overflow has-text-white">
+                        <fa-icon [icon]="['fas', 'box']"></fa-icon>
+                        Générer mon étiquette d'expédition
+                      </button>
+                    </div>
                   </div>
-                </div>
-
-                <!-- If delivery note has NOT been generated yet -->
-                <div *ngIf="!orderManager.isDeliveryNoteGenerated(order)" class="content">
-                  <div class="content has-text-centered">
-                    <button (click)="goToDispatch(order)" class="button is-success no-overflow has-text-white">
-                      <fa-icon [icon]="['fas', 'box']"></fa-icon>
-                      Générer mon étiquette d'expédition
-                    </button>
-                  </div>
-                </div>
+                </ng-container>
               </ng-container>
-            </ng-container>
 
-            <!-- HAND DELIVERY -->
-            <div *ngIf="orderManager.isHandDelivery(order)" class="content">
-              <div class="content">
-                <h2 class="subtitle announce has-text-centered">
-                  L'acheteur souhaite se faire livrer par<br>
-                  <span class="accepted">{{ order.shipMethod | delivery}}</span>
-                </h2>
-              </div>
-
-              <div *ngIf="!order.isAvailabilityConfirmed" class="content has-text-centered">
-                <button (click)="currentOrder = order; modals.open('order-availability-confirmation')" class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
-              </div>
-
-              <div *ngIf="order.isAvailabilityConfirmed && !order.isBuyerCodeValidated && !order.isSellerCodeValidated && !order.isDelivered">
-                <div class="content has-text-centered">
-                  <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
-                    <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
-                    Contacter l'acheteur pour convenir d'un rendez-vous
-                  </button>
+              <!-- HAND DELIVERY -->
+              <div *ngIf="orderManager.isHandDelivery(order)" class="content">
+                <div class="content">
+                  <h2 class="subtitle announce has-text-centered">
+                    L'acheteur souhaite se faire livrer par<br>
+                    <span class="accepted">{{ order.shipMethod | delivery}}</span>
+                  </h2>
                 </div>
 
-                <!-- When buyer code has been generated -->
-                <div class="content has-text-centered">
-                  <button class="button is-success no-overflow" (click)="currentOrder = order; modals.open('order-delivery-confirmation')">Je confirme avoir remis le colis à l'acheteur en mains propres</button>
+                <div *ngIf="!order.isAvailabilityConfirmed" class="content has-text-centered">
+                  <button (click)="currentOrder = order; modals.open('order-availability-confirmation')" class="button is-success">Confirmer la disponibilité du produit à l'acheteur</button>
                 </div>
-              </div>
 
-              <article *ngIf="order.isBuyerCodeValidated || order.isDelivered" class="message is-success has-text-centered">
-                <div class="message-body">
-                  <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
-                  Le colis est arrivé à bon port !
+                <div *ngIf="order.isAvailabilityConfirmed && !order.isBuyerCodeValidated && !order.isSellerCodeValidated && !order.isDelivered">
+                  <div class="content has-text-centered">
+                    <button (click)="currentBuyer = order.buyer.userProfile; modals.open('buyer-contact')" class="button is-success no-overflow has-text-white">
+                      <fa-icon [icon]="['fas', 'phone-volume']"></fa-icon>
+                      Contacter l'acheteur pour convenir d'un rendez-vous
+                    </button>
+                  </div>
+
+                  <!-- When buyer code has been generated -->
+                  <div class="content has-text-centered">
+                    <button class="button is-success no-overflow" (click)="currentOrder = order; modals.open('order-delivery-confirmation')">Je confirme avoir remis le colis à l'acheteur en mains propres</button>
+                  </div>
                 </div>
-              </article>
+
+                <article *ngIf="order.isBuyerCodeValidated || order.isDelivered" class="message is-success has-text-centered">
+                  <div class="message-body">
+                    <fa-icon [icon]="['fas', 'check-square']"></fa-icon>
+                    Le colis est arrivé à bon port !
+                  </div>
+                </article>
+              </div>
             </div>
+
             <a class="product-page" (click)="goToProductPage(order.sale.productSlug, order.sale.id)">Accéder à la page du produit</a>
         </mat-expansion-panel>
       </mat-accordion>
@@ -238,7 +247,7 @@
           <button class="button is-success" (click)="orderManager.confirmAvailability(currentOrder); modals.close('order-availability-confirmation')">Oui</button>
         </p>
         <p class="control">
-          <button (click)="modals.close('order-availability-confirmation')" class="button is-light">Non</button>
+          <button (click)="orderManager.denyAvailability(currentOrder); modals.close('order-availability-confirmation')" class="button is-light">Non</button>
         </p>
       </div>
     </div>

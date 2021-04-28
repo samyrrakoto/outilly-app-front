@@ -41,16 +41,25 @@ export class OrderManagerService {
     return order.isAvailabilityConfirmed;
   }
 
+  public isCanceled(order: Order): boolean {
+    return order.isCanceled;
+  }
+
   public isDeliveryNoteGenerated(order: any): boolean {
     return order.mrExpedition !== null;
   }
 
   public isRequiringAction(order: any): boolean {
-    if (this.isHandDelivery(order)) {
-      return order.isDelivered === null;
+    if (!this.isCanceled(order)) {
+      if (this.isHandDelivery(order)) {
+        return order.isDelivered === null;
+      }
+      else {
+        return !this.isDeliveryNoteGenerated(order);
+      }
     }
     else {
-      return !this.isDeliveryNoteGenerated(order);
+      return false;
     }
   }
 
@@ -81,6 +90,17 @@ export class OrderManagerService {
     this.orderRequest.confirmAvailability(order.id).subscribe({
       next: (res: any) => {
         order.isAvailabilityConfirmed = true;
+      }
+    });
+  }
+
+  public async denyAvailability(order: Order): Promise<void> {
+    this.orderRequest.denyAvailability(order.id).subscribe({
+      next: (res: any) => {
+        if (res.isCanceled) {
+          console.log(res);
+          order.isCanceled = true;
+        }
       }
     });
   }
