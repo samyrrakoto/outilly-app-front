@@ -98,7 +98,6 @@ export class OrderManagerService {
     this.orderRequest.denyAvailability(order.id).subscribe({
       next: (res: any) => {
         if (res.isCanceled) {
-          console.log(res);
           order.isCanceled = true;
         }
       }
