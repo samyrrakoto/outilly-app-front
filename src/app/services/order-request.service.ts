@@ -25,6 +25,10 @@ export class OrderRequestService {
     return this.request.putData(url, null);
   }
 
+  public denyAvailability(orderId: number): Observable<any> {
+    return this.request.putData(this.request.uri.ORDER_AVAILABILITY_DENIAL, null, [orderId.toString()]);
+  }
+
   public checkBuyerCode(orderId: number, typedCode: string): Observable<any> {
     return this.request.getData(this.request.uri.CHECK_BUYER_CODE, [orderId.toString(), typedCode]);
   }

@@ -25,6 +25,7 @@ export class Order {
   buyerCodeValidatedAt: Date;
   isBuyerCodeValidated: boolean;
   isAvailabilityConfirmed: boolean;
+  isCanceled: boolean;
   isReadBuyer: boolean = false;
   isReadSeller: boolean = false;
   createdAt: Date;
@@ -54,6 +55,7 @@ export class Order {
     this.buyerCodeValidatedAt = new Date();
     this.isBuyerCodeValidated = null;
     this.isAvailabilityConfirmed = null;
+    this.isCanceled = null;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

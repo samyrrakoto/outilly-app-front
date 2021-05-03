@@ -85,6 +85,7 @@ export class Uri {
   readonly GET_SELLER_ORDERS: string = 'secure/orders/validated/seller';
   readonly GET_BUYER_ORDERS: string = 'secure/orders/validated/buyer';
   readonly ORDER_VALIDITY_CONFIRMATION: string = 'secure/order/confirm-availability';
+  readonly ORDER_AVAILABILITY_DENIAL: string = 'secure/order/product-unavailable';
   readonly CHECK_BUYER_CODE: string = 'secure/order/buyer-code/check';
   readonly MR_ORDER_TRACKING: string = 'secure/mondialrelay/tracing/order';
 
