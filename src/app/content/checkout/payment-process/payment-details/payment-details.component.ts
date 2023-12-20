@@ -2,15 +2,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentService } from 'src/app/services/payment.service';
 import { environment } from 'src/environments/environment';
 import { OrderManagerService } from 'src/app/services/order-manager.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { PaymentValidatorService } from 'src/app/services/payment-validator.service';
-import { Router } from '@angular/router';
-import { RequestService } from 'src/app/services/request.service';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Sale } from 'src/app/models/sale';
 import { Title } from '@angular/platform-browser';
 import { PageNameManager } from 'src/app/models/page-name-manager';
 
@@ -34,10 +29,7 @@ export class PaymentDetailsComponent implements OnInit {
   readonly pageTitle: string = 'Paiement';
 
   constructor(
-    private request: RequestService,
-    private router: Router,
     private auth: AuthService,
-    private location: Location,
     public paymentValidator: PaymentValidatorService,
     public saleManager: SaleManagerService,
     private orderManager: OrderManagerService,
