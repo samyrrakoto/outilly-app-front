@@ -1,47 +1,35 @@
-import { Sale } from './../models/sale';
 import { Router } from '@angular/router';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
 import { RequestService } from './request.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService {
+export class PaymentService implements IPaymentService {
   public saleId: number;
   public cardOwner: string;
   public cardNumber: string;
   public cardExpirationMonth: string;
   public cardExpirationYear: string;
   public cardCvx: string;
-  httpOptions: any = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-    responseType: 'text',
-    observe: 'response' as 'response'
-  };
 
   constructor(
     private request: RequestService,
     private http: HttpClient,
     private saleManager: SaleManagerService,
     private router: Router,
-    private location: Location)
+  )
   {}
 
-  public saveMangoPayData(response: any): void {
+  private saveMangoPayData(response: any): void {
     sessionStorage.setItem('cardPreRegistrationData', response.body.mangoPayData.cardPreRegistrationData);
     sessionStorage.setItem('cardRegistrationAccessKey', response.body.mangoPayData.cardRegistrationAccessKey);
     sessionStorage.setItem('cardRegistrationUrl', response.body.mangoPayData.cardRegistrationUrl);
     sessionStorage.setItem('cardRegistrationId', response.body.mangoPayData.cardRegistrationId);
   }
 
-  /*
-  ** 1 - Preregister
-  */
   public preregister(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.request.postData(null, this.request.uri.PREREGISTER).subscribe({
@@ -56,19 +44,23 @@ export class PaymentService {
     });
   }
 
-   /*
-  ** 2 - Call to PayLine
-  */
-  public payLineCall(): Promise<void> {
+  private payLineCall(): Promise<void> {
     const payload: HttpParams = new HttpParams()
       .set('data', sessionStorage.getItem('cardPreRegistrationData'))
       .set('accessKeyRef', sessionStorage.getItem('cardRegistrationAccessKey'))
       .set('cardNumber', this.cardNumber)
       .set('cardExpirationDate', this.cardExpirationMonth + this.cardExpirationYear)
       .set('cardCvx', this.cardCvx);
+    const httpOptions: Record<string, unknown> = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        responseType: 'text',
+        observe: 'response' as 'response'
+      };
 
     return new Promise((resolve, reject) => {
-      this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, this.httpOptions).subscribe({
+      this.http.post<any>(sessionStorage.getItem('cardRegistrationUrl'), payload, httpOptions).subscribe({
         next: (response: any) => {
           if (this.getPrefix(response) !== 'data') {
             console.error('Payline');
@@ -79,7 +71,7 @@ export class PaymentService {
             resolve();
           }
         },
-        error: (err: any) => {
+        error: () => {
           reject('PayLineCall');
         }
       });
@@ -117,9 +109,9 @@ export class PaymentService {
     };
 
     return new Promise((resolve, reject) => {
+      const areOrderInformationCorrect = payload.orderId !== null && payload.cardId !== null;
 
-      // If order information are correct
-      if (payload.orderId !== null && payload.cardId !== null) {
+      if (areOrderInformationCorrect) {
         this.request.postData(payload, this.request.uri.PREAUTH).subscribe({
           next: (value: any) => {
             sessionStorage.setItem('mangopayTransactionId', value.body.mangopayTransactionId);
@@ -143,18 +135,14 @@ export class PaymentService {
     const returnUrl: string = value.body.returnUrl;
 
     // for 3D secure payment : brings to a secured page then brings to payment confirmation
-    if (preauthStatus === 'CREATED' && redirectUrl !== null && returnUrl !== null) {
+    if (preauthStatus === 'CREATED' && redirectUrl !== null && returnUrl !== null)
       window.location.href = redirectUrl;
-    }
-    else if (preauthStatus === 'FAILED') {
+    else if (preauthStatus === 'FAILED')
       this.router.navigate(['/checkout/payment-failed']);
-    }
-    else if (preauthStatus === 'SUCCEEDED') {
+    else if (preauthStatus === 'SUCCEEDED')
       this.router.navigate(['/checkout/payment-confirmation']);
-    }
-    else {
+    else
       this.router.navigate(['/checkout/payment-failed']);
-    }
   }
 
   public saveCardInformation(): void {
@@ -163,12 +151,10 @@ export class PaymentService {
       .then(() => { return this.saleManager.getSaleAvailability(this.saleId) })
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
-          if (!isAvailable) {
+          if (!isAvailable)
             reject('ProductUnavailable');
-          }
-          else {
+          else
             resolve();
-          }
         });
       })
       .then(() => { return this.preauth() })
@@ -179,42 +165,21 @@ export class PaymentService {
     this['handle' + errorName + 'Error']();
   }
 
-  private handleLoginError(): void {
-    const request: any = this.request.getSaleCall(this.saleId.toString()).subscribe(
-      (sale: Sale) => {
-        const path: string = '/product/' + sale.product.slug + '/' + sale.id;
-
-        this.router.navigate(['/login']);
-        sessionStorage.setItem('redirect_after_login', path);
-      }
-    )
-  }
-
-  private handlePreRegistrationError(): void {
-    const path: string = this.location.path();
-
-    this.router.navigate(['/login']);
-    sessionStorage.setItem('redirect_after_login', path);
-  }
-
-  private handlePayLineCallError(): void {
-  }
-
-  private handleUpdateRegistrationError(): void {
-  }
-
-  private handlePreAuthError(): void {
-  }
-
-  private handleProductUnavailableError(): void {
-    this.router.navigate(['/product-unavailable']);
-  }
-
-  private handleOrderMissingError(): void {
-    this.router.navigate(['/checkout/order-summary']);
-  }
-
   private getPrefix(response: any): string {
     return response.body.split('=')[0];
   }
 }
+
+interface IPaymentService {
+  saleId: number;
+  cardOwner: string;
+  cardNumber: string;
+  cardExpirationMonth: string;
+  cardExpirationYear: string;
+  cardCvx: string;
+  preregister(): Promise<void>;
+  saveCardInformation(): void;
+  handleErrors(errorName: string): void;
+}
+
+export { IPaymentService };
