@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaymentService } from 'src/app/services/payment.service';
+import { PaymentMockService } from 'src/app/services/payment-mock.service';
 import { environment } from 'src/environments/environment';
 import { OrderManagerService } from 'src/app/services/order-manager.service';
 import { PaymentValidatorService } from 'src/app/services/payment-validator.service';
@@ -33,7 +33,7 @@ export class PaymentDetailsComponent implements OnInit {
     public paymentValidator: PaymentValidatorService,
     public saleManager: SaleManagerService,
     private orderManager: OrderManagerService,
-    public payment: PaymentService,
+    public payment: PaymentMockService,
     private formBuilder: FormBuilder,
     private title: Title)
   {
