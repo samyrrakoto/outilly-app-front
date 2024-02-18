@@ -33,10 +33,6 @@
           <a href="" routerLink="/faq" (click)="toggleNavbar()">{{ "faq" | uppercase }}</a>
         </div>
 
-        <div class="navbar-item">
-          <a [href]="blogUri" target="_blank" (click)="toggleNavbar()">{{ "blog" | uppercase }}</a>
-        </div>
-
         <div id="start-to-sell" class="navbar-item">
           <a class="button is-success" (click)="toggleNavbar()" [href]="urlService.getRoute('search', true)" [routerLink]="urlService.getRoute('search')">Accéder au catalogue</a>
         </div>
