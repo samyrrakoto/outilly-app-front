@@ -1,22 +1,23 @@
-.box
-{
-    background-color: var(--KTKP-BLUE);
-    color: var(--KTKP-BLUE-DARKER);
-    font-size: 12px;
-    padding: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 20px;
-    box-shadow: none;
-}
-
-#french-flag {
-  height: 15px;
-  width: auto;
-  vertical-align: middle;
+.box {
+  background-color: var(--KTKP-YELLOW);
+  font-size: 12px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
+  box-shadow: none;
 }
 
 a, a:link, a:visited {
-    text-decoration: underline;
-    color: var(--KTKP-BLUE-DARKER);
+  text-decoration: underline;
+  color: var(--KTKP-BLUE-DARKER);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 10px;
 }
