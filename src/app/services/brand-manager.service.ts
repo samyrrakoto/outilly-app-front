@@ -27,15 +27,14 @@ export class BrandManagerService {
 
   public getBrandId(brandName: string): number {
     for (const brand of this.brands) {
-      if (brand.name.toLowerCase() === brandName.toLowerCase()) {
+      if (brand.name.toLowerCase() === brandName.toLowerCase())
         return brand.id;
-      }
     }
   }
 
-  public goToBrand(brandName: string): void {
+  public getBrandUrl(brandName: string): string {
     const brandId: number = this.getBrandId(brandName);
 
-    this.router.navigate(['/products/brand/' + brandId.toString()]);
+    return '/products/brand/' + brandId.toString();
   }
 }
