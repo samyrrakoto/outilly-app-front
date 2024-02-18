@@ -19,7 +19,7 @@ export class PaymentMockService implements IPaymentService {
   )
   {}
 
-  public saveCardInformation(): void {
+  public saveCardInformation(cardNumber?: string): void {
     this.saleManager.getSaleAvailability(this.saleId)
       .then((isAvailable: boolean) => {
         return new Promise<void>((resolve, reject) => {
@@ -29,9 +29,14 @@ export class PaymentMockService implements IPaymentService {
             resolve();
         });
       })
-      .then(() => this.router.navigate(['/checkout/payment-confirmation']))
+      .then(() => {
+        console.log(cardNumber);
+        if (cardNumber === '0000000000000000')
+          this.router.navigate(['/checkout/payment-failed'])
+        else
+          this.router.navigate(['/checkout/payment-confirmation'])
+      })
       .catch((error: any) => {
-        console.log(error);
         this.handleErrors(error);
       });
   }
@@ -49,7 +54,7 @@ interface IPaymentService {
   cardExpirationYear: string;
   cardCvx: string;
   preregister?(): Promise<void>;
-  saveCardInformation(): void;
+  saveCardInformation(cardNumber?: string): void;
   handleErrors(errorName: string): void;
 }
 
