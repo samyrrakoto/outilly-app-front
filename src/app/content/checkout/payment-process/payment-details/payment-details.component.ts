@@ -71,7 +71,6 @@ export class PaymentDetailsComponent implements OnInit {
           this.auth.isLogged() ? resolve() : reject('Login');
         });
       })
-      .then(() => { this.payment.preregister() })
       .catch((error: any) => { this.payment.handleErrors(error) });
   }
 
