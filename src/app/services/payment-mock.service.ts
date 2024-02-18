@@ -1,8 +1,6 @@
 import { Router } from '@angular/router';
 import { SaleManagerService } from 'src/app/services/sale-manager.service';
-import { RequestService } from './request.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +38,6 @@ export class PaymentMockService implements IPaymentService {
 
   public handleErrors(errorName: string): void {
     this['handle' + errorName + 'Error']();
-  }
-
-  private getPrefix(response: any): string {
-    return response.body.split('=')[0];
   }
 }
 
