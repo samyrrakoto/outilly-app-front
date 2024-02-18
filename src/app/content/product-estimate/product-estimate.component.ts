@@ -1,7 +1,6 @@
 import { FileUploadManagerService } from 'src/app/services/file-upload-manager.service';
 import { ProductManagerService } from 'src/app/services/product-manager.service';
 import { EstimationManagerService } from 'src/app/services/estimation-manager.service';
-import { CONTACT } from 'src/app/marketing';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductMedia } from 'src/app/models/product-media';
