@@ -3,16 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiBaseUri: 'http://outilly.api/',
-  frontBaseUri: 'http://outilly.com/',
-  mediaBaseUri: 'http://media.outilly.api/',
-  mondialBrand: 'BDTEST13',
-  testCard: true,
-  appAbsoluteRootPath: '/mnt/c/Users/samyr/wamp64/www/outilly/app-front',
-  GATrackingCode: '',
-  UATrackingCode: '',
-  algoliaIndexName: 'dev_outilly',
+  production: true,
+  apiBaseUri: 'https://api.outilly.fr/',
+  frontBaseUri: 'https://www.outilly.fr/',
+  mediaBaseUri: 'https://media.outilly.fr/',
+  mondialBrand: 'CC21IBBI',
+  testCard: false,
+  appAbsoluteRootPath: '/var/www/outilly-api',
+  GATrackingCode: 'G-SMS7VE23QN',
+  UATrackingCode: 'UA-186900631-1',
+  algoliaIndexName: 'prod_outilly',
   universalPort: 4000
 };
 
