@@ -4,8 +4,8 @@
       <div class="columns is-centered">
 
         <!-- About -->
-        <div class="column">
-          <h1 class="title">A propos d'Outilly</h1>
+        <section class="column">
+          <h2 class="title">A propos d'Outilly</h2>
 
           <div class="columns">
             <div class="column">
@@ -30,13 +30,13 @@
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Brands -->
-        <div class="column">
-          <h1 class="title">Nos marques</h1>
+        <section class="column">
+          <h2 class="title">Nos marques</h2>
 
-          <div class="columns">
+          <section class="columns">
             <div class="column">
               <ul>
                 <li *ngFor="let brand of footerBrands.slice(0, 5)">
@@ -52,32 +52,32 @@
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
+          </section>
+        </section>
 
         <!-- Legal information -->
         <div class="column">
-          <h1 class="title">Informations légales</h1>
+          <h2 class="title">Informations légales</h2>
 
           <ul>
-            <li><a href="" routerLink="/legal-mentions">Mentions légales</a></li>
-            <li><a href="" routerLink="/confidentiality-policy">Politique de confidentialité</a></li>
-            <li><a href="" routerLink="/general-terms-and-conditions">Conditions Générales de Ventes/Utilisation</a></li>
+            <li><a href="/legal-mentions">Mentions légales</a></li>
+            <li><a href="/confidentiality-policy">Politique de confidentialité</a></li>
+            <li><a href="/general-terms-and-conditions">Conditions Générales de Ventes/Utilisation</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="content has-text-centered">
+      <p class="content has-text-centered">
         Nous sécurisons toutes vos transactions de biens grâce à nos partenaires de confiance
-      </div>
+      </p>
 
       <div class="columns has-text-centered">
         <div class="column">
           <h2 class="subtitle">{{ 'Modes de paiement' | uppercase }}</h2>
 
-          <div class="content">
+          <p class="content">
             100% sécurisé avec notre partenaire MangoPay par carte bancaire.
-          </div>
+          </p>
 
           <div class="content">
             <img id="mangopay-logo" src="/assets/img/logo/powered-by-mangopay.png" title="Logo MangoPay" alt="Logo MangoPay" width="250" height="auto">
@@ -87,9 +87,9 @@
         <div class="column">
           <h2 class="subtitle">{{ 'Modes de livraison' | uppercase }}</h2>
 
-          <div class="content">
+          <p class="content">
             En point relais avec Mondial Relay.
-          </div>
+          </p>
 
           <div class="content">
             <img id="mondial-relay-logo" src="/assets/img/logo/mondial-relay-logo.png" title="Logo Mondial Relay" alt="Logo Mondial Relay" width="30" height="auto">
@@ -97,9 +97,11 @@
         </div>
       </div>
 
-      <div class="content has-text-centered">
-        &#169; 2020 - Outilly Tous droits réservés
-      </div>
+      <p class="content has-text-centered">
+        <small>
+          &#169; 2020 - Outilly Tous droits réservés
+        </small>
+      </p>
     </div>
   </div>
 </footer>
