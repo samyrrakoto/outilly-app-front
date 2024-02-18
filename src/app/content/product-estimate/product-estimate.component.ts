@@ -15,7 +15,6 @@ import { storage } from 'src/app/parameters';
   styleUrls: ['./product-estimate.component.css']
 })
 export class ProductEstimateComponent implements OnInit {
-  readonly contactPhone: string = CONTACT.CHRIS;
   readonly min: number = 1;
   readonly max: number = 10;
   data: Data = new Data();
