@@ -30,7 +30,6 @@ export class PaymentMockService implements IPaymentService {
         });
       })
       .then(() => {
-        console.log(cardNumber);
         if (cardNumber === '0000000000000000')
           this.router.navigate(['/checkout/payment-failed'])
         else
